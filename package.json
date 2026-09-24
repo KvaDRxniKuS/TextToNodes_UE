@@ -6,7 +6,8 @@
   "main": "src/parser.js",
   "scripts": {
     "serve": "npx serve .",
-    "validate": "node src/validate.js"
+    "validate": "node src/validate.js",
+    "test": "node tests/validate.test.mjs && node tests/sandbox.test.mjs"
   },
   "keywords": ["unreal-engine", "blueprint", "ai", "llm", "k2node", "text-to-blueprint", "ue5"],
   "license": "MIT",
