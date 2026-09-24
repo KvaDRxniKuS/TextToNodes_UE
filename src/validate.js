@@ -55,6 +55,7 @@ export function validateStrict(text, { registry = null } = {}) {
     names.add(name);
     const node = { name, cls, short, pins: [], guid: '', funcName: '', memberParent: '', op: '', structType: '', macro: '' };
     for (const l of b.lines) {
+      if (/^([A-Za-z0-9_]+)=\1=/.test(l.trim())) errors.push(`E18: ${name}: задвоенный префикс свойства (${l.trim().slice(0, 40)}...)`);
       const t = l.trim();
       if (t.startsWith('NodeGuid=')) node.guid = (t.match(/NodeGuid=([A-F0-9]+)/) || [])[1] || '';
       else if (t.startsWith('CustomProperties Pin')) {
