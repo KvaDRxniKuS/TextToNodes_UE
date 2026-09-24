@@ -1,6 +1,7 @@
 // UE Blueprint Parser — standalone ES module
 // Парсит Begin Object ... End Object → графы
 // Используется и в браузере (index.html) и в Node для валидации LLM ответов
+import { macroGraphRef } from './ue-types.js';
 
 export function guid32(){
   const h='0123456789ABCDEF'; let s=''; for(let i=0;i<32;i++) s+=h[Math.floor(Math.random()*16)]; return s;
@@ -34,7 +35,8 @@ export function parseToGraphs(text){
       rawName: obj.name, className: obj.className, rawClass: obj.rawClass,
       header: obj.header, rawLines: obj.lines, rawBlock: obj.rawBlock,
       guid:'', pos:{x:0,y:0}, pins:[], isReroute:false, isComment:false, isComposite:false, isTunnel:false,
-      width:180, height:80, title:'', varName:null, funcName:null, operationName:null, commentText:''
+      width:180, height:80, title:'', varName:null, funcName:null, operationName:null, commentText:'',
+      memberParent:null, opMemberName:null, structType:null, macroGraph:null, macroGuid:null
     };
     node.isReroute=obj.className.includes('K2Node_Knot');
     node.isComment=obj.className.includes('EdGraphNode_Comment');
@@ -57,6 +59,9 @@ export function parseToGraphs(text){
         const cat=(pinStr.match(/PinCategory="([^"]*)"/)||[])[1]||'';
         const sub=(pinStr.match(/PinSubCategory="([^"]*)"/)||[])[1]||'';
         const hidden=/bHidden=True/.test(pinStr);
+                                const friendly=(pinStr.match(/PinFriendlyName=Text\("([^"]*)"\)/)||[])[1]||(pinStr.match(/PinFriendlyName=NSLOCTEXT\("[^"]*", *\"[^"]*", *\"([^"]*)"\)/)||[])[1]||pinName;
+        const defaultValue=(pinStr.match(/DefaultValue="([^"]*)"/)||[])[1]||'';
+        const subObj=(pinStr.match(/PinSubCategoryObject=([^,\)]+)/)||[])[1]||'';
         const linkedMatch=pinStr.match(/LinkedTo=\(([^)]*)\)/);
         let linked=[]; if(linkedMatch){
           const inside=linkedMatch[1].trim();
@@ -64,9 +69,12 @@ export function parseToGraphs(text){
             const tok=p.split(/\s+/).filter(Boolean); if(tok.length>=2) linked.push({nodeName:tok[0], pinId:tok[1]});
           });
         }
-        node.pins.push({id:pinId,name:pinName, friendly:pinName, direction:dir.includes('Output')?'Output':'Input', category:cat, subCategory:sub, hidden, linkedTo:linked});
+        const sub2=sub||(cat==='struct'&&subObj&&subObj!=='None'?subObj.split('.').pop().replace(/['"]/g,''):'');const isConst=/bIsConst=True/.test(pinStr);
+        node.pins.push({id:pinId,name:pinName, friendly, direction:dir.includes('Output')?'Output':'Input', category:cat, subCategory:sub2, subCategoryObject:subObj==='None'?'':subObj, defaultValue, hidden, linkedTo:linked,isConst});
       } else if(t.startsWith('VariableReference=')){ const m=t.match(/MemberName="([^"]+)"/); if(m) node.varName=m[1]; }
-      else if(t.startsWith('FunctionReference=')){ const m=t.match(/MemberName="([^"]+)"/); if(m) node.funcName=m[1]; }
+      else if(t.startsWith('FunctionReference=')){ const m=t.match(/MemberName="([^"]+)"/); if(m) node.funcName=m[1]; const mp=t.match(/MemberParent="([^"]+)"/)||t.match(/MemberParent=([^,\)]+)/); if(mp) node.memberParent=mp[1]; }
+      else if(t.startsWith('StructType=')){ const m=t.match(/StructType=([^\s]+)/); if(m) node.structType=m[1]; }
+      else if(t.startsWith('MacroGraphReference=')){ const m=t.match(/StandardMacros:([^"']+)/); if(m) node.macroGraph=m[1]; const gg=t.match(/GraphGuid=([A-F0-9]+)/); if(gg) node.macroGuid=gg[1]; }
       else if(t.startsWith('OperationName=')) node.operationName=t.match(/OperationName="([^"]+)"/)?.[1]||'';
     }
     if(!node.guid) node.guid=guid32();
@@ -138,16 +146,29 @@ function generateBlock(n){
   const guid=n.guid||guid32();
   const pinsText=n.pins.map(p=>{
     const dir=p.direction==='Output'?`Direction="EGPD_Output",`:'';
-    const linked=p.linkedTo.length?`LinkedTo=(${p.linkedTo.map(l=> l.nodeName+' '+l.pinId).join(',')},)`:'';
-    return `   CustomProperties Pin (PinId=${p.id},PinName="${p.name}",${dir}PinType.PinCategory="${p.category}",PinType.PinSubCategory="${p.subCategory||''}",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,PersistentGuid=00000000000000000000000000000000,bHidden=${p.hidden?'True':'False'},bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,${linked})`;
+    const linked=p.linkedTo.length?`LinkedTo=(${p.linkedTo.map(l=> l.nodeName+' '+l.pinId).join(',')},),`:'';
+    const dv=p.defaultValue?`DefaultValue="${p.defaultValue}",`:'';
+        // PinFriendlyName ne pishem: dvizhok hranit NSLOCTEXT i vosstanavlivaet sam.
+    // NB: PersistentGuid намеренно НЕ пишем — нулевой/битый GUID движок может
+    // перегенерировать вместе с пином и порвать связь; без поля вставка чистая.
+    // v5: ссылки в стиле UE_VERSION (UE4-каноника из copy-back H1: "..." + полная форма без внутр. кавычек).
+    return `   CustomProperties Pin (PinId=${p.id},PinName="${p.name}",${dir}PinType.PinCategory="${p.category}",PinType.PinSubCategory="${p.category==='struct'?'':(p.subCategory||'')}",PinType.PinSubCategoryObject=${p.subCategoryObject||'None'},PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=${p.isConst?'True':'False'},PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,${linked}bHidden=${p.hidden?'True':'False'},bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,${dv})`;
   }).join('\n');
   let extra='';
   if(n.varName) extra+=`   VariableReference=(MemberName="${n.varName}",MemberGuid=${guid.slice(0,8)}${guid.slice(8,12)}${guid.slice(12,16)}${guid.slice(16,20)}${guid.slice(20,32)},bSelfContext=True)\n`;
-  if(n.funcName) extra+=`   FunctionReference=(MemberName="${n.funcName}",MemberGuid=${guid.slice(0,8)}${guid.slice(8,12)}${guid.slice(12,16)}${guid.slice(16,20)}${guid.slice(20,32)},bSelfContext=True)\n`;
-  if(n.operationName) extra+=`   OperationName="${n.operationName}"\n   bDefaultsToPureFunc=True\n   FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="${n.operationName}_DoubleDouble")\n`;
-  if(n.isComment) return `Begin Object Class=${n.rawClass} Name="${n.id}" ExportPath="/Script/UnrealEd.EdGraphNode_Comment'/Game/Generated.Generated:EventGraph.${n.id}'"\n   NodePosX=${Math.round(n.pos.x)}\n   NodePosY=${Math.round(n.pos.y)}\n   NodeWidth=${n.width}\n   NodeHeight=${n.height}\n   NodeComment="${n.commentText}"\n   NodeGuid=${guid}\nEnd Object`;
+  if(n.funcName && !n.operationName){
+    if(n.memberParent) extra+=`   FunctionReference=(MemberParent=${n.memberParent},MemberName="${n.funcName}")\n`;
+    else extra+=`   FunctionReference=(MemberName="${n.funcName}",MemberGuid=${guid.slice(0,8)}${guid.slice(8,12)}${guid.slice(12,16)}${guid.slice(16,20)}${guid.slice(20,32)},bSelfContext=True)\n`;
+  }
+  if(n.operationName){
+    const member=n.opMemberName||`${n.operationName}_DoubleDouble`;
+    extra+=`   OperationName="${n.operationName}"\n   bDefaultsToPureFunc=True\n   FunctionReference=(MemberParent=Class"/Script/Engine.KismetMathLibrary"',MemberName="${member}")\n`;
+  }
+  if(n.structType) extra+=`   StructType=${n.structType}\n`;
+  if(n.macroGraph) extra+=`   MacroGraphReference=${macroGraphRef(n.macroGraph, n.macroGuid||null)}\n`;
+  if(n.isComment) return `Begin Object Class=${n.rawClass} Name="${n.id}" ExportPath="/Script/UnrealEd.EdGraphNode_Comment'"/Game/Generated.Generated:EventGraph.${n.id}"'"\n   NodePosX=${Math.round(n.pos.x)}\n   NodePosY=${Math.round(n.pos.y)}\n   NodeWidth=${n.width}\n   NodeHeight=${n.height}\n   NodeComment="${n.commentText}"\n   NodeGuid=${guid}\nEnd Object`;
   const cls=n.rawClass||`/Script/BlueprintGraph.${n.className.split('.').pop()}`;
-  return `Begin Object Class=${cls} Name="${n.id}" ExportPath="/Script/BlueprintGraph.${n.className.split('.').pop()}'/Game/Generated.Generated:EventGraph.${n.id}'"\n${extra}   NodePosX=${Math.round(n.pos.x)}\n   NodePosY=${Math.round(n.pos.y)}\n   NodeGuid=${guid}\n${pinsText}\nEnd Object`;
+  return `Begin Object Class=${cls} Name="${n.id}" ExportPath="/Script/BlueprintGraph.${n.className.split('.').pop()}'"/Game/Generated.Generated:EventGraph.${n.id}"'"\n${extra}   NodePosX=${Math.round(n.pos.x)}\n   NodePosY=${Math.round(n.pos.y)}\n   NodeGuid=${guid}\n${pinsText?pinsText+'\n':''}End Object`;
 }
 
 export function validateUEText(text){

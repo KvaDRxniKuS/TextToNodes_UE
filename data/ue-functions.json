@@ -27,6 +27,7 @@
         "cat": "exec"
       }
     ],
+    "verified": true,
     "desc": "Ветвление"
   },
   {
@@ -52,14 +53,19 @@
         "cat": "exec"
       }
     ],
+    "verified": true,
     "desc": "Последовательность"
   },
   {
     "id": "ForLoop",
     "title": "ForLoop",
     "category": "Flow Control",
-    "className": "/Script/BlueprintGraph.K2Node_ForLoop",
+    "className": "/Script/BlueprintGraph.K2Node_MacroInstance",
     "func": "",
+    "macro": {
+      "graph": "ForLoop",
+      "guid": "55C904AF4B45FE1761FB55A8DB9FB801"
+    },
     "pins": [
       {
         "name": "execute",
@@ -92,14 +98,19 @@
         "cat": "int"
       }
     ],
+    "verified": true,
     "desc": "Цикл"
   },
   {
     "id": "ForLoopWithBreak",
     "title": "ForLoopWithBreak",
     "category": "Flow Control",
-    "className": "/Script/BlueprintGraph.K2Node_ForLoop",
+    "className": "/Script/BlueprintGraph.K2Node_MacroInstance",
     "func": "",
+    "macro": {
+      "graph": "ForLoopWithBreak",
+      "guid": null
+    },
     "pins": [
       {
         "name": "execute",
@@ -137,14 +148,20 @@
         "cat": "exec"
       }
     ],
+    "verified": false,
+    "note": "MacroInstance form per StandardMacros — pins + GraphGuid not engine-verified",
     "desc": "С break"
   },
   {
     "id": "WhileLoop",
     "title": "WhileLoop",
     "category": "Flow Control",
-    "className": "/Script/BlueprintGraph.K2Node_WhileLoop",
+    "className": "/Script/BlueprintGraph.K2Node_MacroInstance",
     "func": "",
+    "macro": {
+      "graph": "WhileLoop",
+      "guid": null
+    },
     "pins": [
       {
         "name": "execute",
@@ -167,14 +184,20 @@
         "cat": "exec"
       }
     ],
+    "verified": false,
+    "note": "MacroInstance form per StandardMacros — pin names (Condition/LoopBody) + GraphGuid not engine-verified",
     "desc": "While"
   },
   {
     "id": "Gate",
     "title": "Gate",
     "category": "Flow Control",
-    "className": "/Script/BlueprintGraph.K2Node_Gate",
+    "className": "/Script/BlueprintGraph.K2Node_MacroInstance",
     "func": "",
+    "macro": {
+      "graph": "Gate",
+      "guid": null
+    },
     "pins": [
       {
         "name": "Enter",
@@ -192,22 +215,38 @@
         "cat": "exec"
       },
       {
+        "name": "Toggle",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
         "name": "Exit",
         "dir": "Output",
         "cat": "exec"
       }
     ],
+    "verified": false,
+    "note": "Pin set incl. Toggle per standard macro — not engine-verified",
     "desc": "Gate"
   },
   {
     "id": "DoOnce",
     "title": "DoOnce",
     "category": "Flow Control",
-    "className": "/Script/BlueprintGraph.K2Node_DoOnceMultiInput",
+    "className": "/Script/BlueprintGraph.K2Node_MacroInstance",
     "func": "",
+    "macro": {
+      "graph": "DoOnce",
+      "guid": null
+    },
     "pins": [
       {
-        "name": "execute",
+        "name": "Enter",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "Reset",
         "dir": "Input",
         "cat": "exec"
       },
@@ -215,21 +254,22 @@
         "name": "Completed",
         "dir": "Output",
         "cat": "exec"
-      },
-      {
-        "name": "Reset",
-        "dir": "Input",
-        "cat": "exec"
       }
     ],
+    "verified": false,
+    "note": "Enter/Reset/Completed per standard macro — not engine-verified",
     "desc": "DoOnce"
   },
   {
     "id": "FlipFlop",
     "title": "FlipFlop",
     "category": "Flow Control",
-    "className": "/Script/BlueprintGraph.K2Node_FlipFlop",
+    "className": "/Script/BlueprintGraph.K2Node_MacroInstance",
     "func": "",
+    "macro": {
+      "graph": "FlipFlop",
+      "guid": "BFFFAAE4434E166F549665AD1AA89B60"
+    },
     "pins": [
       {
         "name": "execute",
@@ -247,22 +287,33 @@
         "cat": "exec"
       }
     ],
+    "verified": false,
+    "note": "Pin names (execute/IsA/IsB) not engine-verified — macro tunnels may be Enter/A/B; GraphGuid medium confidence",
     "desc": "FlipFlop"
   },
   {
     "id": "DoN",
     "title": "Do N",
     "category": "Flow Control",
-    "className": "/Script/BlueprintGraph.K2Node_DoN",
+    "className": "/Script/BlueprintGraph.K2Node_MacroInstance",
     "func": "",
+    "macro": {
+      "graph": "DoN",
+      "guid": null
+    },
     "pins": [
       {
-        "name": "execute",
+        "name": "Enter",
         "dir": "Input",
         "cat": "exec"
       },
       {
-        "name": "Enter",
+        "name": "N",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "Reset",
         "dir": "Input",
         "cat": "exec"
       },
@@ -277,6 +328,8 @@
         "cat": "int"
       }
     ],
+    "verified": false,
+    "note": "Pin set per standard macro — not engine-verified",
     "desc": "DoN"
   },
   {
@@ -307,6 +360,7 @@
         "cat": "exec"
       }
     ],
+    "verified": true,
     "desc": "Seq 3"
   },
   {
@@ -327,11 +381,22 @@
         "cat": "int"
       },
       {
+        "name": "0",
+        "dir": "Output",
+        "cat": "exec"
+      },
+      {
+        "name": "1",
+        "dir": "Output",
+        "cat": "exec"
+      },
+      {
         "name": "Default",
         "dir": "Output",
         "cat": "exec"
       }
     ],
+    "verified": true,
     "desc": "Switch Int"
   },
   {
@@ -357,6 +422,8 @@
         "cat": "exec"
       }
     ],
+    "verified": false,
+    "note": "Add one exec-out pin per case (PinName = case value) + keep Default",
     "desc": "Switch String"
   },
   {
@@ -382,6 +449,8 @@
         "cat": "exec"
       }
     ],
+    "verified": false,
+    "note": "Add one exec-out pin per enum entry; Selection needs Enum SubCategoryObject path",
     "desc": "Switch Enum"
   },
   {
@@ -397,6 +466,7 @@
         "cat": "real"
       }
     ],
+    "verified": true,
     "desc": "Get"
   },
   {
@@ -422,6 +492,7 @@
         "cat": "real"
       }
     ],
+    "verified": true,
     "desc": "Set"
   },
   {
@@ -437,6 +508,7 @@
         "cat": "bool"
       }
     ],
+    "verified": true,
     "desc": "Get Bool"
   },
   {
@@ -453,6 +525,7 @@
         "sub": "Vector"
       }
     ],
+    "verified": true,
     "desc": "Get Vector"
   },
   {
@@ -461,6 +534,7 @@
     "category": "Math / Float",
     "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
     "func": "Add",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -478,6 +552,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Add"
   },
   {
@@ -486,6 +561,7 @@
     "category": "Math / Float",
     "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
     "func": "Subtract",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -503,6 +579,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Subtract"
   },
   {
@@ -511,6 +588,7 @@
     "category": "Math / Float",
     "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
     "func": "Multiply",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -528,6 +606,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Multiply"
   },
   {
@@ -536,6 +615,7 @@
     "category": "Math / Float",
     "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
     "func": "Divide",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -553,6 +633,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Divide"
   },
   {
@@ -561,6 +642,7 @@
     "category": "Math / Float",
     "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
     "func": "Percent",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -578,6 +660,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Percent (mod)"
   },
   {
@@ -586,6 +669,7 @@
     "category": "Math / Float",
     "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
     "func": "Power",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -603,6 +687,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Power"
   },
   {
@@ -611,6 +696,7 @@
     "category": "Math / Float",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Abs",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -623,6 +709,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Модуль"
   },
   {
@@ -631,6 +718,7 @@
     "category": "Math / Float",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Sign",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -643,6 +731,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Знак"
   },
   {
@@ -651,6 +740,7 @@
     "category": "Math / Float",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Round",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -663,6 +753,7 @@
         "cat": "int"
       }
     ],
+    "verified": false,
     "desc": "Округление"
   },
   {
@@ -671,6 +762,7 @@
     "category": "Math / Float",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Floor",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -683,6 +775,7 @@
         "cat": "int"
       }
     ],
+    "verified": false,
     "desc": "Вниз"
   },
   {
@@ -691,6 +784,7 @@
     "category": "Math / Float",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Ceil",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -703,6 +797,7 @@
         "cat": "int"
       }
     ],
+    "verified": false,
     "desc": "Вверх"
   },
   {
@@ -711,6 +806,7 @@
     "category": "Math / Float",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Trunc",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -723,6 +819,7 @@
         "cat": "int"
       }
     ],
+    "verified": false,
     "desc": "Отбросить дробную"
   },
   {
@@ -731,6 +828,7 @@
     "category": "Math / Float",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Fraction",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -743,6 +841,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Дробная часть"
   },
   {
@@ -751,6 +850,7 @@
     "category": "Math / Float",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "FMod",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "Dividend",
@@ -768,6 +868,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Остаток"
   },
   {
@@ -776,6 +877,7 @@
     "category": "Math / Float",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "FClamp",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "Value",
@@ -798,6 +900,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Ограничить"
   },
   {
@@ -806,6 +909,7 @@
     "category": "Math / Float",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "ClampAngle",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "Angle0",
@@ -828,6 +932,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Угол"
   },
   {
@@ -836,6 +941,7 @@
     "category": "Math / Float",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Lerp",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -858,6 +964,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Lerp"
   },
   {
@@ -866,6 +973,7 @@
     "category": "Math / Float",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "MapRangeClamped",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "Value",
@@ -898,6 +1006,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Map"
   },
   {
@@ -906,6 +1015,7 @@
     "category": "Math / Float",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "MapRangeUnclamped",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "Value",
@@ -938,6 +1048,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Map Unclamped"
   },
   {
@@ -946,6 +1057,7 @@
     "category": "Math / Float",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "NormalizeToRange",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "Value",
@@ -968,6 +1080,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Нормализация"
   },
   {
@@ -976,6 +1089,7 @@
     "category": "Math / Float",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "GetMappedRangeValueClamped",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "Input",
@@ -1000,6 +1114,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Map Value"
   },
   {
@@ -1008,6 +1123,7 @@
     "category": "Math / Interpolation",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "FInterpTo",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "Current",
@@ -1035,6 +1151,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Интерполяция"
   },
   {
@@ -1043,6 +1160,7 @@
     "category": "Math / Interpolation",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "FInterpToConstant",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "Current",
@@ -1070,6 +1188,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Константа"
   },
   {
@@ -1078,6 +1197,7 @@
     "category": "Math / Interpolation",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Ease",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1115,6 +1235,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Ease"
   },
   {
@@ -1123,6 +1244,7 @@
     "category": "Math / Float",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "GridSnap",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "Location",
@@ -1140,6 +1262,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Сетка"
   },
   {
@@ -1148,6 +1271,7 @@
     "category": "Math / Float",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "IsNearlyZero",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "Value",
@@ -1165,6 +1289,7 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
     "desc": "Почти ноль"
   },
   {
@@ -1173,6 +1298,7 @@
     "category": "Math / Integer",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "IsPowerOfTwo",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "Value",
@@ -1185,6 +1311,7 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
     "desc": "Степень двойки"
   },
   {
@@ -1193,6 +1320,7 @@
     "category": "Math / Float",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "SelectFloat",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1215,6 +1343,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Выбор"
   },
   {
@@ -1223,6 +1352,7 @@
     "category": "Math / Float",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Max",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1240,6 +1370,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Максимум"
   },
   {
@@ -1248,6 +1379,7 @@
     "category": "Math / Float",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Min",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1265,6 +1397,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Минимум"
   },
   {
@@ -1273,6 +1406,7 @@
     "category": "Math / Trig",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Sin",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1285,6 +1419,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Sin"
   },
   {
@@ -1293,6 +1428,7 @@
     "category": "Math / Trig",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Cos",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1305,6 +1441,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Cos"
   },
   {
@@ -1313,6 +1450,7 @@
     "category": "Math / Trig",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Tan",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1325,6 +1463,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Tan"
   },
   {
@@ -1333,6 +1472,7 @@
     "category": "Math / Trig",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Asin",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1345,6 +1485,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Asin"
   },
   {
@@ -1353,6 +1494,7 @@
     "category": "Math / Trig",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Acos",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1365,6 +1507,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Acos"
   },
   {
@@ -1373,6 +1516,7 @@
     "category": "Math / Trig",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Atan",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1385,6 +1529,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Atan"
   },
   {
@@ -1393,6 +1538,7 @@
     "category": "Math / Trig",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Atan2",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "Y",
@@ -1410,6 +1556,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Atan2"
   },
   {
@@ -1418,6 +1565,7 @@
     "category": "Math / Trig",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "SinDeg",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1430,6 +1578,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "SinDeg"
   },
   {
@@ -1438,6 +1587,7 @@
     "category": "Math / Trig",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "CosDeg",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1450,6 +1600,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "CosDeg"
   },
   {
@@ -1458,6 +1609,7 @@
     "category": "Math / Trig",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "TanDeg",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1470,6 +1622,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "TanDeg"
   },
   {
@@ -1478,6 +1631,7 @@
     "category": "Math / Trig",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "AsinDeg",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1490,6 +1644,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "AsinDeg"
   },
   {
@@ -1498,6 +1653,7 @@
     "category": "Math / Trig",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "AcosDeg",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1510,6 +1666,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "AcosDeg"
   },
   {
@@ -1518,6 +1675,7 @@
     "category": "Math / Trig",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "AtanDeg",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1530,6 +1688,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "AtanDeg"
   },
   {
@@ -1538,6 +1697,7 @@
     "category": "Math / Trig",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "DegreesToRadians",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1550,6 +1710,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "DegreesToRadians"
   },
   {
@@ -1558,6 +1719,7 @@
     "category": "Math / Trig",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "RadiansToDegrees",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1570,6 +1732,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "RadiansToDegrees"
   },
   {
@@ -1578,6 +1741,7 @@
     "category": "Math / Trig",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "GetTAU",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "ReturnValue",
@@ -1585,6 +1749,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "GetTAU"
   },
   {
@@ -1593,6 +1758,7 @@
     "category": "Math / Trig",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "GetPI",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "ReturnValue",
@@ -1600,6 +1766,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "GetPI"
   },
   {
@@ -1608,6 +1775,7 @@
     "category": "Math / Float",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Exp",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1620,6 +1788,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "e^x"
   },
   {
@@ -1628,6 +1797,7 @@
     "category": "Math / Float",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Loge",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1640,6 +1810,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "ln"
   },
   {
@@ -1648,6 +1819,7 @@
     "category": "Math / Float",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Sqrt",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1660,6 +1832,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Корень"
   },
   {
@@ -1668,6 +1841,7 @@
     "category": "Math / Float",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Square",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1680,6 +1854,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Квадрат"
   },
   {
@@ -1688,6 +1863,7 @@
     "category": "Math / Comparison",
     "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
     "func": "Greater",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1705,6 +1881,7 @@
         "cat": "bool"
       }
     ],
+    "verified": true,
     "desc": "Greater"
   },
   {
@@ -1713,6 +1890,7 @@
     "category": "Math / Comparison",
     "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
     "func": "Less",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1730,6 +1908,7 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
     "desc": "Less"
   },
   {
@@ -1738,6 +1917,7 @@
     "category": "Math / Comparison",
     "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
     "func": "EqualEqual",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1755,6 +1935,7 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
     "desc": "Equal"
   },
   {
@@ -1763,6 +1944,7 @@
     "category": "Math / Comparison",
     "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
     "func": "NotEqual",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1780,6 +1962,7 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
     "desc": "NotEqual"
   },
   {
@@ -1788,6 +1971,7 @@
     "category": "Math / Comparison",
     "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
     "func": "GreaterEqual",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1805,6 +1989,7 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
     "desc": "GreaterEqual"
   },
   {
@@ -1813,6 +1998,7 @@
     "category": "Math / Comparison",
     "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
     "func": "LessEqual",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1830,6 +2016,7 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
     "desc": "LessEqual"
   },
   {
@@ -1838,6 +2025,7 @@
     "category": "Math / Comparison",
     "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
     "func": "NearlyEqual",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1855,6 +2043,7 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
     "desc": "NearlyEqual"
   },
   {
@@ -1863,6 +2052,7 @@
     "category": "Math / Comparison",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "InRange_FloatFloat",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "Value",
@@ -1895,6 +2085,7 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
     "desc": "Диапазон"
   },
   {
@@ -1903,6 +2094,7 @@
     "category": "Math / Boolean",
     "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
     "func": "BooleanAND",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1920,6 +2112,8 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
+    "note": "Boolean ops may be CommutativeAssociative in engine — PromotableOperator+BooleanAND form untested",
     "desc": "И"
   },
   {
@@ -1928,6 +2122,7 @@
     "category": "Math / Boolean",
     "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
     "func": "BooleanOR",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1945,6 +2140,8 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
+    "note": "Boolean ops may be CommutativeAssociative in engine — PromotableOperator+BooleanOR form untested",
     "desc": "Или"
   },
   {
@@ -1953,6 +2150,7 @@
     "category": "Math / Boolean",
     "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
     "func": "BooleanNOT",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1965,6 +2163,8 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
+    "note": "Boolean NOT node class uncertain — PromotableOperator+BooleanNOT form untested",
     "desc": "Не"
   },
   {
@@ -1973,6 +2173,7 @@
     "category": "Math / Boolean",
     "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
     "func": "BooleanXOR",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -1990,6 +2191,8 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
+    "note": "Boolean ops may be CommutativeAssociative in engine — PromotableOperator+BooleanXOR form untested",
     "desc": "XOR"
   },
   {
@@ -1998,6 +2201,7 @@
     "category": "Math / Boolean",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "BooleanNAND",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -2015,6 +2219,7 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
     "desc": "NAND"
   },
   {
@@ -2023,6 +2228,7 @@
     "category": "Math / Boolean",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "BooleanNOR",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -2040,6 +2246,7 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
     "desc": "NOR"
   },
   {
@@ -2048,6 +2255,7 @@
     "category": "Math / Boolean",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "SelectBoolean",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -2070,6 +2278,7 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
     "desc": "Выбор Bool"
   },
   {
@@ -2078,6 +2287,7 @@
     "category": "Math / Integer",
     "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
     "func": "Add_IntInt",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -2095,6 +2305,7 @@
         "cat": "int"
       }
     ],
+    "verified": false,
     "desc": "Сложение int"
   },
   {
@@ -2103,6 +2314,7 @@
     "category": "Math / Integer",
     "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
     "func": "Subtract_IntInt",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -2120,6 +2332,7 @@
         "cat": "int"
       }
     ],
+    "verified": false,
     "desc": "Вычитание int"
   },
   {
@@ -2128,6 +2341,7 @@
     "category": "Math / Integer",
     "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
     "func": "Multiply_IntInt",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -2145,6 +2359,7 @@
         "cat": "int"
       }
     ],
+    "verified": false,
     "desc": "Умножение int"
   },
   {
@@ -2153,6 +2368,7 @@
     "category": "Math / Integer",
     "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
     "func": "Divide_IntInt",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -2170,6 +2386,7 @@
         "cat": "int"
       }
     ],
+    "verified": false,
     "desc": "Деление int"
   },
   {
@@ -2178,6 +2395,7 @@
     "category": "Math / Integer",
     "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
     "func": "Percent_IntInt",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -2195,6 +2413,7 @@
         "cat": "int"
       }
     ],
+    "verified": false,
     "desc": "Остаток int"
   },
   {
@@ -2203,6 +2422,7 @@
     "category": "Math / Integer",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Clamp",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "Value",
@@ -2225,6 +2445,8 @@
         "cat": "int"
       }
     ],
+    "verified": false,
+    "note": "Int overload func name uncertain — verify in engine",
     "desc": "Clamp int"
   },
   {
@@ -2233,6 +2455,7 @@
     "category": "Math / Integer",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Max",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -2250,6 +2473,8 @@
         "cat": "int"
       }
     ],
+    "verified": false,
+    "note": "Int overload func name uncertain — verify in engine",
     "desc": "Max int"
   },
   {
@@ -2258,6 +2483,7 @@
     "category": "Math / Integer",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Min",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -2275,6 +2501,8 @@
         "cat": "int"
       }
     ],
+    "verified": false,
+    "note": "Int overload func name uncertain — verify in engine",
     "desc": "Min int"
   },
   {
@@ -2283,6 +2511,7 @@
     "category": "Math / Random",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "RandomInteger",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "Max",
@@ -2295,6 +2524,7 @@
         "cat": "int"
       }
     ],
+    "verified": false,
     "desc": "Rand int"
   },
   {
@@ -2303,6 +2533,7 @@
     "category": "Math / Random",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "RandomIntegerInRange",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "Min",
@@ -2320,6 +2551,7 @@
         "cat": "int"
       }
     ],
+    "verified": false,
     "desc": "Rand int range"
   },
   {
@@ -2328,6 +2560,7 @@
     "category": "Math / Random",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "RandomFloat",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "ReturnValue",
@@ -2335,6 +2568,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Rand float"
   },
   {
@@ -2343,6 +2577,7 @@
     "category": "Math / Random",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "RandomFloatInRange",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "Min",
@@ -2360,6 +2595,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Rand float range"
   },
   {
@@ -2368,6 +2604,7 @@
     "category": "Math / Random",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "RandomBool",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "ReturnValue",
@@ -2375,6 +2612,7 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
     "desc": "Rand bool"
   },
   {
@@ -2383,6 +2621,7 @@
     "category": "Math / Random",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "RandomBoolWithWeight",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "Weight",
@@ -2395,6 +2634,7 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
     "desc": "Rand weighted"
   },
   {
@@ -2403,6 +2643,7 @@
     "category": "Math / Vector",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Add_VectorVector",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -2423,6 +2664,7 @@
         "sub": "Vector"
       }
     ],
+    "verified": false,
     "desc": "Сложение"
   },
   {
@@ -2431,6 +2673,7 @@
     "category": "Math / Vector",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Subtract_VectorVector",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -2451,6 +2694,7 @@
         "sub": "Vector"
       }
     ],
+    "verified": false,
     "desc": "Вычитание"
   },
   {
@@ -2459,6 +2703,7 @@
     "category": "Math / Vector",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Multiply_VectorFloat",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -2478,6 +2723,7 @@
         "sub": "Vector"
       }
     ],
+    "verified": false,
     "desc": "Вектор * float"
   },
   {
@@ -2486,6 +2732,7 @@
     "category": "Math / Vector",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Multiply_VectorVector",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -2506,6 +2753,7 @@
         "sub": "Vector"
       }
     ],
+    "verified": false,
     "desc": "Вектор * вектор"
   },
   {
@@ -2514,6 +2762,7 @@
     "category": "Math / Vector",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Divide_VectorFloat",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -2533,6 +2782,7 @@
         "sub": "Vector"
       }
     ],
+    "verified": false,
     "desc": "Деление"
   },
   {
@@ -2541,6 +2791,7 @@
     "category": "Math / Vector",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Dot_VectorVector",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -2560,6 +2811,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Скалярное"
   },
   {
@@ -2568,6 +2820,7 @@
     "category": "Math / Vector",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Cross_VectorVector",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -2588,6 +2841,7 @@
         "sub": "Vector"
       }
     ],
+    "verified": false,
     "desc": "Векторное"
   },
   {
@@ -2596,6 +2850,7 @@
     "category": "Math / Vector",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "VSize",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -2609,6 +2864,7 @@
         "cat": "real"
       }
     ],
+    "verified": true,
     "desc": "Длина"
   },
   {
@@ -2617,6 +2873,7 @@
     "category": "Math / Vector",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "VSizeSquared",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -2630,6 +2887,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Квадрат длины"
   },
   {
@@ -2638,6 +2896,7 @@
     "category": "Math / Vector",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "VSize2D",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -2651,6 +2910,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Длина 2D"
   },
   {
@@ -2659,6 +2919,7 @@
     "category": "Math / Vector",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "VSizeSquared2D",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -2672,6 +2933,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Квадрат 2D"
   },
   {
@@ -2680,6 +2942,7 @@
     "category": "Math / Vector",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Normal",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -2694,6 +2957,7 @@
         "sub": "Vector"
       }
     ],
+    "verified": false,
     "desc": "Нормаль"
   },
   {
@@ -2702,6 +2966,7 @@
     "category": "Math / Vector",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "NormalSafe",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -2721,6 +2986,7 @@
         "sub": "Vector"
       }
     ],
+    "verified": false,
     "desc": "Безоп. нормаль"
   },
   {
@@ -2729,6 +2995,7 @@
     "category": "Math / Vector",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Normalize",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -2748,6 +3015,7 @@
         "sub": "Vector"
       }
     ],
+    "verified": false,
     "desc": "Нормализовать"
   },
   {
@@ -2756,6 +3024,7 @@
     "category": "Math / Vector",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "IsNormalized",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -2769,6 +3038,7 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
     "desc": "Нормирован?"
   },
   {
@@ -2777,6 +3047,7 @@
     "category": "Math / Vector",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "IsZero",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -2790,6 +3061,7 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
     "desc": "Нулевой?"
   },
   {
@@ -2798,6 +3070,7 @@
     "category": "Math / Vector",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "IsNearlyZero",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -2811,6 +3084,7 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
     "desc": "Почти ноль"
   },
   {
@@ -2819,6 +3093,7 @@
     "category": "Math / Vector",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Distance",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -2838,6 +3113,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Дистанция"
   },
   {
@@ -2846,6 +3122,7 @@
     "category": "Math / Vector",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "DistanceSquared",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -2865,6 +3142,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Квадрат дистанции"
   },
   {
@@ -2873,6 +3151,7 @@
     "category": "Math / Vector",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "ProjectPointOnToPlane",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "Point",
@@ -2899,6 +3178,7 @@
         "sub": "Vector"
       }
     ],
+    "verified": false,
     "desc": "Проекция"
   },
   {
@@ -2907,6 +3187,7 @@
     "category": "Math / Vector",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "ProjectVectorOnToPlane",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "V",
@@ -2927,14 +3208,19 @@
         "sub": "Vector"
       }
     ],
+    "verified": false,
     "desc": "Проекция вектора"
   },
   {
     "id": "MakeVector",
     "title": "Make Vector",
     "category": "Math / Vector",
-    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-    "func": "MakeVector",
+    "className": "/Script/BlueprintGraph.K2Node_MakeStruct",
+    "func": "",
+    "struct": {
+      "name": "Vector",
+      "path": "\"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Vector'\""
+    },
     "pins": [
       {
         "name": "X",
@@ -2952,23 +3238,28 @@
         "cat": "real"
       },
       {
-        "name": "ReturnValue",
+        "name": "Vector",
         "dir": "Output",
         "cat": "struct",
         "sub": "Vector"
       }
     ],
+    "verified": true,
     "desc": "Создать"
   },
   {
     "id": "BreakVector",
     "title": "Break Vector",
     "category": "Math / Vector",
-    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-    "func": "BreakVector",
+    "className": "/Script/BlueprintGraph.K2Node_BreakStruct",
+    "func": "",
+    "struct": {
+      "name": "Vector",
+      "path": "\"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Vector'\""
+    },
     "pins": [
       {
-        "name": "InVec",
+        "name": "Vector",
         "dir": "Input",
         "cat": "struct",
         "sub": "Vector"
@@ -2989,14 +3280,19 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Разобрать"
   },
   {
     "id": "MakeVector2D",
     "title": "Make Vector2D",
     "category": "Math / Vector",
-    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-    "func": "MakeVector2D",
+    "className": "/Script/BlueprintGraph.K2Node_MakeStruct",
+    "func": "",
+    "struct": {
+      "name": "Vector2D",
+      "path": "\"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Vector2D'\""
+    },
     "pins": [
       {
         "name": "X",
@@ -3009,23 +3305,28 @@
         "cat": "real"
       },
       {
-        "name": "ReturnValue",
+        "name": "Vector2D",
         "dir": "Output",
         "cat": "struct",
         "sub": "Vector2D"
       }
     ],
+    "verified": false,
     "desc": "2D"
   },
   {
     "id": "BreakVector2D",
     "title": "Break Vector2D",
     "category": "Math / Vector",
-    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-    "func": "BreakVector2D",
+    "className": "/Script/BlueprintGraph.K2Node_BreakStruct",
+    "func": "",
+    "struct": {
+      "name": "Vector2D",
+      "path": "\"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Vector2D'\""
+    },
     "pins": [
       {
-        "name": "InVec",
+        "name": "Vector2D",
         "dir": "Input",
         "cat": "struct",
         "sub": "Vector2D"
@@ -3041,6 +3342,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Разобрать 2D"
   },
   {
@@ -3049,6 +3351,7 @@
     "category": "Math / Interpolation",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "VInterpTo",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "Current",
@@ -3079,6 +3382,7 @@
         "sub": "Vector"
       }
     ],
+    "verified": false,
     "desc": "Интерп. вектор"
   },
   {
@@ -3087,6 +3391,7 @@
     "category": "Math / Interpolation",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "VInterpTo_Constant",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "Current",
@@ -3117,6 +3422,7 @@
         "sub": "Vector"
       }
     ],
+    "verified": false,
     "desc": "Константа"
   },
   {
@@ -3125,6 +3431,7 @@
     "category": "Math / Vector",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "VLerp",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -3150,6 +3457,7 @@
         "sub": "Vector"
       }
     ],
+    "verified": false,
     "desc": "Lerp вектор"
   },
   {
@@ -3158,6 +3466,7 @@
     "category": "Math / Vector",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "SelectVector",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -3183,20 +3492,20 @@
         "sub": "Vector"
       }
     ],
+    "verified": false,
     "desc": "Выбор"
   },
   {
     "id": "MakeRotator",
     "title": "Make Rotator",
     "category": "Math / Rotator",
-    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-    "func": "MakeRotator",
+    "className": "/Script/BlueprintGraph.K2Node_MakeStruct",
+    "func": "",
+    "struct": {
+      "name": "Rotator",
+      "path": "\"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Rotator'\""
+    },
     "pins": [
-      {
-        "name": "Roll",
-        "dir": "Input",
-        "cat": "real"
-      },
       {
         "name": "Pitch",
         "dir": "Input",
@@ -3208,31 +3517,37 @@
         "cat": "real"
       },
       {
-        "name": "ReturnValue",
+        "name": "Roll",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "Rotator",
         "dir": "Output",
         "cat": "struct",
         "sub": "Rotator"
       }
     ],
+    "verified": false,
+    "note": "Pin order Pitch,Yaw,Roll follows FRotator UPROPERTY order — not engine-verified",
     "desc": "Создать"
   },
   {
     "id": "BreakRotator",
     "title": "Break Rotator",
     "category": "Math / Rotator",
-    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-    "func": "BreakRotator",
+    "className": "/Script/BlueprintGraph.K2Node_BreakStruct",
+    "func": "",
+    "struct": {
+      "name": "Rotator",
+      "path": "\"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Rotator'\""
+    },
     "pins": [
       {
-        "name": "InRot",
+        "name": "Rotator",
         "dir": "Input",
         "cat": "struct",
         "sub": "Rotator"
-      },
-      {
-        "name": "Roll",
-        "dir": "Output",
-        "cat": "real"
       },
       {
         "name": "Pitch",
@@ -3243,8 +3558,15 @@
         "name": "Yaw",
         "dir": "Output",
         "cat": "real"
+      },
+      {
+        "name": "Roll",
+        "dir": "Output",
+        "cat": "real"
       }
     ],
+    "verified": false,
+    "note": "Pin order Pitch,Yaw,Roll follows FRotator UPROPERTY order — not engine-verified",
     "desc": "Разобрать"
   },
   {
@@ -3253,6 +3575,7 @@
     "category": "Math / Rotator",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "MakeRotFromX",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "X",
@@ -3267,6 +3590,7 @@
         "sub": "Rotator"
       }
     ],
+    "verified": false,
     "desc": "Из X"
   },
   {
@@ -3275,6 +3599,7 @@
     "category": "Math / Rotator",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "MakeRotFromY",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "Y",
@@ -3289,6 +3614,7 @@
         "sub": "Rotator"
       }
     ],
+    "verified": false,
     "desc": "Из Y"
   },
   {
@@ -3297,6 +3623,7 @@
     "category": "Math / Rotator",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "MakeRotFromZ",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "Z",
@@ -3311,6 +3638,7 @@
         "sub": "Rotator"
       }
     ],
+    "verified": false,
     "desc": "Из Z"
   },
   {
@@ -3319,6 +3647,7 @@
     "category": "Math / Rotator",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "MakeRotFromZX",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "Z",
@@ -3339,6 +3668,7 @@
         "sub": "Rotator"
       }
     ],
+    "verified": false,
     "desc": "ZX"
   },
   {
@@ -3347,6 +3677,7 @@
     "category": "Math / Rotator",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "FindLookAtRotation",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "Start",
@@ -3367,6 +3698,7 @@
         "sub": "Rotator"
       }
     ],
+    "verified": false,
     "desc": "Взгляд"
   },
   {
@@ -3375,6 +3707,7 @@
     "category": "Math / Rotator",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "FindLookAtRotation2D",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "Start",
@@ -3395,6 +3728,7 @@
         "sub": "Rotator"
       }
     ],
+    "verified": false,
     "desc": "2D"
   },
   {
@@ -3403,6 +3737,7 @@
     "category": "Math / Rotator",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "ComposeRotators",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -3423,6 +3758,7 @@
         "sub": "Rotator"
       }
     ],
+    "verified": false,
     "desc": "Композиция"
   },
   {
@@ -3431,6 +3767,7 @@
     "category": "Math / Rotator",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "InverseTransformRotation",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -3445,6 +3782,7 @@
         "sub": "Rotator"
       }
     ],
+    "verified": false,
     "desc": "Инверсия"
   },
   {
@@ -3453,6 +3791,7 @@
     "category": "Math / Interpolation",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "RInterpTo",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "Current",
@@ -3483,6 +3822,7 @@
         "sub": "Rotator"
       }
     ],
+    "verified": false,
     "desc": "Интерп."
   },
   {
@@ -3491,6 +3831,7 @@
     "category": "Math / Rotator",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "RLerp",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -3516,6 +3857,7 @@
         "sub": "Rotator"
       }
     ],
+    "verified": false,
     "desc": "Lerp"
   },
   {
@@ -3524,6 +3866,7 @@
     "category": "Math / Rotator",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "SelectRotator",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -3549,14 +3892,19 @@
         "sub": "Rotator"
       }
     ],
+    "verified": false,
     "desc": "Выбор"
   },
   {
     "id": "MakeTransform",
     "title": "Make Transform",
     "category": "Math / Transform",
-    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-    "func": "MakeTransform",
+    "className": "/Script/BlueprintGraph.K2Node_MakeStruct",
+    "func": "",
+    "struct": {
+      "name": "Transform",
+      "path": "\"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Transform'\""
+    },
     "pins": [
       {
         "name": "Location",
@@ -3577,23 +3925,28 @@
         "sub": "Vector"
       },
       {
-        "name": "ReturnValue",
+        "name": "Transform",
         "dir": "Output",
         "cat": "struct",
         "sub": "Transform"
       }
     ],
+    "verified": false,
     "desc": "Создать"
   },
   {
     "id": "BreakTransform",
     "title": "Break Transform",
     "category": "Math / Transform",
-    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-    "func": "BreakTransform",
+    "className": "/Script/BlueprintGraph.K2Node_BreakStruct",
+    "func": "",
+    "struct": {
+      "name": "Transform",
+      "path": "\"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Transform'\""
+    },
     "pins": [
       {
-        "name": "InTrans",
+        "name": "Transform",
         "dir": "Input",
         "cat": "struct",
         "sub": "Transform"
@@ -3617,6 +3970,7 @@
         "sub": "Vector"
       }
     ],
+    "verified": false,
     "desc": "Разобрать"
   },
   {
@@ -3625,6 +3979,7 @@
     "category": "Math / Transform",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "ComposeTransforms",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "A",
@@ -3645,6 +4000,7 @@
         "sub": "Transform"
       }
     ],
+    "verified": false,
     "desc": "Композиция"
   },
   {
@@ -3653,6 +4009,7 @@
     "category": "Math / Transform",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "InvertTransform",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "T",
@@ -3667,6 +4024,7 @@
         "sub": "Transform"
       }
     ],
+    "verified": false,
     "desc": "Инверсия"
   },
   {
@@ -3675,6 +4033,7 @@
     "category": "Math / Interpolation",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "TInterpTo",
+    "lib": "KismetMathLibrary",
     "pins": [
       {
         "name": "Current",
@@ -3705,6 +4064,7 @@
         "sub": "Transform"
       }
     ],
+    "verified": false,
     "desc": "Интерп."
   },
   {
@@ -3713,6 +4073,7 @@
     "category": "String",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Concat_StrStr",
+    "lib": "KismetStringLibrary",
     "pins": [
       {
         "name": "A",
@@ -3730,6 +4091,7 @@
         "cat": "string"
       }
     ],
+    "verified": true,
     "desc": "Склеить"
   },
   {
@@ -3738,6 +4100,7 @@
     "category": "String",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Concat_StrStr",
+    "lib": "KismetStringLibrary",
     "pins": [
       {
         "name": "A",
@@ -3755,6 +4118,7 @@
         "cat": "string"
       }
     ],
+    "verified": false,
     "desc": "Append"
   },
   {
@@ -3763,6 +4127,7 @@
     "category": "String",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Len",
+    "lib": "KismetStringLibrary",
     "pins": [
       {
         "name": "S",
@@ -3775,6 +4140,7 @@
         "cat": "int"
       }
     ],
+    "verified": false,
     "desc": "Длина"
   },
   {
@@ -3783,6 +4149,7 @@
     "category": "String",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "ToUpper",
+    "lib": "KismetStringLibrary",
     "pins": [
       {
         "name": "SourceString",
@@ -3795,6 +4162,7 @@
         "cat": "string"
       }
     ],
+    "verified": false,
     "desc": "Верхний"
   },
   {
@@ -3803,6 +4171,7 @@
     "category": "String",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "ToLower",
+    "lib": "KismetStringLibrary",
     "pins": [
       {
         "name": "SourceString",
@@ -3815,6 +4184,7 @@
         "cat": "string"
       }
     ],
+    "verified": false,
     "desc": "Нижний"
   },
   {
@@ -3823,6 +4193,7 @@
     "category": "String",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Contains",
+    "lib": "KismetStringLibrary",
     "pins": [
       {
         "name": "SearchIn",
@@ -3850,6 +4221,7 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
     "desc": "Содержит"
   },
   {
@@ -3858,6 +4230,7 @@
     "category": "String",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "FindSubstring",
+    "lib": "KismetStringLibrary",
     "pins": [
       {
         "name": "SearchIn",
@@ -3885,6 +4258,7 @@
         "cat": "int"
       }
     ],
+    "verified": false,
     "desc": "Найти"
   },
   {
@@ -3893,6 +4267,7 @@
     "category": "String",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Replace",
+    "lib": "KismetStringLibrary",
     "pins": [
       {
         "name": "SourceString",
@@ -3915,6 +4290,7 @@
         "cat": "string"
       }
     ],
+    "verified": false,
     "desc": "Заменить"
   },
   {
@@ -3923,6 +4299,7 @@
     "category": "String",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "ParseIntoArray",
+    "lib": "KismetStringLibrary",
     "pins": [
       {
         "name": "SourceString",
@@ -3946,6 +4323,8 @@
         "sub": "Array"
       }
     ],
+    "verified": false,
+    "note": "Array/Set/Map output needs ContainerType support in generator — verify in engine",
     "desc": "Разделить"
   },
   {
@@ -3954,6 +4333,7 @@
     "category": "String",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "JoinStringArray",
+    "lib": "KismetStringLibrary",
     "pins": [
       {
         "name": "SourceArray",
@@ -3972,6 +4352,7 @@
         "cat": "string"
       }
     ],
+    "verified": false,
     "desc": "Соединить"
   },
   {
@@ -3980,6 +4361,7 @@
     "category": "String",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Trim",
+    "lib": "KismetStringLibrary",
     "pins": [
       {
         "name": "SourceString",
@@ -3992,6 +4374,7 @@
         "cat": "string"
       }
     ],
+    "verified": false,
     "desc": "Trim"
   },
   {
@@ -4000,6 +4383,7 @@
     "category": "String",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "TrimTrailing",
+    "lib": "KismetStringLibrary",
     "pins": [
       {
         "name": "SourceString",
@@ -4012,6 +4396,7 @@
         "cat": "string"
       }
     ],
+    "verified": false,
     "desc": "Trim конец"
   },
   {
@@ -4020,6 +4405,7 @@
     "category": "String",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Left",
+    "lib": "KismetStringLibrary",
     "pins": [
       {
         "name": "SourceString",
@@ -4037,6 +4423,7 @@
         "cat": "string"
       }
     ],
+    "verified": false,
     "desc": "Лево"
   },
   {
@@ -4045,6 +4432,7 @@
     "category": "String",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Right",
+    "lib": "KismetStringLibrary",
     "pins": [
       {
         "name": "SourceString",
@@ -4062,6 +4450,7 @@
         "cat": "string"
       }
     ],
+    "verified": false,
     "desc": "Право"
   },
   {
@@ -4070,6 +4459,7 @@
     "category": "String",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Mid",
+    "lib": "KismetStringLibrary",
     "pins": [
       {
         "name": "SourceString",
@@ -4092,6 +4482,7 @@
         "cat": "string"
       }
     ],
+    "verified": false,
     "desc": "Середина"
   },
   {
@@ -4100,6 +4491,7 @@
     "category": "String",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "LeftChop",
+    "lib": "KismetStringLibrary",
     "pins": [
       {
         "name": "SourceString",
@@ -4117,6 +4509,7 @@
         "cat": "string"
       }
     ],
+    "verified": false,
     "desc": "Отрезать слева"
   },
   {
@@ -4125,6 +4518,7 @@
     "category": "String",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "RightChop",
+    "lib": "KismetStringLibrary",
     "pins": [
       {
         "name": "SourceString",
@@ -4142,6 +4536,7 @@
         "cat": "string"
       }
     ],
+    "verified": false,
     "desc": "Справа"
   },
   {
@@ -4150,6 +4545,7 @@
     "category": "String",
     "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
     "func": "EqualEqual_StrStr",
+    "lib": "KismetStringLibrary",
     "pins": [
       {
         "name": "A",
@@ -4167,6 +4563,8 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
+    "note": "String == may be CallFunction EqualEqual_StrStr — PromotableOperator form untested",
     "desc": "Равно"
   },
   {
@@ -4175,6 +4573,7 @@
     "category": "String",
     "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
     "func": "NotEqual_StrStr",
+    "lib": "KismetStringLibrary",
     "pins": [
       {
         "name": "A",
@@ -4192,6 +4591,8 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
+    "note": "String != may be CallFunction NotEqual_StrStr — PromotableOperator form untested",
     "desc": "Не равно"
   },
   {
@@ -4200,6 +4601,7 @@
     "category": "String",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "BuildString_Float",
+    "lib": "KismetStringLibrary",
     "pins": [
       {
         "name": "AppendTo",
@@ -4222,6 +4624,7 @@
         "cat": "string"
       }
     ],
+    "verified": false,
     "desc": "Float→String"
   },
   {
@@ -4230,6 +4633,7 @@
     "category": "String",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "BuildString_Int",
+    "lib": "KismetStringLibrary",
     "pins": [
       {
         "name": "AppendTo",
@@ -4252,6 +4656,7 @@
         "cat": "string"
       }
     ],
+    "verified": false,
     "desc": "Int→String"
   },
   {
@@ -4260,6 +4665,7 @@
     "category": "String",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "BuildString_Bool",
+    "lib": "KismetStringLibrary",
     "pins": [
       {
         "name": "AppendTo",
@@ -4282,6 +4688,7 @@
         "cat": "string"
       }
     ],
+    "verified": false,
     "desc": "Bool→String"
   },
   {
@@ -4290,6 +4697,7 @@
     "category": "String",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Conv_FloatToString",
+    "lib": "KismetStringLibrary",
     "pins": [
       {
         "name": "InFloat",
@@ -4302,6 +4710,7 @@
         "cat": "string"
       }
     ],
+    "verified": false,
     "desc": "Float→String"
   },
   {
@@ -4310,6 +4719,7 @@
     "category": "String",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Conv_IntToString",
+    "lib": "KismetStringLibrary",
     "pins": [
       {
         "name": "InInt",
@@ -4322,6 +4732,7 @@
         "cat": "string"
       }
     ],
+    "verified": true,
     "desc": "Int→String"
   },
   {
@@ -4330,6 +4741,7 @@
     "category": "String",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Conv_BoolToString",
+    "lib": "KismetStringLibrary",
     "pins": [
       {
         "name": "InBool",
@@ -4342,6 +4754,7 @@
         "cat": "string"
       }
     ],
+    "verified": false,
     "desc": "Bool→String"
   },
   {
@@ -4350,6 +4763,7 @@
     "category": "String",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Conv_VectorToString",
+    "lib": "KismetStringLibrary",
     "pins": [
       {
         "name": "InVec",
@@ -4363,6 +4777,7 @@
         "cat": "string"
       }
     ],
+    "verified": false,
     "desc": "Vector→String"
   },
   {
@@ -4371,6 +4786,7 @@
     "category": "Array",
     "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
     "func": "Array_Add",
+    "lib": "KismetArrayLibrary",
     "pins": [
       {
         "name": "TargetArray",
@@ -4388,6 +4804,7 @@
         "cat": "int"
       }
     ],
+    "verified": false,
     "desc": "Добавить"
   },
   {
@@ -4396,6 +4813,7 @@
     "category": "Array",
     "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
     "func": "Array_AddUnique",
+    "lib": "KismetArrayLibrary",
     "pins": [
       {
         "name": "TargetArray",
@@ -4413,6 +4831,7 @@
         "cat": "int"
       }
     ],
+    "verified": false,
     "desc": "Уникальный"
   },
   {
@@ -4421,6 +4840,7 @@
     "category": "Array",
     "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
     "func": "Array_Remove",
+    "lib": "KismetArrayLibrary",
     "pins": [
       {
         "name": "TargetArray",
@@ -4433,6 +4853,7 @@
         "cat": "int"
       }
     ],
+    "verified": false,
     "desc": "Удалить индекс"
   },
   {
@@ -4441,6 +4862,7 @@
     "category": "Array",
     "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
     "func": "Array_RemoveItem",
+    "lib": "KismetArrayLibrary",
     "pins": [
       {
         "name": "TargetArray",
@@ -4458,6 +4880,7 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
     "desc": "Удалить элемент"
   },
   {
@@ -4466,6 +4889,7 @@
     "category": "Array",
     "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
     "func": "Array_Clear",
+    "lib": "KismetArrayLibrary",
     "pins": [
       {
         "name": "TargetArray",
@@ -4473,6 +4897,7 @@
         "cat": "object"
       }
     ],
+    "verified": false,
     "desc": "Очистить"
   },
   {
@@ -4481,6 +4906,7 @@
     "category": "Array",
     "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
     "func": "Array_Length",
+    "lib": "KismetArrayLibrary",
     "pins": [
       {
         "name": "TargetArray",
@@ -4493,6 +4919,7 @@
         "cat": "int"
       }
     ],
+    "verified": false,
     "desc": "Длина"
   },
   {
@@ -4501,6 +4928,7 @@
     "category": "Array",
     "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
     "func": "Array_Get",
+    "lib": "KismetArrayLibrary",
     "pins": [
       {
         "name": "TargetArray",
@@ -4518,6 +4946,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Получить"
   },
   {
@@ -4526,6 +4955,7 @@
     "category": "Array",
     "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
     "func": "Array_Set",
+    "lib": "KismetArrayLibrary",
     "pins": [
       {
         "name": "TargetArray",
@@ -4543,6 +4973,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Установить"
   },
   {
@@ -4551,6 +4982,7 @@
     "category": "Array",
     "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
     "func": "Array_Find",
+    "lib": "KismetArrayLibrary",
     "pins": [
       {
         "name": "TargetArray",
@@ -4568,6 +5000,7 @@
         "cat": "int"
       }
     ],
+    "verified": false,
     "desc": "Найти"
   },
   {
@@ -4576,6 +5009,7 @@
     "category": "Array",
     "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
     "func": "Array_Contains",
+    "lib": "KismetArrayLibrary",
     "pins": [
       {
         "name": "TargetArray",
@@ -4593,6 +5027,7 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
     "desc": "Содержит"
   },
   {
@@ -4601,6 +5036,7 @@
     "category": "Array",
     "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
     "func": "Array_Insert",
+    "lib": "KismetArrayLibrary",
     "pins": [
       {
         "name": "TargetArray",
@@ -4618,6 +5054,7 @@
         "cat": "int"
       }
     ],
+    "verified": false,
     "desc": "Вставить"
   },
   {
@@ -4626,6 +5063,7 @@
     "category": "Array",
     "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
     "func": "Array_Shuffle",
+    "lib": "KismetArrayLibrary",
     "pins": [
       {
         "name": "TargetArray",
@@ -4633,6 +5071,7 @@
         "cat": "object"
       }
     ],
+    "verified": false,
     "desc": "Перемешать"
   },
   {
@@ -4641,6 +5080,7 @@
     "category": "Array",
     "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
     "func": "Array_Reverse",
+    "lib": "KismetArrayLibrary",
     "pins": [
       {
         "name": "TargetArray",
@@ -4648,6 +5088,7 @@
         "cat": "object"
       }
     ],
+    "verified": false,
     "desc": "Реверс"
   },
   {
@@ -4656,6 +5097,7 @@
     "category": "Array",
     "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
     "func": "Array_IsValidIndex",
+    "lib": "KismetArrayLibrary",
     "pins": [
       {
         "name": "TargetArray",
@@ -4673,6 +5115,7 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
     "desc": "Валидный индекс"
   },
   {
@@ -4681,6 +5124,7 @@
     "category": "Array",
     "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
     "func": "Array_Resize",
+    "lib": "KismetArrayLibrary",
     "pins": [
       {
         "name": "TargetArray",
@@ -4693,6 +5137,7 @@
         "cat": "int"
       }
     ],
+    "verified": false,
     "desc": "Размер"
   },
   {
@@ -4701,6 +5146,7 @@
     "category": "Utilities",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "PrintString",
+    "lib": "KismetSystemLibrary",
     "pins": [
       {
         "name": "execute",
@@ -4718,27 +5164,17 @@
         "cat": "string"
       },
       {
-        "name": "PrintToScreen",
+        "name": "bPrintToScreen",
         "dir": "Input",
         "cat": "bool"
       },
       {
-        "name": "PrintToLog",
+        "name": "bPrintToLog",
         "dir": "Input",
         "cat": "bool"
-      },
-      {
-        "name": "TextColor",
-        "dir": "Input",
-        "cat": "struct",
-        "sub": "LinearColor"
-      },
-      {
-        "name": "Duration",
-        "dir": "Input",
-        "cat": "real"
       }
     ],
+    "verified": true,
     "desc": "Вывод"
   },
   {
@@ -4747,6 +5183,7 @@
     "category": "Utilities",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "PrintText",
+    "lib": "KismetSystemLibrary",
     "pins": [
       {
         "name": "execute",
@@ -4769,6 +5206,7 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
     "desc": "Print Text"
   },
   {
@@ -4777,6 +5215,7 @@
     "category": "Utilities",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Delay",
+    "lib": "KismetSystemLibrary",
     "pins": [
       {
         "name": "execute",
@@ -4784,7 +5223,7 @@
         "cat": "exec"
       },
       {
-        "name": "Completed",
+        "name": "then",
         "dir": "Output",
         "cat": "exec"
       },
@@ -4794,6 +5233,7 @@
         "cat": "real"
       }
     ],
+    "verified": true,
     "desc": "Задержка"
   },
   {
@@ -4802,6 +5242,7 @@
     "category": "Utilities",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "RetriggerableDelay",
+    "lib": "KismetSystemLibrary",
     "pins": [
       {
         "name": "execute",
@@ -4819,6 +5260,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Перезапускаемая"
   },
   {
@@ -4827,6 +5269,7 @@
     "category": "Utilities",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "IsValid",
+    "lib": "KismetSystemLibrary",
     "pins": [
       {
         "name": "InputObject",
@@ -4837,18 +5280,9 @@
         "name": "ReturnValue",
         "dir": "Output",
         "cat": "bool"
-      },
-      {
-        "name": "IsValid",
-        "dir": "Output",
-        "cat": "exec"
-      },
-      {
-        "name": "IsNotValid",
-        "dir": "Output",
-        "cat": "exec"
       }
     ],
+    "verified": false,
     "desc": "Валидность"
   },
   {
@@ -4857,6 +5291,7 @@
     "category": "Utilities",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "IsValidClass",
+    "lib": "KismetSystemLibrary",
     "pins": [
       {
         "name": "InputClass",
@@ -4869,6 +5304,7 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
     "desc": "Класс валиден"
   },
   {
@@ -4877,6 +5313,7 @@
     "category": "Utilities",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "GetDisplayName",
+    "lib": "KismetSystemLibrary",
     "pins": [
       {
         "name": "Object",
@@ -4889,6 +5326,7 @@
         "cat": "string"
       }
     ],
+    "verified": false,
     "desc": "Имя"
   },
   {
@@ -4897,6 +5335,7 @@
     "category": "Utilities",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "GetObjectName",
+    "lib": "KismetSystemLibrary",
     "pins": [
       {
         "name": "Object",
@@ -4909,6 +5348,7 @@
         "cat": "string"
       }
     ],
+    "verified": false,
     "desc": "Имя объекта"
   },
   {
@@ -4917,6 +5357,7 @@
     "category": "Utilities",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "GetEngineVersion",
+    "lib": "KismetSystemLibrary",
     "pins": [
       {
         "name": "ReturnValue",
@@ -4924,6 +5365,7 @@
         "cat": "string"
       }
     ],
+    "verified": false,
     "desc": "Версия"
   },
   {
@@ -4932,6 +5374,7 @@
     "category": "Utilities",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "GetPlatformName",
+    "lib": "KismetSystemLibrary",
     "pins": [
       {
         "name": "ReturnValue",
@@ -4939,6 +5382,7 @@
         "cat": "string"
       }
     ],
+    "verified": false,
     "desc": "Платформа"
   },
   {
@@ -4947,11 +5391,15 @@
     "category": "Utilities",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "GetGameTimeInSeconds",
+    "lib": null,
     "pins": [
       {
         "name": "WorldContextObject",
         "dir": "Input",
-        "cat": "object"
+        "cat": "object",
+        "object": "/Script/CoreUObject.Object",
+        "const": true,
+        "hidden": true
       },
       {
         "name": "ReturnValue",
@@ -4959,6 +5407,8 @@
         "cat": "real"
       }
     ],
+    "verified": false,
+    "note": "Home library uncertain (KismetSystemLibrary vs GameplayStatics)",
     "desc": "Время"
   },
   {
@@ -4967,6 +5417,7 @@
     "category": "Utilities",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "GetSystemTimeInSeconds",
+    "lib": "KismetSystemLibrary",
     "pins": [
       {
         "name": "ReturnValue",
@@ -4974,6 +5425,7 @@
         "cat": "real"
       }
     ],
+    "verified": false,
     "desc": "Системное время"
   },
   {
@@ -4982,11 +5434,15 @@
     "category": "Utilities",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "GetWorldDeltaSeconds",
+    "lib": null,
     "pins": [
       {
         "name": "WorldContextObject",
         "dir": "Input",
-        "cat": "object"
+        "cat": "object",
+        "object": "/Script/CoreUObject.Object",
+        "const": true,
+        "hidden": true
       },
       {
         "name": "ReturnValue",
@@ -4994,6 +5450,8 @@
         "cat": "real"
       }
     ],
+    "verified": false,
+    "note": "Home library uncertain (KismetSystemLibrary vs GameplayStatics)",
     "desc": "Delta"
   },
   {
@@ -5002,6 +5460,7 @@
     "category": "Utilities",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "QuitGame",
+    "lib": "KismetSystemLibrary",
     "pins": [
       {
         "name": "execute",
@@ -5016,7 +5475,10 @@
       {
         "name": "WorldContextObject",
         "dir": "Input",
-        "cat": "object"
+        "cat": "object",
+        "object": "/Script/CoreUObject.Object",
+        "const": true,
+        "hidden": true
       },
       {
         "name": "SpecificPlayer",
@@ -5029,6 +5491,7 @@
         "cat": "byte"
       }
     ],
+    "verified": false,
     "desc": "Выход"
   },
   {
@@ -5037,6 +5500,7 @@
     "category": "Utilities",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "OpenLevel",
+    "lib": "KismetSystemLibrary",
     "pins": [
       {
         "name": "execute",
@@ -5051,7 +5515,10 @@
       {
         "name": "WorldContextObject",
         "dir": "Input",
-        "cat": "object"
+        "cat": "object",
+        "object": "/Script/CoreUObject.Object",
+        "const": true,
+        "hidden": true
       },
       {
         "name": "LevelName",
@@ -5059,6 +5526,7 @@
         "cat": "name"
       }
     ],
+    "verified": false,
     "desc": "Открыть уровень"
   },
   {
@@ -5067,6 +5535,7 @@
     "category": "Utilities",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "CreateSaveGameObject",
+    "lib": "KismetSystemLibrary",
     "pins": [
       {
         "name": "SaveGameClass",
@@ -5079,6 +5548,7 @@
         "cat": "object"
       }
     ],
+    "verified": false,
     "desc": "SaveGame"
   },
   {
@@ -5087,6 +5557,7 @@
     "category": "Utilities",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "DoesSaveGameExist",
+    "lib": "KismetSystemLibrary",
     "pins": [
       {
         "name": "SlotName",
@@ -5104,6 +5575,7 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
     "desc": "Существует?"
   },
   {
@@ -5112,6 +5584,7 @@
     "category": "Utilities",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "SaveGameToSlot",
+    "lib": "KismetSystemLibrary",
     "pins": [
       {
         "name": "SaveGameObject",
@@ -5134,6 +5607,7 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
     "desc": "Сохранить"
   },
   {
@@ -5142,6 +5616,7 @@
     "category": "Utilities",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "LoadGameFromSlot",
+    "lib": "KismetSystemLibrary",
     "pins": [
       {
         "name": "SlotName",
@@ -5159,6 +5634,7 @@
         "cat": "object"
       }
     ],
+    "verified": false,
     "desc": "Загрузить"
   },
   {
@@ -5167,11 +5643,15 @@
     "category": "Gameplay",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "GetPlayerController",
+    "lib": "GameplayStatics",
     "pins": [
       {
         "name": "WorldContextObject",
         "dir": "Input",
-        "cat": "object"
+        "cat": "object",
+        "object": "/Script/CoreUObject.Object",
+        "const": true,
+        "hidden": true
       },
       {
         "name": "PlayerIndex",
@@ -5184,6 +5664,7 @@
         "cat": "object"
       }
     ],
+    "verified": false,
     "desc": "Контроллер"
   },
   {
@@ -5192,11 +5673,15 @@
     "category": "Gameplay",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "GetPlayerPawn",
+    "lib": "GameplayStatics",
     "pins": [
       {
         "name": "WorldContextObject",
         "dir": "Input",
-        "cat": "object"
+        "cat": "object",
+        "object": "/Script/CoreUObject.Object",
+        "const": true,
+        "hidden": true
       },
       {
         "name": "PlayerIndex",
@@ -5209,6 +5694,7 @@
         "cat": "object"
       }
     ],
+    "verified": false,
     "desc": "Pawn"
   },
   {
@@ -5217,11 +5703,15 @@
     "category": "Gameplay",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "GetPlayerCharacter",
+    "lib": "GameplayStatics",
     "pins": [
       {
         "name": "WorldContextObject",
         "dir": "Input",
-        "cat": "object"
+        "cat": "object",
+        "object": "/Script/CoreUObject.Object",
+        "const": true,
+        "hidden": true
       },
       {
         "name": "PlayerIndex",
@@ -5234,6 +5724,7 @@
         "cat": "object"
       }
     ],
+    "verified": false,
     "desc": "Character"
   },
   {
@@ -5242,6 +5733,7 @@
     "category": "Gameplay",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "GetAllActorsOfClass",
+    "lib": "GameplayStatics",
     "pins": [
       {
         "name": "execute",
@@ -5256,7 +5748,10 @@
       {
         "name": "WorldContextObject",
         "dir": "Input",
-        "cat": "object"
+        "cat": "object",
+        "object": "/Script/CoreUObject.Object",
+        "const": true,
+        "hidden": true
       },
       {
         "name": "ActorClass",
@@ -5270,6 +5765,8 @@
         "sub": "Array"
       }
     ],
+    "verified": false,
+    "note": "Array/Set/Map output needs ContainerType support in generator — verify in engine",
     "desc": "Все акторы"
   },
   {
@@ -5278,6 +5775,7 @@
     "category": "Gameplay",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "GetAllActorsWithTag",
+    "lib": "GameplayStatics",
     "pins": [
       {
         "name": "execute",
@@ -5292,7 +5790,10 @@
       {
         "name": "WorldContextObject",
         "dir": "Input",
-        "cat": "object"
+        "cat": "object",
+        "object": "/Script/CoreUObject.Object",
+        "const": true,
+        "hidden": true
       },
       {
         "name": "Tag",
@@ -5306,6 +5807,8 @@
         "sub": "Array"
       }
     ],
+    "verified": false,
+    "note": "Array/Set/Map output needs ContainerType support in generator — verify in engine",
     "desc": "По тегу"
   },
   {
@@ -5314,6 +5817,7 @@
     "category": "Gameplay",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "BeginSpawningActorFromClass",
+    "lib": "GameplayStatics",
     "pins": [
       {
         "name": "execute",
@@ -5328,7 +5832,10 @@
       {
         "name": "WorldContextObject",
         "dir": "Input",
-        "cat": "object"
+        "cat": "object",
+        "object": "/Script/CoreUObject.Object",
+        "const": true,
+        "hidden": true
       },
       {
         "name": "Class",
@@ -5347,6 +5854,8 @@
         "cat": "object"
       }
     ],
+    "verified": false,
+    "note": "Engine node is K2Node_SpawnActorFromClass; this CallFunction BeginSpawningActorFromClass form is untested",
     "desc": "Спавн"
   },
   {
@@ -5355,6 +5864,7 @@
     "category": "Gameplay",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "SpawnEmitterAtLocation",
+    "lib": "GameplayStatics",
     "pins": [
       {
         "name": "execute",
@@ -5369,7 +5879,10 @@
       {
         "name": "WorldContextObject",
         "dir": "Input",
-        "cat": "object"
+        "cat": "object",
+        "object": "/Script/CoreUObject.Object",
+        "const": true,
+        "hidden": true
       },
       {
         "name": "EmitterTemplate",
@@ -5394,6 +5907,7 @@
         "cat": "object"
       }
     ],
+    "verified": false,
     "desc": "Эмиттер"
   },
   {
@@ -5402,6 +5916,7 @@
     "category": "Gameplay",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "PlaySoundAtLocation",
+    "lib": "GameplayStatics",
     "pins": [
       {
         "name": "execute",
@@ -5416,7 +5931,10 @@
       {
         "name": "WorldContextObject",
         "dir": "Input",
-        "cat": "object"
+        "cat": "object",
+        "object": "/Script/CoreUObject.Object",
+        "const": true,
+        "hidden": true
       },
       {
         "name": "Sound",
@@ -5430,6 +5948,7 @@
         "sub": "Vector"
       }
     ],
+    "verified": false,
     "desc": "Звук"
   },
   {
@@ -5438,11 +5957,15 @@
     "category": "Gameplay",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "GetGameMode",
+    "lib": "GameplayStatics",
     "pins": [
       {
         "name": "WorldContextObject",
         "dir": "Input",
-        "cat": "object"
+        "cat": "object",
+        "object": "/Script/CoreUObject.Object",
+        "const": true,
+        "hidden": true
       },
       {
         "name": "ReturnValue",
@@ -5450,6 +5973,7 @@
         "cat": "object"
       }
     ],
+    "verified": false,
     "desc": "GameMode"
   },
   {
@@ -5458,11 +5982,15 @@
     "category": "Gameplay",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "GetGameState",
+    "lib": "GameplayStatics",
     "pins": [
       {
         "name": "WorldContextObject",
         "dir": "Input",
-        "cat": "object"
+        "cat": "object",
+        "object": "/Script/CoreUObject.Object",
+        "const": true,
+        "hidden": true
       },
       {
         "name": "ReturnValue",
@@ -5470,6 +5998,7 @@
         "cat": "object"
       }
     ],
+    "verified": false,
     "desc": "GameState"
   },
   {
@@ -5478,11 +6007,15 @@
     "category": "Gameplay",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "GetGameInstance",
+    "lib": "GameplayStatics",
     "pins": [
       {
         "name": "WorldContextObject",
         "dir": "Input",
-        "cat": "object"
+        "cat": "object",
+        "object": "/Script/CoreUObject.Object",
+        "const": true,
+        "hidden": true
       },
       {
         "name": "ReturnValue",
@@ -5490,6 +6023,7 @@
         "cat": "object"
       }
     ],
+    "verified": false,
     "desc": "GameInstance"
   },
   {
@@ -5498,6 +6032,7 @@
     "category": "Gameplay",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "GetWorld",
+    "lib": null,
     "pins": [
       {
         "name": "ReturnValue",
@@ -5505,6 +6040,8 @@
         "cat": "object"
       }
     ],
+    "verified": false,
+    "note": "No static GetWorld in Kismet libs — member call needs Self/BP-class context",
     "desc": "World"
   },
   {
@@ -5513,6 +6050,7 @@
     "category": "Collision",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "LineTraceByChannel",
+    "lib": "KismetSystemLibrary",
     "pins": [
       {
         "name": "execute",
@@ -5527,7 +6065,10 @@
       {
         "name": "WorldContextObject",
         "dir": "Input",
-        "cat": "object"
+        "cat": "object",
+        "object": "/Script/CoreUObject.Object",
+        "const": true,
+        "hidden": true
       },
       {
         "name": "Start",
@@ -5544,7 +6085,8 @@
       {
         "name": "TraceChannel",
         "dir": "Input",
-        "cat": "byte"
+        "cat": "byte",
+        "enum": "\"/Script/CoreUObject.Enum'/Script/Engine.ETraceTypeQuery'\""
       },
       {
         "name": "ReturnValue",
@@ -5558,6 +6100,8 @@
         "sub": "HitResult"
       }
     ],
+    "verified": false,
+    "note": "v5: UE4-canonical quoted-full refs (copy-back H1); struct SubCategory empty; engine adds missing signature pins; J1-J7 retest pending. TraceChannel enum pin uses subObj from pin.enum.",
     "desc": "Трасса канал"
   },
   {
@@ -5566,6 +6110,7 @@
     "category": "Collision",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "LineTraceByObjectType",
+    "lib": "KismetSystemLibrary",
     "pins": [
       {
         "name": "execute",
@@ -5580,7 +6125,10 @@
       {
         "name": "WorldContextObject",
         "dir": "Input",
-        "cat": "object"
+        "cat": "object",
+        "object": "/Script/CoreUObject.Object",
+        "const": true,
+        "hidden": true
       },
       {
         "name": "Start",
@@ -5600,6 +6148,7 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
     "desc": "По объекту"
   },
   {
@@ -5608,6 +6157,7 @@
     "category": "Collision",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "SphereTraceByChannel",
+    "lib": "KismetSystemLibrary",
     "pins": [
       {
         "name": "execute",
@@ -5622,7 +6172,10 @@
       {
         "name": "WorldContextObject",
         "dir": "Input",
-        "cat": "object"
+        "cat": "object",
+        "object": "/Script/CoreUObject.Object",
+        "const": true,
+        "hidden": true
       },
       {
         "name": "Start",
@@ -5647,6 +6200,7 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
     "desc": "Сфера"
   },
   {
@@ -5655,6 +6209,7 @@
     "category": "Collision",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "BoxTraceByChannel",
+    "lib": "KismetSystemLibrary",
     "pins": [
       {
         "name": "execute",
@@ -5669,7 +6224,10 @@
       {
         "name": "WorldContextObject",
         "dir": "Input",
-        "cat": "object"
+        "cat": "object",
+        "object": "/Script/CoreUObject.Object",
+        "const": true,
+        "hidden": true
       },
       {
         "name": "Start",
@@ -5695,6 +6253,7 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
     "desc": "Box"
   },
   {
@@ -5703,6 +6262,7 @@
     "category": "Collision",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "CapsuleTraceByChannel",
+    "lib": "KismetSystemLibrary",
     "pins": [
       {
         "name": "execute",
@@ -5717,7 +6277,10 @@
       {
         "name": "WorldContextObject",
         "dir": "Input",
-        "cat": "object"
+        "cat": "object",
+        "object": "/Script/CoreUObject.Object",
+        "const": true,
+        "hidden": true
       },
       {
         "name": "Start",
@@ -5747,6 +6310,7 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
     "desc": "Капсула"
   },
   {
@@ -5755,6 +6319,7 @@
     "category": "Input",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "GetKey",
+    "lib": null,
     "pins": [
       {
         "name": "InKey",
@@ -5768,6 +6333,8 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
+    "note": "Function not found as Kismet static — verify in engine before use",
     "desc": "Клавиша"
   },
   {
@@ -5776,6 +6343,7 @@
     "category": "Input",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "IsInputKeyDown",
+    "lib": null,
     "pins": [
       {
         "name": "Key",
@@ -5789,6 +6357,8 @@
         "cat": "bool"
       }
     ],
+    "verified": false,
+    "note": "Member of PlayerController — needs Self context; static form untested",
     "desc": "Нажата?"
   },
   {
@@ -5809,6 +6379,7 @@
         "cat": "exec"
       }
     ],
+    "verified": true,
     "desc": "Перенаправление"
   },
   {
@@ -5818,6 +6389,7 @@
     "className": "/Script/UnrealEd.EdGraphNode_Comment",
     "func": "",
     "pins": [],
+    "verified": true,
     "desc": "Комментарий"
   },
   {
@@ -5828,12 +6400,24 @@
     "func": "",
     "pins": [
       {
+        "name": "[0]",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "[1]",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
         "name": "ReturnValue",
         "dir": "Output",
         "cat": "object",
         "sub": "Array"
       }
     ],
+    "verified": false,
+    "note": "Element type defaults to int; ContainerType=Array needs generator support — verify in engine",
     "desc": "Создать массив"
   },
   {
@@ -5844,12 +6428,24 @@
     "func": "",
     "pins": [
       {
+        "name": "[0]",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "[1]",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
         "name": "ReturnValue",
         "dir": "Output",
         "cat": "object",
         "sub": "Set"
       }
     ],
+    "verified": false,
+    "note": "Element type defaults to int; ContainerType=Set needs generator support — verify in engine",
     "desc": "Создать сет"
   },
   {
@@ -5866,6 +6462,8 @@
         "sub": "Map"
       }
     ],
+    "verified": false,
+    "note": "K2Node_MakeMap key/value pins not modeled — needs engine capture",
     "desc": "Создать map"
   },
   {
@@ -5881,11 +6479,23 @@
         "cat": "int"
       },
       {
+        "name": "Option 0",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "Option 1",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
         "name": "ReturnValue",
         "dir": "Output",
         "cat": "real"
       }
     ],
+    "verified": false,
+    "note": "Option-pin naming + wildcard types not engine-verified; generator support partial",
     "desc": "Выбор"
   },
   {
@@ -5894,6 +6504,7 @@
     "category": "Text",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "Format",
+    "lib": "KismetTextLibrary",
     "pins": [
       {
         "name": "InPattern",
@@ -5903,9 +6514,11 @@
       {
         "name": "ReturnValue",
         "dir": "Output",
-        "cat": "string"
+        "cat": "text"
       }
     ],
+    "verified": false,
+    "note": "Returns FText (KismetTextLibrary::Format) — verify pin categories in engine",
     "desc": "Формат"
   },
   {
@@ -5914,6 +6527,7 @@
     "category": "Enhanced Input",
     "className": "/Script/BlueprintGraph.K2Node_CallFunction",
     "func": "GetActionValue",
+    "lib": null,
     "pins": [
       {
         "name": "Action",
@@ -5927,6 +6541,8 @@
         "sub": "InputActionValue"
       }
     ],
+    "verified": false,
+    "note": "UE5-ONLY (EnhancedInput); Home library uncertain; skipped in UE4 test loop",
     "desc": "Значение действия"
   }
 ]
