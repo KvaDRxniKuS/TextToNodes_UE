@@ -3352,9 +3352,163 @@
     "const": true
    }
   ],
-  "verified": false,
-  "note": "v6: движок НЕ достраивает выходы struct-нод (L3: остался 1 пин) — нужен copy-back настоящего Break Hit Result для имён выходов",
+  "verified": true,
+  "note": "Q6 resolved: движок выходы НЕ строит (L3 + живой граф BP_WheelActor: всегда 1 пин); настоящий «Break Hit Result» = pure GameplayStatics.BreakHitResult (см. BreakHitResult_pure)",
   "desc": "Разобрать Hit"
+ },
+ {
+  "id": "BreakHitResult_pure",
+  "title": "Break Hit Result",
+  "category": "Collision",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "BreakHitResult",
+  "lib": "GameplayStatics",
+  "pure": true,
+  "pins": [
+   {
+    "name": "Hit",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "HitResult",
+    "ref": true,
+    "const": true,
+    "ignored": true
+   },
+   {
+    "name": "bBlockingHit",
+    "dir": "Output",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "bInitialOverlap",
+    "dir": "Output",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "Time",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.0",
+    "advanced": true
+   },
+   {
+    "name": "Distance",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.0",
+    "advanced": true
+   },
+   {
+    "name": "Location",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector",
+    "dv": "0, 0, 0",
+    "advanced": true
+   },
+   {
+    "name": "ImpactPoint",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector",
+    "dv": "0, 0, 0",
+    "advanced": true
+   },
+   {
+    "name": "Normal",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector",
+    "dv": "0, 0, 0",
+    "advanced": true
+   },
+   {
+    "name": "ImpactNormal",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector",
+    "dv": "0, 0, 0",
+    "advanced": true
+   },
+   {
+    "name": "PhysMat",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/PhysicsCore.PhysicalMaterial",
+    "advanced": true
+   },
+   {
+    "name": "HitActor",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.Actor",
+    "advanced": true
+   },
+   {
+    "name": "HitComponent",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent",
+    "advanced": true
+   },
+   {
+    "name": "HitBoneName",
+    "dir": "Output",
+    "cat": "name",
+    "dv": "None",
+    "advanced": true
+   },
+   {
+    "name": "BoneName",
+    "dir": "Output",
+    "cat": "name",
+    "dv": "None",
+    "advanced": true
+   },
+   {
+    "name": "HitItem",
+    "dir": "Output",
+    "cat": "int",
+    "dv": "0",
+    "advanced": true
+   },
+   {
+    "name": "ElementIndex",
+    "dir": "Output",
+    "cat": "int",
+    "dv": "0",
+    "advanced": true
+   },
+   {
+    "name": "FaceIndex",
+    "dir": "Output",
+    "cat": "int",
+    "dv": "0",
+    "advanced": true
+   },
+   {
+    "name": "TraceStart",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector",
+    "dv": "0, 0, 0",
+    "advanced": true
+   },
+   {
+    "name": "TraceEnd",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector",
+    "dv": "0, 0, 0",
+    "advanced": true
+   }
+  ],
+  "verified": true,
+  "desc": "Разобрать Hit (pure)"
  },
  {
   "id": "MakeVector2D",

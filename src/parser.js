@@ -73,6 +73,7 @@ export function parseToGraphs(text){
         const isRef=/PinType\.bIsReference=True/.test(pinStr);const container=(pinStr.match(/PinType\.ContainerType=([A-Za-z]+)/)||[])[1]||'None';const ignored=/bDefaultValueIsIgnored=True/.test(pinStr);const advanced=/bAdvancedView=True/.test(pinStr);
         node.pins.push({id:pinId,name:pinName, friendly, direction:dir.includes('Output')?'Output':'Input', category:cat, subCategory:sub2, subCategoryObject:subObj==='None'?'':subObj, defaultValue, hidden, linkedTo:linked,isConst,isRef,container,ignored,advanced});
       } else if(t.startsWith('VariableReference=')){ const m=t.match(/MemberName="([^"]+)"/); if(m) node.varName=m[1]; }
+      else if(t.startsWith('bDefaultsToPureFunc=')){ node.pure=true; }
       else if(t.startsWith('FunctionReference=')){ const m=t.match(/MemberName="([^"]+)"/); if(m) node.funcName=m[1]; const mp=t.match(/MemberParent="([^"]+)"/)||t.match(/MemberParent=([^,\)]+)/); if(mp) node.memberParent=mp[1]; }
       else if(t.startsWith('StructType=')){ const m=t.match(/StructType=([^\s]+)/); if(m) node.structType=m[1]; }
       else if(t.startsWith('MacroGraphReference=')){ const m=t.match(/StandardMacros:([^"']+)/); if(m) node.macroGraph=m[1]; const gg=t.match(/GraphGuid=([A-F0-9]+)/); if(gg) node.macroGuid=gg[1]; }
@@ -158,6 +159,7 @@ function generateBlock(n){
   let extra='';
   if(n.varName) extra+=`   VariableReference=(MemberName="${n.varName}",MemberGuid=${guid.slice(0,8)}${guid.slice(8,12)}${guid.slice(12,16)}${guid.slice(16,20)}${guid.slice(20,32)},bSelfContext=True)\n`;
   if(n.funcName && !n.operationName){
+    if(n.pure) extra+=`   bDefaultsToPureFunc=True\n`;
     if(n.memberParent) extra+=`   FunctionReference=(MemberParent=${n.memberParent},MemberName="${n.funcName}")\n`;
     else extra+=`   FunctionReference=(MemberName="${n.funcName}",MemberGuid=${guid.slice(0,8)}${guid.slice(8,12)}${guid.slice(12,16)}${guid.slice(16,20)}${guid.slice(20,32)},bSelfContext=True)\n`;
   }

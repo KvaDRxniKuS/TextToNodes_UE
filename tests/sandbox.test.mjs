@@ -48,7 +48,7 @@ fs.unlinkSync(new URL('./.sb-harness.tmp.cjs', import.meta.url));
 
 let pass = 0, fail = 0;
 const ok = (c, t) => { c ? pass++ : (fail++, console.log('FAIL:', t)); };
-ok(sb.getREG().length === 233, 'REG встроенный: 231');
+ok(sb.getREG().length === 234, 'REG встроенный: 234');
 ok(sb.UE_STRUCTS.Vector.includes('/Script/CoreUObject.Vector'), 'UE_STRUCTS: quoted-full');
 ok(sb.UE_ENUMS.ETraceTypeQuery.includes('ETraceTypeQuery'), 'UE_ENUMS на месте');
 

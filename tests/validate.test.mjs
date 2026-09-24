@@ -189,5 +189,35 @@ regThrow.forEach(t => console.log('THROW:', t));
   const vr = validateStrict(rt);
   ok(vr.valid && vr.errors.length === 0, 'K1 copy-back: регенерация 0 ошибок');
 }
+
+// Q6: настоящий «Break Hit Result» = pure GameplayStatics.BreakHitResult (copy-back BP_WheelActor, UE 5.8)
+{
+  const bp = byId('BreakHitResult_pure');
+  ok(bp && bp.pure === true && bp.lib === 'GameplayStatics' && bp.func === 'BreakHitResult', 'BreakHitResult_pure: pure GameplayStatics-вызов');
+  ok(bp.pins.length === 19 && !bp.pins.some(p => p.cat === 'exec'), 'BreakHitResult_pure: 19 пинов, без exec');
+  ok(bp.pins.filter(p => p.dir === 'Output').length === 18, 'BreakHitResult_pure: 18 выходов');
+  ok(bp.pins.filter(p => p.advanced).length === 16, 'BreakHitResult_pure: 16 advanced');
+  const hit = bp.pins[0];
+  ok(hit.name === 'Hit' && hit.ref && hit.const && hit.ignored, 'BreakHitResult_pure: Hit ref+const+ignored');
+  ok(bp.pins.some(p => p.name === 'PhysMat' && p.object === '/Script/PhysicsCore.PhysicalMaterial'), 'BreakHitResult_pure: PhysMat из PhysicsCore');
+  ok(byId('BreakHitResult').verified === true, 'BreakHitResult struct: verified (выходов нет — движок не строит)');
+  const bn = createCallFunction(bp, { x: 0, y: 0 });
+  const bt = generateUEText([bn]);
+  ok(bt.indexOf('bDefaultsToPureFunc=True') !== -1 && bt.indexOf('bDefaultsToPureFunc=True') < bt.indexOf('FunctionReference='), 'pure: bDefaultsToPureFunc перед FunctionReference');
+  const bv = validateStrict(bt);
+  ok(bv.valid && bv.errors.length === 0 && bv.warnings.length === 0, 'pure: сгенерированный текст STRICT-OK без варнингов');
+  const fx = fs.readFileSync(new URL('./fixtures/breakhitresult-copyback.txt', import.meta.url), 'utf8');
+  const fv = validateStrict(fx);
+  ok(fv.errors.length === 2 && fv.errors.every(e => e.startsWith('E06')), 'Q6 фикстура: только 2xE06 (фрагмент, _111 вне выборки)');
+  const gf = parseToGraphs(fx);
+  const pfn = gf.EventGraph.nodes.find(n => n.funcName === 'BreakHitResult');
+  ok(pfn && pfn.pure === true && pfn.pins.length === 20, 'Q6 фикстура: pure-нода, 20 пинов с self');
+  ok(pfn && pfn.pins.filter(p => p.advanced).length === 16, 'Q6 фикстура: 16 advanced');
+  ok(pfn && pfn.pins.filter(p => p.category === 'name').every(p => p.defaultValue === 'None'), 'Q6 фикстура: name-пины с дефолтом None');
+  gf.EventGraph.nodes.forEach(n => delete n.rawBlock);
+  const frt = generateUEText(gf.EventGraph.nodes);
+  const fvr = validateStrict(frt);
+  ok(fvr.errors.length === 2 && frt.includes('bDefaultsToPureFunc=True'), 'Q6 фикстура: регенерация сохраняет E06 + pure-флаг');
+}
 console.log(`\nVALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);

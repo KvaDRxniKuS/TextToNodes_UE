@@ -127,10 +127,9 @@ Copy-back комментария из UE показал `ExportPath="..."` **в 
    форма не наблюдалась. Нужен copy-back хотя бы одного.
 3. **Siblings-ренеймы** (`Sphere/Box/CapsuleTraceSingle`, `LineTraceSingleForObjects`):
    имена выведены по Single-паттерну, вставка не подтверждена.
-4. **Pure-функции** (bIsPureFunc), **VarGet/VarSet self-пин** — не проверены.
+4. ~~**Pure-функции** (bIsPureFunc)~~ **ЧАСТИЧНО РЕШЕНО (Q6):** pure CallFunction = `bDefaultsToPureFunc=True`, без exec-пинов (BreakHitResult, verified:true). Осталось: **VarGet/VarSet self-пин** — не проверен.
 5. **SHORT-форма ссылок** (legacy) — вставкой не проверена ни на одном движке.
-6. **Выходы BreakHitResult** — движок их сам НЕ достраивает (L3: остался 1 пин).
-   Нужен copy-back настоящего «Break Hit Result».
+6. ~~**Выходы BreakHitResult** — движок их сам НЕ достраивает.~~ **РЕШЕНО:** настоящий «Break Hit Result» = pure `GameplayStatics.BreakHitResult` (self + Hit + 18 выходов, copy-back BP_WheelActor); K2Node_BreakStruct выходы НЕ строит никогда (подтверждено живым графом).
 
 ## v6: движок — UE 5.8.0, киллер J1–J4 — имя функции (2026-09-25)
 
@@ -211,3 +210,22 @@ ref+const; LatentActionInfo в пуле структур; Knot wildcard = вал
 sub-несовпадение и автодополнение проводам не вредят.
 Раскладка: fitComment() в src/generator.js — коммент-боксы теперь считаются
 по граням нод (было 400×180 мимо), gen-k/l-серии переведены на него.
+
+
+## Q6 resolved: «Break Hit Result» = pure-функция (2026-09-25)
+
+Copy-back из живого графа (BP_WheelActor): пункт палитры «Break Hit Result» — это
+K2Node_CallFunction `GameplayStatics.BreakHitResult` с `bDefaultsToPureFunc=True`,
+БЕЗ exec-пинов: self(hidden, DefaultObject) + Hit(struct HitResult, ref+const+ignored)
++ 18 выходов (bBlockingHit, bInitialOverlap, Time/Distance float, Location/ImpactPoint/
+Normal/ImpactNormal/TraceStart/TraceEnd Vector, PhysMat/HitActor/HitComponent,
+HitBoneName/BoneName dv "None", HitItem/ElementIndex/FaceIndex; 16 advanced).
+Реестр: BreakHitResult_pure (verified:true, 19 пинов без self).
+Эмиттер: regEntry.pure → `bDefaultsToPureFunc=True` перед FunctionReference
+(src/generator.js + src/parser.js + index.html genBlock/createFromReg + парсинг обратно).
+K2Node_BreakStruct_112 в том же графе — 1 пин: struct-нода выходы НЕ строит никогда.
+Бонусы: первый name-пин (dv "None"); PhysMat из /Script/PhysicsCore (новый модуль в путях);
+AdvancedPinDisplay=Shown = ручное раскрытие юзером (не эмитим — дефолт движка).
+M1 (tools/gen-m-series.mjs): трейд + OutHit→Hit round-trip. Фикстура:
+tests/fixtures/breakhitresult-copyback.txt (фрагмент: 2×E06 на вневыборочный _111).
+Q4 частично закрыт (pure CallFunction), остался VarGet/VarSet self-пин.
