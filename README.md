@@ -127,11 +127,13 @@ const graphs = parseToGraphs(ueText)
 - NodePosX/Y с шагом 240/160, чтобы граф не слипался
 - PinId и NodeGuid — уникальные HEX 32, генерируй случайно
 - Для каждой связи указывай LinkedTo=(NodeName PinId) в ОБЕИХ нодах (двусторонне)
-- PinCategory: exec, bool, real (double), int, object, string, struct
-- Используй только классы: K2Node_VariableGet, K2Node_VariableSet, K2Node_PromotableOperator, K2Node_IfThenElse, K2Node_CallFunction, K2Node_Knot, EdGraphNode_Comment, K2Node_Composite
-- Для VariableReference указывай MemberName и bSelfContext=True
-- Для CallFunction указывай FunctionReference=(MemberName="...")
+- PinCategory: exec, bool, real (double), int, byte, object, string, text, struct, class
+- Классы: VariableGet/Set, PromotableOperator, IfThenElse (Branch), ExecutionSequence, Switch, CallFunction/CallArrayFunction, MacroInstance, MakeStruct/BreakStruct, Knot, Comment, Composite
+- Для CallFunction указывай FunctionReference с ПОЛНЫМ MemberParent библиотеки (см. реестр lib)
+- ЗАПРЕЩЕНО: K2Node_Event, K2Node_ForLoop/WhileLoop/Gate/DoOnceMultiInput/FlipFlop/DoN (макросы — только MacroInstance)
+- Struct-пины — только с полным PinSubCategoryObject; Delay — выход then; MakeStruct — выход = имя структуры
 - В начале ответа краткий комментарий, затем код
+- Перед выдачей: node src/validate.js — ноль ошибок (подробности: docs/ENGINE_VERIFIED.md)
 ```
 
 ### JSON Schema (для function calling)
@@ -161,7 +163,16 @@ const graphs = parseToGraphs(ueText)
 
 ### Реестр функций
 
-`data/ue-functions.json` содержит 150+ нод, сгруппированных как в UE:
+`data/ue-functions.json` содержит 231 ноду, сгруппированную как в UE. Каждая запись несёт движковые метаданные:
+
+- `lib` — библиотека-хозяин для `MemberParent` (KismetMathLibrary, GameplayStatics...)
+- `verified` — `true`, только если нода реально вставлялась в UE из сгенерированного текста (✅ в палитре песочницы, иначе 🧪)
+- `note` — предупреждение/спорное место, валидатор показывает его как warning
+- `macro` / `struct` — имя+GUID стандартного макроса / полный путь структуры
+
+Проверенные вставкой ноды и протокол проверки — в `docs/ENGINE_VERIFIED.md`.
+
+Категории:
 
 - **Math / Float**: `Add, Subtract, Multiply, Divide, Greater, Less, Clamp, Lerp, MapRange, Sin, Cos, Sqrt, Power, FInterpTo...`
 - **Math / Vector**: `Add_VectorVector, VSize, Dot, Cross, Normal, MakeVector, BreakVector, FindLookAtRotation...`

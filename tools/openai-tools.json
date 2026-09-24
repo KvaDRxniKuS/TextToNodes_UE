@@ -3,7 +3,7 @@
     "type": "function",
     "function": {
       "name": "create_blueprint",
-      "description": "Создать Blueprint ассет (Actor, Component, Variables, Graph). Генерирует валидный UE текст Begin Object для вставки через Ctrl+V. Аналог NeoStack Blueprints.",
+      "description": "Создать Blueprint ассет (Actor, Component, Variables, Graph). Генерирует валидный UE текст Begin Object для вставки через Ctrl+V. Аналог NeoStack Blueprints. ВАЖНО: генерируй по prompt/system-prompt.md и реестру data/ue-functions.json (поля lib/macro/struct, запрещённые классы), затем ОБЯЗАТЕЛЬНО проверь текст командой node src/validate.js и исправь все ошибки.",
       "parameters": {
         "type": "object",
         "properties": {
@@ -37,7 +37,24 @@
           "graphNodes": {
             "type": "array",
             "description": "Опционально: точные ноды. Если не указано — сгенерируется из graphDescription через реестр KismetMathLibrary",
-            "items": {"$ref": "#/$defs/BlueprintNode"}
+            "items": {
+              "type": "object",
+              "description": "Нода графа (полная схема — src/schema.json)",
+              "properties": {
+                "id": {"type": "string"},
+                "className": {"type": "string", "enum": ["BlueprintGraph.K2Node_VariableGet", "BlueprintGraph.K2Node_VariableSet", "BlueprintGraph.K2Node_PromotableOperator", "BlueprintGraph.K2Node_IfThenElse", "BlueprintGraph.K2Node_ExecutionSequence", "BlueprintGraph.K2Node_SwitchInteger", "BlueprintGraph.K2Node_SwitchString", "BlueprintGraph.K2Node_SwitchEnum", "BlueprintGraph.K2Node_MakeStruct", "BlueprintGraph.K2Node_BreakStruct", "BlueprintGraph.K2Node_MacroInstance", "BlueprintGraph.K2Node_CallFunction", "BlueprintGraph.K2Node_CallArrayFunction", "BlueprintGraph.K2Node_Select", "BlueprintGraph.K2Node_Knot", "UnrealEd.EdGraphNode_Comment"]},
+                "pos": {"type": "object", "properties": {"x": {"type": "number"}, "y": {"type": "number"}}},
+                "varName": {"type": "string"},
+                "funcName": {"type": "string"},
+                "memberParent": {"type": "string"},
+                "operationName": {"type": "string"},
+                "structType": {"type": "string"},
+                "macroGraph": {"type": "string"},
+                "commentText": {"type": "string"},
+                "pins": {"type": "array", "items": {"type": "object"}}
+              },
+              "required": ["id", "className", "pins"]
+            }
           }
         },
         "required": ["name", "graphDescription"]

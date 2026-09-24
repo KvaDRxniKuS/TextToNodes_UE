@@ -4,14 +4,25 @@
   "description": "JSON schema for text-to-blueprint generation. LLM should output nodes that satisfy this before converting to Begin Object blocks.",
   "type": "object",
   "properties": {
-    "graphName": {"type": "string", "default": "EventGraph"},
+    "graphName": {
+      "type": "string",
+      "default": "EventGraph"
+    },
     "nodes": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "className", "pos", "pins"],
+        "required": [
+          "id",
+          "className",
+          "pos",
+          "pins"
+        ],
         "properties": {
-          "id": {"type": "string", "pattern": "^[A-Za-z0-9_]+$"},
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_]+$"
+          },
           "className": {
             "type": "string",
             "enum": [
@@ -19,7 +30,19 @@
               "BlueprintGraph.K2Node_VariableSet",
               "BlueprintGraph.K2Node_PromotableOperator",
               "BlueprintGraph.K2Node_IfThenElse",
+              "BlueprintGraph.K2Node_ExecutionSequence",
+              "BlueprintGraph.K2Node_SwitchInteger",
+              "BlueprintGraph.K2Node_SwitchString",
+              "BlueprintGraph.K2Node_SwitchEnum",
+              "BlueprintGraph.K2Node_MakeStruct",
+              "BlueprintGraph.K2Node_BreakStruct",
+              "BlueprintGraph.K2Node_MacroInstance",
               "BlueprintGraph.K2Node_CallFunction",
+              "BlueprintGraph.K2Node_CallArrayFunction",
+              "BlueprintGraph.K2Node_Select",
+              "BlueprintGraph.K2Node_MakeArray",
+              "BlueprintGraph.K2Node_MakeSet",
+              "BlueprintGraph.K2Node_MakeMap",
               "BlueprintGraph.K2Node_Knot",
               "BlueprintGraph.K2Node_Composite",
               "UnrealEd.EdGraphNode_Comment"
@@ -27,38 +50,173 @@
           },
           "pos": {
             "type": "object",
-            "required": ["x", "y"],
+            "required": [
+              "x",
+              "y"
+            ],
             "properties": {
-              "x": {"type": "number"},
-              "y": {"type": "number"}
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              }
             }
           },
-          "guid": {"type": "string", "pattern": "^[A-F0-9]{32}$"},
-          "varName": {"type": ["string", "null"]},
-          "funcName": {"type": ["string", "null"]},
-          "operationName": {"type": ["string", "null"]},
-          "commentText": {"type": ["string", "null"]},
+          "guid": {
+            "type": "string",
+            "pattern": "^[A-F0-9]{32}$"
+          },
+          "varName": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "funcName": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "operationName": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "opMemberName": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "MemberName для PromotableOperator, если отличается от OperationName_DoubleDouble (например Add_IntInt)"
+          },
+          "memberParent": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Канонический MemberParent v6 (UE 5.8, quoted-full): \"/Script/CoreUObject.Class'/Script/Engine.KismetSystemLibrary'\""
+          },
+          "structType": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Полный путь StructType для Make/BreakStruct"
+          },
+          "macroGraph": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Имя стандартного макроса для MacroInstance (ForLoop, Gate, ...)"
+          },
+          "macroGuid": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^[A-F0-9]{32}$"
+          },
+          "commentText": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
           "pins": {
             "type": "array",
             "items": {
               "type": "object",
-              "required": ["id", "name", "direction", "category"],
+              "required": [
+                "id",
+                "name",
+                "direction",
+                "category"
+              ],
               "properties": {
-                "id": {"type": "string", "pattern": "^[A-F0-9]{32}$"},
-                "name": {"type": "string"},
-                "direction": {"type": "string", "enum": ["Input", "Output"]},
-                "category": {"type": "string", "enum": ["exec", "bool", "real", "int", "object", "string", "struct", "class", ""]},
-                "subCategory": {"type": "string"},
+                "id": {
+                  "type": "string",
+                  "pattern": "^[A-F0-9]{32}$"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "direction": {
+                  "type": "string",
+                  "enum": [
+                    "Input",
+                    "Output"
+                  ]
+                },
+                "category": {
+                  "type": "string",
+                  "enum": [
+                    "exec",
+                    "bool",
+                    "real",
+                    "int",
+                    "byte",
+                    "name",
+                    "object",
+                    "string",
+                    "text",
+                    "struct",
+                    "class",
+                    "",
+                    "wildcard"
+                  ]
+                },
+                "subCategory": {
+                  "type": "string"
+                },
+                "subCategoryObject": {
+                  "type": "string",
+                  "description": "Канонический путь PinSubCategoryObject v6: quoted-full \"/Script/CoreUObject.*\" в кавычках (UE 5.8), пусто = None"
+                },
+                "isConst": {
+                  "type": "boolean",
+                  "description": "bIsConst пина (true у WorldContextObject)"
+                },
+                "defaultValue": {
+                  "type": "string",
+                  "description": "DefaultValue пина (для Selection/TraceChannel/флагов)"
+                },
                 "linkedTo": {
                   "type": "array",
                   "items": {
                     "type": "object",
-                    "required": ["nodeName", "pinId"],
+                    "required": [
+                      "nodeName",
+                      "pinId"
+                    ],
                     "properties": {
-                      "nodeName": {"type": "string"},
-                      "pinId": {"type": "string"}
+                      "nodeName": {
+                        "type": "string"
+                      },
+                      "pinId": {
+                        "type": "string"
+                      }
                     }
                   }
+                },
+                "isRef": {
+                  "type": "boolean",
+                  "description": "bIsReference пина (true у ActorsToIgnore — TArray<AActor*>&)"
+                },
+                "container": {
+                  "type": "string",
+                  "description": "ContainerType: None | Array | Set | Map"
+                },
+                "ignored": {
+                  "type": "boolean",
+                  "description": "bDefaultValueIsIgnored (true у ActorsToIgnore, InputPin reroute)"
+                },
+                "advanced": {
+                  "type": "boolean",
+                  "description": "bAdvancedView (пины AdvancedDisplay: TraceColor/TraceHitColor/DrawTime)"
                 }
               }
             }
@@ -67,5 +225,7 @@
       }
     }
   },
-  "required": ["nodes"]
+  "required": [
+    "nodes"
+  ]
 }

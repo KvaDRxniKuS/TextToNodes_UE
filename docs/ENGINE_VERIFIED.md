@@ -129,6 +129,8 @@ Copy-back комментария из UE показал `ExportPath="..."` **в 
    имена выведены по Single-паттерну, вставка не подтверждена.
 4. **Pure-функции** (bIsPureFunc), **VarGet/VarSet self-пин** — не проверены.
 5. **SHORT-форма ссылок** (legacy) — вставкой не проверена ни на одном движке.
+6. **Выходы BreakHitResult** — движок их сам НЕ достраивает (L3: остался 1 пин).
+   Нужен copy-back настоящего «Break Hit Result».
 
 ## v6: движок — UE 5.8.0, киллер J1–J4 — имя функции (2026-09-25)
 
@@ -194,3 +196,18 @@ L3: OutHit→BreakHitResult, полный и минимальный трейд (
 engine-completion связи). BreakHitResult в реестре минимальный (только вход HitResult,
 verified:false) — L3 покажет, достраивает ли движок выходы struct-нод.
 Генератор: tools/gen-l-series.mjs. Все L: STRICT-OK, 0 варнингов.
+
+
+## L-результаты: все 7 связей живые (2026-09-25)
+
+| Вариант | Провода | Результат |
+|---|---|---|
+| L1 exec Sequence→Print→Delay | 2/2 | оба живы; Print 3→10 пинов; Delay.Duration double→float, движок добавил дефолт 0.2 + self/WCO/LatentInfo; пин Delay.then движок показывает как «Completed», имя пина — всё равно `then` |
+| L2 data+knot | 3/3 | Make→Knot→Break живы; Knot wildcard→Vector разрешился; X(double)→Duration(float) — несовпадение типов провод НЕ убило; BreakVector.Vector = ref+const; MakeVector движок переупорядочил (Vector первым) + ShowPinForProperties |
+| L3 OutHit→Break | 2/2 | оба живы, включая минимальный трейд (4→16 пинов) — engine-completion связи НЕ ест; BreakHitResult выходы сам НЕ построил (остался 1 пин) → вопрос Q6 |
+
+Зафиксировано в коде: Delay.Duration = float + дефолт 0.2; входы Break-нод =
+ref+const; LatentActionInfo в пуле структур; Knot wildcard = валидный клей;
+sub-несовпадение и автодополнение проводам не вредят.
+Раскладка: fitComment() в src/generator.js — коммент-боксы теперь считаются
+по граням нод (было 400×180 мимо), gen-k/l-серии переведены на него.
