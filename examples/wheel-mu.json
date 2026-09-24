@@ -1,0 +1,7 @@
+{
+  "graphName": "EventGraph",
+  "nodes": [
+    {"id":"K2Node_VariableGet_38","className":"BlueprintGraph.K2Node_VariableGet","pos":{"x":0,"y":0},"guid":"B6FD50264AC18EFBCC9FA08E6AA4A369","varName":"StaticMu","pins":[{"id":"3FC5E3F449DAC916324B3DB1FF579D30","name":"StaticMu","direction":"Output","category":"real","linkedTo":[{"nodeName":"K2Node_PromotableOperator_25","pinId":"96B24767422B648B2FDB61B1394A41EA"}]}]},
+    {"id":"K2Node_PromotableOperator_25","className":"BlueprintGraph.K2Node_PromotableOperator","pos":{"x":240,"y":0},"guid":"C4A2139D4367247CF683B5B03D4CB225","operationName":"Greater","pins":[{"id":"96B24767422B648B2FDB61B1394A41EA","name":"A","direction":"Input","category":"real","linkedTo":[{"nodeName":"K2Node_VariableGet_38","pinId":"3FC5E3F449DAC916324B3DB1FF579D30"}]},{"id":"A27B0956491E1999F84B02A9698C7334","name":"B","direction":"Input","category":"real","linkedTo":[{"nodeName":"K2Node_VariableGet_40","pinId":"4323A5E44F3283A0E239A29CAD619930"}]},{"id":"3AEF975E412FD669E1C497AB1197B114","name":"ReturnValue","direction":"Output","category":"bool","linkedTo":[{"nodeName":"K2Node_IfThenElse_10","pinId":"454CBBAE4E18A0792BF71DB8D7588E74"}]}]}
+  ]
+}

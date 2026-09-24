@@ -1,0 +1,191 @@
+[
+  {
+    "type": "function",
+    "function": {
+      "name": "create_blueprint",
+      "description": "Создать Blueprint ассет (Actor, Component, Variables, Graph). Генерирует валидный UE текст Begin Object для вставки через Ctrl+V. Аналог NeoStack Blueprints.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string", "description": "Имя ассета, например BP_HealthPickup"},
+          "parentClass": {"type": "string", "enum": ["Actor", "Pawn", "Character", "ActorComponent", "Object"], "default": "Actor"},
+          "components": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {"type": "string"},
+                "type": {"type": "string", "enum": ["StaticMeshComponent", "SphereCollision", "BoxCollision", "SkeletalMeshComponent", "CameraComponent", "ArrowComponent"]}
+              },
+              "required": ["name", "type"]
+            }
+          },
+          "variables": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {"type": "string"},
+                "type": {"type": "string", "enum": ["float", "int", "bool", "String", "Vector", "Rotator", "Object"]},
+                "defaultValue": {"type": "string"},
+                "isEditable": {"type": "boolean", "default": true}
+              },
+              "required": ["name", "type"]
+            }
+          },
+          "graphDescription": {"type": "string", "description": "Текстовое описание логики графа, например: если StaticMu > DynamicMu то вызвать F_UpdateGraphics иначе Set StaticMu"},
+          "graphNodes": {
+            "type": "array",
+            "description": "Опционально: точные ноды. Если не указано — сгенерируется из graphDescription через реестр KismetMathLibrary",
+            "items": {"$ref": "#/$defs/BlueprintNode"}
+          }
+        },
+        "required": ["name", "graphDescription"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "create_material",
+      "description": "Создать Material ассет. Генерирует MaterialExpression ноды (TextureSample, Multiply, Lerp, etc). Аналог NeoStack Materials.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string", "description": "Имя материала, например M_Master_Health"},
+          "domain": {"type": "string", "enum": ["Surface", "DeferredDecal", "LightFunction", "PostProcess"], "default": "Surface"},
+          "blendMode": {"type": "string", "enum": ["Opaque", "Masked", "Translucent", "Additive"], "default": "Opaque"},
+          "expressions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {"type": "string", "enum": ["TextureSample", "Constant3Vector", "Multiply", "Add", "Lerp", "Fresnel", "Panner", "Time"]},
+                "params": {"type": "object"}
+              }
+            }
+          },
+          "connectTo": {"type": "string", "description": "Куда подключить результат, например BaseColor, EmissiveColor, Opacity"}
+        },
+        "required": ["name", "expressions"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "create_struct",
+      "description": "Создать UStruct (Data Structure). Аналог NeoStack Structs.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string", "description": "Имя структуры, например F_HealthData"},
+          "fields": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {"type": "string"},
+                "type": {"type": "string", "enum": ["float", "int", "bool", "FString", "FVector", "FName", "TArray", "TMap"]},
+                "defaultValue": {"type": "string"}
+              },
+              "required": ["name", "type"]
+            }
+          }
+        },
+        "required": ["name", "fields"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "create_enum",
+      "description": "Создать UEnum. Аналог NeoStack Enums.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string", "description": "Имя энама, например E_HealthState"},
+          "entries": {"type": "array", "items": {"type": "string"}}
+        },
+        "required": ["name", "entries"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "create_datatable",
+      "description": "Создать DataTable из структуры. Аналог NeoStack DataTables.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "rowStruct": {"type": "string", "description": "Имя UStruct, например F_HealthData"},
+          "rows": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "rowName": {"type": "string"},
+                "values": {"type": "object"}
+              },
+              "required": ["rowName", "values"]
+            }
+          }
+        },
+        "required": ["name", "rowStruct", "rows"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "create_behavior_tree",
+      "description": "Создать Behavior Tree + Blackboard. Аналог NeoStack Behaviour Trees.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string", "description": "Имя BT, например BT_EnemyAI"},
+          "blackboardKeys": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {"type": "string"},
+                "type": {"type": "string", "enum": ["Object", "Vector", "Float", "Bool", "Enum"]}
+              }
+            }
+          },
+          "rootSequence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {"type": "string", "enum": ["Sequence", "Selector", "SimpleParallel"]},
+                "tasks": {"type": "array", "items": {"type": "string"}}
+              }
+            }
+          }
+        },
+        "required": ["name"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "modify_blueprint_graph",
+      "description": "Модифицировать существующий граф. На вход — JSON текущего графа (из песочницы Export → JSON) + инструкция что изменить. Возвращает обновлённый Begin Object текст.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "currentGraphJSON": {"type": "string", "description": "Экспорт текущего графа в JSON (из песочницы)"},
+          "instruction": {"type": "string", "description": "Что изменить, например: добавь проверку IsValid перед вызовом F_UpdateGraphics"},
+          "preserveGuids": {"type": "boolean", "default": true, "description": "Сохранять GUID неизменённых нод"}
+        },
+        "required": ["currentGraphJSON", "instruction"]
+      }
+    }
+  }
+]

@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UE Blueprint Sandbox — Arena Toolkit</title>
+<style>
+  :root{--bg:#0e0e0e;--grid1:#1a1a1a;--panel:#1e1e1e;--border:#2a2a2a;--orange:#ff9c27;--text:#e6e6e6;--muted:#888}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:Inter,Segoe UI,Roboto,sans-serif}
+  /* header */
+  header{height:40px;background:#111;border-bottom:1px solid #222;display:flex;align-items:center;gap:8px;padding:0 10px;flex-shrink:0;z-index:20}
+  .brand{display:flex;align-items:center;gap:8px;font-weight:800;letter-spacing:.02em;font-size:13px}
+  .brand i{width:22px;height:22px;background:var(--orange);color:#111;display:grid;place-items:center;border-radius:4px;font-style:normal;font-size:11px}
+  .crumbs{display:flex;align-items:center;gap:6px;background:#1a1a1a;border:1px solid #2a2a2a;padding:4px 10px;border-radius:20px;font-size:11.5px;margin-left:10px}
+  .crumbs b{color:var(--orange);cursor:pointer}
+  .crumbs b.active{color:#fff;cursor:default}
+  .crumbs span{opacity:.3}
+  .hdr-actions{margin-left:auto;display:flex;gap:6px}
+  .btn{background:#222;border:1px solid #2e2e2e;color:var(--text);padding:5px 9px;border-radius:6px;font-size:11.5px;cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+  .btn:hover{background:#2a2a2a}
+  .btn.primary{background:var(--orange);color:#111;border-color:#ffad4a;font-weight:700}
+  .btn.ghost{background:transparent;border-color:transparent;color:var(--muted)}
+  /* canvas */
+  #canvasWrap{position:absolute;inset:40px 0 20px 0;overflow:hidden;background:#181818;cursor:grab}
+  #canvasWrap.grabbing{cursor:grabbing}
+  #canvasWrap.boxing{cursor:crosshair}
+  #grid{position:absolute;inset:-5000px;background-color:#151515;background-image:radial-gradient(circle,#2a2a2a 1px,transparent 1px),linear-gradient(#1e1e1e 1px,transparent 1px),linear-gradient(90deg,#1e1e1e 1px,transparent 1px);background-size:22px 22px,120px 120px,120px 120px}
+  #viewport{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform}
+  #wires{position:absolute;left:0;top:0;width:8000px;height:8000px;overflow:visible;pointer-events:none}
+  #wires path{pointer-events:stroke;cursor:pointer}
+  #wires path.hit{pointer-events:stroke;stroke:transparent;stroke-width:14;cursor:pointer}
+  #wires path.hit:hover{stroke:rgba(255,255,255,.08)}
+  #nodes{position:absolute;left:0;top:0}
+  .node{position:absolute;min-width:180px;background:#232323;border:1px solid #3a3a3a;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.5);overflow:hidden}
+  .node.selected{border-color:var(--orange);box-shadow:0 0 0 1px var(--orange),0 8px 20px rgba(0,0,0,.6)}
+  .node.reroute{width:16px!important;min-width:16px!important;height:16px;border-radius:50%;background:#3a3a3a;border:2px solid #555;padding:0}
+  .node.reroute .node-head,.node.reroute .node-body{display:none}
+  .node.reroute.selected{background:var(--orange);border-color:#ffb347}
+  .node.comment{background:rgba(32,32,32,.78);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(4px);border-radius:10px}
+  .node.comment.selected{border-color:rgba(255,156,39,.6)}
+  .node.tunnel{border-style:dashed;opacity:.95}
+  .node.comment{z-index:0}
+  .node:not(.comment){z-index:1}
+  .node.selected{z-index:10}
+  .node.dragging{z-index:20}
+  .dot{cursor:grab}
+  .dot.dragging{cursor:grabbing;box-shadow:0 0 0 3px rgba(255,255,255,.25)}
+  #wires .preview{stroke-dasharray:6 4;opacity:.9}
+  .node-head{height:22px;display:flex;align-items:center;gap:6px;padding:0 7px;font-size:11.5px;font-weight:700;color:#fff;cursor:move;white-space:nowrap;overflow:hidden}
+  .node-head .ico{width:14px;height:14px;border-radius:3px;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.15);display:grid;place-items:center;font-size:9px;flex-shrink:0}
+  .node-body{display:flex;justify-content:space-between;gap:6px;padding:6px 0 7px}
+  .pins-col{display:flex;flex-direction:column;gap:4px}
+  .pins-col.right{align-items:flex-end}
+  .pin-row{display:flex;align-items:center;gap:5px;font-size:11px;line-height:1;padding:0 7px}
+  .pin-row.out{flex-direction:row-reverse}
+  .dot{width:14px;height:14px;border-radius:50%;border:2.5px solid #888;background:#1a1a1a;flex-shrink:0;position:relative;cursor:grab;transition:transform .12s, box-shadow .12s}
+  .dot:hover{transform:scale(1.15);box-shadow:0 0 0 4px rgba(255,255,255,.12)}
+  .dot::after{content:'';position:absolute;left:50%;top:50%;width:28px;height:28px;transform:translate(-50%,-50%);border-radius:50%}
+  .dot.exec{width:12px;height:12px}
+  .pin-row{padding:2px 7px;border-radius:4px}
+  .pin-row:hover{background:rgba(255,255,255,.04)}
+  .dot.exec{width:9px;height:9px;border-radius:1px;transform:rotate(45deg);background:#fff;border-color:#fff}
+  .dot.bool{border-color:#c43c3c;background:#c43c3c}
+  .dot.real{border-color:#6fbe6f}
+  .dot.object{border-color:#4a90e2;background:#4a90e2}
+  .dot.string{border-color:#c27ad6}
+  .lbl{color:#d6d6d6;white-space:nowrap}
+  .lbl.exec{color:#fff;font-weight:600}
+  #selBox{position:absolute;border:1px solid var(--orange);background:rgba(255,156,39,.12);display:none;pointer-events:none;z-index:10}
+  /* status */
+  #status{position:absolute;left:0;right:0;bottom:0;height:20px;background:#0f0f0f;border-top:1px solid #222;display:flex;align-items:center;gap:10px;padding:0 8px;font-size:10.5px;color:#777}
+  /* context menu */
+  #ctx{position:fixed;min-width:340px;max-width:380px;max-height:72vh;background:#1e1e1e;border:1px solid #333;border-radius:12px;box-shadow:0 20px 50px rgba(0,0,0,.6);display:none;flex-direction:column;overflow:hidden;z-index:100}
+  #ctx .search{padding:8px;border-bottom:1px solid #252525}
+  #ctx .search input{width:100%;background:#111;border:1px solid #333;border-radius:8px;color:#eee;padding:7px 9px;font-size:12px;outline:none}
+  #ctx .list{overflow:auto;flex:1;padding:6px}
+  #ctx .group{font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:#777;padding:8px 6px 4px}
+  #ctx .item{padding:6px 8px;display:flex;align-items:center;gap:8px;border-radius:8px;cursor:pointer}
+  #ctx .item:hover{background:#2a2a2a}
+  #ctx .item .ic{width:22px;height:22px;border-radius:6px;background:#252525;border:1px solid #333;display:grid;place-items:center;font-size:11px;flex-shrink:0}
+  #ctx .item b{flex:1;font-size:12px}
+  #ctx .item small{color:#777;font-size:11px}
+  #ctx .act{margin:6px;padding:7px 8px;background:#222;border:1px dashed #333;border-radius:8px;display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12px}
+  #ctx .act:hover{background:#272727}
+  #ctx .node-acts{display:flex;gap:6px;padding:6px;border-top:1px solid #252525}
+  #ctx .node-acts .btn{flex:1;justify-content:center}
+  /* toast */
+  #toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:#222;border:1px solid #333;color:#eee;padding:9px 14px;border-radius:8px;font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:.22s;z-index:200}
+  #toast.show{opacity:1}
+  /* help */
+  #help{position:absolute;right:10px;top:50px;background:rgba(18,18,18,.9);border:1px solid #2a2a2a;padding:8px 10px;border-radius:8px;font-size:11px;color:#999;backdrop-filter:blur(6px);max-width:280px;line-height:1.4}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><i>UE</i> Blueprint Sandbox <span style="opacity:.5;font-weight:400;font-size:11px">— Arena Toolkit • UE 5.8</span></div>
+  <div class="crumbs" id="crumbs"></div>
+  <div class="hdr-actions">
+    <button class="btn ghost" id="btnFit" title="Вместить (F)">◎ Вместить</button>
+    <button class="btn ghost" id="btnClear" title="Очистить">🗑</button>
+    <button class="btn" id="btnPaste" title="Вставить из буфера (Ctrl+V в любом месте канвы)">📋 Вставить</button>
+    <button class="btn primary" id="btnCopy" title="Копировать выделенное (Ctrl+C)">⎘ Копировать</button>
+  </div>
+</header>
+
+<div id="canvasWrap">
+  <div id="grid"></div>
+  <div id="viewport">
+    <svg id="wires"></svg>
+    <div id="nodes"></div>
+  </div>
+  <div id="selBox"></div>
+  <div id="help">
+    <b style="color:#ccc">Как в Unreal Editor:</b><br>
+    • <b>ПКМ</b> на пустом месте — палитра нод/переменных<br>
+    • <b>ПКМ</b> на ноде — копировать/удалить<br>
+    • <b>Ctrl+V</b> в любом месте канвы — вставить скопированные из UE ноды<br>
+    • <b>Ctrl+C</b> — копировать выделенные прямо с канвы<br>
+    • <b>ЛКМ</b> рамка, <b>Shift+клик</b> добавить, <b>двойной клик</b> по Collapsed Graph — вход<br>
+    • Комментарий тащит содержимое
+  </div>
+</div>
+
+<div id="status">
+  <span id="stSel">Выделено: 0</span>
+  <span id="stPos">—</span>
+  <span id="stZoom">100%</span>
+  <span id="stGraph" style="margin-left:auto;color:#555">EventGraph</span>
+  <span style="color:#444">|</span>
+  <span id="stCount">0 нод</span>
+</div>
+
+<div id="ctx">
+  <div class="search"><input id="ctxSearch" placeholder="Поиск: Branch, Greater, Print String, переменная..."></div>
+  <div class="list" id="ctxList"></div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+/* ===== State ===== */
+let graphs = {};           // id -> {id,name,nodes,parentCompositeId,parentGraphId}
+let stack = [];            // graph stack for breadcrumbs
+let cur = 'EventGraph';
+let selected = new Set();
+let pan = {x:80,y:60}, scale=1, snap=true;
+let mouseWorld = {x:0,y:0};
+let drag = null;           // {nodes, startMouse, starts:Map}
+let wireDrag = null;       // {fromNode, fromPin, startWorld, curWorld}
+let box = null;
+let lastMouseScreen = {x:0,y:0};
+let clipboardHasUE = false;
+
+const $wrap = document.getElementById('canvasWrap');
+const $viewport = document.getElementById('viewport');
+const $grid = document.getElementById('grid');
+const $nodes = document.getElementById('nodes');
+const $wires = document.getElementById('wires');
+const $selBox = document.getElementById('selBox');
+const $ctx = document.getElementById('ctx');
+const $ctxSearch = document.getElementById('ctxSearch');
+const $ctxList = document.getElementById('ctxList');
+
+function curGraph(){ return graphs[cur]; }
+function curNodes(){ return curGraph()?.nodes || []; }
+
+/* ===== Utils ===== */
+const guid = ()=>{ const h='0123456789ABCDEF'; let s=''; for(let i=0;i<32;i++) s+=h[Math.floor(Math.random()*16)]; return s; };
+const esc = s => (s+'').replace(/[&<>"]/g,c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const wireColor = cat => { cat=(cat||'').toLowerCase(); if(cat==='exec') return '#fff'; if(cat==='bool') return '#e05a5a'; if(cat==='real'||cat==='float'||cat==='double'||cat==='int') return '#6fbe6f'; if(cat==='object'||cat==='class') return '#4a90e2'; if(cat==='string') return '#c27ad6'; if(cat==='struct') return '#7aa8ff'; return '#aaa'; };
+const headerColor = n => {
+  if(n.isComment) return '#3a3a3a';
+  if(n.isTunnel) return '#2b2b2b';
+  if(n.className.includes('VariableGet')) return '#4a7a3a';
+  if(n.className.includes('VariableSet')) return '#7a5a2a';
+  if(n.className.includes('IfThenElse')) return '#8b2e2e';
+  if(n.className.includes('PromotableOperator')) return '#2f6b7a';
+  if(n.className.includes('CallFunction')) return '#2e5a9a';
+  if(n.className.includes('Composite')) return '#5a3a7a';
+  if(n.isReroute) return '#444';
+  return '#3a3a3a';
+};
+const iconFor = n => {
+  if(n.isTunnel) return '◈';
+  if(n.className.includes('VariableGet')) return '◎';
+  if(n.className.includes('VariableSet')) return '◉';
+  if(n.className.includes('IfThenElse')) return '◈';
+  if(n.className.includes('PromotableOperator')) return '∑';
+  if(n.className.includes('CallFunction')) return 'ƒ';
+  if(n.className.includes('Composite')) return '⬢';
+  return '⬣';
+};
+function toast(msg){
+  const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(t._to); t._to=setTimeout(()=>t.classList.remove('show'),2400);
+}
+function snapVal(v){ return snap? Math.round(v/16)*16 : v; }
+
+/* ===== Registry (UE 5.8 — 231 functions, embedded) ===== */
+// DEBUG: REG embedded 231 functions — если видишь это, поиск работает
+const REG = [{"id": "Branch", "title": "Branch", "category": "Flow Control", "className": "/Script/BlueprintGraph.K2Node_IfThenElse", "func": "Branch", "pins": [{"name": "execute", "dir": "Input", "cat": "exec"}, {"name": "Condition", "dir": "Input", "cat": "bool"}, {"name": "then", "dir": "Output", "cat": "exec"}, {"name": "else", "dir": "Output", "cat": "exec"}], "desc": "Ветвление"}, {"id": "Sequence", "title": "Sequence", "category": "Flow Control", "className": "/Script/BlueprintGraph.K2Node_ExecutionSequence", "func": "", "pins": [{"name": "execute", "dir": "Input", "cat": "exec"}, {"name": "then_0", "dir": "Output", "cat": "exec"}, {"name": "then_1", "dir": "Output", "cat": "exec"}], "desc": "Последовательность"}, {"id": "ForLoop", "title": "ForLoop", "category": "Flow Control", "className": "/Script/BlueprintGraph.K2Node_ForLoop", "func": "", "pins": [{"name": "execute", "dir": "Input", "cat": "exec"}, {"name": "First Index", "dir": "Input", "cat": "int"}, {"name": "Last Index", "dir": "Input", "cat": "int"}, {"name": "LoopBody", "dir": "Output", "cat": "exec"}, {"name": "Completed", "dir": "Output", "cat": "exec"}, {"name": "Index", "dir": "Output", "cat": "int"}], "desc": "Цикл"}, {"id": "ForLoopWithBreak", "title": "ForLoopWithBreak", "category": "Flow Control", "className": "/Script/BlueprintGraph.K2Node_ForLoop", "func": "", "pins": [{"name": "execute", "dir": "Input", "cat": "exec"}, {"name": "First Index", "dir": "Input", "cat": "int"}, {"name": "Last Index", "dir": "Input", "cat": "int"}, {"name": "LoopBody", "dir": "Output", "cat": "exec"}, {"name": "Completed", "dir": "Output", "cat": "exec"}, {"name": "Index", "dir": "Output", "cat": "int"}, {"name": "Break", "dir": "Input", "cat": "exec"}], "desc": "С break"}, {"id": "WhileLoop", "title": "WhileLoop", "category": "Flow Control", "className": "/Script/BlueprintGraph.K2Node_WhileLoop", "func": "", "pins": [{"name": "execute", "dir": "Input", "cat": "exec"}, {"name": "Condition", "dir": "Input", "cat": "bool"}, {"name": "LoopBody", "dir": "Output", "cat": "exec"}, {"name": "Completed", "dir": "Output", "cat": "exec"}], "desc": "While"}, {"id": "Gate", "title": "Gate", "category": "Flow Control", "className": "/Script/BlueprintGraph.K2Node_Gate", "func": "", "pins": [{"name": "Enter", "dir": "Input", "cat": "exec"}, {"name": "Open", "dir": "Input", "cat": "exec"}, {"name": "Close", "dir": "Input", "cat": "exec"}, {"name": "Exit", "dir": "Output", "cat": "exec"}], "desc": "Gate"}, {"id": "DoOnce", "title": "DoOnce", "category": "Flow Control", "className": "/Script/BlueprintGraph.K2Node_DoOnceMultiInput", "func": "", "pins": [{"name": "execute", "dir": "Input", "cat": "exec"}, {"name": "Completed", "dir": "Output", "cat": "exec"}, {"name": "Reset", "dir": "Input", "cat": "exec"}], "desc": "DoOnce"}, {"id": "FlipFlop", "title": "FlipFlop", "category": "Flow Control", "className": "/Script/BlueprintGraph.K2Node_FlipFlop", "func": "", "pins": [{"name": "execute", "dir": "Input", "cat": "exec"}, {"name": "IsA", "dir": "Output", "cat": "exec"}, {"name": "IsB", "dir": "Output", "cat": "exec"}], "desc": "FlipFlop"}, {"id": "DoN", "title": "Do N", "category": "Flow Control", "className": "/Script/BlueprintGraph.K2Node_DoN", "func": "", "pins": [{"name": "execute", "dir": "Input", "cat": "exec"}, {"name": "Enter", "dir": "Input", "cat": "exec"}, {"name": "Exit", "dir": "Output", "cat": "exec"}, {"name": "Counter", "dir": "Output", "cat": "int"}], "desc": "DoN"}, {"id": "Sequence3", "title": "Sequence (3)", "category": "Flow Control", "className": "/Script/BlueprintGraph.K2Node_ExecutionSequence", "func": "", "pins": [{"name": "execute", "dir": "Input", "cat": "exec"}, {"name": "then_0", "dir": "Output", "cat": "exec"}, {"name": "then_1", "dir": "Output", "cat": "exec"}, {"name": "then_2", "dir": "Output", "cat": "exec"}], "desc": "Seq 3"}, {"id": "SwitchInt", "title": "Switch on Int", "category": "Flow Control", "className": "/Script/BlueprintGraph.K2Node_SwitchInteger", "func": "", "pins": [{"name": "execute", "dir": "Input", "cat": "exec"}, {"name": "Selection", "dir": "Input", "cat": "int"}, {"name": "Default", "dir": "Output", "cat": "exec"}], "desc": "Switch Int"}, {"id": "SwitchString", "title": "Switch on String", "category": "Flow Control", "className": "/Script/BlueprintGraph.K2Node_SwitchString", "func": "", "pins": [{"name": "execute", "dir": "Input", "cat": "exec"}, {"name": "Selection", "dir": "Input", "cat": "string"}, {"name": "Default", "dir": "Output", "cat": "exec"}], "desc": "Switch String"}, {"id": "SwitchEnum", "title": "Switch on Enum", "category": "Flow Control", "className": "/Script/BlueprintGraph.K2Node_SwitchEnum", "func": "", "pins": [{"name": "execute", "dir": "Input", "cat": "exec"}, {"name": "Selection", "dir": "Input", "cat": "byte"}, {"name": "Default", "dir": "Output", "cat": "exec"}], "desc": "Switch Enum"}, {"id": "VarGet", "title": "Get Variable", "category": "Variables", "className": "/Script/BlueprintGraph.K2Node_VariableGet", "func": "", "pins": [{"name": "Var", "dir": "Output", "cat": "real"}], "desc": "Get"}, {"id": "VarSet", "title": "Set Variable", "category": "Variables", "className": "/Script/BlueprintGraph.K2Node_VariableSet", "func": "", "pins": [{"name": "execute", "dir": "Input", "cat": "exec"}, {"name": "then", "dir": "Output", "cat": "exec"}, {"name": "Var", "dir": "Input", "cat": "real"}], "desc": "Set"}, {"id": "VarGetBool", "title": "Get Bool Variable", "category": "Variables", "className": "/Script/BlueprintGraph.K2Node_VariableGet", "func": "", "pins": [{"name": "Var", "dir": "Output", "cat": "bool"}], "desc": "Get Bool"}, {"id": "VarGetVector", "title": "Get Vector Variable", "category": "Variables", "className": "/Script/BlueprintGraph.K2Node_VariableGet", "func": "", "pins": [{"name": "Var", "dir": "Output", "cat": "struct", "sub": "Vector"}], "desc": "Get Vector"}, {"id": "Add_Float", "title": "Add (float)", "category": "Math / Float", "className": "/Script/BlueprintGraph.K2Node_PromotableOperator", "func": "Add", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "B", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Add"}, {"id": "Subtract_Float", "title": "Subtract (float)", "category": "Math / Float", "className": "/Script/BlueprintGraph.K2Node_PromotableOperator", "func": "Subtract", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "B", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Subtract"}, {"id": "Multiply_Float", "title": "Multiply (float)", "category": "Math / Float", "className": "/Script/BlueprintGraph.K2Node_PromotableOperator", "func": "Multiply", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "B", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Multiply"}, {"id": "Divide_Float", "title": "Divide (float)", "category": "Math / Float", "className": "/Script/BlueprintGraph.K2Node_PromotableOperator", "func": "Divide", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "B", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Divide"}, {"id": "Percent_Float", "title": "Percent (float)", "category": "Math / Float", "className": "/Script/BlueprintGraph.K2Node_PromotableOperator", "func": "Percent", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "B", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Percent (mod)"}, {"id": "Power_Float", "title": "Power (float)", "category": "Math / Float", "className": "/Script/BlueprintGraph.K2Node_PromotableOperator", "func": "Power", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "B", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Power"}, {"id": "Abs_Float", "title": "Abs (float)", "category": "Math / Float", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Abs", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Модуль"}, {"id": "Sign_Float", "title": "Sign (float)", "category": "Math / Float", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Sign", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Знак"}, {"id": "Round_Float", "title": "Round", "category": "Math / Float", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Round", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "int"}], "desc": "Округление"}, {"id": "Floor_Float", "title": "Floor", "category": "Math / Float", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Floor", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "int"}], "desc": "Вниз"}, {"id": "Ceil_Float", "title": "Ceil", "category": "Math / Float", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Ceil", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "int"}], "desc": "Вверх"}, {"id": "Trunc_Float", "title": "Trunc", "category": "Math / Float", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Trunc", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "int"}], "desc": "Отбросить дробную"}, {"id": "Frac_Float", "title": "Fraction", "category": "Math / Float", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Fraction", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Дробная часть"}, {"id": "FMod_Float", "title": "FMod", "category": "Math / Float", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "FMod", "pins": [{"name": "Dividend", "dir": "Input", "cat": "real"}, {"name": "Divisor", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Остаток"}, {"id": "Clamp_Float", "title": "Clamp (float)", "category": "Math / Float", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "FClamp", "pins": [{"name": "Value", "dir": "Input", "cat": "real"}, {"name": "Min", "dir": "Input", "cat": "real"}, {"name": "Max", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Ограничить"}, {"id": "ClampAngle", "title": "Clamp Angle", "category": "Math / Float", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "ClampAngle", "pins": [{"name": "Angle0", "dir": "Input", "cat": "real"}, {"name": "Angle1", "dir": "Input", "cat": "real"}, {"name": "Angle2", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Угол"}, {"id": "Lerp_Float", "title": "Lerp (float)", "category": "Math / Float", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Lerp", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "B", "dir": "Input", "cat": "real"}, {"name": "Alpha", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Lerp"}, {"id": "MapRangeClamped", "title": "Map Range Clamped", "category": "Math / Float", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "MapRangeClamped", "pins": [{"name": "Value", "dir": "Input", "cat": "real"}, {"name": "InRangeA", "dir": "Input", "cat": "real"}, {"name": "InRangeB", "dir": "Input", "cat": "real"}, {"name": "OutRangeA", "dir": "Input", "cat": "real"}, {"name": "OutRangeB", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Map"}, {"id": "MapRangeUnclamped", "title": "Map Range Unclamped", "category": "Math / Float", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "MapRangeUnclamped", "pins": [{"name": "Value", "dir": "Input", "cat": "real"}, {"name": "InRangeA", "dir": "Input", "cat": "real"}, {"name": "InRangeB", "dir": "Input", "cat": "real"}, {"name": "OutRangeA", "dir": "Input", "cat": "real"}, {"name": "OutRangeB", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Map Unclamped"}, {"id": "NormalizeToRange", "title": "NormalizeToRange", "category": "Math / Float", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "NormalizeToRange", "pins": [{"name": "Value", "dir": "Input", "cat": "real"}, {"name": "RangeMin", "dir": "Input", "cat": "real"}, {"name": "RangeMax", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Нормализация"}, {"id": "GetMappedRange", "title": "GetMappedRangeValue", "category": "Math / Float", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "GetMappedRangeValueClamped", "pins": [{"name": "Input", "dir": "Input", "cat": "struct", "sub": "Vector2D"}, {"name": "Output", "dir": "Input", "cat": "struct", "sub": "Vector2D"}, {"name": "Value", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Map Value"}, {"id": "FInterpTo", "title": "FInterp To", "category": "Math / Interpolation", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "FInterpTo", "pins": [{"name": "Current", "dir": "Input", "cat": "real"}, {"name": "Target", "dir": "Input", "cat": "real"}, {"name": "DeltaTime", "dir": "Input", "cat": "real"}, {"name": "InterpSpeed", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Интерполяция"}, {"id": "FInterpToConstant", "title": "FInterp To Constant", "category": "Math / Interpolation", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "FInterpToConstant", "pins": [{"name": "Current", "dir": "Input", "cat": "real"}, {"name": "Target", "dir": "Input", "cat": "real"}, {"name": "DeltaTime", "dir": "Input", "cat": "real"}, {"name": "InterpSpeed", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Константа"}, {"id": "Ease_Float", "title": "Ease", "category": "Math / Interpolation", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Ease", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "B", "dir": "Input", "cat": "real"}, {"name": "Alpha", "dir": "Input", "cat": "real"}, {"name": "EasingFunc", "dir": "Input", "cat": "byte"}, {"name": "BlendExp", "dir": "Input", "cat": "real"}, {"name": "Steps", "dir": "Input", "cat": "int"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Ease"}, {"id": "GridSnap_Float", "title": "Grid Snap", "category": "Math / Float", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "GridSnap", "pins": [{"name": "Location", "dir": "Input", "cat": "real"}, {"name": "GridSize", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Сетка"}, {"id": "IsNearlyZero", "title": "IsNearlyZero", "category": "Math / Float", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "IsNearlyZero", "pins": [{"name": "Value", "dir": "Input", "cat": "real"}, {"name": "Tolerance", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "Почти ноль"}, {"id": "IsPowerOfTwo", "title": "IsPowerOfTwo", "category": "Math / Integer", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "IsPowerOfTwo", "pins": [{"name": "Value", "dir": "Input", "cat": "int"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "Степень двойки"}, {"id": "SelectFloat", "title": "Select Float", "category": "Math / Float", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "SelectFloat", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "B", "dir": "Input", "cat": "real"}, {"name": "Pick A", "dir": "Input", "cat": "bool"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Выбор"}, {"id": "Max_Float", "title": "Max (float)", "category": "Math / Float", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Max", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "B", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Максимум"}, {"id": "Min_Float", "title": "Min (float)", "category": "Math / Float", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Min", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "B", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Минимум"}, {"id": "Sin", "title": "Sin", "category": "Math / Trig", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Sin", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Sin"}, {"id": "Cos", "title": "Cos", "category": "Math / Trig", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Cos", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Cos"}, {"id": "Tan", "title": "Tan", "category": "Math / Trig", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Tan", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Tan"}, {"id": "Asin", "title": "Asin", "category": "Math / Trig", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Asin", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Asin"}, {"id": "Acos", "title": "Acos", "category": "Math / Trig", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Acos", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Acos"}, {"id": "Atan", "title": "Atan", "category": "Math / Trig", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Atan", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Atan"}, {"id": "Atan2", "title": "Atan2", "category": "Math / Trig", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Atan2", "pins": [{"name": "Y", "dir": "Input", "cat": "real"}, {"name": "X", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Atan2"}, {"id": "SinDeg", "title": "SinDeg", "category": "Math / Trig", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "SinDeg", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "SinDeg"}, {"id": "CosDeg", "title": "CosDeg", "category": "Math / Trig", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "CosDeg", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "CosDeg"}, {"id": "TanDeg", "title": "TanDeg", "category": "Math / Trig", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "TanDeg", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "TanDeg"}, {"id": "AsinDeg", "title": "AsinDeg", "category": "Math / Trig", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "AsinDeg", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "AsinDeg"}, {"id": "AcosDeg", "title": "AcosDeg", "category": "Math / Trig", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "AcosDeg", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "AcosDeg"}, {"id": "AtanDeg", "title": "AtanDeg", "category": "Math / Trig", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "AtanDeg", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "AtanDeg"}, {"id": "DegreesToRadians", "title": "DegreesToRadians", "category": "Math / Trig", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "DegreesToRadians", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "DegreesToRadians"}, {"id": "RadiansToDegrees", "title": "RadiansToDegrees", "category": "Math / Trig", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "RadiansToDegrees", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "RadiansToDegrees"}, {"id": "GetTAU", "title": "GetTAU", "category": "Math / Trig", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "GetTAU", "pins": [{"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "GetTAU"}, {"id": "GetPI", "title": "GetPI", "category": "Math / Trig", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "GetPI", "pins": [{"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "GetPI"}, {"id": "Exp_Float", "title": "Exp", "category": "Math / Float", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Exp", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "e^x"}, {"id": "Loge_Float", "title": "Loge", "category": "Math / Float", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Loge", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "ln"}, {"id": "Sqrt_Float", "title": "Sqrt", "category": "Math / Float", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Sqrt", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Корень"}, {"id": "Square_Float", "title": "Square", "category": "Math / Float", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Square", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Квадрат"}, {"id": "Greater_Float", "title": "Greater (float)", "category": "Math / Comparison", "className": "/Script/BlueprintGraph.K2Node_PromotableOperator", "func": "Greater", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "B", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "Greater"}, {"id": "Less_Float", "title": "Less (float)", "category": "Math / Comparison", "className": "/Script/BlueprintGraph.K2Node_PromotableOperator", "func": "Less", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "B", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "Less"}, {"id": "EqualEqual_Float", "title": "Equal (float)", "category": "Math / Comparison", "className": "/Script/BlueprintGraph.K2Node_PromotableOperator", "func": "EqualEqual", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "B", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "Equal"}, {"id": "NotEqual_Float", "title": "NotEqual (float)", "category": "Math / Comparison", "className": "/Script/BlueprintGraph.K2Node_PromotableOperator", "func": "NotEqual", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "B", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "NotEqual"}, {"id": "GreaterEqual_Float", "title": "GreaterEqual (float)", "category": "Math / Comparison", "className": "/Script/BlueprintGraph.K2Node_PromotableOperator", "func": "GreaterEqual", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "B", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "GreaterEqual"}, {"id": "LessEqual_Float", "title": "LessEqual (float)", "category": "Math / Comparison", "className": "/Script/BlueprintGraph.K2Node_PromotableOperator", "func": "LessEqual", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "B", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "LessEqual"}, {"id": "NearlyEqual_Float", "title": "NearlyEqual (float)", "category": "Math / Comparison", "className": "/Script/BlueprintGraph.K2Node_PromotableOperator", "func": "NearlyEqual", "pins": [{"name": "A", "dir": "Input", "cat": "real"}, {"name": "B", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "NearlyEqual"}, {"id": "InRange_Float", "title": "InRange (float)", "category": "Math / Comparison", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "InRange_FloatFloat", "pins": [{"name": "Value", "dir": "Input", "cat": "real"}, {"name": "Min", "dir": "Input", "cat": "real"}, {"name": "Max", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}, {"name": "InclusiveMin", "dir": "Input", "cat": "bool"}, {"name": "InclusiveMax", "dir": "Input", "cat": "bool"}], "desc": "Диапазон"}, {"id": "And_Bool", "title": "AND (bool)", "category": "Math / Boolean", "className": "/Script/BlueprintGraph.K2Node_PromotableOperator", "func": "BooleanAND", "pins": [{"name": "A", "dir": "Input", "cat": "bool"}, {"name": "B", "dir": "Input", "cat": "bool"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "И"}, {"id": "Or_Bool", "title": "OR (bool)", "category": "Math / Boolean", "className": "/Script/BlueprintGraph.K2Node_PromotableOperator", "func": "BooleanOR", "pins": [{"name": "A", "dir": "Input", "cat": "bool"}, {"name": "B", "dir": "Input", "cat": "bool"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "Или"}, {"id": "Not_Bool", "title": "NOT (bool)", "category": "Math / Boolean", "className": "/Script/BlueprintGraph.K2Node_PromotableOperator", "func": "BooleanNOT", "pins": [{"name": "A", "dir": "Input", "cat": "bool"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "Не"}, {"id": "Xor_Bool", "title": "XOR (bool)", "category": "Math / Boolean", "className": "/Script/BlueprintGraph.K2Node_PromotableOperator", "func": "BooleanXOR", "pins": [{"name": "A", "dir": "Input", "cat": "bool"}, {"name": "B", "dir": "Input", "cat": "bool"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "XOR"}, {"id": "Nand_Bool", "title": "NAND (bool)", "category": "Math / Boolean", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "BooleanNAND", "pins": [{"name": "A", "dir": "Input", "cat": "bool"}, {"name": "B", "dir": "Input", "cat": "bool"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "NAND"}, {"id": "Nor_Bool", "title": "NOR (bool)", "category": "Math / Boolean", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "BooleanNOR", "pins": [{"name": "A", "dir": "Input", "cat": "bool"}, {"name": "B", "dir": "Input", "cat": "bool"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "NOR"}, {"id": "SelectBool", "title": "Select Bool", "category": "Math / Boolean", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "SelectBoolean", "pins": [{"name": "A", "dir": "Input", "cat": "bool"}, {"name": "B", "dir": "Input", "cat": "bool"}, {"name": "Pick A", "dir": "Input", "cat": "bool"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "Выбор Bool"}, {"id": "Add_Int", "title": "Add (int)", "category": "Math / Integer", "className": "/Script/BlueprintGraph.K2Node_PromotableOperator", "func": "Add_IntInt", "pins": [{"name": "A", "dir": "Input", "cat": "int"}, {"name": "B", "dir": "Input", "cat": "int"}, {"name": "ReturnValue", "dir": "Output", "cat": "int"}], "desc": "Сложение int"}, {"id": "Subtract_Int", "title": "Subtract (int)", "category": "Math / Integer", "className": "/Script/BlueprintGraph.K2Node_PromotableOperator", "func": "Subtract_IntInt", "pins": [{"name": "A", "dir": "Input", "cat": "int"}, {"name": "B", "dir": "Input", "cat": "int"}, {"name": "ReturnValue", "dir": "Output", "cat": "int"}], "desc": "Вычитание int"}, {"id": "Multiply_Int", "title": "Multiply (int)", "category": "Math / Integer", "className": "/Script/BlueprintGraph.K2Node_PromotableOperator", "func": "Multiply_IntInt", "pins": [{"name": "A", "dir": "Input", "cat": "int"}, {"name": "B", "dir": "Input", "cat": "int"}, {"name": "ReturnValue", "dir": "Output", "cat": "int"}], "desc": "Умножение int"}, {"id": "Divide_Int", "title": "Divide (int)", "category": "Math / Integer", "className": "/Script/BlueprintGraph.K2Node_PromotableOperator", "func": "Divide_IntInt", "pins": [{"name": "A", "dir": "Input", "cat": "int"}, {"name": "B", "dir": "Input", "cat": "int"}, {"name": "ReturnValue", "dir": "Output", "cat": "int"}], "desc": "Деление int"}, {"id": "Percent_Int", "title": "Percent (int)", "category": "Math / Integer", "className": "/Script/BlueprintGraph.K2Node_PromotableOperator", "func": "Percent_IntInt", "pins": [{"name": "A", "dir": "Input", "cat": "int"}, {"name": "B", "dir": "Input", "cat": "int"}, {"name": "ReturnValue", "dir": "Output", "cat": "int"}], "desc": "Остаток int"}, {"id": "Clamp_Int", "title": "Clamp (int)", "category": "Math / Integer", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Clamp", "pins": [{"name": "Value", "dir": "Input", "cat": "int"}, {"name": "Min", "dir": "Input", "cat": "int"}, {"name": "Max", "dir": "Input", "cat": "int"}, {"name": "ReturnValue", "dir": "Output", "cat": "int"}], "desc": "Clamp int"}, {"id": "Max_Int", "title": "Max (int)", "category": "Math / Integer", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Max", "pins": [{"name": "A", "dir": "Input", "cat": "int"}, {"name": "B", "dir": "Input", "cat": "int"}, {"name": "ReturnValue", "dir": "Output", "cat": "int"}], "desc": "Max int"}, {"id": "Min_Int", "title": "Min (int)", "category": "Math / Integer", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Min", "pins": [{"name": "A", "dir": "Input", "cat": "int"}, {"name": "B", "dir": "Input", "cat": "int"}, {"name": "ReturnValue", "dir": "Output", "cat": "int"}], "desc": "Min int"}, {"id": "RandomInteger", "title": "Random Integer", "category": "Math / Random", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "RandomInteger", "pins": [{"name": "Max", "dir": "Input", "cat": "int"}, {"name": "ReturnValue", "dir": "Output", "cat": "int"}], "desc": "Rand int"}, {"id": "RandomIntegerInRange", "title": "Random Integer In Range", "category": "Math / Random", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "RandomIntegerInRange", "pins": [{"name": "Min", "dir": "Input", "cat": "int"}, {"name": "Max", "dir": "Input", "cat": "int"}, {"name": "ReturnValue", "dir": "Output", "cat": "int"}], "desc": "Rand int range"}, {"id": "RandomFloat", "title": "Random Float", "category": "Math / Random", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "RandomFloat", "pins": [{"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Rand float"}, {"id": "RandomFloatInRange", "title": "Random Float In Range", "category": "Math / Random", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "RandomFloatInRange", "pins": [{"name": "Min", "dir": "Input", "cat": "real"}, {"name": "Max", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Rand float range"}, {"id": "RandomBool", "title": "Random Bool", "category": "Math / Random", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "RandomBool", "pins": [{"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "Rand bool"}, {"id": "RandomBoolWithWeight", "title": "Random Bool With Weight", "category": "Math / Random", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "RandomBoolWithWeight", "pins": [{"name": "Weight", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "Rand weighted"}, {"id": "Add_VectorVector", "title": "Add (Vector)", "category": "Math / Vector", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Add_VectorVector", "pins": [{"name": "A", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "B", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Vector"}], "desc": "Сложение"}, {"id": "Subtract_VectorVector", "title": "Subtract (Vector)", "category": "Math / Vector", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Subtract_VectorVector", "pins": [{"name": "A", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "B", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Vector"}], "desc": "Вычитание"}, {"id": "Multiply_VectorFloat", "title": "Multiply Vector x Float", "category": "Math / Vector", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Multiply_VectorFloat", "pins": [{"name": "A", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "B", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Vector"}], "desc": "Вектор * float"}, {"id": "Multiply_VectorVector", "title": "Multiply Vector x Vector", "category": "Math / Vector", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Multiply_VectorVector", "pins": [{"name": "A", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "B", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Vector"}], "desc": "Вектор * вектор"}, {"id": "Divide_VectorFloat", "title": "Divide Vector / Float", "category": "Math / Vector", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Divide_VectorFloat", "pins": [{"name": "A", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "B", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Vector"}], "desc": "Деление"}, {"id": "Dot_VectorVector", "title": "Dot Product", "category": "Math / Vector", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Dot_VectorVector", "pins": [{"name": "A", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "B", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Скалярное"}, {"id": "Cross_VectorVector", "title": "Cross Product", "category": "Math / Vector", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Cross_VectorVector", "pins": [{"name": "A", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "B", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Vector"}], "desc": "Векторное"}, {"id": "VSize", "title": "Vector Length", "category": "Math / Vector", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "VSize", "pins": [{"name": "A", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Длина"}, {"id": "VSizeSquared", "title": "Vector Length Squared", "category": "Math / Vector", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "VSizeSquared", "pins": [{"name": "A", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Квадрат длины"}, {"id": "VSize2D", "title": "Vector Length 2D", "category": "Math / Vector", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "VSize2D", "pins": [{"name": "A", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Длина 2D"}, {"id": "VSizeSquared2D", "title": "Vector Length Squared 2D", "category": "Math / Vector", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "VSizeSquared2D", "pins": [{"name": "A", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Квадрат 2D"}, {"id": "Normal_Vector", "title": "Normal (Vector)", "category": "Math / Vector", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Normal", "pins": [{"name": "A", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Vector"}], "desc": "Нормаль"}, {"id": "GetSafeNormal_Vector", "title": "Safe Normal", "category": "Math / Vector", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "NormalSafe", "pins": [{"name": "A", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "Tolerance", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Vector"}], "desc": "Безоп. нормаль"}, {"id": "Normalize_Vector", "title": "Normalize", "category": "Math / Vector", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Normalize", "pins": [{"name": "A", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "Tolerance", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Vector"}], "desc": "Нормализовать"}, {"id": "IsNormalized_Vector", "title": "Is Normalized", "category": "Math / Vector", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "IsNormalized", "pins": [{"name": "A", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "Нормирован?"}, {"id": "IsZero_Vector", "title": "Is Zero", "category": "Math / Vector", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "IsZero", "pins": [{"name": "A", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "Нулевой?"}, {"id": "IsNearlyZero_Vector", "title": "Is Nearly Zero", "category": "Math / Vector", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "IsNearlyZero", "pins": [{"name": "A", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "Почти ноль"}, {"id": "Distance_Vector", "title": "Distance (Vector)", "category": "Math / Vector", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Distance", "pins": [{"name": "A", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "B", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Дистанция"}, {"id": "DistanceSquared_Vector", "title": "Distance Squared", "category": "Math / Vector", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "DistanceSquared", "pins": [{"name": "A", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "B", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Квадрат дистанции"}, {"id": "ProjectPointOnToPlane", "title": "Project Point On To Plane", "category": "Math / Vector", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "ProjectPointOnToPlane", "pins": [{"name": "Point", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "PlaneBase", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "PlaneNormal", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Vector"}], "desc": "Проекция"}, {"id": "ProjectVectorOnToPlane", "title": "Project Vector On To Plane", "category": "Math / Vector", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "ProjectVectorOnToPlane", "pins": [{"name": "V", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "PlaneNormal", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Vector"}], "desc": "Проекция вектора"}, {"id": "MakeVector", "title": "Make Vector", "category": "Math / Vector", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "MakeVector", "pins": [{"name": "X", "dir": "Input", "cat": "real"}, {"name": "Y", "dir": "Input", "cat": "real"}, {"name": "Z", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Vector"}], "desc": "Создать"}, {"id": "BreakVector", "title": "Break Vector", "category": "Math / Vector", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "BreakVector", "pins": [{"name": "InVec", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "X", "dir": "Output", "cat": "real"}, {"name": "Y", "dir": "Output", "cat": "real"}, {"name": "Z", "dir": "Output", "cat": "real"}], "desc": "Разобрать"}, {"id": "MakeVector2D", "title": "Make Vector2D", "category": "Math / Vector", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "MakeVector2D", "pins": [{"name": "X", "dir": "Input", "cat": "real"}, {"name": "Y", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Vector2D"}], "desc": "2D"}, {"id": "BreakVector2D", "title": "Break Vector2D", "category": "Math / Vector", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "BreakVector2D", "pins": [{"name": "InVec", "dir": "Input", "cat": "struct", "sub": "Vector2D"}, {"name": "X", "dir": "Output", "cat": "real"}, {"name": "Y", "dir": "Output", "cat": "real"}], "desc": "Разобрать 2D"}, {"id": "VInterpTo", "title": "VInterp To", "category": "Math / Interpolation", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "VInterpTo", "pins": [{"name": "Current", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "Target", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "DeltaTime", "dir": "Input", "cat": "real"}, {"name": "InterpSpeed", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Vector"}], "desc": "Интерп. вектор"}, {"id": "VInterpTo_Constant", "title": "VInterp To Constant", "category": "Math / Interpolation", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "VInterpTo_Constant", "pins": [{"name": "Current", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "Target", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "DeltaTime", "dir": "Input", "cat": "real"}, {"name": "InterpSpeed", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Vector"}], "desc": "Константа"}, {"id": "VLerp", "title": "VLerp", "category": "Math / Vector", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "VLerp", "pins": [{"name": "A", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "B", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "Alpha", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Vector"}], "desc": "Lerp вектор"}, {"id": "SelectVector", "title": "Select Vector", "category": "Math / Vector", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "SelectVector", "pins": [{"name": "A", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "B", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "Pick A", "dir": "Input", "cat": "bool"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Vector"}], "desc": "Выбор"}, {"id": "MakeRotator", "title": "Make Rotator", "category": "Math / Rotator", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "MakeRotator", "pins": [{"name": "Roll", "dir": "Input", "cat": "real"}, {"name": "Pitch", "dir": "Input", "cat": "real"}, {"name": "Yaw", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Rotator"}], "desc": "Создать"}, {"id": "BreakRotator", "title": "Break Rotator", "category": "Math / Rotator", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "BreakRotator", "pins": [{"name": "InRot", "dir": "Input", "cat": "struct", "sub": "Rotator"}, {"name": "Roll", "dir": "Output", "cat": "real"}, {"name": "Pitch", "dir": "Output", "cat": "real"}, {"name": "Yaw", "dir": "Output", "cat": "real"}], "desc": "Разобрать"}, {"id": "MakeRotFromX", "title": "Make Rot from X", "category": "Math / Rotator", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "MakeRotFromX", "pins": [{"name": "X", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Rotator"}], "desc": "Из X"}, {"id": "MakeRotFromY", "title": "Make Rot from Y", "category": "Math / Rotator", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "MakeRotFromY", "pins": [{"name": "Y", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Rotator"}], "desc": "Из Y"}, {"id": "MakeRotFromZ", "title": "Make Rot from Z", "category": "Math / Rotator", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "MakeRotFromZ", "pins": [{"name": "Z", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Rotator"}], "desc": "Из Z"}, {"id": "MakeRotFromZX", "title": "Make Rot from ZX", "category": "Math / Rotator", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "MakeRotFromZX", "pins": [{"name": "Z", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "X", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Rotator"}], "desc": "ZX"}, {"id": "FindLookAtRotation", "title": "Find Look At Rotation", "category": "Math / Rotator", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "FindLookAtRotation", "pins": [{"name": "Start", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "Target", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Rotator"}], "desc": "Взгляд"}, {"id": "FindLookAtRotation2D", "title": "Find Look At Rotation 2D", "category": "Math / Rotator", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "FindLookAtRotation2D", "pins": [{"name": "Start", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "Target", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Rotator"}], "desc": "2D"}, {"id": "ComposeRotators", "title": "Compose Rotators", "category": "Math / Rotator", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "ComposeRotators", "pins": [{"name": "A", "dir": "Input", "cat": "struct", "sub": "Rotator"}, {"name": "B", "dir": "Input", "cat": "struct", "sub": "Rotator"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Rotator"}], "desc": "Композиция"}, {"id": "InverseRotator", "title": "Inverse Rotator", "category": "Math / Rotator", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "InverseTransformRotation", "pins": [{"name": "A", "dir": "Input", "cat": "struct", "sub": "Rotator"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Rotator"}], "desc": "Инверсия"}, {"id": "RInterpTo", "title": "RInterp To", "category": "Math / Interpolation", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "RInterpTo", "pins": [{"name": "Current", "dir": "Input", "cat": "struct", "sub": "Rotator"}, {"name": "Target", "dir": "Input", "cat": "struct", "sub": "Rotator"}, {"name": "DeltaTime", "dir": "Input", "cat": "real"}, {"name": "InterpSpeed", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Rotator"}], "desc": "Интерп."}, {"id": "RLerp", "title": "RLerp", "category": "Math / Rotator", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "RLerp", "pins": [{"name": "A", "dir": "Input", "cat": "struct", "sub": "Rotator"}, {"name": "B", "dir": "Input", "cat": "struct", "sub": "Rotator"}, {"name": "Alpha", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Rotator"}], "desc": "Lerp"}, {"id": "SelectRotator", "title": "Select Rotator", "category": "Math / Rotator", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "SelectRotator", "pins": [{"name": "A", "dir": "Input", "cat": "struct", "sub": "Rotator"}, {"name": "B", "dir": "Input", "cat": "struct", "sub": "Rotator"}, {"name": "Pick A", "dir": "Input", "cat": "bool"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Rotator"}], "desc": "Выбор"}, {"id": "MakeTransform", "title": "Make Transform", "category": "Math / Transform", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "MakeTransform", "pins": [{"name": "Location", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "Rotation", "dir": "Input", "cat": "struct", "sub": "Rotator"}, {"name": "Scale", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Transform"}], "desc": "Создать"}, {"id": "BreakTransform", "title": "Break Transform", "category": "Math / Transform", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "BreakTransform", "pins": [{"name": "InTrans", "dir": "Input", "cat": "struct", "sub": "Transform"}, {"name": "Location", "dir": "Output", "cat": "struct", "sub": "Vector"}, {"name": "Rotation", "dir": "Output", "cat": "struct", "sub": "Rotator"}, {"name": "Scale", "dir": "Output", "cat": "struct", "sub": "Vector"}], "desc": "Разобрать"}, {"id": "ComposeTransforms", "title": "Compose Transforms", "category": "Math / Transform", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "ComposeTransforms", "pins": [{"name": "A", "dir": "Input", "cat": "struct", "sub": "Transform"}, {"name": "B", "dir": "Input", "cat": "struct", "sub": "Transform"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Transform"}], "desc": "Композиция"}, {"id": "InvertTransform", "title": "Invert Transform", "category": "Math / Transform", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "InvertTransform", "pins": [{"name": "T", "dir": "Input", "cat": "struct", "sub": "Transform"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Transform"}], "desc": "Инверсия"}, {"id": "TInterpTo", "title": "TInterp To", "category": "Math / Interpolation", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "TInterpTo", "pins": [{"name": "Current", "dir": "Input", "cat": "struct", "sub": "Transform"}, {"name": "Target", "dir": "Input", "cat": "struct", "sub": "Transform"}, {"name": "DeltaTime", "dir": "Input", "cat": "real"}, {"name": "InterpSpeed", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "Transform"}], "desc": "Интерп."}, {"id": "Concat_StrStr", "title": "Concat (String)", "category": "String", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Concat_StrStr", "pins": [{"name": "A", "dir": "Input", "cat": "string"}, {"name": "B", "dir": "Input", "cat": "string"}, {"name": "ReturnValue", "dir": "Output", "cat": "string"}], "desc": "Склеить"}, {"id": "Append_String", "title": "Append", "category": "String", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Concat_StrStr", "pins": [{"name": "A", "dir": "Input", "cat": "string"}, {"name": "B", "dir": "Input", "cat": "string"}, {"name": "ReturnValue", "dir": "Output", "cat": "string"}], "desc": "Append"}, {"id": "Len_String", "title": "Len (String)", "category": "String", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Len", "pins": [{"name": "S", "dir": "Input", "cat": "string"}, {"name": "ReturnValue", "dir": "Output", "cat": "int"}], "desc": "Длина"}, {"id": "ToUpper_String", "title": "To Upper", "category": "String", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "ToUpper", "pins": [{"name": "SourceString", "dir": "Input", "cat": "string"}, {"name": "ReturnValue", "dir": "Output", "cat": "string"}], "desc": "Верхний"}, {"id": "ToLower_String", "title": "To Lower", "category": "String", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "ToLower", "pins": [{"name": "SourceString", "dir": "Input", "cat": "string"}, {"name": "ReturnValue", "dir": "Output", "cat": "string"}], "desc": "Нижний"}, {"id": "Contains_String", "title": "Contains", "category": "String", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Contains", "pins": [{"name": "SearchIn", "dir": "Input", "cat": "string"}, {"name": "Substring", "dir": "Input", "cat": "string"}, {"name": "UseCase", "dir": "Input", "cat": "byte"}, {"name": "SearchDir", "dir": "Input", "cat": "byte"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "Содержит"}, {"id": "FindSubstring_String", "title": "Find Substring", "category": "String", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "FindSubstring", "pins": [{"name": "SearchIn", "dir": "Input", "cat": "string"}, {"name": "Substring", "dir": "Input", "cat": "string"}, {"name": "UseCase", "dir": "Input", "cat": "byte"}, {"name": "SearchDir", "dir": "Input", "cat": "byte"}, {"name": "ReturnValue", "dir": "Output", "cat": "int"}], "desc": "Найти"}, {"id": "Replace_String", "title": "Replace", "category": "String", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Replace", "pins": [{"name": "SourceString", "dir": "Input", "cat": "string"}, {"name": "From", "dir": "Input", "cat": "string"}, {"name": "To", "dir": "Input", "cat": "string"}, {"name": "ReturnValue", "dir": "Output", "cat": "string"}], "desc": "Заменить"}, {"id": "Split_String", "title": "Split", "category": "String", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "ParseIntoArray", "pins": [{"name": "SourceString", "dir": "Input", "cat": "string"}, {"name": "Delimiter", "dir": "Input", "cat": "string"}, {"name": "CullEmptyStrings", "dir": "Input", "cat": "bool"}, {"name": "ReturnValue", "dir": "Output", "cat": "string", "sub": "Array"}], "desc": "Разделить"}, {"id": "JoinStringArray", "title": "Join String Array", "category": "String", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "JoinStringArray", "pins": [{"name": "SourceArray", "dir": "Input", "cat": "string", "sub": "Array"}, {"name": "Separator", "dir": "Input", "cat": "string"}, {"name": "ReturnValue", "dir": "Output", "cat": "string"}], "desc": "Соединить"}, {"id": "Trim_String", "title": "Trim", "category": "String", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Trim", "pins": [{"name": "SourceString", "dir": "Input", "cat": "string"}, {"name": "ReturnValue", "dir": "Output", "cat": "string"}], "desc": "Trim"}, {"id": "TrimTrailing_String", "title": "Trim Trailing", "category": "String", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "TrimTrailing", "pins": [{"name": "SourceString", "dir": "Input", "cat": "string"}, {"name": "ReturnValue", "dir": "Output", "cat": "string"}], "desc": "Trim конец"}, {"id": "Left_String", "title": "Left", "category": "String", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Left", "pins": [{"name": "SourceString", "dir": "Input", "cat": "string"}, {"name": "Count", "dir": "Input", "cat": "int"}, {"name": "ReturnValue", "dir": "Output", "cat": "string"}], "desc": "Лево"}, {"id": "Right_String", "title": "Right", "category": "String", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Right", "pins": [{"name": "SourceString", "dir": "Input", "cat": "string"}, {"name": "Count", "dir": "Input", "cat": "int"}, {"name": "ReturnValue", "dir": "Output", "cat": "string"}], "desc": "Право"}, {"id": "Mid_String", "title": "Mid", "category": "String", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Mid", "pins": [{"name": "SourceString", "dir": "Input", "cat": "string"}, {"name": "Start", "dir": "Input", "cat": "int"}, {"name": "Count", "dir": "Input", "cat": "int"}, {"name": "ReturnValue", "dir": "Output", "cat": "string"}], "desc": "Середина"}, {"id": "LeftChop_String", "title": "Left Chop", "category": "String", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "LeftChop", "pins": [{"name": "SourceString", "dir": "Input", "cat": "string"}, {"name": "Count", "dir": "Input", "cat": "int"}, {"name": "ReturnValue", "dir": "Output", "cat": "string"}], "desc": "Отрезать слева"}, {"id": "RightChop_String", "title": "Right Chop", "category": "String", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "RightChop", "pins": [{"name": "SourceString", "dir": "Input", "cat": "string"}, {"name": "Count", "dir": "Input", "cat": "int"}, {"name": "ReturnValue", "dir": "Output", "cat": "string"}], "desc": "Справа"}, {"id": "EqualEqual_String", "title": "Equal (String)", "category": "String", "className": "/Script/BlueprintGraph.K2Node_PromotableOperator", "func": "EqualEqual_StrStr", "pins": [{"name": "A", "dir": "Input", "cat": "string"}, {"name": "B", "dir": "Input", "cat": "string"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "Равно"}, {"id": "NotEqual_String", "title": "Not Equal (String)", "category": "String", "className": "/Script/BlueprintGraph.K2Node_PromotableOperator", "func": "NotEqual_StrStr", "pins": [{"name": "A", "dir": "Input", "cat": "string"}, {"name": "B", "dir": "Input", "cat": "string"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "Не равно"}, {"id": "BuildString_Float", "title": "Build String (float)", "category": "String", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "BuildString_Float", "pins": [{"name": "AppendTo", "dir": "Input", "cat": "string"}, {"name": "Prefix", "dir": "Input", "cat": "string"}, {"name": "InFloat", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "string"}], "desc": "Float→String"}, {"id": "BuildString_Int", "title": "Build String (int)", "category": "String", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "BuildString_Int", "pins": [{"name": "AppendTo", "dir": "Input", "cat": "string"}, {"name": "Prefix", "dir": "Input", "cat": "string"}, {"name": "InInt", "dir": "Input", "cat": "int"}, {"name": "ReturnValue", "dir": "Output", "cat": "string"}], "desc": "Int→String"}, {"id": "BuildString_Bool", "title": "Build String (bool)", "category": "String", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "BuildString_Bool", "pins": [{"name": "AppendTo", "dir": "Input", "cat": "string"}, {"name": "Prefix", "dir": "Input", "cat": "string"}, {"name": "InBool", "dir": "Input", "cat": "bool"}, {"name": "ReturnValue", "dir": "Output", "cat": "string"}], "desc": "Bool→String"}, {"id": "Conv_FloatToString", "title": "ToString (float)", "category": "String", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Conv_FloatToString", "pins": [{"name": "InFloat", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "string"}], "desc": "Float→String"}, {"id": "Conv_IntToString", "title": "ToString (int)", "category": "String", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Conv_IntToString", "pins": [{"name": "InInt", "dir": "Input", "cat": "int"}, {"name": "ReturnValue", "dir": "Output", "cat": "string"}], "desc": "Int→String"}, {"id": "Conv_BoolToString", "title": "ToString (bool)", "category": "String", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Conv_BoolToString", "pins": [{"name": "InBool", "dir": "Input", "cat": "bool"}, {"name": "ReturnValue", "dir": "Output", "cat": "string"}], "desc": "Bool→String"}, {"id": "Conv_VectorToString", "title": "ToString (vector)", "category": "String", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Conv_VectorToString", "pins": [{"name": "InVec", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "ReturnValue", "dir": "Output", "cat": "string"}], "desc": "Vector→String"}, {"id": "Add_Array", "title": "Add", "category": "Array", "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction", "func": "Array_Add", "pins": [{"name": "TargetArray", "dir": "Input", "cat": "object"}, {"name": "NewItem", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "int"}], "desc": "Добавить"}, {"id": "AddUnique_Array", "title": "Add Unique", "category": "Array", "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction", "func": "Array_AddUnique", "pins": [{"name": "TargetArray", "dir": "Input", "cat": "object"}, {"name": "NewItem", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "int"}], "desc": "Уникальный"}, {"id": "Remove_Array", "title": "Remove Index", "category": "Array", "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction", "func": "Array_Remove", "pins": [{"name": "TargetArray", "dir": "Input", "cat": "object"}, {"name": "IndexToRemove", "dir": "Input", "cat": "int"}], "desc": "Удалить индекс"}, {"id": "RemoveItem_Array", "title": "Remove Item", "category": "Array", "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction", "func": "Array_RemoveItem", "pins": [{"name": "TargetArray", "dir": "Input", "cat": "object"}, {"name": "Item", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "Удалить элемент"}, {"id": "Clear_Array", "title": "Clear", "category": "Array", "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction", "func": "Array_Clear", "pins": [{"name": "TargetArray", "dir": "Input", "cat": "object"}], "desc": "Очистить"}, {"id": "Length_Array", "title": "Length", "category": "Array", "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction", "func": "Array_Length", "pins": [{"name": "TargetArray", "dir": "Input", "cat": "object"}, {"name": "ReturnValue", "dir": "Output", "cat": "int"}], "desc": "Длина"}, {"id": "Get_Array", "title": "Get", "category": "Array", "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction", "func": "Array_Get", "pins": [{"name": "TargetArray", "dir": "Input", "cat": "object"}, {"name": "Index", "dir": "Input", "cat": "int"}, {"name": "Item", "dir": "Output", "cat": "real"}], "desc": "Получить"}, {"id": "SetArrayElem_Array", "title": "Set Array Elem", "category": "Array", "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction", "func": "Array_Set", "pins": [{"name": "TargetArray", "dir": "Input", "cat": "object"}, {"name": "Index", "dir": "Input", "cat": "int"}, {"name": "Item", "dir": "Input", "cat": "real"}], "desc": "Установить"}, {"id": "Find_Array", "title": "Find", "category": "Array", "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction", "func": "Array_Find", "pins": [{"name": "TargetArray", "dir": "Input", "cat": "object"}, {"name": "ItemToFind", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "int"}], "desc": "Найти"}, {"id": "Contains_Array", "title": "Contains", "category": "Array", "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction", "func": "Array_Contains", "pins": [{"name": "TargetArray", "dir": "Input", "cat": "object"}, {"name": "ItemToFind", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "Содержит"}, {"id": "Insert_Array", "title": "Insert", "category": "Array", "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction", "func": "Array_Insert", "pins": [{"name": "TargetArray", "dir": "Input", "cat": "object"}, {"name": "NewItem", "dir": "Input", "cat": "real"}, {"name": "Index", "dir": "Input", "cat": "int"}], "desc": "Вставить"}, {"id": "Shuffle_Array", "title": "Shuffle", "category": "Array", "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction", "func": "Array_Shuffle", "pins": [{"name": "TargetArray", "dir": "Input", "cat": "object"}], "desc": "Перемешать"}, {"id": "Reverse_Array", "title": "Reverse", "category": "Array", "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction", "func": "Array_Reverse", "pins": [{"name": "TargetArray", "dir": "Input", "cat": "object"}], "desc": "Реверс"}, {"id": "IsValidIndex_Array", "title": "Is Valid Index", "category": "Array", "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction", "func": "Array_IsValidIndex", "pins": [{"name": "TargetArray", "dir": "Input", "cat": "object"}, {"name": "Index", "dir": "Input", "cat": "int"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "Валидный индекс"}, {"id": "Resize_Array", "title": "Resize", "category": "Array", "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction", "func": "Array_Resize", "pins": [{"name": "TargetArray", "dir": "Input", "cat": "object"}, {"name": "Size", "dir": "Input", "cat": "int"}], "desc": "Размер"}, {"id": "PrintString", "title": "Print String", "category": "Utilities", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "PrintString", "pins": [{"name": "execute", "dir": "Input", "cat": "exec"}, {"name": "then", "dir": "Output", "cat": "exec"}, {"name": "InString", "dir": "Input", "cat": "string"}, {"name": "PrintToScreen", "dir": "Input", "cat": "bool"}, {"name": "PrintToLog", "dir": "Input", "cat": "bool"}, {"name": "TextColor", "dir": "Input", "cat": "struct", "sub": "LinearColor"}, {"name": "Duration", "dir": "Input", "cat": "real"}], "desc": "Вывод"}, {"id": "PrintText", "title": "Print Text", "category": "Utilities", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "PrintText", "pins": [{"name": "execute", "dir": "Input", "cat": "exec"}, {"name": "then", "dir": "Output", "cat": "exec"}, {"name": "InText", "dir": "Input", "cat": "string"}, {"name": "PrintToScreen", "dir": "Input", "cat": "bool"}], "desc": "Print Text"}, {"id": "Delay", "title": "Delay", "category": "Utilities", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Delay", "pins": [{"name": "execute", "dir": "Input", "cat": "exec"}, {"name": "Completed", "dir": "Output", "cat": "exec"}, {"name": "Duration", "dir": "Input", "cat": "real"}], "desc": "Задержка"}, {"id": "RetriggerableDelay", "title": "Retriggerable Delay", "category": "Utilities", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "RetriggerableDelay", "pins": [{"name": "execute", "dir": "Input", "cat": "exec"}, {"name": "Completed", "dir": "Output", "cat": "exec"}, {"name": "Duration", "dir": "Input", "cat": "real"}], "desc": "Перезапускаемая"}, {"id": "IsValid_Object", "title": "IsValid", "category": "Utilities", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "IsValid", "pins": [{"name": "InputObject", "dir": "Input", "cat": "object"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}, {"name": "IsValid", "dir": "Output", "cat": "exec"}, {"name": "IsNotValid", "dir": "Output", "cat": "exec"}], "desc": "Валидность"}, {"id": "IsValidClass", "title": "IsValid Class", "category": "Utilities", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "IsValidClass", "pins": [{"name": "InputClass", "dir": "Input", "cat": "class"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "Класс валиден"}, {"id": "GetDisplayName", "title": "Get Display Name", "category": "Utilities", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "GetDisplayName", "pins": [{"name": "Object", "dir": "Input", "cat": "object"}, {"name": "ReturnValue", "dir": "Output", "cat": "string"}], "desc": "Имя"}, {"id": "GetObjectName", "title": "Get Object Name", "category": "Utilities", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "GetObjectName", "pins": [{"name": "Object", "dir": "Input", "cat": "object"}, {"name": "ReturnValue", "dir": "Output", "cat": "string"}], "desc": "Имя объекта"}, {"id": "GetEngineVersion", "title": "Get Engine Version", "category": "Utilities", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "GetEngineVersion", "pins": [{"name": "ReturnValue", "dir": "Output", "cat": "string"}], "desc": "Версия"}, {"id": "GetPlatformName", "title": "Get Platform Name", "category": "Utilities", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "GetPlatformName", "pins": [{"name": "ReturnValue", "dir": "Output", "cat": "string"}], "desc": "Платформа"}, {"id": "GetGameTime", "title": "Get Game Time", "category": "Utilities", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "GetGameTimeInSeconds", "pins": [{"name": "WorldContextObject", "dir": "Input", "cat": "object"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Время"}, {"id": "GetSystemTime", "title": "Get System Time", "category": "Utilities", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "GetSystemTimeInSeconds", "pins": [{"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Системное время"}, {"id": "GetWorldDeltaSeconds", "title": "Get World Delta Seconds", "category": "Utilities", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "GetWorldDeltaSeconds", "pins": [{"name": "WorldContextObject", "dir": "Input", "cat": "object"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Delta"}, {"id": "QuitGame", "title": "Quit Game", "category": "Utilities", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "QuitGame", "pins": [{"name": "execute", "dir": "Input", "cat": "exec"}, {"name": "then", "dir": "Output", "cat": "exec"}, {"name": "WorldContextObject", "dir": "Input", "cat": "object"}, {"name": "SpecificPlayer", "dir": "Input", "cat": "object"}, {"name": "QuitPreference", "dir": "Input", "cat": "byte"}], "desc": "Выход"}, {"id": "OpenLevel", "title": "Open Level", "category": "Utilities", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "OpenLevel", "pins": [{"name": "execute", "dir": "Input", "cat": "exec"}, {"name": "then", "dir": "Output", "cat": "exec"}, {"name": "WorldContextObject", "dir": "Input", "cat": "object"}, {"name": "LevelName", "dir": "Input", "cat": "name"}], "desc": "Открыть уровень"}, {"id": "CreateSaveGame", "title": "Create Save Game Object", "category": "Utilities", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "CreateSaveGameObject", "pins": [{"name": "SaveGameClass", "dir": "Input", "cat": "class"}, {"name": "ReturnValue", "dir": "Output", "cat": "object"}], "desc": "SaveGame"}, {"id": "DoesSaveGameExist", "title": "Does Save Game Exist", "category": "Utilities", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "DoesSaveGameExist", "pins": [{"name": "SlotName", "dir": "Input", "cat": "string"}, {"name": "UserIndex", "dir": "Input", "cat": "int"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "Существует?"}, {"id": "SaveGameToSlot", "title": "Save Game To Slot", "category": "Utilities", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "SaveGameToSlot", "pins": [{"name": "SaveGameObject", "dir": "Input", "cat": "object"}, {"name": "SlotName", "dir": "Input", "cat": "string"}, {"name": "UserIndex", "dir": "Input", "cat": "int"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "Сохранить"}, {"id": "LoadGameFromSlot", "title": "Load Game From Slot", "category": "Utilities", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "LoadGameFromSlot", "pins": [{"name": "SlotName", "dir": "Input", "cat": "string"}, {"name": "UserIndex", "dir": "Input", "cat": "int"}, {"name": "ReturnValue", "dir": "Output", "cat": "object"}], "desc": "Загрузить"}, {"id": "GetPlayerController", "title": "Get Player Controller", "category": "Gameplay", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "GetPlayerController", "pins": [{"name": "WorldContextObject", "dir": "Input", "cat": "object"}, {"name": "PlayerIndex", "dir": "Input", "cat": "int"}, {"name": "ReturnValue", "dir": "Output", "cat": "object"}], "desc": "Контроллер"}, {"id": "GetPlayerPawn", "title": "Get Player Pawn", "category": "Gameplay", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "GetPlayerPawn", "pins": [{"name": "WorldContextObject", "dir": "Input", "cat": "object"}, {"name": "PlayerIndex", "dir": "Input", "cat": "int"}, {"name": "ReturnValue", "dir": "Output", "cat": "object"}], "desc": "Pawn"}, {"id": "GetPlayerCharacter", "title": "Get Player Character", "category": "Gameplay", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "GetPlayerCharacter", "pins": [{"name": "WorldContextObject", "dir": "Input", "cat": "object"}, {"name": "PlayerIndex", "dir": "Input", "cat": "int"}, {"name": "ReturnValue", "dir": "Output", "cat": "object"}], "desc": "Character"}, {"id": "GetAllActorsOfClass", "title": "Get All Actors Of Class", "category": "Gameplay", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "GetAllActorsOfClass", "pins": [{"name": "execute", "dir": "Input", "cat": "exec"}, {"name": "then", "dir": "Output", "cat": "exec"}, {"name": "WorldContextObject", "dir": "Input", "cat": "object"}, {"name": "ActorClass", "dir": "Input", "cat": "class"}, {"name": "OutActors", "dir": "Output", "cat": "object", "sub": "Array"}], "desc": "Все акторы"}, {"id": "GetAllActorsWithTag", "title": "Get All Actors With Tag", "category": "Gameplay", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "GetAllActorsWithTag", "pins": [{"name": "execute", "dir": "Input", "cat": "exec"}, {"name": "then", "dir": "Output", "cat": "exec"}, {"name": "WorldContextObject", "dir": "Input", "cat": "object"}, {"name": "Tag", "dir": "Input", "cat": "name"}, {"name": "OutActors", "dir": "Output", "cat": "object", "sub": "Array"}], "desc": "По тегу"}, {"id": "SpawnActor", "title": "Spawn Actor From Class", "category": "Gameplay", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "BeginSpawningActorFromClass", "pins": [{"name": "execute", "dir": "Input", "cat": "exec"}, {"name": "then", "dir": "Output", "cat": "exec"}, {"name": "WorldContextObject", "dir": "Input", "cat": "object"}, {"name": "Class", "dir": "Input", "cat": "class"}, {"name": "SpawnTransform", "dir": "Input", "cat": "struct", "sub": "Transform"}, {"name": "ReturnValue", "dir": "Output", "cat": "object"}], "desc": "Спавн"}, {"id": "SpawnEmitter", "title": "Spawn Emitter At Location", "category": "Gameplay", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "SpawnEmitterAtLocation", "pins": [{"name": "execute", "dir": "Input", "cat": "exec"}, {"name": "then", "dir": "Output", "cat": "exec"}, {"name": "WorldContextObject", "dir": "Input", "cat": "object"}, {"name": "EmitterTemplate", "dir": "Input", "cat": "object"}, {"name": "Location", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "Rotation", "dir": "Input", "cat": "struct", "sub": "Rotator"}, {"name": "ReturnValue", "dir": "Output", "cat": "object"}], "desc": "Эмиттер"}, {"id": "PlaySoundAtLocation", "title": "Play Sound At Location", "category": "Gameplay", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "PlaySoundAtLocation", "pins": [{"name": "execute", "dir": "Input", "cat": "exec"}, {"name": "then", "dir": "Output", "cat": "exec"}, {"name": "WorldContextObject", "dir": "Input", "cat": "object"}, {"name": "Sound", "dir": "Input", "cat": "object"}, {"name": "Location", "dir": "Input", "cat": "struct", "sub": "Vector"}], "desc": "Звук"}, {"id": "GetGameMode", "title": "Get Game Mode", "category": "Gameplay", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "GetGameMode", "pins": [{"name": "WorldContextObject", "dir": "Input", "cat": "object"}, {"name": "ReturnValue", "dir": "Output", "cat": "object"}], "desc": "GameMode"}, {"id": "GetGameState", "title": "Get Game State", "category": "Gameplay", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "GetGameState", "pins": [{"name": "WorldContextObject", "dir": "Input", "cat": "object"}, {"name": "ReturnValue", "dir": "Output", "cat": "object"}], "desc": "GameState"}, {"id": "GetGameInstance", "title": "Get Game Instance", "category": "Gameplay", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "GetGameInstance", "pins": [{"name": "WorldContextObject", "dir": "Input", "cat": "object"}, {"name": "ReturnValue", "dir": "Output", "cat": "object"}], "desc": "GameInstance"}, {"id": "GetWorld", "title": "Get World", "category": "Gameplay", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "GetWorld", "pins": [{"name": "ReturnValue", "dir": "Output", "cat": "object"}], "desc": "World"}, {"id": "LineTraceByChannel", "title": "Line Trace By Channel", "category": "Collision", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "LineTraceByChannel", "pins": [{"name": "execute", "dir": "Input", "cat": "exec"}, {"name": "then", "dir": "Output", "cat": "exec"}, {"name": "WorldContextObject", "dir": "Input", "cat": "object"}, {"name": "Start", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "End", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "TraceChannel", "dir": "Input", "cat": "byte"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}, {"name": "OutHit", "dir": "Output", "cat": "struct", "sub": "HitResult"}], "desc": "Трасса канал"}, {"id": "LineTraceByObject", "title": "Line Trace By Object", "category": "Collision", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "LineTraceByObjectType", "pins": [{"name": "execute", "dir": "Input", "cat": "exec"}, {"name": "then", "dir": "Output", "cat": "exec"}, {"name": "WorldContextObject", "dir": "Input", "cat": "object"}, {"name": "Start", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "End", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "По объекту"}, {"id": "SphereTraceByChannel", "title": "Sphere Trace By Channel", "category": "Collision", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "SphereTraceByChannel", "pins": [{"name": "execute", "dir": "Input", "cat": "exec"}, {"name": "then", "dir": "Output", "cat": "exec"}, {"name": "WorldContextObject", "dir": "Input", "cat": "object"}, {"name": "Start", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "End", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "Radius", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "Сфера"}, {"id": "BoxTraceByChannel", "title": "Box Trace By Channel", "category": "Collision", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "BoxTraceByChannel", "pins": [{"name": "execute", "dir": "Input", "cat": "exec"}, {"name": "then", "dir": "Output", "cat": "exec"}, {"name": "WorldContextObject", "dir": "Input", "cat": "object"}, {"name": "Start", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "End", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "HalfSize", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "Box"}, {"id": "CapsuleTraceByChannel", "title": "Capsule Trace By Channel", "category": "Collision", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "CapsuleTraceByChannel", "pins": [{"name": "execute", "dir": "Input", "cat": "exec"}, {"name": "then", "dir": "Output", "cat": "exec"}, {"name": "WorldContextObject", "dir": "Input", "cat": "object"}, {"name": "Start", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "End", "dir": "Input", "cat": "struct", "sub": "Vector"}, {"name": "Radius", "dir": "Input", "cat": "real"}, {"name": "HalfHeight", "dir": "Input", "cat": "real"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "Капсула"}, {"id": "GetKey", "title": "Get Key", "category": "Input", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "GetKey", "pins": [{"name": "InKey", "dir": "Input", "cat": "struct", "sub": "Key"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "Клавиша"}, {"id": "IsInputKeyDown", "title": "Is Input Key Down", "category": "Input", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "IsInputKeyDown", "pins": [{"name": "Key", "dir": "Input", "cat": "struct", "sub": "Key"}, {"name": "ReturnValue", "dir": "Output", "cat": "bool"}], "desc": "Нажата?"}, {"id": "Reroute", "title": "Reroute Node", "category": "Organization", "className": "/Script/BlueprintGraph.K2Node_Knot", "func": "", "pins": [{"name": "InputPin", "dir": "Input", "cat": "exec"}, {"name": "OutputPin", "dir": "Output", "cat": "exec"}], "desc": "Перенаправление"}, {"id": "Comment", "title": "Comment Box", "category": "Organization", "className": "/Script/UnrealEd.EdGraphNode_Comment", "func": "", "pins": [], "desc": "Комментарий"}, {"id": "MakeArray", "title": "Make Array", "category": "Organization", "className": "/Script/BlueprintGraph.K2Node_MakeArray", "func": "", "pins": [{"name": "ReturnValue", "dir": "Output", "cat": "object", "sub": "Array"}], "desc": "Создать массив"}, {"id": "MakeSet", "title": "Make Set", "category": "Organization", "className": "/Script/BlueprintGraph.K2Node_MakeSet", "func": "", "pins": [{"name": "ReturnValue", "dir": "Output", "cat": "object", "sub": "Set"}], "desc": "Создать сет"}, {"id": "MakeMap", "title": "Make Map", "category": "Organization", "className": "/Script/BlueprintGraph.K2Node_MakeMap", "func": "", "pins": [{"name": "ReturnValue", "dir": "Output", "cat": "object", "sub": "Map"}], "desc": "Создать map"}, {"id": "Select", "title": "Select", "category": "Organization", "className": "/Script/BlueprintGraph.K2Node_Select", "func": "", "pins": [{"name": "Index", "dir": "Input", "cat": "int"}, {"name": "ReturnValue", "dir": "Output", "cat": "real"}], "desc": "Выбор"}, {"id": "FormatText", "title": "Format Text", "category": "Text", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "Format", "pins": [{"name": "InPattern", "dir": "Input", "cat": "string"}, {"name": "ReturnValue", "dir": "Output", "cat": "string"}], "desc": "Формат"}, {"id": "Enhanced_GetActionValue", "title": "Get Action Value", "category": "Enhanced Input", "className": "/Script/BlueprintGraph.K2Node_CallFunction", "func": "GetActionValue", "pins": [{"name": "Action", "dir": "Input", "cat": "object"}, {"name": "ReturnValue", "dir": "Output", "cat": "struct", "sub": "InputActionValue"}], "desc": "Значение действия"}];
+function getREG(){ return REG; }
+
+/* ===== Parser (clean rewrite) ===== */
+function parseUE(text){
+  const lines=text.split(/\r?\n/);
+  const st=[], roots=[];
+  for(let i=0;i<lines.length;i++){
+    const t=lines[i].trim();
+    if(t.startsWith('Begin Object')){
+      const cls=t.match(/Class=([^\s]+)/)?.[1]||'';
+      const name=t.match(/Name="([^"]+)"/)?.[1]||'';
+      const o={rawClass:cls, className:cls.replace(/^\/Script\//,''), name, header:t, lines:[], children:[], parent:st[st.length-1]||null, start:i};
+      if(st.length) st[st.length-1].children.push(o); else roots.push(o);
+      st.push(o);
+    } else if(t.startsWith('End Object')){
+      const o=st.pop(); if(o){ o.end=i; o.rawBlock=lines.slice(o.start,i+1).join('\n');}
+    } else { if(st.length) st[st.length-1].lines.push(lines[i]); }
+  }
+  const g={};
+  const rootId='EventGraph';
+  g[rootId]={id:rootId,name:'EventGraph',nodes:[],parentCompositeId:null,parentGraphId:null};
+
+  function toNode(obj, isInner=false){
+    if(obj.className==='Engine.EdGraph' || obj.className.includes('EdGraphSchema')) return null;
+    if(!isInner && obj.className.includes('K2Node_Tunnel')) return null;
+    if(obj.className.includes('EdGraph') && !obj.className.includes('EdGraphNode')) return null;
+    const n={
+      id: obj.name||('Node_'+guid().slice(0,6)),
+      rawName:obj.name, className:obj.className, rawClass:obj.rawClass,
+      header:obj.header, rawLines:obj.lines, rawBlock:obj.rawBlock,
+      guid:'', pos:{x:0,y:0}, pins:[], isReroute:false,isComment:false,isComposite:false,isTunnel:false,
+      width:180,height:80,title:'', varName:null, funcName:null, operationName:null, commentText:''
+    };
+    n.isReroute=obj.className.includes('K2Node_Knot');
+    n.isComment=obj.className.includes('EdGraphNode_Comment');
+    n.isComposite=obj.className.includes('K2Node_Composite');
+    n.isTunnel=obj.className.includes('K2Node_Tunnel');
+    let cmt='';
+    for(const l of obj.lines){
+      const t=l.trim();
+      if(t.startsWith('NodePosX=')) n.pos.x=parseInt(t.match(/NodePosX=(-?\d+)/)?.[1]||'0',10);
+      else if(t.startsWith('NodePosY=')) n.pos.y=parseInt(t.match(/NodePosY=(-?\d+)/)?.[1]||'0',10);
+      else if(t.startsWith('NodeGuid=')) n.guid=t.match(/NodeGuid=([A-F0-9]+)/)?.[1]||guid();
+      else if(t.startsWith('NodeWidth=')) n.width=parseInt(t.match(/NodeWidth=(\d+)/)?.[1]||'180',10);
+      else if(t.startsWith('NodeHeight=')) n.height=parseInt(t.match(/NodeHeight=(\d+)/)?.[1]||'80',10);
+      else if(t.startsWith('NodeComment=')) cmt=t.match(/NodeComment="([^"]*)"/)?.[1]||'';
+      else if(t.startsWith('CustomProperties Pin')){
+        const s=t.substring(t.indexOf('Pin (')+5);
+        const pinId=(s.match(/PinId=([A-F0-9]+)/)||[])[1]||guid();
+        const pinName=(s.match(/PinName="([^"]+)"/)||[])[1]||'';
+        const dir=s.match(/Direction="([^"]+)"/)?.[1]||'EGPD_Input';
+        const cat=(s.match(/PinCategory="([^"]*)"/)||[])[1]||'';
+        const sub=(s.match(/PinSubCategory="([^"]*)"/)||[])[1]||'';
+        const hidden=/bHidden=True/.test(s);
+        const m=s.match(/LinkedTo=\(([^)]*)\)/);
+        let linked=[]; if(m){
+          const inside=m[1].trim();
+          if(inside) inside.split(',').map(x=>x.trim()).filter(Boolean).forEach(p=>{
+            const tok=p.split(/\s+/).filter(Boolean); if(tok.length>=2) linked.push({nodeName:tok[0],pinId:tok[1]});
+          });
+        }
+        n.pins.push({id:pinId,name:pinName,friendly:pinName,direction:dir.includes('Output')?'Output':'Input',category:cat,subCategory:sub,hidden,linkedTo:linked});
+      } else if(t.startsWith('VariableReference=')){ const m=t.match(/MemberName="([^"]+)"/); if(m) n.varName=m[1]; }
+      else if(t.startsWith('FunctionReference=')){ const m=t.match(/MemberName="([^"]+)"/); if(m) n.funcName=m[1]; }
+      else if(t.startsWith('OperationName=')) n.operationName=t.match(/OperationName="([^"]+)"/)?.[1]||'';
+    }
+    if(!n.guid) n.guid=guid();
+    if(n.isComment) n.commentText=cmt||'Comment';
+    if(n.isReroute) n.title='Reroute';
+    else if(n.isTunnel) n.title='Tunnel';
+    else if(n.className.includes('K2Node_VariableGet')) n.title='Get '+(n.varName||'Var');
+    else if(n.className.includes('K2Node_VariableSet')) n.title='Set '+(n.varName||'Var');
+    else if(n.className.includes('K2Node_IfThenElse')) n.title='Branch';
+    else if(n.className.includes('K2Node_PromotableOperator')) n.title=n.operationName||'Pure Op';
+    else if(n.className.includes('K2Node_CallFunction')) n.title=n.funcName||'Call Function';
+    else if(n.isComposite) n.title='Collapsed Graph';
+    else n.title=n.className.split('.').pop()||n.className;
+    n.headerColor=headerColor(n);
+    return n;
+  }
+
+  function walk(objs, gid, isInner){
+    for(const o of objs){
+      if(o.className==='Engine.EdGraph'){ if(!isInner) walk(o.children,gid,false); continue; }
+      const nd=toNode(o,isInner); if(!nd) continue;
+      g[gid].nodes.push(nd);
+      if(nd.isComposite){
+        const ed=o.children.find(c=>c.className==='Engine.EdGraph');
+        if(ed){
+          const innerId=nd.guid||nd.id+'_Graph';
+          nd.collapseGraphId=innerId;
+          g[innerId]={id:innerId,name:nd.title||'Collapsed Graph',nodes:[],parentCompositeId:nd.id,parentGraphId:gid};
+          for(const ch of ed.children){
+            const inn=toNode(ch,true); if(!inn) continue;
+            if(inn.isTunnel){
+              const raw=ch.lines.join(' ');
+              if(raw.includes('bCanHaveInputs=True') && raw.includes('bCanHaveOutputs=True')) inn.tunnelType='both';
+              else if(raw.includes('bCanHaveInputs=True')) inn.tunnelType='input';
+              else if(raw.includes('bCanHaveOutputs=True')) inn.tunnelType='output';
+            }
+            g[innerId].nodes.push(inn);
+          }
+        }
+      }
+    }
+  }
+  walk(roots,rootId,false);
+  return g;
+}
+
+/* ===== Generator ===== */
+function genBlock(n){
+  const g=n.guid||guid();
+  const pinsTxt=n.pins.map(p=>{
+    const dir=p.direction==='Output'?`Direction="EGPD_Output",`:'';
+    const link=p.linkedTo.length?`LinkedTo=(${p.linkedTo.map(l=>l.nodeName+' '+l.pinId).join(',')},)`:'';
+    return `   CustomProperties Pin (PinId=${p.id},PinName="${p.name}",${dir}PinType.PinCategory="${p.category}",PinType.PinSubCategory="${p.subCategory||''}",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,PersistentGuid=00000000000000000000000000000000,bHidden=${p.hidden?'True':'False'},bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,${link})`;
+  }).join('\n');
+  let extra='';
+  if(n.varName) extra+=`   VariableReference=(MemberName="${n.varName}",MemberGuid=${g.slice(0,8)}${g.slice(8,12)}${g.slice(12,16)}${g.slice(16,20)}${g.slice(20,32)},bSelfContext=True)\n`;
+  if(n.funcName) extra+=`   FunctionReference=(MemberName="${n.funcName}",MemberGuid=${g.slice(0,8)}${g.slice(8,12)}${g.slice(12,16)}${g.slice(16,20)}${g.slice(20,32)},bSelfContext=True)\n`;
+  if(n.operationName) extra+=`   OperationName="${n.operationName}"\n   bDefaultsToPureFunc=True\n   FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="${n.operationName}_DoubleDouble")\n`;
+  if(n.isComment) return `Begin Object Class=${n.rawClass} Name="${n.id}" ExportPath="/Script/UnrealEd.EdGraphNode_Comment'/Game/Generated.Generated:EventGraph.${n.id}'"\n   NodePosX=${Math.round(n.pos.x)}\n   NodePosY=${Math.round(n.pos.y)}\n   NodeWidth=${n.width}\n   NodeHeight=${n.height}\n   NodeComment="${n.commentText}"\n   NodeGuid=${g}\nEnd Object`;
+  const cls=n.rawClass||`/Script/BlueprintGraph.${n.className.split('.').pop()}`;
+  return `Begin Object Class=${cls} Name="${n.id}" ExportPath="/Script/BlueprintGraph.${n.className.split('.').pop()}'/Game/Generated.Generated:EventGraph.${n.id}'"\n${extra}   NodePosX=${Math.round(n.pos.x)}\n   NodePosY=${Math.round(n.pos.y)}\n   NodeGuid=${g}\n${pinsTxt}\nEnd Object`;
+}
+function genUE(nodes){
+  if(!nodes.length) return '';
+  return nodes.map(n=>{
+    let b=n.rawBlock||genBlock(n);
+    b=b.replace(/NodePosX=-?\d+/g,`NodePosX=${Math.round(n.pos.x)}`);
+    b=b.replace(/NodePosY=-?\d+/g,`NodePosY=${Math.round(n.pos.y)}`);
+    if(n.isComment){
+      b=b.replace(/NodeWidth=\d+/g,`NodeWidth=${n.width}`);
+      b=b.replace(/NodeHeight=\d+/g,`NodeHeight=${n.height}`);
+      b=b.replace(/NodeComment="[^"]*"/,`NodeComment="${n.commentText}"`);
+    }
+    return b;
+  }).join('\n\n');
+}
+
+/* ===== View ===== */
+function updateTransform(){
+  $viewport.style.transform=`translate(${pan.x}px, ${pan.y}px) scale(${scale})`;
+  $grid.style.transform=`translate(${pan.x}px, ${pan.y}px) scale(${scale})`;
+  document.getElementById('stZoom').textContent=Math.round(scale*100)+'%';
+  drawWires();
+}
+function fit(){
+  const ns=curNodes(); if(!ns.length){ pan={x:80,y:60}; scale=1; updateTransform(); return; }
+  const minX=Math.min(...ns.map(n=>n.pos.x)), maxX=Math.max(...ns.map(n=>n.pos.x + (n.isComment?n.width:200)));
+  const minY=Math.min(...ns.map(n=>n.pos.y)), maxY=Math.max(...ns.map(n=>n.pos.y + (n.isComment?n.height:60)));
+  const pad=120, w=maxX-minX+pad*2, h=maxY-minY+pad*2;
+  const W=$wrap.clientWidth, H=$wrap.clientHeight;
+  const s=Math.min(W/w, H/h, 1.2);
+  scale=Math.max(0.3, Math.min(1.4,s));
+  pan.x=(W - w*scale)/2 - minX*scale + pad*scale;
+  pan.y=(H - h*scale)/2 - minY*scale + pad*scale;
+  updateTransform();
+}
+function render(){
+  const ns=curNodes();
+  $nodes.innerHTML='';
+  if(!ns.length){
+    $nodes.innerHTML=`<div style="position:absolute;left:${(-pan.x/scale+300)}px;top:${(-pan.y/scale+200)}px;color:#555;font-size:13px;pointer-events:none;text-align:center"><div style="font-size:26px;opacity:.3">⬢</div>Пусто — ПКМ → добавить ноду<br><span style="font-size:11px;color:#666">или Ctrl+V чтобы вставить из UE</span></div>`;
+    drawWires(); updateCrumbs(); updateStatus(); return;
+  }
+  // Comments behind — как в UE: сначала комментарии, потом ноды
+  const sorted=[...ns].sort((a,b)=> (a.isComment? -1 : b.isComment? 1 : 0));
+  for(const n of sorted){
+    const el=document.createElement('div');
+    el.className='node'+(selected.has(n.id)?' selected':'')+(n.isReroute?' reroute':'')+(n.isComment?' comment':'')+(n.isTunnel?' tunnel':'');
+    el.dataset.id=n.id;
+    el.style.left=n.pos.x+'px';
+    el.style.top=n.pos.y+'px';
+    if(n.isComment){
+      el.style.width=(n.width||360)+'px'; el.style.height=(n.height||200)+'px';
+      el.innerHTML=`<div class="node-head" style="background:rgba(255,255,255,.06)"><span style="width:7px;height:7px;background:#666;border-radius:50%"></span> Comment <span style="margin-left:auto;font-size:9px;opacity:.5">${n.guid.slice(0,4)}</span></div><div style="padding:8px 10px;font-size:12px;color:#aaa">${esc(n.commentText)}</div>`;
+    } else if(n.isReroute){
+      el.title='Reroute';
+    } else if(n.isTunnel){
+      const lbl=n.tunnelType==='input'?'Entry':n.tunnelType==='output'?'Exit':'Tunnel';
+      el.style.width='110px';
+      el.innerHTML=`<div class="node-head" style="background:#252525;color:#bbb"><span>◈</span> ${esc(lbl)}</div><div class="node-body"><div class="pins-col">${n.pins.filter(p=>p.direction==='Input').map(p=>pinRow(p,'in')).join('')}</div><div class="pins-col right">${n.pins.filter(p=>p.direction==='Output').map(p=>pinRow(p,'out')).join('')}</div></div>`;
+    } else {
+      el.style.width='200px';
+      const head=`<div class="node-head" style="background:${n.headerColor}"><div class="ico">${iconFor(n)}</div><span style="flex:1;overflow:hidden;text-overflow:ellipsis">${esc(n.title)}</span><span style="font-size:9px;opacity:.6">${n.guid.slice(0,3)}</span></div>`;
+      let left='', right='';
+      for(const p of n.pins.filter(p=>p.direction==='Input')) left+=pinRow(p,'in');
+      for(const p of n.pins.filter(p=>p.direction==='Output')) right+=pinRow(p,'out');
+      if(n.isComposite) right+=`<div style="font-size:9px;color:rgba(255,255,255,.7);padding:2px 7px;text-align:right">двойной клик → внутрь</div>`;
+      el.innerHTML=head+`<div class="node-body"><div class="pins-col">${left}</div><div class="pins-col right">${right}</div></div>`;
+    }
+    el.addEventListener('mousedown', e=> onNodeDown(e,n));
+    el.addEventListener('dblclick', e=>{ if(n.isComposite){ e.stopPropagation(); enter(n); }});
+    $nodes.appendChild(el);
+    // attach pin drag listeners
+    el.querySelectorAll('.dot').forEach(dot=>{
+      const pid=dot.dataset.pin;
+      const pin=n.pins.find(p=>p.id===pid);
+      if(!pin) return;
+      dot.addEventListener('mousedown', e=> startWireDrag(e,n,pin));
+      dot.addEventListener('mouseenter', ()=>{ dot.style.transform='scale(1.25)'; });
+      dot.addEventListener('mouseleave', ()=>{ dot.style.transform='scale(1)'; });
+    });
+  }
+  drawWires(); updateCrumbs(); updateStatus();
+}
+function pinRow(p, dir){
+  const cat=(p.category||'').toLowerCase();
+  if(cat==='exec') return `<div class="pin-row ${dir}" data-pin="${p.id}" data-cat="${esc(p.category)}"><div class="dot exec" data-pin="${p.id}" data-dir="${dir}"></div><span class="lbl exec">${esc(p.friendly||p.name)}</span></div>`;
+  const col=wireColor(p.category);
+  const filled=(cat==='bool'||cat==='object')?`background:${col}`:'';
+  const outFill=(cat==='real'&&dir==='out')?`background:${col}`:'';
+  return `<div class="pin-row ${dir}" data-pin="${p.id}" data-cat="${esc(p.category)}"><div class="dot" style="border-color:${col};${filled};${outFill}" data-pin="${p.id}" data-dir="${dir}" data-cat="${esc(p.category)}"></div><span class="lbl">${esc(p.friendly||p.name)}</span></div>`;
+}
+function drawWires(){
+  const ns=curNodes();
+  $wires.innerHTML='';
+  const pos=new Map();
+  ns.forEach(n=>{
+    const el=$nodes.querySelector(`[data-id="${CSS.escape(n.id)}"]`);
+    if(!el) return;
+    el.querySelectorAll('.pin-row').forEach(row=>{
+      const pid=row.dataset.pin;
+      const isOut=row.classList.contains('out');
+      const cat=n.pins.find(p=>p.id===pid)?.category||'';
+      const y=n.pos.y + row.offsetTop + 7;
+      const x=isOut? n.pos.x + (n.isReroute?16: n.isComment?n.width: n.isTunnel?110:200) : n.pos.x;
+      const fx=n.isReroute? n.pos.x+8 : x, fy=n.isReroute? n.pos.y+8 : y;
+      pos.set(n.id+':'+pid, {x:fx,y:fy,cat});
+    });
+    if(n.isReroute && !n.pins.length) pos.set(n.id+':reroute',{x:n.pos.x+8,y:n.pos.y+8,cat:'exec'});
+  });
+  const seen=new Set();
+  ns.forEach(n=> n.pins.forEach(p=> p.linkedTo.forEach(link=>{
+    const tgt=ns.find(x=> x.id===link.nodeName || x.rawName===link.nodeName);
+    if(!tgt) return;
+    const aKey=n.id+':'+p.id, bKey=tgt.id+':'+link.pinId;
+    const key=[aKey,bKey].sort().join('|');
+    if(seen.has(key)) return; seen.add(key);
+    const a=pos.get(aKey)||pos.get(n.id+':reroute')||{x:n.pos.x+100,y:n.pos.y+30,cat:p.category};
+    const b=pos.get(bKey)||pos.get(tgt.id+':reroute')||{x:tgt.pos.x+100,y:tgt.pos.y+30,cat:p.category};
+    let s,e,cat;
+    if(p.direction==='Output'){ s=a; e=b; cat=p.category; } else {
+      const tp=tgt.pins.find(x=>x.id===link.pinId);
+      if(tp?.direction==='Output'){ s=b; e=a; cat=tp.category; } else { s=a; e=b; cat=p.category; }
+    }
+    const col=wireColor(cat);
+    const d=`M ${s.x} ${s.y} C ${s.x+Math.abs(e.x-s.x)*0.5+60} ${s.y}, ${e.x-Math.abs(e.x-s.x)*0.5-60} ${e.y}, ${e.x} ${e.y}`;
+    if(cat.toLowerCase()==='exec'){
+      const o=document.createElementNS('http://www.w3.org/2000/svg','path');
+      o.setAttribute('d',d); o.setAttribute('fill','none'); o.setAttribute('stroke','#111'); o.setAttribute('stroke-width','5'); o.setAttribute('opacity','0.35');
+      $wires.appendChild(o);
+    }
+    const hit=document.createElementNS('http://www.w3.org/2000/svg','path');
+    hit.setAttribute('d',d); hit.setAttribute('fill','none'); hit.setAttribute('stroke','transparent'); hit.setAttribute('stroke-width','14'); hit.setAttribute('class','hit');
+    hit.style.cursor='pointer';
+    hit.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      if(confirm(`Удалить связь ${fromNode.title}.${fromPin.name} → ${toNode.title}.${toPin?toPin.name:''} ?`)){
+        // remove both sides
+        fromPin.linkedTo = fromPin.linkedTo.filter(l=> !(l.nodeName===toNode.id && l.pinId===toPin.id));
+        if(toPin) toPin.linkedTo = toPin.linkedTo.filter(l=> !(l.nodeName===fromNode.id && l.pinId===fromPin.id));
+        render();
+        toast('Связь удалена — клик по проводу');
+      }
+    });
+    hit.addEventListener('mouseenter', ()=>{ path.setAttribute('stroke-width', cat.toLowerCase()==='exec'?'3.5':'3'); path.style.filter='drop-shadow(0 0 4px '+col+')'; });
+    hit.addEventListener('mouseleave', ()=>{ path.setAttribute('stroke-width', cat.toLowerCase()==='exec'?'2.2':'2'); path.style.filter=''; });
+    $wires.appendChild(hit);
+    const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d',d); path.setAttribute('fill','none'); path.setAttribute('stroke',col); path.setAttribute('stroke-width', cat.toLowerCase()==='exec'?'2.2':'2'); path.style.pointerEvents='none';
+    $wires.appendChild(path);
+  })));
+  $wires.setAttribute('width','8000'); $wires.setAttribute('height','8000'); $wires.setAttribute('viewBox','0 0 8000 8000');
+  $wires.style.left='0'; $wires.style.top='0';
+  if(wireDrag){
+    const col=wireColor(wireDrag.fromPin.category);
+    const d=`M ${wireDrag.startWorld.x} ${wireDrag.startWorld.y} C ${wireDrag.startWorld.x+Math.abs(wireDrag.curWorld.x-wireDrag.startWorld.x)*0.5+60} ${wireDrag.startWorld.y}, ${wireDrag.curWorld.x-Math.abs(wireDrag.curWorld.x-wireDrag.startWorld.x)*0.5-60} ${wireDrag.curWorld.y}, ${wireDrag.curWorld.x} ${wireDrag.curWorld.y}`;
+    const prev=document.createElementNS('http://www.w3.org/2000/svg','path');
+    prev.setAttribute('d',d); prev.setAttribute('fill','none'); prev.setAttribute('stroke',col); prev.setAttribute('stroke-width','2.2'); prev.setAttribute('class','preview');
+    prev.style.filter='drop-shadow(0 0 3px '+col+')';
+    $wires.appendChild(prev);
+    // animate dash
+    prev.style.strokeDashoffset='12';
+  }
+}
+function startWireDrag(e, node, pin){
+  e.stopPropagation(); e.preventDefault();
+  const r=$wrap.getBoundingClientRect();
+  const startWorld = {x: node.pos.x + (pin.direction==='Output'? (node.isReroute?8:200) : 0), y: node.pos.y + 14};
+  // more precise: find actual dot position
+  const dot=e.target.closest('.dot');
+  if(dot){
+    const row=dot.closest('.pin-row');
+    if(row){ startWorld.y = node.pos.y + row.offsetTop + 7; }
+  }
+  wireDrag={fromNode:node, fromPin:pin, startWorld, curWorld:{x:mouseWorld.x,y:mouseWorld.y}};
+  if(dot) dot.classList.add('dragging');
+  window.addEventListener('mousemove', onWireMove);
+  window.addEventListener('mouseup', onWireUp);
+  render();
+}
+function onWireMove(e){
+  if(!wireDrag) return;
+  const r=$wrap.getBoundingClientRect();
+  wireDrag.curWorld={x: mouseWorld.x, y: mouseWorld.y};
+  drawWires();
+}
+function onWireUp(e){
+  if(!wireDrag) return;
+  const targetDot = document.elementFromPoint(e.clientX, e.clientY)?.closest('.dot');
+  const targetRow = document.elementFromPoint(e.clientX, e.clientY)?.closest('.pin-row');
+  window.removeEventListener('mousemove', onWireMove);
+  window.removeEventListener('mouseup', onWireUp);
+  document.querySelectorAll('.dot.dragging').forEach(d=>d.classList.remove('dragging'));
+  if(targetDot && targetRow){
+    const toPinId=targetDot.dataset.pin;
+    const toNodeEl=targetDot.closest('.node');
+    if(toNodeEl){
+      const toNodeId=toNodeEl.dataset.id;
+      const toNode=curNodes().find(n=>n.id===toNodeId);
+      const toPin=toNode?.pins.find(p=>p.id===toPinId);
+      const fromNode=wireDrag.fromNode, fromPin=wireDrag.fromPin;
+      if(toNode && toPin && toNode.id!==fromNode.id){
+        // Validate: cannot connect same direction, and output->input preferred
+        if(fromPin.direction===toPin.direction){
+          toast('Нельзя соединить два '+fromPin.direction+' пина');
+        } else {
+          // Determine output/input
+          const outNode = fromPin.direction==='Output'? fromNode : toNode;
+          const outPin = fromPin.direction==='Output'? fromPin : toPin;
+          const inNode = fromPin.direction==='Input'? fromNode : toNode;
+          const inPin = fromPin.direction==='Input'? fromPin : toPin;
+          // Check if already linked
+          const already = outPin.linkedTo.some(l=> l.nodeName===inNode.id && l.pinId===inPin.id);
+          if(already){ toast('Уже соединено'); }
+          else {
+            // Optional type check: exec<->exec, bool<->bool etc, but allow wildcard
+            const outCat=(outPin.category||'').toLowerCase(), inCat=(inPin.category||'').toLowerCase();
+            const compatible = outCat===inCat || outCat==='' || inCat==='' || outCat==='exec' && inCat==='exec' || outCat!=='exec' && inCat!=='exec';
+            if(!compatible && outCat!=='exec' && inCat!=='exec'){
+              if(!confirm(`Соединить ${outCat} → ${inCat}? Типы не совпадают.`)) { wireDrag=null; drawWires(); return; }
+            }
+            outPin.linkedTo.push({nodeName:inNode.id, pinId:inPin.id});
+            inPin.linkedTo.push({nodeName:outNode.id, pinId:outPin.id});
+            toast(`Соединено: ${outNode.title}.${outPin.name} → ${inNode.title}.${inPin.name}`);
+            render();
+          }
+        }
+      }
+    }
+  }
+  wireDrag=null; drawWires();
+}
+
+/* ===== Graph navigation ===== */
+function enter(node){
+  if(!node.collapseGraphId || !graphs[node.collapseGraphId]){ toast('Внутри пусто'); return; }
+  stack.push(cur); cur=node.collapseGraphId; selected.clear(); fit(); render();
+}
+function exit(){
+  if(!stack.length) return;
+  cur=stack.pop(); selected.clear(); fit(); render();
+}
+function updateCrumbs(){
+  const c=document.getElementById('crumbs'); c.innerHTML='';
+  const path=[...stack, cur];
+  path.forEach((id,i)=>{
+    if(i) c.innerHTML+='<span>›</span>';
+    const b=document.createElement('b');
+    b.textContent=graphs[id]?.name||id;
+    b.className= i===path.length-1?'active':'';
+    if(i!==path.length-1) b.onclick=()=>{
+      const idx=path.indexOf(id);
+      stack=path.slice(0,idx);
+      cur=id; selected.clear(); fit(); render();
+    };
+    c.appendChild(b);
+  });
+  document.getElementById('stGraph').textContent=curGraph()?.name||cur;
+}
+function updateStatus(){
+  document.getElementById('stSel').textContent=`Выделено: ${selected.size}`;
+  document.getElementById('stCount').textContent=`${curNodes().length} нод`;
+}
+
+/* ===== Interaction ===== */
+$wrap.addEventListener('mousedown', e=>{
+  if(e.target.closest('.node')) return;
+  if(e.button===0 && !e.target.closest('#ctx')){
+    hideCtx();
+    const r=$wrap.getBoundingClientRect();
+    const w={x:(e.clientX-r.left - pan.x)/scale, y:(e.clientY-r.top - pan.y)/scale};
+    const s={screenX:e.clientX,screenY:e.clientY, x:w.x, y:w.y};
+    box={start:s, cur:s};
+    $selBox.style.display='block';
+    $wrap.classList.add('boxing');
+    e.preventDefault();
+  }
+  lastMouseScreen={x:e.clientX,y:e.clientY};
+});
+window.addEventListener('mousemove', e=>{
+  const r=$wrap.getBoundingClientRect();
+  mouseWorld={x:(e.clientX-r.left - pan.x)/scale, y:(e.clientY-r.top - pan.y)/scale};
+  document.getElementById('stPos').textContent=`${Math.round(mouseWorld.x)}, ${Math.round(mouseWorld.y)}`;
+  if(drag){
+    const dx=(e.clientX - drag.startMouse.x)/scale, dy=(e.clientY - drag.startMouse.y)/scale;
+    drag.nodes.forEach(n=>{
+      const s=drag.starts.get(n.id);
+      n.pos.x=snapVal(s.x+dx); n.pos.y=snapVal(s.y+dy);
+    });
+    // auto-pan near edges (infinite feeling)
+    const m=50, cx=e.clientX-r.left, cy=e.clientY-r.top;
+    let px=0,py=0;
+    if(cx<m) px=(m-cx)*0.35;
+    else if(cx>r.width-m) px=-(cx-(r.width-m))*0.35;
+    if(cy<m) py=(m-cy)*0.35;
+    else if(cy>r.height-m) py=-(cy-(r.height-m))*0.35;
+    if(px||py){ pan.x+=px; pan.y+=py; updateTransform(); }
+    render();
+    return;
+  }
+  if(box){
+    const cur={x:mouseWorld.x, y:mouseWorld.y, screenX:e.clientX,screenY:e.clientY};
+    box.cur=cur;
+    const x1=Math.min(box.start.screenX,cur.screenX)-r.left, y1=Math.min(box.start.screenY,cur.screenY)-r.top;
+    const x2=Math.max(box.start.screenX,cur.screenX)-r.left, y2=Math.max(box.start.screenY,cur.screenY)-r.top;
+    $selBox.style.left=x1+'px'; $selBox.style.top=y1+'px'; $selBox.style.width=(x2-x1)+'px'; $selBox.style.height=(y2-y1)+'px';
+    const sx1=Math.min(box.start.x,cur.x), sy1=Math.min(box.start.y,cur.y), sx2=Math.max(box.start.x,cur.x), sy2=Math.max(box.start.y,cur.y);
+    const ns=new Set();
+    curNodes().forEach(n=>{
+      const w=n.isComment?n.width:200, h=n.isComment?n.height:56;
+      if(!(n.pos.x+w < sx1 || n.pos.x > sx2 || n.pos.y+h < sy1 || n.pos.y > sy2)) ns.add(n.id);
+    });
+    selected=ns; render();
+    return;
+  }
+  if(e.buttons===4 || e.buttons===2 || (e.buttons===1 && e.altKey)){
+    pan.x+=e.clientX-lastMouseScreen.x;
+    pan.y+=e.clientY-lastMouseScreen.y;
+    updateTransform();
+  }
+  lastMouseScreen={x:e.clientX,y:e.clientY};
+});
+window.addEventListener('mouseup', ()=>{
+  if(drag) drag=null;
+  if(box){ $selBox.style.display='none'; $wrap.classList.remove('boxing'); box=null; }
+});
+$wrap.addEventListener('wheel', e=>{
+  e.preventDefault();
+  const r=$wrap.getBoundingClientRect();
+  const cx=e.clientX-r.left, cy=e.clientY-r.top;
+  const wx=(cx - pan.x)/scale, wy=(cy - pan.y)/scale;
+  scale=Math.min(2.4, Math.max(0.22, scale - e.deltaY*0.001));
+  pan.x=cx - wx*scale; pan.y=cy - wy*scale;
+  updateTransform();
+},{passive:false});
+$wrap.addEventListener('contextmenu', e=> e.preventDefault());
+window.addEventListener('keydown', e=>{
+  if(e.key==='Escape'){ if($ctx.style.display==='flex') hideCtx(); else if(stack.length) exit(); }
+  if((e.key==='Delete' || e.key==='Backspace') && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)){
+    if(selected.size) delSel();
+  }
+  if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==='a' && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)){
+    e.preventDefault(); selected=new Set(curNodes().map(n=>n.id)); render();
+  }
+  if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==='c' && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)){
+    e.preventDefault(); doCopy();
+  }
+  if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==='v' && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)){
+    e.preventDefault(); doPaste();
+  }
+  if(e.key==='f' && !e.ctrlKey && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)){ e.preventDefault(); fit(); }
+});
+
+/* Node drag */
+function onNodeDown(e, node){
+  if(e.button!==0) return;
+  e.stopPropagation();
+  hideCtx();
+  const ns=curNodes();
+  let group=[node];
+  if(node.isComment){
+    const inside=curNodes().filter(n=> !n.isComment && n.id!==node.id && n.pos.x>=node.pos.x-4 && n.pos.y>=node.pos.y-4 && n.pos.x+180<=node.pos.x+(node.width||360)+4 && n.pos.y+40<=node.pos.y+(node.height||200)+4);
+    group=[node,...inside];
+  } else if(selected.has(node.id)){
+    group=[...selected].map(id=>ns.find(n=>n.id===id)).filter(Boolean);
+    // expand comments in selection
+    const extra=[];
+    group.forEach(n=>{ if(n.isComment) extra.push(...ns.filter(x=> !x.isComment && x.pos.x>=n.pos.x-4 && x.pos.y>=n.pos.y-4 && x.pos.x+180<=n.pos.x+(n.width||360)+4)); });
+    group=[...new Set([...group,...extra])];
+  }
+  if(!e.shiftKey && !e.ctrlKey && !selected.has(node.id)){
+    selected.clear(); selected.add(node.id); render();
+  }
+  drag={nodes:group, startMouse:{x:e.clientX,y:e.clientY}, starts:new Map(group.map(n=>[n.id,{x:n.pos.x,y:n.pos.y}]))};
+  lastMouseScreen={x:e.clientX,y:e.clientY};
+  // click selection handled on mouseup if not dragging
+  const wasSel=new Set(selected);
+  const onUp=()=>{
+    window.removeEventListener('mouseup', onUp);
+    if(drag && Math.hypot(e.clientX-lastMouseScreen.x, e.clientY-lastMouseScreen.y)<3){
+      // treat as click
+      if(e.shiftKey||e.ctrlKey){
+        if(wasSel.has(node.id)) selected.delete(node.id); else selected.add(node.id);
+      } else {
+        selected.clear(); selected.add(node.id);
+      }
+      render();
+    }
+    drag=null;
+  };
+  window.addEventListener('mouseup', onUp);
+}
+$wrap.addEventListener('mousedown', e=>{
+  if(e.target=== $wrap || e.target.id==='grid' || e.target.id==='viewport'){
+    if(!e.shiftKey && !e.ctrlKey && e.button===0){ selected.clear(); render(); }
+  }
+});
+
+/* Copy / Paste */
+async function doCopy(){
+  const ns=curNodes();
+  const list=[...selected].map(id=>ns.find(n=>n.id===id)).filter(Boolean);
+  const toCopy=list.length? list : (selected.size? [] : ns);
+  if(!toCopy.length){ toast('Нечего копировать'); return; }
+  const txt=genUE(toCopy);
+  try{ await navigator.clipboard.writeText(txt); toast(`Скопировано ${toCopy.length} нод — вставь в UE Ctrl+V`); }
+  catch{ // fallback
+    const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); toast(`Скопировано ${toCopy.length} нод`);
+  }
+}
+async function doPaste(){
+  try{
+    const txt=await navigator.clipboard.readText();
+    if(!txt || !txt.includes('Begin Object')){ toast('В буфере нет UE нод'); return; }
+    pasteUE(txt, mouseWorld);
+  } catch{
+    // fallback: prompt
+    const txt=prompt('Вставь UE код (Begin Object ... End Object):');
+    if(txt) pasteUE(txt, mouseWorld);
+  }
+}
+function pasteUE(text, at){
+  const parsed=parseUE(text);
+  const incoming=parsed['EventGraph']?.nodes || [];
+  if(!incoming.length){ toast('Не удалось распарсить'); return; }
+  // Offset to paste position (center incoming at mouse)
+  const minX=Math.min(...incoming.map(n=>n.pos.x)), minY=Math.min(...incoming.map(n=>n.pos.y));
+  const offX=(at.x - minX) + (Math.random()*20-10), offY=(at.y - minY) + (Math.random()*20-10);
+  // Remap ids/guids to avoid collisions
+  const idMap=new Map(), pinMap=new Map();
+  incoming.forEach(n=>{
+    const oldId=n.id, newId=n.id.replace(/_\d+$/,'')+'_'+Math.floor(Math.random()*900+100);
+    idMap.set(oldId,newId); n.id=newId; n.rawName=newId; n.guid=guid();
+    n.pins.forEach(p=>{ const old=p.id; const nw=guid(); pinMap.set(old,nw); p.id=nw; });
+    n.pos.x=snapVal(n.pos.x+offX); n.pos.y=snapVal(n.pos.y+offY);
+    n.rawBlock=genBlock(n);
+  });
+  // Remap LinkedTo
+  incoming.forEach(n=> n.pins.forEach(p=> p.linkedTo.forEach(l=>{
+    if(idMap.has(l.nodeName)) l.nodeName=idMap.get(l.nodeName);
+    if(pinMap.has(l.pinId)) l.pinId=pinMap.get(l.pinId);
+  })));
+  // Handle collapsed graphs in pasted: if any composite, also add its inner graph
+  curGraph().nodes.push(...incoming);
+  // Add inner graphs
+  for(const gid in parsed){
+    if(gid==='EventGraph') continue;
+    // incoming composites reference innerId via their guid, we already remapped guid? need to copy inner graph with new id
+    const g=parsed[gid];
+    // Find composite that owned it
+    const owner=incoming.find(n=> n.collapseGraphId===gid);
+    if(owner){
+      const newInnerId=owner.guid;
+      graphs[newInnerId]={id:newInnerId,name:g.name,nodes:g.nodes.map(nn=>{
+        // remap inner nodes similarly (already done? incoming inner nodes not yet? we need to process g.nodes)
+        return nn;
+      }),parentCompositeId:owner.id,parentGraphId:cur};
+      // For inner nodes, also remap positions offset (they already offset via composite pos? keep relative)
+      // Apply same off to inner nodes
+      g.nodes.forEach(nn=>{
+        nn.pos.x=snapVal(nn.pos.x+offX); nn.pos.y=snapVal(nn.pos.y+offY);
+        // remap pins inside inner graph to new ids
+        // Already done inside incoming loop? No, inner nodes not in incoming; need to handle
+      });
+      graphs[newInnerId].nodes=g.nodes;
+    } else {
+      // Orphan collapsed graph (if pasted directly)
+      // Just ignore
+    }
+  }
+  selected=new Set(incoming.map(n=>n.id));
+  render(); updateTransform();
+  toast(`Вставлено ${incoming.length} нод`);
+}
+document.getElementById('btnCopy').onclick=doCopy;
+document.getElementById('btnPaste').onclick=doPaste;
+document.getElementById('btnFit').onclick=fit;
+document.getElementById('btnClear').onclick=()=>{
+  if(confirm('Очистить текущий граф?')){ curGraph().nodes=[]; selected.clear(); render(); }
+};
+function delSel(){
+  const g=curGraph(); const toDel=new Set(selected);
+  g.nodes=g.nodes.filter(n=> !toDel.has(n.id));
+  // also delete inner graphs
+  for(const n of [...toDel]){ /* find composite inner */ for(const id in graphs) if(graphs[id].parentCompositeId===n) delete graphs[id]; }
+  selected.clear(); render();
+}
+
+/* ===== Context menu (ПКМ) ===== */
+function showCtx(x,y, mode, node){
+  $ctx.style.left=x+'px'; $ctx.style.top=y+'px'; $ctx.style.display='flex';
+  $ctxSearch.value=''; $ctxSearch.focus();
+  buildCtx('', mode, node);
+  requestAnimationFrame(()=>{
+    const r=$ctx.getBoundingClientRect();
+    if(r.right>innerWidth) $ctx.style.left=(innerWidth - r.width - 8)+'px';
+    if(r.bottom>innerHeight) $ctx.style.top=(innerHeight - r.height - 8)+'px';
+  });
+}
+function hideCtx(){ $ctx.style.display='none'; }
+$ctxSearch.addEventListener('input', e=> buildCtx(e.target.value, $ctx._mode, $ctx._node));
+
+function buildCtx(filter, mode, node){
+  $ctx._mode=mode; $ctx._node=node;
+  const reg=getREG();
+  // vars with type info
+  const varMap=new Map();
+  Object.values(graphs).forEach(g=> g.nodes.forEach(n=>{
+    if(n.varName){
+      const p=n.pins.find(x=> x.name===n.varName) || n.pins.find(x=> x.category!=='object' && x.category!=='exec');
+      const cat=p?.category||'real', sub=p?.subCategory||'';
+      if(!varMap.has(n.varName)) varMap.set(n.varName,{cat,sub});
+    }
+  }));
+  const vars=[...varMap.keys()];
+  let regs=reg;
+  // Russian + symbols -> English for Arena (чтобы "+" находил Add, ">" -> Greater)
+  const SYN = { 'ветвление':'branch','ветка':'branch','условие':'branch','больше':'greater','меньше':'less','равно':'equal','сложение':'add','вычитание':'subtract','умножение':'multiply','деление':'divide','печать':'print','задержка':'delay','случай':'random','вектор':'vector','строка':'string','массив':'array','переменная':'variable', '+':'add', '++':'add', 'plus':'add', '-':'subtract', 'minus':'subtract', '*':'multiply', 'x':'multiply', '/':'divide', '÷':'divide', '%':'percent', '>':'greater', '<':'less', '=':'equal', '==':'equal', '!=':'not', '>=':'greater', '<=':'less', '!':'not', '&&':'and', '||':'or' };
+  if(filter){
+    let q=filter.toLowerCase().trim();
+    // exact symbol map first
+    if(SYN[q]) q=SYN[q];
+    else {
+      for(const [ru,en] of Object.entries(SYN)) if(q.includes(ru)) { q=en; break; }
+    }
+    regs=regs.filter(r=>{
+      const hay = (r.id+' '+r.title+' '+r.category+' '+(r.func||'')+' '+(r.desc||'')).toLowerCase();
+      return hay.includes(q);
+    });
+    if(q==='add' || q==='branch') regs.sort((a,b)=> (a.title.toLowerCase().includes(q) ? -1 : 0));
+  }
+  const groups={}; regs.forEach(r=> (groups[r.category]=(groups[r.category]||[]).push(r)));
+  let html='';
+  if(mode==='node'){
+    html+=`<div class="node-acts">
+      <button class="btn small" id="ctxCopy">⎘ Копировать</button>
+      <button class="btn small" id="ctxDup">⧉ Дублировать</button>
+      <button class="btn small" id="ctxDel">🗑 Удалить</button>
+    </div>`;
+    if(node?.isComposite) html+=`<div class="act" id="ctxEnter"><div class="ic">⬢</div><div><b>Войти в Collapsed Graph</b><div style="font-size:10px;color:#777">Двойной клик</div></div></div>`;
+  } else {
+    // empty canvas menu
+    const hasUE = filter? false : true; // placeholder
+    html+=`<div class="act" id="ctxPaste"><div class="ic">📋</div><div><b>Вставить</b><div style="font-size:10px;color:#777">Ctrl+V в этой точке</div></div></div>`;
+  }
+  // filter vars by search as well
+  let filteredVars = vars;
+  if(filter){
+    const q=filter.toLowerCase();
+    filteredVars = vars.filter(v=> v.toLowerCase().includes(q));
+    // if searching for function, still show vars that match, but not all
+  }
+  if(mode!=='node'){
+    html+=`<div class="act" id="ctxCreateVar"><div class="ic">+</div><div><b>Создать переменную</b><div style="font-size:10px;color:#777">Новая Variable</div></div></div>`;
+    if(filteredVars.length){
+      html+=`<div class="group">Переменные проекта — Get / Set</div>`;
+      filteredVars.slice(0,20).forEach(v=>{
+        const info=varMap.get(v); const label=info? (info.cat + (info.sub? '/'+info.sub : '')) : 'real';
+        html+=`<div class="item" data-var-get="${esc(v)}"><div class="ic" style="background:#2a3a2a">◎</div><b>Get ${esc(v)}</b><small>${esc(label)}</small></div>`;
+        html+=`<div class="item" data-var-set="${esc(v)}"><div class="ic" style="background:#3a3020">◉</div><b>Set ${esc(v)}</b><small>${esc(label)}</small></div>`;
+      });
+    }
+  }
+  for(const cat in groups){
+    html+=`<div class="group">${cat}</div>`;
+    groups[cat].slice(0,18).forEach(r=>{
+      html+=`<div class="item" data-reg="${r.id}"><div class="ic">${cat.includes('Math')?'∑':cat.includes('Flow')?'◈':cat.includes('String')?'Aa':'ƒ'}</div><div style="flex:1"><b>${esc(r.title)}</b><div style="font-size:10px;color:#777">${esc(r.func||'')}</div></div></div>`;
+    });
+  }
+  if(!regs.length){
+    if(filter) html+=`<div style="padding:8px 10px;color:#777;font-size:11px">Функций по "${esc(filter)}" не найдено — показано ${Object.keys(groups).length} категорий. Попробуй английский: Branch, Greater, Print, Clamp, Vector...</div>`;
+    else if(!vars.length) html+=`<div style="padding:10px;color:#555">Ничего не найдено</div>`;
+  }
+  $ctxList.innerHTML=html;
+
+  // bind
+  const pasteBtn=$ctxList.querySelector('#ctxPaste'); if(pasteBtn) pasteBtn.onclick=()=>{ hideCtx(); doPaste(); };
+  const cv=$ctxList.querySelector('#ctxCreateVar'); if(cv) cv.onclick=()=>{ hideCtx(); const name=prompt('Имя переменной:','NewVar'); if(name){ const safe=name.replace(/\s+/g,'_').replace(/[^A-Za-z0-9_]/g,''); 
+    const typeChoice=prompt(`Тип для "${safe}":\n`+VAR_TYPES.map((v,i)=> `${i+1}. ${v.label}`).join('\n')+"\n\nВведи номер или имя:", "1");
+    if(typeChoice===null) return;
+    let tp=null; const n=parseInt(typeChoice,10); if(!isNaN(n) && n>=1 && n<=VAR_TYPES.length) tp=VAR_TYPES[n-1].id; else tp=typeChoice;
+    createVar(safe,'Get', $ctx._worldPos||mouseWorld, tp); } };
+  $ctxList.querySelectorAll('[data-var-get]').forEach(el=> el.onclick=()=>{ hideCtx(); createVar(el.dataset.varGet,'Get', $ctx._worldPos||mouseWorld); });
+  $ctxList.querySelectorAll('[data-var-set]').forEach(el=> el.onclick=()=>{ hideCtx(); createVar(el.dataset.varSet,'Set', $ctx._worldPos||mouseWorld); });
+  $ctxList.querySelectorAll('[data-reg]').forEach(el=> el.onclick=()=>{ hideCtx(); createFromReg(el.dataset.reg, $ctx._worldPos||mouseWorld); });
+  const cpy=$ctxList.querySelector('#ctxCopy'); if(cpy) cpy.onclick=()=>{ hideCtx(); doCopy(); };
+  const dup=$ctxList.querySelector('#ctxDup'); if(dup) dup.onclick=()=>{ hideCtx(); duplicateSel(); };
+  const del=$ctxList.querySelector('#ctxDel'); if(del) del.onclick=()=>{ hideCtx(); delSel(); };
+  const ent=$ctxList.querySelector('#ctxEnter'); if(ent) ent.onclick=()=>{ hideCtx(); enter(node); };
+}
+
+function createFromReg(regId, at){
+  const r=getREG().find(x=>x.id===regId); if(!r) return;
+  const pos=at||mouseWorld;
+  const node={
+    id: (r.className.includes('IfThenElse')?'K2Node_IfThenElse': r.className.includes('Knot')?'K2Node_Knot': r.className.includes('Comment')?'EdGraphNode_Comment':'K2Node_'+r.id.replace(/\W/g,''))+'_'+Math.floor(Math.random()*900+100),
+    rawName:'', className:r.className.replace('/Script/',''), rawClass:r.className, guid:guid(), pos:{x:snapVal(pos.x), y:snapVal(pos.y)}, pins:[], isReroute:r.className.includes('Knot'), isComment:r.className.includes('Comment'), isTunnel:false, isComposite:false, varName:null, funcName:r.func||null, operationName: r.className.includes('PromotableOperator')? r.func : null, title:r.title, commentText:r.title, width:360, height:200, headerColor:''
+  };
+  if(r.id==='Comment'){ node.width=400; node.height=180; node.commentText='Comment'; }
+  (r.pins||[]).forEach(p=>{
+    node.pins.push({id:guid(), name:p.name, friendly:p.name, direction:p.dir, category: p.cat==='struct'? 'struct': p.cat, subCategory:p.sub||'', hidden:false, linkedTo:[]});
+  });
+  node.headerColor=headerColor(node);
+  node.rawBlock=genBlock(node);
+  curGraph().nodes.push(node);
+  selected.clear(); selected.add(node.id); render();
+}
+
+// Variable type registry
+const VAR_TYPES = [
+  {id:'real', label:'Float (real double)', cat:'real', sub:'double'},
+  {id:'int', label:'Integer (int)', cat:'int', sub:''},
+  {id:'bool', label:'Boolean (bool)', cat:'bool', sub:''},
+  {id:'string', label:'String', cat:'string', sub:''},
+  {id:'vector', label:'Vector (struct)', cat:'struct', sub:'Vector'},
+  {id:'rotator', label:'Rotator (struct)', cat:'struct', sub:'Rotator'},
+  {id:'transform', label:'Transform (struct)', cat:'struct', sub:'Transform'},
+  {id:'object', label:'Object Reference', cat:'object', sub:''},
+  {id:'class', label:'Class Reference', cat:'class', sub:''},
+  {id:'name', label:'Name', cat:'name', sub:''},
+];
+function parseVarType(typeStr){
+  const t=(typeStr||'real').toLowerCase();
+  if(t.includes('int')) return VAR_TYPES[1];
+  if(t.includes('bool')) return VAR_TYPES[2];
+  if(t.includes('string')) return VAR_TYPES[3];
+  if(t.includes('vector')) return VAR_TYPES[4];
+  if(t.includes('rotator')) return VAR_TYPES[5];
+  if(t.includes('transform')) return VAR_TYPES[6];
+  if(t.includes('object')) return VAR_TYPES[7];
+  if(t.includes('class')) return VAR_TYPES[8];
+  if(t.includes('name')) return VAR_TYPES[9];
+  return VAR_TYPES[0];
+}
+function getVarInfo(varName){
+  // find existing variable nodes to infer type
+  for(const g of Object.values(graphs)){
+    for(const n of g.nodes){
+      if(n.varName===varName && n.pins.length){
+        const p=n.pins.find(x=> x.name===varName) || n.pins[0];
+        if(p && p.category) return {cat:p.category, sub:p.subCategory||''};
+      }
+    }
+  }
+  return null;
+}
+function createVar(varName, mode, at, explicitType){
+  const pos=at||mouseWorld;
+  const isGet=mode==='Get';
+  // infer or ask type
+  let typeInfo = explicitType ? parseVarType(explicitType) : null;
+  if(!typeInfo){
+    const inferred=getVarInfo(varName);
+    if(inferred) typeInfo={cat:inferred.cat, sub:inferred.sub, label:inferred.cat};
+    else {
+      // prompt user for type (Arena friendly)
+      const choice=prompt(`Тип данных для переменной "${varName}":\n`+VAR_TYPES.map((v,i)=> `${i+1}. ${v.label}`).join('\n')+"\n\nВведи номер или имя (real/int/bool/string/vector/rotator/transform/object):", "1");
+      if(choice===null) return;
+      let sel=null;
+      const num=parseInt(choice,10);
+      if(!isNaN(num) && num>=1 && num<=VAR_TYPES.length) sel=VAR_TYPES[num-1];
+      else sel=parseVarType(choice);
+      typeInfo=sel;
+    }
+  }
+  const cat=typeInfo.cat, sub=typeInfo.sub||'';
+  const cls=isGet?'/Script/BlueprintGraph.K2Node_VariableGet':'/Script/BlueprintGraph.K2Node_VariableSet';
+  const node={
+    id:(isGet?'K2Node_VariableGet':'K2Node_VariableSet')+'_'+Math.floor(Math.random()*900+100),
+    rawName:'', className:cls.replace('/Script/',''), rawClass:cls, guid:guid(), pos:{x:snapVal(pos.x),y:snapVal(pos.y)}, pins:[], isReroute:false,isComment:false,varName,funcName:null,title:(isGet?'Get ':'Set ')+varName, headerColor:'', varCategory:cat, varSub:sub
+  };
+  if(isGet){
+    node.pins=[{id:guid(),name:varName,friendly:varName,direction:'Output',category:cat,subCategory:sub,hidden:false,linkedTo:[]},{id:guid(),name:'self',friendly:'Target',direction:'Input',category:'object',hidden:true,linkedTo:[]}];
+  } else {
+    node.pins=[{id:guid(),name:'execute',direction:'Input',category:'exec',hidden:false,linkedTo:[]},{id:guid(),name:'then',direction:'Output',category:'exec',hidden:false,linkedTo:[]},{id:guid(),name:varName,direction:'Input',category:cat,subCategory:sub,hidden:false,linkedTo:[]},{id:guid(),name:'Output_Get',friendly:'Output Get',direction:'Output',category:cat,subCategory:sub,hidden:false,linkedTo:[]},{id:guid(),name:'self',friendly:'Target',direction:'Input',category:'object',hidden:true,linkedTo:[]}];
+  }
+  node.headerColor=headerColor(node); node.rawBlock=genBlock(node);
+  curGraph().nodes.push(node); selected.clear(); selected.add(node.id); render();
+  toast(`${mode} ${varName} (${cat}${sub?'/'+sub:''})`);
+}
+function duplicateSel(){
+  const ns=curNodes(); const sel=[...selected].map(id=>ns.find(n=>n.id===id)).filter(Boolean);
+  if(!sel.length) return;
+  const clones=sel.map(n=>{
+    const c=JSON.parse(JSON.stringify(n));
+    c.id=n.id.replace(/_\d+$/,'')+'_'+Math.floor(Math.random()*900+100);
+    c.guid=guid(); c.pos={x:n.pos.x+24,y:n.pos.y+24};
+    c.pins.forEach(p=> p.id=guid());
+    c.rawBlock=genBlock(c);
+    return c;
+  });
+  // remap internal links among clones? keep original links to outside? For duplicate we keep no links to avoid dangling; clear linkedTo
+  clones.forEach(c=> c.pins.forEach(p=> p.linkedTo=[]));
+  curGraph().nodes.push(...clones); selected=new Set(clones.map(c=>c.id)); render();
+}
+
+/* Right-click handling */
+$wrap.addEventListener('contextmenu', e=>{
+  e.preventDefault();
+  const r=$wrap.getBoundingClientRect();
+  const wx=(e.clientX-r.left - pan.x)/scale, wy=(e.clientY-r.top - pan.y)/scale;
+  $ctx._worldPos={x:wx,y:wy}; mouseWorld={x:wx,y:wy};
+  const target=e.target.closest('.node');
+  if(target){
+    const nid=target.dataset.id; const node=curNodes().find(n=>n.id===nid);
+    if(!selected.has(nid)){ selected.clear(); selected.add(nid); render(); }
+    showCtx(e.clientX,e.clientY,'node',node);
+  } else {
+    showCtx(e.clientX,e.clientY,'canvas',null);
+  }
+});
+window.addEventListener('mousedown', e=>{ if(!$ctx.contains(e.target) && e.button!==2) hideCtx(); });
+
+/* Paste anywhere via clipboard event */
+window.addEventListener('paste', e=>{
+  const text=(e.clipboardData||window.clipboardData).getData('text');
+  if(text && text.includes('Begin Object')){
+    e.preventDefault();
+    pasteUE(text, mouseWorld);
+  }
+});
+
+/* Init */
+graphs={EventGraph:{id:'EventGraph',name:'EventGraph',nodes:[],parentCompositeId:null,parentGraphId:null}};
+cur='EventGraph'; stack=[];
+updateTransform(); render(); fit();
+
+// Load example if present
+fetch('examples/wheel-mu.txt').then(r=>r.text()).then(t=>{
+  if(t && t.includes('Begin Object')){
+    const g=parseUE(t);
+    if(g['EventGraph']?.nodes.length){ graphs=g; cur='EventGraph'; stack=[]; render(); fit(); toast('Загружен пример колес — ПКМ для меню, Ctrl+V для вставки'); }
+  }
+}).catch(()=>{});
+
+// Hide help after 6s
+setTimeout(()=>{ const h=document.getElementById('help'); if(h) h.style.display='none'; },6000);
+</script>
+</body>
+</html>

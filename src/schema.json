@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "UE Blueprint Graph for AI",
+  "description": "JSON schema for text-to-blueprint generation. LLM should output nodes that satisfy this before converting to Begin Object blocks.",
+  "type": "object",
+  "properties": {
+    "graphName": {"type": "string", "default": "EventGraph"},
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "className", "pos", "pins"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[A-Za-z0-9_]+$"},
+          "className": {
+            "type": "string",
+            "enum": [
+              "BlueprintGraph.K2Node_VariableGet",
+              "BlueprintGraph.K2Node_VariableSet",
+              "BlueprintGraph.K2Node_PromotableOperator",
+              "BlueprintGraph.K2Node_IfThenElse",
+              "BlueprintGraph.K2Node_CallFunction",
+              "BlueprintGraph.K2Node_Knot",
+              "BlueprintGraph.K2Node_Composite",
+              "UnrealEd.EdGraphNode_Comment"
+            ]
+          },
+          "pos": {
+            "type": "object",
+            "required": ["x", "y"],
+            "properties": {
+              "x": {"type": "number"},
+              "y": {"type": "number"}
+            }
+          },
+          "guid": {"type": "string", "pattern": "^[A-F0-9]{32}$"},
+          "varName": {"type": ["string", "null"]},
+          "funcName": {"type": ["string", "null"]},
+          "operationName": {"type": ["string", "null"]},
+          "commentText": {"type": ["string", "null"]},
+          "pins": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "name", "direction", "category"],
+              "properties": {
+                "id": {"type": "string", "pattern": "^[A-F0-9]{32}$"},
+                "name": {"type": "string"},
+                "direction": {"type": "string", "enum": ["Input", "Output"]},
+                "category": {"type": "string", "enum": ["exec", "bool", "real", "int", "object", "string", "struct", "class", ""]},
+                "subCategory": {"type": "string"},
+                "linkedTo": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": ["nodeName", "pinId"],
+                    "properties": {
+                      "nodeName": {"type": "string"},
+                      "pinId": {"type": "string"}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": ["nodes"]
+}

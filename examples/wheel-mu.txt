@@ -1,0 +1,16 @@
+Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_38" ExportPath="/Script/BlueprintGraph.K2Node_VariableGet'/Game/Vehicle/wheel/BP_WheelActor.BP_WheelActor:EventGraph.K2Node_VariableGet_38'"
+   VariableReference=(MemberName="StaticMu",MemberGuid=E3666D8E436BE34BE950BCA5173A3C1D,bSelfContext=True)
+   NodePosX=0
+   NodePosY=0
+   NodeGuid=B6FD50264AC18EFBCC9FA08E6AA4A369
+   CustomProperties Pin (PinId=3FC5E3F449DAC916324B3DB1FF579D30,PinName="StaticMu",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",LinkedTo=(K2Node_PromotableOperator_25 96B24767422B648B2FDB61B1394A41EA,))
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node_PromotableOperator_25" ExportPath="/Script/BlueprintGraph.K2Node_PromotableOperator'/Game/Vehicle/wheel/BP_WheelActor.BP_WheelActor:EventGraph.K2Node_PromotableOperator_25'"
+   OperationName="Greater"
+   NodePosX=240
+   NodePosY=0
+   NodeGuid=C4A2139D4367247CF683B5B03D4CB225
+   CustomProperties Pin (PinId=96B24767422B648B2FDB61B1394A41EA,PinName="A",PinType.PinCategory="real",PinType.PinSubCategory="double",LinkedTo=(K2Node_VariableGet_38 3FC5E3F449DAC916324B3DB1FF579D30,))
+   CustomProperties Pin (PinId=A27B0956491E1999F84B02A9698C7334,PinName="B",PinType.PinCategory="real",PinType.PinSubCategory="double",LinkedTo=(K2Node_VariableGet_40 4323A5E44F3283A0E239A29CAD619930,))
+   CustomProperties Pin (PinId=3AEF975E412FD669E1C497AB1197B114,PinName="ReturnValue",Direction="EGPD_Output",PinType.PinCategory="bool",LinkedTo=(K2Node_IfThenElse_10 454CBBAE4E18A0792BF71DB8D7588E74,))
+End Object

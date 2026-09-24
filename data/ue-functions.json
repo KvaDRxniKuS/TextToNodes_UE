@@ -1,0 +1,5932 @@
+[
+  {
+    "id": "Branch",
+    "title": "Branch",
+    "category": "Flow Control",
+    "className": "/Script/BlueprintGraph.K2Node_IfThenElse",
+    "func": "Branch",
+    "pins": [
+      {
+        "name": "execute",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "Condition",
+        "dir": "Input",
+        "cat": "bool"
+      },
+      {
+        "name": "then",
+        "dir": "Output",
+        "cat": "exec"
+      },
+      {
+        "name": "else",
+        "dir": "Output",
+        "cat": "exec"
+      }
+    ],
+    "desc": "Ветвление"
+  },
+  {
+    "id": "Sequence",
+    "title": "Sequence",
+    "category": "Flow Control",
+    "className": "/Script/BlueprintGraph.K2Node_ExecutionSequence",
+    "func": "",
+    "pins": [
+      {
+        "name": "execute",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "then_0",
+        "dir": "Output",
+        "cat": "exec"
+      },
+      {
+        "name": "then_1",
+        "dir": "Output",
+        "cat": "exec"
+      }
+    ],
+    "desc": "Последовательность"
+  },
+  {
+    "id": "ForLoop",
+    "title": "ForLoop",
+    "category": "Flow Control",
+    "className": "/Script/BlueprintGraph.K2Node_ForLoop",
+    "func": "",
+    "pins": [
+      {
+        "name": "execute",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "First Index",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "Last Index",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "LoopBody",
+        "dir": "Output",
+        "cat": "exec"
+      },
+      {
+        "name": "Completed",
+        "dir": "Output",
+        "cat": "exec"
+      },
+      {
+        "name": "Index",
+        "dir": "Output",
+        "cat": "int"
+      }
+    ],
+    "desc": "Цикл"
+  },
+  {
+    "id": "ForLoopWithBreak",
+    "title": "ForLoopWithBreak",
+    "category": "Flow Control",
+    "className": "/Script/BlueprintGraph.K2Node_ForLoop",
+    "func": "",
+    "pins": [
+      {
+        "name": "execute",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "First Index",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "Last Index",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "LoopBody",
+        "dir": "Output",
+        "cat": "exec"
+      },
+      {
+        "name": "Completed",
+        "dir": "Output",
+        "cat": "exec"
+      },
+      {
+        "name": "Index",
+        "dir": "Output",
+        "cat": "int"
+      },
+      {
+        "name": "Break",
+        "dir": "Input",
+        "cat": "exec"
+      }
+    ],
+    "desc": "С break"
+  },
+  {
+    "id": "WhileLoop",
+    "title": "WhileLoop",
+    "category": "Flow Control",
+    "className": "/Script/BlueprintGraph.K2Node_WhileLoop",
+    "func": "",
+    "pins": [
+      {
+        "name": "execute",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "Condition",
+        "dir": "Input",
+        "cat": "bool"
+      },
+      {
+        "name": "LoopBody",
+        "dir": "Output",
+        "cat": "exec"
+      },
+      {
+        "name": "Completed",
+        "dir": "Output",
+        "cat": "exec"
+      }
+    ],
+    "desc": "While"
+  },
+  {
+    "id": "Gate",
+    "title": "Gate",
+    "category": "Flow Control",
+    "className": "/Script/BlueprintGraph.K2Node_Gate",
+    "func": "",
+    "pins": [
+      {
+        "name": "Enter",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "Open",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "Close",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "Exit",
+        "dir": "Output",
+        "cat": "exec"
+      }
+    ],
+    "desc": "Gate"
+  },
+  {
+    "id": "DoOnce",
+    "title": "DoOnce",
+    "category": "Flow Control",
+    "className": "/Script/BlueprintGraph.K2Node_DoOnceMultiInput",
+    "func": "",
+    "pins": [
+      {
+        "name": "execute",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "Completed",
+        "dir": "Output",
+        "cat": "exec"
+      },
+      {
+        "name": "Reset",
+        "dir": "Input",
+        "cat": "exec"
+      }
+    ],
+    "desc": "DoOnce"
+  },
+  {
+    "id": "FlipFlop",
+    "title": "FlipFlop",
+    "category": "Flow Control",
+    "className": "/Script/BlueprintGraph.K2Node_FlipFlop",
+    "func": "",
+    "pins": [
+      {
+        "name": "execute",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "IsA",
+        "dir": "Output",
+        "cat": "exec"
+      },
+      {
+        "name": "IsB",
+        "dir": "Output",
+        "cat": "exec"
+      }
+    ],
+    "desc": "FlipFlop"
+  },
+  {
+    "id": "DoN",
+    "title": "Do N",
+    "category": "Flow Control",
+    "className": "/Script/BlueprintGraph.K2Node_DoN",
+    "func": "",
+    "pins": [
+      {
+        "name": "execute",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "Enter",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "Exit",
+        "dir": "Output",
+        "cat": "exec"
+      },
+      {
+        "name": "Counter",
+        "dir": "Output",
+        "cat": "int"
+      }
+    ],
+    "desc": "DoN"
+  },
+  {
+    "id": "Sequence3",
+    "title": "Sequence (3)",
+    "category": "Flow Control",
+    "className": "/Script/BlueprintGraph.K2Node_ExecutionSequence",
+    "func": "",
+    "pins": [
+      {
+        "name": "execute",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "then_0",
+        "dir": "Output",
+        "cat": "exec"
+      },
+      {
+        "name": "then_1",
+        "dir": "Output",
+        "cat": "exec"
+      },
+      {
+        "name": "then_2",
+        "dir": "Output",
+        "cat": "exec"
+      }
+    ],
+    "desc": "Seq 3"
+  },
+  {
+    "id": "SwitchInt",
+    "title": "Switch on Int",
+    "category": "Flow Control",
+    "className": "/Script/BlueprintGraph.K2Node_SwitchInteger",
+    "func": "",
+    "pins": [
+      {
+        "name": "execute",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "Selection",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "Default",
+        "dir": "Output",
+        "cat": "exec"
+      }
+    ],
+    "desc": "Switch Int"
+  },
+  {
+    "id": "SwitchString",
+    "title": "Switch on String",
+    "category": "Flow Control",
+    "className": "/Script/BlueprintGraph.K2Node_SwitchString",
+    "func": "",
+    "pins": [
+      {
+        "name": "execute",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "Selection",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "Default",
+        "dir": "Output",
+        "cat": "exec"
+      }
+    ],
+    "desc": "Switch String"
+  },
+  {
+    "id": "SwitchEnum",
+    "title": "Switch on Enum",
+    "category": "Flow Control",
+    "className": "/Script/BlueprintGraph.K2Node_SwitchEnum",
+    "func": "",
+    "pins": [
+      {
+        "name": "execute",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "Selection",
+        "dir": "Input",
+        "cat": "byte"
+      },
+      {
+        "name": "Default",
+        "dir": "Output",
+        "cat": "exec"
+      }
+    ],
+    "desc": "Switch Enum"
+  },
+  {
+    "id": "VarGet",
+    "title": "Get Variable",
+    "category": "Variables",
+    "className": "/Script/BlueprintGraph.K2Node_VariableGet",
+    "func": "",
+    "pins": [
+      {
+        "name": "Var",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Get"
+  },
+  {
+    "id": "VarSet",
+    "title": "Set Variable",
+    "category": "Variables",
+    "className": "/Script/BlueprintGraph.K2Node_VariableSet",
+    "func": "",
+    "pins": [
+      {
+        "name": "execute",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "then",
+        "dir": "Output",
+        "cat": "exec"
+      },
+      {
+        "name": "Var",
+        "dir": "Input",
+        "cat": "real"
+      }
+    ],
+    "desc": "Set"
+  },
+  {
+    "id": "VarGetBool",
+    "title": "Get Bool Variable",
+    "category": "Variables",
+    "className": "/Script/BlueprintGraph.K2Node_VariableGet",
+    "func": "",
+    "pins": [
+      {
+        "name": "Var",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "Get Bool"
+  },
+  {
+    "id": "VarGetVector",
+    "title": "Get Vector Variable",
+    "category": "Variables",
+    "className": "/Script/BlueprintGraph.K2Node_VariableGet",
+    "func": "",
+    "pins": [
+      {
+        "name": "Var",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Vector"
+      }
+    ],
+    "desc": "Get Vector"
+  },
+  {
+    "id": "Add_Float",
+    "title": "Add (float)",
+    "category": "Math / Float",
+    "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
+    "func": "Add",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Add"
+  },
+  {
+    "id": "Subtract_Float",
+    "title": "Subtract (float)",
+    "category": "Math / Float",
+    "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
+    "func": "Subtract",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Subtract"
+  },
+  {
+    "id": "Multiply_Float",
+    "title": "Multiply (float)",
+    "category": "Math / Float",
+    "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
+    "func": "Multiply",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Multiply"
+  },
+  {
+    "id": "Divide_Float",
+    "title": "Divide (float)",
+    "category": "Math / Float",
+    "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
+    "func": "Divide",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Divide"
+  },
+  {
+    "id": "Percent_Float",
+    "title": "Percent (float)",
+    "category": "Math / Float",
+    "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
+    "func": "Percent",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Percent (mod)"
+  },
+  {
+    "id": "Power_Float",
+    "title": "Power (float)",
+    "category": "Math / Float",
+    "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
+    "func": "Power",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Power"
+  },
+  {
+    "id": "Abs_Float",
+    "title": "Abs (float)",
+    "category": "Math / Float",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Abs",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Модуль"
+  },
+  {
+    "id": "Sign_Float",
+    "title": "Sign (float)",
+    "category": "Math / Float",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Sign",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Знак"
+  },
+  {
+    "id": "Round_Float",
+    "title": "Round",
+    "category": "Math / Float",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Round",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "int"
+      }
+    ],
+    "desc": "Округление"
+  },
+  {
+    "id": "Floor_Float",
+    "title": "Floor",
+    "category": "Math / Float",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Floor",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "int"
+      }
+    ],
+    "desc": "Вниз"
+  },
+  {
+    "id": "Ceil_Float",
+    "title": "Ceil",
+    "category": "Math / Float",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Ceil",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "int"
+      }
+    ],
+    "desc": "Вверх"
+  },
+  {
+    "id": "Trunc_Float",
+    "title": "Trunc",
+    "category": "Math / Float",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Trunc",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "int"
+      }
+    ],
+    "desc": "Отбросить дробную"
+  },
+  {
+    "id": "Frac_Float",
+    "title": "Fraction",
+    "category": "Math / Float",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Fraction",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Дробная часть"
+  },
+  {
+    "id": "FMod_Float",
+    "title": "FMod",
+    "category": "Math / Float",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "FMod",
+    "pins": [
+      {
+        "name": "Dividend",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "Divisor",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Остаток"
+  },
+  {
+    "id": "Clamp_Float",
+    "title": "Clamp (float)",
+    "category": "Math / Float",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "FClamp",
+    "pins": [
+      {
+        "name": "Value",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "Min",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "Max",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Ограничить"
+  },
+  {
+    "id": "ClampAngle",
+    "title": "Clamp Angle",
+    "category": "Math / Float",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "ClampAngle",
+    "pins": [
+      {
+        "name": "Angle0",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "Angle1",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "Angle2",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Угол"
+  },
+  {
+    "id": "Lerp_Float",
+    "title": "Lerp (float)",
+    "category": "Math / Float",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Lerp",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "Alpha",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Lerp"
+  },
+  {
+    "id": "MapRangeClamped",
+    "title": "Map Range Clamped",
+    "category": "Math / Float",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "MapRangeClamped",
+    "pins": [
+      {
+        "name": "Value",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "InRangeA",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "InRangeB",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "OutRangeA",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "OutRangeB",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Map"
+  },
+  {
+    "id": "MapRangeUnclamped",
+    "title": "Map Range Unclamped",
+    "category": "Math / Float",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "MapRangeUnclamped",
+    "pins": [
+      {
+        "name": "Value",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "InRangeA",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "InRangeB",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "OutRangeA",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "OutRangeB",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Map Unclamped"
+  },
+  {
+    "id": "NormalizeToRange",
+    "title": "NormalizeToRange",
+    "category": "Math / Float",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "NormalizeToRange",
+    "pins": [
+      {
+        "name": "Value",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "RangeMin",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "RangeMax",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Нормализация"
+  },
+  {
+    "id": "GetMappedRange",
+    "title": "GetMappedRangeValue",
+    "category": "Math / Float",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "GetMappedRangeValueClamped",
+    "pins": [
+      {
+        "name": "Input",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector2D"
+      },
+      {
+        "name": "Output",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector2D"
+      },
+      {
+        "name": "Value",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Map Value"
+  },
+  {
+    "id": "FInterpTo",
+    "title": "FInterp To",
+    "category": "Math / Interpolation",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "FInterpTo",
+    "pins": [
+      {
+        "name": "Current",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "Target",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "DeltaTime",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "InterpSpeed",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Интерполяция"
+  },
+  {
+    "id": "FInterpToConstant",
+    "title": "FInterp To Constant",
+    "category": "Math / Interpolation",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "FInterpToConstant",
+    "pins": [
+      {
+        "name": "Current",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "Target",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "DeltaTime",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "InterpSpeed",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Константа"
+  },
+  {
+    "id": "Ease_Float",
+    "title": "Ease",
+    "category": "Math / Interpolation",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Ease",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "Alpha",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "EasingFunc",
+        "dir": "Input",
+        "cat": "byte"
+      },
+      {
+        "name": "BlendExp",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "Steps",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Ease"
+  },
+  {
+    "id": "GridSnap_Float",
+    "title": "Grid Snap",
+    "category": "Math / Float",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "GridSnap",
+    "pins": [
+      {
+        "name": "Location",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "GridSize",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Сетка"
+  },
+  {
+    "id": "IsNearlyZero",
+    "title": "IsNearlyZero",
+    "category": "Math / Float",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "IsNearlyZero",
+    "pins": [
+      {
+        "name": "Value",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "Tolerance",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "Почти ноль"
+  },
+  {
+    "id": "IsPowerOfTwo",
+    "title": "IsPowerOfTwo",
+    "category": "Math / Integer",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "IsPowerOfTwo",
+    "pins": [
+      {
+        "name": "Value",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "Степень двойки"
+  },
+  {
+    "id": "SelectFloat",
+    "title": "Select Float",
+    "category": "Math / Float",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "SelectFloat",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "Pick A",
+        "dir": "Input",
+        "cat": "bool"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Выбор"
+  },
+  {
+    "id": "Max_Float",
+    "title": "Max (float)",
+    "category": "Math / Float",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Max",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Максимум"
+  },
+  {
+    "id": "Min_Float",
+    "title": "Min (float)",
+    "category": "Math / Float",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Min",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Минимум"
+  },
+  {
+    "id": "Sin",
+    "title": "Sin",
+    "category": "Math / Trig",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Sin",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Sin"
+  },
+  {
+    "id": "Cos",
+    "title": "Cos",
+    "category": "Math / Trig",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Cos",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Cos"
+  },
+  {
+    "id": "Tan",
+    "title": "Tan",
+    "category": "Math / Trig",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Tan",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Tan"
+  },
+  {
+    "id": "Asin",
+    "title": "Asin",
+    "category": "Math / Trig",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Asin",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Asin"
+  },
+  {
+    "id": "Acos",
+    "title": "Acos",
+    "category": "Math / Trig",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Acos",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Acos"
+  },
+  {
+    "id": "Atan",
+    "title": "Atan",
+    "category": "Math / Trig",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Atan",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Atan"
+  },
+  {
+    "id": "Atan2",
+    "title": "Atan2",
+    "category": "Math / Trig",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Atan2",
+    "pins": [
+      {
+        "name": "Y",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "X",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Atan2"
+  },
+  {
+    "id": "SinDeg",
+    "title": "SinDeg",
+    "category": "Math / Trig",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "SinDeg",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "SinDeg"
+  },
+  {
+    "id": "CosDeg",
+    "title": "CosDeg",
+    "category": "Math / Trig",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "CosDeg",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "CosDeg"
+  },
+  {
+    "id": "TanDeg",
+    "title": "TanDeg",
+    "category": "Math / Trig",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "TanDeg",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "TanDeg"
+  },
+  {
+    "id": "AsinDeg",
+    "title": "AsinDeg",
+    "category": "Math / Trig",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "AsinDeg",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "AsinDeg"
+  },
+  {
+    "id": "AcosDeg",
+    "title": "AcosDeg",
+    "category": "Math / Trig",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "AcosDeg",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "AcosDeg"
+  },
+  {
+    "id": "AtanDeg",
+    "title": "AtanDeg",
+    "category": "Math / Trig",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "AtanDeg",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "AtanDeg"
+  },
+  {
+    "id": "DegreesToRadians",
+    "title": "DegreesToRadians",
+    "category": "Math / Trig",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "DegreesToRadians",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "DegreesToRadians"
+  },
+  {
+    "id": "RadiansToDegrees",
+    "title": "RadiansToDegrees",
+    "category": "Math / Trig",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "RadiansToDegrees",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "RadiansToDegrees"
+  },
+  {
+    "id": "GetTAU",
+    "title": "GetTAU",
+    "category": "Math / Trig",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "GetTAU",
+    "pins": [
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "GetTAU"
+  },
+  {
+    "id": "GetPI",
+    "title": "GetPI",
+    "category": "Math / Trig",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "GetPI",
+    "pins": [
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "GetPI"
+  },
+  {
+    "id": "Exp_Float",
+    "title": "Exp",
+    "category": "Math / Float",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Exp",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "e^x"
+  },
+  {
+    "id": "Loge_Float",
+    "title": "Loge",
+    "category": "Math / Float",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Loge",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "ln"
+  },
+  {
+    "id": "Sqrt_Float",
+    "title": "Sqrt",
+    "category": "Math / Float",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Sqrt",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Корень"
+  },
+  {
+    "id": "Square_Float",
+    "title": "Square",
+    "category": "Math / Float",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Square",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Квадрат"
+  },
+  {
+    "id": "Greater_Float",
+    "title": "Greater (float)",
+    "category": "Math / Comparison",
+    "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
+    "func": "Greater",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "Greater"
+  },
+  {
+    "id": "Less_Float",
+    "title": "Less (float)",
+    "category": "Math / Comparison",
+    "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
+    "func": "Less",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "Less"
+  },
+  {
+    "id": "EqualEqual_Float",
+    "title": "Equal (float)",
+    "category": "Math / Comparison",
+    "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
+    "func": "EqualEqual",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "Equal"
+  },
+  {
+    "id": "NotEqual_Float",
+    "title": "NotEqual (float)",
+    "category": "Math / Comparison",
+    "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
+    "func": "NotEqual",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "NotEqual"
+  },
+  {
+    "id": "GreaterEqual_Float",
+    "title": "GreaterEqual (float)",
+    "category": "Math / Comparison",
+    "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
+    "func": "GreaterEqual",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "GreaterEqual"
+  },
+  {
+    "id": "LessEqual_Float",
+    "title": "LessEqual (float)",
+    "category": "Math / Comparison",
+    "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
+    "func": "LessEqual",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "LessEqual"
+  },
+  {
+    "id": "NearlyEqual_Float",
+    "title": "NearlyEqual (float)",
+    "category": "Math / Comparison",
+    "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
+    "func": "NearlyEqual",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "NearlyEqual"
+  },
+  {
+    "id": "InRange_Float",
+    "title": "InRange (float)",
+    "category": "Math / Comparison",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "InRange_FloatFloat",
+    "pins": [
+      {
+        "name": "Value",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "Min",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "Max",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      },
+      {
+        "name": "InclusiveMin",
+        "dir": "Input",
+        "cat": "bool"
+      },
+      {
+        "name": "InclusiveMax",
+        "dir": "Input",
+        "cat": "bool"
+      }
+    ],
+    "desc": "Диапазон"
+  },
+  {
+    "id": "And_Bool",
+    "title": "AND (bool)",
+    "category": "Math / Boolean",
+    "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
+    "func": "BooleanAND",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "bool"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "bool"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "И"
+  },
+  {
+    "id": "Or_Bool",
+    "title": "OR (bool)",
+    "category": "Math / Boolean",
+    "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
+    "func": "BooleanOR",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "bool"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "bool"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "Или"
+  },
+  {
+    "id": "Not_Bool",
+    "title": "NOT (bool)",
+    "category": "Math / Boolean",
+    "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
+    "func": "BooleanNOT",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "bool"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "Не"
+  },
+  {
+    "id": "Xor_Bool",
+    "title": "XOR (bool)",
+    "category": "Math / Boolean",
+    "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
+    "func": "BooleanXOR",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "bool"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "bool"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "XOR"
+  },
+  {
+    "id": "Nand_Bool",
+    "title": "NAND (bool)",
+    "category": "Math / Boolean",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "BooleanNAND",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "bool"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "bool"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "NAND"
+  },
+  {
+    "id": "Nor_Bool",
+    "title": "NOR (bool)",
+    "category": "Math / Boolean",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "BooleanNOR",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "bool"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "bool"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "NOR"
+  },
+  {
+    "id": "SelectBool",
+    "title": "Select Bool",
+    "category": "Math / Boolean",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "SelectBoolean",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "bool"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "bool"
+      },
+      {
+        "name": "Pick A",
+        "dir": "Input",
+        "cat": "bool"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "Выбор Bool"
+  },
+  {
+    "id": "Add_Int",
+    "title": "Add (int)",
+    "category": "Math / Integer",
+    "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
+    "func": "Add_IntInt",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "int"
+      }
+    ],
+    "desc": "Сложение int"
+  },
+  {
+    "id": "Subtract_Int",
+    "title": "Subtract (int)",
+    "category": "Math / Integer",
+    "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
+    "func": "Subtract_IntInt",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "int"
+      }
+    ],
+    "desc": "Вычитание int"
+  },
+  {
+    "id": "Multiply_Int",
+    "title": "Multiply (int)",
+    "category": "Math / Integer",
+    "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
+    "func": "Multiply_IntInt",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "int"
+      }
+    ],
+    "desc": "Умножение int"
+  },
+  {
+    "id": "Divide_Int",
+    "title": "Divide (int)",
+    "category": "Math / Integer",
+    "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
+    "func": "Divide_IntInt",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "int"
+      }
+    ],
+    "desc": "Деление int"
+  },
+  {
+    "id": "Percent_Int",
+    "title": "Percent (int)",
+    "category": "Math / Integer",
+    "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
+    "func": "Percent_IntInt",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "int"
+      }
+    ],
+    "desc": "Остаток int"
+  },
+  {
+    "id": "Clamp_Int",
+    "title": "Clamp (int)",
+    "category": "Math / Integer",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Clamp",
+    "pins": [
+      {
+        "name": "Value",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "Min",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "Max",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "int"
+      }
+    ],
+    "desc": "Clamp int"
+  },
+  {
+    "id": "Max_Int",
+    "title": "Max (int)",
+    "category": "Math / Integer",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Max",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "int"
+      }
+    ],
+    "desc": "Max int"
+  },
+  {
+    "id": "Min_Int",
+    "title": "Min (int)",
+    "category": "Math / Integer",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Min",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "int"
+      }
+    ],
+    "desc": "Min int"
+  },
+  {
+    "id": "RandomInteger",
+    "title": "Random Integer",
+    "category": "Math / Random",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "RandomInteger",
+    "pins": [
+      {
+        "name": "Max",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "int"
+      }
+    ],
+    "desc": "Rand int"
+  },
+  {
+    "id": "RandomIntegerInRange",
+    "title": "Random Integer In Range",
+    "category": "Math / Random",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "RandomIntegerInRange",
+    "pins": [
+      {
+        "name": "Min",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "Max",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "int"
+      }
+    ],
+    "desc": "Rand int range"
+  },
+  {
+    "id": "RandomFloat",
+    "title": "Random Float",
+    "category": "Math / Random",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "RandomFloat",
+    "pins": [
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Rand float"
+  },
+  {
+    "id": "RandomFloatInRange",
+    "title": "Random Float In Range",
+    "category": "Math / Random",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "RandomFloatInRange",
+    "pins": [
+      {
+        "name": "Min",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "Max",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Rand float range"
+  },
+  {
+    "id": "RandomBool",
+    "title": "Random Bool",
+    "category": "Math / Random",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "RandomBool",
+    "pins": [
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "Rand bool"
+  },
+  {
+    "id": "RandomBoolWithWeight",
+    "title": "Random Bool With Weight",
+    "category": "Math / Random",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "RandomBoolWithWeight",
+    "pins": [
+      {
+        "name": "Weight",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "Rand weighted"
+  },
+  {
+    "id": "Add_VectorVector",
+    "title": "Add (Vector)",
+    "category": "Math / Vector",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Add_VectorVector",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Vector"
+      }
+    ],
+    "desc": "Сложение"
+  },
+  {
+    "id": "Subtract_VectorVector",
+    "title": "Subtract (Vector)",
+    "category": "Math / Vector",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Subtract_VectorVector",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Vector"
+      }
+    ],
+    "desc": "Вычитание"
+  },
+  {
+    "id": "Multiply_VectorFloat",
+    "title": "Multiply Vector x Float",
+    "category": "Math / Vector",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Multiply_VectorFloat",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Vector"
+      }
+    ],
+    "desc": "Вектор * float"
+  },
+  {
+    "id": "Multiply_VectorVector",
+    "title": "Multiply Vector x Vector",
+    "category": "Math / Vector",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Multiply_VectorVector",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Vector"
+      }
+    ],
+    "desc": "Вектор * вектор"
+  },
+  {
+    "id": "Divide_VectorFloat",
+    "title": "Divide Vector / Float",
+    "category": "Math / Vector",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Divide_VectorFloat",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Vector"
+      }
+    ],
+    "desc": "Деление"
+  },
+  {
+    "id": "Dot_VectorVector",
+    "title": "Dot Product",
+    "category": "Math / Vector",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Dot_VectorVector",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Скалярное"
+  },
+  {
+    "id": "Cross_VectorVector",
+    "title": "Cross Product",
+    "category": "Math / Vector",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Cross_VectorVector",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Vector"
+      }
+    ],
+    "desc": "Векторное"
+  },
+  {
+    "id": "VSize",
+    "title": "Vector Length",
+    "category": "Math / Vector",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "VSize",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Длина"
+  },
+  {
+    "id": "VSizeSquared",
+    "title": "Vector Length Squared",
+    "category": "Math / Vector",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "VSizeSquared",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Квадрат длины"
+  },
+  {
+    "id": "VSize2D",
+    "title": "Vector Length 2D",
+    "category": "Math / Vector",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "VSize2D",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Длина 2D"
+  },
+  {
+    "id": "VSizeSquared2D",
+    "title": "Vector Length Squared 2D",
+    "category": "Math / Vector",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "VSizeSquared2D",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Квадрат 2D"
+  },
+  {
+    "id": "Normal_Vector",
+    "title": "Normal (Vector)",
+    "category": "Math / Vector",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Normal",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Vector"
+      }
+    ],
+    "desc": "Нормаль"
+  },
+  {
+    "id": "GetSafeNormal_Vector",
+    "title": "Safe Normal",
+    "category": "Math / Vector",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "NormalSafe",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "Tolerance",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Vector"
+      }
+    ],
+    "desc": "Безоп. нормаль"
+  },
+  {
+    "id": "Normalize_Vector",
+    "title": "Normalize",
+    "category": "Math / Vector",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Normalize",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "Tolerance",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Vector"
+      }
+    ],
+    "desc": "Нормализовать"
+  },
+  {
+    "id": "IsNormalized_Vector",
+    "title": "Is Normalized",
+    "category": "Math / Vector",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "IsNormalized",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "Нормирован?"
+  },
+  {
+    "id": "IsZero_Vector",
+    "title": "Is Zero",
+    "category": "Math / Vector",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "IsZero",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "Нулевой?"
+  },
+  {
+    "id": "IsNearlyZero_Vector",
+    "title": "Is Nearly Zero",
+    "category": "Math / Vector",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "IsNearlyZero",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "Почти ноль"
+  },
+  {
+    "id": "Distance_Vector",
+    "title": "Distance (Vector)",
+    "category": "Math / Vector",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Distance",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Дистанция"
+  },
+  {
+    "id": "DistanceSquared_Vector",
+    "title": "Distance Squared",
+    "category": "Math / Vector",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "DistanceSquared",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Квадрат дистанции"
+  },
+  {
+    "id": "ProjectPointOnToPlane",
+    "title": "Project Point On To Plane",
+    "category": "Math / Vector",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "ProjectPointOnToPlane",
+    "pins": [
+      {
+        "name": "Point",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "PlaneBase",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "PlaneNormal",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Vector"
+      }
+    ],
+    "desc": "Проекция"
+  },
+  {
+    "id": "ProjectVectorOnToPlane",
+    "title": "Project Vector On To Plane",
+    "category": "Math / Vector",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "ProjectVectorOnToPlane",
+    "pins": [
+      {
+        "name": "V",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "PlaneNormal",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Vector"
+      }
+    ],
+    "desc": "Проекция вектора"
+  },
+  {
+    "id": "MakeVector",
+    "title": "Make Vector",
+    "category": "Math / Vector",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "MakeVector",
+    "pins": [
+      {
+        "name": "X",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "Y",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "Z",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Vector"
+      }
+    ],
+    "desc": "Создать"
+  },
+  {
+    "id": "BreakVector",
+    "title": "Break Vector",
+    "category": "Math / Vector",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "BreakVector",
+    "pins": [
+      {
+        "name": "InVec",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "X",
+        "dir": "Output",
+        "cat": "real"
+      },
+      {
+        "name": "Y",
+        "dir": "Output",
+        "cat": "real"
+      },
+      {
+        "name": "Z",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Разобрать"
+  },
+  {
+    "id": "MakeVector2D",
+    "title": "Make Vector2D",
+    "category": "Math / Vector",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "MakeVector2D",
+    "pins": [
+      {
+        "name": "X",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "Y",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Vector2D"
+      }
+    ],
+    "desc": "2D"
+  },
+  {
+    "id": "BreakVector2D",
+    "title": "Break Vector2D",
+    "category": "Math / Vector",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "BreakVector2D",
+    "pins": [
+      {
+        "name": "InVec",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector2D"
+      },
+      {
+        "name": "X",
+        "dir": "Output",
+        "cat": "real"
+      },
+      {
+        "name": "Y",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Разобрать 2D"
+  },
+  {
+    "id": "VInterpTo",
+    "title": "VInterp To",
+    "category": "Math / Interpolation",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "VInterpTo",
+    "pins": [
+      {
+        "name": "Current",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "Target",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "DeltaTime",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "InterpSpeed",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Vector"
+      }
+    ],
+    "desc": "Интерп. вектор"
+  },
+  {
+    "id": "VInterpTo_Constant",
+    "title": "VInterp To Constant",
+    "category": "Math / Interpolation",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "VInterpTo_Constant",
+    "pins": [
+      {
+        "name": "Current",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "Target",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "DeltaTime",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "InterpSpeed",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Vector"
+      }
+    ],
+    "desc": "Константа"
+  },
+  {
+    "id": "VLerp",
+    "title": "VLerp",
+    "category": "Math / Vector",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "VLerp",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "Alpha",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Vector"
+      }
+    ],
+    "desc": "Lerp вектор"
+  },
+  {
+    "id": "SelectVector",
+    "title": "Select Vector",
+    "category": "Math / Vector",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "SelectVector",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "Pick A",
+        "dir": "Input",
+        "cat": "bool"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Vector"
+      }
+    ],
+    "desc": "Выбор"
+  },
+  {
+    "id": "MakeRotator",
+    "title": "Make Rotator",
+    "category": "Math / Rotator",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "MakeRotator",
+    "pins": [
+      {
+        "name": "Roll",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "Pitch",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "Yaw",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Rotator"
+      }
+    ],
+    "desc": "Создать"
+  },
+  {
+    "id": "BreakRotator",
+    "title": "Break Rotator",
+    "category": "Math / Rotator",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "BreakRotator",
+    "pins": [
+      {
+        "name": "InRot",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Rotator"
+      },
+      {
+        "name": "Roll",
+        "dir": "Output",
+        "cat": "real"
+      },
+      {
+        "name": "Pitch",
+        "dir": "Output",
+        "cat": "real"
+      },
+      {
+        "name": "Yaw",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Разобрать"
+  },
+  {
+    "id": "MakeRotFromX",
+    "title": "Make Rot from X",
+    "category": "Math / Rotator",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "MakeRotFromX",
+    "pins": [
+      {
+        "name": "X",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Rotator"
+      }
+    ],
+    "desc": "Из X"
+  },
+  {
+    "id": "MakeRotFromY",
+    "title": "Make Rot from Y",
+    "category": "Math / Rotator",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "MakeRotFromY",
+    "pins": [
+      {
+        "name": "Y",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Rotator"
+      }
+    ],
+    "desc": "Из Y"
+  },
+  {
+    "id": "MakeRotFromZ",
+    "title": "Make Rot from Z",
+    "category": "Math / Rotator",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "MakeRotFromZ",
+    "pins": [
+      {
+        "name": "Z",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Rotator"
+      }
+    ],
+    "desc": "Из Z"
+  },
+  {
+    "id": "MakeRotFromZX",
+    "title": "Make Rot from ZX",
+    "category": "Math / Rotator",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "MakeRotFromZX",
+    "pins": [
+      {
+        "name": "Z",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "X",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Rotator"
+      }
+    ],
+    "desc": "ZX"
+  },
+  {
+    "id": "FindLookAtRotation",
+    "title": "Find Look At Rotation",
+    "category": "Math / Rotator",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "FindLookAtRotation",
+    "pins": [
+      {
+        "name": "Start",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "Target",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Rotator"
+      }
+    ],
+    "desc": "Взгляд"
+  },
+  {
+    "id": "FindLookAtRotation2D",
+    "title": "Find Look At Rotation 2D",
+    "category": "Math / Rotator",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "FindLookAtRotation2D",
+    "pins": [
+      {
+        "name": "Start",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "Target",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Rotator"
+      }
+    ],
+    "desc": "2D"
+  },
+  {
+    "id": "ComposeRotators",
+    "title": "Compose Rotators",
+    "category": "Math / Rotator",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "ComposeRotators",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Rotator"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Rotator"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Rotator"
+      }
+    ],
+    "desc": "Композиция"
+  },
+  {
+    "id": "InverseRotator",
+    "title": "Inverse Rotator",
+    "category": "Math / Rotator",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "InverseTransformRotation",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Rotator"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Rotator"
+      }
+    ],
+    "desc": "Инверсия"
+  },
+  {
+    "id": "RInterpTo",
+    "title": "RInterp To",
+    "category": "Math / Interpolation",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "RInterpTo",
+    "pins": [
+      {
+        "name": "Current",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Rotator"
+      },
+      {
+        "name": "Target",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Rotator"
+      },
+      {
+        "name": "DeltaTime",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "InterpSpeed",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Rotator"
+      }
+    ],
+    "desc": "Интерп."
+  },
+  {
+    "id": "RLerp",
+    "title": "RLerp",
+    "category": "Math / Rotator",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "RLerp",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Rotator"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Rotator"
+      },
+      {
+        "name": "Alpha",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Rotator"
+      }
+    ],
+    "desc": "Lerp"
+  },
+  {
+    "id": "SelectRotator",
+    "title": "Select Rotator",
+    "category": "Math / Rotator",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "SelectRotator",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Rotator"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Rotator"
+      },
+      {
+        "name": "Pick A",
+        "dir": "Input",
+        "cat": "bool"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Rotator"
+      }
+    ],
+    "desc": "Выбор"
+  },
+  {
+    "id": "MakeTransform",
+    "title": "Make Transform",
+    "category": "Math / Transform",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "MakeTransform",
+    "pins": [
+      {
+        "name": "Location",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "Rotation",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Rotator"
+      },
+      {
+        "name": "Scale",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Transform"
+      }
+    ],
+    "desc": "Создать"
+  },
+  {
+    "id": "BreakTransform",
+    "title": "Break Transform",
+    "category": "Math / Transform",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "BreakTransform",
+    "pins": [
+      {
+        "name": "InTrans",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Transform"
+      },
+      {
+        "name": "Location",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "Rotation",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Rotator"
+      },
+      {
+        "name": "Scale",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Vector"
+      }
+    ],
+    "desc": "Разобрать"
+  },
+  {
+    "id": "ComposeTransforms",
+    "title": "Compose Transforms",
+    "category": "Math / Transform",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "ComposeTransforms",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Transform"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Transform"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Transform"
+      }
+    ],
+    "desc": "Композиция"
+  },
+  {
+    "id": "InvertTransform",
+    "title": "Invert Transform",
+    "category": "Math / Transform",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "InvertTransform",
+    "pins": [
+      {
+        "name": "T",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Transform"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Transform"
+      }
+    ],
+    "desc": "Инверсия"
+  },
+  {
+    "id": "TInterpTo",
+    "title": "TInterp To",
+    "category": "Math / Interpolation",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "TInterpTo",
+    "pins": [
+      {
+        "name": "Current",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Transform"
+      },
+      {
+        "name": "Target",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Transform"
+      },
+      {
+        "name": "DeltaTime",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "InterpSpeed",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "Transform"
+      }
+    ],
+    "desc": "Интерп."
+  },
+  {
+    "id": "Concat_StrStr",
+    "title": "Concat (String)",
+    "category": "String",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Concat_StrStr",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "string"
+      }
+    ],
+    "desc": "Склеить"
+  },
+  {
+    "id": "Append_String",
+    "title": "Append",
+    "category": "String",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Concat_StrStr",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "string"
+      }
+    ],
+    "desc": "Append"
+  },
+  {
+    "id": "Len_String",
+    "title": "Len (String)",
+    "category": "String",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Len",
+    "pins": [
+      {
+        "name": "S",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "int"
+      }
+    ],
+    "desc": "Длина"
+  },
+  {
+    "id": "ToUpper_String",
+    "title": "To Upper",
+    "category": "String",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "ToUpper",
+    "pins": [
+      {
+        "name": "SourceString",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "string"
+      }
+    ],
+    "desc": "Верхний"
+  },
+  {
+    "id": "ToLower_String",
+    "title": "To Lower",
+    "category": "String",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "ToLower",
+    "pins": [
+      {
+        "name": "SourceString",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "string"
+      }
+    ],
+    "desc": "Нижний"
+  },
+  {
+    "id": "Contains_String",
+    "title": "Contains",
+    "category": "String",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Contains",
+    "pins": [
+      {
+        "name": "SearchIn",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "Substring",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "UseCase",
+        "dir": "Input",
+        "cat": "byte"
+      },
+      {
+        "name": "SearchDir",
+        "dir": "Input",
+        "cat": "byte"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "Содержит"
+  },
+  {
+    "id": "FindSubstring_String",
+    "title": "Find Substring",
+    "category": "String",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "FindSubstring",
+    "pins": [
+      {
+        "name": "SearchIn",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "Substring",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "UseCase",
+        "dir": "Input",
+        "cat": "byte"
+      },
+      {
+        "name": "SearchDir",
+        "dir": "Input",
+        "cat": "byte"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "int"
+      }
+    ],
+    "desc": "Найти"
+  },
+  {
+    "id": "Replace_String",
+    "title": "Replace",
+    "category": "String",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Replace",
+    "pins": [
+      {
+        "name": "SourceString",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "From",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "To",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "string"
+      }
+    ],
+    "desc": "Заменить"
+  },
+  {
+    "id": "Split_String",
+    "title": "Split",
+    "category": "String",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "ParseIntoArray",
+    "pins": [
+      {
+        "name": "SourceString",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "Delimiter",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "CullEmptyStrings",
+        "dir": "Input",
+        "cat": "bool"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "string",
+        "sub": "Array"
+      }
+    ],
+    "desc": "Разделить"
+  },
+  {
+    "id": "JoinStringArray",
+    "title": "Join String Array",
+    "category": "String",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "JoinStringArray",
+    "pins": [
+      {
+        "name": "SourceArray",
+        "dir": "Input",
+        "cat": "string",
+        "sub": "Array"
+      },
+      {
+        "name": "Separator",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "string"
+      }
+    ],
+    "desc": "Соединить"
+  },
+  {
+    "id": "Trim_String",
+    "title": "Trim",
+    "category": "String",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Trim",
+    "pins": [
+      {
+        "name": "SourceString",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "string"
+      }
+    ],
+    "desc": "Trim"
+  },
+  {
+    "id": "TrimTrailing_String",
+    "title": "Trim Trailing",
+    "category": "String",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "TrimTrailing",
+    "pins": [
+      {
+        "name": "SourceString",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "string"
+      }
+    ],
+    "desc": "Trim конец"
+  },
+  {
+    "id": "Left_String",
+    "title": "Left",
+    "category": "String",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Left",
+    "pins": [
+      {
+        "name": "SourceString",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "Count",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "string"
+      }
+    ],
+    "desc": "Лево"
+  },
+  {
+    "id": "Right_String",
+    "title": "Right",
+    "category": "String",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Right",
+    "pins": [
+      {
+        "name": "SourceString",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "Count",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "string"
+      }
+    ],
+    "desc": "Право"
+  },
+  {
+    "id": "Mid_String",
+    "title": "Mid",
+    "category": "String",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Mid",
+    "pins": [
+      {
+        "name": "SourceString",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "Start",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "Count",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "string"
+      }
+    ],
+    "desc": "Середина"
+  },
+  {
+    "id": "LeftChop_String",
+    "title": "Left Chop",
+    "category": "String",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "LeftChop",
+    "pins": [
+      {
+        "name": "SourceString",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "Count",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "string"
+      }
+    ],
+    "desc": "Отрезать слева"
+  },
+  {
+    "id": "RightChop_String",
+    "title": "Right Chop",
+    "category": "String",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "RightChop",
+    "pins": [
+      {
+        "name": "SourceString",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "Count",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "string"
+      }
+    ],
+    "desc": "Справа"
+  },
+  {
+    "id": "EqualEqual_String",
+    "title": "Equal (String)",
+    "category": "String",
+    "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
+    "func": "EqualEqual_StrStr",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "Равно"
+  },
+  {
+    "id": "NotEqual_String",
+    "title": "Not Equal (String)",
+    "category": "String",
+    "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
+    "func": "NotEqual_StrStr",
+    "pins": [
+      {
+        "name": "A",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "B",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "Не равно"
+  },
+  {
+    "id": "BuildString_Float",
+    "title": "Build String (float)",
+    "category": "String",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "BuildString_Float",
+    "pins": [
+      {
+        "name": "AppendTo",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "Prefix",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "InFloat",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "string"
+      }
+    ],
+    "desc": "Float→String"
+  },
+  {
+    "id": "BuildString_Int",
+    "title": "Build String (int)",
+    "category": "String",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "BuildString_Int",
+    "pins": [
+      {
+        "name": "AppendTo",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "Prefix",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "InInt",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "string"
+      }
+    ],
+    "desc": "Int→String"
+  },
+  {
+    "id": "BuildString_Bool",
+    "title": "Build String (bool)",
+    "category": "String",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "BuildString_Bool",
+    "pins": [
+      {
+        "name": "AppendTo",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "Prefix",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "InBool",
+        "dir": "Input",
+        "cat": "bool"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "string"
+      }
+    ],
+    "desc": "Bool→String"
+  },
+  {
+    "id": "Conv_FloatToString",
+    "title": "ToString (float)",
+    "category": "String",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Conv_FloatToString",
+    "pins": [
+      {
+        "name": "InFloat",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "string"
+      }
+    ],
+    "desc": "Float→String"
+  },
+  {
+    "id": "Conv_IntToString",
+    "title": "ToString (int)",
+    "category": "String",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Conv_IntToString",
+    "pins": [
+      {
+        "name": "InInt",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "string"
+      }
+    ],
+    "desc": "Int→String"
+  },
+  {
+    "id": "Conv_BoolToString",
+    "title": "ToString (bool)",
+    "category": "String",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Conv_BoolToString",
+    "pins": [
+      {
+        "name": "InBool",
+        "dir": "Input",
+        "cat": "bool"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "string"
+      }
+    ],
+    "desc": "Bool→String"
+  },
+  {
+    "id": "Conv_VectorToString",
+    "title": "ToString (vector)",
+    "category": "String",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Conv_VectorToString",
+    "pins": [
+      {
+        "name": "InVec",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "string"
+      }
+    ],
+    "desc": "Vector→String"
+  },
+  {
+    "id": "Add_Array",
+    "title": "Add",
+    "category": "Array",
+    "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
+    "func": "Array_Add",
+    "pins": [
+      {
+        "name": "TargetArray",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "NewItem",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "int"
+      }
+    ],
+    "desc": "Добавить"
+  },
+  {
+    "id": "AddUnique_Array",
+    "title": "Add Unique",
+    "category": "Array",
+    "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
+    "func": "Array_AddUnique",
+    "pins": [
+      {
+        "name": "TargetArray",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "NewItem",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "int"
+      }
+    ],
+    "desc": "Уникальный"
+  },
+  {
+    "id": "Remove_Array",
+    "title": "Remove Index",
+    "category": "Array",
+    "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
+    "func": "Array_Remove",
+    "pins": [
+      {
+        "name": "TargetArray",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "IndexToRemove",
+        "dir": "Input",
+        "cat": "int"
+      }
+    ],
+    "desc": "Удалить индекс"
+  },
+  {
+    "id": "RemoveItem_Array",
+    "title": "Remove Item",
+    "category": "Array",
+    "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
+    "func": "Array_RemoveItem",
+    "pins": [
+      {
+        "name": "TargetArray",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "Item",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "Удалить элемент"
+  },
+  {
+    "id": "Clear_Array",
+    "title": "Clear",
+    "category": "Array",
+    "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
+    "func": "Array_Clear",
+    "pins": [
+      {
+        "name": "TargetArray",
+        "dir": "Input",
+        "cat": "object"
+      }
+    ],
+    "desc": "Очистить"
+  },
+  {
+    "id": "Length_Array",
+    "title": "Length",
+    "category": "Array",
+    "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
+    "func": "Array_Length",
+    "pins": [
+      {
+        "name": "TargetArray",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "int"
+      }
+    ],
+    "desc": "Длина"
+  },
+  {
+    "id": "Get_Array",
+    "title": "Get",
+    "category": "Array",
+    "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
+    "func": "Array_Get",
+    "pins": [
+      {
+        "name": "TargetArray",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "Index",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "Item",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Получить"
+  },
+  {
+    "id": "SetArrayElem_Array",
+    "title": "Set Array Elem",
+    "category": "Array",
+    "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
+    "func": "Array_Set",
+    "pins": [
+      {
+        "name": "TargetArray",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "Index",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "Item",
+        "dir": "Input",
+        "cat": "real"
+      }
+    ],
+    "desc": "Установить"
+  },
+  {
+    "id": "Find_Array",
+    "title": "Find",
+    "category": "Array",
+    "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
+    "func": "Array_Find",
+    "pins": [
+      {
+        "name": "TargetArray",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "ItemToFind",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "int"
+      }
+    ],
+    "desc": "Найти"
+  },
+  {
+    "id": "Contains_Array",
+    "title": "Contains",
+    "category": "Array",
+    "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
+    "func": "Array_Contains",
+    "pins": [
+      {
+        "name": "TargetArray",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "ItemToFind",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "Содержит"
+  },
+  {
+    "id": "Insert_Array",
+    "title": "Insert",
+    "category": "Array",
+    "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
+    "func": "Array_Insert",
+    "pins": [
+      {
+        "name": "TargetArray",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "NewItem",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "Index",
+        "dir": "Input",
+        "cat": "int"
+      }
+    ],
+    "desc": "Вставить"
+  },
+  {
+    "id": "Shuffle_Array",
+    "title": "Shuffle",
+    "category": "Array",
+    "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
+    "func": "Array_Shuffle",
+    "pins": [
+      {
+        "name": "TargetArray",
+        "dir": "Input",
+        "cat": "object"
+      }
+    ],
+    "desc": "Перемешать"
+  },
+  {
+    "id": "Reverse_Array",
+    "title": "Reverse",
+    "category": "Array",
+    "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
+    "func": "Array_Reverse",
+    "pins": [
+      {
+        "name": "TargetArray",
+        "dir": "Input",
+        "cat": "object"
+      }
+    ],
+    "desc": "Реверс"
+  },
+  {
+    "id": "IsValidIndex_Array",
+    "title": "Is Valid Index",
+    "category": "Array",
+    "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
+    "func": "Array_IsValidIndex",
+    "pins": [
+      {
+        "name": "TargetArray",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "Index",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "Валидный индекс"
+  },
+  {
+    "id": "Resize_Array",
+    "title": "Resize",
+    "category": "Array",
+    "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
+    "func": "Array_Resize",
+    "pins": [
+      {
+        "name": "TargetArray",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "Size",
+        "dir": "Input",
+        "cat": "int"
+      }
+    ],
+    "desc": "Размер"
+  },
+  {
+    "id": "PrintString",
+    "title": "Print String",
+    "category": "Utilities",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "PrintString",
+    "pins": [
+      {
+        "name": "execute",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "then",
+        "dir": "Output",
+        "cat": "exec"
+      },
+      {
+        "name": "InString",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "PrintToScreen",
+        "dir": "Input",
+        "cat": "bool"
+      },
+      {
+        "name": "PrintToLog",
+        "dir": "Input",
+        "cat": "bool"
+      },
+      {
+        "name": "TextColor",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "LinearColor"
+      },
+      {
+        "name": "Duration",
+        "dir": "Input",
+        "cat": "real"
+      }
+    ],
+    "desc": "Вывод"
+  },
+  {
+    "id": "PrintText",
+    "title": "Print Text",
+    "category": "Utilities",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "PrintText",
+    "pins": [
+      {
+        "name": "execute",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "then",
+        "dir": "Output",
+        "cat": "exec"
+      },
+      {
+        "name": "InText",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "PrintToScreen",
+        "dir": "Input",
+        "cat": "bool"
+      }
+    ],
+    "desc": "Print Text"
+  },
+  {
+    "id": "Delay",
+    "title": "Delay",
+    "category": "Utilities",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Delay",
+    "pins": [
+      {
+        "name": "execute",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "Completed",
+        "dir": "Output",
+        "cat": "exec"
+      },
+      {
+        "name": "Duration",
+        "dir": "Input",
+        "cat": "real"
+      }
+    ],
+    "desc": "Задержка"
+  },
+  {
+    "id": "RetriggerableDelay",
+    "title": "Retriggerable Delay",
+    "category": "Utilities",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "RetriggerableDelay",
+    "pins": [
+      {
+        "name": "execute",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "Completed",
+        "dir": "Output",
+        "cat": "exec"
+      },
+      {
+        "name": "Duration",
+        "dir": "Input",
+        "cat": "real"
+      }
+    ],
+    "desc": "Перезапускаемая"
+  },
+  {
+    "id": "IsValid_Object",
+    "title": "IsValid",
+    "category": "Utilities",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "IsValid",
+    "pins": [
+      {
+        "name": "InputObject",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      },
+      {
+        "name": "IsValid",
+        "dir": "Output",
+        "cat": "exec"
+      },
+      {
+        "name": "IsNotValid",
+        "dir": "Output",
+        "cat": "exec"
+      }
+    ],
+    "desc": "Валидность"
+  },
+  {
+    "id": "IsValidClass",
+    "title": "IsValid Class",
+    "category": "Utilities",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "IsValidClass",
+    "pins": [
+      {
+        "name": "InputClass",
+        "dir": "Input",
+        "cat": "class"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "Класс валиден"
+  },
+  {
+    "id": "GetDisplayName",
+    "title": "Get Display Name",
+    "category": "Utilities",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "GetDisplayName",
+    "pins": [
+      {
+        "name": "Object",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "string"
+      }
+    ],
+    "desc": "Имя"
+  },
+  {
+    "id": "GetObjectName",
+    "title": "Get Object Name",
+    "category": "Utilities",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "GetObjectName",
+    "pins": [
+      {
+        "name": "Object",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "string"
+      }
+    ],
+    "desc": "Имя объекта"
+  },
+  {
+    "id": "GetEngineVersion",
+    "title": "Get Engine Version",
+    "category": "Utilities",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "GetEngineVersion",
+    "pins": [
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "string"
+      }
+    ],
+    "desc": "Версия"
+  },
+  {
+    "id": "GetPlatformName",
+    "title": "Get Platform Name",
+    "category": "Utilities",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "GetPlatformName",
+    "pins": [
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "string"
+      }
+    ],
+    "desc": "Платформа"
+  },
+  {
+    "id": "GetGameTime",
+    "title": "Get Game Time",
+    "category": "Utilities",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "GetGameTimeInSeconds",
+    "pins": [
+      {
+        "name": "WorldContextObject",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Время"
+  },
+  {
+    "id": "GetSystemTime",
+    "title": "Get System Time",
+    "category": "Utilities",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "GetSystemTimeInSeconds",
+    "pins": [
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Системное время"
+  },
+  {
+    "id": "GetWorldDeltaSeconds",
+    "title": "Get World Delta Seconds",
+    "category": "Utilities",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "GetWorldDeltaSeconds",
+    "pins": [
+      {
+        "name": "WorldContextObject",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Delta"
+  },
+  {
+    "id": "QuitGame",
+    "title": "Quit Game",
+    "category": "Utilities",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "QuitGame",
+    "pins": [
+      {
+        "name": "execute",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "then",
+        "dir": "Output",
+        "cat": "exec"
+      },
+      {
+        "name": "WorldContextObject",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "SpecificPlayer",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "QuitPreference",
+        "dir": "Input",
+        "cat": "byte"
+      }
+    ],
+    "desc": "Выход"
+  },
+  {
+    "id": "OpenLevel",
+    "title": "Open Level",
+    "category": "Utilities",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "OpenLevel",
+    "pins": [
+      {
+        "name": "execute",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "then",
+        "dir": "Output",
+        "cat": "exec"
+      },
+      {
+        "name": "WorldContextObject",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "LevelName",
+        "dir": "Input",
+        "cat": "name"
+      }
+    ],
+    "desc": "Открыть уровень"
+  },
+  {
+    "id": "CreateSaveGame",
+    "title": "Create Save Game Object",
+    "category": "Utilities",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "CreateSaveGameObject",
+    "pins": [
+      {
+        "name": "SaveGameClass",
+        "dir": "Input",
+        "cat": "class"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "object"
+      }
+    ],
+    "desc": "SaveGame"
+  },
+  {
+    "id": "DoesSaveGameExist",
+    "title": "Does Save Game Exist",
+    "category": "Utilities",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "DoesSaveGameExist",
+    "pins": [
+      {
+        "name": "SlotName",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "UserIndex",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "Существует?"
+  },
+  {
+    "id": "SaveGameToSlot",
+    "title": "Save Game To Slot",
+    "category": "Utilities",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "SaveGameToSlot",
+    "pins": [
+      {
+        "name": "SaveGameObject",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "SlotName",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "UserIndex",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "Сохранить"
+  },
+  {
+    "id": "LoadGameFromSlot",
+    "title": "Load Game From Slot",
+    "category": "Utilities",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "LoadGameFromSlot",
+    "pins": [
+      {
+        "name": "SlotName",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "UserIndex",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "object"
+      }
+    ],
+    "desc": "Загрузить"
+  },
+  {
+    "id": "GetPlayerController",
+    "title": "Get Player Controller",
+    "category": "Gameplay",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "GetPlayerController",
+    "pins": [
+      {
+        "name": "WorldContextObject",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "PlayerIndex",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "object"
+      }
+    ],
+    "desc": "Контроллер"
+  },
+  {
+    "id": "GetPlayerPawn",
+    "title": "Get Player Pawn",
+    "category": "Gameplay",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "GetPlayerPawn",
+    "pins": [
+      {
+        "name": "WorldContextObject",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "PlayerIndex",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "object"
+      }
+    ],
+    "desc": "Pawn"
+  },
+  {
+    "id": "GetPlayerCharacter",
+    "title": "Get Player Character",
+    "category": "Gameplay",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "GetPlayerCharacter",
+    "pins": [
+      {
+        "name": "WorldContextObject",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "PlayerIndex",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "object"
+      }
+    ],
+    "desc": "Character"
+  },
+  {
+    "id": "GetAllActorsOfClass",
+    "title": "Get All Actors Of Class",
+    "category": "Gameplay",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "GetAllActorsOfClass",
+    "pins": [
+      {
+        "name": "execute",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "then",
+        "dir": "Output",
+        "cat": "exec"
+      },
+      {
+        "name": "WorldContextObject",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "ActorClass",
+        "dir": "Input",
+        "cat": "class"
+      },
+      {
+        "name": "OutActors",
+        "dir": "Output",
+        "cat": "object",
+        "sub": "Array"
+      }
+    ],
+    "desc": "Все акторы"
+  },
+  {
+    "id": "GetAllActorsWithTag",
+    "title": "Get All Actors With Tag",
+    "category": "Gameplay",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "GetAllActorsWithTag",
+    "pins": [
+      {
+        "name": "execute",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "then",
+        "dir": "Output",
+        "cat": "exec"
+      },
+      {
+        "name": "WorldContextObject",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "Tag",
+        "dir": "Input",
+        "cat": "name"
+      },
+      {
+        "name": "OutActors",
+        "dir": "Output",
+        "cat": "object",
+        "sub": "Array"
+      }
+    ],
+    "desc": "По тегу"
+  },
+  {
+    "id": "SpawnActor",
+    "title": "Spawn Actor From Class",
+    "category": "Gameplay",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "BeginSpawningActorFromClass",
+    "pins": [
+      {
+        "name": "execute",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "then",
+        "dir": "Output",
+        "cat": "exec"
+      },
+      {
+        "name": "WorldContextObject",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "Class",
+        "dir": "Input",
+        "cat": "class"
+      },
+      {
+        "name": "SpawnTransform",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Transform"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "object"
+      }
+    ],
+    "desc": "Спавн"
+  },
+  {
+    "id": "SpawnEmitter",
+    "title": "Spawn Emitter At Location",
+    "category": "Gameplay",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "SpawnEmitterAtLocation",
+    "pins": [
+      {
+        "name": "execute",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "then",
+        "dir": "Output",
+        "cat": "exec"
+      },
+      {
+        "name": "WorldContextObject",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "EmitterTemplate",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "Location",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "Rotation",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Rotator"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "object"
+      }
+    ],
+    "desc": "Эмиттер"
+  },
+  {
+    "id": "PlaySoundAtLocation",
+    "title": "Play Sound At Location",
+    "category": "Gameplay",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "PlaySoundAtLocation",
+    "pins": [
+      {
+        "name": "execute",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "then",
+        "dir": "Output",
+        "cat": "exec"
+      },
+      {
+        "name": "WorldContextObject",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "Sound",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "Location",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      }
+    ],
+    "desc": "Звук"
+  },
+  {
+    "id": "GetGameMode",
+    "title": "Get Game Mode",
+    "category": "Gameplay",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "GetGameMode",
+    "pins": [
+      {
+        "name": "WorldContextObject",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "object"
+      }
+    ],
+    "desc": "GameMode"
+  },
+  {
+    "id": "GetGameState",
+    "title": "Get Game State",
+    "category": "Gameplay",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "GetGameState",
+    "pins": [
+      {
+        "name": "WorldContextObject",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "object"
+      }
+    ],
+    "desc": "GameState"
+  },
+  {
+    "id": "GetGameInstance",
+    "title": "Get Game Instance",
+    "category": "Gameplay",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "GetGameInstance",
+    "pins": [
+      {
+        "name": "WorldContextObject",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "object"
+      }
+    ],
+    "desc": "GameInstance"
+  },
+  {
+    "id": "GetWorld",
+    "title": "Get World",
+    "category": "Gameplay",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "GetWorld",
+    "pins": [
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "object"
+      }
+    ],
+    "desc": "World"
+  },
+  {
+    "id": "LineTraceByChannel",
+    "title": "Line Trace By Channel",
+    "category": "Collision",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "LineTraceByChannel",
+    "pins": [
+      {
+        "name": "execute",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "then",
+        "dir": "Output",
+        "cat": "exec"
+      },
+      {
+        "name": "WorldContextObject",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "Start",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "End",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "TraceChannel",
+        "dir": "Input",
+        "cat": "byte"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      },
+      {
+        "name": "OutHit",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "HitResult"
+      }
+    ],
+    "desc": "Трасса канал"
+  },
+  {
+    "id": "LineTraceByObject",
+    "title": "Line Trace By Object",
+    "category": "Collision",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "LineTraceByObjectType",
+    "pins": [
+      {
+        "name": "execute",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "then",
+        "dir": "Output",
+        "cat": "exec"
+      },
+      {
+        "name": "WorldContextObject",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "Start",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "End",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "По объекту"
+  },
+  {
+    "id": "SphereTraceByChannel",
+    "title": "Sphere Trace By Channel",
+    "category": "Collision",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "SphereTraceByChannel",
+    "pins": [
+      {
+        "name": "execute",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "then",
+        "dir": "Output",
+        "cat": "exec"
+      },
+      {
+        "name": "WorldContextObject",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "Start",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "End",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "Radius",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "Сфера"
+  },
+  {
+    "id": "BoxTraceByChannel",
+    "title": "Box Trace By Channel",
+    "category": "Collision",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "BoxTraceByChannel",
+    "pins": [
+      {
+        "name": "execute",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "then",
+        "dir": "Output",
+        "cat": "exec"
+      },
+      {
+        "name": "WorldContextObject",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "Start",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "End",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "HalfSize",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "Box"
+  },
+  {
+    "id": "CapsuleTraceByChannel",
+    "title": "Capsule Trace By Channel",
+    "category": "Collision",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "CapsuleTraceByChannel",
+    "pins": [
+      {
+        "name": "execute",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "then",
+        "dir": "Output",
+        "cat": "exec"
+      },
+      {
+        "name": "WorldContextObject",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "Start",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "End",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Vector"
+      },
+      {
+        "name": "Radius",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "HalfHeight",
+        "dir": "Input",
+        "cat": "real"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "Капсула"
+  },
+  {
+    "id": "GetKey",
+    "title": "Get Key",
+    "category": "Input",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "GetKey",
+    "pins": [
+      {
+        "name": "InKey",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Key"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "Клавиша"
+  },
+  {
+    "id": "IsInputKeyDown",
+    "title": "Is Input Key Down",
+    "category": "Input",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "IsInputKeyDown",
+    "pins": [
+      {
+        "name": "Key",
+        "dir": "Input",
+        "cat": "struct",
+        "sub": "Key"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "bool"
+      }
+    ],
+    "desc": "Нажата?"
+  },
+  {
+    "id": "Reroute",
+    "title": "Reroute Node",
+    "category": "Organization",
+    "className": "/Script/BlueprintGraph.K2Node_Knot",
+    "func": "",
+    "pins": [
+      {
+        "name": "InputPin",
+        "dir": "Input",
+        "cat": "exec"
+      },
+      {
+        "name": "OutputPin",
+        "dir": "Output",
+        "cat": "exec"
+      }
+    ],
+    "desc": "Перенаправление"
+  },
+  {
+    "id": "Comment",
+    "title": "Comment Box",
+    "category": "Organization",
+    "className": "/Script/UnrealEd.EdGraphNode_Comment",
+    "func": "",
+    "pins": [],
+    "desc": "Комментарий"
+  },
+  {
+    "id": "MakeArray",
+    "title": "Make Array",
+    "category": "Organization",
+    "className": "/Script/BlueprintGraph.K2Node_MakeArray",
+    "func": "",
+    "pins": [
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "object",
+        "sub": "Array"
+      }
+    ],
+    "desc": "Создать массив"
+  },
+  {
+    "id": "MakeSet",
+    "title": "Make Set",
+    "category": "Organization",
+    "className": "/Script/BlueprintGraph.K2Node_MakeSet",
+    "func": "",
+    "pins": [
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "object",
+        "sub": "Set"
+      }
+    ],
+    "desc": "Создать сет"
+  },
+  {
+    "id": "MakeMap",
+    "title": "Make Map",
+    "category": "Organization",
+    "className": "/Script/BlueprintGraph.K2Node_MakeMap",
+    "func": "",
+    "pins": [
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "object",
+        "sub": "Map"
+      }
+    ],
+    "desc": "Создать map"
+  },
+  {
+    "id": "Select",
+    "title": "Select",
+    "category": "Organization",
+    "className": "/Script/BlueprintGraph.K2Node_Select",
+    "func": "",
+    "pins": [
+      {
+        "name": "Index",
+        "dir": "Input",
+        "cat": "int"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "real"
+      }
+    ],
+    "desc": "Выбор"
+  },
+  {
+    "id": "FormatText",
+    "title": "Format Text",
+    "category": "Text",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "Format",
+    "pins": [
+      {
+        "name": "InPattern",
+        "dir": "Input",
+        "cat": "string"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "string"
+      }
+    ],
+    "desc": "Формат"
+  },
+  {
+    "id": "Enhanced_GetActionValue",
+    "title": "Get Action Value",
+    "category": "Enhanced Input",
+    "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+    "func": "GetActionValue",
+    "pins": [
+      {
+        "name": "Action",
+        "dir": "Input",
+        "cat": "object"
+      },
+      {
+        "name": "ReturnValue",
+        "dir": "Output",
+        "cat": "struct",
+        "sub": "InputActionValue"
+      }
+    ],
+    "desc": "Значение действия"
+  }
+]
