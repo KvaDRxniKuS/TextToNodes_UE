@@ -3331,6 +3331,28 @@
   "desc": "Разобрать"
  },
  {
+  "id": "BreakHitResult",
+  "title": "Break Hit Result",
+  "category": "Collision",
+  "className": "/Script/BlueprintGraph.K2Node_BreakStruct",
+  "func": "",
+  "struct": {
+   "name": "HitResult",
+   "path": "\"/Script/CoreUObject.ScriptStruct'/Script/Engine.HitResult'\""
+  },
+  "pins": [
+   {
+    "name": "HitResult",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "HitResult"
+   }
+  ],
+  "verified": false,
+  "note": "v6: минимальный вход; выходные пины структуры движок достраивает (не проверено) — L3 покажет, copy-back зафиксирует",
+  "desc": "Разобрать Hit"
+ },
+ {
   "id": "MakeVector2D",
   "title": "Make Vector2D",
   "category": "Math / Vector",
