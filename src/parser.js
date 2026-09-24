@@ -70,7 +70,8 @@ export function parseToGraphs(text){
           });
         }
         const sub2=sub||(cat==='struct'&&subObj&&subObj!=='None'?subObj.split('.').pop().replace(/['"]/g,''):'');const isConst=/bIsConst=True/.test(pinStr);
-        node.pins.push({id:pinId,name:pinName, friendly, direction:dir.includes('Output')?'Output':'Input', category:cat, subCategory:sub2, subCategoryObject:subObj==='None'?'':subObj, defaultValue, hidden, linkedTo:linked,isConst});
+        const isRef=/PinType\.bIsReference=True/.test(pinStr);const container=(pinStr.match(/PinType\.ContainerType=([A-Za-z]+)/)||[])[1]||'None';const ignored=/bDefaultValueIsIgnored=True/.test(pinStr);const advanced=/bAdvancedView=True/.test(pinStr);
+        node.pins.push({id:pinId,name:pinName, friendly, direction:dir.includes('Output')?'Output':'Input', category:cat, subCategory:sub2, subCategoryObject:subObj==='None'?'':subObj, defaultValue, hidden, linkedTo:linked,isConst,isRef,container,ignored,advanced});
       } else if(t.startsWith('VariableReference=')){ const m=t.match(/MemberName="([^"]+)"/); if(m) node.varName=m[1]; }
       else if(t.startsWith('FunctionReference=')){ const m=t.match(/MemberName="([^"]+)"/); if(m) node.funcName=m[1]; const mp=t.match(/MemberParent="([^"]+)"/)||t.match(/MemberParent=([^,\)]+)/); if(mp) node.memberParent=mp[1]; }
       else if(t.startsWith('StructType=')){ const m=t.match(/StructType=([^\s]+)/); if(m) node.structType=m[1]; }
@@ -151,8 +152,8 @@ function generateBlock(n){
         // PinFriendlyName ne pishem: dvizhok hranit NSLOCTEXT i vosstanavlivaet sam.
     // NB: PersistentGuid намеренно НЕ пишем — нулевой/битый GUID движок может
     // перегенерировать вместе с пином и порвать связь; без поля вставка чистая.
-    // v5: ссылки в стиле UE_VERSION (UE4-каноника из copy-back H1: "..." + полная форма без внутр. кавычек).
-    return `   CustomProperties Pin (PinId=${p.id},PinName="${p.name}",${dir}PinType.PinCategory="${p.category}",PinType.PinSubCategory="${p.category==='struct'?'':(p.subCategory||'')}",PinType.PinSubCategoryObject=${p.subCategoryObject||'None'},PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=${p.isConst?'True':'False'},PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,${linked}bHidden=${p.hidden?'True':'False'},bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,${dv})`;
+    // v6: ссылки quoted-full (UE 5.8, copy-back H1/J5/LineTraceSingle: "..." + полная форма без внутр. кавычек).
+    return `   CustomProperties Pin (PinId=${p.id},PinName="${p.name}",${dir}PinType.PinCategory="${p.category}",PinType.PinSubCategory="${p.category==='struct'?'':(p.subCategory||'')}",PinType.PinSubCategoryObject=${p.subCategoryObject||'None'},PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=${p.container||'None'},PinType.bIsReference=${p.isRef?'True':'False'},PinType.bIsConst=${p.isConst?'True':'False'},PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,${linked}bHidden=${p.hidden?'True':'False'},bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=${p.ignored?'True':'False'},bAdvancedView=${p.advanced?'True':'False'},bOrphanedPin=False,${dv})`;
   }).join('\n');
   let extra='';
   if(n.varName) extra+=`   VariableReference=(MemberName="${n.varName}",MemberGuid=${guid.slice(0,8)}${guid.slice(8,12)}${guid.slice(12,16)}${guid.slice(16,20)}${guid.slice(20,32)},bSelfContext=True)\n`;

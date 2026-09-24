@@ -30,7 +30,7 @@ for (let k = ri; k < script.length; k++) {
 }
 const REG_SRC = script.slice(ri, end);
 const harness =
-  'const UE_VERSION=\'UE4\';\n' + extractConst(script, 'UE_LIBS') + '\n' + extractConst(script, 'UE_STRUCTS') + '\n' + extractConst(script, 'UE_ENUMS') + '\n' +
+  'const UE_VERSION=\'FULL\';\n' + extractConst(script, 'UE_LIBS') + '\n' + extractConst(script, 'UE_STRUCTS') + '\n' + extractConst(script, 'UE_ENUMS') + '\n' +
   'const REG=' + REG_SRC + ';\nfunction getREG(){ return REG; }\n' +
   'function guid(){ const h="0123456789ABCDEF"; let s=""; for(let i=0;i<32;i++) s+=h[Math.floor(Math.random()*16)]; return s; }\n' +
   'function headerColor(n){ return ""; } function snapVal(v){ return v; }\n' +
@@ -48,11 +48,11 @@ fs.unlinkSync(new URL('./.sb-harness.tmp.cjs', import.meta.url));
 
 let pass = 0, fail = 0;
 const ok = (c, t) => { c ? pass++ : (fail++, console.log('FAIL:', t)); };
-ok(sb.getREG().length === 231, 'REG встроенный: 231');
-ok(sb.UE_STRUCTS.Vector.includes('/Script/CoreUObject.Vector'), 'UE_STRUCTS: UE4-каноника');
+ok(sb.getREG().length === 232, 'REG встроенный: 231');
+ok(sb.UE_STRUCTS.Vector.includes('/Script/CoreUObject.Vector'), 'UE_STRUCTS: quoted-full');
 ok(sb.UE_ENUMS.ETraceTypeQuery.includes('ETraceTypeQuery'), 'UE_ENUMS на месте');
 
-for (const id of ['Delay', 'ForLoop', 'MakeVector', 'VSize', 'Add_Int', 'Greater_Float', 'Branch', 'PrintString', 'Gate', 'LineTraceByChannel']) {
+for (const id of ['Delay', 'ForLoop', 'MakeVector', 'VSize', 'Add_Int', 'Greater_Float', 'Branch', 'PrintString', 'Gate', 'LineTraceSingle', 'ForEachLoop']) {
   sb._nodes.length = 0;
   sb.createFromReg(id, { x: 0, y: 0 });
   const n = sb._nodes[0];
@@ -69,12 +69,12 @@ sb._nodes.length = 0; sb.createFromReg('ForLoop', { x: 0, y: 0 });
 ok(sb._nodes[0].macroGraph === 'ForLoop' && sb._nodes[0].macroGuid === '55C904AF4B45FE1761FB55A8DB9FB801', 'ForLoop macro+guid');
 sb._nodes.length = 0; sb.createFromReg('Add_Int', { x: 0, y: 0 });
 ok(sb._nodes[0].operationName === 'Add' && sb._nodes[0].opMemberName === 'Add_IntInt', 'Add_Int op mapping');
-sb._nodes.length = 0; sb.createFromReg('LineTraceByChannel', { x: 0, y: 0 });
+sb._nodes.length = 0; sb.createFromReg('LineTraceSingle', { x: 0, y: 0 });
 const lt = sb._nodes[0];
 ok((lt.pins.find(p => p.name === 'TraceChannel') || {}).subCategoryObject.includes('ETraceTypeQuery'), 'TraceChannel enum subObj');
-ok((lt.pins.find(p => p.name === 'Start') || {}).subCategoryObject.includes('/Script/CoreUObject.Vector'), 'Start UE4-каноника');
+ok((lt.pins.find(p => p.name === 'Start') || {}).subCategoryObject.includes('/Script/CoreUObject.Vector'), 'Start quoted-full');
 ok(lt.rawBlock.includes("ExportPath=\"/Script/BlueprintGraph.K2Node_CallFunction'\"/Game/"), 'ExportPath формат движка');
-ok(lt.rawBlock.includes('MemberParent="/Script/CoreUObject.Class'), 'sandbox MemberParent UE4-каноника');
+ok(lt.rawBlock.includes('MemberParent="/Script/CoreUObject.Class'), 'sandbox MemberParent quoted-full');
 ok(lt.rawBlock.includes('PinSubCategory="",PinType.PinSubCategoryObject="/Script/CoreUObject.ScriptStruct'), 'sandbox struct SubCategory пусто');
 ok(!lt.rawBlock.includes('PinFriendlyName='), 'без PinFriendlyName');
 const g = sb.parseUE(lt.rawBlock);

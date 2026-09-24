@@ -132,8 +132,8 @@ export function validateStrict(text, { registry = null } = {}) {
     }
     if (n.short === 'K2Node_MakeStruct' || n.short === 'K2Node_BreakStruct') {
       if (!n.structType) errors.push(`E11: ${n.name}: ${n.short} без StructType`);
-      else if (!n.structType.includes("ScriptStruct'")) errors.push(`E11: ${n.name}: StructType должен быть вида "/Script/CoreUObject.ScriptStruct'/Script/...'"`);
-      else if (n.structType.startsWith('/Script/')) warnings.push(`W11: ${n.name}: StructType ${n.structType} в полной asset-dump форме — буфер обмена требует каноническую ("/Script/CoreUObject.ScriptStruct'/Script/...'" для UE4), иначе движок дропнет ноду`);
+      else if (!n.structType.includes("ScriptStruct'")) errors.push(`E11: ${n.name}: StructType должен быть quoted-full (UE 5.8): "/Script/CoreUObject.ScriptStruct'/Script/...'"`);
+      else if (n.structType.startsWith('/Script/')) warnings.push(`W11: ${n.name}: StructType ${n.structType} в полной asset-dump форме — буфер обмена требует quoted-full ("/Script/CoreUObject.ScriptStruct'/Script/...'" (UE 5.8), иначе движок дропнет ноду`);
       if (n.short === 'K2Node_MakeStruct' && n.structType) {
         const st = (n.structType.split('.').pop() || '').replace(/['"]/g, '');
         if (st && !n.pins.some(p => p.isOut && p.name === st))
@@ -163,11 +163,11 @@ export function validateStrict(text, { registry = null } = {}) {
       const known = !!p.subObj && KNOWN_SUBOBJ.has(p.subObj);
       if (p.cat === 'struct') {
         if (!p.subObj || p.subObj === 'None')
-          warnings.push(`W10: ${n.name}.${p.name}: struct-пин без SubCategoryObject (восстановление по сигнатуре проверяется J3a; Make/Break нужен путь "/Script/CoreUObject.ScriptStruct'/Script/...'" для UE4)`);
+          warnings.push(`W10: ${n.name}.${p.name}: struct-пин без SubCategoryObject (движок достраивает по сигнатуре — проверено H1/J5; Make/Break нужен quoted-full путь "/Script/CoreUObject.ScriptStruct'/Script/...'" (UE 5.8)`);
         else if (!p.subObj.includes("ScriptStruct'"))
           errors.push(`E14: ${n.name}.${p.name}: struct-пин с битым PinSubCategoryObject (${p.subObj})`);
         else if (!known && p.subObj.startsWith('/Script/'))
-          warnings.push(`W11: ${n.name}.${p.name}: путь ${p.subObj} в полной asset-dump форме — буфер обмена требует каноническую ("/Script/CoreUObject.ScriptStruct'/Script/...'" для UE4), иначе движок дропнет ноду`);
+          warnings.push(`W11: ${n.name}.${p.name}: путь ${p.subObj} в полной asset-dump форме — буфер обмена требует quoted-full ("/Script/CoreUObject.ScriptStruct'/Script/...'" (UE 5.8), иначе движок дропнет ноду`);
         else if (!known)
           warnings.push(`W10: ${n.name}.${p.name}: путь ${p.subObj} не из проверенного списка (src/ue-types.js) — убедись, что объект существует, иначе вставка упадёт`);
       }
@@ -175,7 +175,7 @@ export function validateStrict(text, { registry = null } = {}) {
         if (!p.subObj.includes("Enum'"))
           errors.push(`E14: ${n.name}.${p.name}: byte-пин с битым PinSubCategoryObject (${p.subObj}) — для энамов нужен путь "/Script/CoreUObject.Enum'/Script/...'"`);
         else if (!known && p.subObj.startsWith('/Script/'))
-          warnings.push(`W11: ${n.name}.${p.name}: путь энама ${p.subObj} в полной asset-dump форме — буфер обмена требует каноническую ("/Script/CoreUObject.Enum'/Script/...'" для UE4), иначе движок дропнет ноду`);
+          warnings.push(`W11: ${n.name}.${p.name}: путь энама ${p.subObj} в полной asset-dump форме — буфер обмена требует quoted-full ("/Script/CoreUObject.Enum'/Script/...'" (UE 5.8), иначе движок дропнет ноду`);
         else if (!known)
           warnings.push(`W10: ${n.name}.${p.name}: путь энама ${p.subObj} не из проверенного списка — убедись, что существует`);
       }

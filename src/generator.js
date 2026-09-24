@@ -1,7 +1,7 @@
 // Generator helpers for AI — строит ноды по реестру data/ue-functions.json,
 // совместимые с generateUEText() из parser.js и строгим src/validate.js.
 import { guid32 } from './parser.js';
-import { UE_LIBS, UE_STRUCTS, UE_MACROS, classRef } from './ue-types.js';
+import { UE_LIBS, UE_STRUCTS, UE_ENUMS, UE_MACROS, classRef } from './ue-types.js';
 
 let seq = 100;
 const nextId = prefix => `${prefix}_${seq++}`;
@@ -10,6 +10,7 @@ export function mkPin(name, direction, category, opts = {}) {
   return {
     id: guid32(), name, friendly: opts.friendly || name, direction, category,
     subCategory: opts.sub || '', subCategoryObject: opts.subObj || '', isConst: !!opts.const,
+    isRef: !!opts.ref, container: opts.container || 'None', ignored: !!opts.ignored, advanced: !!opts.advanced,
     defaultValue: opts.dv || '', hidden: !!opts.hidden, linkedTo: [],
   };
 }
@@ -34,14 +35,19 @@ export function createCallFunction(regEntry, pos = { x: 0, y: 0 }) {
   }
   for (const p of regEntry.pins || []) {
     const o = { sub: p.sub || '' };
-    if (p.cat === 'real') o.sub = 'double';
+    if (p.cat === 'real') o.sub = p.sub || 'double';
     if (p.cat === 'struct' && p.sub) {
       if (!UE_STRUCTS[p.sub]) throw new Error(`Unknown struct in registry: ${p.sub} (${regEntry.id}.${p.name})`);
       o.subObj = UE_STRUCTS[p.sub];
     }
     if (p.cat === 'object' && p.object) o.subObj = classRef(p.object);
-    if (p.enum) o.subObj = p.enum;
+    if (p.enum) o.subObj = UE_ENUMS[p.enum] || p.enum;
     if (p.const) o.const = true;
+    if (p.ref) o.ref = true;
+    if (p.container) o.container = p.container;
+    if (p.ignored) o.ignored = true;
+    if (p.advanced) o.advanced = true;
+    if (p.dv) o.dv = p.dv;
     if (p.hidden) o.hidden = true;
     n.pins.push(mkPin(p.name, p.dir, p.cat, o));
   }
@@ -59,7 +65,7 @@ export function createOperator(regEntry, pos = { x: 0, y: 0 }) {
   n.title = regEntry.title || func;
   for (const p of regEntry.pins || []) {
     const o = { sub: p.sub || '' };
-    if (p.cat === 'real') o.sub = 'double';
+    if (p.cat === 'real') o.sub = p.sub || 'double';
     n.pins.push(mkPin(p.name, p.dir, p.cat, o));
   }
   return n;
@@ -75,7 +81,9 @@ export function createMacroInstance(regEntry, pos = { x: 0, y: 0 }) {
   n.title = regEntry.title || m.graph;
   for (const p of regEntry.pins || []) {
     const o = { sub: p.sub || '' };
-    if (p.cat === 'real') o.sub = 'double';
+    if (p.cat === 'real') o.sub = p.sub || 'double';
+    if (p.container) o.container = p.container;
+    if (p.dv) o.dv = p.dv;
     n.pins.push(mkPin(p.name, p.dir, p.cat, o));
   }
   return n;
@@ -92,13 +100,18 @@ export function createStructNode(regEntry, pos = { x: 0, y: 0 }) {
   n.title = regEntry.title || short;
   for (const p of regEntry.pins || []) {
     const o = { sub: p.sub || '' };
-    if (p.cat === 'real') o.sub = 'double';
+    if (p.cat === 'real') o.sub = p.sub || 'double';
     if (p.cat === 'struct' && p.sub) {
       if (!UE_STRUCTS[p.sub]) throw new Error(`Unknown struct: ${p.sub} (${regEntry.id}.${p.name})`);
       o.subObj = UE_STRUCTS[p.sub];
     }
     if (p.cat === 'object' && p.object) o.subObj = classRef(p.object);
     if (p.const) o.const = true;
+    if (p.ref) o.ref = true;
+    if (p.container) o.container = p.container;
+    if (p.ignored) o.ignored = true;
+    if (p.advanced) o.advanced = true;
+    if (p.dv) o.dv = p.dv;
     if (p.hidden) o.hidden = true;
     n.pins.push(mkPin(p.name, p.dir, p.cat, o));
   }
@@ -153,9 +166,23 @@ export function createBranch(pos) {
     guid: guid32(), pos, title: 'Branch',
     pins: [
       mkPin('execute', 'Input', 'exec'),
-      mkPin('Condition', 'Input', 'bool'),
+      mkPin('Condition', 'Input', 'bool', { dv: 'true' }),
       mkPin('then', 'Output', 'exec'),
       mkPin('else', 'Output', 'exec')
+    ]
+  };
+}
+
+/** K2Node_Knot (reroute) — форма из copy-back UE 5.8: wildcard + InputPin ignored. */
+export function createKnot(pos = { x: 0, y: 0 }) {
+  return {
+    id: nextId('K2Node_Knot'),
+    className: 'BlueprintGraph.K2Node_Knot',
+    rawClass: '/Script/BlueprintGraph.K2Node_Knot',
+    guid: guid32(), pos, title: 'Reroute',
+    pins: [
+      mkPin('InputPin', 'Input', 'wildcard', { ignored: true }),
+      mkPin('OutputPin', 'Output', 'wildcard'),
     ]
   };
 }
