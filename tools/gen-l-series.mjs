@@ -2,7 +2,7 @@
 // Запуск: node tools/gen-l-series.mjs
 import fs from 'fs';
 import { generateUEText } from '../src/parser.js';
-import { createCallFunction, createStructNode, createSequence, createKnot, createComment, linkPins } from '../src/generator.js';
+import { createCallFunction, createStructNode, createSequence, createKnot, createComment, fitComment, linkPins } from '../src/generator.js';
 import { validateStrict } from '../src/validate.js';
 
 const reg = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8'));
@@ -26,7 +26,7 @@ function emit(tag, nodes) {
   const dly = createCallFunction(byId('Delay'), { x: 640, y: 0 });
   linkPins(seq, 'then_0', prt, 'execute');
   linkPins(prt, 'then', dly, 'execute');
-  emit('L1 exec chain', [createComment('L1: exec Sequence→Print→Delay', { x: -80, y: -160 }), seq, prt, dly]);
+  emit('L1 exec chain', [fitComment('L1: exec Sequence→Print→Delay', [seq, prt, dly]), seq, prt, dly]);
 }
 
 // L2: data + Knot — MakeVector.Vector → Knot → BreakVector.Vector; BreakVector.X → Delay.Duration
@@ -38,7 +38,7 @@ function emit(tag, nodes) {
   linkPins(mk, 'Vector', kn, 'InputPin');
   linkPins(kn, 'OutputPin', br, 'Vector');
   linkPins(br, 'X', dly, 'Duration');
-  emit('L2 data+knot', [createComment('L2: data Make→Knot→Break, X→Delay.Duration', { x: -80, y: -160 }), mk, kn, br, dly]);
+  emit('L2 data+knot', [fitComment('L2: data Make→Knot→Break, X→Delay.Duration', [mk, kn, br, dly]), mk, kn, br, dly]);
 }
 
 // L3: OutHit→BreakHitResult — полный трейд + минимальный трейд (дифференциал: съедает ли достройка связи)
@@ -50,5 +50,5 @@ function emit(tag, nodes) {
   const bB = createStructNode(byId('BreakHitResult'), { x: 960, y: 0 });
   linkPins(full, 'OutHit', bA, 'HitResult');
   linkPins(mini, 'OutHit', bB, 'HitResult');
-  emit('L3 outhit-break', [createComment('L3: OutHit→Break (full + minimal)', { x: -80, y: -160 }), full, bA, mini, bB]);
+  emit('L3 outhit-break', [fitComment('L3: OutHit→Break (full + minimal)', [full, bA, mini, bB]), full, bA, mini, bB]);
 }

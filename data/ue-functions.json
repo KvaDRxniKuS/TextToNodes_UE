@@ -3309,7 +3309,9 @@
     "name": "Vector",
     "dir": "Input",
     "cat": "struct",
-    "sub": "Vector"
+    "sub": "Vector",
+    "ref": true,
+    "const": true
    },
    {
     "name": "X",
@@ -3345,11 +3347,13 @@
     "name": "HitResult",
     "dir": "Input",
     "cat": "struct",
-    "sub": "HitResult"
+    "sub": "HitResult",
+    "ref": true,
+    "const": true
    }
   ],
   "verified": false,
-  "note": "v6: минимальный вход; выходные пины структуры движок достраивает (не проверено) — L3 покажет, copy-back зафиксирует",
+  "note": "v6: движок НЕ достраивает выходы struct-нод (L3: остался 1 пин) — нужен copy-back настоящего Break Hit Result для имён выходов",
   "desc": "Разобрать Hit"
  },
  {
@@ -3398,7 +3402,9 @@
     "name": "Vector2D",
     "dir": "Input",
     "cat": "struct",
-    "sub": "Vector2D"
+    "sub": "Vector2D",
+    "ref": true,
+    "const": true
    },
    {
     "name": "X",
@@ -3616,7 +3622,9 @@
     "name": "Rotator",
     "dir": "Input",
     "cat": "struct",
-    "sub": "Rotator"
+    "sub": "Rotator",
+    "ref": true,
+    "const": true
    },
    {
     "name": "Pitch",
@@ -4018,7 +4026,9 @@
     "name": "Transform",
     "dir": "Input",
     "cat": "struct",
-    "sub": "Transform"
+    "sub": "Transform",
+    "ref": true,
+    "const": true
    },
    {
     "name": "Location",
@@ -5336,7 +5346,9 @@
    {
     "name": "Duration",
     "dir": "Input",
-    "cat": "real"
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.2"
    }
   ],
   "verified": true,

@@ -2,7 +2,7 @@
 // Запуск: node tests/validate.test.mjs  (или npm test). Exit 1 при любом провале.
 import fs from 'fs';
 import { parseToGraphs, generateUEText } from '../src/parser.js';
-import { createCallFunction, createOperator, createMacroInstance, createStructNode, createSequence, createSwitch, createBranch, createKnot, createComment, linkPins } from '../src/generator.js';
+import { createCallFunction, createOperator, createMacroInstance, createStructNode, createSequence, createSwitch, createBranch, createKnot, createComment, fitComment, linkPins } from '../src/generator.js';
 import { validateStrict } from '../src/validate.js';
 
 let pass = 0, fail = 0;
@@ -135,6 +135,22 @@ ok(knTxt.includes('PinName="InputPin",PinType.PinCategory="wildcard"') && knTxt.
 ok(byId('Reroute').pins[0].cat === 'wildcard' && byId('Reroute').pins[0].ignored === true, 'Reroute: wildcard+ignored');
 ok(byId('ForLoop').pins.some(p => p.name === 'FirstIndex'), 'ForLoop: FirstIndex без пробела');
 ok(byId('PrintString').pins.some(p => p.name === 'Duration' && p.sub === 'float'), 'PrintString: Duration real/float');
+ok(byId('Delay').pins.some(p => p.name === 'Duration' && p.sub === 'float' && p.dv === '0.2'), 'Delay: Duration real/float default 0.2 (L1/L2)');
+ok(txt.includes('DefaultValue="0.2"'), 'Delay: дефолт 0.2 в тексте');
+{
+  const bv = byId('BreakVector').pins.find(p => p.name === 'Vector');
+  ok(bv.ref === true && bv.const === true, 'BreakVector: вход ref+const (L2)');
+}
+{
+  const LAT = "\"/Script/CoreUObject.ScriptStruct'/Script/Engine.LatentActionInfo'\"";
+  const t = block(P + 'K2Node_CallFunction', 'C_1', H(seq++), [FR_SELF('F')], [pin('LatentInfo', { cat: 'struct', subObj: LAT })]);
+  const v = validateStrict(t);
+  ok(v.valid && !v.errors.concat(v.warnings).some(x => x.startsWith('E14') || x.startsWith('W10')), 'LatentActionInfo в пуле структур');
+}
+{
+  const fc = fitComment('t', [seq2, delay]);
+  ok(fc.width === 620 && fc.pos.x === -60 && fc.pos.y === -110, 'fitComment: бокс по граням (620/-60/-110)');
+}
 
 let regErr = 0, regWarn = 0;
 const regThrow = [];

@@ -46,6 +46,7 @@ const STRUCTS_FULL = {
   LinearColor: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.LinearColor'"`, // confirmed (copy-back H1/J5)
   HitResult:   `"/Script/CoreUObject.ScriptStruct'/Script/Engine.HitResult'"`,        // confirmed (copy-back LineTraceSingle)
   Key:         `"/Script/CoreUObject.ScriptStruct'/Script/InputCore.Key'"`,
+  LatentActionInfo: `"/Script/CoreUObject.ScriptStruct'/Script/Engine.LatentActionInfo'"`, // confirmed (copy-back Delay L1/L2)
   // InputActionValue — только EnhancedInput: в словаре отсутствует намеренно.
 };
 // SHORT: правдоподобная legacy-форма (UE4/ранние UE5), вставкой НЕ проверена.
@@ -57,6 +58,7 @@ const STRUCTS_SHORT = {
   LinearColor:      `ScriptStruct'"/Script/CoreUObject.LinearColor"'`,
   HitResult:        `ScriptStruct'"/Script/Engine.HitResult"'`,
   Key:              `ScriptStruct'"/Script/InputCore.Key"'`,
+  LatentActionInfo: `ScriptStruct'"/Script/Engine.LatentActionInfo"'`,
   InputActionValue: `ScriptStruct'"/Script/EnhancedInput.InputActionValue"'`,
 };
 export const UE_STRUCTS = UE_VERSION === 'SHORT' ? STRUCTS_SHORT : STRUCTS_FULL;

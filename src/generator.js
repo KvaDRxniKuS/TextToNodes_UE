@@ -196,6 +196,17 @@ export function createComment(text, pos = { x: 0, y: 0 }, w = 400, h = 180) {
   };
 }
 
+/** Комментарий, накрывающий ноды: бокс по граням + отступы (L-фидбек: 400x180 не накрывает). */
+export function fitComment(text, nodes, pad = 60, topPad = 110) {
+  const minX = Math.min(...nodes.map(n => n.pos.x));
+  const minY = Math.min(...nodes.map(n => n.pos.y));
+  const maxX = Math.max(...nodes.map(n => n.pos.x));
+  const estH = n => 110 + 22 * ((n.pins && n.pins.length) || 0);
+  const maxBottom = Math.max(...nodes.map(n => n.pos.y + estH(n)));
+  const nodeW = 260;
+  return createComment(text, { x: minX - pad, y: minY - topPad }, (maxX + nodeW - minX) + pad * 2, (maxBottom - minY) + topPad + pad);
+}
+
 export function linkPins(fromNode, fromPinName, toNode, toPinName) {
   const fp = fromNode.pins.find(p => p.name === fromPinName && p.direction === 'Output');
   const tp = toNode.pins.find(p => p.name === toPinName && p.direction === 'Input');

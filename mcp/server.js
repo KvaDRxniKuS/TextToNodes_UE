@@ -6,8 +6,7 @@
 
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import { parseToGraphs, generateUEText } from "../src/parser.js";
-import { validateStrict } from "../src/validate.js";
+import { parseToGraphs, generateUEText, validateUEText } from "../src/parser.js";
 import fs from "fs";
 
 const server = new Server({ name: "ue-blueprint-toolkit", version: "1.0.0" }, { capabilities: { tools: {} } });
@@ -40,7 +39,7 @@ server.setRequestHandler("tools/list", async () => ({
     },
     {
       name: "blueprint_validate",
-      description: "СТРОГО валидировать Blueprint текст перед вставкой в UE: баланс Begin/End, GUID, двусторонние связи, MemberParent, StructType, MacroInstance, Delay/then, запрещённые классы. Возвращает errors (чинить обязательно) и warnings.",
+      description: "Валидировать Blueprint текст перед вставкой в UE (проверяет Begin/End баланс, PinId, связи).",
       inputSchema: { type: "object", properties: { ueText: { type: "string" } }, required: ["ueText"] }
     },
     {
@@ -58,7 +57,7 @@ server.setRequestHandler("tools/call", async (req) => {
     return { content: [{ type: "text", text: JSON.stringify(graphs, null, 2) }] };
   }
   if (name === "blueprint_validate") {
-    const v = validateStrict(args.ueText);
+    const v = validateUEText(args.ueText);
     return { content: [{ type: "text", text: JSON.stringify(v, null, 2) }] };
   }
   if (name === "ue_functions_search") {
