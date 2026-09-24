@@ -156,5 +156,22 @@ for (const e of reg) {
 ok(regErr === 0 && regThrow.length === 0, `реестр: 0 ошибок генерации (warnings=${regWarn})`);
 regThrow.forEach(t => console.log('THROW:', t));
 
+// K1 copy-back: реальный текст движка UE 5.8 (comment + LineTraceSingle 16 пинов)
+{
+  const k1 = fs.readFileSync(new URL('./fixtures/k1-copyback.txt', import.meta.url), 'utf8');
+  const v = validateStrict(k1);
+  ok(v.valid && v.errors.length === 0, 'K1 copy-back: strict 0 ошибок (предупреждений: ' + v.warnings.length + ')');
+  const gk = parseToGraphs(k1);
+  ok(gk.EventGraph.nodes.length === 2, 'K1 copy-back: 2 ноды');
+  const fn = gk.EventGraph.nodes.find(n => n.funcName === 'LineTraceSingle');
+  ok(fn && fn.pins.length === 16, 'K1 copy-back: 16 пинов (движок добавил self)');
+  ok(fn && fn.pins.some(p => p.name === 'ActorsToIgnore' && p.container === 'Array' && p.isRef && p.ignored), 'K1 copy-back: ActorsToIgnore Array+ref+ignored');
+  ok(fn && fn.pins.filter(p => p.advanced).length === 3, 'K1 copy-back: 3 advanced-пина');
+  ok(fn && fn.pins.find(p => p.name === 'self').friendly === 'Target', 'K1 copy-back: self friendly=Target (NSLOCTEXT)');
+  gk.EventGraph.nodes.forEach(n => delete n.rawBlock);
+  const rt = generateUEText(gk.EventGraph.nodes);
+  const vr = validateStrict(rt);
+  ok(vr.valid && vr.errors.length === 0, 'K1 copy-back: регенерация 0 ошибок');
+}
 console.log(`\nVALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);
