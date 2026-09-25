@@ -1263,15 +1263,16 @@
     "cat": "real"
    }
   ],
-  "verified": false,
-  "desc": "Интерполяция"
+  "verified": true,
+  "desc": "Интерполяция",
+  "notes": "round4: белая по факту пользователя"
  },
  {
   "id": "FInterpToConstant",
   "title": "FInterp To Constant",
   "category": "Math / Interpolation",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-  "func": "FInterpToConstant",
+  "func": "FInterpTo_Constant",
   "lib": "KismetMathLibrary",
   "pins": [
    {
@@ -1301,25 +1302,22 @@
    }
   ],
   "verified": false,
-  "desc": "Константа"
+  "desc": "Константа",
+  "notes": "round4: настоящее имя FInterpTo_Constant (live-реф _194); FInterpToConstant не существует"
  },
  {
   "id": "Ease_Float",
   "title": "Ease",
   "category": "Math / Interpolation",
-  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-  "func": "Ease",
-  "lib": "KismetMathLibrary",
+  "className": "/Script/BlueprintGraph.K2Node_EaseFunction",
+  "func": "",
   "pins": [
    {
-    "name": "A",
+    "name": "Function",
     "dir": "Input",
-    "cat": "real"
-   },
-   {
-    "name": "B",
-    "dir": "Input",
-    "cat": "real"
+    "cat": "byte",
+    "enum": "EEasingFunc",
+    "dv": "Linear"
    },
    {
     "name": "Alpha",
@@ -1327,28 +1325,45 @@
     "cat": "real"
    },
    {
-    "name": "EasingFunc",
+    "name": "A",
     "dir": "Input",
-    "cat": "byte"
+    "cat": "wildcard"
+   },
+   {
+    "name": "B",
+    "dir": "Input",
+    "cat": "wildcard"
+   },
+   {
+    "name": "Result",
+    "dir": "Output",
+    "cat": "wildcard"
+   },
+   {
+    "name": "ShortestPath",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "hidden": true
    },
    {
     "name": "BlendExp",
     "dir": "Input",
-    "cat": "real"
+    "cat": "real",
+    "dv": "2.0",
+    "hidden": true
    },
    {
     "name": "Steps",
     "dir": "Input",
-    "cat": "int"
-   },
-   {
-    "name": "ReturnValue",
-    "dir": "Output",
-    "cat": "real"
+    "cat": "int",
+    "dv": "2",
+    "hidden": true
    }
   ],
   "verified": false,
-  "desc": "Ease"
+  "desc": "Ease",
+  "notes": "round4: не CallFunction — спец-нода K2Node_EaseFunction (live-реф K2Node_EaseFunction_0)"
  },
  {
   "id": "GridSnap_Float",
@@ -3676,12 +3691,14 @@
    {
     "name": "DeltaTime",
     "dir": "Input",
-    "cat": "real"
+    "cat": "real",
+    "sub": "float"
    },
    {
     "name": "InterpSpeed",
     "dir": "Input",
-    "cat": "real"
+    "cat": "real",
+    "sub": "float"
    },
    {
     "name": "ReturnValue",
@@ -3690,8 +3707,9 @@
     "sub": "Vector"
    }
   ],
-  "verified": false,
-  "desc": "Интерп. вектор"
+  "verified": true,
+  "desc": "Интерп. вектор",
+  "notes": "round4: белая по факту пользователя; DeltaTime/InterpSpeed — float (copy-back)"
  },
  {
   "id": "VInterpTo_Constant",
@@ -3716,12 +3734,14 @@
    {
     "name": "DeltaTime",
     "dir": "Input",
-    "cat": "real"
+    "cat": "real",
+    "sub": "float"
    },
    {
     "name": "InterpSpeed",
     "dir": "Input",
-    "cat": "real"
+    "cat": "real",
+    "sub": "float"
    },
    {
     "name": "ReturnValue",
@@ -3730,8 +3750,9 @@
     "sub": "Vector"
    }
   ],
-  "verified": false,
-  "desc": "Константа"
+  "verified": true,
+  "desc": "Константа",
+  "notes": "round4: белая по факту пользователя; DeltaTime/InterpSpeed — float (copy-back)"
  },
  {
   "id": "VLerp",
@@ -4118,12 +4139,14 @@
    {
     "name": "DeltaTime",
     "dir": "Input",
-    "cat": "real"
+    "cat": "real",
+    "sub": "float"
    },
    {
     "name": "InterpSpeed",
     "dir": "Input",
-    "cat": "real"
+    "cat": "real",
+    "sub": "float"
    },
    {
     "name": "ReturnValue",
@@ -4132,8 +4155,9 @@
     "sub": "Rotator"
    }
   ],
-  "verified": false,
-  "desc": "Интерп."
+  "verified": true,
+  "desc": "Интерп.",
+  "notes": "round4: белая по факту пользователя; DeltaTime/InterpSpeed — float (copy-back)"
  },
  {
   "id": "RLerp",
@@ -4351,23 +4375,31 @@
     "name": "Current",
     "dir": "Input",
     "cat": "struct",
-    "sub": "Transform"
+    "sub": "Transform",
+    "ref": true,
+    "const": true,
+    "ignored": true
    },
    {
     "name": "Target",
     "dir": "Input",
     "cat": "struct",
-    "sub": "Transform"
+    "sub": "Transform",
+    "ref": true,
+    "const": true,
+    "ignored": true
    },
    {
     "name": "DeltaTime",
     "dir": "Input",
-    "cat": "real"
+    "cat": "real",
+    "sub": "float"
    },
    {
     "name": "InterpSpeed",
     "dir": "Input",
-    "cat": "real"
+    "cat": "real",
+    "sub": "float"
    },
    {
     "name": "ReturnValue",
@@ -4376,8 +4408,9 @@
     "sub": "Transform"
    }
   ],
-  "verified": false,
-  "desc": "Интерп."
+  "verified": true,
+  "desc": "Интерп.",
+  "notes": "round4: белая по факту пользователя; DeltaTime/InterpSpeed — float (copy-back); Current/Target — const-ref"
  },
  {
   "id": "Concat_StrStr",

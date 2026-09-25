@@ -484,3 +484,13 @@ OutRangeB). Реестр + sweep/03 + тест обновлены; проба 3-
 GetMappedRange (MapRangeClamped) — белая по факту пользователя;
 MapRangeUnclamped уже была verified. Math/Float закрыт полностью.
 Следующая глава: 04 Math/Interpolation (7 нод).
+
+## Раунд 04: 5/7, фикс 4-fix (2026-09-25)
+
+Белые: FInterpTo, VInterpTo, VInterpTo_Constant, RInterpTo, TInterpTo.
+Сломаны 2: FInterpToConstant (настоящее имя FInterpTo_Constant, live-реф
+_194) и Ease (не CallFunction — спец-нода K2Node_EaseFunction с
+wildcard A/B/Result + enum-пин Function EEasingFunc, live-реф
+K2Node_EaseFunction_0). Попутно из copy-back: у V/R/T InterpTo
+DeltaTime/InterpSpeed — float (не double); у TInterpTo Current/Target —
+const-ref. EEasingFunc добавлен в UE_ENUMS (src + index.html).

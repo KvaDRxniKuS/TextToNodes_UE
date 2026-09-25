@@ -448,6 +448,15 @@ regThrow.forEach(t => console.log('THROW:', t));
   // round3g: GetMappedRangeValueClamped нет в BP (C++-only); настоящая нода — MapRangeClamped.
   const mrT = generateUEText([createFromEntry(byId('GetMappedRange'))]);
   ok(mrT.includes('MemberName="MapRangeClamped"') && mrT.includes('PinName="InRangeA"') && mrT.includes('PinName="OutRangeB"') && !mrT.includes('Vector2D'), 'round3g: GetMappedRange — MapRangeClamped, 5 float-пинов');
+  // round4: FInterpTo_Constant (подчёркивание); Ease — спец-нода K2Node_EaseFunction; V/R/T InterpSpeed — float.
+  const ficT = generateUEText([createFromEntry(byId('FInterpToConstant'))]);
+  ok(ficT.includes('MemberName="FInterpTo_Constant"'), 'round4: FInterpToConstant — FInterpTo_Constant');
+  const easeT = generateUEText([createFromEntry(byId('Ease_Float'))]);
+  ok(easeT.includes('K2Node_EaseFunction') && !easeT.includes('FunctionReference') && easeT.includes('PinName="Function"') && easeT.includes("EEasingFunc'") && easeT.includes('PinName="Result"') && easeT.includes('PinName="ShortestPath"'), 'round4: Ease — K2Node_EaseFunction + wildcard + EEasingFunc');
+  const viT = generateUEText([createFromEntry(byId('VInterpTo'))]);
+  ok(viT.includes('PinName="InterpSpeed",PinType.PinCategory="real",PinType.PinSubCategory="float"'), 'round4: VInterpTo — float DeltaTime/InterpSpeed');
+  const tiT = generateUEText([createFromEntry(byId('TInterpTo'))]);
+  ok(tiT.includes('PinName="Current"') && /PinName="Current".*?bIsReference=True.*?bIsConst=True/.test(tiT), 'round4: TInterpTo — Current const-ref');
 }
 // Sweep coverage: каждая запись реестра строится (кроме референс-листа)
 {
