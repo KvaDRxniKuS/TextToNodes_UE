@@ -518,3 +518,7 @@ DegreesToRadians, RadiansToDegrees, GetTAU, GetPI. *Deg не существую�
 настоящие имена DegSin/DegCos/DegTan/DegAsin/DegAcos/DegAtan + DegAtan2
 (live-рефы; DegAtan2 добавлен в реестр новым, стало 240 записей и 18
 нод в файле 06). +2 теста (191/0).
+
+## Файл 06 CLOSED 18/18 (2026-09-25)
+
+6-fix белый (все 7 Deg*). Math/Trig закрыт полностью.

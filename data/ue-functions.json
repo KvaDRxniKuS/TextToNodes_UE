@@ -1723,9 +1723,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "SinDeg",
-  "notes": "round6: настоящее имя DegSin (live-реф); SinDeg не существует"
+  "notes": "round6-fix: белая по факту пользователя (DegSin)"
  },
  {
   "id": "CosDeg",
@@ -1746,9 +1746,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "CosDeg",
-  "notes": "round6: настоящее имя DegCos (live-реф); CosDeg не существует"
+  "notes": "round6-fix: белая по факту пользователя (DegCos)"
  },
  {
   "id": "TanDeg",
@@ -1769,9 +1769,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "TanDeg",
-  "notes": "round6: настоящее имя DegTan (live-реф); TanDeg не существует"
+  "notes": "round6-fix: белая по факту пользователя (DegTan)"
  },
  {
   "id": "AsinDeg",
@@ -1792,9 +1792,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "AsinDeg",
-  "notes": "round6: настоящее имя DegAsin (live-реф); AsinDeg не существует"
+  "notes": "round6-fix: белая по факту пользователя (DegAsin)"
  },
  {
   "id": "AcosDeg",
@@ -1815,9 +1815,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "AcosDeg",
-  "notes": "round6: настоящее имя DegAcos (live-реф); AcosDeg не существует"
+  "notes": "round6-fix: белая по факту пользователя (DegAcos)"
  },
  {
   "id": "AtanDeg",
@@ -1838,9 +1838,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "AtanDeg",
-  "notes": "round6: настоящее имя DegAtan (live-реф); AtanDeg не существует"
+  "notes": "round6-fix: белая по факту пользователя (DegAtan)"
  },
  {
   "id": "DegreesToRadians",
@@ -1948,9 +1948,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Atan2",
-  "notes": "round6: DegAtan2 (live-реф от пользователя); пины Y/X как у Atan2"
+  "notes": "round6-fix: белая по факту пользователя (DegAtan2)"
  },
  {
   "id": "Exp_Float",

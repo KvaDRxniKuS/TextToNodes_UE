@@ -19,7 +19,7 @@
 | 03 | 03-math-float.txt | 30/30 | 30 | 0 | — | 2xW09 |
 | 04 | 04-math-interpolation.txt | 7/7 | 7 | 0 | — | — |
 | 05 | 05-math-integer.txt | 9/9 | 8 | 1 | — | 1xW09 |
-| 06 | 06-math-trig.txt | 18/18 | 11 | 7 | — | — |
+| 06 | 06-math-trig.txt | 18/18 | 18 | 0 | — | — |
 | 07 | 07-math-comparison.txt | 8/8 | 1 | 0 | — | — |
 | 08 | 08-math-boolean.txt | 7/7 | 0 | 4 | — | — |
 | 09 | 09-math-random.txt | 6/6 | 0 | 0 | — | — |
