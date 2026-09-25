@@ -552,3 +552,18 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 - Bool-Select = IndexPinType bool + Index bool dv=false + Option 0/1/RV wildcard.
   IndexPinType выводится из пина Index (кроме wildcard); validate: W13-контроль.
 - Enum-Select (NumOptionPins + Enum/EnumEntries) — раунд 19, пока не реализован.
+- R10: фантомов нет в KML: Normal/IsZero/IsNearlyZero/Distance/DistanceSquared
+  (Vector→Vector и A/B) и VSizeSquared2D. Каноны: Vector_IsNormal/Vector_IsZero/
+  Vector_IsNearlyZero (A by ref const+ignored, bool), Tolerance FLOAT 0.000100,
+  Vector_Distance/Vector_DistanceSquared (V1/V2), VSize2DSquared (вход Vector2D —
+  асимметрия: белый VSize2D берёт Vector!). IsNormalized — дубликат, пропущен.
+- R10: Make/Break Vector — pure CallFunction (struct-формы жёлтые): MakeVector
+  X/Y/Z double + RV Vector; BreakVector InVec→X/Y/Z без ReturnValue.
+  Make/Break Vector2D как struct-узлы — норма.
+- R11: матрица трейсов 4 формы x ByChannel/ByProfile/ForObjects x Single/Multi = 24.
+  Box ByChannel — короткие имена BoxTraceSingle/BoxTraceMulti (без ByChannel);
+  Box Single HalfSize const=True, Multi — нет. Все 24 собраны из белых шаблонов.
+- R11: struct BreakHitResult в живом тесте встаёт без выходов — канон только pure
+  BreakHitResult_pure (Hit ref+const+ignored, 18 выходов). Struct-форма пропущена.
+- Knot (K2Node_Knot): InputPin wildcard ignored=True + OutputPin wildcard —
+  генератор уже совпадает 1:1 с live-рефом, фикса не было.

@@ -80,7 +80,7 @@ const byId = id => reg.find(e => e.id === id);
 const seq2 = createSequence(2, { x: 0, y: 0 });
 const delay = createCallFunction(byId('Delay'), { x: 240, y: 0 });
 const prt = createCallFunction(byId('PrintString'), { x: 480, y: 0 });
-const mk = createStructNode(byId('MakeVector'), { x: 480, y: 160 });
+const mk = createStructNode(byId('MakeVector2D'), { x: 480, y: 160 });
 const gt = createOperator(byId('Greater_Float'), { x: 240, y: 160 });
 const fl = createMacroInstance(byId('ForLoop'), { x: 720, y: 0 });
 const sw = createSwitch('int', ['0', '1'], { x: 960, y: 0 });
@@ -138,8 +138,8 @@ ok(byId('PrintString').pins.some(p => p.name === 'Duration' && p.sub === 'float'
 ok(byId('Delay').pins.some(p => p.name === 'Duration' && p.sub === 'float' && p.dv === '0.2'), 'Delay: Duration real/float default 0.2 (L1/L2)');
 ok(txt.includes('DefaultValue="0.2"'), 'Delay: дефолт 0.2 в тексте');
 {
-  const bv = byId('BreakVector').pins.find(p => p.name === 'Vector');
-  ok(bv.ref === true && bv.const === true, 'BreakVector: вход ref+const (L2)');
+  const bv = byId('BreakVector').pins.find(p => p.name === 'InVec');
+  ok(bv && !bv.ref && byId('BreakVector').func === 'BreakVector', 'BreakVector: pure-функция с InVec (round10)');
 }
 {
   const LAT = "\"/Script/CoreUObject.ScriptStruct'/Script/Engine.LatentActionInfo'\"";
@@ -200,7 +200,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   const hit = bp.pins[0];
   ok(hit.name === 'Hit' && hit.ref && hit.const && hit.ignored, 'BreakHitResult_pure: Hit ref+const+ignored');
   ok(bp.pins.some(p => p.name === 'PhysMat' && p.object === '/Script/PhysicsCore.PhysicalMaterial'), 'BreakHitResult_pure: PhysMat из PhysicsCore');
-  ok(byId('BreakHitResult').verified === true, 'BreakHitResult struct: verified (выходов нет — движок не строит)');
+  ok(byId('BreakHitResult').verified === false, 'BreakHitResult struct: skip (живой тест round11: выходов нет — движок не строит)');
   const bn = createCallFunction(bp, { x: 0, y: 0 });
   const bt = generateUEText([bn]);
   ok(bt.indexOf('bDefaultsToPureFunc=True') !== -1 && bt.indexOf('bDefaultsToPureFunc=True') < bt.indexOf('FunctionReference='), 'pure: bDefaultsToPureFunc перед FunctionReference');
@@ -483,6 +483,20 @@ regThrow.forEach(t => console.log('THROW:', t));
   const selT = generateUEText([createFromEntry(byId('SelectBool'))]);
   ok(selT.includes('K2Node_Select') && selT.includes('PinName="Option 0"') && selT.includes('PinCategory="wildcard"') && !selT.includes('FunctionReference') && !selT.includes('PinName="self"'), 'round8-fix2: Select — K2Node_Select wildcard без FunctionReference/self');
   ok(selT.includes('PinName="Index"') && selT.includes('PinType.PinCategory="bool"') && !selT.includes('PinSubCategory="index"'), 'round8-fix3: Select — Index bool, wildcard/index ушёл в прошлое');
+  // round10: векторные каноны по live-рефам.
+  const v2dT = generateUEText([createFromEntry(byId('VSize2DSquared'))]);
+  ok(v2dT.includes('MemberName="VSize2DSquared"') && v2dT.includes("ScriptStruct'/Script/CoreUObject.Vector2D'"), 'round10: VSize2DSquared + вход Vector2D');
+  const isnT = generateUEText([createFromEntry(byId('Vector_IsNormal'))]);
+  ok(isnT.includes('MemberName="Vector_IsNormal"') && isnT.includes('bDefaultsToPureFunc=True') && isnT.includes('PinType.bIsReference=True'), 'round10: Vector_IsNormal pure + A by ref');
+  const disT = generateUEText([createFromEntry(byId('Vector_Distance'))]);
+  ok(disT.includes('MemberName="Vector_Distance"') && disT.includes('PinName="V1"') && disT.includes('PinName="V2"'), 'round10: Vector_Distance V1/V2');
+  const inzT = generateUEText([createFromEntry(byId('Vector_IsNearlyZero'))]);
+  ok(inzT.includes('PinName="Tolerance",PinType.PinCategory="real",PinType.PinSubCategory="float"') && inzT.includes('DefaultValue="0.000100"'), 'round10: IsNearlyZero Tolerance float 0.000100');
+  // round11: матрица 24 кастов.
+  const trO = generateUEText([createFromEntry(byId('SphereTraceMultiForObjects'))]);
+  ok(trO.includes('MemberName="SphereTraceMultiForObjects"') && trO.includes('PinName="ObjectTypes"') && trO.includes('PinName="OutHits"') && trO.includes('ContainerType=Array'), 'round11: ForObjects+Multi матрица');
+  const trP = generateUEText([createFromEntry(byId('BoxTraceSingleByProfile'))]);
+  ok(trP.includes('MemberName="BoxTraceSingleByProfile"') && trP.includes('PinName="ProfileName"') && trP.includes('PinName="HalfSize"'), 'round11: ByProfile матрица');
   ok(selT.includes('IndexPinType=(PinCategory="bool",PinSubCategory="")') && selT.includes('PinName="Index"') && selT.includes('DefaultValue="false"'), 'round8-fix3: Select — IndexPinType bool + Index bool dv=false');
 }
 // Sweep coverage: каждая запись реестра строится (кроме референс-листа)

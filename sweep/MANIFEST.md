@@ -23,8 +23,8 @@
 | 07 | 07-math-comparison.txt | 8/8 | 7 | 1 | — | — |
 | 08 | 08-math-boolean.txt | 7/7 | 0 | 7 | — | — |
 | 09 | 09-math-random.txt | 6/6 | 6 | 0 | — | — |
-| 10 | 10-math-vector.txt | 27/27 | 2 | 0 | — | — |
-| 11 | 11-collision.txt | 12/12 | 12 | 2 | — | 1xW09 |
+| 10 | 10-math-vector.txt | 28/28 | 18 | 11 | — | 10xW09 |
+| 11 | 11-collision.txt | 25/25 | 11 | 15 | — | 15xW09 |
 | 12 | 12-math-rotator.txt | 12/12 | 0 | 2 | — | — |
 | 13 | 13-math-transform.txt | 4/4 | 0 | 0 | — | — |
 | 14 | 14-string.txt | 26/26 | 2 | 3 | — | 1xW09 |
