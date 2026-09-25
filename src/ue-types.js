@@ -67,10 +67,12 @@ export const UE_STRUCTS = UE_VERSION === 'SHORT' ? STRUCTS_SHORT : STRUCTS_FULL;
 const ENUMS_FULL = {
   ETraceTypeQuery: `"/Script/CoreUObject.Enum'/Script/Engine.ETraceTypeQuery'"`, // confirmed (copy-back LineTraceSingle, UE 5.8)
   EDrawDebugTrace: `"/Script/CoreUObject.Enum'/Script/Engine.EDrawDebugTrace'"`, // confirmed (copy-back LineTraceSingle, UE 5.8)
+  EObjectTypeQuery: `"/Script/CoreUObject.Enum'/Script/Engine.EObjectTypeQuery'"`, // confirmed (copy-back LineTraceSingleForObjects, UE 5.8)
 };
 const ENUMS_SHORT = {
   ETraceTypeQuery: `Enum'"/Script/Engine.ETraceTypeQuery"'`,
   EDrawDebugTrace: `Enum'"/Script/Engine.EDrawDebugTrace"'`,
+  EObjectTypeQuery: `Enum'"/Script/Engine.EObjectTypeQuery"'`,
 };
 export const UE_ENUMS = UE_VERSION === 'SHORT' ? ENUMS_SHORT : ENUMS_FULL;
 

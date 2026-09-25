@@ -3,7 +3,7 @@
 // Запуск: node tools/gen-k-series.mjs
 import fs from 'fs';
 import { generateUEText } from '../src/parser.js';
-import { createCallFunction, createMacroInstance, createBranch, createSequence, createKnot, createComment, fitComment } from '../src/generator.js';
+import { createCallFunction, createMacroInstance, createBranch, createSequence, createKnot, createComment, fitComment, layoutRow } from '../src/generator.js';
 import { validateStrict } from '../src/validate.js';
 
 const reg = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8'));
@@ -31,7 +31,8 @@ emit('K2 minimal LineTraceSingle', [fitComment('K2: LineTraceSingle миниму
 
 // K3: control-flow (Branch + Sequence + Knot + ForEachLoop)
 const br = createBranch({ x: 0, y: 0 });
-const sq = createSequence(2, { x: 320, y: 0 });
-const kn = createKnot({ x: 640, y: 0 });
-const fe = createMacroInstance(byId('ForEachLoop'), { x: 960, y: 0 });
+const sq = createSequence(2);
+const kn = createKnot();
+const fe = createMacroInstance(byId('ForEachLoop'));
+layoutRow([br, sq, kn, fe]);
 emit('K3 control-flow', [fitComment('K3: Branch+Sequence+Knot+ForEachLoop', [br, sq, kn, fe]), br, sq, kn, fe]);

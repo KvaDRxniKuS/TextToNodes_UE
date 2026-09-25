@@ -2,7 +2,7 @@
 // Запуск: node tools/gen-l-series.mjs
 import fs from 'fs';
 import { generateUEText } from '../src/parser.js';
-import { createCallFunction, createStructNode, createSequence, createKnot, createComment, fitComment, linkPins } from '../src/generator.js';
+import { createCallFunction, createStructNode, createSequence, createKnot, createComment, fitComment, linkPins, layoutRow } from '../src/generator.js';
 import { validateStrict } from '../src/validate.js';
 
 const reg = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8'));
@@ -20,10 +20,11 @@ function emit(tag, nodes) {
 
 // L1: exec-цепочка Sequence → PrintString(мин) → Delay
 {
-  const seq = createSequence(2, { x: 0, y: 0 });
+  const seq = createSequence(2);
   const ps = byId('PrintString');
-  const prt = createCallFunction({ ...ps, pins: ps.pins.filter(p => ['execute', 'then', 'InString'].includes(p.name)) }, { x: 320, y: 0 });
-  const dly = createCallFunction(byId('Delay'), { x: 640, y: 0 });
+  const prt = createCallFunction({ ...ps, pins: ps.pins.filter(p => ['execute', 'then', 'InString'].includes(p.name)) });
+  const dly = createCallFunction(byId('Delay'));
+  layoutRow([seq, prt, dly]);
   linkPins(seq, 'then_0', prt, 'execute');
   linkPins(prt, 'then', dly, 'execute');
   emit('L1 exec chain', [fitComment('L1: exec Sequence→Print→Delay', [seq, prt, dly]), seq, prt, dly]);
@@ -31,10 +32,11 @@ function emit(tag, nodes) {
 
 // L2: data + Knot — MakeVector.Vector → Knot → BreakVector.Vector; BreakVector.X → Delay.Duration
 {
-  const mk = createStructNode(byId('MakeVector'), { x: 0, y: 0 });
-  const kn = createKnot({ x: 320, y: 0 });
-  const br = createStructNode(byId('BreakVector'), { x: 640, y: 0 });
-  const dly = createCallFunction(byId('Delay'), { x: 960, y: 0 });
+  const mk = createStructNode(byId('MakeVector'));
+  const kn = createKnot();
+  const br = createStructNode(byId('BreakVector'));
+  const dly = createCallFunction(byId('Delay'));
+  layoutRow([mk, kn, br, dly]);
   linkPins(mk, 'Vector', kn, 'InputPin');
   linkPins(kn, 'OutputPin', br, 'Vector');
   linkPins(br, 'X', dly, 'Duration');
@@ -43,11 +45,12 @@ function emit(tag, nodes) {
 
 // L3: OutHit→BreakHitResult — полный трейд + минимальный трейд (дифференциал: съедает ли достройка связи)
 {
-  const full = createCallFunction(byId('LineTraceSingle'), { x: 0, y: 0 });
-  const bA = createStructNode(byId('BreakHitResult'), { x: 320, y: 0 });
+  const full = createCallFunction(byId('LineTraceSingle'));
+  const bA = createStructNode(byId('BreakHitResult'));
   const lt = byId('LineTraceSingle');
-  const mini = createCallFunction({ ...lt, pins: lt.pins.filter(p => ['execute', 'then', 'ReturnValue', 'OutHit'].includes(p.name)) }, { x: 640, y: 0 });
-  const bB = createStructNode(byId('BreakHitResult'), { x: 960, y: 0 });
+  const mini = createCallFunction({ ...lt, pins: lt.pins.filter(p => ['execute', 'then', 'ReturnValue', 'OutHit'].includes(p.name)) });
+  const bB = createStructNode(byId('BreakHitResult'));
+  layoutRow([full, bA, mini, bB]);
   linkPins(full, 'OutHit', bA, 'HitResult');
   linkPins(mini, 'OutHit', bB, 'HitResult');
   emit('L3 outhit-break', [fitComment('L3: OutHit→Break (full + minimal)', [full, bA, mini, bB]), full, bA, mini, bB]);

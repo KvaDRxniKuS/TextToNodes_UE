@@ -282,6 +282,10 @@ Hidden — дефолт AdvancedPinDisplay=Hidden доказан, Shown = рас
 пересечений не разруливаем — это уровень «аккуратно», не «идеально».
 Эффект на сериях: L1 плоский ряд; L2/M1/N1/L3 — data-провода горизонтальные
 (N1: макро +198, pure +264). fitComment переиспользует тот же шаг PIN_ROW_H.
+X-ряд тоже стал умным (O-фидбек про наложения при Δ320): `layoutRow` ставит ноды
+по оценке ширины `estNodeWidth` (база по классу + длинные имена видимых пинов,
+кап 480) с зазором ROW_GAP=120; fitComment считает правый край через estNodeWidth.
+Вызывать до linkPins (выравнивание двигает только Y).
 
 
 ## Q2-done: LineTraceMulti 1:1 + ByProfile (2026-09-25)
@@ -298,3 +302,26 @@ O1 = Sphere/BoxTraceMulti полные предсказания; O2 = Single-з�
 Тултипы снова варьируют между функциями (TraceChannel/OutHits тексты отличаются от
 Single/Capsule) — engine-managed, игнорируем. Фикстура:
 tests/fixtures/linetracemulti-byprofile-copyback.txt (0/0, без связей).
+
+
+## O1/O2: трейды добиты — 5/5 verified, раскладка без наложений (2026-09-25)
+
+Двойной copy-back O1+O2 (Sphere/BoxTraceMulti + Sphere/CapsuleTraceSingle +
+LineTraceSingleForObjects):
+- SphereTraceMulti: предсказание сошлось 1:1 (16 пинов) — вторая подтверждённая
+  аналогия после LineTraceMulti → verified.
+- BoxTraceMulti: аналогия почти сошлась, но движок вернул 17-й пин Orientation
+  (struct Rotator, const, «0, 0, 0», сразу после HalfSize) + дефолт «0, 0, 0» у
+  HalfSize (не-const!). Первое расхождение аналогии — модель поправлена по движку.
+- O2-заготовки движок достроил до полных форм: Sphere/CapsuleSingle = LineTraceSingle
+  + Radius (+ HalfHeight) после End, OutHit одиночный; sketch-id переименованы
+  в func-имена (SphereTraceSingle, CapsuleTraceSingle, LineTraceSingleForObjects).
+- ObjectTypes = byte + EObjectTypeQuery (новый энам в словаре) + Array + ref + const
+  + ignored + DefaultValue «ObjectTypeQuery1» (дефолт ПРИ ignored — как в движке).
+Все 5 — программная сверка MATCH 1:1. Реестр: 239 (переименования без новых записей).
+Фикстуры: tests/fixtures/sphereboxtracemulti-copyback.txt (0/0),
+tests/fixtures/tracesingle-forobjects-copyback.txt (0/0; тултипы только у SphereSingle —
+движок закешировал их позже, свежая вставка без тултипов подтверждается снова).
+Фидбек по раскладке: ряд Δ320 перекрывал широкие ноды → layoutRow: оценка ширины
+по классу + именам пинов (трейды 400px) + зазор 120; fitComment накрывает по правым
+краям. Все серии переведены на layoutRow, O1/O2 перегенерированы (0 варнингов).

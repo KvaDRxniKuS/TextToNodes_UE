@@ -2,7 +2,7 @@
 // Запуск: node tools/gen-m-series.mjs
 import fs from 'fs';
 import { generateUEText } from '../src/parser.js';
-import { createCallFunction, fitComment, linkPins } from '../src/generator.js';
+import { createCallFunction, fitComment, linkPins, layoutRow } from '../src/generator.js';
 import { validateStrict } from '../src/validate.js';
 
 const reg = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8'));
@@ -20,8 +20,9 @@ function emit(tag, nodes) {
 
 // M1: полный LineTraceSingle + pure BreakHitResult, провод OutHit→Hit
 {
-  const tr = createCallFunction(byId('LineTraceSingle'), { x: 0, y: 0 });
-  const bh = createCallFunction(byId('BreakHitResult_pure'), { x: 320, y: 0 });
+  const tr = createCallFunction(byId('LineTraceSingle'));
+  const bh = createCallFunction(byId('BreakHitResult_pure'));
+  layoutRow([tr, bh]);
   linkPins(tr, 'OutHit', bh, 'Hit');
   emit('M1 pure break round-trip', [fitComment('M1: OutHit→pure BreakHitResult', [tr, bh]), tr, bh]);
 }

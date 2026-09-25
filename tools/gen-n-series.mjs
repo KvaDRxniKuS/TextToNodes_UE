@@ -3,7 +3,7 @@
 // Запуск: node tools/gen-n-series.mjs
 import fs from 'fs';
 import { generateUEText } from '../src/parser.js';
-import { createCallFunction, createMacroInstance, fitComment, linkPins } from '../src/generator.js';
+import { createCallFunction, createMacroInstance, fitComment, linkPins, layoutRow } from '../src/generator.js';
 import { validateStrict } from '../src/validate.js';
 
 const reg = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8'));
@@ -21,9 +21,10 @@ function emit(tag, nodes) {
 
 // N1: multi-трейд + цикл по хитам + разбор элемента
 {
-  const tr = createCallFunction(byId('CapsuleTraceMulti'), { x: 0, y: 0 });
-  const fe = createMacroInstance(byId('ForEachLoop'), { x: 320, y: 0 });
-  const bh = createCallFunction(byId('BreakHitResult_pure'), { x: 640, y: 0 });
+  const tr = createCallFunction(byId('CapsuleTraceMulti'));
+  const fe = createMacroInstance(byId('ForEachLoop'));
+  const bh = createCallFunction(byId('BreakHitResult_pure'));
+  layoutRow([tr, fe, bh]);
   linkPins(tr, 'then', fe, 'Exec');
   linkPins(tr, 'OutHits', fe, 'Array');
   linkPins(fe, 'Array Element', bh, 'Hit');

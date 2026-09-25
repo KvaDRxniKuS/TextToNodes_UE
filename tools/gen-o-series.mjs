@@ -1,10 +1,11 @@
 // tools/gen-o-series.mjs — O1/O2: добивка семейства трейсов.
-// O1: полные Multi-аналогии Sphere/Box (предсказания — вставка подтвердит/опровергнет).
-// O2: минимальные Single-заготовки + ForObjects (completion-тест: движок достроит сигнатуры).
+// O1: Sphere/BoxTraceMulti (verified; Box = HalfSize + Orientation-Rotator).
+// O2: Sphere/CapsuleTraceSingle + LineTraceSingleForObjects (verified, полные формы).
+// Раскладка: layoutRow — широкий ряд без наложений (фикс O-фидбека про Δ320).
 // Запуск: node tools/gen-o-series.mjs
 import fs from 'fs';
 import { generateUEText } from '../src/parser.js';
-import { createCallFunction, fitComment } from '../src/generator.js';
+import { createCallFunction, fitComment, layoutRow } from '../src/generator.js';
 import { validateStrict } from '../src/validate.js';
 
 const reg = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8'));
@@ -20,17 +21,19 @@ function emit(tag, nodes) {
   console.log('');
 }
 
-// O1: SphereTraceMulti (16) + BoxTraceMulti (16) — полные формы по аналогии
+// O1: SphereTraceMulti (16) + BoxTraceMulti (17)
 {
-  const sp = createCallFunction(byId('SphereTraceMulti'), { x: 0, y: 0 });
-  const bx = createCallFunction(byId('BoxTraceMulti'), { x: 320, y: 0 });
-  emit('O1 multi analogies', [fitComment('O1: SphereTraceMulti + BoxTraceMulti (предсказания)', [sp, bx]), sp, bx]);
+  const sp = createCallFunction(byId('SphereTraceMulti'));
+  const bx = createCallFunction(byId('BoxTraceMulti'));
+  layoutRow([sp, bx]);
+  emit('O1 multi verified', [fitComment('O1: SphereTraceMulti + BoxTraceMulti (verified)', [sp, bx]), sp, bx]);
 }
 
-// O2: SphereTraceSingle (7) + CapsuleTraceSingle (8) + LineTraceSingleForObjects (6) — completion
+// O2: SphereTraceSingle (16) + CapsuleTraceSingle (17) + LineTraceSingleForObjects (15)
 {
-  const s1 = createCallFunction(byId('SphereTraceByChannel'), { x: 0, y: 0 });
-  const c1 = createCallFunction(byId('CapsuleTraceByChannel'), { x: 320, y: 0 });
-  const fo = createCallFunction(byId('LineTraceByObject'), { x: 640, y: 0 });
-  emit('O2 single sketches', [fitComment('O2: Sphere/CapsuleSingle + ForObjects (достройка?)', [s1, c1, fo]), s1, c1, fo]);
+  const s1 = createCallFunction(byId('SphereTraceSingle'));
+  const c1 = createCallFunction(byId('CapsuleTraceSingle'));
+  const fo = createCallFunction(byId('LineTraceSingleForObjects'));
+  layoutRow([s1, c1, fo]);
+  emit('O2 singles verified', [fitComment('O2: Sphere/CapsuleSingle + ForObjects (verified)', [s1, c1, fo]), s1, c1, fo]);
 }

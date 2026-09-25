@@ -201,14 +201,45 @@ export function createComment(text, pos = { x: 0, y: 0 }, w = 400, h = 180) {
 /** Шаг строки пинов (px). Единая оценка для fitComment и alignPinRow. */
 export const PIN_ROW_H = 22;
 
+/** Оценка ширины ноды (px): база по классу + длинные имена видимых пинов.
+ *  O-фидбек: фиксированный шаг 320 перекрывает широкие CallFunction (трейды ~400px).
+ *  Ошибка — только в сторону запаса: лишние пиксели безвредны, наложение — нет. */
+export function estNodeWidth(n) {
+  const cls = (n && n.className) || '';
+  let base = 260;
+  if (cls.includes('Knot')) base = 100;
+  else if (cls.includes('ExecutionSequence')) base = 160;
+  else if (cls.includes('Switch')) base = 200;
+  else if (cls.includes('IfThenElse')) base = 180;
+  else if (cls.includes('VariableGet') || cls.includes('VariableSet')) base = 180;
+  else if (cls.includes('PromotableOperator')) base = 240;
+  else if (cls.includes('MakeStruct') || cls.includes('BreakStruct')) base = 260;
+  else if (cls.includes('MacroInstance')) base = 280;
+  else if (cls.includes('CallFunction') || cls.includes('CallArrayFunction')) base = 340;
+  else if (cls.includes('Comment')) return (n && n.width) || 400;
+  const vis = ((n && n.pins) || []).filter(p => !p.hidden);
+  const maxName = vis.reduce((m, p) => Math.max(m, (p.name || '').length), 8);
+  return Math.min(480, base + Math.max(0, maxName - 8) * 10);
+}
+
+/** Зазор между нодами в ряду (px). */
+export const ROW_GAP = 120;
+
+/** Ряд без наложений: каждая следующая нода встаёт за правым краем предыдущей + зазор.
+ *  Вызывать ДО linkPins (выравнивание двигает только Y) и fitComment. */
+export function layoutRow(nodes, x0 = 0, y = 0, gap = ROW_GAP) {
+  let x = x0;
+  for (const n of nodes) { n.pos.x = x; n.pos.y = y; x += estNodeWidth(n) + gap; }
+  return nodes;
+}
+
 export function fitComment(text, nodes, pad = 60, topPad = 110) {
   const minX = Math.min(...nodes.map(n => n.pos.x));
   const minY = Math.min(...nodes.map(n => n.pos.y));
-  const maxX = Math.max(...nodes.map(n => n.pos.x));
+  const maxRight = Math.max(...nodes.map(n => n.pos.x + estNodeWidth(n)));
   const estH = n => 110 + PIN_ROW_H * ((n.pins && n.pins.length) || 0);
   const maxBottom = Math.max(...nodes.map(n => n.pos.y + estH(n)));
-  const nodeW = 260;
-  return createComment(text, { x: minX - pad, y: minY - topPad }, (maxX + nodeW - minX) + pad * 2, (maxBottom - minY) + topPad + pad);
+  return createComment(text, { x: minX - pad, y: minY - topPad }, (maxRight - minX) + pad * 2, (maxBottom - minY) + topPad + pad);
 }
 
 export function linkPins(fromNode, fromPinName, toNode, toPinName, opts = {}) {

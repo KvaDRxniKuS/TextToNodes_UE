@@ -2,7 +2,7 @@
 // Запуск: node tests/validate.test.mjs  (или npm test). Exit 1 при любом провале.
 import fs from 'fs';
 import { parseToGraphs, generateUEText } from '../src/parser.js';
-import { createCallFunction, createOperator, createMacroInstance, createStructNode, createSequence, createSwitch, createBranch, createKnot, createComment, fitComment, linkPins } from '../src/generator.js';
+import { createCallFunction, createOperator, createMacroInstance, createStructNode, createSequence, createSwitch, createBranch, createKnot, createComment, fitComment, linkPins, layoutRow, estNodeWidth } from '../src/generator.js';
 import { validateStrict } from '../src/validate.js';
 
 let pass = 0, fail = 0;
@@ -53,7 +53,7 @@ cases.push(['W05', block(P + 'K2Node_CallFunction', 'C_1', H(seq++), [FR_SELF('N
 cases.push(['W06', block(P + 'K2Node_CallFunction', 'C_1', H(seq++), [FR_SELF('VSize')], [pin('A', { cat: 'struct', sub: 'Vector', subObj: VEC }), pin('ReturnValue', { out: 1, cat: 'real', sub: 'double' })]), true]);
 cases.push(['W07', block(P + 'K2Node_MacroInstance', 'MI_1', H(seq++), ['   MacroGraphReference=(MacroGraph=/Script/Engine.EdGraph\'"/Engine/EditorBlueprintResources/StandardMacros.StandardMacros:Gate"\',GraphBlueprint=/Script/Engine.Blueprint\'"/Engine/EditorBlueprintResources/StandardMacros.StandardMacros"\')'], [pin('Enter')]), true]);
 cases.push(['W08', block(P + 'K2Node_PromotableOperator', 'O_1', H(seq++), ['   OperationName="Greater"', '   bDefaultsToPureFunc=True', FR_LIB('KismetMathLibrary', 'Bogus')], [pin('A', { cat: 'real', sub: 'double' }), pin('ReturnValue', { out: 1, cat: 'bool' })]), true]);
-cases.push(['W09', block(P + 'K2Node_CallFunction', 'LT_1', H(seq++), [FR_LIB('KismetSystemLibrary', 'SphereTraceSingle')], [pin('execute'), pin('then', { out: 1 }), pin('WorldContextObject', { cat: 'object' }), pin('Start', { cat: 'struct', sub: 'Vector', subObj: VEC }), pin('End', { cat: 'struct', sub: 'Vector', subObj: VEC }), pin('TraceChannel', { cat: 'byte' }), pin('ReturnValue', { out: 1, cat: 'bool' })]), true]);
+cases.push(['W09', block(P + 'K2Node_CallFunction', 'LT_1', H(seq++), [FR_LIB('KismetSystemLibrary', 'BoxTraceSingle')], [pin('execute'), pin('then', { out: 1 }), pin('WorldContextObject', { cat: 'object' }), pin('Start', { cat: 'struct', sub: 'Vector', subObj: VEC }), pin('End', { cat: 'struct', sub: 'Vector', subObj: VEC }), pin('TraceChannel', { cat: 'byte' }), pin('ReturnValue', { out: 1, cat: 'bool' })]), true]);
 cases.push(['W10', block(P + 'K2Node_CallFunction', 'C_1', H(seq++), [FR_SELF('F')], [pin('A', { cat: 'struct', sub: 'Vector' })]), true]);
 cases.push(['W10', block(P + 'K2Node_CallFunction', 'C_1', H(seq++), [FR_SELF('F')], [pin('A', { cat: 'struct', sub: 'Vector', subObj: "ScriptStruct'\"/Script/Core.Foo\"'" })]), true]);
 cases.push(['W11', block(P + 'K2Node_CallFunction', 'C_1', H(seq++), [FR_SELF('F')], [pin('A', { cat: 'struct', sub: 'Vector', subObj: "/Script/CoreUObject.ScriptStruct'/Script/Core.Vector'" })]), true]);
@@ -149,7 +149,7 @@ ok(txt.includes('DefaultValue="0.2"'), 'Delay: дефолт 0.2 в тексте'
 }
 {
   const fc = fitComment('t', [seq2, delay]);
-  ok(fc.width === 620 && fc.pos.x === -60 && fc.pos.y === -110, 'fitComment: бокс по граням (620/-60/-110)');
+  ok(fc.width === 700 && fc.pos.x === -60 && fc.pos.y === -110, 'fitComment: бокс по правым краям (700/-60/-110, Delay=340)');
 }
 
 let regErr = 0, regWarn = 0;
@@ -252,7 +252,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   const ct = generateUEText([createCallFunction(cm2, { x: 0, y: 0 })]);
   const cv = validateStrict(ct);
   ok(cv.valid && cv.errors.length === 0 && cv.warnings.length === 0, 'CapsuleTraceMulti: генерация STRICT-OK без варнингов');
-  ok(['SphereTraceMulti', 'BoxTraceMulti'].every(id => { const e = byId(id); return e && e.verified === false && e.pins.some(p => p.name === 'OutHits' && p.container === 'Array'); }), 'Multi-аналогии: Sphere/Box остались verified:false (Line подтверждён)');
+  ok(['SphereTraceMulti', 'BoxTraceMulti'].every(id => { const e = byId(id); return e && e.verified === true && !e.note; }), 'Multi-аналогии: Sphere/Box подтверждены (O1)');
   const fx = fs.readFileSync(new URL('./fixtures/capsuletracemulti-copyback.txt', import.meta.url), 'utf8');
   const fv = validateStrict(fx);
   ok(fv.valid && fv.errors.length === 0 && fv.warnings.length === 0, 'Q2 фикстура: strict 0 ошибок, 0 варнингов');
@@ -334,6 +334,74 @@ regThrow.forEach(t => console.log('THROW:', t));
   const qoh = qm.pins.find(p => p.name === 'OutHits');
   const qsh = qb.pins.find(p => p.name === 'OutHit');
   ok(qoh.container === 'Array' && !qoh.isRef && (qsh.container === 'None' || !qsh.container), 'Q2-done фикстура: OutHits массив, OutHit одиночный');
+}
+
+// O1/O2: Sphere/Box Multi + Sphere/Capsule Single + Line ForObjects (все 1:1 с движком)
+{
+  const sm = byId('SphereTraceMulti');
+  ok(sm && sm.verified === true && !sm.note && sm.pins.length === 16, 'SphereTraceMulti: verified, 16 пинов (аналогия 1:1)');
+  const bx = byId('BoxTraceMulti');
+  const bn = bx.pins.map(p => p.name);
+  const ori = bx.pins.find(p => p.name === 'Orientation');
+  ok(bx.verified === true && !bx.note && bx.pins.length === 17, 'BoxTraceMulti: verified, 17 пинов');
+  ok(ori && ori.cat === 'struct' && ori.sub === 'Rotator' && ori.const === true && ori.dv === '0, 0, 0' && bn.indexOf('Orientation') === bn.indexOf('HalfSize') + 1, 'BoxTraceMulti: Orientation Rotator+const после HalfSize');
+  ok(bx.pins.find(p => p.name === 'HalfSize').dv === '0, 0, 0', 'BoxTraceMulti: HalfSize с дефолтом');
+  const ss = byId('SphereTraceSingle');
+  const sn = ss.pins.map(p => p.name);
+  ok(ss && ss.verified === true && !ss.note && ss.pins.length === 16 && sn.indexOf('Radius') === sn.indexOf('End') + 1, 'SphereTraceSingle: verified, 16 пинов, Radius после End');
+  const cs = byId('CapsuleTraceSingle');
+  const cn = cs.pins.map(p => p.name);
+  ok(cs && cs.verified === true && !cs.note && cs.pins.length === 17 && cn.indexOf('Radius') === cn.indexOf('End') + 1 && cn.indexOf('HalfHeight') === cn.indexOf('End') + 2, 'CapsuleTraceSingle: verified, 17 пинов, Radius/HalfHeight после End');
+  const fo = byId('LineTraceSingleForObjects');
+  const ot = fo.pins.find(p => p.name === 'ObjectTypes');
+  ok(fo && fo.verified === true && !fo.note && fo.pins.length === 15 && !fo.pins.some(p => p.name === 'TraceChannel'), 'LineTraceSingleForObjects: verified, 15 пинов, без TraceChannel');
+  ok(ot && ot.cat === 'byte' && ot.enum === 'EObjectTypeQuery' && ot.container === 'Array' && ot.ref === true && ot.const === true && ot.ignored === true && ot.dv === 'ObjectTypeQuery1', 'ForObjects: ObjectTypes byte-массив ref+const+ignored с дефолтом');
+  ok(['SphereTraceByChannel', 'CapsuleTraceByChannel', 'LineTraceByObject'].every(id => !byId(id)), 'O: старые sketch-id удалены');
+  const foTxt = generateUEText([createCallFunction(fo, { x: 0, y: 0 })]);
+  const foV = validateStrict(foTxt);
+  ok(foV.valid && foV.errors.length === 0 && foV.warnings.length === 0, 'ForObjects: генерация STRICT-OK без варнингов');
+  ok(foTxt.includes(`/Script/Engine.EObjectTypeQuery'`), 'ForObjects: путь энама EObjectTypeQuery в тексте');
+  const o1 = fs.readFileSync(new URL('./fixtures/sphereboxtracemulti-copyback.txt', import.meta.url), 'utf8');
+  const o1v = validateStrict(o1);
+  ok(o1v.valid && o1v.errors.length === 0 && o1v.warnings.length === 0, 'O1 фикстура: strict 0/0');
+  ok(!o1.includes('LinkedTo') && !o1.includes('PinToolTip'), 'O1 фикстура: без связей и тултипов (свежая вставка)');
+  const go1 = parseToGraphs(o1);
+  ok(go1.EventGraph.nodes.length === 3, 'O1 фикстура: 3 ноды');
+  const o1s = go1.EventGraph.nodes.find(n => n.funcName === 'SphereTraceMulti');
+  const o1b = go1.EventGraph.nodes.find(n => n.funcName === 'BoxTraceMulti');
+  ok(o1s && o1s.pins.length === 17 && o1b && o1b.pins.length === 18, 'O1 фикстура: 17+18 пинов с self');
+  ok(o1s.pins.findIndex(p => p.name === 'self') === 2 && o1s.pins.filter(p => p.advanced).length === 3, 'O1 фикстура: self третий, 3 advanced');
+  const o1c = go1.EventGraph.nodes.find(n => n.isComment);
+  ok(o1c && o1c.width === 960 && o1c.height === 640, 'O1 фикстура: коммент 960x640');
+  const o2 = fs.readFileSync(new URL('./fixtures/tracesingle-forobjects-copyback.txt', import.meta.url), 'utf8');
+  const o2v = validateStrict(o2);
+  ok(o2v.valid && o2v.errors.length === 0 && o2v.warnings.length === 0, 'O2 фикстура: strict 0/0');
+  const go2 = parseToGraphs(o2);
+  ok(go2.EventGraph.nodes.length === 4, 'O2 фикстура: 4 ноды');
+  const o2s = go2.EventGraph.nodes.find(n => n.funcName === 'SphereTraceSingle');
+  const o2c = go2.EventGraph.nodes.find(n => n.funcName === 'CapsuleTraceSingle');
+  const o2f = go2.EventGraph.nodes.find(n => n.funcName === 'LineTraceSingleForObjects');
+  ok(o2s && o2s.pins.length === 17 && o2c && o2c.pins.length === 18 && o2f && o2f.pins.length === 16, 'O2 фикстура: 17+18+16 пинов с self');
+  const o2ot = o2f.pins.find(p => p.name === 'ObjectTypes');
+  ok(o2ot && o2ot.category === 'byte' && o2ot.container === 'Array' && o2ot.isRef && o2ot.isConst && o2ot.ignored && o2ot.defaultValue === 'ObjectTypeQuery1', 'O2 фикстура: ObjectTypes из движка как в реестре');
+  ok(o2.split('PinToolTip').length - 1 === 17, 'O2 фикстура: тултипы только у SphereSingle (17 — движок закешировал позже)');
+  ok(o2s.pins.find(p => p.name === 'OutHit').container !== 'Array' && o2c.pins.find(p => p.name === 'OutHit').container !== 'Array', 'O2 фикстура: OutHit одиночный у обоих Single');
+}
+
+// Раскладка: layoutRow без наложений (O-фидбек: Δ320 перекрывал трейды)
+{
+  const a = createCallFunction(byId('SphereTraceMulti'));
+  const b = createCallFunction(byId('BoxTraceMulti'));
+  ok(estNodeWidth(a) === 400 && estNodeWidth(b) === 400, 'estNodeWidth: трейды по 400px');
+  layoutRow([a, b]);
+  ok(a.pos.x === 0 && b.pos.x === 520, 'layoutRow: Box встал за правым краем Sphere + зазор (520)');
+  const fc = fitComment('t', [a, b]);
+  ok(fc.width === 1040 && fc.pos.x === -60, 'fitComment: накрывает ряд по правым краям (1040/-60)');
+  const s1 = createCallFunction(byId('SphereTraceSingle'));
+  const c1 = createCallFunction(byId('CapsuleTraceSingle'));
+  const fo = createCallFunction(byId('LineTraceSingleForObjects'));
+  layoutRow([s1, c1, fo]);
+  ok([s1, c1, fo].every((n, i, arr) => i === 0 || n.pos.x - arr[i - 1].pos.x >= estNodeWidth(arr[i - 1])), 'layoutRow: инвариант без наложений на тройке O2');
 }
 console.log(`\nVALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);

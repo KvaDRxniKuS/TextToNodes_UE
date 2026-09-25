@@ -51,8 +51,9 @@ const ok = (c, t) => { c ? pass++ : (fail++, console.log('FAIL:', t)); };
 ok(sb.getREG().length === 239, 'REG встроенный: 239');
 ok(sb.UE_STRUCTS.Vector.includes('/Script/CoreUObject.Vector'), 'UE_STRUCTS: quoted-full');
 ok(sb.UE_ENUMS.ETraceTypeQuery.includes('ETraceTypeQuery'), 'UE_ENUMS на месте');
+ok(sb.UE_ENUMS.EObjectTypeQuery.includes('/Script/Engine.EObjectTypeQuery'), 'UE_ENUMS: EObjectTypeQuery (O2)');
 
-for (const id of ['Delay', 'ForLoop', 'MakeVector', 'VSize', 'Add_Int', 'Greater_Float', 'Branch', 'PrintString', 'Gate', 'LineTraceSingle', 'ForEachLoop']) {
+for (const id of ['Delay', 'ForLoop', 'MakeVector', 'VSize', 'Add_Int', 'Greater_Float', 'Branch', 'PrintString', 'Gate', 'LineTraceSingle', 'ForEachLoop', 'BoxTraceMulti', 'LineTraceSingleForObjects']) {
   sb._nodes.length = 0;
   sb.createFromReg(id, { x: 0, y: 0 });
   const n = sb._nodes[0];
