@@ -1191,23 +1191,31 @@
   "title": "GetMappedRangeValue",
   "category": "Math / Float",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-  "func": "GetMappedRangeValueClamped",
+  "func": "MapRangeClamped",
   "lib": "KismetMathLibrary",
   "pins": [
    {
-    "name": "Input",
-    "dir": "Input",
-    "cat": "struct",
-    "sub": "Vector2D"
-   },
-   {
-    "name": "Output",
-    "dir": "Input",
-    "cat": "struct",
-    "sub": "Vector2D"
-   },
-   {
     "name": "Value",
+    "dir": "Input",
+    "cat": "real"
+   },
+   {
+    "name": "InRangeA",
+    "dir": "Input",
+    "cat": "real"
+   },
+   {
+    "name": "InRangeB",
+    "dir": "Input",
+    "cat": "real"
+   },
+   {
+    "name": "OutRangeA",
+    "dir": "Input",
+    "cat": "real"
+   },
+   {
+    "name": "OutRangeB",
     "dir": "Input",
     "cat": "real"
    },
@@ -1219,7 +1227,7 @@
   ],
   "verified": false,
   "desc": "Map Value",
-  "notes": "не подтверждено явно; жду факт"
+  "notes": "round3g: GetMappedRangeValueClamped не существует в BP (C++-only); настоящая нода MapRangeClamped (Map Range Clamped)"
  },
  {
   "id": "FInterpTo",

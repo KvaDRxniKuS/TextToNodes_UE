@@ -445,6 +445,9 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(gsT.includes('MemberName="GridSnap_Float"'), 'round3c: GridSnap — GridSnap_Float');
   const neT = generateUEText([createFromEntry(byId('NearlyEqual_Float'))]);
   ok(neT.includes('MemberName="NearlyEqual_FloatFloat"') && neT.includes('PinName="A"') && neT.includes('PinName="ErrorTolerance"'), 'round3c: NearlyEqual — A/B/ErrorTolerance');
+  // round3g: GetMappedRangeValueClamped нет в BP (C++-only); настоящая нода — MapRangeClamped.
+  const mrT = generateUEText([createFromEntry(byId('GetMappedRange'))]);
+  ok(mrT.includes('MemberName="MapRangeClamped"') && mrT.includes('PinName="InRangeA"') && mrT.includes('PinName="OutRangeB"') && !mrT.includes('Vector2D'), 'round3g: GetMappedRange — MapRangeClamped, 5 float-пинов');
 }
 // Sweep coverage: каждая запись реестра строится (кроме референс-листа)
 {

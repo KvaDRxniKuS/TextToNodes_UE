@@ -470,3 +470,11 @@ Trunc (синглтон-орфан) — отдельная проба 3-fix-5.
 Trunc_Float — белый по факту пользователя (синглтон-орфан из 3-fix-2
 не повторился). GridSnap/NearlyEqual подтверждены повторно. Файл 03:
 29 verified / 1 noted. Остаток: GetMappedRange — чистая проба 3-fix-6.
+
+## Раунд 3g: MapRangeClamped вместо GetMappedRangeValueClamped (2026-09-25)
+
+Факт: GetMappedRangeValueClamped в BP не существует (вставка дала пустой
+комментарий) — это C++-only FMath. Настоящая нода — Map Range Clamped,
+UKismetMathLibrary::MapRangeClamped(Value, InRangeA, InRangeB, OutRangeA,
+OutRangeB). Реестр + sweep/03 + тест обновлены; проба 3-fix-7.
+Дока: BlueprintAPI Math/Float/MapRangeClamped.
