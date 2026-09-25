@@ -308,6 +308,8 @@ node tools/make-node.mjs [--chain] [--title "коммент"] [-o out.txt] "<с�
 | `bind` / `unbind` / `clear <Класс.Делегат>` | Bind / Unbind / Unbind all |
 | `create-event <Функция>` | Create Event |
 | `widget <WBP-путь \| none>` | Create Widget (класс WBP; `none` — выбрать в движке) |
+| `ia-event <IA> [bool\|float\|vector2d\|vector]` | Событие Enhanced Input любого IA (`IA_Jump` → `/Game/Input/Actions/IA_Jump`) |
+| `ia-value <IA> [тип]` | Pure «Get IA_X» — значение действия |
 | `get` / `set <Класс.Свойство> <тип> [значение]` | Get/Set свойства любого класса (`set PlayerController.bShowMouseCursor bool true`) |
 | `fn <id или функция реестра> [Пин=значение ...]` | любой узел реестра |
 | `link <i>.<Пин> <j>.<Пин>` | связь (номера узлов с 1, `As*` — префикс) |

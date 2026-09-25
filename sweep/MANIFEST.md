@@ -1,6 +1,6 @@
 # Sweep manifest — полный прогон реестра по категориям
 
-Дата: 2026-09-25; записей: 366; построено узлов: 366; упало: 0.
+Дата: 2026-09-25; записей: 381; построено узлов: 381; упало: 0.
 Генератор: tools/gen-sweep.mjs (сетка по 5 в ряд, внутри ряда layoutRow, накрыто fitComment).
 
 Протокол: вставляйте файлы по одному в чистый граф → копируйте обратно → сообщайте номер файла и что сломалось.
@@ -41,6 +41,7 @@
 | 25 | 25-events-delegates.txt | 8/8 | 0 | 8 | — | 1xW09 |
 | 26 | 26-timers-latent.txt | 14/14 | 0 | 14 | — | 14xW09 |
 | 27 | 27-widgets-ui.txt | 8/8 | 0 | 8 | — | 8xW09 |
+| 28 | 28-enhanced-input-full.txt | 15/15 | 0 | 15 | — | 15xW09 |
 
 ## NEEDS-REFERENCE (не построилось — нужен copy-back из движка)
 
@@ -214,3 +215,18 @@
 - 27-widgets-ui.txt :: W09: K2Node_CallFunction_489: SetInputMode_UIOnlyEx: round27-pre: UWidgetBlueprintLibrary::SetInputMode_UIOnlyEx
 - 27-widgets-ui.txt :: W09: K2Node_CallFunction_490: SetInputMode_GameAndUIEx: round27-pre: UWidgetBlueprintLibrary::SetInputMode_GameAndUIEx
 - 27-widgets-ui.txt :: W09: K2Node_CallFunction_491: SetInputMode_GameOnly: round27-pre: UWidgetBlueprintLibrary::SetInputMode_GameOnly
+- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_493: RemoveMappingContext: round28-pre: член IEnhancedInputSubsystemInterface; Options опущен (как в AddMappingContext R21b)
+- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_494: ClearAllMappings: round28-pre: член IEnhancedInputSubsystemInterface
+- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_495: HasMappingContext: round28-pre: const-член → pure в BP
+- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_496: QueryKeysMappedToAction: round28-pre: const-член → pure, RV TArray<FKey>
+- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_497: InjectInputForAction: round28-pre: Modifiers/Triggers AutoCreateRefTerm — можно не подключать
+- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_498: InjectInputVectorForAction: round28-pre: Modifiers/Triggers AutoCreateRefTerm
+- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_499: RequestRebuildControlMappingsUsingContext: round28-pre: статик UEnhancedInputLibrary, self скрыт
+- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_500: FlushPlayerInput: round28-pre: статик UEnhancedInputLibrary
+- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_501: MakeInputActionValue: round28-pre: pure; MatchValueType задаёт тип (без подключения — Boolean)
+- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_502: BreakInputActionValue: round28-pre: pure; выход Type = EInputActionValueType
+- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_503: Conv_InputActionValueToBool: round28-pre: pure autocast
+- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_504: Conv_InputActionValueToAxis1D: round28-pre: pure autocast
+- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_505: Conv_InputActionValueToAxis2D: round28-pre: pure autocast
+- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_506: Conv_InputActionValueToAxis3D: round28-pre: pure autocast
+- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_507: Conv_InputActionValueToString: round28-pre: pure autocast

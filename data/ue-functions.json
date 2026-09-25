@@ -14737,5 +14737,547 @@
   "verified": false,
   "desc": "Ввод только в игру.",
   "note": "round27-pre: UWidgetBlueprintLibrary::SetInputMode_GameOnly"
+ },
+ {
+  "id": "RemoveMappingContext",
+  "title": "Remove Mapping Context",
+  "category": "Enhanced Input (full)",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "RemoveMappingContext",
+  "lib": "EnhancedInputSubsystemInterface",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.EnhancedInputLocalPlayerSubsystem"
+   },
+   {
+    "name": "MappingContext",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.InputMappingContext",
+    "const": true
+   }
+  ],
+  "verified": false,
+  "desc": "Убрать контекст ввода",
+  "note": "round28-pre: член IEnhancedInputSubsystemInterface; Options опущен (как в AddMappingContext R21b)"
+ },
+ {
+  "id": "ClearAllMappings",
+  "title": "Clear All Mappings",
+  "category": "Enhanced Input (full)",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ClearAllMappings",
+  "lib": "EnhancedInputSubsystemInterface",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.EnhancedInputLocalPlayerSubsystem"
+   }
+  ],
+  "verified": false,
+  "desc": "Снять все контексты",
+  "note": "round28-pre: член IEnhancedInputSubsystemInterface"
+ },
+ {
+  "id": "HasMappingContext",
+  "title": "Has Mapping Context",
+  "category": "Enhanced Input (full)",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "HasMappingContext",
+  "lib": "EnhancedInputSubsystemInterface",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.EnhancedInputLocalPlayerSubsystem"
+   },
+   {
+    "name": "MappingContext",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.InputMappingContext",
+    "const": true
+   },
+   {
+    "name": "OutFoundPriority",
+    "dir": "Output",
+    "cat": "int"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": false,
+  "desc": "Контекст добавлен? + приоритет",
+  "note": "round28-pre: const-член → pure в BP",
+  "pure": true
+ },
+ {
+  "id": "QueryKeysMappedToAction",
+  "title": "Query Keys Mapped To Action",
+  "category": "Enhanced Input (full)",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "QueryKeysMappedToAction",
+  "lib": "EnhancedInputSubsystemInterface",
+  "pure": true,
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.EnhancedInputLocalPlayerSubsystem"
+   },
+   {
+    "name": "Action",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.InputAction",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Key",
+    "container": "Array"
+   }
+  ],
+  "verified": false,
+  "desc": "Клавиши, назначенные на IA",
+  "note": "round28-pre: const-член → pure, RV TArray<FKey>"
+ },
+ {
+  "id": "InjectInputForAction",
+  "title": "Inject Input For Action",
+  "category": "Enhanced Input (full)",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "InjectInputForAction",
+  "lib": "EnhancedInputSubsystemInterface",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.EnhancedInputLocalPlayerSubsystem"
+   },
+   {
+    "name": "Action",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.InputAction",
+    "const": true
+   },
+   {
+    "name": "RawValue",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "InputActionValue"
+   },
+   {
+    "name": "Modifiers",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.InputModifier",
+    "container": "Array",
+    "const": true,
+    "ref": true
+   },
+   {
+    "name": "Triggers",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.InputTrigger",
+    "container": "Array",
+    "const": true,
+    "ref": true
+   }
+  ],
+  "verified": false,
+  "desc": "Сымитировать ввод IA (InputActionValue)",
+  "note": "round28-pre: Modifiers/Triggers AutoCreateRefTerm — можно не подключать"
+ },
+ {
+  "id": "InjectInputVectorForAction",
+  "title": "Inject Input Vector For Action",
+  "category": "Enhanced Input (full)",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "InjectInputVectorForAction",
+  "lib": "EnhancedInputSubsystemInterface",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.EnhancedInputLocalPlayerSubsystem"
+   },
+   {
+    "name": "Action",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.InputAction",
+    "const": true
+   },
+   {
+    "name": "Value",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector"
+   },
+   {
+    "name": "Modifiers",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.InputModifier",
+    "container": "Array",
+    "const": true,
+    "ref": true
+   },
+   {
+    "name": "Triggers",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.InputTrigger",
+    "container": "Array",
+    "const": true,
+    "ref": true
+   }
+  ],
+  "verified": false,
+  "desc": "Сымитировать ввод IA (вектор)",
+  "note": "round28-pre: Modifiers/Triggers AutoCreateRefTerm"
+ },
+ {
+  "id": "RequestRebuildControlMappings",
+  "title": "Request Rebuild Control Mappings Using Context",
+  "category": "Enhanced Input (full)",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "RequestRebuildControlMappingsUsingContext",
+  "lib": "EnhancedInputLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Context",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.InputMappingContext",
+    "const": true
+   },
+   {
+    "name": "bForceImmediately",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Перестроить маппинги по контексту",
+  "note": "round28-pre: статик UEnhancedInputLibrary, self скрыт"
+ },
+ {
+  "id": "FlushPlayerInput",
+  "title": "Flush Player Input",
+  "category": "Enhanced Input (full)",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "FlushPlayerInput",
+  "lib": "EnhancedInputLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "PlayerController",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   }
+  ],
+  "verified": false,
+  "desc": "Сбросить накопленный ввод",
+  "note": "round28-pre: статик UEnhancedInputLibrary"
+ },
+ {
+  "id": "MakeInputActionValue",
+  "title": "Make InputActionValue",
+  "category": "Enhanced Input (full)",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "MakeInputActionValue",
+  "lib": "EnhancedInputLibrary",
+  "pure": true,
+  "pins": [
+   {
+    "name": "X",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "1.0"
+   },
+   {
+    "name": "Y",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "0.0"
+   },
+   {
+    "name": "Z",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "0.0"
+   },
+   {
+    "name": "MatchValueType",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "InputActionValue",
+    "const": true,
+    "ref": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "InputActionValue"
+   }
+  ],
+  "verified": false,
+  "desc": "Собрать InputActionValue",
+  "note": "round28-pre: pure; MatchValueType задаёт тип (без подключения — Boolean)"
+ },
+ {
+  "id": "BreakInputActionValue",
+  "title": "Break InputActionValue",
+  "category": "Enhanced Input (full)",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "BreakInputActionValue",
+  "lib": "EnhancedInputLibrary",
+  "pure": true,
+  "pins": [
+   {
+    "name": "InActionValue",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "InputActionValue"
+   },
+   {
+    "name": "X",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "Y",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "Z",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "Type",
+    "dir": "Output",
+    "cat": "byte",
+    "enum": "EInputActionValueType"
+   }
+  ],
+  "verified": false,
+  "desc": "Разобрать InputActionValue",
+  "note": "round28-pre: pure; выход Type = EInputActionValueType"
+ },
+ {
+  "id": "Conv_InputActionValueToBool",
+  "title": "To Bool (InputActionValue)",
+  "category": "Enhanced Input (full)",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Conv_InputActionValueToBool",
+  "lib": "EnhancedInputLibrary",
+  "pure": true,
+  "pins": [
+   {
+    "name": "InValue",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "InputActionValue"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": false,
+  "desc": "InputActionValue → bool",
+  "note": "round28-pre: pure autocast"
+ },
+ {
+  "id": "Conv_InputActionValueToAxis1D",
+  "title": "To Axis1D (InputActionValue)",
+  "category": "Enhanced Input (full)",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Conv_InputActionValueToAxis1D",
+  "lib": "EnhancedInputLibrary",
+  "pure": true,
+  "pins": [
+   {
+    "name": "InValue",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "InputActionValue"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": false,
+  "desc": "InputActionValue → float",
+  "note": "round28-pre: pure autocast"
+ },
+ {
+  "id": "Conv_InputActionValueToAxis2D",
+  "title": "To Axis2D (InputActionValue)",
+  "category": "Enhanced Input (full)",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Conv_InputActionValueToAxis2D",
+  "lib": "EnhancedInputLibrary",
+  "pure": true,
+  "pins": [
+   {
+    "name": "InValue",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "InputActionValue"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector2D"
+   }
+  ],
+  "verified": false,
+  "desc": "InputActionValue → Vector2D",
+  "note": "round28-pre: pure autocast"
+ },
+ {
+  "id": "Conv_InputActionValueToAxis3D",
+  "title": "To Axis3D (InputActionValue)",
+  "category": "Enhanced Input (full)",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Conv_InputActionValueToAxis3D",
+  "lib": "EnhancedInputLibrary",
+  "pure": true,
+  "pins": [
+   {
+    "name": "InValue",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "InputActionValue"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "verified": false,
+  "desc": "InputActionValue → Vector",
+  "note": "round28-pre: pure autocast"
+ },
+ {
+  "id": "Conv_InputActionValueToString",
+  "title": "To String (InputActionValue)",
+  "category": "Enhanced Input (full)",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Conv_InputActionValueToString",
+  "lib": "EnhancedInputLibrary",
+  "pure": true,
+  "pins": [
+   {
+    "name": "ActionValue",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "InputActionValue"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "string"
+   }
+  ],
+  "verified": false,
+  "desc": "InputActionValue → string",
+  "note": "round28-pre: pure autocast"
  }
 ]

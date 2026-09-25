@@ -716,3 +716,11 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 - Члены UserWidget (AddToViewport, AddToPlayerScreen, IsInViewport) и Widget (RemoveFromParent, SetVisibility / ESlateVisibility).
 - WidgetBlueprintLibrary: SetInputMode_UIOnlyEx, SetInputMode_GameAndUIEx (EMouseLockMode), SetInputMode_GameOnly.
 - Set/Get PlayerController.bShowMouseCursor: VariableSet/VariableGet с MemberParent=PlayerController и пином self.
+
+## Round28-pre: Enhanced Input (full) — ждёт вердикта
+- sweep/28-enhanced-input-full.txt собран конструктором (tools/make-node.mjs --chain), 25 узлов.
+- Новые спеки: `ia-event <IA> [тип]`, `ia-value <IA> [тип]`; объектные пины в `fn` принимают ассет (`MappingContext=IMC_Default`, `Action=IA_Jump`) → DefaultObject.
+- Сокращения: IA_* → /Game/Input/Actions/, IMC_* → /Game/Input/ (шаблон UE5).
+- Подсистема (член IEnhancedInputSubsystemInterface): RemoveMappingContext, ClearAllMappings, HasMappingContext (pure), QueryKeysMappedToAction (pure), InjectInputForAction, InjectInputVectorForAction.
+- UEnhancedInputLibrary (статик): RequestRebuildControlMappingsUsingContext, FlushPlayerInput, Make/Break InputActionValue, Conv_InputActionValueTo{Bool,Axis1D,Axis2D,Axis3D,String}.
+- GetBoundActionValue сознательно не используется (R21 FAIL).

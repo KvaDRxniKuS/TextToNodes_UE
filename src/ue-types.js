@@ -37,6 +37,7 @@ const LIBS_FULL = {
   WidgetBlueprintLibrary: `"/Script/CoreUObject.Class'/Script/UMG.WidgetBlueprintLibrary'"`, // round27-pre
   EnhancedInputComponent: `"/Script/CoreUObject.Class'/Script/EnhancedInput.EnhancedInputComponent'"`, // round21-pre: GetBoundActionValue
   EnhancedInputSubsystemInterface: `"/Script/CoreUObject.Class'/Script/EnhancedInput.EnhancedInputSubsystemInterface'"`, // round21b-pre: AddMappingContext
+  EnhancedInputLibrary: `"/Script/CoreUObject.Class'/Script/EnhancedInput.EnhancedInputLibrary'"`, // round28-pre: Conv_/Break/Make InputActionValue
 };
 const LIBS_SHORT = {
   KismetMathLibrary:   `Class'"/Script/Engine.KismetMathLibrary"'`,
@@ -56,6 +57,7 @@ const LIBS_SHORT = {
   WidgetBlueprintLibrary: `Class'"/Script/UMG.WidgetBlueprintLibrary"'`,
   EnhancedInputComponent: `Class'"/Script/EnhancedInput.EnhancedInputComponent"'`,
   EnhancedInputSubsystemInterface: `Class'"/Script/EnhancedInput.EnhancedInputSubsystemInterface"'`,
+  EnhancedInputLibrary: `Class'"/Script/EnhancedInput.EnhancedInputLibrary"'`,
 };
 export const UE_LIBS = UE_VERSION === 'SHORT' ? LIBS_SHORT : LIBS_FULL;
 
@@ -101,6 +103,7 @@ const ENUMS_FULL = {
   EDetachmentRule: `"/Script/CoreUObject.Enum'/Script/Engine.EDetachmentRule'"`, // round23b-pre
   ESlateVisibility: `"/Script/CoreUObject.Enum'/Script/UMG.ESlateVisibility'"`, // round27-pre
   EMouseLockMode: `"/Script/CoreUObject.Enum'/Script/Engine.EMouseLockMode'"`, // round27-pre
+  EInputActionValueType: `"/Script/CoreUObject.Enum'/Script/EnhancedInput.EInputActionValueType'"`, // round28-pre
 };
 const ENUMS_SHORT = {
   ETraceTypeQuery: `Enum'"/Script/Engine.ETraceTypeQuery"'`,
@@ -115,6 +118,7 @@ const ENUMS_SHORT = {
   EDetachmentRule: `Enum'"/Script/Engine.EDetachmentRule"'`,
   ESlateVisibility: `Enum'"/Script/UMG.ESlateVisibility"'`,
   EMouseLockMode: `Enum'"/Script/Engine.EMouseLockMode"'`,
+  EInputActionValueType: `Enum'"/Script/EnhancedInput.EInputActionValueType"'`,
 };
 export const UE_ENUMS = UE_VERSION === 'SHORT' ? ENUMS_SHORT : ENUMS_FULL;
 

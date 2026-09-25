@@ -53,6 +53,7 @@ export function createCallFunction(regEntry, pos = { x: 0, y: 0 }) {
     if (p.dv) o.dv = p.dv;
     if (p.hidden) o.hidden = true;
     if (p.memberRef) o.memberRef = p.memberRef;
+    if (p.defObj) o.defObj = p.defObj;
     n.pins.push(mkPin(p.name, p.dir, p.cat, o));
   }
   return n;
@@ -233,6 +234,7 @@ export function createGeneric(regEntry, pos = { x: 0, y: 0 }) {
     if (p.dv) o.dv = p.dv;
     if (p.hidden) o.hidden = true;
     if (p.memberRef) o.memberRef = p.memberRef;
+    if (p.defObj) o.defObj = p.defObj;
     n.pins.push(mkPin(p.name, p.dir, p.cat, o));
   }
   // round25-pre: CustomEvent — параметры события = UserDefinedPin (строки после пинов, как в копиях UE).

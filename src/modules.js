@@ -150,7 +150,8 @@ export function createFn(entry, values = {}, pos) {
   for (const [k, v] of Object.entries(values)) {
     const p = (e.pins || []).find(x => x.name === k && x.dir === 'Input');
     if (!p) throw new Error(`${e.id}: нет входного пина ${k} (есть: ${(e.pins || []).filter(x => x.dir === 'Input').map(x => x.name).join(', ')})`);
-    p.dv = v;
+    if ((p.cat === 'object' || p.cat === 'class') && v) p.defObj = assetPath(v, p.object);
+    else p.dv = v;
   }
   return createFromEntry(e, pos);
 }
@@ -182,5 +183,49 @@ export function createMemberVar(kind, key, type, value = '', pos) {
   if (kind === 'set') n.pins.push(mkPin('execute', 'Input', 'exec'), mkPin('then', 'Output', 'exec'), pin(prop, 'Input', ty, { dv: value }), pin('Output_Get', 'Output', ty));
   else n.pins.push(pin(prop, 'Output', ty));
   n.pins.push(mkPin('self', 'Input', 'object', { subObj: classRef(owner) }));
+  return n;
+}
+
+/* ---------------- ассеты (round28) ----------------
+ * IA_Jump → /Game/Input/Actions/IA_Jump.IA_Jump (шаблон UE5); IMC_Default → /Game/Input/IMC_Default.IMC_Default;
+ * /Game/X/Y → /Game/X/Y.Y; полный путь с точкой — как есть. Для BP-класса (pin class:) — _C. */
+export function assetPath(v, cls = '') {
+  let s = String(v).trim();
+  if (!s.startsWith('/')) {
+    const c = String(cls).split('.').pop();
+    const dir = c === 'InputAction' || /^IA_/.test(s) ? '/Game/Input/Actions' : c === 'InputMappingContext' || /^IMC_/.test(s) ? '/Game/Input' : '/Game';
+    s = `${dir}/${s}`;
+  }
+  if (!s.split('/').pop().includes('.')) s = `${s}.${s.split('/').pop()}`;
+  return s;
+}
+const IA_TYPES = { bool: 'bool', digital: 'bool', float: 'float', axis1d: 'float', vector2d: 'vector2d', axis2d: 'vector2d', vector: 'vector', axis3d: 'vector' };
+function iaType(t = 'bool') {
+  const k = IA_TYPES[String(t).toLowerCase()];
+  if (!k) throw new Error(`тип значения IA «${t}»: bool|float|vector2d|vector (или digital|axis1d|axis2d|axis3d)`);
+  return parseType(k);
+}
+const iaProp = ia => `InputAction="/Script/EnhancedInput.InputAction'${assetPath(ia, 'InputAction')}'"`;
+
+/** Событие Enhanced Input (K2Node_EnhancedInputAction) для любого IA; type — ValueType ассета (пины движок всё равно перестроит). */
+export function createInputActionEvent(ia, type = 'bool', pos) {
+  const n = node('K2Node_EnhancedInputAction', pos);
+  n.rawClass = '/Script/InputBlueprintNodes.K2Node_EnhancedInputAction'; n.className = 'InputBlueprintNodes.K2Node_EnhancedInputAction';
+  n.title = `EnhancedInputAction ${assetPath(ia).split('.').pop()}`;
+  n.rawProps = [iaProp(ia)];
+  for (const e of ['Triggered', 'Started', 'Ongoing', 'Canceled', 'Completed']) n.pins.push(mkPin(e, 'Output', 'exec'));
+  n.pins.push(pin('ActionValue', 'Output', iaType(type)),
+    mkPin('ElapsedSeconds', 'Output', 'real', { sub: 'float', advanced: true }),
+    mkPin('TriggeredSeconds', 'Output', 'real', { sub: 'float', advanced: true }));
+  return n;
+}
+
+/** Pure «Get IA_X» (K2Node_GetInputActionValue) для любого IA. */
+export function createInputActionValue(ia, type = 'vector2d', pos) {
+  const n = node('K2Node_GetInputActionValue', pos);
+  n.rawClass = '/Script/InputBlueprintNodes.K2Node_GetInputActionValue'; n.className = 'InputBlueprintNodes.K2Node_GetInputActionValue';
+  n.title = `Get ${assetPath(ia).split('.').pop()}`;
+  n.rawProps = [iaProp(ia)];
+  n.pins.push(pin('ActionValue', 'Output', iaType(type)));
   return n;
 }

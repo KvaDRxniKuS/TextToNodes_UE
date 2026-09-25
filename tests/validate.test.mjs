@@ -755,6 +755,20 @@ regThrow.forEach(t => console.log('THROW:', t));
   const v = validateStrict(fs.readFileSync(new URL('../sweep/27-widgets-ui.txt', import.meta.url), 'utf8'));
   ok(v.errors.length === 0, 'R27: sweep 0 ошибок');
 }
+// R28 pre: Enhanced Input (full) + ia-event/ia-value + ассеты в объектных пинах
+{
+  const M = await import('../src/modules.js');
+  ok(M.assetPath('IA_Fire') === '/Game/Input/Actions/IA_Fire.IA_Fire' && M.assetPath('IMC_Car') === '/Game/Input/IMC_Car.IMC_Car' && M.assetPath('/Game/My/IA_X') === '/Game/My/IA_X.IA_X', 'R28: сокращения путей ассетов IA_/IMC_');
+  const ev = generateUEText([M.createInputActionEvent('IA_Fire', 'float')]);
+  ok(ev.includes('K2Node_EnhancedInputAction') && ev.includes("InputAction=\"/Script/EnhancedInput.InputAction'/Game/Input/Actions/IA_Fire.IA_Fire'\"") && ev.includes('PinName="ActionValue",Direction="EGPD_Output",PinType.PinCategory="real"'), 'R28: событие любого IA с типом значения');
+  const gv = generateUEText([M.createInputActionValue('IA_Look', 'vector2d')]);
+  ok(gv.includes('K2Node_GetInputActionValue') && gv.includes('IA_Look.IA_Look'), 'R28: Get IA_X для любого IA');
+  const add = generateUEText([M.createFn(byId('AddMappingContext'), { MappingContext: 'IMC_Default' })]);
+  ok(add.includes('DefaultObject="/Game/Input/IMC_Default.IMC_Default"'), 'R28: объектный пин получает ассет через DefaultObject');
+  ok(reg.filter(e => e.category === 'Enhanced Input (full)').length === 15, 'R28: 15 записей Enhanced Input (full)');
+  const v = validateStrict(fs.readFileSync(new URL('../sweep/28-enhanced-input-full.txt', import.meta.url), 'utf8'));
+  ok(v.errors.length === 0, 'R28: sweep 0 ошибок');
+}
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);
