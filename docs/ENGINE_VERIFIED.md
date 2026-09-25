@@ -458,3 +458,9 @@ self-пин (субобъект снёс, свой создал, PinId 83E06D24 
 verified не переводим, изолированный ретест 3-fix-4 (свежие GUID).
 Если орфан повторится — эксперимент без self-пина. Файл 03:
 26 verified / 4 noted (Trunc/GridSnap/NearlyEqual/GetMappedRange).
+
+## Раунд 3e: 3-fix-3 белый, 3-fix-5 (2026-09-25)
+
+GridSnap_Float + NearlyEqual_FloatFloat — белые (verified). Файл 03:
+28 verified / 2 noted. Остаток: GetMappedRange (факт не получен) и
+Trunc (синглтон-орфан) — отдельная проба 3-fix-5.

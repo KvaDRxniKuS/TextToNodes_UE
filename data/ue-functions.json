@@ -1366,9 +1366,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Сетка",
-  "notes": "GridSnap не существует; GridSnap_Float (live-реф round3c)"
+  "notes": "round3-fix-3: белая по факту пользователя"
  },
  {
   "id": "NearlyEqual_Float",
@@ -1399,9 +1399,9 @@
     "cat": "bool"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Почти ноль",
-  "notes": "IsNearlyZero не существует; NearlyEqual_FloatFloat A/B/ErrorTolerance (live-реф round3c)"
+  "notes": "round3-fix-3: белая по факту пользователя"
  },
  {
   "id": "IsPowerOfTwo",
