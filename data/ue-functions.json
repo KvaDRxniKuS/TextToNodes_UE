@@ -9373,9 +9373,9 @@
     "advanced": true
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Событие действия ввода",
-  "note": "round21c-pre: событие K2Node_EnhancedInputAction (модуль InputBlueprintNodes), InputAction = путь ассета (по умолчанию из шаблона UE5: /Game/Input/Actions/IA_Jump). Пины движок перестроит по ValueType ассета — без референса"
+  "note": "round21c-pre: событие K2Node_EnhancedInputAction (модуль InputBlueprintNodes), InputAction = путь ассета (по умолчанию из шаблона UE5: /Game/Input/Actions/IA_Jump). Пины движок перестроит по ValueType ассета — без референса | R21c VERIFIED (движок, 2026-09-25): пути шаблона /Game/Input/Actions подошли"
  },
  {
   "id": "GetInputActionValue",
@@ -9394,9 +9394,9 @@
     "sub": "Vector2D"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Значение действия",
-  "note": "round21c-pre: pure-узел K2Node_GetInputActionValue, InputAction = ассет (шаблонный IA_Move, Axis2D → Vector2D) — без референса"
+  "note": "round21c-pre: pure-узел K2Node_GetInputActionValue, InputAction = ассет (шаблонный IA_Move, Axis2D → Vector2D) — без референса | R21c VERIFIED (движок, 2026-09-25): пути шаблона /Game/Input/Actions подошли"
  },
  {
   "id": "Distance2D",
@@ -12197,9 +12197,9 @@
     "sub": "Vector"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Вправо актора",
-  "note": "round23b-pre: член Actor (как R23).",
+  "note": "round23b-pre: член Actor (как R23). | R23b VERIFIED (движок, 2026-09-25)",
   "pure": true
  },
  {
@@ -12223,9 +12223,9 @@
     "sub": "Vector"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Вверх актора",
-  "note": "round23b-pre: член Actor (как R23).",
+  "note": "round23b-pre: член Actor (как R23). | R23b VERIFIED (движок, 2026-09-25)",
   "pure": true
  },
  {
@@ -12249,9 +12249,9 @@
     "sub": "Vector"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Масштаб актора",
-  "note": "round23b-pre: член Actor (как R23).",
+  "note": "round23b-pre: член Actor (как R23). | R23b VERIFIED (движок, 2026-09-25)",
   "pure": true
  },
  {
@@ -12304,9 +12304,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Повернуть (мир)",
-  "note": "round23b-pre: член Actor (как R23)."
+  "note": "round23b-pre: член Actor (как R23). | R23b VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "AddActorLocalRotation",
@@ -12358,9 +12358,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Повернуть (локально)",
-  "note": "round23b-pre: член Actor (как R23)."
+  "note": "round23b-pre: член Actor (как R23). | R23b VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "AddActorLocalOffset",
@@ -12412,9 +12412,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Сдвиг (локально)",
-  "note": "round23b-pre: член Actor (как R23)."
+  "note": "round23b-pre: член Actor (как R23). | R23b VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "SetActorScale3D",
@@ -12448,9 +12448,9 @@
     "dv": "1, 1, 1"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Задать масштаб",
-  "note": "round23b-pre: член Actor (как R23)."
+  "note": "round23b-pre: член Actor (как R23). | R23b VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "SetActorTransform",
@@ -12509,9 +12509,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Задать трансформ",
-  "note": "round23b-pre: член Actor (как R23). NewTransform const FTransform&"
+  "note": "round23b-pre: член Actor (как R23). NewTransform const FTransform& | R23b VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "SetActorLocationAndRotation",
@@ -12576,9 +12576,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Задать позицию и поворот",
-  "note": "round23b-pre: член Actor (как R23)."
+  "note": "round23b-pre: член Actor (как R23). | R23b VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "AttachActorToComponent",
@@ -12650,9 +12650,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Прикрепить актор к компоненту",
-  "note": "round23b-pre: член Actor (как R23)."
+  "note": "round23b-pre: член Actor (как R23). | R23b VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "DetachFromActor",
@@ -12700,9 +12700,9 @@
     "dv": "KeepRelative"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Открепить актор",
-  "note": "round23b-pre: член Actor (как R23). EDetachmentRule (KeepRelative/KeepWorld)"
+  "note": "round23b-pre: член Actor (как R23). EDetachmentRule (KeepRelative/KeepWorld) | R23b VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "AttachComponentToComponent",
@@ -12774,9 +12774,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Прикрепить компонент к компоненту",
-  "note": "round23b-pre: член SceneComponent (как R23)."
+  "note": "round23b-pre: член SceneComponent (как R23). | R23b VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "DetachFromComponent",
@@ -12830,9 +12830,9 @@
     "dv": "true"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Открепить компонент",
-  "note": "round23b-pre: член SceneComponent (как R23)."
+  "note": "round23b-pre: член SceneComponent (как R23). | R23b VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "GetWorldLocation",
@@ -12855,9 +12855,9 @@
     "sub": "Vector"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Позиция компонента (мир)",
-  "note": "round23b-pre: член SceneComponent (как R23).",
+  "note": "round23b-pre: член SceneComponent (как R23). | R23b VERIFIED (движок, 2026-09-25)",
   "pure": true
  },
  {
@@ -12881,9 +12881,9 @@
     "sub": "Rotator"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Поворот компонента (мир)",
-  "note": "round23b-pre: член SceneComponent (как R23).",
+  "note": "round23b-pre: член SceneComponent (как R23). | R23b VERIFIED (движок, 2026-09-25)",
   "pure": true
  },
  {
@@ -12936,9 +12936,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Позиция компонента (мир)",
-  "note": "round23b-pre: член SceneComponent (как R23)."
+  "note": "round23b-pre: член SceneComponent (как R23). | R23b VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "SetRelativeLocation",
@@ -12990,9 +12990,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Позиция компонента (отн.)",
-  "note": "round23b-pre: член SceneComponent (как R23)."
+  "note": "round23b-pre: член SceneComponent (как R23). | R23b VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "SetRelativeRotation",
@@ -13044,9 +13044,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Поворот компонента (отн.)",
-  "note": "round23b-pre: член SceneComponent (как R23)."
+  "note": "round23b-pre: член SceneComponent (как R23). | R23b VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "AddLocalRotation",
@@ -13098,9 +13098,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Повернуть компонент (локально)",
-  "note": "round23b-pre: член SceneComponent (как R23)."
+  "note": "round23b-pre: член SceneComponent (как R23). | R23b VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "Jump",
@@ -13684,5 +13684,276 @@
   "desc": "Скорость",
   "note": "round24-pre: член Actor, self=Target (по образцу AActor-членов R23). член AActor",
   "pure": true
+ },
+ {
+  "id": "CustomEvent",
+  "title": "Custom Event",
+  "category": "Events / Delegates",
+  "className": "BlueprintGraph.K2Node_CustomEvent",
+  "props": {
+   "CustomFunctionName": "\"MyEvent\""
+  },
+  "pins": [
+   {
+    "name": "OutputDelegate",
+    "dir": "Output",
+    "cat": "delegate",
+    "memberRef": "MemberName=\"MyEvent\""
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   }
+  ],
+  "verified": false,
+  "desc": "Пользовательское событие без параметров (Add Custom Event).",
+  "note": "round25-pre: K2Node_CustomEvent, CustomFunctionName; OutputDelegate без MemberParent (BP-класс неизвестен — движок перепривяжет)"
+ },
+ {
+  "id": "CustomEventParam",
+  "title": "Custom Event (с параметром)",
+  "category": "Events / Delegates",
+  "className": "BlueprintGraph.K2Node_CustomEvent",
+  "props": {
+   "CustomFunctionName": "\"OnDamaged\""
+  },
+  "pins": [
+   {
+    "name": "OutputDelegate",
+    "dir": "Output",
+    "cat": "delegate",
+    "memberRef": "MemberName=\"OnDamaged\""
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Amount",
+    "dir": "Output",
+    "cat": "real"
+   }
+  ],
+  "verified": false,
+  "desc": "Custom Event с входом Amount (float): параметры = UserDefinedPin.",
+  "note": "round25-pre: UserDefinedPin (PinName, PinType, DesiredPinDirection=EGPD_Output) после пинов",
+  "userPins": [
+   {
+    "name": "Amount",
+    "cat": "real"
+   }
+  ]
+ },
+ {
+  "id": "CustomEventOverlap",
+  "title": "Custom Event (сигнатура OnActorBeginOverlap)",
+  "category": "Events / Delegates",
+  "className": "BlueprintGraph.K2Node_CustomEvent",
+  "props": {
+   "CustomFunctionName": "\"OnOverlapActor\""
+  },
+  "pins": [
+   {
+    "name": "OutputDelegate",
+    "dir": "Output",
+    "cat": "delegate",
+    "memberRef": "MemberName=\"OnOverlapActor\""
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "OverlappedActor",
+    "dir": "Output",
+    "cat": "object",
+    "object": "Actor"
+   },
+   {
+    "name": "OtherActor",
+    "dir": "Output",
+    "cat": "object",
+    "object": "Actor"
+   }
+  ],
+  "verified": false,
+  "desc": "Custom Event с сигнатурой ActorBeginOverlap (OverlappedActor, OtherActor) — для Bind Event.",
+  "note": "round25-pre: как «Create matching event» у Bind Event",
+  "userPins": [
+   {
+    "name": "OverlappedActor",
+    "cat": "object",
+    "object": "Actor"
+   },
+   {
+    "name": "OtherActor",
+    "cat": "object",
+    "object": "Actor"
+   }
+  ]
+ },
+ {
+  "id": "CallCustomEvent",
+  "title": "Вызов Custom Event (OnDamaged)",
+  "category": "Events / Delegates",
+  "className": "BlueprintGraph.K2Node_CallFunction",
+  "func": "OnDamaged",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "sub": "self"
+   },
+   {
+    "name": "Amount",
+    "dir": "Input",
+    "cat": "real",
+    "dv": "10.0"
+   }
+  ],
+  "verified": false,
+  "desc": "Вызов собственного Custom Event как функции (bSelfContext).",
+  "note": "round25-pre: CallFunction без MemberParent, bSelfContext=True; MemberGuid = NodeGuid события; до компиляции может показать «не найдена функция»"
+ },
+ {
+  "id": "BindEventActorBeginOverlap",
+  "title": "Bind Event to On Actor Begin Overlap",
+  "category": "Events / Delegates",
+  "className": "BlueprintGraph.K2Node_AddDelegate",
+  "props": {
+   "DelegateReference": "(MemberParent=\"/Script/CoreUObject.Class'/Script/Engine.Actor'\",MemberName=\"OnActorBeginOverlap\")"
+  },
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "Actor"
+   },
+   {
+    "name": "Delegate",
+    "dir": "Input",
+    "cat": "delegate",
+    "memberRef": "MemberParent=\"/Script/CoreUObject.Package'/Script/Engine'\",MemberName=\"ActorBeginOverlapSignature__DelegateSignature\""
+   }
+  ],
+  "verified": false,
+  "desc": "Подписать событие на мультикаст-делегат OnActorBeginOverlap (Target Actor).",
+  "note": "round25-pre: K2Node_AddDelegate, DelegateReference=(Actor, OnActorBeginOverlap); сигнатура /Script/Engine.ActorBeginOverlapSignature__DelegateSignature"
+ },
+ {
+  "id": "UnbindEventActorBeginOverlap",
+  "title": "Unbind Event from On Actor Begin Overlap",
+  "category": "Events / Delegates",
+  "className": "BlueprintGraph.K2Node_RemoveDelegate",
+  "props": {
+   "DelegateReference": "(MemberParent=\"/Script/CoreUObject.Class'/Script/Engine.Actor'\",MemberName=\"OnActorBeginOverlap\")"
+  },
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "Actor"
+   },
+   {
+    "name": "Delegate",
+    "dir": "Input",
+    "cat": "delegate",
+    "memberRef": "MemberParent=\"/Script/CoreUObject.Package'/Script/Engine'\",MemberName=\"ActorBeginOverlapSignature__DelegateSignature\""
+   }
+  ],
+  "verified": false,
+  "desc": "Отписать событие от OnActorBeginOverlap.",
+  "note": "round25-pre: K2Node_RemoveDelegate"
+ },
+ {
+  "id": "UnbindAllActorBeginOverlap",
+  "title": "Unbind all Events from On Actor Begin Overlap",
+  "category": "Events / Delegates",
+  "className": "BlueprintGraph.K2Node_ClearDelegate",
+  "props": {
+   "DelegateReference": "(MemberParent=\"/Script/CoreUObject.Class'/Script/Engine.Actor'\",MemberName=\"OnActorBeginOverlap\")"
+  },
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "Actor"
+   }
+  ],
+  "verified": false,
+  "desc": "Снять все подписки с OnActorBeginOverlap.",
+  "note": "round25-pre: K2Node_ClearDelegate (без пина Delegate)"
+ },
+ {
+  "id": "CreateEvent",
+  "title": "Create Event",
+  "category": "Events / Delegates",
+  "className": "BlueprintGraph.K2Node_CreateDelegate",
+  "props": {
+   "SelectedFunctionName": "\"OnOverlapActor\""
+  },
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object"
+   },
+   {
+    "name": "OutputDelegate",
+    "dir": "Output",
+    "cat": "delegate"
+   }
+  ],
+  "verified": false,
+  "desc": "Делегат из функции/события по имени (Create Event) — для Bind/Unbind/таймеров.",
+  "note": "round25-pre: K2Node_CreateDelegate, SelectedFunctionName; сигнатуру OutputDelegate движок берёт из подключённого пина"
  }
 ]

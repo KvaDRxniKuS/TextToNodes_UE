@@ -703,6 +703,18 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(generateUEText([createFromEntry(byId('DetachFromActor'))]).includes("Engine.EDetachmentRule"), 'R23b: EDetachmentRule');
   const v = validateStrict(fs.readFileSync(new URL('../sweep/23b-actor-ext.txt', import.meta.url), 'utf8'));
   ok(v.errors.length === 0, 'R23b: sweep 0 ошибок');
+// R21c + R23b VERIFIED, R25 pre: Events / Delegates
+{
+  ok(['EnhancedInputActionEvent','GetInputActionValue'].every(id => byId(id).verified), 'R21c: 2 записи verified');
+  ok(reg.filter(e => e.category === 'Actor').every(e => e.verified), 'R23b: все 32 записи Actor verified');
+  const ev = reg.filter(e => e.category === 'Events / Delegates');
+  ok(ev.length === 8 && !ev.some(e => e.className.endsWith('K2Node_Event')), 'R25: 8 записей, без K2Node_Event');
+  const t = generateUEText([createFromEntry(byId('CustomEventParam')), createFromEntry(byId('BindEventActorBeginOverlap'))]);
+  ok(t.includes('CustomFunctionName="OnDamaged"') && t.includes('UserDefinedPin (PinName="Amount",PinType=(PinCategory="real",PinSubCategory="double"),DesiredPinDirection=EGPD_Output)'), 'R25: Custom Event с UserDefinedPin');
+  ok(t.includes('MemberName="ActorBeginOverlapSignature__DelegateSignature"') && t.includes('MemberName="OnActorBeginOverlap")'), 'R25: Bind Event — DelegateReference + сигнатура делегата');
+  const v = validateStrict(fs.readFileSync(new URL('../sweep/25-events-delegates.txt', import.meta.url), 'utf8'));
+  ok(v.errors.length === 0, 'R25: sweep 0 ошибок');
+}
 }
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);

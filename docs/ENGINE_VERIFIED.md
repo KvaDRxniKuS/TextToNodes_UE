@@ -676,3 +676,17 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
   - Combine Rotators = KML ComposeRotators — уже verified в R12.
 - sweep/23b-actor-ext.txt (tools/gen-subset.mjs), 19 узлов: GetActorRight/UpVector, GetActorScale3D, K2_AddActorWorld/LocalRotation, K2_AddActorLocalOffset, SetActorScale3D, K2_SetActorTransform, K2_SetActorLocationAndRotation, Actor.K2_AttachToComponent, K2_DetachFromActor (EDetachmentRule), SceneComponent: K2_AttachToComponent, K2_DetachFromComponent, K2_GetComponentLocation/Rotation, K2_SetWorldLocation, K2_SetRelativeLocation/Rotation, K2_AddLocalRotation. Без референса.
 
+## Round21c, Round22b, Round23b — VERIFIED (2026-09-25)
+
+- R21c: событие Enhanced Input Action (IA_Jump) и Get IA_Move — работают, пути шаблона /Game/Input/Actions подошли.
+- R22b: каст к любому классу (объектные, pure, классовые) — работает (sweep/22b-cast-any.txt).
+- R23b: все 19 досылок Actor/SceneComponent — работают (EDetachmentRule, Attach To Component и т.д.).
+
+## Round25-pre: Events / Delegates
+
+- sweep/25-events-delegates.txt (tools/gen-r25.mjs), 8 узлов, связанная сцена. K2Node_Event по-прежнему запрещён (E08).
+- K2Node_CustomEvent: CustomFunctionName; параметры — строки `CustomProperties UserDefinedPin (...)` после пинов; OutputDelegate без MemberParent.
+- K2Node_AddDelegate / RemoveDelegate / ClearDelegate: DelegateReference=(Actor, OnActorBeginOverlap), пин Delegate с сигнатурой /Script/Engine.ActorBeginOverlapSignature__DelegateSignature.
+- K2Node_CreateDelegate: SelectedFunctionName.
+- Вызов Custom Event: CallFunction с bSelfContext, MemberGuid = NodeGuid события.
+- Генератор: пин `memberRef` → PinSubCategoryMemberReference, `userPins` → UserDefinedPin, `n.memberGuid`.

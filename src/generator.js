@@ -12,6 +12,7 @@ export function mkPin(name, direction, category, opts = {}) {
     subCategory: opts.sub || '', subCategoryObject: opts.subObj || '', isConst: !!opts.const,
     isRef: !!opts.ref, container: opts.container || 'None', ignored: !!opts.ignored, advanced: !!opts.advanced,
     defaultValue: opts.dv || '', hidden: !!opts.hidden, linkedTo: [],
+    memberRef: opts.memberRef || '',
   };
 }
 
@@ -230,8 +231,15 @@ export function createGeneric(regEntry, pos = { x: 0, y: 0 }) {
     if (p.advanced) o.advanced = true;
     if (p.dv) o.dv = p.dv;
     if (p.hidden) o.hidden = true;
+    if (p.memberRef) o.memberRef = p.memberRef;
     n.pins.push(mkPin(p.name, p.dir, p.cat, o));
   }
+  // round25-pre: CustomEvent — параметры события = UserDefinedPin (строки после пинов, как в копиях UE).
+  if (regEntry.userPins) n.tailProps = regEntry.userPins.map(u => {
+    const obj = u.object ? `,PinSubCategoryObject=${classRef(u.object)}` : '';
+    const sub = u.cat === 'real' ? (u.sub || 'double') : (u.sub || '');
+    return `CustomProperties UserDefinedPin (PinName="${u.name}",PinType=(PinCategory="${u.cat}"${sub ? `,PinSubCategory="${sub}"` : ''}${obj}),DesiredPinDirection=EGPD_Output)`;
+  });
   // round8-fix3: K2Node_Select — IndexPinType из пина Index (live-рефы round8-fix3; wildcard = пустой Select без IndexPinType).
   if (short === 'K2Node_Select') {
     const ix = n.pins.find(p => p.name === 'Index');

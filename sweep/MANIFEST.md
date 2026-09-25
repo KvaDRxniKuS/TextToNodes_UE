@@ -1,6 +1,6 @@
 # Sweep manifest — полный прогон реестра по категориям
 
-Дата: 2026-09-25; записей: 336; построено узлов: 336; упало: 0.
+Дата: 2026-09-25; записей: 344; построено узлов: 344; упало: 0.
 Генератор: tools/gen-sweep.mjs (сетка по 5 в ряд, внутри ряда layoutRow, накрыто fitComment).
 
 Протокол: вставляйте файлы по одному в чистый граф → копируйте обратно → сообщайте номер файла и что сломалось.
@@ -34,10 +34,11 @@
 | 18 | 18-input.txt | 2/2 | 2 | 2 | — | 1xW09 |
 | 19 | 19-organization.txt | 6/6 | 6 | 4 | — | — |
 | 20 | 20-text.txt | 1/1 | 1 | 1 | — | — |
-| 21 | 21-enhanced-input.txt | 6/6 | 3 | 6 | — | 2xW09 |
+| 21 | 21-enhanced-input.txt | 6/6 | 5 | 6 | — | 2xW09 |
 | 22 | 22-casting.txt | 11/11 | 11 | 11 | — | 8xW09 |
-| 23 | 23-actor.txt | 32/32 | 13 | 32 | — | 32xW09 |
+| 23 | 23-actor.txt | 32/32 | 32 | 32 | — | 32xW09 |
 | 24 | 24-pawn-character.txt | 18/18 | 0 | 18 | — | 18xW09 |
+| 25 | 25-events-delegates.txt | 8/8 | 0 | 8 | — | 1xW09 |
 
 ## NEEDS-REFERENCE (не построилось — нужен copy-back из движка)
 
@@ -151,25 +152,25 @@
 - 23-actor.txt :: W09: K2Node_CallFunction_418: ActorHasTag: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). ActorHasTag(FName) const | R23 VERIFIED (движок, 2026-09-25)
 - 23-actor.txt :: W09: K2Node_CallFunction_419: GetComponentByClass: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). GetComponentByClass(TSubclassOf<UActorComponent>) const; DeterminesOutputType — RV перетипизируется по классу | R23 VERIFIED (движок, 2026-09-25)
 - 23-actor.txt :: W09: K2Node_CallFunction_420: K2_AttachToActor: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_AttachToActor; enum EAttachmentRule (KeepRelative/KeepWorld/SnapToTarget) | R23 VERIFIED (движок, 2026-09-25)
-- 23-actor.txt :: W09: K2Node_CallFunction_421: GetActorRightVector: round23b-pre: член Actor (как R23).
-- 23-actor.txt :: W09: K2Node_CallFunction_422: GetActorUpVector: round23b-pre: член Actor (как R23).
-- 23-actor.txt :: W09: K2Node_CallFunction_423: GetActorScale3D: round23b-pre: член Actor (как R23).
-- 23-actor.txt :: W09: K2Node_CallFunction_424: K2_AddActorWorldRotation: round23b-pre: член Actor (как R23).
-- 23-actor.txt :: W09: K2Node_CallFunction_425: K2_AddActorLocalRotation: round23b-pre: член Actor (как R23).
-- 23-actor.txt :: W09: K2Node_CallFunction_426: K2_AddActorLocalOffset: round23b-pre: член Actor (как R23).
-- 23-actor.txt :: W09: K2Node_CallFunction_427: SetActorScale3D: round23b-pre: член Actor (как R23).
-- 23-actor.txt :: W09: K2Node_CallFunction_428: K2_SetActorTransform: round23b-pre: член Actor (как R23). NewTransform const FTransform&
-- 23-actor.txt :: W09: K2Node_CallFunction_429: K2_SetActorLocationAndRotation: round23b-pre: член Actor (как R23).
-- 23-actor.txt :: W09: K2Node_CallFunction_430: K2_AttachToComponent: round23b-pre: член SceneComponent (как R23).
-- 23-actor.txt :: W09: K2Node_CallFunction_431: K2_DetachFromActor: round23b-pre: член Actor (как R23). EDetachmentRule (KeepRelative/KeepWorld)
-- 23-actor.txt :: W09: K2Node_CallFunction_432: K2_AttachToComponent: round23b-pre: член SceneComponent (как R23).
-- 23-actor.txt :: W09: K2Node_CallFunction_433: K2_DetachFromComponent: round23b-pre: член SceneComponent (как R23).
-- 23-actor.txt :: W09: K2Node_CallFunction_434: K2_GetComponentLocation: round23b-pre: член SceneComponent (как R23).
-- 23-actor.txt :: W09: K2Node_CallFunction_435: K2_GetComponentRotation: round23b-pre: член SceneComponent (как R23).
-- 23-actor.txt :: W09: K2Node_CallFunction_436: K2_SetWorldLocation: round23b-pre: член SceneComponent (как R23).
-- 23-actor.txt :: W09: K2Node_CallFunction_437: K2_SetRelativeLocation: round23b-pre: член SceneComponent (как R23).
-- 23-actor.txt :: W09: K2Node_CallFunction_438: K2_SetRelativeRotation: round23b-pre: член SceneComponent (как R23).
-- 23-actor.txt :: W09: K2Node_CallFunction_439: K2_AddLocalRotation: round23b-pre: член SceneComponent (как R23).
+- 23-actor.txt :: W09: K2Node_CallFunction_421: GetActorRightVector: round23b-pre: член Actor (как R23). | R23b VERIFIED (движок, 2026-09-25)
+- 23-actor.txt :: W09: K2Node_CallFunction_422: GetActorUpVector: round23b-pre: член Actor (как R23). | R23b VERIFIED (движок, 2026-09-25)
+- 23-actor.txt :: W09: K2Node_CallFunction_423: GetActorScale3D: round23b-pre: член Actor (как R23). | R23b VERIFIED (движок, 2026-09-25)
+- 23-actor.txt :: W09: K2Node_CallFunction_424: K2_AddActorWorldRotation: round23b-pre: член Actor (как R23). | R23b VERIFIED (движок, 2026-09-25)
+- 23-actor.txt :: W09: K2Node_CallFunction_425: K2_AddActorLocalRotation: round23b-pre: член Actor (как R23). | R23b VERIFIED (движок, 2026-09-25)
+- 23-actor.txt :: W09: K2Node_CallFunction_426: K2_AddActorLocalOffset: round23b-pre: член Actor (как R23). | R23b VERIFIED (движок, 2026-09-25)
+- 23-actor.txt :: W09: K2Node_CallFunction_427: SetActorScale3D: round23b-pre: член Actor (как R23). | R23b VERIFIED (движок, 2026-09-25)
+- 23-actor.txt :: W09: K2Node_CallFunction_428: K2_SetActorTransform: round23b-pre: член Actor (как R23). NewTransform const FTransform& | R23b VERIFIED (движок, 2026-09-25)
+- 23-actor.txt :: W09: K2Node_CallFunction_429: K2_SetActorLocationAndRotation: round23b-pre: член Actor (как R23). | R23b VERIFIED (движок, 2026-09-25)
+- 23-actor.txt :: W09: K2Node_CallFunction_430: K2_AttachToComponent: round23b-pre: член SceneComponent (как R23). | R23b VERIFIED (движок, 2026-09-25)
+- 23-actor.txt :: W09: K2Node_CallFunction_431: K2_DetachFromActor: round23b-pre: член Actor (как R23). EDetachmentRule (KeepRelative/KeepWorld) | R23b VERIFIED (движок, 2026-09-25)
+- 23-actor.txt :: W09: K2Node_CallFunction_432: K2_AttachToComponent: round23b-pre: член SceneComponent (как R23). | R23b VERIFIED (движок, 2026-09-25)
+- 23-actor.txt :: W09: K2Node_CallFunction_433: K2_DetachFromComponent: round23b-pre: член SceneComponent (как R23). | R23b VERIFIED (движок, 2026-09-25)
+- 23-actor.txt :: W09: K2Node_CallFunction_434: K2_GetComponentLocation: round23b-pre: член SceneComponent (как R23). | R23b VERIFIED (движок, 2026-09-25)
+- 23-actor.txt :: W09: K2Node_CallFunction_435: K2_GetComponentRotation: round23b-pre: член SceneComponent (как R23). | R23b VERIFIED (движок, 2026-09-25)
+- 23-actor.txt :: W09: K2Node_CallFunction_436: K2_SetWorldLocation: round23b-pre: член SceneComponent (как R23). | R23b VERIFIED (движок, 2026-09-25)
+- 23-actor.txt :: W09: K2Node_CallFunction_437: K2_SetRelativeLocation: round23b-pre: член SceneComponent (как R23). | R23b VERIFIED (движок, 2026-09-25)
+- 23-actor.txt :: W09: K2Node_CallFunction_438: K2_SetRelativeRotation: round23b-pre: член SceneComponent (как R23). | R23b VERIFIED (движок, 2026-09-25)
+- 23-actor.txt :: W09: K2Node_CallFunction_439: K2_AddLocalRotation: round23b-pre: член SceneComponent (как R23). | R23b VERIFIED (движок, 2026-09-25)
 - 24-pawn-character.txt :: W09: K2Node_CallFunction_441: Jump: round24-pre: член Character, self=Target (по образцу AActor-членов R23). 
 - 24-pawn-character.txt :: W09: K2Node_CallFunction_442: StopJumping: round24-pre: член Character, self=Target (по образцу AActor-членов R23). 
 - 24-pawn-character.txt :: W09: K2Node_CallFunction_443: CanJump: round24-pre: член Character, self=Target (по образцу AActor-членов R23). CanJump() const BlueprintCallable → pure
@@ -188,3 +189,4 @@
 - 24-pawn-character.txt :: W09: K2Node_CallFunction_456: K2_GetPawn: round24-pre: член Controller, self=Target (по образцу AActor-членов R23). K2_GetPawn const → pure, DisplayName Get Controlled Pawn
 - 24-pawn-character.txt :: W09: K2Node_CallFunction_457: SetControlRotation: round24-pre: член Controller, self=Target (по образцу AActor-членов R23). NewRotation const FRotator& → const+ref
 - 24-pawn-character.txt :: W09: K2Node_CallFunction_458: GetVelocity: round24-pre: член Actor, self=Target (по образцу AActor-членов R23). член AActor
+- 25-events-delegates.txt :: W09: K2Node_CallFunction_463: OnDamaged: round25-pre: CallFunction без MemberParent, bSelfContext=True; MemberGuid = NodeGuid события; до компиляции может показать «не найдена функция»

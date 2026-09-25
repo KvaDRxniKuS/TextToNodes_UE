@@ -158,7 +158,7 @@ function generateBlock(n){
     // NB: PersistentGuid намеренно НЕ пишем — нулевой/битый GUID движок может
     // перегенерировать вместе с пином и порвать связь; без поля вставка чистая.
     // v6: ссылки quoted-full (UE 5.8, copy-back H1/J5/LineTraceSingle: "..." + полная форма без внутр. кавычек).
-    return `   CustomProperties Pin (PinId=${p.id},${nm}${dir}PinType.PinCategory="${p.category}",PinType.PinSubCategory="${p.category==='struct'?'':(p.subCategory||'')}",PinType.PinSubCategoryObject=${p.subCategoryObject||'None'},PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=${p.container||'None'},PinType.bIsReference=${p.isRef?'True':'False'},PinType.bIsConst=${p.isConst?'True':'False'},PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,${linked}bHidden=${p.hidden?'True':'False'},bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=${p.ignored?'True':'False'},bAdvancedView=${p.advanced?'True':'False'},bOrphanedPin=False,${dv})`;
+    return `   CustomProperties Pin (PinId=${p.id},${nm}${dir}PinType.PinCategory="${p.category}",PinType.PinSubCategory="${p.category==='struct'?'':(p.subCategory||'')}",PinType.PinSubCategoryObject=${p.subCategoryObject||'None'},PinType.PinSubCategoryMemberReference=(${p.memberRef||''}),PinType.PinValueType=(),PinType.ContainerType=${p.container||'None'},PinType.bIsReference=${p.isRef?'True':'False'},PinType.bIsConst=${p.isConst?'True':'False'},PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,${linked}bHidden=${p.hidden?'True':'False'},bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=${p.ignored?'True':'False'},bAdvancedView=${p.advanced?'True':'False'},bOrphanedPin=False,${dv})`;
   });
   // v7: self-пин статического вызова библиотеки (copy-back O1/O2: движок
   // достраивает его сам — пишем сразу для copy-back 1-в-1). FriendlyName не
@@ -188,7 +188,7 @@ function generateBlock(n){
   if(n.funcName && !n.operationName){
     if(n.pure) extra+=`   bDefaultsToPureFunc=True\n`;
     if(n.memberParent) extra+=`   FunctionReference=(MemberParent=${n.memberParent},MemberName="${n.funcName}")\n`;
-    else extra+=`   FunctionReference=(MemberName="${n.funcName}",MemberGuid=${guid32()},bSelfContext=True)\n`;
+    else extra+=`   FunctionReference=(MemberName="${n.funcName}",MemberGuid=${n.memberGuid||guid32()},bSelfContext=True)\n`;
   }
   if(n.operationName){
     const member=n.opMemberName||`${n.operationName}_DoubleDouble`;
@@ -201,7 +201,7 @@ function generateBlock(n){
   if(n.macroGraph) extra+=`   ${macroGraphRef(n.macroGraph, n.macroGuid||null)}\n`;
   if(n.isComment) return `Begin Object Class=${n.rawClass} Name="${n.id}" ExportPath="/Script/UnrealEd.EdGraphNode_Comment'"/Game/Generated.Generated:EventGraph.${n.id}"'"\n   NodePosX=${Math.round(n.pos.x)}\n   NodePosY=${Math.round(n.pos.y)}\n   NodeWidth=${n.width}\n   NodeHeight=${n.height}\n   NodeComment="${n.commentText}"\n   NodeGuid=${guid}\nEnd Object`;
   const cls=n.rawClass||`/Script/BlueprintGraph.${n.className.split('.').pop()}`;
-  return `Begin Object Class=${cls} Name="${n.id}" ExportPath="${cls}'"/Game/Generated.Generated:EventGraph.${n.id}"'"\n${extra}   NodePosX=${Math.round(n.pos.x)}\n   NodePosY=${Math.round(n.pos.y)}\n   NodeGuid=${guid}\n${pinsText?pinsText+'\n':''}End Object`;
+  return `Begin Object Class=${cls} Name="${n.id}" ExportPath="${cls}'"/Game/Generated.Generated:EventGraph.${n.id}"'"\n${extra}   NodePosX=${Math.round(n.pos.x)}\n   NodePosY=${Math.round(n.pos.y)}\n   NodeGuid=${guid}\n${pinsText?pinsText+'\n':''}${(n.tailProps||[]).map(l=>`   ${l}\n`).join('')}End Object`;
 }
 
 export function validateUEText(text){
