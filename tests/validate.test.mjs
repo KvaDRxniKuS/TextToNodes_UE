@@ -479,6 +479,10 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(andT.includes('K2Node_CommutativeAssociativeBinaryOperator') && andT.includes('MemberName="BooleanAND"') && andT.includes('bDefaultsToPureFunc=True') && andT.includes('PinName="self"') && andT.includes('Name="K2Node_CommutativeAssociativeBinaryOperator_'), 'round8: AND — CommutativeAssociative + pure + self + имя=класс');
   const notT = generateUEText([createFromEntry(byId('Not_Bool'))]);
   ok(notT.includes('K2Node_CallFunction') && notT.includes('MemberName="Not_PreBool"') && !notT.includes('PromotableOperator'), 'round8: NOT — CallFunction Not_PreBool');
+  // round8-fix2: SelectBoolean не существует — Select = K2Node_Select wildcard (live-реф пустого Select).
+  const selT = generateUEText([createFromEntry(byId('SelectBool'))]);
+  ok(selT.includes('K2Node_Select') && selT.includes('PinName="Option 0"') && selT.includes('PinCategory="wildcard"') && !selT.includes('FunctionReference') && !selT.includes('PinName="self"'), 'round8-fix2: Select — K2Node_Select wildcard без FunctionReference/self');
+  ok(selT.includes('PinName="Index"') && selT.includes('PinSubCategory="index"'), 'round8-fix2: Select — Index wildcard/index');
 }
 // Sweep coverage: каждая запись реестра строится (кроме референс-листа)
 {

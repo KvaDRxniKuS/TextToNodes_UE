@@ -538,3 +538,10 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
   NOT = K2Node_CallFunction Not_PreBool; XOR = CallFunction BooleanXOR; NOR = CallFunction BooleanNOR.
 - Корень: createCallFunction называл все узлы префиксом K2Node_CallFunction — теперь имя = класс узла (как в живых копиях).
 - 8-fix: все 7 boolean, STRICT 0/0, тесты 195/0 + 42/0. Ретест 08 + тестер 09 отправлены.
+
+## Раунд 08-fix: 6/6 белых, Select не появился; раунд 09: 6/6 CLOSED
+- 8-fix: AND/OR/NAND (CommutativeAssociative+pure), NOT (Not_PreBool), XOR, NOR — белые.
+- SelectBool как CallFunction SelectBoolean движок отверг полностью (узел не появился):
+  SelectBoolean не существует. Настоящий Select = K2Node_Select wildcard
+  (Option 0/1, Index wildcard/index, RV wildcard) по live-рефу пустого Select.
+- 09 Random: 6/6 белых, CLOSED. Отправлены 8-fix-select + тестеры 10 (Vector, 27) и 11 (Collision, 12).

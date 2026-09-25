@@ -2311,8 +2311,8 @@
     "cat": "bool"
    }
   ],
-  "verified": false,
-  "note": "round8: настоящий класс K2Node_CommutativeAssociativeBinaryOperator (live-реф); PromotableOperator-форма роняла движок",
+  "verified": true,
+  "note": "round8-fix: белая (K2Node_CommutativeAssociativeBinaryOperator + pure)",
   "desc": "И",
   "pure": true
  },
@@ -2340,8 +2340,8 @@
     "cat": "bool"
    }
   ],
-  "verified": false,
-  "note": "round8: настоящий класс K2Node_CommutativeAssociativeBinaryOperator (live-реф); PromotableOperator-форма роняла движок",
+  "verified": true,
+  "note": "round8-fix: белая (K2Node_CommutativeAssociativeBinaryOperator + pure)",
   "desc": "Или",
   "pure": true
  },
@@ -2364,8 +2364,8 @@
     "cat": "bool"
    }
   ],
-  "verified": false,
-  "note": "round8: CallFunction Not_PreBool (live-реф); BooleanNOT+PromotableOperator не существует",
+  "verified": true,
+  "note": "round8-fix: белая (K2Node_CallFunction Not_PreBool)",
   "desc": "Не"
  },
  {
@@ -2392,8 +2392,8 @@
     "cat": "bool"
    }
   ],
-  "verified": false,
-  "note": "round8: настоящий класс K2Node_CallFunction (live-реф), был PromotableOperator",
+  "verified": true,
+  "note": "round8-fix: белая (K2Node_CallFunction BooleanXOR)",
   "desc": "XOR"
  },
  {
@@ -2420,10 +2420,10 @@
     "cat": "bool"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "NAND",
   "pure": true,
-  "note": "round8: настоящий класс K2Node_CommutativeAssociativeBinaryOperator (live-реф), был CallFunction"
+  "note": "round8-fix: белая (K2Node_CommutativeAssociativeBinaryOperator + pure)"
  },
  {
   "id": "Nor_Bool",
@@ -2449,42 +2449,42 @@
     "cat": "bool"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "NOR",
-  "note": "round8: форма совпала с live-рефом (CallFunction BooleanNOR), но раунд сорван вылетом — ретест"
+  "note": "round8-fix: белая (K2Node_CallFunction BooleanNOR)"
  },
  {
   "id": "SelectBool",
   "title": "Select Bool",
   "category": "Math / Boolean",
-  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-  "func": "SelectBoolean",
-  "lib": "KismetMathLibrary",
+  "className": "/Script/BlueprintGraph.K2Node_Select",
+  "func": "",
   "pins": [
    {
-    "name": "A",
+    "name": "Option 0",
     "dir": "Input",
-    "cat": "bool"
+    "cat": "wildcard"
    },
    {
-    "name": "B",
+    "name": "Option 1",
     "dir": "Input",
-    "cat": "bool"
+    "cat": "wildcard"
    },
    {
-    "name": "Pick A",
+    "name": "Index",
     "dir": "Input",
-    "cat": "bool"
+    "cat": "wildcard",
+    "sub": "index"
    },
    {
     "name": "ReturnValue",
     "dir": "Output",
-    "cat": "bool"
+    "cat": "wildcard"
    }
   ],
   "verified": false,
   "desc": "Выбор Bool",
-  "note": "round8: без вердикта (раунд сорван вылетом); пин Pick A не подтверждён — ретест"
+  "note": "round8-fix2: SelectBoolean не существует (CallFunction-узел не появился вовсе); настоящий Select = K2Node_Select wildcard по live-рефу; bool-резолв проверяется проводами"
  },
  {
   "id": "Add_Int",
@@ -2737,8 +2737,9 @@
     "cat": "int"
    }
   ],
-  "verified": false,
-  "desc": "Rand int"
+  "verified": true,
+  "desc": "Rand int",
+  "notes": "round9: белая по факту пользователя"
  },
  {
   "id": "RandomIntegerInRange",
@@ -2764,8 +2765,9 @@
     "cat": "int"
    }
   ],
-  "verified": false,
-  "desc": "Rand int range"
+  "verified": true,
+  "desc": "Rand int range",
+  "notes": "round9: белая по факту пользователя"
  },
  {
   "id": "RandomFloat",
@@ -2781,8 +2783,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
-  "desc": "Rand float"
+  "verified": true,
+  "desc": "Rand float",
+  "notes": "round9: белая по факту пользователя"
  },
  {
   "id": "RandomFloatInRange",
@@ -2808,8 +2811,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
-  "desc": "Rand float range"
+  "verified": true,
+  "desc": "Rand float range",
+  "notes": "round9: белая по факту пользователя"
  },
  {
   "id": "RandomBool",
@@ -2825,8 +2829,9 @@
     "cat": "bool"
    }
   ],
-  "verified": false,
-  "desc": "Rand bool"
+  "verified": true,
+  "desc": "Rand bool",
+  "notes": "round9: белая по факту пользователя"
  },
  {
   "id": "RandomBoolWithWeight",
@@ -2847,8 +2852,9 @@
     "cat": "bool"
    }
   ],
-  "verified": false,
-  "desc": "Rand weighted"
+  "verified": true,
+  "desc": "Rand weighted",
+  "notes": "round9: белая по факту пользователя"
  },
  {
   "id": "Add_VectorVector",
