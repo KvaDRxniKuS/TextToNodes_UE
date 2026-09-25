@@ -122,9 +122,9 @@ Copy-back комментария из UE показал `ExportPath="..."` **в 
 1. ~~**LineTraceByChannel пропадает.**~~ **РЕШЕНО в v6:** имя функции не существовало;
    настоящий узел — `LineTraceSingle` (copy-back UE 5.8 в реестре, verified:true).
    Ретест: K1 (полный) / K2 (минимальный).
-2. ~~**Multi-трейсы** (`LineTraceMulti`, `SphereTraceMulti`, `BoxTraceMulti`, `CapsuleTraceMulti`): OutHits — массив-аутпут, форма не наблюдалась.~~ **РЕШЕНО (copy-back CapsuleTraceMulti):** OutHits = struct HitResult + ContainerType=Array, без ref/const; Radius/HalfHeight float+0.0 после End. Остаток: **ByProfile** (`LineTraceSingleByProfile`) — сигнатура не наблюдалась.
+2. ~~**Multi-трейсы** (`LineTraceMulti`, `SphereTraceMulti`, `BoxTraceMulti`, `CapsuleTraceMulti`): OutHits — массив-аутпут, форма не наблюдалась.~~ **РЕШЕНО (copy-back CapsuleTraceMulti):** OutHits = struct HitResult + ContainerType=Array, без ref/const; Radius/HalfHeight float+0.0 после End. Добито: **ByProfile** = LineTraceSingle с ProfileName(name, «None») вместо TraceChannel (copy-back _118) — Q2 закрыт полностью.
 3. **Siblings-ренеймы** (`Sphere/Box/CapsuleTraceSingle`, `LineTraceSingleForObjects`):
-   имена выведены по Single-паттерну, вставка не подтверждена (Multi-суффикс подтверждён Q2).
+   имена выведены по Single-паттерну (Multi-суффикс подтверждён Q2; на тесте: O1/O2).
 4. ~~**Pure-функции** (bIsPureFunc)~~ **ЧАСТИЧНО РЕШЕНО (Q6):** pure CallFunction = `bDefaultsToPureFunc=True`, без exec-пинов (BreakHitResult, verified:true). Осталось: **VarGet/VarSet self-пин** — не проверен.
 5. **SHORT-форма ссылок** (legacy) — вставкой не проверена ни на одном движке.
 6. ~~**Выходы BreakHitResult** — движок их сам НЕ достраивает.~~ **РЕШЕНО:** настоящий «Break Hit Result» = pure `GameplayStatics.BreakHitResult` (self + Hit + 18 выходов, copy-back BP_WheelActor); K2Node_BreakStruct выходы НЕ строит никогда (подтверждено живым графом).
@@ -282,3 +282,19 @@ Hidden — дефолт AdvancedPinDisplay=Hidden доказан, Shown = рас
 пересечений не разруливаем — это уровень «аккуратно», не «идеально».
 Эффект на сериях: L1 плоский ряд; L2/M1/N1/L3 — data-провода горизонтальные
 (N1: макро +198, pure +264). fitComment переиспользует тот же шаг PIN_ROW_H.
+
+
+## Q2-done: LineTraceMulti 1:1 + ByProfile (2026-09-25)
+
+Двойной copy-back (_117 + _118): наша Q2-аналогия LineTraceMulti сошлась с движком
+ПОЛНОСТЬЮ 1-в-1 (15 пинов: имена, порядок, категории, сабы, дефолты, контейнеры,
+флаги — программная сверка MATCH) → verified:true. Методология «аналогия по семейству»
+доказана предсказанием.
+LineTraceSingleByProfile = LineTraceSingle с заменой TraceChannel → ProfileName
+(name-пин, dv "None", та же позиция; первый name-ВХОД). OutHit одиночный.
+Реестр: 239 (+LineTraceSingleByProfile verified). O-серия (tools/gen-o-series.mjs):
+O1 = Sphere/BoxTraceMulti полные предсказания; O2 = Single-заготовки + ForObjects
+(completion-тест: движок достроит сигнатуры и форму ObjectTypes).
+Тултипы снова варьируют между функциями (TraceChannel/OutHits тексты отличаются от
+Single/Capsule) — engine-managed, игнорируем. Фикстура:
+tests/fixtures/linetracemulti-byprofile-copyback.txt (0/0, без связей).

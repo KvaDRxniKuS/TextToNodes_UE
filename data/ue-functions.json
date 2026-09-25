@@ -6903,9 +6903,125 @@
     "dv": "false"
    }
   ],
-  "verified": false,
-  "desc": "Линия multi",
-  "note": "Q2-аналогия с CapsuleTraceMulti (verified): нужен copy-back"
+  "verified": true,
+  "desc": "Линия multi"
+ },
+ {
+  "id": "LineTraceSingleByProfile",
+  "title": "Line Trace By Profile",
+  "category": "Collision",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "LineTraceSingleByProfile",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "WorldContextObject",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object",
+    "const": true,
+    "hidden": true
+   },
+   {
+    "name": "Start",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true,
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "End",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true,
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "ProfileName",
+    "dir": "Input",
+    "cat": "name",
+    "dv": "None"
+   },
+   {
+    "name": "bTraceComplex",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "ActorsToIgnore",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor",
+    "container": "Array",
+    "ref": true,
+    "const": true,
+    "ignored": true
+   },
+   {
+    "name": "DrawDebugType",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EDrawDebugTrace",
+    "dv": "None"
+   },
+   {
+    "name": "OutHit",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "HitResult"
+   },
+   {
+    "name": "bIgnoreSelf",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true"
+   },
+   {
+    "name": "TraceColor",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "dv": "(R=1.000000,G=0.000000,B=0.000000,A=1.000000)",
+    "advanced": true
+   },
+   {
+    "name": "TraceHitColor",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "dv": "(R=0.000000,G=1.000000,B=0.000000,A=1.000000)",
+    "advanced": true
+   },
+   {
+    "name": "DrawTime",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "5.000000",
+    "advanced": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": true,
+  "desc": "Трасса профиль (single)"
  },
  {
   "id": "SphereTraceMulti",

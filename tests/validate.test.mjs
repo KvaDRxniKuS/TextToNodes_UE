@@ -252,7 +252,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   const ct = generateUEText([createCallFunction(cm2, { x: 0, y: 0 })]);
   const cv = validateStrict(ct);
   ok(cv.valid && cv.errors.length === 0 && cv.warnings.length === 0, 'CapsuleTraceMulti: генерация STRICT-OK без варнингов');
-  ok(['LineTraceMulti', 'SphereTraceMulti', 'BoxTraceMulti'].every(id => { const e = byId(id); return e && e.verified === false && e.pins.some(p => p.name === 'OutHits' && p.container === 'Array'); }), 'Multi-аналогии: 3 записи verified:false с OutHits');
+  ok(['SphereTraceMulti', 'BoxTraceMulti'].every(id => { const e = byId(id); return e && e.verified === false && e.pins.some(p => p.name === 'OutHits' && p.container === 'Array'); }), 'Multi-аналогии: Sphere/Box остались verified:false (Line подтверждён)');
   const fx = fs.readFileSync(new URL('./fixtures/capsuletracemulti-copyback.txt', import.meta.url), 'utf8');
   const fv = validateStrict(fx);
   ok(fv.valid && fv.errors.length === 0 && fv.warnings.length === 0, 'Q2 фикстура: strict 0 ошибок, 0 варнингов');
@@ -308,6 +308,32 @@ regThrow.forEach(t => console.log('THROW:', t));
      nel.linkedTo.some(l => l.nodeName === 'K2Node_CallFunction_102'), 'N1 copy-back: 3 провода живы');
   const ncm = gn.EventGraph.nodes.find(n => n.isComment);
   ok(ncm && ncm.width === 1020 && ncm.height === 698, 'N1 copy-back: коммент 1020x698 цел');
+}
+
+// Q2-done: LineTraceMulti (аналогия сошлась 1:1) + LineTraceSingleByProfile
+{
+  const ltm = byId('LineTraceMulti');
+  ok(ltm && ltm.verified === true && !ltm.note, 'LineTraceMulti: verified, note снят');
+  ok(ltm.pins.map(p => p.name).join(',') === 'execute,then,WorldContextObject,Start,End,TraceChannel,bTraceComplex,ActorsToIgnore,DrawDebugType,OutHits,bIgnoreSelf,TraceColor,TraceHitColor,DrawTime,ReturnValue', 'LineTraceMulti: порядок пинов как у движка');
+  const lbp = byId('LineTraceSingleByProfile');
+  ok(lbp && lbp.verified === true && lbp.func === 'LineTraceSingleByProfile' && lbp.pins.length === 15, 'LineTraceSingleByProfile: verified, 15 пинов');
+  const pn = lbp.pins.find(p => p.name === 'ProfileName');
+  ok(pn && pn.cat === 'name' && pn.dv === 'None' && lbp.pins.indexOf(pn) === ltm.pins.findIndex(p => p.name === 'TraceChannel'), 'ByProfile: ProfileName вместо TraceChannel на той же позиции');
+  ok(!lbp.pins.some(p => p.name === 'TraceChannel'), 'ByProfile: TraceChannel нет');
+  const bt2 = generateUEText([createCallFunction(lbp, { x: 0, y: 0 })]);
+  const bv2 = validateStrict(bt2);
+  ok(bv2.valid && bv2.errors.length === 0 && bv2.warnings.length === 0, 'ByProfile: генерация STRICT-OK без варнингов');
+  const fx = fs.readFileSync(new URL('./fixtures/linetracemulti-byprofile-copyback.txt', import.meta.url), 'utf8');
+  const fv = validateStrict(fx);
+  ok(fv.valid && fv.errors.length === 0 && fv.warnings.length === 0, 'Q2-done фикстура: strict 0/0');
+  ok(!fx.includes('LinkedTo'), 'Q2-done фикстура: ноды без связей');
+  const gd = parseToGraphs(fx);
+  const qm = gd.EventGraph.nodes.find(n => n.funcName === 'LineTraceMulti');
+  const qb = gd.EventGraph.nodes.find(n => n.funcName === 'LineTraceSingleByProfile');
+  ok(qm && qm.pins.length === 16 && qb && qb.pins.length === 16, 'Q2-done фикстура: 16+16 пинов');
+  const qoh = qm.pins.find(p => p.name === 'OutHits');
+  const qsh = qb.pins.find(p => p.name === 'OutHit');
+  ok(qoh.container === 'Array' && !qoh.isRef && (qsh.container === 'None' || !qsh.container), 'Q2-done фикстура: OutHits массив, OutHit одиночный');
 }
 console.log(`\nVALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);
