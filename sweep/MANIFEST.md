@@ -1,6 +1,6 @@
 # Sweep manifest — полный прогон реестра по категориям
 
-Дата: 2026-09-25; записей: 273; построено узлов: 273; упало: 0.
+Дата: 2026-09-25; записей: 283; построено узлов: 283; упало: 0.
 Генератор: tools/gen-sweep.mjs (сетка по 5 в ряд, внутри ряда layoutRow, накрыто fitComment).
 
 Протокол: вставляйте файлы по одному в чистый граф → копируйте обратно → сообщайте номер файла и что сломалось.
@@ -31,10 +31,11 @@
 | 15 | 15-array.txt | 18/18 | 18 | 18 | — | 17xW09 |
 | 16 | 16-utilities.txt | 19/19 | 19 | 17 | — | 17xW09 |
 | 17 | 17-gameplay.txt | 12/12 | 12 | 12 | — | 11xW09 |
-| 18 | 18-input.txt | 2/2 | 0 | 2 | — | 1xW09 |
+| 18 | 18-input.txt | 2/2 | 2 | 2 | — | 1xW09 |
 | 19 | 19-organization.txt | 6/6 | 6 | 4 | — | — |
 | 20 | 20-text.txt | 1/1 | 1 | 1 | — | — |
 | 21 | 21-enhanced-input.txt | 4/4 | 0 | 4 | — | 2xW09 |
+| 22 | 22-casting.txt | 10/10 | 0 | 10 | — | 8xW09 |
 
 ## NEEDS-REFERENCE (не построилось — нужен copy-back из движка)
 
@@ -100,8 +101,8 @@
 - 16-utilities.txt :: W09: K2Node_CallFunction_347: RetriggerableDelay: round16-pre: как белый Delay: выход then, WCO/LatentInfo движок восстанавливает
 - 16-utilities.txt :: W09: K2Node_CallFunction_348: IsValid: round16-pre: pure-форма «? Is Valid»; параметр Object (const UObject*)
 - 16-utilities.txt :: W09: K2Node_CallFunction_349: IsValidClass: round16-pre
-- 16-utilities.txt :: W09: K2Node_CallFunction_350: GetDisplayName: round16-pre
-- 16-utilities.txt :: W09: K2Node_CallFunction_351: GetObjectName: round16-pre
+- 16-utilities.txt :: W09: K2Node_CallFunction_350: GetDisplayName: round22-pre: KSL::GetDisplayName(const UObject*)
+- 16-utilities.txt :: W09: K2Node_CallFunction_351: GetObjectName: round22-pre: KSL::GetObjectName(const UObject*)
 - 16-utilities.txt :: W09: K2Node_CallFunction_352: GetEngineVersion: round16-pre
 - 16-utilities.txt :: W09: K2Node_CallFunction_353: GetPlatformName: round16-pre: живёт в GameplayStatics
 - 16-utilities.txt :: W09: K2Node_CallFunction_354: GetGameTimeInSeconds: round16-pre: KismetSystemLibrary::GetGameTimeInSeconds → float
@@ -124,6 +125,14 @@
 - 17-gameplay.txt :: W09: K2Node_CallFunction_373: GetGameState: round17-pre
 - 17-gameplay.txt :: W09: K2Node_CallFunction_374: GetGameInstance: round17-pre
 - 17-gameplay.txt :: W09: K2Node_CallFunction_375: GetCurrentLevelName: round17-pre: статического GetWorld в Kismet нет → заменён на GameplayStatics::GetCurrentLevelName
-- 18-input.txt :: W09: K2Node_CallFunction_378: IsInputKeyDown: round18-pre: член APlayerController (UFUNCTION BlueprintCallable, const → pure). MemberParent=PlayerController, пин self (Target) типа PlayerController, Key по значению
+- 18-input.txt :: W09: K2Node_CallFunction_378: IsInputKeyDown: round18-pre: член APlayerController (UFUNCTION BlueprintCallable, const → pure). MemberParent=PlayerController, пин self (Target) типа PlayerController, Key по значению; round18: белая (copy-back tests/fixtures/input-r18-copyback.txt: InputKey=SpaceBar принят, self → «Target», Key dv None)
 - 21-enhanced-input.txt :: W09: K2Node_CallFunction_389: GetBoundActionValue: round21: FAIL — вставилась пустой (член EnhancedInputComponent::GetBoundActionValue движок не принял). Значение действия в BP берут узлом «Get IA_X» (K2Node_GetInputActionValue, нужен ассет) — ждём copy-back. round21-pre: статического GetActionValue нет — член UEnhancedInputComponent::GetBoundActionValue(const UInputAction*) const → pure; self = EnhancedInputComponent, RV FInputActionValue. Узел «Get IA_X» (K2Node_GetInputActionValue) требует ассет InputAction — не для свипа
 - 21-enhanced-input.txt :: W09: K2Node_CallFunction_392: AddMappingContext: round21b-pre: член IEnhancedInputSubsystemInterface; Options (FModifyContextOptions) опущен — движок достроит; self типизирован подсистемой — без референса
+- 22-casting.txt :: W09: K2Node_CallFunction_396: GetObjectClass: round22-pre: UGameplayStatics::GetObjectClass (в меню «Get Class»)
+- 22-casting.txt :: W09: K2Node_CallFunction_397: ClassIsChildOf: round22-pre: KML::ClassIsChildOf(TSubclassOf TestClass, TSubclassOf ParentClass)
+- 22-casting.txt :: W09: K2Node_CallFunction_398: GetDisplayName: round22-pre: KSL::GetDisplayName(const UObject*)
+- 22-casting.txt :: W09: K2Node_CallFunction_399: GetObjectName: round22-pre: KSL::GetObjectName(const UObject*)
+- 22-casting.txt :: W09: K2Node_CallFunction_400: EqualEqual_ObjectObject: round22-pre: CallFunction (не PromotableOperator), заголовок «==»
+- 22-casting.txt :: W09: K2Node_CallFunction_401: NotEqual_ObjectObject: round22-pre: заголовок «!=»
+- 22-casting.txt :: W09: K2Node_CallFunction_402: EqualEqual_ClassClass: round22-pre: KML::EqualEqual_ClassClass
+- 22-casting.txt :: W09: K2Node_CallFunction_403: Conv_ObjectToString: round22-pre: KSL(String)::Conv_ObjectToString(UObject* InObj) — компактный конвертер

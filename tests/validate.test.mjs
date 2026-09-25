@@ -644,6 +644,18 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(s.className.endsWith('K2Node_GetSubsystemFromPC') && (s.rawProps || []).some(p => p.includes('EnhancedInputLocalPlayerSubsystem')), 'R21b: GetSubsystemFromPC CustomClass');
   ok(/EnhancedInputSubsystemInterface/.test(createFromEntry(byId('AddMappingContext')).memberParent), 'R21b: AddMappingContext — член интерфейса');
 }
+// R18 вердикт: Input 2/2 (copy-back); R22 pre-fix: Casting
+{
+  const inp = reg.filter(e => e.category === 'Input');
+  ok(inp.length === 2 && inp.every(e => e.verified), 'R18: Input 2/2 verified');
+  const cb = fs.readFileSync(new URL('./fixtures/input-r18-copyback.txt', import.meta.url), 'utf8');
+  ok(cb.includes('InputKey=SpaceBar') && cb.includes('NSLOCTEXT("K2Node", "Target", "Target")'), 'R18: copy-back — InputKey принят, self → Target');
+  const cs = reg.filter(e => e.category === 'Casting');
+  ok(cs.length === 10, 'R22: Casting 10 записей');
+  ok(createFromEntry(byId('CastToCharacter')).pins.some(p => p.name === 'AsCharacter'), 'R22: CastToCharacter выход AsCharacter');
+  const v = validateStrict(generateUEText(cs.map(e => createFromEntry(e))));
+  ok(v.errors.length === 0, 'R22: Casting 0 ошибок');
+}
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);

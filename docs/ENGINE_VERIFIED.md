@@ -632,3 +632,12 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 - Пользователь: подсистема Enhanced Input берётся своим узлом через Cast To PlayerController и т.п.; базовые ноды покрыты почти все, расширенные — почти нет. Открывается фаза 2 (расширенные узлы).
 - round21b-pre (sweep/21b-enhanced-input-chain.txt, tools/gen-r21b.mjs): GetPlayerController → K2Node_DynamicCast (TargetType PlayerController, выход «AsPlayer Controller») → K2Node_GetSubsystemFromPC (CustomClass EnhancedInputLocalPlayerSubsystem) → AddMappingContext (член EnhancedInputSubsystemInterface, Options опущен). Всё без референсов.
 
+## Вердикт round18 (2026-09-25)
+
+- round18 Input: оба белые. K2Node_InputKey с `InputKey=SpaceBar` (без кавычек) принят; IsInputKeyDown как член PlayerController — движок сам назвал self «Target» (`PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target")`); у Key-пинов движок ставит `DefaultValue="None"`. Copy-back: tests/fixtures/input-r18-copyback.txt. R18 закрыт 2/2.
+- Итог фазы 1: главы 01–20 закрыты, 21 (GetBoundActionValue) — FAIL, заменён черновиком 21b.
+
+## Round22-pre: Casting (2026-09-25)
+
+- Cast To Pawn/Character (форма DynamicCast как в 21b), Get Class (GameplayStatics::GetObjectClass), ClassIsChildOf, GetDisplayName/GetObjectName (KSL), EqualEqual/NotEqual_ObjectObject, EqualEqual_ClassClass, Conv_ObjectToString.
+

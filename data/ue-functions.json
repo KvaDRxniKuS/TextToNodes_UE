@@ -8949,12 +8949,13 @@
     "name": "Key",
     "dir": "Output",
     "cat": "struct",
-    "sub": "Key"
+    "sub": "Key",
+    "dv": "None"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Клавиша",
-  "note": "round18-pre: стокового UFUNCTION GetKey нет — узел «клавиша» в BP это событие K2Node_InputKey (свойство InputKey=имя FKey, выходы Pressed/Released/Key). Работает только в графе Actor/Pawn/PlayerController"
+  "note": "round18-pre: стокового UFUNCTION GetKey нет — узел «клавиша» в BP это событие K2Node_InputKey (свойство InputKey=имя FKey, выходы Pressed/Released/Key). Работает только в графе Actor/Pawn/PlayerController; round18: белая (copy-back tests/fixtures/input-r18-copyback.txt: InputKey=SpaceBar принят, self → «Target», Key dv None)"
  },
  {
   "id": "IsInputKeyDown",
@@ -8974,7 +8975,8 @@
     "name": "Key",
     "dir": "Input",
     "cat": "struct",
-    "sub": "Key"
+    "sub": "Key",
+    "dv": "None"
    },
    {
     "name": "ReturnValue",
@@ -8983,8 +8985,8 @@
     "dv": "false"
    }
   ],
-  "verified": false,
-  "note": "round18-pre: член APlayerController (UFUNCTION BlueprintCallable, const → pure). MemberParent=PlayerController, пин self (Target) типа PlayerController, Key по значению",
+  "verified": true,
+  "note": "round18-pre: член APlayerController (UFUNCTION BlueprintCallable, const → pure). MemberParent=PlayerController, пин self (Target) типа PlayerController, Key по значению; round18: белая (copy-back tests/fixtures/input-r18-copyback.txt: InputKey=SpaceBar принят, self → «Target», Key dv None)",
   "desc": "Нажата?",
   "pure": true
  },
@@ -11222,5 +11224,333 @@
   "verified": true,
   "desc": "Трейс (capsule trace multi for objects)",
   "notes": "round11-fix: copy-back пользователя совпал с реестром 1:1 (пины/типы/флаги); в тесте не вставилась из-за порчи ручной перепечатки пасты, засчитано пользователем"
+ },
+ {
+  "id": "CastToPawn",
+  "title": "Cast To Pawn",
+  "category": "Casting",
+  "className": "/Script/BlueprintGraph.K2Node_DynamicCast",
+  "func": "",
+  "props": {
+   "TargetType": "\"/Script/CoreUObject.Class'/Script/Engine.Pawn'\""
+  },
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "CastFailed",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Object",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object"
+   },
+   {
+    "name": "AsPawn",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.Pawn"
+   },
+   {
+    "name": "bSuccess",
+    "dir": "Output",
+    "cat": "bool",
+    "hidden": true
+   }
+  ],
+  "verified": false,
+  "desc": "Каст к Pawn",
+  "note": "round22-pre: форма как у CastToPlayerController (R21b) — зависит от её вердикта"
+ },
+ {
+  "id": "CastToCharacter",
+  "title": "Cast To Character",
+  "category": "Casting",
+  "className": "/Script/BlueprintGraph.K2Node_DynamicCast",
+  "func": "",
+  "props": {
+   "TargetType": "\"/Script/CoreUObject.Class'/Script/Engine.Character'\""
+  },
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "CastFailed",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Object",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object"
+   },
+   {
+    "name": "AsCharacter",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.Character"
+   },
+   {
+    "name": "bSuccess",
+    "dir": "Output",
+    "cat": "bool",
+    "hidden": true
+   }
+  ],
+  "verified": false,
+  "desc": "Каст к Character",
+  "note": "round22-pre: форма как у CastToPlayerController (R21b) — зависит от её вердикта"
+ },
+ {
+  "id": "GetObjectClass",
+  "title": "Get Class",
+  "category": "Casting",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetObjectClass",
+  "lib": "GameplayStatics",
+  "pure": true,
+  "pins": [
+   {
+    "name": "Object",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "class",
+    "object": "/Script/CoreUObject.Object"
+   }
+  ],
+  "verified": false,
+  "desc": "Класс объекта",
+  "note": "round22-pre: UGameplayStatics::GetObjectClass (в меню «Get Class»)"
+ },
+ {
+  "id": "ClassIsChildOf",
+  "title": "Class Is Child Of",
+  "category": "Casting",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ClassIsChildOf",
+  "lib": "KismetMathLibrary",
+  "pure": true,
+  "pins": [
+   {
+    "name": "TestClass",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/CoreUObject.Object"
+   },
+   {
+    "name": "ParentClass",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/CoreUObject.Object"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Наследник класса?",
+  "note": "round22-pre: KML::ClassIsChildOf(TSubclassOf TestClass, TSubclassOf ParentClass)"
+ },
+ {
+  "id": "GetDisplayName",
+  "title": "Get Display Name",
+  "category": "Casting",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetDisplayName",
+  "lib": "KismetSystemLibrary",
+  "pure": true,
+  "pins": [
+   {
+    "name": "Object",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "string"
+   }
+  ],
+  "verified": false,
+  "desc": "Имя для показа",
+  "note": "round22-pre: KSL::GetDisplayName(const UObject*)"
+ },
+ {
+  "id": "GetObjectName",
+  "title": "Get Object Name",
+  "category": "Casting",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetObjectName",
+  "lib": "KismetSystemLibrary",
+  "pure": true,
+  "pins": [
+   {
+    "name": "Object",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "string"
+   }
+  ],
+  "verified": false,
+  "desc": "Имя объекта",
+  "note": "round22-pre: KSL::GetObjectName(const UObject*)"
+ },
+ {
+  "id": "EqualEqual_ObjectObject",
+  "title": "Equal (Object)",
+  "category": "Casting",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "EqualEqual_ObjectObject",
+  "lib": "KismetMathLibrary",
+  "pure": true,
+  "pins": [
+   {
+    "name": "A",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object"
+   },
+   {
+    "name": "B",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Объекты равны",
+  "note": "round22-pre: CallFunction (не PromotableOperator), заголовок «==»"
+ },
+ {
+  "id": "NotEqual_ObjectObject",
+  "title": "Not Equal (Object)",
+  "category": "Casting",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "NotEqual_ObjectObject",
+  "lib": "KismetMathLibrary",
+  "pure": true,
+  "pins": [
+   {
+    "name": "A",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object"
+   },
+   {
+    "name": "B",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Объекты не равны",
+  "note": "round22-pre: заголовок «!=»"
+ },
+ {
+  "id": "EqualEqual_ClassClass",
+  "title": "Equal (Class)",
+  "category": "Casting",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "EqualEqual_ClassClass",
+  "lib": "KismetMathLibrary",
+  "pure": true,
+  "pins": [
+   {
+    "name": "A",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/CoreUObject.Object"
+   },
+   {
+    "name": "B",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/CoreUObject.Object"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Классы равны",
+  "note": "round22-pre: KML::EqualEqual_ClassClass"
+ },
+ {
+  "id": "Conv_ObjectToString",
+  "title": "To String (Object)",
+  "category": "Casting",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Conv_ObjectToString",
+  "lib": "KismetStringLibrary",
+  "pure": true,
+  "pins": [
+   {
+    "name": "InObj",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "string"
+   }
+  ],
+  "verified": false,
+  "desc": "Объект в строку",
+  "note": "round22-pre: KSL(String)::Conv_ObjectToString(UObject* InObj) — компактный конвертер"
  }
 ]
