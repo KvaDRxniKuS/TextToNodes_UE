@@ -469,6 +469,11 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(dsT.includes('MemberName="DegSin"'), 'round6: SinDeg — DegSin');
   const da2T = generateUEText([createFromEntry(byId('Atan2Deg'))]);
   ok(da2T.includes('MemberName="DegAtan2"') && da2T.includes('PinName="Y"') && da2T.includes('PinName="X"'), 'round6: Atan2Deg — DegAtan2 + Y/X');
+  // round7: NearlyEqual_Comparison — CallFunction как в 03 (оператор давал wildcard); операторы сравнения белые.
+  const necT = generateUEText([createFromEntry(byId('NearlyEqual_Comparison'))]);
+  ok(necT.includes('K2Node_CallFunction') && necT.includes('MemberName="NearlyEqual_FloatFloat"') && necT.includes('PinName="ErrorTolerance"') && !necT.includes('PromotableOperator'), 'round7: NearlyEqual_Comparison — CallFunction как в 03');
+  const ltT = generateUEText([createFromEntry(byId('Less_Float'))]);
+  ok(ltT.includes('MemberName="Less_DoubleDouble"') && ltT.includes(`MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'"`), 'round7: Less — белая операторная форма');
 }
 // Sweep coverage: каждая запись реестра строится (кроме референс-листа)
 {

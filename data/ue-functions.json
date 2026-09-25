@@ -2095,8 +2095,9 @@
     "cat": "bool"
    }
   ],
-  "verified": false,
-  "desc": "Less"
+  "verified": true,
+  "desc": "Less",
+  "notes": "round7: белая по факту пользователя"
  },
  {
   "id": "EqualEqual_Float",
@@ -2122,8 +2123,9 @@
     "cat": "bool"
    }
   ],
-  "verified": false,
-  "desc": "Equal"
+  "verified": true,
+  "desc": "Equal",
+  "notes": "round7: белая по факту пользователя"
  },
  {
   "id": "NotEqual_Float",
@@ -2149,8 +2151,9 @@
     "cat": "bool"
    }
   ],
-  "verified": false,
-  "desc": "NotEqual"
+  "verified": true,
+  "desc": "NotEqual",
+  "notes": "round7: белая по факту пользователя"
  },
  {
   "id": "GreaterEqual_Float",
@@ -2176,8 +2179,9 @@
     "cat": "bool"
    }
   ],
-  "verified": false,
-  "desc": "GreaterEqual"
+  "verified": true,
+  "desc": "GreaterEqual",
+  "notes": "round7: белая по факту пользователя"
  },
  {
   "id": "LessEqual_Float",
@@ -2203,15 +2207,16 @@
     "cat": "bool"
    }
   ],
-  "verified": false,
-  "desc": "LessEqual"
+  "verified": true,
+  "desc": "LessEqual",
+  "notes": "round7: белая по факту пользователя"
  },
  {
   "id": "NearlyEqual_Comparison",
   "title": "NearlyEqual (float)",
   "category": "Math / Comparison",
-  "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
-  "func": "NearlyEqual",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "NearlyEqual_FloatFloat",
   "lib": "KismetMathLibrary",
   "pins": [
    {
@@ -2225,13 +2230,19 @@
     "cat": "real"
    },
    {
+    "name": "ErrorTolerance",
+    "dir": "Input",
+    "cat": "real"
+   },
+   {
     "name": "ReturnValue",
     "dir": "Output",
     "cat": "bool"
    }
   ],
   "verified": false,
-  "desc": "NearlyEqual"
+  "desc": "NearlyEqual",
+  "notes": "round7: не оператор — CallFunction NearlyEqual_FloatFloat как в 03 (live-реф _8); операторная форма давала wildcard-пины"
  },
  {
   "id": "InRange_Float",
@@ -2272,8 +2283,9 @@
     "cat": "bool"
    }
   ],
-  "verified": false,
-  "desc": "Диапазон"
+  "verified": true,
+  "desc": "Диапазон",
+  "notes": "round7: белая по факту пользователя"
  },
  {
   "id": "And_Bool",

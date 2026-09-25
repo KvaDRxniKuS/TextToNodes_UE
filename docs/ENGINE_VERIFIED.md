@@ -522,3 +522,11 @@ DegreesToRadians, RadiansToDegrees, GetTAU, GetPI. *Deg не существую�
 ## Файл 06 CLOSED 18/18 (2026-09-25)
 
 6-fix белый (все 7 Deg*). Math/Trig закрыт полностью.
+
+## Раунд 07: 7/8, фикс 7-fix + тестеры 08 (2026-09-25)
+
+Белые: 6 операторов сравнения + InRange. NearlyEqual_Comparison сломан:
+операторная форма NearlyEqual_DoubleDouble резолвится в wildcard-пины —
+настоящая форма CallFunction NearlyEqual_FloatFloat как в 03 (live-реф
+_8). +2 теста (193/0). 08-math-boolean: 7 нод, STRICT 0/0; риск: класс
+AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOperator).
