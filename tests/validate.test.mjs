@@ -200,6 +200,13 @@ regThrow.forEach(t => console.log('THROW:', t));
   const hit = bp.pins[0];
   ok(hit.name === 'Hit' && hit.ref && hit.const && hit.ignored, 'BreakHitResult_pure: Hit ref+const+ignored');
   ok(bp.pins.some(p => p.name === 'PhysMat' && p.object === '/Script/PhysicsCore.PhysicalMaterial'), 'BreakHitResult_pure: PhysMat из PhysicsCore');
+  // round8/10/11-fix verdicts: all flipped white.
+  ok(byId('SelectBool').verified === true, 'round8-fix: SelectBool (K2Node_Select bool) verified');
+  ok(['VSize2DSquared','Vector_IsNormal','Vector_IsZero','Vector_IsNearlyZero','Vector_Distance','Vector_DistanceSquared','MakeVector','BreakVector','Distance2D','DistanceSquared2D'].every(i => byId(i) && byId(i).verified === true), 'round10-fix: 10 remodels verified');
+  ok(['Line','Sphere','Box','Capsule'].every(s => ['Single','Multi'].every(m => ['ByProfile','ForObjects'].every(k => byId(s + 'Trace' + m + k).verified === true))), 'round11-fix: 16 ByProfile/ForObjects verified');
+  { const c = byId('CapsuleTraceSingleForObjects').pins.map(p => p.name).join(',');
+    ok(c === 'execute,then,WorldContextObject,Start,End,Radius,HalfHeight,ObjectTypes,bTraceComplex,ActorsToIgnore,DrawDebugType,OutHit,bIgnoreSelf,TraceColor,TraceHitColor,DrawTime,ReturnValue', 'round11-fix: CapsuleTraceSingleForObjects pin order == copy-back'); }
+  ok(byId('NegateRotator') && !byId('InverseRotator') && !byId('FindLookAtRotation2D') && byId('MakeRotator').className.endsWith('K2Node_CallFunction'), 'round12-pre: rotator canon');
   ok(byId('BreakHitResult').verified === false, 'BreakHitResult struct: skip (живой тест round11: выходов нет — движок не строит)');
   const bn = createCallFunction(bp, { x: 0, y: 0 });
   const bt = generateUEText([bn]);

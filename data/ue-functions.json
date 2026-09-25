@@ -2482,9 +2482,9 @@
     "cat": "wildcard"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Выбор Bool",
-  "note": "round8-fix3: bool-Select = IndexPinType bool + Index bool dv=false (live-рефы 5 типов индекса); wildcard-вариант вставал как int"
+  "notes": "round8-fix: белая — K2Node_Select с IndexPinType bool (факт пользователя)"
  },
  {
   "id": "Add_Int",
@@ -3164,10 +3164,10 @@
     "dv": "0.0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Квадрат длины 2D",
   "pure": true,
-  "note": "round10: VSizeSquared2D не существует — канон VSize2DSquared, вход Vector2D (live-реф)"
+  "notes": "round10-fix: белая по факту пользователя"
  },
  {
   "id": "Vector_IsNormal",
@@ -3194,10 +3194,10 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Вектор нормализован? (bool)",
   "pure": true,
-  "note": "round10: Normal (Vector→Vector) не существует — канон Vector_IsNormal bool, A by ref (live-реф)"
+  "notes": "round10-fix: белая по факту пользователя"
  },
  {
   "id": "GetSafeNormal_Vector",
@@ -3308,10 +3308,10 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Вектор нулевой? (bool)",
   "pure": true,
-  "note": "round10: IsZero не существует — канон Vector_IsZero, A by ref (live-реф)"
+  "notes": "round10-fix: белая по факту пользователя"
  },
  {
   "id": "Vector_IsNearlyZero",
@@ -3345,10 +3345,10 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Вектор почти нулевой? (bool)",
   "pure": true,
-  "note": "round10: IsNearlyZero не существует — канон Vector_IsNearlyZero + Tolerance FLOAT 0.000100 (live-реф)"
+  "notes": "round10-fix: белая по факту пользователя"
  },
  {
   "id": "Vector_Distance",
@@ -3380,10 +3380,10 @@
     "dv": "0.0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Дистанция между точками",
   "pure": true,
-  "note": "round10: Distance (A/B) не существует — канон Vector_Distance V1/V2 (live-реф)"
+  "notes": "round10-fix: белая по факту пользователя"
  },
  {
   "id": "Vector_DistanceSquared",
@@ -3415,10 +3415,10 @@
     "dv": "0.0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Квадрат дистанции",
   "pure": true,
-  "note": "round10: DistanceSquared (A/B) не существует — канон Vector_DistanceSquared V1/V2 (live-реф)"
+  "notes": "round10-fix: белая по факту пользователя"
  },
  {
   "id": "ProjectPointOnToPlane",
@@ -3524,11 +3524,11 @@
     "dv": "0, 0, 0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Собрать вектор",
   "lib": "KismetMathLibrary",
   "pure": true,
-  "note": "round10: MakeStruct-форма жёлтая — канон pure CallFunction MakeVector (live-реф)"
+  "notes": "round10-fix: белая по факту пользователя"
  },
  {
   "id": "BreakVector",
@@ -3566,11 +3566,11 @@
     "dv": "0.0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Разобрать вектор",
   "lib": "KismetMathLibrary",
   "pure": true,
-  "note": "round10: BreakStruct-форма жёлтая — канон pure CallFunction BreakVector InVec→X/Y/Z без ReturnValue (live-реф)"
+  "notes": "round10-fix: белая по факту пользователя"
  },
  {
   "id": "BreakHitResult",
@@ -4537,81 +4537,85 @@
   "id": "MakeTransform",
   "title": "Make Transform",
   "category": "Math / Transform",
-  "className": "/Script/BlueprintGraph.K2Node_MakeStruct",
-  "func": "",
-  "struct": {
-   "name": "Transform",
-   "path": "\"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Transform'\""
-  },
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "MakeTransform",
+  "lib": "KismetMathLibrary",
   "pins": [
    {
     "name": "Location",
     "dir": "Input",
     "cat": "struct",
-    "sub": "Vector"
+    "sub": "Vector",
+    "dv": "0, 0, 0"
    },
    {
     "name": "Rotation",
     "dir": "Input",
     "cat": "struct",
-    "sub": "Rotator"
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
    },
    {
     "name": "Scale",
     "dir": "Input",
     "cat": "struct",
-    "sub": "Vector"
+    "sub": "Vector",
+    "dv": "1, 1, 1"
    },
    {
-    "name": "Transform",
+    "name": "ReturnValue",
     "dir": "Output",
     "cat": "struct",
     "sub": "Transform"
    }
   ],
   "verified": false,
-  "desc": "Создать"
+  "desc": "Собрать трансформ",
+  "note": "round13-pre: FTransform HasNativeMake — по аналогии с Vector канон pure KML MakeTransform",
+  "pure": true
  },
  {
   "id": "BreakTransform",
   "title": "Break Transform",
   "category": "Math / Transform",
-  "className": "/Script/BlueprintGraph.K2Node_BreakStruct",
-  "func": "",
-  "struct": {
-   "name": "Transform",
-   "path": "\"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Transform'\""
-  },
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "BreakTransform",
+  "lib": "KismetMathLibrary",
   "pins": [
    {
-    "name": "Transform",
+    "name": "InTransform",
     "dir": "Input",
     "cat": "struct",
-    "sub": "Transform",
     "ref": true,
-    "const": true
+    "const": true,
+    "sub": "Transform"
    },
    {
     "name": "Location",
     "dir": "Output",
     "cat": "struct",
-    "sub": "Vector"
+    "sub": "Vector",
+    "dv": "0, 0, 0"
    },
    {
     "name": "Rotation",
     "dir": "Output",
     "cat": "struct",
-    "sub": "Rotator"
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
    },
    {
     "name": "Scale",
     "dir": "Output",
     "cat": "struct",
-    "sub": "Vector"
+    "sub": "Vector",
+    "dv": "0, 0, 0"
    }
   ],
   "verified": false,
-  "desc": "Разобрать"
+  "desc": "Разобрать трансформ",
+  "note": "round13-pre: канон pure KML BreakTransform InTransform→Location/Rotation/Scale",
+  "pure": true
  },
  {
   "id": "ComposeTransforms",
@@ -4655,7 +4659,9 @@
     "name": "T",
     "dir": "Input",
     "cat": "struct",
-    "sub": "Transform"
+    "sub": "Transform",
+    "ref": true,
+    "const": true
    },
    {
     "name": "ReturnValue",
@@ -4666,6 +4672,222 @@
   ],
   "verified": false,
   "desc": "Инверсия"
+ },
+ {
+  "id": "TransformLocation",
+  "title": "Transform Location",
+  "category": "Math / Transform",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "TransformLocation",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "T",
+    "dir": "Input",
+    "cat": "struct",
+    "ref": true,
+    "const": true,
+    "sub": "Transform"
+   },
+   {
+    "name": "Location",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector",
+    "dv": "0, 0, 0"
+   }
+  ],
+  "verified": false,
+  "desc": "Transform Location",
+  "note": "round13-pre: новая запись, не проверена движком",
+  "pure": true
+ },
+ {
+  "id": "InverseTransformLocation",
+  "title": "Inverse Transform Location",
+  "category": "Math / Transform",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "InverseTransformLocation",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "T",
+    "dir": "Input",
+    "cat": "struct",
+    "ref": true,
+    "const": true,
+    "sub": "Transform"
+   },
+   {
+    "name": "Location",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector",
+    "dv": "0, 0, 0"
+   }
+  ],
+  "verified": false,
+  "desc": "Inverse Transform Location",
+  "note": "round13-pre: новая запись, не проверена движком",
+  "pure": true
+ },
+ {
+  "id": "TransformDirection",
+  "title": "Transform Direction",
+  "category": "Math / Transform",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "TransformDirection",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "T",
+    "dir": "Input",
+    "cat": "struct",
+    "ref": true,
+    "const": true,
+    "sub": "Transform"
+   },
+   {
+    "name": "Direction",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector",
+    "dv": "0, 0, 0"
+   }
+  ],
+  "verified": false,
+  "desc": "Transform Direction",
+  "note": "round13-pre: новая запись, не проверена движком",
+  "pure": true
+ },
+ {
+  "id": "InverseTransformDirection",
+  "title": "Inverse Transform Direction",
+  "category": "Math / Transform",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "InverseTransformDirection",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "T",
+    "dir": "Input",
+    "cat": "struct",
+    "ref": true,
+    "const": true,
+    "sub": "Transform"
+   },
+   {
+    "name": "Direction",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector",
+    "dv": "0, 0, 0"
+   }
+  ],
+  "verified": false,
+  "desc": "Inverse Transform Direction",
+  "note": "round13-pre: новая запись, не проверена движком",
+  "pure": true
+ },
+ {
+  "id": "TransformRotation",
+  "title": "Transform Rotation",
+  "category": "Math / Transform",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "TransformRotation",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "T",
+    "dir": "Input",
+    "cat": "struct",
+    "ref": true,
+    "const": true,
+    "sub": "Transform"
+   },
+   {
+    "name": "Rotation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
+   }
+  ],
+  "verified": false,
+  "desc": "Transform Rotation",
+  "note": "round13-pre: новая запись, не проверена движком",
+  "pure": true
+ },
+ {
+  "id": "InverseTransformRotation",
+  "title": "Inverse Transform Rotation",
+  "category": "Math / Transform",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "InverseTransformRotation",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "T",
+    "dir": "Input",
+    "cat": "struct",
+    "ref": true,
+    "const": true,
+    "sub": "Transform"
+   },
+   {
+    "name": "Rotation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
+   }
+  ],
+  "verified": false,
+  "desc": "Inverse Transform Rotation",
+  "note": "round13-pre: новая запись, не проверена движком",
+  "pure": true
  },
  {
   "id": "TInterpTo",
@@ -4742,33 +4964,6 @@
   ],
   "verified": true,
   "desc": "Склеить"
- },
- {
-  "id": "Append_String",
-  "title": "Append",
-  "category": "String",
-  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-  "func": "Concat_StrStr",
-  "lib": "KismetStringLibrary",
-  "pins": [
-   {
-    "name": "A",
-    "dir": "Input",
-    "cat": "string"
-   },
-   {
-    "name": "B",
-    "dir": "Input",
-    "cat": "string"
-   },
-   {
-    "name": "ReturnValue",
-    "dir": "Output",
-    "cat": "string"
-   }
-  ],
-  "verified": false,
-  "desc": "Append"
  },
  {
   "id": "Len_String",
@@ -4855,23 +5050,27 @@
     "cat": "string"
    },
    {
-    "name": "UseCase",
+    "name": "bUseCase",
     "dir": "Input",
-    "cat": "byte"
+    "cat": "bool",
+    "dv": "false"
    },
    {
-    "name": "SearchDir",
+    "name": "bSearchFromEnd",
     "dir": "Input",
-    "cat": "byte"
+    "cat": "bool",
+    "dv": "false"
    },
    {
     "name": "ReturnValue",
     "dir": "Output",
-    "cat": "bool"
+    "cat": "bool",
+    "dv": "false"
    }
   ],
   "verified": false,
-  "desc": "Содержит"
+  "desc": "Содержит",
+  "note": "round14-pre: UseCase/SearchDir были byte — в UE это bool bUseCase/bSearchFromEnd"
  },
  {
   "id": "FindSubstring_String",
@@ -4892,23 +5091,33 @@
     "cat": "string"
    },
    {
-    "name": "UseCase",
+    "name": "bUseCase",
     "dir": "Input",
-    "cat": "byte"
+    "cat": "bool",
+    "dv": "false"
    },
    {
-    "name": "SearchDir",
+    "name": "bSearchFromEnd",
     "dir": "Input",
-    "cat": "byte"
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "StartPosition",
+    "dir": "Input",
+    "cat": "int",
+    "dv": "-1"
    },
    {
     "name": "ReturnValue",
     "dir": "Output",
-    "cat": "int"
+    "cat": "int",
+    "dv": "0"
    }
   ],
   "verified": false,
-  "desc": "Найти"
+  "desc": "Найти подстроку",
+  "note": "round14-pre: bool bUseCase/bSearchFromEnd + StartPosition int (-1)"
  },
  {
   "id": "Replace_String",
@@ -4944,7 +5153,7 @@
  },
  {
   "id": "Split_String",
-  "title": "Split",
+  "title": "Parse Into Array",
   "category": "String",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
   "func": "ParseIntoArray",
@@ -4958,23 +5167,25 @@
    {
     "name": "Delimiter",
     "dir": "Input",
-    "cat": "string"
+    "cat": "string",
+    "dv": " "
    },
    {
     "name": "CullEmptyStrings",
     "dir": "Input",
-    "cat": "bool"
+    "cat": "bool",
+    "dv": "true"
    },
    {
     "name": "ReturnValue",
     "dir": "Output",
     "cat": "string",
-    "sub": "Array"
+    "container": "Array"
    }
   ],
   "verified": false,
-  "note": "Array/Set/Map output needs ContainerType support in generator — verify in engine",
-  "desc": "Разделить"
+  "desc": "Разделить в массив",
+  "note": "round14-pre: ReturnValue — ContainerType=Array (было sub Array)"
  },
  {
   "id": "JoinStringArray",
@@ -4988,12 +5199,16 @@
     "name": "SourceArray",
     "dir": "Input",
     "cat": "string",
-    "sub": "Array"
+    "container": "Array",
+    "ref": true,
+    "const": true,
+    "ignored": true
    },
    {
     "name": "Separator",
     "dir": "Input",
-    "cat": "string"
+    "cat": "string",
+    "dv": " "
    },
    {
     "name": "ReturnValue",
@@ -5002,7 +5217,8 @@
    }
   ],
   "verified": false,
-  "desc": "Соединить"
+  "desc": "Соединить",
+  "note": "round14-pre: SourceArray — Array ref+const (как ActorsToIgnore у трейсов)"
  },
  {
   "id": "Trim_String",
@@ -5189,10 +5405,10 @@
   "desc": "Справа"
  },
  {
-  "id": "EqualEqual_String",
-  "title": "Equal (String)",
+  "id": "EqualEqual_StrStr",
+  "title": "Equal Exactly (String)",
   "category": "String",
-  "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
   "func": "EqualEqual_StrStr",
   "lib": "KismetStringLibrary",
   "pins": [
@@ -5209,18 +5425,19 @@
    {
     "name": "ReturnValue",
     "dir": "Output",
-    "cat": "bool"
+    "cat": "bool",
+    "dv": "false"
    }
   ],
   "verified": false,
-  "note": "String == may be CallFunction EqualEqual_StrStr — PromotableOperator form untested",
-  "desc": "Равно"
+  "desc": "Равно (регистр важен)",
+  "note": "round14-pre: PromotableOperator только для KismetMathLibrary — канон CallFunction"
  },
  {
-  "id": "NotEqual_String",
-  "title": "Not Equal (String)",
+  "id": "NotEqual_StrStr",
+  "title": "Not Equal Exactly (String)",
   "category": "String",
-  "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
   "func": "NotEqual_StrStr",
   "lib": "KismetStringLibrary",
   "pins": [
@@ -5237,19 +5454,20 @@
    {
     "name": "ReturnValue",
     "dir": "Output",
-    "cat": "bool"
+    "cat": "bool",
+    "dv": "false"
    }
   ],
   "verified": false,
-  "note": "String != may be CallFunction NotEqual_StrStr — PromotableOperator form untested",
-  "desc": "Не равно"
+  "desc": "Не равно (регистр важен)",
+  "note": "round14-pre: канон CallFunction"
  },
  {
-  "id": "BuildString_Float",
-  "title": "Build String (float)",
+  "id": "BuildString_Double",
+  "title": "Build String (Float)",
   "category": "String",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-  "func": "BuildString_Float",
+  "func": "BuildString_Double",
   "lib": "KismetStringLibrary",
   "pins": [
    {
@@ -5263,9 +5481,16 @@
     "cat": "string"
    },
    {
-    "name": "InFloat",
+    "name": "InDouble",
     "dir": "Input",
-    "cat": "real"
+    "cat": "real",
+    "sub": "double",
+    "dv": "0.0"
+   },
+   {
+    "name": "Suffix",
+    "dir": "Input",
+    "cat": "string"
    },
    {
     "name": "ReturnValue",
@@ -5274,11 +5499,12 @@
    }
   ],
   "verified": false,
-  "desc": "Float→String"
+  "desc": "Float→String",
+  "note": "round14-pre: UE5 — BuildString_Double/InDouble + Suffix"
  },
  {
   "id": "BuildString_Int",
-  "title": "Build String (int)",
+  "title": "Build String (Integer)",
   "category": "String",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
   "func": "BuildString_Int",
@@ -5297,7 +5523,13 @@
    {
     "name": "InInt",
     "dir": "Input",
-    "cat": "int"
+    "cat": "int",
+    "dv": "0"
+   },
+   {
+    "name": "Suffix",
+    "dir": "Input",
+    "cat": "string"
    },
    {
     "name": "ReturnValue",
@@ -5306,11 +5538,12 @@
    }
   ],
   "verified": false,
-  "desc": "Int→String"
+  "desc": "Int→String",
+  "note": "round14-pre: добавлен Suffix"
  },
  {
   "id": "BuildString_Bool",
-  "title": "Build String (bool)",
+  "title": "Build String (Boolean)",
   "category": "String",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
   "func": "BuildString_Bool",
@@ -5329,7 +5562,13 @@
    {
     "name": "InBool",
     "dir": "Input",
-    "cat": "bool"
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "Suffix",
+    "dir": "Input",
+    "cat": "string"
    },
    {
     "name": "ReturnValue",
@@ -5338,20 +5577,23 @@
    }
   ],
   "verified": false,
-  "desc": "Bool→String"
+  "desc": "Bool→String",
+  "note": "round14-pre: добавлен Suffix"
  },
  {
-  "id": "Conv_FloatToString",
-  "title": "ToString (float)",
+  "id": "Conv_DoubleToString",
+  "title": "To String (Float)",
   "category": "String",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-  "func": "Conv_FloatToString",
+  "func": "Conv_DoubleToString",
   "lib": "KismetStringLibrary",
   "pins": [
    {
-    "name": "InFloat",
+    "name": "InDouble",
     "dir": "Input",
-    "cat": "real"
+    "cat": "real",
+    "sub": "double",
+    "dv": "0.0"
    },
    {
     "name": "ReturnValue",
@@ -5360,7 +5602,8 @@
    }
   ],
   "verified": false,
-  "desc": "Float→String"
+  "desc": "Float→String",
+  "note": "round14-pre: UE5 — Conv_DoubleToString/InDouble"
  },
  {
   "id": "Conv_IntToString",
@@ -5428,6 +5671,79 @@
   ],
   "verified": false,
   "desc": "Vector→String"
+ },
+ {
+  "id": "IsEmpty_String",
+  "title": "Is Empty",
+  "category": "String",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsEmpty",
+  "lib": "KismetStringLibrary",
+  "pins": [
+   {
+    "name": "InString",
+    "dir": "Input",
+    "cat": "string"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Строка пустая?",
+  "note": "round14-pre: новая запись"
+ },
+ {
+  "id": "Conv_StringToInt",
+  "title": "String To Int",
+  "category": "String",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Conv_StringToInt",
+  "lib": "KismetStringLibrary",
+  "pins": [
+   {
+    "name": "InString",
+    "dir": "Input",
+    "cat": "string"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int",
+    "dv": "0"
+   }
+  ],
+  "verified": false,
+  "desc": "String→Int",
+  "note": "round14-pre: новая запись"
+ },
+ {
+  "id": "Conv_StringToDouble",
+  "title": "String To Float",
+  "category": "String",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Conv_StringToDouble",
+  "lib": "KismetStringLibrary",
+  "pins": [
+   {
+    "name": "InString",
+    "dir": "Input",
+    "cat": "string"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double",
+    "dv": "0.0"
+   }
+  ],
+  "verified": false,
+  "desc": "String→Float",
+  "note": "round14-pre: новая запись (UE5 double)"
  },
  {
   "id": "Add_Array",
@@ -6970,7 +7286,8 @@
    }
   ],
   "verified": true,
-  "desc": "По объекту"
+  "desc": "По объекту",
+  "notes": "round11-fix: белая по факту пользователя"
  },
  {
   "id": "SphereTraceSingle",
@@ -7731,7 +8048,8 @@
    }
   ],
   "verified": true,
-  "desc": "Трасса профиль (single)"
+  "desc": "Трасса профиль (single)",
+  "notes": "round11-fix: белая по факту пользователя"
  },
  {
   "id": "SphereTraceMulti",
@@ -8255,9 +8573,9 @@
     "dv": "0.0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Дистанция 2D",
-  "note": "round10: новый (live-реф); V1/V2 Vector2D без dv"
+  "notes": "round10-fix: белая по факту пользователя"
  },
  {
   "id": "DistanceSquared2D",
@@ -8288,9 +8606,9 @@
     "dv": "0.0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Квадрат дистанции 2D",
-  "note": "round10: новый (live-реф); V1/V2 Vector2D без dv"
+  "notes": "round10-fix: белая по факту пользователя"
  },
  {
   "id": "LineTraceMultiByProfile",
@@ -8407,9 +8725,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Трейс (line trace multi by profile)",
-  "note": "round11: новый (матрица 24 кастов; собран из белых шаблонов LineTraceSingleByProfile)"
+  "notes": "round11-fix: белая по факту пользователя"
  },
  {
   "id": "LineTraceMultiForObjects",
@@ -8531,9 +8849,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Трейс (line trace multi for objects)",
-  "note": "round11: новый (матрица 24 кастов; собран из белых шаблонов LineTraceSingleForObjects)"
+  "notes": "round11-fix: белая по факту пользователя"
  },
  {
   "id": "SphereTraceSingleByProfile",
@@ -8656,9 +8974,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Трейс (sphere trace single by profile)",
-  "note": "round11: новый (матрица 24 кастов; собран из белых шаблонов SphereTraceSingle)"
+  "notes": "round11-fix: белая по факту пользователя"
  },
  {
   "id": "SphereTraceMultiByProfile",
@@ -8782,9 +9100,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Трейс (sphere trace multi by profile)",
-  "note": "round11: новый (матрица 24 кастов; собран из белых шаблонов SphereTraceMulti)"
+  "notes": "round11-fix: белая по факту пользователя"
  },
  {
   "id": "SphereTraceSingleForObjects",
@@ -8912,9 +9230,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Трейс (sphere trace single for objects)",
-  "note": "round11: новый (матрица 24 кастов; собран из белых шаблонов SphereTraceSingle)"
+  "notes": "round11-fix: белая по факту пользователя"
  },
  {
   "id": "SphereTraceMultiForObjects",
@@ -9043,9 +9361,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Трейс (sphere trace multi for objects)",
-  "note": "round11: новый (матрица 24 кастов; собран из белых шаблонов SphereTraceMulti)"
+  "notes": "round11-fix: белая по факту пользователя"
  },
  {
   "id": "BoxTraceSingleByProfile",
@@ -9177,9 +9495,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Трейс (box trace single by profile)",
-  "note": "round11: новый (матрица 24 кастов; собран из белых шаблонов BoxTraceByChannel)"
+  "notes": "round11-fix: белая по факту пользователя"
  },
  {
   "id": "BoxTraceMultiByProfile",
@@ -9311,9 +9629,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Трейс (box trace multi by profile)",
-  "note": "round11: новый (матрица 24 кастов; собран из белых шаблонов BoxTraceMulti)"
+  "notes": "round11-fix: белая по факту пользователя"
  },
  {
   "id": "BoxTraceSingleForObjects",
@@ -9450,9 +9768,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Трейс (box trace single for objects)",
-  "note": "round11: новый (матрица 24 кастов; собран из белых шаблонов BoxTraceByChannel)"
+  "notes": "round11-fix: белая по факту пользователя"
  },
  {
   "id": "BoxTraceMultiForObjects",
@@ -9589,9 +9907,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Трейс (box trace multi for objects)",
-  "note": "round11: новый (матрица 24 кастов; собран из белых шаблонов BoxTraceMulti)"
+  "notes": "round11-fix: белая по факту пользователя"
  },
  {
   "id": "CapsuleTraceSingleByProfile",
@@ -9721,9 +10039,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Трейс (capsule trace single by profile)",
-  "note": "round11: новый (матрица 24 кастов; собран из белых шаблонов CapsuleTraceSingle)"
+  "notes": "round11-fix: белая по факту пользователя"
  },
  {
   "id": "CapsuleTraceMultiByProfile",
@@ -9854,9 +10172,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Трейс (capsule trace multi by profile)",
-  "note": "round11: новый (матрица 24 кастов; собран из белых шаблонов CapsuleTraceMulti)"
+  "notes": "round11-fix: белая по факту пользователя"
  },
  {
   "id": "CapsuleTraceSingleForObjects",
@@ -9991,9 +10309,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Трейс (capsule trace single for objects)",
-  "note": "round11: новый (матрица 24 кастов; собран из белых шаблонов CapsuleTraceSingle)"
+  "notes": "round11-fix: copy-back пользователя совпал с реестром 1:1 (пины/типы/флаги); в тесте не вставилась из-за порчи ручной перепечатки пасты, засчитано пользователем"
  },
  {
   "id": "CapsuleTraceMultiForObjects",
@@ -10129,8 +10447,8 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Трейс (capsule trace multi for objects)",
-  "note": "round11: новый (матрица 24 кастов; собран из белых шаблонов CapsuleTraceMulti)"
+  "notes": "round11-fix: copy-back пользователя совпал с реестром 1:1 (пины/типы/флаги); в тесте не вставилась из-за порчи ручной перепечатки пасты, засчитано пользователем"
  }
 ]

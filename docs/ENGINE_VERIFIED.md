@@ -567,3 +567,13 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
   BreakHitResult_pure (Hit ref+const+ignored, 18 выходов). Struct-форма пропущена.
 - Knot (K2Node_Knot): InputPin wildcard ignored=True + OutputPin wildcard —
   генератор уже совпадает 1:1 с live-рефом, фикса не было.
+
+## Вердикты round8-fix / round10-fix / round11-fix (2026-09-25)
+
+- round8-fix: `K2Node_Select` с `IndexPinType=(PinCategory="bool")` + Index bool dv false — белая, селектор булев. R08 закрыт 7/7.
+- round10-fix: все 10 белые — VSize2DSquared (Vector2D), Vector_IsNormal, Vector_IsZero, Vector_IsNearlyZero, Vector_Distance, Vector_DistanceSquared (V1/V2), MakeVector/BreakVector (pure KML), Distance2D, DistanceSquared2D. R10 закрыт.
+- round11-fix: матрица 4 формы × {ByChannel, ByProfile, ForObjects} × {Single, Multi} — 24/24 засчитано.
+  CapsuleTrace{Single,Multi}ForObjects в тесте не вставились, но copy-back пользователя совпал с реестром 1:1
+  (порядок пинов, float Radius/HalfHeight, ObjectTypes byte-enum Array ref+const ignored, dv ObjectTypeQuery1);
+  сгенерированные ноды структурно идентичны белым SphereTrace*ForObjects (+HalfHeight). Причина сбоя — порча
+  ручной перепечатки большой пасты, а не реестр. R11 закрыт.
