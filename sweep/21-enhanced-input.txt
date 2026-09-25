@@ -1,0 +1,8 @@
+Begin Object Class=/Script/UnrealEd.EdGraphNode_Comment Name="EdGraphNode_Comment_359" ExportPath="/Script/UnrealEd.EdGraphNode_Comment'"/Game/Generated.Generated:EventGraph.EdGraphNode_Comment_359"'"
+   NodePosX=-60
+   NodePosY=-110
+   NodeWidth=900
+   NodeHeight=200
+   NodeComment="SWEEP 21/21: Enhanced Input (0/1 узлов, 0 verified) — ПУСТО, все записи требуют референсов (см. MANIFEST)"
+   NodeGuid=65168F6B32EF25037C2CEFDA70419C39
+End Object

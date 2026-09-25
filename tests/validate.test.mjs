@@ -2,7 +2,7 @@
 // Запуск: node tests/validate.test.mjs  (или npm test). Exit 1 при любом провале.
 import fs from 'fs';
 import { parseToGraphs, generateUEText } from '../src/parser.js';
-import { createCallFunction, createOperator, createMacroInstance, createStructNode, createSequence, createSwitch, createBranch, createKnot, createComment, fitComment, linkPins, layoutRow, estNodeWidth } from '../src/generator.js';
+import { createCallFunction, createOperator, createMacroInstance, createStructNode, createSequence, createSwitch, createBranch, createKnot, createComment, fitComment, linkPins, layoutRow, estNodeWidth, createFromEntry } from '../src/generator.js';
 import { validateStrict } from '../src/validate.js';
 
 let pass = 0, fail = 0;
@@ -403,5 +403,23 @@ regThrow.forEach(t => console.log('THROW:', t));
   layoutRow([s1, c1, fo]);
   ok([s1, c1, fo].every((n, i, arr) => i === 0 || n.pos.x - arr[i - 1].pos.x >= estNodeWidth(arr[i - 1])), 'layoutRow: инвариант без наложений на тройке O2');
 }
-console.log(`\nVALIDATE: pass=${pass} fail=${fail}`);
+// Sweep coverage: каждая запись реестра строится (кроме референс-листа)
+{
+  const THROW_OK = new Set(['Enhanced_GetActionValue']); // InputActionValue вне FULL-словаря
+  const buildFail = [];
+  for (const e of reg) {
+    try { createFromEntry(e); }
+    catch (err) { buildFail.push(e.id + ': ' + err.message); }
+  }
+  const unexpected = buildFail.filter(f => ![...THROW_OK].some(id => f.startsWith(id + ':')));
+  unexpected.forEach(f => console.log('SWEEP-BUILD-FAIL:', f));
+  ok(unexpected.length === 0, `sweep: строятся все записи (${reg.length - buildFail.length}/${reg.length})`);
+  for (const id of THROW_OK) {
+    let threw = false;
+    try { createFromEntry(byId(id)); } catch { threw = true; }
+    ok(threw, `sweep: ${id} всё ещё требует референс`);
+  }
+}
+console.log(`
+VALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);

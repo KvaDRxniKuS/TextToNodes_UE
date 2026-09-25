@@ -325,3 +325,17 @@ tests/fixtures/tracesingle-forobjects-copyback.txt (0/0; тултипы толь
 Фидбек по раскладке: ряд Δ320 перекрывал широкие ноды → layoutRow: оценка ширины
 по классу + именам пинов (трейды 400px) + зазор 120; fitComment накрывает по правым
 краям. Все серии переведены на layoutRow, O1/O2 перегенерированы (0 варнингов).
+
+
+## Sweep: полный прогон реестра по категориям (2026-09-25)
+
+Вместо поштучных референсов — bulk-протокол: tools/gen-sweep.mjs строит ВСЕ записи
+реестра через новый диспетчер createFromEntry (+ createGeneric для Switch/Variable/
+Make-узлов/Select), раскладывает сеткой по 5 в ряд и пишет 21 файл sweep/NN-*.txt
+с накрывающим комментом + sweep/MANIFEST.md (таблица, NEEDS-REFERENCE, strict-статусы).
+Первый прогон: 238/239, 0 strict-ошибок; упал только Enhanced_GetActionValue
+(InputActionValue вне FULL-словаря — первый кандидат на референс).
+Попутно: MemberGuid у VariableReference/bSelfContext больше не переиспользует
+NodeGuid (свежий guid32 в src/parser.js и index.html — синхронно).
+Протокол для пользователя — в шапке MANIFEST.md: по одному файлу в чистый граф,
+обратно — номер файла + сломанные ноды целиком.

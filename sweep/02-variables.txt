@@ -1,0 +1,42 @@
+Begin Object Class=/Script/UnrealEd.EdGraphNode_Comment Name="EdGraphNode_Comment_119" ExportPath="/Script/UnrealEd.EdGraphNode_Comment'"/Game/Generated.Generated:EventGraph.EdGraphNode_Comment_119"'"
+   NodePosX=-60
+   NodePosY=-110
+   NodeWidth=1200
+   NodeHeight=346
+   NodeComment="SWEEP 02/21: Variables (4/4 узлов, 4 verified)"
+   NodeGuid=95201CDE6D3A82AAABCFF5ACAF83444B
+End Object
+
+Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_115" ExportPath="/Script/BlueprintGraph.K2Node_VariableGet'"/Game/Generated.Generated:EventGraph.K2Node_VariableGet_115"'"
+   VariableReference=(MemberName="Var",MemberGuid=F31984E2A074173B0ABF14E25EBD215E,bSelfContext=True)
+   NodePosX=0
+   NodePosY=0
+   NodeGuid=63A0BCF9496F23D3F420F56E4F92FCDC
+   CustomProperties Pin (PinId=D013DBFC93D16A3D3420FCFF098FDB3B,PinName="Var",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+
+Begin Object Class=/Script/BlueprintGraph.K2Node_VariableSet Name="K2Node_VariableSet_116" ExportPath="/Script/BlueprintGraph.K2Node_VariableSet'"/Game/Generated.Generated:EventGraph.K2Node_VariableSet_116"'"
+   VariableReference=(MemberName="Var",MemberGuid=D11EF181364E3691FCED9C12D4AEA445,bSelfContext=True)
+   NodePosX=300
+   NodePosY=0
+   NodeGuid=4775D917AFA074BB32B11396F6579D9D
+   CustomProperties Pin (PinId=9F0CDC0067F5F808689424336D6EE5FD,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=E97864646646645FAD7E2BEA07F2FCE2,PinName="then",Direction="EGPD_Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=01E290796FB6C88DF59B1B6FEF5D894D,PinName="Var",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+
+Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_117" ExportPath="/Script/BlueprintGraph.K2Node_VariableGet'"/Game/Generated.Generated:EventGraph.K2Node_VariableGet_117"'"
+   VariableReference=(MemberName="Var",MemberGuid=8A77EF44524AE0002C15181B845A5198,bSelfContext=True)
+   NodePosX=600
+   NodePosY=0
+   NodeGuid=5C3FCF9B8418B31264BAB3D8AFCB2D65
+   CustomProperties Pin (PinId=1F6B123BC225E86695AF5234F31612DE,PinName="Var",Direction="EGPD_Output",PinType.PinCategory="bool",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object
+
+Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_118" ExportPath="/Script/BlueprintGraph.K2Node_VariableGet'"/Game/Generated.Generated:EventGraph.K2Node_VariableGet_118"'"
+   VariableReference=(MemberName="Var",MemberGuid=3D1853F9BB4F24D9969CBF5E231F690B,bSelfContext=True)
+   NodePosX=900
+   NodePosY=0
+   NodeGuid=79B882712F412CA1C4A28C4BAE7C37A5
+   CustomProperties Pin (PinId=7DE6E9307F23F1F513777F180515609D,PinName="Var",Direction="EGPD_Output",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject="/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Vector'",PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object

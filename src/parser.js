@@ -157,11 +157,11 @@ function generateBlock(n){
     return `   CustomProperties Pin (PinId=${p.id},PinName="${p.name}",${dir}PinType.PinCategory="${p.category}",PinType.PinSubCategory="${p.category==='struct'?'':(p.subCategory||'')}",PinType.PinSubCategoryObject=${p.subCategoryObject||'None'},PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=${p.container||'None'},PinType.bIsReference=${p.isRef?'True':'False'},PinType.bIsConst=${p.isConst?'True':'False'},PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,${linked}bHidden=${p.hidden?'True':'False'},bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=${p.ignored?'True':'False'},bAdvancedView=${p.advanced?'True':'False'},bOrphanedPin=False,${dv})`;
   }).join('\n');
   let extra='';
-  if(n.varName) extra+=`   VariableReference=(MemberName="${n.varName}",MemberGuid=${guid.slice(0,8)}${guid.slice(8,12)}${guid.slice(12,16)}${guid.slice(16,20)}${guid.slice(20,32)},bSelfContext=True)\n`;
+  if(n.varName) extra+=`   VariableReference=(MemberName="${n.varName}",MemberGuid=${guid32()},bSelfContext=True)\n`;
   if(n.funcName && !n.operationName){
     if(n.pure) extra+=`   bDefaultsToPureFunc=True\n`;
     if(n.memberParent) extra+=`   FunctionReference=(MemberParent=${n.memberParent},MemberName="${n.funcName}")\n`;
-    else extra+=`   FunctionReference=(MemberName="${n.funcName}",MemberGuid=${guid.slice(0,8)}${guid.slice(8,12)}${guid.slice(12,16)}${guid.slice(16,20)}${guid.slice(20,32)},bSelfContext=True)\n`;
+    else extra+=`   FunctionReference=(MemberName="${n.funcName}",MemberGuid=${guid32()},bSelfContext=True)\n`;
   }
   if(n.operationName){
     const member=n.opMemberName||`${n.operationName}_DoubleDouble`;

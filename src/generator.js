@@ -188,6 +188,56 @@ export function createKnot(pos = { x: 0, y: 0 }) {
   };
 }
 
+/** Узел произвольного класса из записи реестра (Switch, Variable, Make-узлы, Select).
+ *  Механическое отображение без инференса: sub 'Array'/'Set'/'Map' → ContainerType
+ *  (см. note MakeArray в реестре); переменным — varName-заглушка из имени пина
+ *  (движок потребует настоящую переменную — это ожидаемо, см. sweep-манифест). */
+export function createGeneric(regEntry, pos = { x: 0, y: 0 }) {
+  const short = regEntry.className.split('.').pop();
+  const n = baseNode(short, short, pos);
+  n.title = regEntry.title || short;
+  if (short === 'K2Node_VariableGet' || short === 'K2Node_VariableSet') {
+    const v = (regEntry.pins || []).find(p => !['execute', 'then', 'self'].includes(p.name));
+    n.varName = v ? v.name : 'Var';
+  }
+  for (const p of regEntry.pins || []) {
+    const o = {};
+    if (p.sub === 'Array' || p.sub === 'Set' || p.sub === 'Map') o.container = p.sub;
+    else o.sub = p.sub || '';
+    if (p.cat === 'real' && !o.container) o.sub = p.sub || 'double';
+    if (p.cat === 'struct' && p.sub) {
+      if (!UE_STRUCTS[p.sub]) throw new Error(`Unknown struct in registry: ${p.sub} (${regEntry.id}.${p.name})`);
+      o.subObj = UE_STRUCTS[p.sub];
+    }
+    if (p.cat === 'object' && p.object) o.subObj = classRef(p.object);
+    if (p.enum) o.subObj = UE_ENUMS[p.enum] || p.enum;
+    if (p.const) o.const = true;
+    if (p.ref) o.ref = true;
+    if (p.container) o.container = p.container;
+    if (p.ignored) o.ignored = true;
+    if (p.advanced) o.advanced = true;
+    if (p.dv) o.dv = p.dv;
+    if (p.hidden) o.hidden = true;
+    n.pins.push(mkPin(p.name, p.dir, p.cat, o));
+  }
+  return n;
+}
+
+/** Диспетчер sweep-прогона: любая запись реестра → узел.
+ *  Бросает только на неизвестных путях (struct/enum/lib) — это сигнал «нужен референс». */
+export function createFromEntry(e, pos = { x: 0, y: 0 }) {
+  const short = (e.className || '').split('.').pop();
+  if (short === 'K2Node_CallFunction' || short === 'K2Node_CallArrayFunction') return createCallFunction(e, pos);
+  if (short === 'K2Node_PromotableOperator') return createOperator(e, pos);
+  if (short === 'K2Node_MacroInstance') return createMacroInstance(e, pos);
+  if (short === 'K2Node_MakeStruct' || short === 'K2Node_BreakStruct') return createStructNode(e, pos);
+  if (short === 'K2Node_IfThenElse') return createBranch(pos);
+  if (short === 'K2Node_ExecutionSequence') return createSequence((e.pins || []).filter(p => /^then_\d+$/.test(p.name)).length || 2, pos);
+  if (short === 'K2Node_Knot') return createKnot(pos);
+  if (short === 'EdGraphNode_Comment') return createComment('SWEEP: ' + (e.title || e.id), pos);
+  return createGeneric(e, pos);
+}
+
 export function createComment(text, pos = { x: 0, y: 0 }, w = 400, h = 180) {
   return {
     id: nextId('EdGraphNode_Comment'), className: 'UnrealEd.EdGraphNode_Comment',
