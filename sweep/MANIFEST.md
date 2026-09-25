@@ -32,7 +32,7 @@
 | 16 | 16-utilities.txt | 19/19 | 19 | 17 | — | 17xW09 |
 | 17 | 17-gameplay.txt | 12/12 | 12 | 12 | — | 11xW09 |
 | 18 | 18-input.txt | 2/2 | 0 | 2 | — | 1xW09 |
-| 19 | 19-organization.txt | 6/6 | 2 | 4 | — | — |
+| 19 | 19-organization.txt | 6/6 | 6 | 4 | — | — |
 | 20 | 20-text.txt | 1/1 | 0 | 1 | — | — |
 | 21 | 21-enhanced-input.txt | 1/1 | 0 | 1 | — | 1xW09 |
 

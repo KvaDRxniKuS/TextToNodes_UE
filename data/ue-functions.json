@@ -9044,7 +9044,7 @@
     "container": "Array"
    }
   ],
-  "verified": false,
+  "verified": true,
   "note": "round19-pre: свежая форма K2Node_MakeArray — входы [0]/[1] wildcard, выход Array (wildcard, ContainerType=Array), NumInputs=2; тип резолвится при подключении",
   "desc": "Создать массив",
   "props": {
@@ -9075,7 +9075,7 @@
     "container": "Set"
    }
   ],
-  "verified": false,
+  "verified": true,
   "note": "round19-pre: свежая форма K2Node_MakeSet — входы [0]/[1] wildcard, выход Set (ContainerType=Set), NumInputs=2",
   "desc": "Создать сет",
   "props": {
@@ -9106,8 +9106,8 @@
     "container": "Map"
    }
   ],
-  "verified": false,
-  "note": "round19-pre: свежая форма K2Node_MakeMap — пара Key 0/Value 0 wildcard, выход Map (ContainerType=Map, PinValueType пуст), NumInputs по умолчанию 1",
+  "verified": true,
+  "note": "round19-pre: свежая форма K2Node_MakeMap — пара Key 0/Value 0 wildcard, выход Map (ContainerType=Map, PinValueType пуст), NumInputs по умолчанию 1; round19: белая — одна пара Key 0/Value 0 (корректно, добавление пар — кнопкой в движке)",
   "desc": "Создать map"
  },
  {
@@ -9139,8 +9139,8 @@
     "cat": "wildcard"
    }
   ],
-  "verified": false,
-  "note": "round19-pre: по образцу белого SelectBool — Option 0/1 wildcard, Index int (IndexPinType int), ReturnValue wildcard. Enum-Select пока не реализован",
+  "verified": true,
+  "note": "round19-pre: по образцу белого SelectBool — Option 0/1 wildcard, Index int (IndexPinType int), ReturnValue wildcard. Enum-Select пока не реализован; round19: белая — Index остаётся int (движок не меняет тип индекса, float→int конвертирует)",
   "desc": "Выбор"
  },
  {

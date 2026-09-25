@@ -617,3 +617,7 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 
 - Enhanced_GetActionValue: статического GetActionValue нет → член UEnhancedInputComponent::GetBoundActionValue (const → pure), self EnhancedInputComponent, Action InputAction (const), RV FInputActionValue. Добавлены struct InputActionValue (FULL) и lib EnhancedInputComponent. Свип строит 270/270.
 
+## Вердикт round19 (2026-09-25)
+
+- round19 Organization: все 6 белые — Reroute, Comment, MakeArray/MakeSet (NumInputs=2 даёт 2 входа), пустой wildcard MakeMap (одна пара Key 0/Value 0 — корректная нода), Select с Index int (движок тип индекса не меняет — к float подставит конвертацию float→int). R19 закрыт 6/6.
+

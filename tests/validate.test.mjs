@@ -616,6 +616,11 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(/EnhancedInput\.InputActionValue/.test(g.pins.find(p => p.name === 'ReturnValue').subCategoryObject), 'R21: RV InputActionValue');
   ok(validateStrict(generateUEText([g])).errors.length === 0, 'R21: Enhanced Input 0 ошибок');
 }
+// R19 вердикт: Organization 6/6
+{
+  const o = reg.filter(e => e.category === 'Organization');
+  ok(o.length === 6 && o.every(e => e.verified), 'R19: Organization 6/6 verified');
+}
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);
