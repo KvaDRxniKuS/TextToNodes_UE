@@ -4,5 +4,5 @@ Begin Object Class=/Script/UnrealEd.EdGraphNode_Comment Name="EdGraphNode_Commen
    NodeWidth=900
    NodeHeight=200
    NodeComment="SWEEP 21/21: Enhanced Input (0/1 узлов, 0 verified) — ПУСТО, все записи требуют референсов (см. MANIFEST)"
-   NodeGuid=B4A231F440DF3994591D91E9B0A834BF
+   NodeGuid=A38CB924A853B334BF95AD0381663EB9
 End Object

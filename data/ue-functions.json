@@ -89,14 +89,14 @@
     "cat": "exec"
    },
    {
-    "name": "Completed",
-    "dir": "Output",
-    "cat": "exec"
-   },
-   {
     "name": "Index",
     "dir": "Output",
     "cat": "int"
+   },
+   {
+    "name": "Completed",
+    "dir": "Output",
+    "cat": "exec"
    }
   ],
   "verified": true,
@@ -157,11 +157,11 @@
   "func": "",
   "macro": {
    "graph": "ForLoopWithBreak",
-   "guid": null
+   "guid": "1FCFFE2843C702031581E5A273BD4C6B"
   },
   "pins": [
    {
-    "name": "execute",
+    "name": "Execute",
     "dir": "Input",
     "cat": "exec"
    },
@@ -176,12 +176,12 @@
     "cat": "int"
    },
    {
-    "name": "LoopBody",
-    "dir": "Output",
+    "name": "Break",
+    "dir": "Input",
     "cat": "exec"
    },
    {
-    "name": "Completed",
+    "name": "LoopBody",
     "dir": "Output",
     "cat": "exec"
    },
@@ -191,13 +191,12 @@
     "cat": "int"
    },
    {
-    "name": "Break",
-    "dir": "Input",
+    "name": "Completed",
+    "dir": "Output",
     "cat": "exec"
    }
   ],
-  "verified": false,
-  "note": "MacroInstance form per StandardMacros — pins + GraphGuid not engine-verified",
+  "verified": true,
   "desc": "С break"
  },
  {
@@ -208,7 +207,7 @@
   "func": "",
   "macro": {
    "graph": "WhileLoop",
-   "guid": null
+   "guid": "FA93B260444755CD702C21A123E9A987"
   },
   "pins": [
    {
@@ -232,8 +231,7 @@
     "cat": "exec"
    }
   ],
-  "verified": false,
-  "note": "MacroInstance form per StandardMacros — pin names (Condition/LoopBody) + GraphGuid not engine-verified",
+  "verified": true,
   "desc": "While"
  },
  {
@@ -244,7 +242,7 @@
   "func": "",
   "macro": {
    "graph": "Gate",
-   "guid": null
+   "guid": "5FD0ADDB41B99E726A411F8E87B5F37C"
   },
   "pins": [
    {
@@ -268,13 +266,18 @@
     "cat": "exec"
    },
    {
+    "name": "bStartClosed",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true"
+   },
+   {
     "name": "Exit",
     "dir": "Output",
     "cat": "exec"
    }
   ],
-  "verified": false,
-  "note": "Pin set incl. Toggle per standard macro — not engine-verified",
+  "verified": true,
   "desc": "Gate"
  },
  {
@@ -285,11 +288,11 @@
   "func": "",
   "macro": {
    "graph": "DoOnce",
-   "guid": null
+   "guid": "1281F54248A2ECB5B8B2C5B24AE6FDF4"
   },
   "pins": [
    {
-    "name": "Enter",
+    "name": "execute",
     "dir": "Input",
     "cat": "exec"
    },
@@ -299,13 +302,17 @@
     "cat": "exec"
    },
    {
+    "name": "Start Closed",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
     "name": "Completed",
     "dir": "Output",
     "cat": "exec"
    }
   ],
-  "verified": false,
-  "note": "Enter/Reset/Completed per standard macro — not engine-verified",
+  "verified": true,
   "desc": "DoOnce"
  },
  {
@@ -320,23 +327,27 @@
   },
   "pins": [
    {
-    "name": "execute",
+    "name": "",
     "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "A",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "B",
+    "dir": "Output",
     "cat": "exec"
    },
    {
     "name": "IsA",
     "dir": "Output",
-    "cat": "exec"
-   },
-   {
-    "name": "IsB",
-    "dir": "Output",
-    "cat": "exec"
+    "cat": "bool"
    }
   ],
-  "verified": false,
-  "note": "Pin names (execute/IsA/IsB) not engine-verified — macro tunnels may be Enter/A/B; GraphGuid medium confidence",
+  "verified": true,
   "desc": "FlipFlop"
  },
  {
@@ -377,7 +388,7 @@
    }
   ],
   "verified": false,
-  "note": "Pin set per standard macro — not engine-verified",
+  "note": "round1: имя графа 'DoN' движок не резолвит (MacroGraphReference дропнут, пины осиротели) — нужен live-реф",
   "desc": "DoN"
  },
  {
@@ -419,6 +430,11 @@
   "func": "",
   "pins": [
    {
+    "name": "Default",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
     "name": "execute",
     "dir": "Input",
     "cat": "exec"
@@ -426,7 +442,8 @@
    {
     "name": "Selection",
     "dir": "Input",
-    "cat": "int"
+    "cat": "int",
+    "dv": "0"
    },
    {
     "name": "0",
@@ -435,11 +452,6 @@
    },
    {
     "name": "1",
-    "dir": "Output",
-    "cat": "exec"
-   },
-   {
-    "name": "Default",
     "dir": "Output",
     "cat": "exec"
    }
@@ -455,6 +467,11 @@
   "func": "",
   "pins": [
    {
+    "name": "Default",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
     "name": "execute",
     "dir": "Input",
     "cat": "exec"
@@ -463,15 +480,9 @@
     "name": "Selection",
     "dir": "Input",
     "cat": "string"
-   },
-   {
-    "name": "Default",
-    "dir": "Output",
-    "cat": "exec"
    }
   ],
-  "verified": false,
-  "note": "Add one exec-out pin per case (PinName = case value) + keep Default",
+  "verified": true,
   "desc": "Switch String"
  },
  {
@@ -482,6 +493,11 @@
   "func": "",
   "pins": [
    {
+    "name": "Default",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
     "name": "execute",
     "dir": "Input",
     "cat": "exec"
@@ -489,16 +505,32 @@
    {
     "name": "Selection",
     "dir": "Input",
-    "cat": "byte"
+    "cat": "byte",
+    "enum": "EDrawDebugTrace"
    },
    {
-    "name": "Default",
+    "name": "None",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "ForOneFrame",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "ForDuration",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Persistent",
     "dir": "Output",
     "cat": "exec"
    }
   ],
   "verified": false,
-  "note": "Add one exec-out pin per enum entry; Selection needs Enum SubCategoryObject path",
+  "note": "round1: движок требует конкретный enum — назначен EDrawDebugTrace (наш выбор); кейсы и Selection dv на проверке",
   "desc": "Switch Enum"
  },
  {

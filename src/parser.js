@@ -150,11 +150,13 @@ function generateBlock(n){
     const dir=p.direction==='Output'?`Direction="EGPD_Output",`:'';
     const linked=p.linkedTo.length?`LinkedTo=(${p.linkedTo.map(l=> l.nodeName+' '+l.pinId).join(',')},),`:'';
     const dv=p.defaultValue?`DefaultValue="${p.defaultValue}",`:'';
+    // PinName опускаем при пустом имени (FlipFlop, round1: каноника движка — поля нет вообще).
+    const nm=p.name?`PinName="${p.name}",`:'';
         // PinFriendlyName ne pishem: dvizhok hranit NSLOCTEXT i vosstanavlivaet sam.
     // NB: PersistentGuid намеренно НЕ пишем — нулевой/битый GUID движок может
     // перегенерировать вместе с пином и порвать связь; без поля вставка чистая.
     // v6: ссылки quoted-full (UE 5.8, copy-back H1/J5/LineTraceSingle: "..." + полная форма без внутр. кавычек).
-    return `   CustomProperties Pin (PinId=${p.id},PinName="${p.name}",${dir}PinType.PinCategory="${p.category}",PinType.PinSubCategory="${p.category==='struct'?'':(p.subCategory||'')}",PinType.PinSubCategoryObject=${p.subCategoryObject||'None'},PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=${p.container||'None'},PinType.bIsReference=${p.isRef?'True':'False'},PinType.bIsConst=${p.isConst?'True':'False'},PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,${linked}bHidden=${p.hidden?'True':'False'},bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=${p.ignored?'True':'False'},bAdvancedView=${p.advanced?'True':'False'},bOrphanedPin=False,${dv})`;
+    return `   CustomProperties Pin (PinId=${p.id},${nm}${dir}PinType.PinCategory="${p.category}",PinType.PinSubCategory="${p.category==='struct'?'':(p.subCategory||'')}",PinType.PinSubCategoryObject=${p.subCategoryObject||'None'},PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=${p.container||'None'},PinType.bIsReference=${p.isRef?'True':'False'},PinType.bIsConst=${p.isConst?'True':'False'},PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,${linked}bHidden=${p.hidden?'True':'False'},bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=${p.ignored?'True':'False'},bAdvancedView=${p.advanced?'True':'False'},bOrphanedPin=False,${dv})`;
   });
   // v7: self-пин статического вызова библиотеки (copy-back O1/O2: движок
   // достраивает его сам — пишем сразу для copy-back 1-в-1). FriendlyName не
@@ -166,6 +168,15 @@ function generateBlock(n){
       let idx=0; while(n.pins[idx]&&n.pins[idx].category==='exec')idx++;
       pinLines.splice(idx,0,`   CustomProperties Pin (PinId=${guid32()},PinName="self",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=${n.memberParent},PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultObject="${mm[1]}.Default__${mm[2]}",bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)`);
     }
+  }
+  // v7.1: NotEqual-автопин свитчей (copy-back round1: движок достраивает сам —
+  // пишем сразу для copy-back 1-в-1). Позиция — сразу после Selection.
+  const SWNEQ={K2Node_SwitchInteger:['NotEqual_IntInt','KismetMathLibrary'],K2Node_SwitchString:['NotEqual_StriStri','KismetStringLibrary'],K2Node_SwitchEnum:['NotEqual_ByteByte','KismetMathLibrary']};
+  const swm=n.className&&SWNEQ[n.className.split('.').pop()];
+  if(swm&&!n.pins.some(p=>p.name===swm[0])){
+    const libC=`"/Script/CoreUObject.Class'/Script/Engine.${swm[1]}'"`;
+    let si=n.pins.findIndex(p=>p.name==='Selection'); if(si<0)si=0;
+    pinLines.splice(si+1,0,`   CustomProperties Pin (PinId=${guid32()},PinName="${swm[0]}",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=${libC},PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultObject="/Script/Engine.Default__${swm[1]}",bHidden=True,bNotConnectable=True,bDefaultValueIsReadOnly=True,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)`);
   }
   const pinsText=pinLines.join('\n');
   let extra='';

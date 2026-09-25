@@ -84,12 +84,12 @@ export const ALL_SUBOBJ = [...Object.values(STRUCTS_FULL), ...Object.values(STRU
 export const UE_MACROS = {
   ForLoop:          { graph: 'ForLoop',          guid: '55C904AF4B45FE1761FB55A8DB9FB801' }, // confirmed (copy-back J7, UE 5.8)
   ForEachLoop:      { graph: 'ForEachLoop',      guid: '99DBFD5540A796041F72A5A9DA655026' }, // confirmed (copy-back, UE 5.8)
-  FlipFlop:         { graph: 'FlipFlop',         guid: 'BFFFAAE4434E166F549665AD1AA89B60' }, // medium (дамп UE5)
-  ForLoopWithBreak: { graph: 'ForLoopWithBreak', guid: null },
-  WhileLoop:        { graph: 'WhileLoop',        guid: null },
-  Gate:             { graph: 'Gate',             guid: null },
-  DoOnce:           { graph: 'DoOnce',           guid: null },
-  DoN:              { graph: 'DoN',              guid: null },
+  FlipFlop:         { graph: 'FlipFlop',         guid: 'BFFFAAE4434E166F549665AD1AA89B60' }, // confirmed (copy-back round1, UE 5.8)
+  ForLoopWithBreak: { graph: 'ForLoopWithBreak', guid: '1FCFFE2843C702031581E5A273BD4C6B' }, // round1 (copy-back 01)
+  WhileLoop:        { graph: 'WhileLoop',        guid: 'FA93B260444755CD702C21A123E9A987' }, // round1 (copy-back 01)
+  Gate:             { graph: 'Gate',             guid: '5FD0ADDB41B99E726A411F8E87B5F37C' }, // round1 (copy-back 01)
+  DoOnce:           { graph: 'DoOnce',           guid: '1281F54248A2ECB5B8B2C5B24AE6FDF4' }, // round1 (copy-back 01)
+  DoN:              { graph: 'DoN',              guid: null }, // round1: имя не резолвится — нужен live-реф
 };
 
 // Class-ссылка для object-пинов (WCO): путь класса → ссылка в стиле версии.

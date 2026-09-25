@@ -61,19 +61,21 @@ export function validateStrict(text, { registry = null } = {}) {
       else if (t.startsWith('CustomProperties Pin')) {
         const s = t.substring(t.indexOf('Pin (') + 5);
         const pid = (s.match(/PinId=([A-F0-9]+)/) || [])[1] || '';
-        const pname = (s.match(/PinName="([^"]+)"/) || [])[1];
+        const pname = (s.match(/PinName="([^"]*)"/) || [])[1];
         if (!pid) errors.push(`E04: ${name}: пин без PinId (${pname || '???'}) — движок перегенерирует пин и порвёт связь`);
         else {
           if (!HEX32.test(pid)) errors.push(`E04: ${name}.${pname}: PinId не 32-HEX (${pid})`);
           if (pinIds.has(pid)) errors.push(`E05: дублирующийся PinId ${pid} (${pinIds.get(pid)} + ${name}.${pname})`);
           else pinIds.set(pid, `${name}.${pname}`);
         }
-        if (pname === undefined) errors.push(`E04: ${name}: пин без PinName`);
         const linked = (s.match(/LinkedTo=\(([^)]*)\)/) || [])[1] || '';
         const links = [];
         linked.split(',').map(x => x.trim()).filter(Boolean).forEach(tok => {
           const p = tok.split(/\s+/); if (p.length >= 2) links.push({ node: p[0], pin: p[1] });
         });
+        // round1: безымянный пин — каноника FlipFlop (движок поле опускает);
+        // варнинг только связанному (ребилд макроса может порвать связь).
+        if (pname === undefined && links.length) warnings.push(`W12: ${name}: связанный пин без PinName`);
         const cat = (s.match(/PinCategory="([^"]*)"/) || [])[1] || '';
         const subObj = (s.match(/PinSubCategoryObject=([^,\)]+)/) || [])[1] || '';
         const isOut = s.includes('EGPD_Output');

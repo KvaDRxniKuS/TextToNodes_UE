@@ -139,10 +139,11 @@ export function createSwitch(kind, cases = [], pos = { x: 0, y: 0 }) {
   if (!k) throw new Error(`Unknown switch kind: ${kind}`);
   const n = baseNode('K2Node_Switch', k.cls, pos);
   n.title = `Switch (${kind})`;
-  n.pins.push(mkPin('execute', 'Input', 'exec'));
-  n.pins.push(mkPin('Selection', 'Input', k.sel, { sub: k.selSub }));
-  for (const c of cases) n.pins.push(mkPin(String(c), 'Output', 'exec'));
+  // round1: порядок движка — Default первый; Selection dv "0" только у int.
   n.pins.push(mkPin('Default', 'Output', 'exec'));
+  n.pins.push(mkPin('execute', 'Input', 'exec'));
+  n.pins.push(mkPin('Selection', 'Input', k.sel, { sub: k.selSub, ...(kind === 'int' ? { dv: '0' } : {}) }));
+  for (const c of cases) n.pins.push(mkPin(String(c), 'Output', 'exec'));
   return n;
 }
 
@@ -283,13 +284,14 @@ export function layoutRow(nodes, x0 = 0, y = 0, gap = ROW_GAP) {
   return nodes;
 }
 
-export function fitComment(text, nodes, pad = 60, topPad = 110) {
+export function fitComment(text, nodes, pad = 60, topPad = 110, botPad = 110) {
   const minX = Math.min(...nodes.map(n => n.pos.x));
   const minY = Math.min(...nodes.map(n => n.pos.y));
   const maxRight = Math.max(...nodes.map(n => n.pos.x + estNodeWidth(n)));
   const estH = n => 110 + PIN_ROW_H * ((n.pins && n.pins.length) || 0);
   const maxBottom = Math.max(...nodes.map(n => n.pos.y + estH(n)));
-  return createComment(text, { x: minX - pad, y: minY - topPad }, (maxRight - minX) + pad * 2, (maxBottom - minY) + topPad + pad);
+  // round1: нижний отступ = topPad (было pad=60 — Sequence-3 визуально вышел за коммент).
+  return createComment(text, { x: minX - pad, y: minY - topPad }, (maxRight - minX) + pad * 2, (maxBottom - minY) + topPad + botPad);
 }
 
 export function linkPins(fromNode, fromPinName, toNode, toPinName, opts = {}) {

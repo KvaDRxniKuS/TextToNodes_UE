@@ -339,3 +339,23 @@ Make-узлов/Select), раскладывает сеткой по 5 в ряд 
 NodeGuid (свежий guid32 в src/parser.js и index.html — синхронно).
 Протокол для пользователя — в шапке MANIFEST.md: по одному файлу в чистый граф,
 обратно — номер файла + сломанные ноды целиком.
+
+
+## Раунд 1: Flow Control copy-back (2026-09-25)
+
+14/14 встали; DoN — имя графа неверно (движок дропнул MacroGraphReference,
+N/Counter осиротели) — нужен live-реф. Захвачены GraphGuid: ForLoopWithBreak
+1FCFFE28…, WhileLoop FA93B260…, Gate 5FD0ADDB…, DoOnce 1281F542…
+(ForLoop/ForEach/FlipFlop guid подтверждены). Ремонты движка, вшитые в реестр:
+ForLoop — Index перед Completed; ForLoopWithBreak — Execute с большой буквы,
+Break после LastIndex; Gate — +bStartClosed(true); DoOnce — Enter→execute,
++Start Closed (без dv); FlipFlop — безымянный exec-вход (поле PinName опускаем —
+каноника), A/B, IsA-bool. Свитчи: порядок Default-первый, Selection dv "0"
+у int (подтверждено), у enum dv не ставим (на проверке); SwitchEnum привязан
+к EDrawDebugTrace (движок требует конкретный enum); движок добавляет скрытый
+NotEqual-пин (IntInt/StriStri/ByteByte, bNotConnectable + ReadOnly) — пишем
+его сразу (автопин в parser.js/index.html, как self). Макросы самоисцеляются
+по имени графа (пины ребилдятся из сигнатуры) — критично только имя.
+Sequence-3 визуально вышел за коммент — нижний отступ fitComment 60→110.
+Copy-back сохраняет наши PinId — дифф по PinId работает. Валидатор: E04
+«пин без PinName» понижен до W12 и только для связанных (FlipFlop).

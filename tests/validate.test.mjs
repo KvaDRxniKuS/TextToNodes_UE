@@ -403,6 +403,20 @@ regThrow.forEach(t => console.log('THROW:', t));
   layoutRow([s1, c1, fo]);
   ok([s1, c1, fo].every((n, i, arr) => i === 0 || n.pos.x - arr[i - 1].pos.x >= estNodeWidth(arr[i - 1])), 'layoutRow: инвариант без наложений на тройке O2');
 }
+// Round 1 (copy-back 01): NotEqual-автопин свитчей, GraphGuid макросов, безымянный пин FlipFlop
+{
+  const swT = generateUEText([createFromEntry(byId('SwitchInt'))]);
+  ok(swT.includes('PinName="NotEqual_IntInt"') && swT.includes('Default__KismetMathLibrary'), 'round1: SwitchInteger несёт NotEqual_IntInt');
+  const swS = generateUEText([createFromEntry(byId('SwitchString'))]);
+  ok(swS.includes('PinName="NotEqual_StriStri"') && swS.includes('Default__KismetStringLibrary'), 'round1: SwitchString несёт NotEqual_StriStri');
+  const swE = generateUEText([createFromEntry(byId('SwitchEnum'))]);
+  ok(swE.includes('PinName="NotEqual_ByteByte"') && swE.includes('EDrawDebugTrace'), 'round1: SwitchEnum на EDrawDebugTrace + NotEqual_ByteByte');
+  const MG = { Gate: '5FD0ADDB41B99E726A411F8E87B5F37C', DoOnce: '1281F54248A2ECB5B8B2C5B24AE6FDF4', WhileLoop: 'FA93B260444755CD702C21A123E9A987', ForLoopWithBreak: '1FCFFE2843C702031581E5A273BD4C6B' };
+  for (const [id, g] of Object.entries(MG)) ok(generateUEText([createFromEntry(byId(id))]).includes('GraphGuid=' + g), `round1: ${id} GraphGuid захвачен`);
+  const ffT = generateUEText([createFromEntry(byId('FlipFlop'))]);
+  ok(validateStrict(ffT).valid && /CustomProperties Pin \(PinId=[A-F0-9]{32},PinType\./.test(ffT), 'round1: FlipFlop безымянный exec-пин, strict чист');
+  ok(byId('DoN').verified === false, 'round1: DoN ждёт live-реф');
+}
 // Sweep coverage: каждая запись реестра строится (кроме референс-листа)
 {
   const THROW_OK = new Set(['Enhanced_GetActionValue']); // InputActionValue вне FULL-словаря
