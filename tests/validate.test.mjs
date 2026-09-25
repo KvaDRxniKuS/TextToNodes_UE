@@ -417,7 +417,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(validateStrict(ffT).valid && /CustomProperties Pin \(PinId=[A-F0-9]{32},PinType\./.test(ffT), 'round1: FlipFlop безымянный exec-пин, strict чист');
   ok(byId('DoN').verified === true && byId('DoN').macro.graph === 'Do N', 'round1b: DoN — имя с пробелом, verified');
   const seT = generateUEText([createFromEntry(byId('SwitchEnum'))]);
-  ok(seT.includes(`Enum="/Script/CoreUObject.Enum'/Script/Engine.EDrawDebugTrace'"`) && seT.includes('EnumEntries(3)="Persistent"') && !seT.includes('PinName="Default"'), 'round1b: SwitchEnum — Enum/Entries, без Default');
+  ok(seT.includes(`Enum="/Script/CoreUObject.Enum'/Script/Engine.EDrawDebugTrace'"`) && seT.includes('EnumEntries(0)=""') && seT.includes('EnumEntries(3)="Persistent"') && !seT.includes('PinName="Default"'), 'round1b: SwitchEnum — Enum/Entries (None→""), без Default');
 }
 // Sweep coverage: каждая запись реестра строится (кроме референс-листа)
 {

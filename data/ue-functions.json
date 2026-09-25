@@ -524,7 +524,7 @@
     "cat": "exec"
    }
   ],
-  "verified": false,
+  "verified": true,
   "note": "round1b: структура по live-рефу SwitchEnum (Enum=/EnumEntries, без Default, dv=первый); кейсы EDrawDebugTrace на проверке",
   "desc": "Switch Enum",
   "enum": "EDrawDebugTrace",
@@ -533,7 +533,8 @@
    "ForOneFrame",
    "ForDuration",
    "Persistent"
-  ]
+  ],
+  "notes": "Кейсы EDrawDebugTrace (EnumEntries; None->\"\"); Selection dv None; Default нет (verified round 1-fix-2 copy-back)"
  },
  {
   "id": "VarGet",

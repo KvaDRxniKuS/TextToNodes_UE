@@ -388,3 +388,13 @@ Enum-строки обязательны, 1-fix-2 (с ними) — решающ
 (BP_WheelActor_C, без DefaultObject) — не эмитим (класс unknowable
 статически, движок достраивает сам). Красное у переменных — только
 unknown variable (ожидаемо). DoN live-реф _13 подтвердил 1-fix-2 1:1.
+
+
+## Раунд 1-fix-2: вердикт — всё белое (2026-09-25)
+
+DoN — идеальное 1:1. SwitchEnum принят целиком (Enum/Entries, 4 кейса,
+Selection dv None, NotEqual с нашим PinId) с нормализацией None:
+EnumEntries(0) движок переписал в "", у None-пина снёс PinName, кейсам
+добавил PinFriendlyName NSLOCTEXT. Эмиттер: None->"" в EnumEntries
+(в реестр/SwitchEnum verified=True; PinName/FriendlyName не эмитим —
+движок достраивает). Файл 01: 14 verified, остался 1 noted (ForEachLoop).

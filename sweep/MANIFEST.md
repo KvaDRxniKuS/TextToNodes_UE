@@ -14,7 +14,7 @@
 
 | # | Файл | Нод | Verified | Noted | Err | Warn |
 |---|---|---|---|---|---|---|
-| 01 | 01-flow-control.txt | 14/14 | 13 | 2 | — | — |
+| 01 | 01-flow-control.txt | 14/14 | 14 | 1 | — | — |
 | 02 | 02-variables.txt | 4/4 | 4 | 0 | — | — |
 | 03 | 03-math-float.txt | 30/30 | 0 | 0 | — | 2xW09 |
 | 04 | 04-math-interpolation.txt | 7/7 | 0 | 0 | — | — |

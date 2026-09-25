@@ -158,7 +158,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_SwitchEnum Name="K2Node_SwitchEnum_113" ExportPath="/Script/BlueprintGraph.K2Node_SwitchEnum'"/Game/Generated.Generated:EventGraph.K2Node_SwitchEnum_113"'"
    Enum="/Script/CoreUObject.Enum'/Script/Engine.EDrawDebugTrace'"
-   EnumEntries(0)="None"
+   EnumEntries(0)=""
    EnumEntries(1)="ForOneFrame"
    EnumEntries(2)="ForDuration"
    EnumEntries(3)="Persistent"
