@@ -26,6 +26,7 @@ const LIBS_FULL = {
   KismetTextLibrary:   `"/Script/CoreUObject.Class'/Script/Engine.KismetTextLibrary'"`,
   KismetArrayLibrary:  `"/Script/CoreUObject.Class'/Script/Engine.KismetArrayLibrary'"`,
   GameplayStatics:     `"/Script/CoreUObject.Class'/Script/Engine.GameplayStatics'"`,
+  PlayerController:    `"/Script/CoreUObject.Class'/Script/Engine.PlayerController'"`, // round18-pre: член-функции (IsInputKeyDown)
 };
 const LIBS_SHORT = {
   KismetMathLibrary:   `Class'"/Script/Engine.KismetMathLibrary"'`,
@@ -34,6 +35,7 @@ const LIBS_SHORT = {
   KismetTextLibrary:   `Class'"/Script/Engine.KismetTextLibrary"'`,
   KismetArrayLibrary:  `Class'"/Script/Engine.KismetArrayLibrary"'`,
   GameplayStatics:     `Class'"/Script/Engine.GameplayStatics"'`,
+  PlayerController:    `Class'"/Script/Engine.PlayerController"'`,
 };
 export const UE_LIBS = UE_VERSION === 'SHORT' ? LIBS_SHORT : LIBS_FULL;
 

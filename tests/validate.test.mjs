@@ -572,6 +572,16 @@ regThrow.forEach(t => console.log('THROW:', t));
   const v = validateStrict(generateUEText(reg.filter(e => e.category === 'Gameplay').map(e => createFromEntry(e))));
   ok(v.errors.length === 0, 'R17: Gameplay 0 ошибок');
 }
+// R18 pre-fix: Input
+{
+  const k = createFromEntry(byId('GetKey'));
+  ok(k.className.endsWith('K2Node_InputKey') && (k.rawProps || []).includes('InputKey=SpaceBar'), 'R18: GetKey → K2Node_InputKey InputKey=SpaceBar');
+  ok(k.pins.map(p => p.name).join() === 'Pressed,Released,Key', 'R18: InputKey пины Pressed/Released/Key');
+  const d = createFromEntry(byId('IsInputKeyDown'));
+  ok(/Engine\.PlayerController/.test(d.memberParent) && d.pure && d.pins[0].name === 'self', 'R18: IsInputKeyDown — член PlayerController, pure, self');
+  const v = validateStrict(generateUEText(reg.filter(e => e.category === 'Input').map(e => createFromEntry(e))));
+  ok(v.errors.length === 0, 'R18: Input 0 ошибок');
+}
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);

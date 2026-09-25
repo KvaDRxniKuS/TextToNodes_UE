@@ -8927,27 +8927,34 @@
  },
  {
   "id": "GetKey",
-  "title": "Get Key",
+  "title": "Input Key Event (SpaceBar)",
   "category": "Input",
-  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-  "func": "GetKey",
-  "lib": null,
+  "className": "/Script/BlueprintGraph.K2Node_InputKey",
+  "func": "",
+  "props": {
+   "InputKey": "SpaceBar"
+  },
   "pins": [
    {
-    "name": "InKey",
-    "dir": "Input",
-    "cat": "struct",
-    "sub": "Key"
+    "name": "Pressed",
+    "dir": "Output",
+    "cat": "exec"
    },
    {
-    "name": "ReturnValue",
+    "name": "Released",
     "dir": "Output",
-    "cat": "bool"
+    "cat": "exec"
+   },
+   {
+    "name": "Key",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Key"
    }
   ],
   "verified": false,
-  "note": "Function not found as Kismet static — verify in engine before use",
-  "desc": "Клавиша"
+  "desc": "Клавиша",
+  "note": "round18-pre: стокового UFUNCTION GetKey нет — узел «клавиша» в BP это событие K2Node_InputKey (свойство InputKey=имя FKey, выходы Pressed/Released/Key). Работает только в графе Actor/Pawn/PlayerController"
  },
  {
   "id": "IsInputKeyDown",
@@ -8955,8 +8962,14 @@
   "category": "Input",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
   "func": "IsInputKeyDown",
-  "lib": null,
+  "lib": "PlayerController",
   "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   },
    {
     "name": "Key",
     "dir": "Input",
@@ -8966,12 +8979,14 @@
    {
     "name": "ReturnValue",
     "dir": "Output",
-    "cat": "bool"
+    "cat": "bool",
+    "dv": "false"
    }
   ],
   "verified": false,
-  "note": "Member of PlayerController — needs Self context; static form untested",
-  "desc": "Нажата?"
+  "note": "round18-pre: член APlayerController (UFUNCTION BlueprintCallable, const → pure). MemberParent=PlayerController, пин self (Target) типа PlayerController, Key по значению",
+  "desc": "Нажата?",
+  "pure": true
  },
  {
   "id": "Reroute",

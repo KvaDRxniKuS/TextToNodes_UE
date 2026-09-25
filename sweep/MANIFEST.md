@@ -31,7 +31,7 @@
 | 15 | 15-array.txt | 18/18 | 0 | 18 | — | 17xW09 |
 | 16 | 16-utilities.txt | 19/19 | 2 | 17 | — | 17xW09 |
 | 17 | 17-gameplay.txt | 12/12 | 0 | 12 | — | 11xW09 |
-| 18 | 18-input.txt | 2/2 | 0 | 2 | — | 2xW09 |
+| 18 | 18-input.txt | 2/2 | 0 | 2 | — | 1xW09 |
 | 19 | 19-organization.txt | 6/6 | 2 | 4 | — | 3xW03 |
 | 20 | 20-text.txt | 1/1 | 0 | 1 | — | 1xW09 |
 | 21 | 21-enhanced-input.txt | 0/1 | 0 | 1 | — | — |
@@ -124,8 +124,7 @@
 - 17-gameplay.txt :: W09: K2Node_CallFunction_373: GetGameState: round17-pre
 - 17-gameplay.txt :: W09: K2Node_CallFunction_374: GetGameInstance: round17-pre
 - 17-gameplay.txt :: W09: K2Node_CallFunction_375: GetCurrentLevelName: round17-pre: статического GetWorld в Kismet нет → заменён на GameplayStatics::GetCurrentLevelName
-- 18-input.txt :: W09: K2Node_CallFunction_377: GetKey: Function not found as Kismet static — verify in engine before use
-- 18-input.txt :: W09: K2Node_CallFunction_378: IsInputKeyDown: Member of PlayerController — needs Self context; static form untested
+- 18-input.txt :: W09: K2Node_CallFunction_378: IsInputKeyDown: round18-pre: член APlayerController (UFUNCTION BlueprintCallable, const → pure). MemberParent=PlayerController, пин self (Target) типа PlayerController, Key по значению
 - 19-organization.txt :: W03: K2Node_MakeArray_382: K2Node_MakeArray требует ContainerType — текст может не вставиться; проверь в движке
 - 19-organization.txt :: W03: K2Node_MakeSet_383: K2Node_MakeSet требует ContainerType — текст может не вставиться; проверь в движке
 - 19-organization.txt :: W03: K2Node_MakeMap_384: K2Node_MakeMap требует ContainerType — текст может не вставиться; проверь в движке
