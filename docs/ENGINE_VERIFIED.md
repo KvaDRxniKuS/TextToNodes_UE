@@ -659,3 +659,13 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 
 - sweep/24-pawn-character.txt, 18 узлов, члены Character/Pawn/Controller/Actor с явным self (как R23). Без референса.
 
+## Round22: Casting — VERIFIED (2026-09-25) + каст к любому классу
+
+- Все 10 записей Casting работают (DynamicCast, GetObjectClass, ClassIsChildOf, GetDisplayName/GetObjectName, ==/!= Object/Class, Conv_ObjectToString).
+- K2Node_ClassDynamicCast — форма из копии пользователя (tests/fixtures/classcast-r22-copyback.txt): TargetType=класс, PureState=Impure, пины execute/then/CastFailed/Class(class Object)/As<Name>(class)/bSuccess(hidden). Запись ClassCastToPawn.
+- Требование пользователя: каст к ЛЮБОМУ объекту/классу. `createCast(target, {kind:'object'|'class', pure})` в src/generator.js, CLI `node tools/gen-cast.mjs <Класс> [--class] [--pure]`.
+  - target: `Pawn` → /Script/Engine.Pawn; `/Script/Mod.X` как есть; `/Game/.../BP_X` → `/Script/Engine.BlueprintGeneratedClass'/Game/.../BP_X.BP_X_C'` (не подтверждено).
+  - Имя выхода: `As` + NameToDisplayString (упрощённо). Для BP-классов не подтверждено.
+  - pure-каст (PureState=Pure) — не подтверждён.
+- sweep/22b-cast-any.txt — демо: 4 объектных, 1 pure, 3 классовых каста.
+

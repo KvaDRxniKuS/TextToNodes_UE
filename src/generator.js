@@ -1,7 +1,7 @@
 // Generator helpers for AI — строит ноды по реестру data/ue-functions.json,
 // совместимые с generateUEText() из parser.js и строгим src/validate.js.
 import { guid32 } from './parser.js';
-import { UE_LIBS, UE_STRUCTS, UE_ENUMS, UE_MACROS, classRef } from './ue-types.js';
+import { UE_LIBS, UE_STRUCTS, UE_ENUMS, UE_MACROS, classRef, classDisplayName } from './ue-types.js';
 
 let seq = 100;
 const nextId = prefix => `${prefix}_${seq++}`;
@@ -237,6 +237,26 @@ export function createGeneric(regEntry, pos = { x: 0, y: 0 }) {
     const ix = n.pins.find(p => p.name === 'Index');
     if (ix && ix.category !== 'wildcard') n.selectIndex = { cat: ix.category, sub: ix.subCategory || '', subObj: ix.subCategoryObject || '' };
   }
+  return n;
+}
+
+/** round22: каст к ЛЮБОМУ классу (нативному или BP).
+ *  kind 'object' → K2Node_DynamicCast (Object → As<Name>), verified R21b/R22;
+ *  kind 'class'  → K2Node_ClassDynamicCast (Class → As<Name> типа class), форма из копии пользователя R22.
+ *  pure → PureState=Pure без exec (не подтверждено). */
+export function createCast(target, { kind = 'object', pure = false } = {}, pos = { x: 0, y: 0 }) {
+  const short = kind === 'class' ? 'K2Node_ClassDynamicCast' : 'K2Node_DynamicCast';
+  const n = baseNode(short, short, pos);
+  const cref = classRef(target);
+  const disp = classDisplayName(target);
+  n.title = `Cast To ${disp}${kind === 'class' ? ' Class' : ''}`;
+  n.rawProps = [`TargetType=${cref}`];
+  if (kind === 'class' || pure) n.rawProps.push(`PureState=${pure ? 'Pure' : 'Impure'}`);
+  if (!pure) n.pins.push(mkPin('execute', 'Input', 'exec'), mkPin('then', 'Output', 'exec'), mkPin('CastFailed', 'Output', 'exec'));
+  const cat = kind === 'class' ? 'class' : 'object';
+  n.pins.push(mkPin(kind === 'class' ? 'Class' : 'Object', 'Input', cat, { subObj: classRef('/Script/CoreUObject.Object') }));
+  n.pins.push(mkPin('As' + disp, 'Output', cat, { subObj: cref }));
+  n.pins.push(mkPin('bSuccess', 'Output', 'bool', { hidden: !pure }));
   return n;
 }
 

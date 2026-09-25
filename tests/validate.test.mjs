@@ -651,7 +651,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   const cb = fs.readFileSync(new URL('./fixtures/input-r18-copyback.txt', import.meta.url), 'utf8');
   ok(cb.includes('InputKey=SpaceBar') && cb.includes('NSLOCTEXT("K2Node", "Target", "Target")'), 'R18: copy-back — InputKey принят, self → Target');
   const cs = reg.filter(e => e.category === 'Casting');
-  ok(cs.length === 10, 'R22: Casting 10 записей');
+  ok(cs.length === 11, 'R22: Casting 11 записей (+ClassCastToPawn)');
   ok(createFromEntry(byId('CastToCharacter')).pins.some(p => p.name === 'AsCharacter'), 'R22: CastToCharacter выход AsCharacter');
   const v = validateStrict(generateUEText(cs.map(e => createFromEntry(e))));
   ok(v.errors.length === 0, 'R22: Casting 0 ошибок');
@@ -680,6 +680,20 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(j.includes('MemberParent="/Script/CoreUObject.Class\'/Script/Engine.Character\'"') && j.includes('MemberName="Jump"'), 'R24: Jump — член Character');
   const gp = generateUEText([createFromEntry(byId('GetControlledPawn'))]);
   ok(gp.includes('MemberName="K2_GetPawn"') && !gp.includes('PinName="execute"'), 'R24: Get Controlled Pawn = pure K2_GetPawn');
+}
+// R22 VERIFIED + каст к любому классу (createCast)
+{
+  const { createCast } = await import('../src/generator.js');
+  ok(reg.filter(e => e.category === 'Casting').every(e => e.verified), 'R22: Casting verified');
+  const ref = fs.readFileSync(new URL('./fixtures/classcast-r22-copyback.txt', import.meta.url), 'utf8');
+  const t = generateUEText([createCast('Pawn', { kind: 'class' })]);
+  const sig = s => s.split('\n').filter(l => /TargetType|PureState|PinName=/.test(l)).map(l => l.replace(/PinId=\w+,/, '').replace(/PersistentGuid=0+,/, '').trim());
+  ok(JSON.stringify(sig(t)) === JSON.stringify(sig(ref)), 'R22: ClassDynamicCast Pawn = копия пользователя 1:1 (без GUID)');
+  const b = generateUEText([createCast('/Game/Blueprints/BP_AISupportTester')]);
+  ok(b.includes("TargetType=\"/Script/Engine.BlueprintGeneratedClass'/Game/Blueprints/BP_AISupportTester.BP_AISupportTester_C'\""), 'R22: BP-класс → BlueprintGeneratedClass + _C');
+  ok(generateUEText([createCast('/Script/Engine.CharacterMovementComponent')]).includes('PinName="AsCharacter Movement Component"'), 'R22: As<DisplayName> для любого нативного класса');
+  const pc = generateUEText([createCast('PlayerController')]);
+  ok(pc.includes('PinName="AsPlayer Controller"') && !pc.includes('PureState'), 'R22: DynamicCast = verified-форма R21b');
 }
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);

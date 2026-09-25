@@ -120,8 +120,26 @@ export const UE_MACROS = {
 
 // Class-ссылка для object-пинов (WCO): путь класса → ссылка в стиле версии.
 // FULL: "/Script/CoreUObject.Class'/Script/CoreUObject.Object'" (copy-back H1, UE 5.8).
+/** round22: любой класс. 'Pawn' → /Script/Engine.Pawn; '/Script/Mod.X' как есть;
+ *  '/Game/.../BP_X' или '/Game/.../BP_X.BP_X_C' → BlueprintGeneratedClass (без референса). */
+export function normalizeClassPath(c){
+  c = String(c).trim();
+  if (!c.startsWith('/')) return `/Script/Engine.${c}`;
+  if (c.startsWith('/Script/')) return c;
+  const [pkg, obj] = c.split('.');
+  const base = pkg.split('/').pop();
+  return `${pkg}.${obj ? (obj.endsWith('_C') ? obj : obj + '_C') : base + '_C'}`;
+}
+export function isBlueprintClassPath(c){ return !normalizeClassPath(c).startsWith('/Script/'); }
 export function classRef(classPath){
-  return UE_VERSION === 'SHORT' ? `Class'"${classPath}"'` : `"/Script/CoreUObject.Class'${classPath}'"`;
+  const cp = normalizeClassPath(classPath);
+  const meta = cp.startsWith('/Script/') ? '/Script/CoreUObject.Class' : '/Script/Engine.BlueprintGeneratedClass';
+  return UE_VERSION === 'SHORT' ? `${meta.split('.').pop()}'"${cp}"'` : `"${meta}'${cp}'"`;
+}
+/** FName::NameToDisplayString (упрощённо): '_'→' ', пробел перед Заглавной после строчной/цифры. */
+export function classDisplayName(classPath){
+  const n = normalizeClassPath(classPath).split('.').pop().replace(/_C$/, '');
+  return n.replace(/_/g, ' ').replace(/([a-z0-9])([A-Z])/g, '$1 $2').replace(/\s+/g, ' ').trim();
 }
 
 export function memberParentRef(lib){

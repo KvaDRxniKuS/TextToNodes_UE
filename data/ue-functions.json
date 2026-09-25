@@ -11349,9 +11349,9 @@
     "hidden": true
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Каст к Pawn",
-  "note": "round22-pre: форма как у CastToPlayerController (R21b) — зависит от её вердикта"
+  "note": "round22-pre: форма как у CastToPlayerController (R21b) — зависит от её вердикта | R22 VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "CastToCharacter",
@@ -11397,9 +11397,9 @@
     "hidden": true
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Каст к Character",
-  "note": "round22-pre: форма как у CastToPlayerController (R21b) — зависит от её вердикта"
+  "note": "round22-pre: форма как у CastToPlayerController (R21b) — зависит от её вердикта | R22 VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "GetObjectClass",
@@ -11424,9 +11424,9 @@
     "object": "/Script/CoreUObject.Object"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Класс объекта",
-  "note": "round22-pre: UGameplayStatics::GetObjectClass (в меню «Get Class»)"
+  "note": "round22-pre: UGameplayStatics::GetObjectClass (в меню «Get Class») | R22 VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "ClassIsChildOf",
@@ -11456,9 +11456,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Наследник класса?",
-  "note": "round22-pre: KML::ClassIsChildOf(TSubclassOf TestClass, TSubclassOf ParentClass)"
+  "note": "round22-pre: KML::ClassIsChildOf(TSubclassOf TestClass, TSubclassOf ParentClass) | R22 VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "GetDisplayName",
@@ -11482,9 +11482,9 @@
     "cat": "string"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Имя для показа",
-  "note": "round22-pre: KSL::GetDisplayName(const UObject*)"
+  "note": "round22-pre: KSL::GetDisplayName(const UObject*) | R22 VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "GetObjectName",
@@ -11508,9 +11508,9 @@
     "cat": "string"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Имя объекта",
-  "note": "round22-pre: KSL::GetObjectName(const UObject*)"
+  "note": "round22-pre: KSL::GetObjectName(const UObject*) | R22 VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "EqualEqual_ObjectObject",
@@ -11540,9 +11540,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Объекты равны",
-  "note": "round22-pre: CallFunction (не PromotableOperator), заголовок «==»"
+  "note": "round22-pre: CallFunction (не PromotableOperator), заголовок «==» | R22 VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "NotEqual_ObjectObject",
@@ -11572,9 +11572,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Объекты не равны",
-  "note": "round22-pre: заголовок «!=»"
+  "note": "round22-pre: заголовок «!=» | R22 VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "EqualEqual_ClassClass",
@@ -11604,9 +11604,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Классы равны",
-  "note": "round22-pre: KML::EqualEqual_ClassClass"
+  "note": "round22-pre: KML::EqualEqual_ClassClass | R22 VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "Conv_ObjectToString",
@@ -11629,9 +11629,58 @@
     "cat": "string"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Объект в строку",
-  "note": "round22-pre: KSL(String)::Conv_ObjectToString(UObject* InObj) — компактный конвертер"
+  "note": "round22-pre: KSL(String)::Conv_ObjectToString(UObject* InObj) — компактный конвертер | R22 VERIFIED (движок, 2026-09-25)"
+ },
+ {
+  "id": "ClassCastToPawn",
+  "title": "Cast To Pawn Class",
+  "category": "Casting",
+  "className": "/Script/BlueprintGraph.K2Node_ClassDynamicCast",
+  "func": "",
+  "props": {
+   "TargetType": "\"/Script/CoreUObject.Class'/Script/Engine.Pawn'\"",
+   "PureState": "Impure"
+  },
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "CastFailed",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Class",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/CoreUObject.Object"
+   },
+   {
+    "name": "AsPawn",
+    "dir": "Output",
+    "cat": "class",
+    "object": "/Script/Engine.Pawn"
+   },
+   {
+    "name": "bSuccess",
+    "dir": "Output",
+    "cat": "bool",
+    "hidden": true
+   }
+  ],
+  "verified": true,
+  "desc": "Каст класса к Pawn",
+  "note": "R22 VERIFIED: форма из копии пользователя (tests/fixtures/classcast-r22-copyback.txt). Для любого класса — createCast(target,{kind:'class'}) / tools/gen-cast.mjs"
  },
  {
   "id": "GetActorLocation",
