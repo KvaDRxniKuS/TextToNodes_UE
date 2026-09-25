@@ -4011,7 +4011,7 @@
     "dv": "0, 0, 0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Собрать ротатор",
   "pure": true,
   "note": "round12-pre: MakeStruct-форма у FRotator (HasNativeMake) по аналогии с Vector жёлтая — канон pure MakeRotator Roll/Pitch/Yaw float"
@@ -4053,7 +4053,7 @@
     "dv": "0.0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Разобрать ротатор",
   "pure": true,
   "note": "round12-pre: BreakStruct-форма по аналогии с Vector жёлтая — канон pure BreakRotator InRot→Roll/Pitch/Yaw"
@@ -4083,7 +4083,7 @@
     "dv": "0, 0, 0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Из X",
   "pure": true
  },
@@ -4112,7 +4112,7 @@
     "dv": "0, 0, 0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Из Y",
   "pure": true
  },
@@ -4141,7 +4141,7 @@
     "dv": "0, 0, 0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Из Z",
   "pure": true
  },
@@ -4179,7 +4179,7 @@
     "dv": "0, 0, 0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "ZX",
   "pure": true
  },
@@ -4217,7 +4217,7 @@
     "dv": "0, 0, 0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Взгляд",
   "pure": true
  },
@@ -4251,7 +4251,7 @@
     "dv": "0, 0, 0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Нормализованная разница A-B",
   "pure": true,
   "note": "round12-pre: FindLookAtRotation2D в KismetMathLibrary нет — заменена на NormalizedDeltaRotator"
@@ -4286,7 +4286,7 @@
     "dv": "0, 0, 0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Композиция",
   "pure": true
  },
@@ -4313,7 +4313,7 @@
     "dv": "0, 0, 0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Инверсия ротатора",
   "pure": true,
   "note": "round12-pre: InverseTransformRotation — это Transform-функция; канон инверсии NegateRotator (Invert Rotator)"
@@ -4404,7 +4404,7 @@
     "dv": "0, 0, 0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Lerp",
   "pure": true,
   "note": "round12-pre: добавлен пин bShortestPath, Alpha float"
@@ -4445,7 +4445,7 @@
     "dv": "0, 0, 0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Выбор",
   "pure": true
  },
@@ -4472,7 +4472,7 @@
     "dv": "0, 0, 0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Forward-вектор ротатора",
   "pure": true,
   "note": "round12-pre: новая запись, не проверена движком"
@@ -4500,7 +4500,7 @@
     "dv": "0, 0, 0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Right-вектор ротатора",
   "pure": true,
   "note": "round12-pre: новая запись, не проверена движком"
@@ -4528,7 +4528,7 @@
     "dv": "0, 0, 0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Up-вектор ротатора",
   "pure": true,
   "note": "round12-pre: новая запись, не проверена движком"
@@ -5754,14 +5754,30 @@
   "lib": "KismetArrayLibrary",
   "pins": [
    {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
     "name": "TargetArray",
     "dir": "Input",
-    "cat": "object"
+    "cat": "wildcard",
+    "container": "Array",
+    "ref": true,
+    "ignored": true
    },
    {
     "name": "NewItem",
     "dir": "Input",
-    "cat": "real"
+    "cat": "wildcard",
+    "ref": true,
+    "const": true,
+    "ignored": true
    },
    {
     "name": "ReturnValue",
@@ -5770,7 +5786,8 @@
    }
   ],
   "verified": false,
-  "desc": "Добавить"
+  "desc": "Добавить",
+  "note": "round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении"
  },
  {
   "id": "AddUnique_Array",
@@ -5781,14 +5798,30 @@
   "lib": "KismetArrayLibrary",
   "pins": [
    {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
     "name": "TargetArray",
     "dir": "Input",
-    "cat": "object"
+    "cat": "wildcard",
+    "container": "Array",
+    "ref": true,
+    "ignored": true
    },
    {
     "name": "NewItem",
     "dir": "Input",
-    "cat": "real"
+    "cat": "wildcard",
+    "ref": true,
+    "const": true,
+    "ignored": true
    },
    {
     "name": "ReturnValue",
@@ -5797,7 +5830,8 @@
    }
   ],
   "verified": false,
-  "desc": "Уникальный"
+  "desc": "Уникальный",
+  "note": "round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении"
  },
  {
   "id": "Remove_Array",
@@ -5808,18 +5842,33 @@
   "lib": "KismetArrayLibrary",
   "pins": [
    {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
     "name": "TargetArray",
     "dir": "Input",
-    "cat": "object"
+    "cat": "wildcard",
+    "container": "Array",
+    "ref": true,
+    "ignored": true
    },
    {
     "name": "IndexToRemove",
     "dir": "Input",
-    "cat": "int"
+    "cat": "int",
+    "dv": "0"
    }
   ],
   "verified": false,
-  "desc": "Удалить индекс"
+  "desc": "Удалить индекс",
+  "note": "round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении"
  },
  {
   "id": "RemoveItem_Array",
@@ -5830,14 +5879,30 @@
   "lib": "KismetArrayLibrary",
   "pins": [
    {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
     "name": "TargetArray",
     "dir": "Input",
-    "cat": "object"
+    "cat": "wildcard",
+    "container": "Array",
+    "ref": true,
+    "ignored": true
    },
    {
     "name": "Item",
     "dir": "Input",
-    "cat": "real"
+    "cat": "wildcard",
+    "ref": true,
+    "const": true,
+    "ignored": true
    },
    {
     "name": "ReturnValue",
@@ -5846,7 +5911,8 @@
    }
   ],
   "verified": false,
-  "desc": "Удалить элемент"
+  "desc": "Удалить элемент",
+  "note": "round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении"
  },
  {
   "id": "Clear_Array",
@@ -5857,13 +5923,27 @@
   "lib": "KismetArrayLibrary",
   "pins": [
    {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
     "name": "TargetArray",
     "dir": "Input",
-    "cat": "object"
+    "cat": "wildcard",
+    "container": "Array",
+    "ref": true,
+    "ignored": true
    }
   ],
   "verified": false,
-  "desc": "Очистить"
+  "desc": "Очистить",
+  "note": "round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении"
  },
  {
   "id": "Length_Array",
@@ -5876,7 +5956,11 @@
    {
     "name": "TargetArray",
     "dir": "Input",
-    "cat": "object"
+    "cat": "wildcard",
+    "container": "Array",
+    "ref": true,
+    "const": true,
+    "ignored": true
    },
    {
     "name": "ReturnValue",
@@ -5885,34 +5969,40 @@
    }
   ],
   "verified": false,
-  "desc": "Длина"
+  "pure": true,
+  "desc": "Длина",
+  "note": "round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении"
  },
  {
   "id": "Get_Array",
-  "title": "Get",
+  "title": "Get (a copy)",
   "category": "Array",
-  "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
-  "func": "Array_Get",
-  "lib": "KismetArrayLibrary",
+  "className": "/Script/BlueprintGraph.K2Node_GetArrayItem",
   "pins": [
    {
-    "name": "TargetArray",
+    "name": "Array",
     "dir": "Input",
-    "cat": "object"
+    "cat": "wildcard",
+    "container": "Array"
    },
    {
-    "name": "Index",
+    "name": "Dimension",
     "dir": "Input",
-    "cat": "int"
+    "cat": "int",
+    "dv": "0"
    },
    {
-    "name": "Item",
+    "name": "Output",
     "dir": "Output",
-    "cat": "real"
+    "cat": "wildcard"
    }
   ],
   "verified": false,
-  "desc": "Получить"
+  "desc": "Получить",
+  "props": {
+   "bReturnByRefDesired": "False"
+  },
+  "note": "round15-pre: Array_Get — BlueprintInternalUseOnly; в графе это K2Node_GetArrayItem (пины Array/Dimension/Output), bReturnByRefDesired=False = «Get (a copy)»"
  },
  {
   "id": "SetArrayElem_Array",
@@ -5923,27 +6013,51 @@
   "lib": "KismetArrayLibrary",
   "pins": [
    {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
     "name": "TargetArray",
     "dir": "Input",
-    "cat": "object"
+    "cat": "wildcard",
+    "container": "Array",
+    "ref": true,
+    "ignored": true
    },
    {
     "name": "Index",
     "dir": "Input",
-    "cat": "int"
+    "cat": "int",
+    "dv": "0"
    },
    {
     "name": "Item",
     "dir": "Input",
-    "cat": "real"
+    "cat": "wildcard",
+    "ref": true,
+    "const": true,
+    "ignored": true
+   },
+   {
+    "name": "bSizeToFit",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
    }
   ],
   "verified": false,
-  "desc": "Установить"
+  "desc": "Установить",
+  "note": "round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении"
  },
  {
   "id": "Find_Array",
-  "title": "Find",
+  "title": "Find Item",
   "category": "Array",
   "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
   "func": "Array_Find",
@@ -5952,12 +6066,19 @@
    {
     "name": "TargetArray",
     "dir": "Input",
-    "cat": "object"
+    "cat": "wildcard",
+    "container": "Array",
+    "ref": true,
+    "const": true,
+    "ignored": true
    },
    {
     "name": "ItemToFind",
     "dir": "Input",
-    "cat": "real"
+    "cat": "wildcard",
+    "ref": true,
+    "const": true,
+    "ignored": true
    },
    {
     "name": "ReturnValue",
@@ -5966,11 +6087,13 @@
    }
   ],
   "verified": false,
-  "desc": "Найти"
+  "pure": true,
+  "desc": "Найти",
+  "note": "round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении"
  },
  {
   "id": "Contains_Array",
-  "title": "Contains",
+  "title": "Contains Item",
   "category": "Array",
   "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
   "func": "Array_Contains",
@@ -5979,12 +6102,19 @@
    {
     "name": "TargetArray",
     "dir": "Input",
-    "cat": "object"
+    "cat": "wildcard",
+    "container": "Array",
+    "ref": true,
+    "const": true,
+    "ignored": true
    },
    {
     "name": "ItemToFind",
     "dir": "Input",
-    "cat": "real"
+    "cat": "wildcard",
+    "ref": true,
+    "const": true,
+    "ignored": true
    },
    {
     "name": "ReturnValue",
@@ -5993,7 +6123,9 @@
    }
   ],
   "verified": false,
-  "desc": "Содержит"
+  "pure": true,
+  "desc": "Содержит",
+  "note": "round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении"
  },
  {
   "id": "Insert_Array",
@@ -6004,23 +6136,41 @@
   "lib": "KismetArrayLibrary",
   "pins": [
    {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
     "name": "TargetArray",
     "dir": "Input",
-    "cat": "object"
+    "cat": "wildcard",
+    "container": "Array",
+    "ref": true,
+    "ignored": true
    },
    {
     "name": "NewItem",
     "dir": "Input",
-    "cat": "real"
+    "cat": "wildcard",
+    "ref": true,
+    "const": true,
+    "ignored": true
    },
    {
     "name": "Index",
     "dir": "Input",
-    "cat": "int"
+    "cat": "int",
+    "dv": "0"
    }
   ],
   "verified": false,
-  "desc": "Вставить"
+  "desc": "Вставить",
+  "note": "round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении"
  },
  {
   "id": "Shuffle_Array",
@@ -6031,13 +6181,28 @@
   "lib": "KismetArrayLibrary",
   "pins": [
    {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
     "name": "TargetArray",
     "dir": "Input",
-    "cat": "object"
+    "cat": "wildcard",
+    "container": "Array",
+    "ref": true,
+    "const": true,
+    "ignored": true
    }
   ],
   "verified": false,
-  "desc": "Перемешать"
+  "desc": "Перемешать",
+  "note": "round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении"
  },
  {
   "id": "Reverse_Array",
@@ -6048,13 +6213,27 @@
   "lib": "KismetArrayLibrary",
   "pins": [
    {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
     "name": "TargetArray",
     "dir": "Input",
-    "cat": "object"
+    "cat": "wildcard",
+    "container": "Array",
+    "ref": true,
+    "ignored": true
    }
   ],
   "verified": false,
-  "desc": "Реверс"
+  "desc": "Реверс",
+  "note": "round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении"
  },
  {
   "id": "IsValidIndex_Array",
@@ -6067,12 +6246,17 @@
    {
     "name": "TargetArray",
     "dir": "Input",
-    "cat": "object"
+    "cat": "wildcard",
+    "container": "Array",
+    "ref": true,
+    "const": true,
+    "ignored": true
    },
    {
-    "name": "Index",
+    "name": "IndexToTest",
     "dir": "Input",
-    "cat": "int"
+    "cat": "int",
+    "dv": "0"
    },
    {
     "name": "ReturnValue",
@@ -6081,7 +6265,9 @@
    }
   ],
   "verified": false,
-  "desc": "Валидный индекс"
+  "pure": true,
+  "desc": "Валидный индекс",
+  "note": "round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении"
  },
  {
   "id": "Resize_Array",
@@ -6092,18 +6278,145 @@
   "lib": "KismetArrayLibrary",
   "pins": [
    {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
     "name": "TargetArray",
     "dir": "Input",
-    "cat": "object"
+    "cat": "wildcard",
+    "container": "Array",
+    "ref": true,
+    "ignored": true
    },
    {
     "name": "Size",
     "dir": "Input",
+    "cat": "int",
+    "dv": "0"
+   }
+  ],
+  "verified": false,
+  "desc": "Размер",
+  "note": "round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении"
+ },
+ {
+  "id": "LastIndex_Array",
+  "title": "Last Index",
+  "category": "Array",
+  "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
+  "func": "Array_LastIndex",
+  "lib": "KismetArrayLibrary",
+  "pins": [
+   {
+    "name": "TargetArray",
+    "dir": "Input",
+    "cat": "wildcard",
+    "container": "Array",
+    "ref": true,
+    "const": true,
+    "ignored": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
     "cat": "int"
    }
   ],
   "verified": false,
-  "desc": "Размер"
+  "pure": true,
+  "desc": "Last Index",
+  "note": "round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении"
+ },
+ {
+  "id": "Append_Array",
+  "title": "Append Array",
+  "category": "Array",
+  "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
+  "func": "Array_Append",
+  "lib": "KismetArrayLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "TargetArray",
+    "dir": "Input",
+    "cat": "wildcard",
+    "container": "Array",
+    "ref": true,
+    "ignored": true
+   },
+   {
+    "name": "SourceArray",
+    "dir": "Input",
+    "cat": "wildcard",
+    "container": "Array",
+    "ref": true,
+    "const": true,
+    "ignored": true
+   }
+  ],
+  "verified": false,
+  "desc": "Append Array",
+  "note": "round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении"
+ },
+ {
+  "id": "Swap_Array",
+  "title": "Swap",
+  "category": "Array",
+  "className": "/Script/BlueprintGraph.K2Node_CallArrayFunction",
+  "func": "Array_Swap",
+  "lib": "KismetArrayLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "TargetArray",
+    "dir": "Input",
+    "cat": "wildcard",
+    "container": "Array",
+    "ref": true,
+    "const": true,
+    "ignored": true
+   },
+   {
+    "name": "FirstIndex",
+    "dir": "Input",
+    "cat": "int",
+    "dv": "0"
+   },
+   {
+    "name": "SecondIndex",
+    "dir": "Input",
+    "cat": "int",
+    "dv": "0"
+   }
+  ],
+  "verified": false,
+  "desc": "Swap",
+  "note": "round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении"
  },
  {
   "id": "PrintString",

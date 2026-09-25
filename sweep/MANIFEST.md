@@ -1,6 +1,6 @@
 # Sweep manifest — полный прогон реестра по категориям
 
-Дата: 2026-09-25; записей: 267; построено узлов: 266; упало: 1.
+Дата: 2026-09-25; записей: 270; построено узлов: 269; упало: 1.
 Генератор: tools/gen-sweep.mjs (сетка по 5 в ряд, внутри ряда layoutRow, накрыто fitComment).
 
 Протокол: вставляйте файлы по одному в чистый граф → копируйте обратно → сообщайте номер файла и что сломалось.
@@ -25,10 +25,10 @@
 | 09 | 09-math-random.txt | 6/6 | 6 | 0 | — | — |
 | 10 | 10-math-vector.txt | 29/29 | 28 | 0 | — | — |
 | 11 | 11-collision.txt | 26/26 | 25 | 2 | — | 1xW09 |
-| 12 | 12-math-rotator.txt | 15/15 | 0 | 8 | — | 8xW09 |
+| 12 | 12-math-rotator.txt | 15/15 | 15 | 8 | — | 8xW09 |
 | 13 | 13-math-transform.txt | 10/10 | 0 | 8 | — | 8xW09 |
 | 14 | 14-string.txt | 28/28 | 2 | 13 | — | 13xW09 |
-| 15 | 15-array.txt | 15/15 | 0 | 0 | — | — |
+| 15 | 15-array.txt | 18/18 | 0 | 18 | — | 17xW09 |
 | 16 | 16-utilities.txt | 19/19 | 2 | 2 | — | 2xW09 |
 | 17 | 17-gameplay.txt | 12/12 | 0 | 4 | — | 4xW09 |
 | 18 | 18-input.txt | 2/2 | 0 | 2 | — | 2xW09 |
@@ -79,15 +79,32 @@
 - 14-string.txt :: W09: K2Node_CallFunction_321: IsEmpty: round14-pre: новая запись
 - 14-string.txt :: W09: K2Node_CallFunction_322: Conv_StringToInt: round14-pre: новая запись
 - 14-string.txt :: W09: K2Node_CallFunction_323: Conv_StringToDouble: round14-pre: новая запись (UE5 double)
-- 16-utilities.txt :: W09: K2Node_CallFunction_351: GetGameTimeInSeconds: Home library uncertain (KismetSystemLibrary vs GameplayStatics)
-- 16-utilities.txt :: W09: K2Node_CallFunction_353: GetWorldDeltaSeconds: Home library uncertain (KismetSystemLibrary vs GameplayStatics)
-- 17-gameplay.txt :: W09: K2Node_CallFunction_364: GetAllActorsOfClass: Array/Set/Map output needs ContainerType support in generator — verify in engine
-- 17-gameplay.txt :: W09: K2Node_CallFunction_365: GetAllActorsWithTag: Array/Set/Map output needs ContainerType support in generator — verify in engine
-- 17-gameplay.txt :: W09: K2Node_CallFunction_366: BeginSpawningActorFromClass: Engine node is K2Node_SpawnActorFromClass; this CallFunction BeginSpawningActorFromClass form is untested
-- 17-gameplay.txt :: W09: K2Node_CallFunction_372: GetWorld: No static GetWorld in Kismet libs — member call needs Self/BP-class context
-- 18-input.txt :: W09: K2Node_CallFunction_374: GetKey: Function not found as Kismet static — verify in engine before use
-- 18-input.txt :: W09: K2Node_CallFunction_375: IsInputKeyDown: Member of PlayerController — needs Self context; static form untested
-- 19-organization.txt :: W03: K2Node_MakeArray_379: K2Node_MakeArray требует ContainerType — текст может не вставиться; проверь в движке
-- 19-organization.txt :: W03: K2Node_MakeSet_380: K2Node_MakeSet требует ContainerType — текст может не вставиться; проверь в движке
-- 19-organization.txt :: W03: K2Node_MakeMap_381: K2Node_MakeMap требует ContainerType — текст может не вставиться; проверь в движке
-- 20-text.txt :: W09: K2Node_CallFunction_384: Format: Returns FText (KismetTextLibrary::Format) — verify pin categories in engine
+- 15-array.txt :: W09: K2Node_CallArrayFunction_325: Array_Add: round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении
+- 15-array.txt :: W09: K2Node_CallArrayFunction_326: Array_AddUnique: round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении
+- 15-array.txt :: W09: K2Node_CallArrayFunction_327: Array_Remove: round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении
+- 15-array.txt :: W09: K2Node_CallArrayFunction_328: Array_RemoveItem: round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении
+- 15-array.txt :: W09: K2Node_CallArrayFunction_329: Array_Clear: round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении
+- 15-array.txt :: W09: K2Node_CallArrayFunction_330: Array_Length: round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении
+- 15-array.txt :: W09: K2Node_CallArrayFunction_332: Array_Set: round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении
+- 15-array.txt :: W09: K2Node_CallArrayFunction_333: Array_Find: round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении
+- 15-array.txt :: W09: K2Node_CallArrayFunction_334: Array_Contains: round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении
+- 15-array.txt :: W09: K2Node_CallArrayFunction_335: Array_Insert: round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении
+- 15-array.txt :: W09: K2Node_CallArrayFunction_336: Array_Shuffle: round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении
+- 15-array.txt :: W09: K2Node_CallArrayFunction_337: Array_Reverse: round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении
+- 15-array.txt :: W09: K2Node_CallArrayFunction_338: Array_IsValidIndex: round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении
+- 15-array.txt :: W09: K2Node_CallArrayFunction_339: Array_Resize: round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении
+- 15-array.txt :: W09: K2Node_CallArrayFunction_340: Array_LastIndex: round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении
+- 15-array.txt :: W09: K2Node_CallArrayFunction_341: Array_Append: round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении
+- 15-array.txt :: W09: K2Node_CallArrayFunction_342: Array_Swap: round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении
+- 16-utilities.txt :: W09: K2Node_CallFunction_354: GetGameTimeInSeconds: Home library uncertain (KismetSystemLibrary vs GameplayStatics)
+- 16-utilities.txt :: W09: K2Node_CallFunction_356: GetWorldDeltaSeconds: Home library uncertain (KismetSystemLibrary vs GameplayStatics)
+- 17-gameplay.txt :: W09: K2Node_CallFunction_367: GetAllActorsOfClass: Array/Set/Map output needs ContainerType support in generator — verify in engine
+- 17-gameplay.txt :: W09: K2Node_CallFunction_368: GetAllActorsWithTag: Array/Set/Map output needs ContainerType support in generator — verify in engine
+- 17-gameplay.txt :: W09: K2Node_CallFunction_369: BeginSpawningActorFromClass: Engine node is K2Node_SpawnActorFromClass; this CallFunction BeginSpawningActorFromClass form is untested
+- 17-gameplay.txt :: W09: K2Node_CallFunction_375: GetWorld: No static GetWorld in Kismet libs — member call needs Self/BP-class context
+- 18-input.txt :: W09: K2Node_CallFunction_377: GetKey: Function not found as Kismet static — verify in engine before use
+- 18-input.txt :: W09: K2Node_CallFunction_378: IsInputKeyDown: Member of PlayerController — needs Self context; static form untested
+- 19-organization.txt :: W03: K2Node_MakeArray_382: K2Node_MakeArray требует ContainerType — текст может не вставиться; проверь в движке
+- 19-organization.txt :: W03: K2Node_MakeSet_383: K2Node_MakeSet требует ContainerType — текст может не вставиться; проверь в движке
+- 19-organization.txt :: W03: K2Node_MakeMap_384: K2Node_MakeMap требует ContainerType — текст может не вставиться; проверь в движке
+- 20-text.txt :: W09: K2Node_CallFunction_387: Format: Returns FText (KismetTextLibrary::Format) — verify pin categories in engine

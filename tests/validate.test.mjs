@@ -523,6 +523,24 @@ regThrow.forEach(t => console.log('THROW:', t));
     ok(threw, `sweep: ${id} всё ещё требует референс`);
   }
 }
+// R12 вердикт: Math/Rotator 15/15 белые
+{
+  const rot = reg.filter(e => e.category === 'Math / Rotator');
+  ok(rot.length === 15 && rot.every(e => e.verified), 'R12: Math/Rotator 15/15 verified');
+}
+// R15 pre-fix: Array — CallArrayFunction wildcard + GetArrayItem (copy)
+{
+  const arr = reg.filter(e => e.category === 'Array');
+  ok(arr.length === 18, 'R15: Array 18 записей');
+  const calls = arr.filter(e => e.className.endsWith('K2Node_CallArrayFunction'));
+  ok(calls.every(e => e.lib === 'KismetArrayLibrary' && e.func.startsWith('Array_')), 'R15: все CallArrayFunction — KismetArrayLibrary.Array_*');
+  ok(calls.every(e => { const t = e.pins.find(p => p.name === 'TargetArray'); return t && t.cat === 'wildcard' && t.container === 'Array' && t.ref; }), 'R15: TargetArray wildcard Array by-ref');
+  ok(calls.filter(e => e.pure).every(e => e.pins.find(p => p.name === 'TargetArray').const && !e.pins.some(p => p.cat === 'exec')), 'R15: pure — TargetArray const, без exec');
+  const g = createFromEntry(byId('Get_Array'));
+  ok(g.className.endsWith('K2Node_GetArrayItem') && g.pins.map(p => p.name).join() === 'Array,Dimension,Output', 'R15: Get = K2Node_GetArrayItem Array/Dimension/Output');
+  const gt = generateUEText([g]);
+  ok(/\n   bReturnByRefDesired=False\n/.test(gt) && validateStrict(gt).errors.length === 0, 'R15: Get (a copy) — bReturnByRefDesired=False, 0 ошибок');
+}
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);

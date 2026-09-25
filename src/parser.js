@@ -193,6 +193,7 @@ function generateBlock(n){
     const member=n.opMemberName||`${n.operationName}_DoubleDouble`;
     extra+=`   OperationName="${n.operationName}"\n   bDefaultsToPureFunc=True\n   FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="${member}")\n`;
   }
+  if(n.rawProps) n.rawProps.forEach(l=>{ extra+=`   ${l}\n`; });
   if(n.structType) extra+=`   StructType=${n.structType}\n`;
   // round1b: SwitchEnum — Enum=/EnumEntries (live-реф; quoted-full как SubCategoryObject).
   if(n.enumRef){ extra+=`   Enum=${n.enumRef}\n`; (n.enumEntries||[]).forEach((en,i)=>{ extra+=`   EnumEntries(${i})="${en==='None'?'':en}"\n`; }); }

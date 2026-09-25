@@ -577,3 +577,8 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
   (порядок пинов, float Radius/HalfHeight, ObjectTypes byte-enum Array ref+const ignored, dv ObjectTypeQuery1);
   сгенерированные ноды структурно идентичны белым SphereTrace*ForObjects (+HalfHeight). Причина сбоя — порча
   ручной перепечатки большой пасты, а не реестр. R11 закрыт.
+
+## Вердикт round12 (2026-09-25)
+
+- round12 Math/Rotator: все 15 белые — MakeRotator/BreakRotator (pure KML), MakeRotFromX/Y/Z/ZX, FindLookAtRotation, NormalizedDeltaRotator, ComposeRotators, NegateRotator, RLerp, SelectRotator, GetForwardVector/GetRightVector/GetUpVector. R12 закрыт 15/15.
+  Подтверждает: pure KML Make/Break вместо struct-форм работает и для Rotator.
