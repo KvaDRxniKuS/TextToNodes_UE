@@ -2240,9 +2240,9 @@
     "cat": "bool"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "NearlyEqual",
-  "notes": "round7: не оператор — CallFunction NearlyEqual_FloatFloat как в 03 (live-реф _8); операторная форма давала wildcard-пины"
+  "notes": "round7-fix: белая по факту пользователя (NearlyEqual_FloatFloat)"
  },
  {
   "id": "InRange_Float",
@@ -2291,7 +2291,7 @@
   "id": "And_Bool",
   "title": "AND (bool)",
   "category": "Math / Boolean",
-  "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
+  "className": "/Script/BlueprintGraph.K2Node_CommutativeAssociativeBinaryOperator",
   "func": "BooleanAND",
   "lib": "KismetMathLibrary",
   "pins": [
@@ -2312,14 +2312,15 @@
    }
   ],
   "verified": false,
-  "note": "Boolean ops may be CommutativeAssociative in engine — PromotableOperator+BooleanAND form untested",
-  "desc": "И"
+  "note": "round8: настоящий класс K2Node_CommutativeAssociativeBinaryOperator (live-реф); PromotableOperator-форма роняла движок",
+  "desc": "И",
+  "pure": true
  },
  {
   "id": "Or_Bool",
   "title": "OR (bool)",
   "category": "Math / Boolean",
-  "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
+  "className": "/Script/BlueprintGraph.K2Node_CommutativeAssociativeBinaryOperator",
   "func": "BooleanOR",
   "lib": "KismetMathLibrary",
   "pins": [
@@ -2340,15 +2341,16 @@
    }
   ],
   "verified": false,
-  "note": "Boolean ops may be CommutativeAssociative in engine — PromotableOperator+BooleanOR form untested",
-  "desc": "Или"
+  "note": "round8: настоящий класс K2Node_CommutativeAssociativeBinaryOperator (live-реф); PromotableOperator-форма роняла движок",
+  "desc": "Или",
+  "pure": true
  },
  {
   "id": "Not_Bool",
   "title": "NOT (bool)",
   "category": "Math / Boolean",
-  "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
-  "func": "BooleanNOT",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Not_PreBool",
   "lib": "KismetMathLibrary",
   "pins": [
    {
@@ -2363,14 +2365,14 @@
    }
   ],
   "verified": false,
-  "note": "Boolean NOT node class uncertain — PromotableOperator+BooleanNOT form untested",
+  "note": "round8: CallFunction Not_PreBool (live-реф); BooleanNOT+PromotableOperator не существует",
   "desc": "Не"
  },
  {
   "id": "Xor_Bool",
   "title": "XOR (bool)",
   "category": "Math / Boolean",
-  "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
   "func": "BooleanXOR",
   "lib": "KismetMathLibrary",
   "pins": [
@@ -2391,14 +2393,14 @@
    }
   ],
   "verified": false,
-  "note": "Boolean ops may be CommutativeAssociative in engine — PromotableOperator+BooleanXOR form untested",
+  "note": "round8: настоящий класс K2Node_CallFunction (live-реф), был PromotableOperator",
   "desc": "XOR"
  },
  {
   "id": "Nand_Bool",
   "title": "NAND (bool)",
   "category": "Math / Boolean",
-  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "className": "/Script/BlueprintGraph.K2Node_CommutativeAssociativeBinaryOperator",
   "func": "BooleanNAND",
   "lib": "KismetMathLibrary",
   "pins": [
@@ -2419,7 +2421,9 @@
    }
   ],
   "verified": false,
-  "desc": "NAND"
+  "desc": "NAND",
+  "pure": true,
+  "note": "round8: настоящий класс K2Node_CommutativeAssociativeBinaryOperator (live-реф), был CallFunction"
  },
  {
   "id": "Nor_Bool",
@@ -2446,7 +2450,8 @@
    }
   ],
   "verified": false,
-  "desc": "NOR"
+  "desc": "NOR",
+  "note": "round8: форма совпала с live-рефом (CallFunction BooleanNOR), но раунд сорван вылетом — ретест"
  },
  {
   "id": "SelectBool",
@@ -2478,7 +2483,8 @@
    }
   ],
   "verified": false,
-  "desc": "Выбор Bool"
+  "desc": "Выбор Bool",
+  "note": "round8: без вердикта (раунд сорван вылетом); пин Pick A не подтверждён — ретест"
  },
  {
   "id": "Add_Int",

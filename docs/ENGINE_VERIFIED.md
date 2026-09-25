@@ -530,3 +530,11 @@ DegreesToRadians, RadiansToDegrees, GetTAU, GetPI. *Deg не существую�
 настоящая форма CallFunction NearlyEqual_FloatFloat как в 03 (live-реф
 _8). +2 теста (193/0). 08-math-boolean: 7 нод, STRICT 0/0; риск: класс
 AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOperator).
+
+## Раунд 07: closed 8/8 + раунд 08: FAILED (вылет движка), 8-fix по live-рефам
+- 07: NearlyEqual белая по факту пользователя → closed 8/8.
+- 08: PromotableOperator+BooleanAND уронил движок. По 6 live-рефам пользователя:
+  AND/OR/NAND = K2Node_CommutativeAssociativeBinaryOperator + bDefaultsToPureFunc (pure:true в реестре);
+  NOT = K2Node_CallFunction Not_PreBool; XOR = CallFunction BooleanXOR; NOR = CallFunction BooleanNOR.
+- Корень: createCallFunction называл все узлы префиксом K2Node_CallFunction — теперь имя = класс узла (как в живых копиях).
+- 8-fix: все 7 boolean, STRICT 0/0, тесты 195/0 + 42/0. Ретест 08 + тестер 09 отправлены.

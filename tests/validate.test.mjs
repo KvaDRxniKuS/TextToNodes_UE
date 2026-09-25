@@ -474,6 +474,11 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(necT.includes('K2Node_CallFunction') && necT.includes('MemberName="NearlyEqual_FloatFloat"') && necT.includes('PinName="ErrorTolerance"') && !necT.includes('PromotableOperator'), 'round7: NearlyEqual_Comparison — CallFunction как в 03');
   const ltT = generateUEText([createFromEntry(byId('Less_Float'))]);
   ok(ltT.includes('MemberName="Less_DoubleDouble"') && ltT.includes(`MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'"`), 'round7: Less — белая операторная форма');
+  // round8: AND/OR/NAND — K2Node_CommutativeAssociativeBinaryOperator; NOT — CallFunction Not_PreBool.
+  const andT = generateUEText([createFromEntry(byId('And_Bool'))]);
+  ok(andT.includes('K2Node_CommutativeAssociativeBinaryOperator') && andT.includes('MemberName="BooleanAND"') && andT.includes('bDefaultsToPureFunc=True') && andT.includes('PinName="self"') && andT.includes('Name="K2Node_CommutativeAssociativeBinaryOperator_'), 'round8: AND — CommutativeAssociative + pure + self + имя=класс');
+  const notT = generateUEText([createFromEntry(byId('Not_Bool'))]);
+  ok(notT.includes('K2Node_CallFunction') && notT.includes('MemberName="Not_PreBool"') && !notT.includes('PromotableOperator'), 'round8: NOT — CallFunction Not_PreBool');
 }
 // Sweep coverage: каждая запись реестра строится (кроме референс-листа)
 {

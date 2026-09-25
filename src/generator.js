@@ -26,7 +26,8 @@ function baseNode(prefix, classShort, pos = { x: 0, y: 0 }) {
 /** Нода вызова функции из записи реестра (CallFunction / CallArrayFunction). */
 export function createCallFunction(regEntry, pos = { x: 0, y: 0 }) {
   const short = regEntry.className.split('.').pop();
-  const n = baseNode('K2Node_CallFunction', short, pos);
+  // Имя узла = класс узла (как в живых копиях UE); раньше все получали префикс K2Node_CallFunction (round8).
+  const n = baseNode(short, short, pos);
   n.funcName = regEntry.func;
   n.title = regEntry.title || regEntry.func;
   if (regEntry.pure) n.pure = true;
