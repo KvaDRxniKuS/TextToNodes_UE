@@ -42,7 +42,7 @@ export function createCallFunction(regEntry, pos = { x: 0, y: 0 }) {
       if (!UE_STRUCTS[p.sub]) throw new Error(`Unknown struct in registry: ${p.sub} (${regEntry.id}.${p.name})`);
       o.subObj = UE_STRUCTS[p.sub];
     }
-    if (p.cat === 'object' && p.object) o.subObj = classRef(p.object);
+    if ((p.cat === 'object' || p.cat === 'class') && p.object) o.subObj = classRef(p.object);
     if (p.enum) o.subObj = UE_ENUMS[p.enum] || p.enum;
     if (p.const) o.const = true;
     if (p.ref) o.ref = true;
@@ -107,7 +107,7 @@ export function createStructNode(regEntry, pos = { x: 0, y: 0 }) {
       if (!UE_STRUCTS[p.sub]) throw new Error(`Unknown struct: ${p.sub} (${regEntry.id}.${p.name})`);
       o.subObj = UE_STRUCTS[p.sub];
     }
-    if (p.cat === 'object' && p.object) o.subObj = classRef(p.object);
+    if ((p.cat === 'object' || p.cat === 'class') && p.object) o.subObj = classRef(p.object);
     if (p.const) o.const = true;
     if (p.ref) o.ref = true;
     if (p.container) o.container = p.container;
@@ -219,7 +219,7 @@ export function createGeneric(regEntry, pos = { x: 0, y: 0 }) {
       if (!UE_STRUCTS[p.sub]) throw new Error(`Unknown struct in registry: ${p.sub} (${regEntry.id}.${p.name})`);
       o.subObj = UE_STRUCTS[p.sub];
     }
-    if (p.cat === 'object' && p.object) o.subObj = classRef(p.object);
+    if ((p.cat === 'object' || p.cat === 'class') && p.object) o.subObj = classRef(p.object);
     if (p.enum) o.subObj = UE_ENUMS[p.enum] || p.enum;
     if (p.const) o.const = true;
     if (p.ref) o.ref = true;

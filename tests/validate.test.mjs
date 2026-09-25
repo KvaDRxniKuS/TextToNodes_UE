@@ -541,6 +541,21 @@ regThrow.forEach(t => console.log('THROW:', t));
   const gt = generateUEText([g]);
   ok(/\n   bReturnByRefDesired=False\n/.test(gt) && validateStrict(gt).errors.length === 0, 'R15: Get (a copy) — bReturnByRefDesired=False, 0 ошибок');
 }
+// R14 вердикт: String 28/28 белые
+{
+  const st = reg.filter(e => e.category === 'String');
+  ok(st.length === 28 && st.every(e => e.verified), 'R14: String 28/28 verified');
+}
+// R16 pre-fix: Utilities
+{
+  ok(byId('GetSystemTime').func === 'GetRealTimeSeconds' && byId('GetSystemTime').lib === 'GameplayStatics', 'R16: GetSystemTimeInSeconds → GameplayStatics.GetRealTimeSeconds');
+  ok(['OpenLevel', 'CreateSaveGame', 'DoesSaveGameExist', 'SaveGameToSlot', 'LoadGameFromSlot', 'GetPlatformName', 'GetWorldDeltaSeconds'].every(i => byId(i).lib === 'GameplayStatics'), 'R16: save/level/platform/delta — GameplayStatics');
+  const cls = createFromEntry(byId('CreateSaveGame')).pins.find(p => p.name === 'SaveGameClass');
+  ok(cls.category === 'class' && /Engine\.SaveGame/.test(cls.subCategoryObject), 'R16: class-пин несёт SubCategoryObject');
+  ok(byId('RetriggerableDelay').pins.map(p => p.name).join() === 'execute,then,Duration', 'R16: RetriggerableDelay как белый Delay');
+  const v = validateStrict(generateUEText(reg.filter(e => e.category === 'Utilities').map(e => createFromEntry(e))));
+  ok(v.errors.length === 0, 'R16: Utilities 0 ошибок');
+}
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);

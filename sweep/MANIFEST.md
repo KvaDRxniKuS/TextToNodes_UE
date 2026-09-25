@@ -27,9 +27,9 @@
 | 11 | 11-collision.txt | 26/26 | 25 | 2 | — | 1xW09 |
 | 12 | 12-math-rotator.txt | 15/15 | 15 | 8 | — | 8xW09 |
 | 13 | 13-math-transform.txt | 10/10 | 0 | 8 | — | 8xW09 |
-| 14 | 14-string.txt | 28/28 | 2 | 13 | — | 13xW09 |
+| 14 | 14-string.txt | 28/28 | 28 | 13 | — | 13xW09 |
 | 15 | 15-array.txt | 18/18 | 0 | 18 | — | 17xW09 |
-| 16 | 16-utilities.txt | 19/19 | 2 | 2 | — | 2xW09 |
+| 16 | 16-utilities.txt | 19/19 | 2 | 17 | — | 17xW09 |
 | 17 | 17-gameplay.txt | 12/12 | 0 | 4 | — | 4xW09 |
 | 18 | 18-input.txt | 2/2 | 0 | 2 | — | 2xW09 |
 | 19 | 19-organization.txt | 6/6 | 2 | 4 | — | 3xW03 |
@@ -96,8 +96,23 @@
 - 15-array.txt :: W09: K2Node_CallArrayFunction_340: Array_LastIndex: round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении
 - 15-array.txt :: W09: K2Node_CallArrayFunction_341: Array_Append: round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении
 - 15-array.txt :: W09: K2Node_CallArrayFunction_342: Array_Swap: round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении
-- 16-utilities.txt :: W09: K2Node_CallFunction_354: GetGameTimeInSeconds: Home library uncertain (KismetSystemLibrary vs GameplayStatics)
-- 16-utilities.txt :: W09: K2Node_CallFunction_356: GetWorldDeltaSeconds: Home library uncertain (KismetSystemLibrary vs GameplayStatics)
+- 16-utilities.txt :: W09: K2Node_CallFunction_345: PrintText: round16-pre: клон белого PrintString, InText — text const
+- 16-utilities.txt :: W09: K2Node_CallFunction_347: RetriggerableDelay: round16-pre: как белый Delay: выход then, WCO/LatentInfo движок восстанавливает
+- 16-utilities.txt :: W09: K2Node_CallFunction_348: IsValid: round16-pre: pure-форма «? Is Valid»; параметр Object (const UObject*)
+- 16-utilities.txt :: W09: K2Node_CallFunction_349: IsValidClass: round16-pre
+- 16-utilities.txt :: W09: K2Node_CallFunction_350: GetDisplayName: round16-pre
+- 16-utilities.txt :: W09: K2Node_CallFunction_351: GetObjectName: round16-pre
+- 16-utilities.txt :: W09: K2Node_CallFunction_352: GetEngineVersion: round16-pre
+- 16-utilities.txt :: W09: K2Node_CallFunction_353: GetPlatformName: round16-pre: живёт в GameplayStatics
+- 16-utilities.txt :: W09: K2Node_CallFunction_354: GetGameTimeInSeconds: round16-pre: KismetSystemLibrary::GetGameTimeInSeconds → float
+- 16-utilities.txt :: W09: K2Node_CallFunction_355: GetRealTimeSeconds: round16-pre: GetSystemTimeInSeconds не существует → GameplayStatics::GetRealTimeSeconds
+- 16-utilities.txt :: W09: K2Node_CallFunction_356: GetWorldDeltaSeconds: round16-pre
+- 16-utilities.txt :: W09: K2Node_CallFunction_357: QuitGame: round16-pre
+- 16-utilities.txt :: W09: K2Node_CallFunction_358: OpenLevel: round16-pre: GameplayStatics::OpenLevel (by Name)
+- 16-utilities.txt :: W09: K2Node_CallFunction_359: CreateSaveGameObject: round16-pre: GameplayStatics, exec
+- 16-utilities.txt :: W09: K2Node_CallFunction_360: DoesSaveGameExist: round16-pre
+- 16-utilities.txt :: W09: K2Node_CallFunction_361: SaveGameToSlot: round16-pre
+- 16-utilities.txt :: W09: K2Node_CallFunction_362: LoadGameFromSlot: round16-pre
 - 17-gameplay.txt :: W09: K2Node_CallFunction_367: GetAllActorsOfClass: Array/Set/Map output needs ContainerType support in generator — verify in engine
 - 17-gameplay.txt :: W09: K2Node_CallFunction_368: GetAllActorsWithTag: Array/Set/Map output needs ContainerType support in generator — verify in engine
 - 17-gameplay.txt :: W09: K2Node_CallFunction_369: BeginSpawningActorFromClass: Engine node is K2Node_SpawnActorFromClass; this CallFunction BeginSpawningActorFromClass form is untested

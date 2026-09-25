@@ -69,12 +69,14 @@ const ENUMS_FULL = {
   EDrawDebugTrace: `"/Script/CoreUObject.Enum'/Script/Engine.EDrawDebugTrace'"`, // confirmed (copy-back LineTraceSingle, UE 5.8)
   EObjectTypeQuery: `"/Script/CoreUObject.Enum'/Script/Engine.EObjectTypeQuery'"`, // confirmed (copy-back LineTraceSingleForObjects, UE 5.8)
   EEasingFunc: `"/Script/CoreUObject.Enum'/Script/Engine.EEasingFunc'"`, // confirmed (copy-back K2Node_EaseFunction_0, UE 5.8)
+  EQuitPreference: `"/Script/CoreUObject.Enum'/Script/Engine.EQuitPreference'"`, // round16-pre (не подтверждён)
 };
 const ENUMS_SHORT = {
   ETraceTypeQuery: `Enum'"/Script/Engine.ETraceTypeQuery"'`,
   EDrawDebugTrace: `Enum'"/Script/Engine.EDrawDebugTrace"'`,
   EObjectTypeQuery: `Enum'"/Script/Engine.EObjectTypeQuery"'`,
   EEasingFunc: `Enum'"/Script/Engine.EEasingFunc"'`,
+  EQuitPreference: `Enum'"/Script/Engine.EQuitPreference"'`,
 };
 export const UE_ENUMS = UE_VERSION === 'SHORT' ? ENUMS_SHORT : ENUMS_FULL;
 

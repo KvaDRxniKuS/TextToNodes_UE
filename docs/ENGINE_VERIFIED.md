@@ -582,3 +582,8 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 
 - round12 Math/Rotator: все 15 белые — MakeRotator/BreakRotator (pure KML), MakeRotFromX/Y/Z/ZX, FindLookAtRotation, NormalizedDeltaRotator, ComposeRotators, NegateRotator, RLerp, SelectRotator, GetForwardVector/GetRightVector/GetUpVector. R12 закрыт 15/15.
   Подтверждает: pure KML Make/Break вместо struct-форм работает и для Rotator.
+
+## Вердикт round14 (2026-09-25)
+
+- round14 String: все 28 белые — Concat_StrStr, Len, ToUpper/ToLower, Contains (bUseCase/bSearchFromEnd), FindSubstring (StartPosition -1), Replace, ParseIntoArray (RV Array), JoinStringArray (SourceArray Array ref+const), Trim/TrimTrailing, Left/Right/Mid/LeftChop/RightChop, EqualEqual_StrStr/NotEqual_StrStr (CallFunction, не PromotableOperator), BuildString_Double/Int/Bool (+Suffix), Conv_Double/Int/Bool/VectorToString, IsEmpty, Conv_StringToInt/StringToDouble. R14 закрыт 28/28.
+  Подтверждает: строковые параметры KismetStringLibrary можно слать без ref/const — движок восстанавливает сам.

@@ -4984,7 +4984,7 @@
     "cat": "int"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Длина"
  },
  {
@@ -5006,7 +5006,7 @@
     "cat": "string"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Верхний"
  },
  {
@@ -5028,7 +5028,7 @@
     "cat": "string"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Нижний"
  },
  {
@@ -5068,7 +5068,7 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Содержит",
   "note": "round14-pre: UseCase/SearchDir были byte — в UE это bool bUseCase/bSearchFromEnd"
  },
@@ -5115,7 +5115,7 @@
     "dv": "0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Найти подстроку",
   "note": "round14-pre: bool bUseCase/bSearchFromEnd + StartPosition int (-1)"
  },
@@ -5148,7 +5148,7 @@
     "cat": "string"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Заменить"
  },
  {
@@ -5183,7 +5183,7 @@
     "container": "Array"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Разделить в массив",
   "note": "round14-pre: ReturnValue — ContainerType=Array (было sub Array)"
  },
@@ -5216,7 +5216,7 @@
     "cat": "string"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Соединить",
   "note": "round14-pre: SourceArray — Array ref+const (как ActorsToIgnore у трейсов)"
  },
@@ -5239,7 +5239,7 @@
     "cat": "string"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Trim"
  },
  {
@@ -5261,7 +5261,7 @@
     "cat": "string"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Trim конец"
  },
  {
@@ -5288,7 +5288,7 @@
     "cat": "string"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Лево"
  },
  {
@@ -5315,7 +5315,7 @@
     "cat": "string"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Право"
  },
  {
@@ -5347,7 +5347,7 @@
     "cat": "string"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Середина"
  },
  {
@@ -5374,7 +5374,7 @@
     "cat": "string"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Отрезать слева"
  },
  {
@@ -5401,7 +5401,7 @@
     "cat": "string"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Справа"
  },
  {
@@ -5429,7 +5429,7 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Равно (регистр важен)",
   "note": "round14-pre: PromotableOperator только для KismetMathLibrary — канон CallFunction"
  },
@@ -5458,7 +5458,7 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Не равно (регистр важен)",
   "note": "round14-pre: канон CallFunction"
  },
@@ -5498,7 +5498,7 @@
     "cat": "string"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Float→String",
   "note": "round14-pre: UE5 — BuildString_Double/InDouble + Suffix"
  },
@@ -5537,7 +5537,7 @@
     "cat": "string"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Int→String",
   "note": "round14-pre: добавлен Suffix"
  },
@@ -5576,7 +5576,7 @@
     "cat": "string"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Bool→String",
   "note": "round14-pre: добавлен Suffix"
  },
@@ -5601,7 +5601,7 @@
     "cat": "string"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Float→String",
   "note": "round14-pre: UE5 — Conv_DoubleToString/InDouble"
  },
@@ -5646,7 +5646,7 @@
     "cat": "string"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Bool→String"
  },
  {
@@ -5669,7 +5669,7 @@
     "cat": "string"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Vector→String"
  },
  {
@@ -5692,7 +5692,7 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Строка пустая?",
   "note": "round14-pre: новая запись"
  },
@@ -5716,7 +5716,7 @@
     "dv": "0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "String→Int",
   "note": "round14-pre: новая запись"
  },
@@ -5741,7 +5741,7 @@
     "dv": "0.0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "String→Float",
   "note": "round14-pre: новая запись (UE5 double)"
  },
@@ -6511,18 +6511,61 @@
     "cat": "exec"
    },
    {
-    "name": "InText",
+    "name": "WorldContextObject",
     "dir": "Input",
-    "cat": "string"
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object",
+    "const": true,
+    "hidden": true
    },
    {
-    "name": "PrintToScreen",
+    "name": "InText",
     "dir": "Input",
-    "cat": "bool"
+    "cat": "text",
+    "const": true
+   },
+   {
+    "name": "bPrintToScreen",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "advanced": true
+   },
+   {
+    "name": "bPrintToLog",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "advanced": true
+   },
+   {
+    "name": "TextColor",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "dv": "(R=0.000000,G=0.660000,B=1.000000,A=1.000000)",
+    "advanced": true
+   },
+   {
+    "name": "Duration",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "2.000000",
+    "advanced": true
+   },
+   {
+    "name": "Key",
+    "dir": "Input",
+    "cat": "name",
+    "const": true,
+    "dv": "None",
+    "advanced": true
    }
   ],
   "verified": false,
-  "desc": "Print Text"
+  "desc": "Print Text",
+  "note": "round16-pre: клон белого PrintString, InText — text const"
  },
  {
   "id": "Delay",
@@ -6567,18 +6610,21 @@
     "cat": "exec"
    },
    {
-    "name": "Completed",
+    "name": "then",
     "dir": "Output",
     "cat": "exec"
    },
    {
     "name": "Duration",
     "dir": "Input",
-    "cat": "real"
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.2"
    }
   ],
   "verified": false,
-  "desc": "Перезапускаемая"
+  "desc": "Перезапускаемая",
+  "note": "round16-pre: как белый Delay: выход then, WCO/LatentInfo движок восстанавливает"
  },
  {
   "id": "IsValid_Object",
@@ -6589,9 +6635,11 @@
   "lib": "KismetSystemLibrary",
   "pins": [
    {
-    "name": "InputObject",
+    "name": "Object",
     "dir": "Input",
-    "cat": "object"
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object",
+    "const": true
    },
    {
     "name": "ReturnValue",
@@ -6600,7 +6648,9 @@
    }
   ],
   "verified": false,
-  "desc": "Валидность"
+  "desc": "Валидность",
+  "pure": true,
+  "note": "round16-pre: pure-форма «? Is Valid»; параметр Object (const UObject*)"
  },
  {
   "id": "IsValidClass",
@@ -6611,9 +6661,10 @@
   "lib": "KismetSystemLibrary",
   "pins": [
    {
-    "name": "InputClass",
+    "name": "Class",
     "dir": "Input",
-    "cat": "class"
+    "cat": "class",
+    "object": "/Script/CoreUObject.Object"
    },
    {
     "name": "ReturnValue",
@@ -6622,7 +6673,9 @@
    }
   ],
   "verified": false,
-  "desc": "Класс валиден"
+  "desc": "Класс валиден",
+  "pure": true,
+  "note": "round16-pre"
  },
  {
   "id": "GetDisplayName",
@@ -6635,7 +6688,9 @@
    {
     "name": "Object",
     "dir": "Input",
-    "cat": "object"
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object",
+    "const": true
    },
    {
     "name": "ReturnValue",
@@ -6644,7 +6699,9 @@
    }
   ],
   "verified": false,
-  "desc": "Имя"
+  "desc": "Имя",
+  "pure": true,
+  "note": "round16-pre"
  },
  {
   "id": "GetObjectName",
@@ -6657,7 +6714,9 @@
    {
     "name": "Object",
     "dir": "Input",
-    "cat": "object"
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object",
+    "const": true
    },
    {
     "name": "ReturnValue",
@@ -6666,7 +6725,9 @@
    }
   ],
   "verified": false,
-  "desc": "Имя объекта"
+  "desc": "Имя объекта",
+  "pure": true,
+  "note": "round16-pre"
  },
  {
   "id": "GetEngineVersion",
@@ -6683,7 +6744,9 @@
    }
   ],
   "verified": false,
-  "desc": "Версия"
+  "desc": "Версия",
+  "pure": true,
+  "note": "round16-pre"
  },
  {
   "id": "GetPlatformName",
@@ -6691,7 +6754,7 @@
   "category": "Utilities",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
   "func": "GetPlatformName",
-  "lib": "KismetSystemLibrary",
+  "lib": "GameplayStatics",
   "pins": [
    {
     "name": "ReturnValue",
@@ -6700,7 +6763,9 @@
    }
   ],
   "verified": false,
-  "desc": "Платформа"
+  "desc": "Платформа",
+  "pure": true,
+  "note": "round16-pre: живёт в GameplayStatics"
  },
  {
   "id": "GetGameTime",
@@ -6708,7 +6773,7 @@
   "category": "Utilities",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
   "func": "GetGameTimeInSeconds",
-  "lib": null,
+  "lib": "KismetSystemLibrary",
   "pins": [
    {
     "name": "WorldContextObject",
@@ -6721,29 +6786,42 @@
    {
     "name": "ReturnValue",
     "dir": "Output",
-    "cat": "real"
+    "cat": "real",
+    "sub": "float"
    }
   ],
   "verified": false,
-  "note": "Home library uncertain (KismetSystemLibrary vs GameplayStatics)",
-  "desc": "Время"
+  "note": "round16-pre: KismetSystemLibrary::GetGameTimeInSeconds → float",
+  "desc": "Время",
+  "pure": true
  },
  {
   "id": "GetSystemTime",
-  "title": "Get System Time",
+  "title": "Get Real Time Seconds",
   "category": "Utilities",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-  "func": "GetSystemTimeInSeconds",
-  "lib": "KismetSystemLibrary",
+  "func": "GetRealTimeSeconds",
+  "lib": "GameplayStatics",
   "pins": [
+   {
+    "name": "WorldContextObject",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object",
+    "const": true,
+    "hidden": true
+   },
    {
     "name": "ReturnValue",
     "dir": "Output",
-    "cat": "real"
+    "cat": "real",
+    "sub": "float"
    }
   ],
   "verified": false,
-  "desc": "Системное время"
+  "desc": "Системное время",
+  "pure": true,
+  "note": "round16-pre: GetSystemTimeInSeconds не существует → GameplayStatics::GetRealTimeSeconds"
  },
  {
   "id": "GetWorldDeltaSeconds",
@@ -6751,7 +6829,7 @@
   "category": "Utilities",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
   "func": "GetWorldDeltaSeconds",
-  "lib": null,
+  "lib": "GameplayStatics",
   "pins": [
    {
     "name": "WorldContextObject",
@@ -6764,12 +6842,14 @@
    {
     "name": "ReturnValue",
     "dir": "Output",
-    "cat": "real"
+    "cat": "real",
+    "sub": "float"
    }
   ],
   "verified": false,
-  "note": "Home library uncertain (KismetSystemLibrary vs GameplayStatics)",
-  "desc": "Delta"
+  "note": "round16-pre",
+  "desc": "Delta",
+  "pure": true
  },
  {
   "id": "QuitGame",
@@ -6800,16 +6880,26 @@
    {
     "name": "SpecificPlayer",
     "dir": "Input",
-    "cat": "object"
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
    },
    {
     "name": "QuitPreference",
     "dir": "Input",
-    "cat": "byte"
+    "cat": "byte",
+    "enum": "EQuitPreference",
+    "dv": "Quit"
+   },
+   {
+    "name": "bIgnorePlatformRestrictions",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
    }
   ],
   "verified": false,
-  "desc": "Выход"
+  "desc": "Выход",
+  "note": "round16-pre"
  },
  {
   "id": "OpenLevel",
@@ -6817,7 +6907,7 @@
   "category": "Utilities",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
   "func": "OpenLevel",
-  "lib": "KismetSystemLibrary",
+  "lib": "GameplayStatics",
   "pins": [
    {
     "name": "execute",
@@ -6840,11 +6930,26 @@
    {
     "name": "LevelName",
     "dir": "Input",
-    "cat": "name"
+    "cat": "name",
+    "dv": "None"
+   },
+   {
+    "name": "bAbsolute",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "advanced": true
+   },
+   {
+    "name": "Options",
+    "dir": "Input",
+    "cat": "string",
+    "advanced": true
    }
   ],
   "verified": false,
-  "desc": "Открыть уровень"
+  "desc": "Открыть уровень",
+  "note": "round16-pre: GameplayStatics::OpenLevel (by Name)"
  },
  {
   "id": "CreateSaveGame",
@@ -6852,21 +6957,34 @@
   "category": "Utilities",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
   "func": "CreateSaveGameObject",
-  "lib": "KismetSystemLibrary",
+  "lib": "GameplayStatics",
   "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
    {
     "name": "SaveGameClass",
     "dir": "Input",
-    "cat": "class"
+    "cat": "class",
+    "object": "/Script/Engine.SaveGame"
    },
    {
     "name": "ReturnValue",
     "dir": "Output",
-    "cat": "object"
+    "cat": "object",
+    "object": "/Script/Engine.SaveGame"
    }
   ],
   "verified": false,
-  "desc": "SaveGame"
+  "desc": "SaveGame",
+  "note": "round16-pre: GameplayStatics, exec"
  },
  {
   "id": "DoesSaveGameExist",
@@ -6874,8 +6992,18 @@
   "category": "Utilities",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
   "func": "DoesSaveGameExist",
-  "lib": "KismetSystemLibrary",
+  "lib": "GameplayStatics",
   "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
    {
     "name": "SlotName",
     "dir": "Input",
@@ -6884,7 +7012,8 @@
    {
     "name": "UserIndex",
     "dir": "Input",
-    "cat": "int"
+    "cat": "int",
+    "dv": "0"
    },
    {
     "name": "ReturnValue",
@@ -6893,7 +7022,8 @@
    }
   ],
   "verified": false,
-  "desc": "Существует?"
+  "desc": "Существует?",
+  "note": "round16-pre"
  },
  {
   "id": "SaveGameToSlot",
@@ -6901,12 +7031,23 @@
   "category": "Utilities",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
   "func": "SaveGameToSlot",
-  "lib": "KismetSystemLibrary",
+  "lib": "GameplayStatics",
   "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
    {
     "name": "SaveGameObject",
     "dir": "Input",
-    "cat": "object"
+    "cat": "object",
+    "object": "/Script/Engine.SaveGame"
    },
    {
     "name": "SlotName",
@@ -6916,7 +7057,8 @@
    {
     "name": "UserIndex",
     "dir": "Input",
-    "cat": "int"
+    "cat": "int",
+    "dv": "0"
    },
    {
     "name": "ReturnValue",
@@ -6925,7 +7067,8 @@
    }
   ],
   "verified": false,
-  "desc": "Сохранить"
+  "desc": "Сохранить",
+  "note": "round16-pre"
  },
  {
   "id": "LoadGameFromSlot",
@@ -6933,8 +7076,18 @@
   "category": "Utilities",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
   "func": "LoadGameFromSlot",
-  "lib": "KismetSystemLibrary",
+  "lib": "GameplayStatics",
   "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
    {
     "name": "SlotName",
     "dir": "Input",
@@ -6943,16 +7096,19 @@
    {
     "name": "UserIndex",
     "dir": "Input",
-    "cat": "int"
+    "cat": "int",
+    "dv": "0"
    },
    {
     "name": "ReturnValue",
     "dir": "Output",
-    "cat": "object"
+    "cat": "object",
+    "object": "/Script/Engine.SaveGame"
    }
   ],
   "verified": false,
-  "desc": "Загрузить"
+  "desc": "Загрузить",
+  "note": "round16-pre"
  },
  {
   "id": "GetPlayerController",
