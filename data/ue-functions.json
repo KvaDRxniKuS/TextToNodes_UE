@@ -146,7 +146,8 @@
    }
   ],
   "verified": true,
-  "desc": "Цикл по массиву"
+  "desc": "Цикл по массиву",
+  "note": "Q2: движок резолвит wildcard при проводе (copy-back _5: Array→struct HitResult Array, Array Element→struct HitResult); реестр хранит свежую wildcard-форму"
  },
  {
   "id": "ForLoopWithBreak",
@@ -6523,7 +6524,9 @@
    {
     "name": "Radius",
     "dir": "Input",
-    "cat": "real"
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.0"
    },
    {
     "name": "ReturnValue",
@@ -6533,7 +6536,7 @@
   ],
   "verified": false,
   "desc": "Сфера",
-  "note": "v6: func переименован (было SphereTraceByChannel — не существует, см. киллер J1-J4); имя Single-паттерна выведено, нужен copy-back"
+  "note": "v6: func переименован (было SphereTraceByChannel — не существует, см. киллер J1-J4); имя Single-паттерна выведено, нужен copy-back; Q2: Radius/HalfHeight float+0.0 по CapsuleTraceMulti"
  },
  {
   "id": "BoxTraceByChannel",
@@ -6630,12 +6633,16 @@
    {
     "name": "Radius",
     "dir": "Input",
-    "cat": "real"
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.0"
    },
    {
     "name": "HalfHeight",
     "dir": "Input",
-    "cat": "real"
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.0"
    },
    {
     "name": "ReturnValue",
@@ -6645,7 +6652,513 @@
   ],
   "verified": false,
   "desc": "Капсула",
-  "note": "v6: func переименован (было CapsuleTraceByChannel — не существует, см. киллер J1-J4); имя Single-паттерна выведено, нужен copy-back"
+  "note": "v6: func переименован (было CapsuleTraceByChannel — не существует, см. киллер J1-J4); имя Single-паттерна выведено, нужен copy-back; Q2: Radius/HalfHeight float+0.0 по CapsuleTraceMulti"
+ },
+ {
+  "id": "CapsuleTraceMulti",
+  "title": "Capsule Trace Multi",
+  "category": "Collision",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "CapsuleTraceMulti",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "WorldContextObject",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object",
+    "const": true,
+    "hidden": true
+   },
+   {
+    "name": "Start",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true,
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "End",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true,
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "Radius",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.0"
+   },
+   {
+    "name": "HalfHeight",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.0"
+   },
+   {
+    "name": "TraceChannel",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ETraceTypeQuery",
+    "dv": "TraceTypeQuery1"
+   },
+   {
+    "name": "bTraceComplex",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "ActorsToIgnore",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor",
+    "container": "Array",
+    "ref": true,
+    "const": true,
+    "ignored": true
+   },
+   {
+    "name": "DrawDebugType",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EDrawDebugTrace",
+    "dv": "None"
+   },
+   {
+    "name": "OutHits",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "HitResult",
+    "container": "Array"
+   },
+   {
+    "name": "bIgnoreSelf",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true"
+   },
+   {
+    "name": "TraceColor",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "dv": "(R=1.000000,G=0.000000,B=0.000000,A=1.000000)",
+    "advanced": true
+   },
+   {
+    "name": "TraceHitColor",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "dv": "(R=0.000000,G=1.000000,B=0.000000,A=1.000000)",
+    "advanced": true
+   },
+   {
+    "name": "DrawTime",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "5.000000",
+    "advanced": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": true,
+  "desc": "Капсула multi"
+ },
+ {
+  "id": "LineTraceMulti",
+  "title": "Multi Line Trace By Channel",
+  "category": "Collision",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "LineTraceMulti",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "WorldContextObject",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object",
+    "const": true,
+    "hidden": true
+   },
+   {
+    "name": "Start",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true,
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "End",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true,
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "TraceChannel",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ETraceTypeQuery",
+    "dv": "TraceTypeQuery1"
+   },
+   {
+    "name": "bTraceComplex",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "ActorsToIgnore",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor",
+    "container": "Array",
+    "ref": true,
+    "const": true,
+    "ignored": true
+   },
+   {
+    "name": "DrawDebugType",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EDrawDebugTrace",
+    "dv": "None"
+   },
+   {
+    "name": "OutHits",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "HitResult",
+    "container": "Array"
+   },
+   {
+    "name": "bIgnoreSelf",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true"
+   },
+   {
+    "name": "TraceColor",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "dv": "(R=1.000000,G=0.000000,B=0.000000,A=1.000000)",
+    "advanced": true
+   },
+   {
+    "name": "TraceHitColor",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "dv": "(R=0.000000,G=1.000000,B=0.000000,A=1.000000)",
+    "advanced": true
+   },
+   {
+    "name": "DrawTime",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "5.000000",
+    "advanced": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Линия multi",
+  "note": "Q2-аналогия с CapsuleTraceMulti (verified): нужен copy-back"
+ },
+ {
+  "id": "SphereTraceMulti",
+  "title": "Sphere Trace Multi",
+  "category": "Collision",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SphereTraceMulti",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "WorldContextObject",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object",
+    "const": true,
+    "hidden": true
+   },
+   {
+    "name": "Start",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true,
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "End",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true,
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "Radius",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.0"
+   },
+   {
+    "name": "TraceChannel",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ETraceTypeQuery",
+    "dv": "TraceTypeQuery1"
+   },
+   {
+    "name": "bTraceComplex",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "ActorsToIgnore",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor",
+    "container": "Array",
+    "ref": true,
+    "const": true,
+    "ignored": true
+   },
+   {
+    "name": "DrawDebugType",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EDrawDebugTrace",
+    "dv": "None"
+   },
+   {
+    "name": "OutHits",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "HitResult",
+    "container": "Array"
+   },
+   {
+    "name": "bIgnoreSelf",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true"
+   },
+   {
+    "name": "TraceColor",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "dv": "(R=1.000000,G=0.000000,B=0.000000,A=1.000000)",
+    "advanced": true
+   },
+   {
+    "name": "TraceHitColor",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "dv": "(R=0.000000,G=1.000000,B=0.000000,A=1.000000)",
+    "advanced": true
+   },
+   {
+    "name": "DrawTime",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "5.000000",
+    "advanced": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Сфера multi",
+  "note": "Q2-аналогия с CapsuleTraceMulti (verified): нужен copy-back"
+ },
+ {
+  "id": "BoxTraceMulti",
+  "title": "Box Trace Multi",
+  "category": "Collision",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "BoxTraceMulti",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "WorldContextObject",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object",
+    "const": true,
+    "hidden": true
+   },
+   {
+    "name": "Start",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true,
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "End",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true,
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "HalfSize",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector"
+   },
+   {
+    "name": "TraceChannel",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ETraceTypeQuery",
+    "dv": "TraceTypeQuery1"
+   },
+   {
+    "name": "bTraceComplex",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "ActorsToIgnore",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor",
+    "container": "Array",
+    "ref": true,
+    "const": true,
+    "ignored": true
+   },
+   {
+    "name": "DrawDebugType",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EDrawDebugTrace",
+    "dv": "None"
+   },
+   {
+    "name": "OutHits",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "HitResult",
+    "container": "Array"
+   },
+   {
+    "name": "bIgnoreSelf",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true"
+   },
+   {
+    "name": "TraceColor",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "dv": "(R=1.000000,G=0.000000,B=0.000000,A=1.000000)",
+    "advanced": true
+   },
+   {
+    "name": "TraceHitColor",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "dv": "(R=0.000000,G=1.000000,B=0.000000,A=1.000000)",
+    "advanced": true
+   },
+   {
+    "name": "DrawTime",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "5.000000",
+    "advanced": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Box multi",
+  "note": "Q2-аналогия с CapsuleTraceMulti (verified): нужен copy-back; HalfSize struct Vector — предположение"
  },
  {
   "id": "GetKey",

@@ -122,11 +122,9 @@ Copy-back комментария из UE показал `ExportPath="..."` **в 
 1. ~~**LineTraceByChannel пропадает.**~~ **РЕШЕНО в v6:** имя функции не существовало;
    настоящий узел — `LineTraceSingle` (copy-back UE 5.8 в реестре, verified:true).
    Ретест: K1 (полный) / K2 (минимальный).
-2. **Multi-трейсы и ByProfile** (`LineTraceMulti`, `SphereTraceMulti`, `BoxTraceMulti`,
-   `CapsuleTraceMulti`, `LineTraceSingleByProfile`): OutHits — массив-аутпут,
-   форма не наблюдалась. Нужен copy-back хотя бы одного.
+2. ~~**Multi-трейсы** (`LineTraceMulti`, `SphereTraceMulti`, `BoxTraceMulti`, `CapsuleTraceMulti`): OutHits — массив-аутпут, форма не наблюдалась.~~ **РЕШЕНО (copy-back CapsuleTraceMulti):** OutHits = struct HitResult + ContainerType=Array, без ref/const; Radius/HalfHeight float+0.0 после End. Остаток: **ByProfile** (`LineTraceSingleByProfile`) — сигнатура не наблюдалась.
 3. **Siblings-ренеймы** (`Sphere/Box/CapsuleTraceSingle`, `LineTraceSingleForObjects`):
-   имена выведены по Single-паттерну, вставка не подтверждена.
+   имена выведены по Single-паттерну, вставка не подтверждена (Multi-суффикс подтверждён Q2).
 4. ~~**Pure-функции** (bIsPureFunc)~~ **ЧАСТИЧНО РЕШЕНО (Q6):** pure CallFunction = `bDefaultsToPureFunc=True`, без exec-пинов (BreakHitResult, verified:true). Осталось: **VarGet/VarSet self-пин** — не проверен.
 5. **SHORT-форма ссылок** (legacy) — вставкой не проверена ни на одном движке.
 6. ~~**Выходы BreakHitResult** — движок их сам НЕ достраивает.~~ **РЕШЕНО:** настоящий «Break Hit Result» = pure `GameplayStatics.BreakHitResult` (self + Hit + 18 выходов, copy-back BP_WheelActor); K2Node_BreakStruct выходы НЕ строит никогда (подтверждено живым графом).
@@ -244,3 +242,20 @@ Pure-нода вернулась с AdvancedPinDisplay=Shown (трейд — Hid
 Любопытное: тултип Normal в M1 полный («for a sphere trace this points towards...»),
 в Q6-фикстуре (_105) — усечённый вариант; тултипы engine-managed, не эмитим.
 Фикстура: tests/fixtures/m1-copyback.txt (STRICT-OK, 0 варнингов).
+
+
+## Q2 resolved: OutHits = struct-массив без ref/const (2026-09-25)
+
+Copy-back CapsuleTraceMulti (живой граф BP_WheelActor, 18 пинов с self): OutHits —
+struct HitResult + ContainerType=Array, bIsReference=False, bIsConst=False (в отличие
+от входного ActorsToIgnore: ref+const+ignored). Radius/HalfHeight — real/float dv "0.0",
+позиция строго после End, перед TraceChannel. Остальной порядок пинов 1-в-1 с
+LineTraceSingle. ReturnValue-тултип — Multi-вариант («blocking hit»), пин тот же.
+Довески: ForEachLoop в связке резолвнул wildcard (Array→struct HitResult Array,
+Array Element→struct HitResult — как Knot в L2); GraphGuid 99DBFD55 подтверждён;
+pure BreakHitResult на Array Element — третий Shown подряд (Shown = раскрытие юзером
+перед копипастом, не дефолт движка); тултип Normal снова полный (Q6 _105 был усечён).
+Реестр: 238 (+CapsuleTraceMulti verified, +Line/Sphere/BoxTraceMulti verified:false;
+singles Radius/HalfHeight → float+0.0). N1 (tools/gen-n-series.mjs): multi→foreach→break,
+предсказание — движок резолвнет wildcard-макро при вставке с проводами.
+Фикстура: tests/fixtures/capsuletracemulti-copyback.txt (0 ошибок, 0 варнингов).

@@ -238,5 +238,36 @@ regThrow.forEach(t => console.log('THROW:', t));
   const cm = gm.EventGraph.nodes.find(n => n.isComment);
   ok(cm && cm.width === 700 && cm.height === 698, 'M1 copy-back: размер коммента 700x698 пережил round-trip');
 }
+
+// Q2: CapsuleTraceMulti — форма OutHits (struct HitResult Array, без ref/const) + резолв ForEachLoop
+{
+  const cm2 = byId('CapsuleTraceMulti');
+  ok(cm2 && cm2.verified === true && cm2.func === 'CapsuleTraceMulti', 'CapsuleTraceMulti: verified');
+  ok(cm2.pins.length === 17, 'CapsuleTraceMulti: 17 пинов (без self)');
+  const oh = cm2.pins.find(p => p.name === 'OutHits');
+  ok(oh && oh.cat === 'struct' && oh.sub === 'HitResult' && oh.container === 'Array' && !oh.ref && !oh.const, 'CapsuleTraceMulti: OutHits struct+Array без ref/const');
+  const nm = cm2.pins.map(p => p.name);
+  ok(nm.indexOf('Radius') === nm.indexOf('End') + 1 && nm.indexOf('HalfHeight') === nm.indexOf('End') + 2 && nm.indexOf('TraceChannel') === nm.indexOf('End') + 3, 'CapsuleTraceMulti: Radius/HalfHeight после End');
+  ok(cm2.pins.find(p => p.name === 'Radius').sub === 'float' && cm2.pins.find(p => p.name === 'HalfHeight').dv === '0.0', 'CapsuleTraceMulti: Radius/HalfHeight float+0.0');
+  const ct = generateUEText([createCallFunction(cm2, { x: 0, y: 0 })]);
+  const cv = validateStrict(ct);
+  ok(cv.valid && cv.errors.length === 0 && cv.warnings.length === 0, 'CapsuleTraceMulti: генерация STRICT-OK без варнингов');
+  ok(['LineTraceMulti', 'SphereTraceMulti', 'BoxTraceMulti'].every(id => { const e = byId(id); return e && e.verified === false && e.pins.some(p => p.name === 'OutHits' && p.container === 'Array'); }), 'Multi-аналогии: 3 записи verified:false с OutHits');
+  const fx = fs.readFileSync(new URL('./fixtures/capsuletracemulti-copyback.txt', import.meta.url), 'utf8');
+  const fv = validateStrict(fx);
+  ok(fv.valid && fv.errors.length === 0 && fv.warnings.length === 0, 'Q2 фикстура: strict 0 ошибок, 0 варнингов');
+  const gq = parseToGraphs(fx);
+  ok(gq.EventGraph.nodes.length === 3, 'Q2 фикстура: 3 ноды');
+  const qtr = gq.EventGraph.nodes.find(n => n.funcName === 'CapsuleTraceMulti');
+  const qfe = gq.EventGraph.nodes.find(n => n.macroGraph === 'ForEachLoop');
+  ok(qtr && qtr.pins.length === 18, 'Q2 фикстура: трейд 17->18 (self добавлен)');
+  const qar = qfe.pins.find(p => p.name === 'Array');
+  const qel = qfe.pins.find(p => p.name === 'Array Element');
+  ok(qar.category === 'struct' && qar.container === 'Array' && qel.category === 'struct' && (qel.container === 'None' || !qel.container), 'Q2 фикстура: ForEachLoop резолвнул wildcard в HitResult');
+  ok(qfe.macroGuid === '99DBFD5540A796041F72A5A9DA655026', 'Q2 фикстура: GraphGuid ForEachLoop');
+  ok(qtr.pins.find(p => p.name === 'then').linkedTo.some(l => l.nodeName === 'K2Node_MacroInstance_5') &&
+     qtr.pins.find(p => p.name === 'OutHits').linkedTo.some(l => l.nodeName === 'K2Node_MacroInstance_5') &&
+     qel.linkedTo.some(l => l.nodeName === 'K2Node_CallFunction_112'), 'Q2 фикстура: 3 провода на месте');
+}
 console.log(`\nVALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);
