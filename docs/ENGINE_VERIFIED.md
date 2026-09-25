@@ -587,3 +587,7 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 
 - round14 String: все 28 белые — Concat_StrStr, Len, ToUpper/ToLower, Contains (bUseCase/bSearchFromEnd), FindSubstring (StartPosition -1), Replace, ParseIntoArray (RV Array), JoinStringArray (SourceArray Array ref+const), Trim/TrimTrailing, Left/Right/Mid/LeftChop/RightChop, EqualEqual_StrStr/NotEqual_StrStr (CallFunction, не PromotableOperator), BuildString_Double/Int/Bool (+Suffix), Conv_Double/Int/Bool/VectorToString, IsEmpty, Conv_StringToInt/StringToDouble. R14 закрыт 28/28.
   Подтверждает: строковые параметры KismetStringLibrary можно слать без ref/const — движок восстанавливает сам.
+
+## Вердикт round13 (2026-09-25)
+
+- round13 Math/Transform: все 10 белые — MakeTransform/BreakTransform (pure KML, Scale dv 1,1,1; BreakTransform все 3 выхода), ComposeTransforms (компактный заголовок «*»), InvertTransform, Transform/InverseTransform Location/Direction/Rotation (T ref+const). R13 закрыт 10/10.

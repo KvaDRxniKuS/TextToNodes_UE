@@ -26,11 +26,11 @@
 | 10 | 10-math-vector.txt | 29/29 | 28 | 0 | — | — |
 | 11 | 11-collision.txt | 26/26 | 25 | 2 | — | 1xW09 |
 | 12 | 12-math-rotator.txt | 15/15 | 15 | 8 | — | 8xW09 |
-| 13 | 13-math-transform.txt | 10/10 | 0 | 8 | — | 8xW09 |
+| 13 | 13-math-transform.txt | 10/10 | 10 | 8 | — | 8xW09 |
 | 14 | 14-string.txt | 28/28 | 28 | 13 | — | 13xW09 |
 | 15 | 15-array.txt | 18/18 | 0 | 18 | — | 17xW09 |
 | 16 | 16-utilities.txt | 19/19 | 2 | 17 | — | 17xW09 |
-| 17 | 17-gameplay.txt | 12/12 | 0 | 4 | — | 4xW09 |
+| 17 | 17-gameplay.txt | 12/12 | 0 | 12 | — | 11xW09 |
 | 18 | 18-input.txt | 2/2 | 0 | 2 | — | 2xW09 |
 | 19 | 19-organization.txt | 6/6 | 2 | 4 | — | 3xW03 |
 | 20 | 20-text.txt | 1/1 | 0 | 1 | — | 1xW09 |
@@ -113,10 +113,17 @@
 - 16-utilities.txt :: W09: K2Node_CallFunction_360: DoesSaveGameExist: round16-pre
 - 16-utilities.txt :: W09: K2Node_CallFunction_361: SaveGameToSlot: round16-pre
 - 16-utilities.txt :: W09: K2Node_CallFunction_362: LoadGameFromSlot: round16-pre
-- 17-gameplay.txt :: W09: K2Node_CallFunction_367: GetAllActorsOfClass: Array/Set/Map output needs ContainerType support in generator — verify in engine
-- 17-gameplay.txt :: W09: K2Node_CallFunction_368: GetAllActorsWithTag: Array/Set/Map output needs ContainerType support in generator — verify in engine
-- 17-gameplay.txt :: W09: K2Node_CallFunction_369: BeginSpawningActorFromClass: Engine node is K2Node_SpawnActorFromClass; this CallFunction BeginSpawningActorFromClass form is untested
-- 17-gameplay.txt :: W09: K2Node_CallFunction_375: GetWorld: No static GetWorld in Kismet libs — member call needs Self/BP-class context
+- 17-gameplay.txt :: W09: K2Node_CallFunction_364: GetPlayerController: round17-pre
+- 17-gameplay.txt :: W09: K2Node_CallFunction_365: GetPlayerPawn: round17-pre
+- 17-gameplay.txt :: W09: K2Node_CallFunction_366: GetPlayerCharacter: round17-pre
+- 17-gameplay.txt :: W09: K2Node_CallFunction_367: GetAllActorsOfClass: round17-pre: OutActors — Actor Array (container), ActorClass → Actor
+- 17-gameplay.txt :: W09: K2Node_CallFunction_368: GetAllActorsWithTag: round17-pre
+- 17-gameplay.txt :: W09: K2Node_CallFunction_370: SpawnEmitterAtLocation: round17-pre
+- 17-gameplay.txt :: W09: K2Node_CallFunction_371: PlaySoundAtLocation: round17-pre: хвост (InitialParams) движок достроит сам
+- 17-gameplay.txt :: W09: K2Node_CallFunction_372: GetGameMode: round17-pre
+- 17-gameplay.txt :: W09: K2Node_CallFunction_373: GetGameState: round17-pre
+- 17-gameplay.txt :: W09: K2Node_CallFunction_374: GetGameInstance: round17-pre
+- 17-gameplay.txt :: W09: K2Node_CallFunction_375: GetCurrentLevelName: round17-pre: статического GetWorld в Kismet нет → заменён на GameplayStatics::GetCurrentLevelName
 - 18-input.txt :: W09: K2Node_CallFunction_377: GetKey: Function not found as Kismet static — verify in engine before use
 - 18-input.txt :: W09: K2Node_CallFunction_378: IsInputKeyDown: Member of PlayerController — needs Self context; static form untested
 - 19-organization.txt :: W03: K2Node_MakeArray_382: K2Node_MakeArray требует ContainerType — текст может не вставиться; проверь в движке

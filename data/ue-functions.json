@@ -4569,7 +4569,7 @@
     "sub": "Transform"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Собрать трансформ",
   "note": "round13-pre: FTransform HasNativeMake — по аналогии с Vector канон pure KML MakeTransform",
   "pure": true
@@ -4612,7 +4612,7 @@
     "dv": "0, 0, 0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Разобрать трансформ",
   "note": "round13-pre: канон pure KML BreakTransform InTransform→Location/Rotation/Scale",
   "pure": true
@@ -4644,7 +4644,7 @@
     "sub": "Transform"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Композиция"
  },
  {
@@ -4670,7 +4670,7 @@
     "sub": "Transform"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Инверсия"
  },
  {
@@ -4704,7 +4704,7 @@
     "dv": "0, 0, 0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Transform Location",
   "note": "round13-pre: новая запись, не проверена движком",
   "pure": true
@@ -4740,7 +4740,7 @@
     "dv": "0, 0, 0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Inverse Transform Location",
   "note": "round13-pre: новая запись, не проверена движком",
   "pure": true
@@ -4776,7 +4776,7 @@
     "dv": "0, 0, 0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Transform Direction",
   "note": "round13-pre: новая запись, не проверена движком",
   "pure": true
@@ -4812,7 +4812,7 @@
     "dv": "0, 0, 0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Inverse Transform Direction",
   "note": "round13-pre: новая запись, не проверена движком",
   "pure": true
@@ -4848,7 +4848,7 @@
     "dv": "0, 0, 0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Transform Rotation",
   "note": "round13-pre: новая запись, не проверена движком",
   "pure": true
@@ -4884,7 +4884,7 @@
     "dv": "0, 0, 0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Inverse Transform Rotation",
   "note": "round13-pre: новая запись, не проверена движком",
   "pure": true
@@ -7129,16 +7129,20 @@
    {
     "name": "PlayerIndex",
     "dir": "Input",
-    "cat": "int"
+    "cat": "int",
+    "dv": "0"
    },
    {
     "name": "ReturnValue",
     "dir": "Output",
-    "cat": "object"
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
    }
   ],
   "verified": false,
-  "desc": "Контроллер"
+  "desc": "Контроллер",
+  "pure": true,
+  "note": "round17-pre"
  },
  {
   "id": "GetPlayerPawn",
@@ -7159,16 +7163,20 @@
    {
     "name": "PlayerIndex",
     "dir": "Input",
-    "cat": "int"
+    "cat": "int",
+    "dv": "0"
    },
    {
     "name": "ReturnValue",
     "dir": "Output",
-    "cat": "object"
+    "cat": "object",
+    "object": "/Script/Engine.Pawn"
    }
   ],
   "verified": false,
-  "desc": "Pawn"
+  "desc": "Pawn",
+  "pure": true,
+  "note": "round17-pre"
  },
  {
   "id": "GetPlayerCharacter",
@@ -7189,16 +7197,20 @@
    {
     "name": "PlayerIndex",
     "dir": "Input",
-    "cat": "int"
+    "cat": "int",
+    "dv": "0"
    },
    {
     "name": "ReturnValue",
     "dir": "Output",
-    "cat": "object"
+    "cat": "object",
+    "object": "/Script/Engine.Character"
    }
   ],
   "verified": false,
-  "desc": "Character"
+  "desc": "Character",
+  "pure": true,
+  "note": "round17-pre"
  },
  {
   "id": "GetAllActorsOfClass",
@@ -7229,17 +7241,19 @@
    {
     "name": "ActorClass",
     "dir": "Input",
-    "cat": "class"
+    "cat": "class",
+    "object": "/Script/Engine.Actor"
    },
    {
     "name": "OutActors",
     "dir": "Output",
     "cat": "object",
-    "sub": "Array"
+    "object": "/Script/Engine.Actor",
+    "container": "Array"
    }
   ],
   "verified": false,
-  "note": "Array/Set/Map output needs ContainerType support in generator — verify in engine",
+  "note": "round17-pre: OutActors — Actor Array (container), ActorClass → Actor",
   "desc": "Все акторы"
  },
  {
@@ -7271,26 +7285,26 @@
    {
     "name": "Tag",
     "dir": "Input",
-    "cat": "name"
+    "cat": "name",
+    "dv": "None"
    },
    {
     "name": "OutActors",
     "dir": "Output",
     "cat": "object",
-    "sub": "Array"
+    "object": "/Script/Engine.Actor",
+    "container": "Array"
    }
   ],
   "verified": false,
-  "note": "Array/Set/Map output needs ContainerType support in generator — verify in engine",
+  "note": "round17-pre",
   "desc": "По тегу"
  },
  {
   "id": "SpawnActor",
-  "title": "Spawn Actor From Class",
+  "title": "Spawn Actor from Class",
   "category": "Gameplay",
-  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-  "func": "BeginSpawningActorFromClass",
-  "lib": "GameplayStatics",
+  "className": "/Script/BlueprintGraph.K2Node_SpawnActorFromClass",
   "pins": [
    {
     "name": "execute",
@@ -7303,17 +7317,16 @@
     "cat": "exec"
    },
    {
-    "name": "WorldContextObject",
-    "dir": "Input",
-    "cat": "object",
-    "object": "/Script/CoreUObject.Object",
-    "const": true,
-    "hidden": true
-   },
-   {
     "name": "Class",
     "dir": "Input",
-    "cat": "class"
+    "cat": "class",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
    },
    {
     "name": "SpawnTransform",
@@ -7322,13 +7335,30 @@
     "sub": "Transform"
    },
    {
-    "name": "ReturnValue",
-    "dir": "Output",
-    "cat": "object"
+    "name": "CollisionHandlingOverride",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ESpawnActorCollisionHandlingMethod",
+    "dv": "Undefined"
+   },
+   {
+    "name": "TransformScaleMethod",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ESpawnActorScaleMethod",
+    "dv": "MultiplyWithRoot",
+    "advanced": true
+   },
+   {
+    "name": "Owner",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor",
+    "advanced": true
    }
   ],
   "verified": false,
-  "note": "Engine node is K2Node_SpawnActorFromClass; this CallFunction BeginSpawningActorFromClass form is untested",
+  "note": "round17-pre: BeginSpawningActorFromClass — BlueprintInternalUseOnly; в графе K2Node_SpawnActorFromClass (пины без выбранного класса)",
   "desc": "Спавн"
  },
  {
@@ -7360,28 +7390,63 @@
    {
     "name": "EmitterTemplate",
     "dir": "Input",
-    "cat": "object"
+    "cat": "object",
+    "object": "/Script/Engine.ParticleSystem"
    },
    {
     "name": "Location",
     "dir": "Input",
     "cat": "struct",
-    "sub": "Vector"
+    "sub": "Vector",
+    "dv": "0, 0, 0"
    },
    {
     "name": "Rotation",
     "dir": "Input",
     "cat": "struct",
-    "sub": "Rotator"
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "Scale",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "dv": "1, 1, 1",
+    "advanced": true
+   },
+   {
+    "name": "bAutoDestroy",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "advanced": true
+   },
+   {
+    "name": "PoolingMethod",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EPSCPoolMethod",
+    "dv": "None",
+    "advanced": true
+   },
+   {
+    "name": "bAutoActivateSystem",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "advanced": true
    },
    {
     "name": "ReturnValue",
     "dir": "Output",
-    "cat": "object"
+    "cat": "object",
+    "object": "/Script/Engine.ParticleSystemComponent"
    }
   ],
   "verified": false,
-  "desc": "Эмиттер"
+  "desc": "Эмиттер",
+  "note": "round17-pre"
  },
  {
   "id": "PlaySoundAtLocation",
@@ -7412,17 +7477,73 @@
    {
     "name": "Sound",
     "dir": "Input",
-    "cat": "object"
+    "cat": "object",
+    "object": "/Script/Engine.SoundBase"
    },
    {
     "name": "Location",
     "dir": "Input",
     "cat": "struct",
-    "sub": "Vector"
+    "sub": "Vector",
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "Rotation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "VolumeMultiplier",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "1.000000",
+    "advanced": true
+   },
+   {
+    "name": "PitchMultiplier",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "1.000000",
+    "advanced": true
+   },
+   {
+    "name": "StartTime",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.000000",
+    "advanced": true
+   },
+   {
+    "name": "AttenuationSettings",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SoundAttenuation",
+    "advanced": true
+   },
+   {
+    "name": "ConcurrencySettings",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SoundConcurrency",
+    "advanced": true
+   },
+   {
+    "name": "OwningActor",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor",
+    "const": true,
+    "advanced": true
    }
   ],
   "verified": false,
-  "desc": "Звук"
+  "desc": "Звук",
+  "note": "round17-pre: хвост (InitialParams) движок достроит сам"
  },
  {
   "id": "GetGameMode",
@@ -7443,11 +7564,14 @@
    {
     "name": "ReturnValue",
     "dir": "Output",
-    "cat": "object"
+    "cat": "object",
+    "object": "/Script/Engine.GameModeBase"
    }
   ],
   "verified": false,
-  "desc": "GameMode"
+  "desc": "GameMode",
+  "pure": true,
+  "note": "round17-pre"
  },
  {
   "id": "GetGameState",
@@ -7468,11 +7592,14 @@
    {
     "name": "ReturnValue",
     "dir": "Output",
-    "cat": "object"
+    "cat": "object",
+    "object": "/Script/Engine.GameStateBase"
    }
   ],
   "verified": false,
-  "desc": "GameState"
+  "desc": "GameState",
+  "pure": true,
+  "note": "round17-pre"
  },
  {
   "id": "GetGameInstance",
@@ -7493,29 +7620,47 @@
    {
     "name": "ReturnValue",
     "dir": "Output",
-    "cat": "object"
+    "cat": "object",
+    "object": "/Script/Engine.GameInstance"
    }
   ],
   "verified": false,
-  "desc": "GameInstance"
+  "desc": "GameInstance",
+  "pure": true,
+  "note": "round17-pre"
  },
  {
   "id": "GetWorld",
-  "title": "Get World",
+  "title": "Get Current Level Name",
   "category": "Gameplay",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-  "func": "GetWorld",
-  "lib": null,
+  "func": "GetCurrentLevelName",
+  "lib": "GameplayStatics",
   "pins": [
+   {
+    "name": "WorldContextObject",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object",
+    "const": true,
+    "hidden": true
+   },
+   {
+    "name": "bRemovePrefixString",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true"
+   },
    {
     "name": "ReturnValue",
     "dir": "Output",
-    "cat": "object"
+    "cat": "string"
    }
   ],
   "verified": false,
-  "note": "No static GetWorld in Kismet libs — member call needs Self/BP-class context",
-  "desc": "World"
+  "note": "round17-pre: статического GetWorld в Kismet нет → заменён на GameplayStatics::GetCurrentLevelName",
+  "desc": "Имя уровня",
+  "pure": true
  },
  {
   "id": "LineTraceSingle",

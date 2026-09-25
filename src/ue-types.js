@@ -70,6 +70,9 @@ const ENUMS_FULL = {
   EObjectTypeQuery: `"/Script/CoreUObject.Enum'/Script/Engine.EObjectTypeQuery'"`, // confirmed (copy-back LineTraceSingleForObjects, UE 5.8)
   EEasingFunc: `"/Script/CoreUObject.Enum'/Script/Engine.EEasingFunc'"`, // confirmed (copy-back K2Node_EaseFunction_0, UE 5.8)
   EQuitPreference: `"/Script/CoreUObject.Enum'/Script/Engine.EQuitPreference'"`, // round16-pre (не подтверждён)
+  ESpawnActorCollisionHandlingMethod: `"/Script/CoreUObject.Enum'/Script/Engine.ESpawnActorCollisionHandlingMethod'"`, // round17-pre (не подтверждён)
+  ESpawnActorScaleMethod: `"/Script/CoreUObject.Enum'/Script/Engine.ESpawnActorScaleMethod'"`, // round17-pre (не подтверждён)
+  EPSCPoolMethod: `"/Script/CoreUObject.Enum'/Script/Engine.EPSCPoolMethod'"`, // round17-pre (не подтверждён)
 };
 const ENUMS_SHORT = {
   ETraceTypeQuery: `Enum'"/Script/Engine.ETraceTypeQuery"'`,
@@ -77,6 +80,9 @@ const ENUMS_SHORT = {
   EObjectTypeQuery: `Enum'"/Script/Engine.EObjectTypeQuery"'`,
   EEasingFunc: `Enum'"/Script/Engine.EEasingFunc"'`,
   EQuitPreference: `Enum'"/Script/Engine.EQuitPreference"'`,
+  ESpawnActorCollisionHandlingMethod: `Enum'"/Script/Engine.ESpawnActorCollisionHandlingMethod"'`,
+  ESpawnActorScaleMethod: `Enum'"/Script/Engine.ESpawnActorScaleMethod"'`,
+  EPSCPoolMethod: `Enum'"/Script/Engine.EPSCPoolMethod"'`,
 };
 export const UE_ENUMS = UE_VERSION === 'SHORT' ? ENUMS_SHORT : ENUMS_FULL;
 

@@ -556,6 +556,22 @@ regThrow.forEach(t => console.log('THROW:', t));
   const v = validateStrict(generateUEText(reg.filter(e => e.category === 'Utilities').map(e => createFromEntry(e))));
   ok(v.errors.length === 0, 'R16: Utilities 0 ошибок');
 }
+// R13 вердикт: Math/Transform 10/10 белые
+{
+  const tr = reg.filter(e => e.category === 'Math / Transform');
+  ok(tr.length === 10 && tr.every(e => e.verified), 'R13: Math/Transform 10/10 verified');
+}
+// R17 pre-fix: Gameplay
+{
+  const sp = createFromEntry(byId('SpawnActor'));
+  ok(sp.className.endsWith('K2Node_SpawnActorFromClass') && sp.pins.some(p => p.name === 'SpawnTransform'), 'R17: SpawnActor = K2Node_SpawnActorFromClass');
+  const oa = createFromEntry(byId('GetAllActorsOfClass')).pins.find(p => p.name === 'OutActors');
+  ok(oa.container === 'Array' && /Engine\.Actor/.test(oa.subCategoryObject), 'R17: OutActors — Actor Array');
+  ok(byId('GetWorld').func === 'GetCurrentLevelName', 'R17: GetWorld → GetCurrentLevelName');
+  ok(['GetPlayerController', 'GetPlayerPawn', 'GetPlayerCharacter', 'GetGameMode', 'GetGameState', 'GetGameInstance'].every(i => byId(i).pure), 'R17: геттеры pure');
+  const v = validateStrict(generateUEText(reg.filter(e => e.category === 'Gameplay').map(e => createFromEntry(e))));
+  ok(v.errors.length === 0, 'R17: Gameplay 0 ошибок');
+}
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);
