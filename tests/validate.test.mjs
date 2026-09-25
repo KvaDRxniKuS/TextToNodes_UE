@@ -431,6 +431,15 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(maxT.includes('Class=/Script/BlueprintGraph.K2Node_CommutativeAssociativeBinaryOperator') && maxT.includes('MemberName="FMax"') && maxT.includes('PinName="self"'), 'round3: Max — CommutativeAssociative FMax + self');
   const minT = generateUEText([createFromEntry(byId('Min_Float'))]);
   ok(minT.includes('MemberName="FMin"'), 'round3: Min — FMin');
+  // round3b: F-имена округлений + SignOfFloat (без префикса функций нет).
+  const sigT = generateUEText([createFromEntry(byId('Sign_Float'))]);
+  ok(sigT.includes('MemberName="SignOfFloat"'), 'round3b: Sign — SignOfFloat');
+  const flrT = generateUEText([createFromEntry(byId('Floor_Float'))]);
+  ok(flrT.includes('MemberName="FFloor"'), 'round3b: Floor — FFloor');
+  const ceiT = generateUEText([createFromEntry(byId('Ceil_Float'))]);
+  ok(ceiT.includes('MemberName="FCeil"'), 'round3b: Ceil — FCeil');
+  const truT = generateUEText([createFromEntry(byId('Trunc_Float'))]);
+  ok(truT.includes('MemberName="FTrunc"'), 'round3b: Trunc — FTrunc');
 }
 // Sweep coverage: каждая запись реестра строится (кроме референс-листа)
 {

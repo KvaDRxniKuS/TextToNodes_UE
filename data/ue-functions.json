@@ -803,7 +803,7 @@
   "title": "Sign (float)",
   "category": "Math / Float",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-  "func": "Sign",
+  "func": "SignOfFloat",
   "lib": "KismetMathLibrary",
   "pins": [
    {
@@ -818,7 +818,8 @@
    }
   ],
   "verified": false,
-  "desc": "Знак"
+  "desc": "Знак",
+  "notes": "MemberName SignOfFloat (live-реф round3b; без F-префикса не существует)"
  },
  {
   "id": "Round_Float",
@@ -848,7 +849,7 @@
   "title": "Floor",
   "category": "Math / Float",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-  "func": "Floor",
+  "func": "FFloor",
   "lib": "KismetMathLibrary",
   "pins": [
    {
@@ -863,14 +864,15 @@
    }
   ],
   "verified": false,
-  "desc": "Вниз"
+  "desc": "Вниз",
+  "notes": "MemberName FFloor (live-реф round3b; без F-префикса не существует)"
  },
  {
   "id": "Ceil_Float",
   "title": "Ceil",
   "category": "Math / Float",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-  "func": "Ceil",
+  "func": "FCeil",
   "lib": "KismetMathLibrary",
   "pins": [
    {
@@ -885,14 +887,15 @@
    }
   ],
   "verified": false,
-  "desc": "Вверх"
+  "desc": "Вверх",
+  "notes": "MemberName FCeil (live-реф round3b; без F-префикса не существует)"
  },
  {
   "id": "Trunc_Float",
   "title": "Trunc",
   "category": "Math / Float",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-  "func": "Trunc",
+  "func": "FTrunc",
   "lib": "KismetMathLibrary",
   "pins": [
    {
@@ -907,7 +910,8 @@
    }
   ],
   "verified": false,
-  "desc": "Отбросить дробную"
+  "desc": "Отбросить дробную",
+  "notes": "MemberName FTrunc (live-реф round3b; без F-префикса не существует)"
  },
  {
   "id": "Frac_Float",
@@ -956,8 +960,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
-  "desc": "Остаток"
+  "verified": true,
+  "desc": "Остаток",
+  "notes": "round3: белая (не упомянута среди сломанных, инференс)"
  },
  {
   "id": "Clamp_Float",
@@ -1208,8 +1213,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
-  "desc": "Map Value"
+  "verified": true,
+  "desc": "Map Value",
+  "notes": "round3: белая (не упомянута среди сломанных, инференс)"
  },
  {
   "id": "FInterpTo",
@@ -1356,8 +1362,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
-  "desc": "Сетка"
+  "verified": true,
+  "desc": "Сетка",
+  "notes": "round3: белая (не упомянута среди сломанных, инференс)"
  },
  {
   "id": "IsNearlyZero",
@@ -1383,8 +1390,9 @@
     "cat": "bool"
    }
   ],
-  "verified": false,
-  "desc": "Почти ноль"
+  "verified": true,
+  "desc": "Почти ноль",
+  "notes": "round3: белая (не упомянута среди сломанных, инференс)"
  },
  {
   "id": "IsPowerOfTwo",
