@@ -659,7 +659,7 @@ regThrow.forEach(t => console.log('THROW:', t));
 // R23 pre-fix: Actor (члены AActor)
 {
   const ac = reg.filter(e => e.category === 'Actor');
-  ok(ac.length === 13 && ac.every(e => e.lib === 'Actor' && e.pins.some(p => p.name === 'self')), 'R23: Actor 13 записей, все члены AActor с self');
+  ok(ac.length === 32 && ac.every(e => ['Actor','SceneComponent'].includes(e.lib) && e.pins.some(p => p.name === 'self')), 'R23+23b: Actor 32 записи (13 + 19), все члены Actor/SceneComponent с self');
   const at = createFromEntry(byId('AttachActorToActor')).pins.find(p => p.name === 'LocationRule');
   ok(/EAttachmentRule/.test(at.subCategoryObject) && at.defaultValue === 'KeepRelative', 'R23: EAttachmentRule KeepRelative');
   const v = validateStrict(generateUEText(ac.map(e => createFromEntry(e))));
@@ -694,6 +694,15 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(generateUEText([createCast('/Script/Engine.CharacterMovementComponent')]).includes('PinName="AsCharacter Movement Component"'), 'R22: As<DisplayName> для любого нативного класса');
   const pc = generateUEText([createCast('PlayerController')]);
   ok(pc.includes('PinName="AsPlayer Controller"') && !pc.includes('PureState'), 'R22: DynamicCast = verified-форма R21b');
+}
+// R23 VERIFIED + R23b pre: досылка Actor/SceneComponent
+{
+  ok(reg.filter(e => e.category === 'Actor' && !/round23b/.test(e.note)).every(e => e.verified), 'R23: 13 записей verified');
+  const t = generateUEText([createFromEntry(byId('AttachComponentToComponent'))]);
+  ok(t.includes("MemberParent=\"/Script/CoreUObject.Class'/Script/Engine.SceneComponent'\",MemberName=\"K2_AttachToComponent\"") && t.includes('DefaultValue="KeepRelative"'), 'R23b: Attach Component To Component — член SceneComponent, правила KeepRelative');
+  ok(generateUEText([createFromEntry(byId('DetachFromActor'))]).includes("Engine.EDetachmentRule"), 'R23b: EDetachmentRule');
+  const v = validateStrict(fs.readFileSync(new URL('../sweep/23b-actor-ext.txt', import.meta.url), 'utf8'));
+  ok(v.errors.length === 0, 'R23b: sweep 0 ошибок');
 }
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);

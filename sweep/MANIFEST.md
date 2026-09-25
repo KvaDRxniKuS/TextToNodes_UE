@@ -1,6 +1,6 @@
 # Sweep manifest — полный прогон реестра по категориям
 
-Дата: 2026-09-25; записей: 317; построено узлов: 317; упало: 0.
+Дата: 2026-09-25; записей: 336; построено узлов: 336; упало: 0.
 Генератор: tools/gen-sweep.mjs (сетка по 5 в ряд, внутри ряда layoutRow, накрыто fitComment).
 
 Протокол: вставляйте файлы по одному в чистый граф → копируйте обратно → сообщайте номер файла и что сломалось.
@@ -36,7 +36,7 @@
 | 20 | 20-text.txt | 1/1 | 1 | 1 | — | — |
 | 21 | 21-enhanced-input.txt | 6/6 | 3 | 6 | — | 2xW09 |
 | 22 | 22-casting.txt | 11/11 | 11 | 11 | — | 8xW09 |
-| 23 | 23-actor.txt | 13/13 | 0 | 13 | — | 13xW09 |
+| 23 | 23-actor.txt | 32/32 | 13 | 32 | — | 32xW09 |
 | 24 | 24-pawn-character.txt | 18/18 | 0 | 18 | — | 18xW09 |
 
 ## NEEDS-REFERENCE (не построилось — нужен copy-back из движка)
@@ -138,34 +138,53 @@
 - 22-casting.txt :: W09: K2Node_CallFunction_403: NotEqual_ObjectObject: round22-pre: заголовок «!=» | R22 VERIFIED (движок, 2026-09-25)
 - 22-casting.txt :: W09: K2Node_CallFunction_404: EqualEqual_ClassClass: round22-pre: KML::EqualEqual_ClassClass | R22 VERIFIED (движок, 2026-09-25)
 - 22-casting.txt :: W09: K2Node_CallFunction_405: Conv_ObjectToString: round22-pre: KSL(String)::Conv_ObjectToString(UObject* InObj) — компактный конвертер | R22 VERIFIED (движок, 2026-09-25)
-- 23-actor.txt :: W09: K2Node_CallFunction_408: K2_GetActorLocation: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_GetActorLocation const
-- 23-actor.txt :: W09: K2Node_CallFunction_409: K2_GetActorRotation: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_GetActorRotation const
-- 23-actor.txt :: W09: K2Node_CallFunction_410: GetTransform: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). UFUNCTION GetTransform (DisplayName GetActorTransform)
-- 23-actor.txt :: W09: K2Node_CallFunction_411: GetActorForwardVector: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). const
-- 23-actor.txt :: W09: K2Node_CallFunction_412: K2_SetActorLocation: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_SetActorLocation(NewLocation,bSweep,out SweepHitResult,bTeleport)
-- 23-actor.txt :: W09: K2Node_CallFunction_413: K2_SetActorRotation: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_SetActorRotation(NewRotation,bTeleportPhysics)
-- 23-actor.txt :: W09: K2Node_CallFunction_414: K2_AddActorWorldOffset: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_AddActorWorldOffset
-- 23-actor.txt :: W09: K2Node_CallFunction_415: K2_DestroyActor: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_DestroyActor
-- 23-actor.txt :: W09: K2Node_CallFunction_416: SetActorHiddenInGame: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). SetActorHiddenInGame(bool)
-- 23-actor.txt :: W09: K2Node_CallFunction_417: GetOwner: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). GetOwner const
-- 23-actor.txt :: W09: K2Node_CallFunction_418: ActorHasTag: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). ActorHasTag(FName) const
-- 23-actor.txt :: W09: K2Node_CallFunction_419: GetComponentByClass: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). GetComponentByClass(TSubclassOf<UActorComponent>) const; DeterminesOutputType — RV перетипизируется по классу
-- 23-actor.txt :: W09: K2Node_CallFunction_420: K2_AttachToActor: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_AttachToActor; enum EAttachmentRule (KeepRelative/KeepWorld/SnapToTarget)
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_422: Jump: round24-pre: член Character, self=Target (по образцу AActor-членов R23). 
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_423: StopJumping: round24-pre: член Character, self=Target (по образцу AActor-членов R23). 
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_424: CanJump: round24-pre: член Character, self=Target (по образцу AActor-членов R23). CanJump() const BlueprintCallable → pure
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_425: LaunchCharacter: round24-pre: член Character, self=Target (по образцу AActor-членов R23). 
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_426: Crouch: round24-pre: член Character, self=Target (по образцу AActor-членов R23). bClientSimulation скрыт (HidePin)
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_427: UnCrouch: round24-pre: член Character, self=Target (по образцу AActor-членов R23). bClientSimulation скрыт (HidePin)
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_428: AddMovementInput: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). 
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_429: AddControllerYawInput: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). 
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_430: AddControllerPitchInput: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). 
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_431: GetControlRotation: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). 
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_432: GetController: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). альтернатива Get Player Controller (self) — подсказка пользователя R21b
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_433: IsLocallyControlled: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). 
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_434: IsPlayerControlled: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). 
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_435: Possess: round24-pre: член Controller, self=Target (по образцу AActor-членов R23). 
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_436: UnPossess: round24-pre: член Controller, self=Target (по образцу AActor-членов R23). 
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_437: K2_GetPawn: round24-pre: член Controller, self=Target (по образцу AActor-членов R23). K2_GetPawn const → pure, DisplayName Get Controlled Pawn
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_438: SetControlRotation: round24-pre: член Controller, self=Target (по образцу AActor-членов R23). NewRotation const FRotator& → const+ref
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_439: GetVelocity: round24-pre: член Actor, self=Target (по образцу AActor-членов R23). член AActor
+- 23-actor.txt :: W09: K2Node_CallFunction_408: K2_GetActorLocation: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_GetActorLocation const | R23 VERIFIED (движок, 2026-09-25)
+- 23-actor.txt :: W09: K2Node_CallFunction_409: K2_GetActorRotation: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_GetActorRotation const | R23 VERIFIED (движок, 2026-09-25)
+- 23-actor.txt :: W09: K2Node_CallFunction_410: GetTransform: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). UFUNCTION GetTransform (DisplayName GetActorTransform) | R23 VERIFIED (движок, 2026-09-25)
+- 23-actor.txt :: W09: K2Node_CallFunction_411: GetActorForwardVector: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). const | R23 VERIFIED (движок, 2026-09-25)
+- 23-actor.txt :: W09: K2Node_CallFunction_412: K2_SetActorLocation: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_SetActorLocation(NewLocation,bSweep,out SweepHitResult,bTeleport) | R23 VERIFIED (движок, 2026-09-25)
+- 23-actor.txt :: W09: K2Node_CallFunction_413: K2_SetActorRotation: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_SetActorRotation(NewRotation,bTeleportPhysics) | R23 VERIFIED (движок, 2026-09-25)
+- 23-actor.txt :: W09: K2Node_CallFunction_414: K2_AddActorWorldOffset: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_AddActorWorldOffset | R23 VERIFIED (движок, 2026-09-25)
+- 23-actor.txt :: W09: K2Node_CallFunction_415: K2_DestroyActor: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_DestroyActor | R23 VERIFIED (движок, 2026-09-25)
+- 23-actor.txt :: W09: K2Node_CallFunction_416: SetActorHiddenInGame: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). SetActorHiddenInGame(bool) | R23 VERIFIED (движок, 2026-09-25)
+- 23-actor.txt :: W09: K2Node_CallFunction_417: GetOwner: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). GetOwner const | R23 VERIFIED (движок, 2026-09-25)
+- 23-actor.txt :: W09: K2Node_CallFunction_418: ActorHasTag: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). ActorHasTag(FName) const | R23 VERIFIED (движок, 2026-09-25)
+- 23-actor.txt :: W09: K2Node_CallFunction_419: GetComponentByClass: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). GetComponentByClass(TSubclassOf<UActorComponent>) const; DeterminesOutputType — RV перетипизируется по классу | R23 VERIFIED (движок, 2026-09-25)
+- 23-actor.txt :: W09: K2Node_CallFunction_420: K2_AttachToActor: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_AttachToActor; enum EAttachmentRule (KeepRelative/KeepWorld/SnapToTarget) | R23 VERIFIED (движок, 2026-09-25)
+- 23-actor.txt :: W09: K2Node_CallFunction_421: GetActorRightVector: round23b-pre: член Actor (как R23).
+- 23-actor.txt :: W09: K2Node_CallFunction_422: GetActorUpVector: round23b-pre: член Actor (как R23).
+- 23-actor.txt :: W09: K2Node_CallFunction_423: GetActorScale3D: round23b-pre: член Actor (как R23).
+- 23-actor.txt :: W09: K2Node_CallFunction_424: K2_AddActorWorldRotation: round23b-pre: член Actor (как R23).
+- 23-actor.txt :: W09: K2Node_CallFunction_425: K2_AddActorLocalRotation: round23b-pre: член Actor (как R23).
+- 23-actor.txt :: W09: K2Node_CallFunction_426: K2_AddActorLocalOffset: round23b-pre: член Actor (как R23).
+- 23-actor.txt :: W09: K2Node_CallFunction_427: SetActorScale3D: round23b-pre: член Actor (как R23).
+- 23-actor.txt :: W09: K2Node_CallFunction_428: K2_SetActorTransform: round23b-pre: член Actor (как R23). NewTransform const FTransform&
+- 23-actor.txt :: W09: K2Node_CallFunction_429: K2_SetActorLocationAndRotation: round23b-pre: член Actor (как R23).
+- 23-actor.txt :: W09: K2Node_CallFunction_430: K2_AttachToComponent: round23b-pre: член SceneComponent (как R23).
+- 23-actor.txt :: W09: K2Node_CallFunction_431: K2_DetachFromActor: round23b-pre: член Actor (как R23). EDetachmentRule (KeepRelative/KeepWorld)
+- 23-actor.txt :: W09: K2Node_CallFunction_432: K2_AttachToComponent: round23b-pre: член SceneComponent (как R23).
+- 23-actor.txt :: W09: K2Node_CallFunction_433: K2_DetachFromComponent: round23b-pre: член SceneComponent (как R23).
+- 23-actor.txt :: W09: K2Node_CallFunction_434: K2_GetComponentLocation: round23b-pre: член SceneComponent (как R23).
+- 23-actor.txt :: W09: K2Node_CallFunction_435: K2_GetComponentRotation: round23b-pre: член SceneComponent (как R23).
+- 23-actor.txt :: W09: K2Node_CallFunction_436: K2_SetWorldLocation: round23b-pre: член SceneComponent (как R23).
+- 23-actor.txt :: W09: K2Node_CallFunction_437: K2_SetRelativeLocation: round23b-pre: член SceneComponent (как R23).
+- 23-actor.txt :: W09: K2Node_CallFunction_438: K2_SetRelativeRotation: round23b-pre: член SceneComponent (как R23).
+- 23-actor.txt :: W09: K2Node_CallFunction_439: K2_AddLocalRotation: round23b-pre: член SceneComponent (как R23).
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_441: Jump: round24-pre: член Character, self=Target (по образцу AActor-членов R23). 
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_442: StopJumping: round24-pre: член Character, self=Target (по образцу AActor-членов R23). 
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_443: CanJump: round24-pre: член Character, self=Target (по образцу AActor-членов R23). CanJump() const BlueprintCallable → pure
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_444: LaunchCharacter: round24-pre: член Character, self=Target (по образцу AActor-членов R23). 
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_445: Crouch: round24-pre: член Character, self=Target (по образцу AActor-членов R23). bClientSimulation скрыт (HidePin)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_446: UnCrouch: round24-pre: член Character, self=Target (по образцу AActor-членов R23). bClientSimulation скрыт (HidePin)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_447: AddMovementInput: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). 
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_448: AddControllerYawInput: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). 
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_449: AddControllerPitchInput: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). 
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_450: GetControlRotation: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). 
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_451: GetController: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). альтернатива Get Player Controller (self) — подсказка пользователя R21b
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_452: IsLocallyControlled: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). 
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_453: IsPlayerControlled: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). 
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_454: Possess: round24-pre: член Controller, self=Target (по образцу AActor-членов R23). 
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_455: UnPossess: round24-pre: член Controller, self=Target (по образцу AActor-членов R23). 
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_456: K2_GetPawn: round24-pre: член Controller, self=Target (по образцу AActor-членов R23). K2_GetPawn const → pure, DisplayName Get Controlled Pawn
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_457: SetControlRotation: round24-pre: член Controller, self=Target (по образцу AActor-членов R23). NewRotation const FRotator& → const+ref
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_458: GetVelocity: round24-pre: член Actor, self=Target (по образцу AActor-членов R23). член AActor

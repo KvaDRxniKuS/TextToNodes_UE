@@ -29,6 +29,7 @@ const LIBS_FULL = {
   PlayerController:    `"/Script/CoreUObject.Class'/Script/Engine.PlayerController'"`, // round18-pre: член-функции (IsInputKeyDown)
   Actor:               `"/Script/CoreUObject.Class'/Script/Engine.Actor'"`, // round23-pre: член-функции AActor
   Pawn: `"/Script/CoreUObject.Class'/Script/Engine.Pawn'"`, // round24-pre
+  SceneComponent: `"/Script/CoreUObject.Class'/Script/Engine.SceneComponent'"`, // round23b-pre
   Character: `"/Script/CoreUObject.Class'/Script/Engine.Character'"`, // round24-pre
   Controller: `"/Script/CoreUObject.Class'/Script/Engine.Controller'"`, // round24-pre
   EnhancedInputComponent: `"/Script/CoreUObject.Class'/Script/EnhancedInput.EnhancedInputComponent'"`, // round21-pre: GetBoundActionValue
@@ -44,6 +45,7 @@ const LIBS_SHORT = {
   PlayerController:    `Class'"/Script/Engine.PlayerController"'`,
   Actor:               `Class'"/Script/Engine.Actor"'`,
   Pawn: `Class'"/Script/Engine.Pawn"'`,
+  SceneComponent: `Class'"/Script/Engine.SceneComponent"'`,
   Character: `Class'"/Script/Engine.Character"'`,
   Controller: `Class'"/Script/Engine.Controller"'`,
   EnhancedInputComponent: `Class'"/Script/EnhancedInput.EnhancedInputComponent"'`,
@@ -88,6 +90,7 @@ const ENUMS_FULL = {
   ESpawnActorScaleMethod: `"/Script/CoreUObject.Enum'/Script/Engine.ESpawnActorScaleMethod'"`, // round17-pre (не подтверждён)
   EPSCPoolMethod: `"/Script/CoreUObject.Enum'/Script/Engine.EPSCPoolMethod'"`, // round17-pre (не подтверждён)
   EAttachmentRule: `"/Script/CoreUObject.Enum'/Script/Engine.EAttachmentRule'"`, // round23-pre
+  EDetachmentRule: `"/Script/CoreUObject.Enum'/Script/Engine.EDetachmentRule'"`, // round23b-pre
 };
 const ENUMS_SHORT = {
   ETraceTypeQuery: `Enum'"/Script/Engine.ETraceTypeQuery"'`,
@@ -99,6 +102,7 @@ const ENUMS_SHORT = {
   ESpawnActorScaleMethod: `Enum'"/Script/Engine.ESpawnActorScaleMethod"'`,
   EPSCPoolMethod: `Enum'"/Script/Engine.EPSCPoolMethod"'`,
   EAttachmentRule: `Enum'"/Script/Engine.EAttachmentRule"'`,
+  EDetachmentRule: `Enum'"/Script/Engine.EDetachmentRule"'`,
 };
 export const UE_ENUMS = UE_VERSION === 'SHORT' ? ENUMS_SHORT : ENUMS_FULL;
 

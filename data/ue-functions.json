@@ -11703,9 +11703,9 @@
     "sub": "Vector"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Позиция актора",
-  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_GetActorLocation const",
+  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_GetActorLocation const | R23 VERIFIED (движок, 2026-09-25)",
   "pure": true
  },
  {
@@ -11729,9 +11729,9 @@
     "sub": "Rotator"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Поворот актора",
-  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_GetActorRotation const",
+  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_GetActorRotation const | R23 VERIFIED (движок, 2026-09-25)",
   "pure": true
  },
  {
@@ -11755,9 +11755,9 @@
     "sub": "Transform"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Трансформ актора",
-  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). UFUNCTION GetTransform (DisplayName GetActorTransform)",
+  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). UFUNCTION GetTransform (DisplayName GetActorTransform) | R23 VERIFIED (движок, 2026-09-25)",
   "pure": true
  },
  {
@@ -11781,9 +11781,9 @@
     "sub": "Vector"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Вперёд актора",
-  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). const",
+  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). const | R23 VERIFIED (движок, 2026-09-25)",
   "pure": true
  },
  {
@@ -11842,9 +11842,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Задать позицию",
-  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_SetActorLocation(NewLocation,bSweep,out SweepHitResult,bTeleport)"
+  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_SetActorLocation(NewLocation,bSweep,out SweepHitResult,bTeleport) | R23 VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "SetActorRotation",
@@ -11890,9 +11890,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Задать поворот",
-  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_SetActorRotation(NewRotation,bTeleportPhysics)"
+  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_SetActorRotation(NewRotation,bTeleportPhysics) | R23 VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "AddActorWorldOffset",
@@ -11944,9 +11944,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Сдвиг в мире",
-  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_AddActorWorldOffset"
+  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_AddActorWorldOffset | R23 VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "DestroyActor",
@@ -11973,9 +11973,9 @@
     "object": "/Script/Engine.Actor"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Уничтожить",
-  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_DestroyActor"
+  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_DestroyActor | R23 VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "SetActorHiddenInGame",
@@ -12008,9 +12008,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Скрыть актора",
-  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). SetActorHiddenInGame(bool)"
+  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). SetActorHiddenInGame(bool) | R23 VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "GetOwner",
@@ -12033,9 +12033,9 @@
     "object": "/Script/Engine.Actor"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Владелец",
-  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). GetOwner const",
+  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). GetOwner const | R23 VERIFIED (движок, 2026-09-25)",
   "pure": true
  },
  {
@@ -12065,9 +12065,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Есть тег?",
-  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). ActorHasTag(FName) const",
+  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). ActorHasTag(FName) const | R23 VERIFIED (движок, 2026-09-25)",
   "pure": true
  },
  {
@@ -12097,9 +12097,9 @@
     "object": "/Script/Engine.ActorComponent"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Компонент по классу",
-  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). GetComponentByClass(TSubclassOf<UActorComponent>) const; DeterminesOutputType — RV перетипизируется по классу",
+  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). GetComponentByClass(TSubclassOf<UActorComponent>) const; DeterminesOutputType — RV перетипизируется по классу | R23 VERIFIED (движок, 2026-09-25)",
   "pure": true
  },
  {
@@ -12172,9 +12172,935 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Прикрепить к актору",
-  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_AttachToActor; enum EAttachmentRule (KeepRelative/KeepWorld/SnapToTarget)"
+  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_AttachToActor; enum EAttachmentRule (KeepRelative/KeepWorld/SnapToTarget) | R23 VERIFIED (движок, 2026-09-25)"
+ },
+ {
+  "id": "GetActorRightVector",
+  "title": "Get Actor Right Vector",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetActorRightVector",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "verified": false,
+  "desc": "Вправо актора",
+  "note": "round23b-pre: член Actor (как R23).",
+  "pure": true
+ },
+ {
+  "id": "GetActorUpVector",
+  "title": "Get Actor Up Vector",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetActorUpVector",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "verified": false,
+  "desc": "Вверх актора",
+  "note": "round23b-pre: член Actor (как R23).",
+  "pure": true
+ },
+ {
+  "id": "GetActorScale3D",
+  "title": "Get Actor Scale 3D",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetActorScale3D",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "verified": false,
+  "desc": "Масштаб актора",
+  "note": "round23b-pre: член Actor (как R23).",
+  "pure": true
+ },
+ {
+  "id": "AddActorWorldRotation",
+  "title": "Add Actor World Rotation",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_AddActorWorldRotation",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "DeltaRotation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "bSweep",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "SweepHitResult",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "HitResult"
+   },
+   {
+    "name": "bTeleport",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Повернуть (мир)",
+  "note": "round23b-pre: член Actor (как R23)."
+ },
+ {
+  "id": "AddActorLocalRotation",
+  "title": "Add Actor Local Rotation",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_AddActorLocalRotation",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "DeltaRotation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "bSweep",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "SweepHitResult",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "HitResult"
+   },
+   {
+    "name": "bTeleport",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Повернуть (локально)",
+  "note": "round23b-pre: член Actor (как R23)."
+ },
+ {
+  "id": "AddActorLocalOffset",
+  "title": "Add Actor Local Offset",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_AddActorLocalOffset",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "DeltaLocation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "bSweep",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "SweepHitResult",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "HitResult"
+   },
+   {
+    "name": "bTeleport",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Сдвиг (локально)",
+  "note": "round23b-pre: член Actor (как R23)."
+ },
+ {
+  "id": "SetActorScale3D",
+  "title": "Set Actor Scale 3D",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetActorScale3D",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "NewScale3D",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "dv": "1, 1, 1"
+   }
+  ],
+  "verified": false,
+  "desc": "Задать масштаб",
+  "note": "round23b-pre: член Actor (как R23)."
+ },
+ {
+  "id": "SetActorTransform",
+  "title": "Set Actor Transform",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_SetActorTransform",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "NewTransform",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Transform",
+    "const": true,
+    "ref": true
+   },
+   {
+    "name": "bSweep",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "SweepHitResult",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "HitResult"
+   },
+   {
+    "name": "bTeleport",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Задать трансформ",
+  "note": "round23b-pre: член Actor (как R23). NewTransform const FTransform&"
+ },
+ {
+  "id": "SetActorLocationAndRotation",
+  "title": "Set Actor Location And Rotation",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_SetActorLocationAndRotation",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "NewLocation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "NewRotation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "bSweep",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "SweepHitResult",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "HitResult"
+   },
+   {
+    "name": "bTeleport",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Задать позицию и поворот",
+  "note": "round23b-pre: член Actor (как R23)."
+ },
+ {
+  "id": "AttachActorToComponent",
+  "title": "Attach Actor To Component",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_AttachToComponent",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "Parent",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   },
+   {
+    "name": "SocketName",
+    "dir": "Input",
+    "cat": "name",
+    "dv": "None"
+   },
+   {
+    "name": "LocationRule",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EAttachmentRule",
+    "dv": "KeepRelative"
+   },
+   {
+    "name": "RotationRule",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EAttachmentRule",
+    "dv": "KeepRelative"
+   },
+   {
+    "name": "ScaleRule",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EAttachmentRule",
+    "dv": "KeepRelative"
+   },
+   {
+    "name": "bWeldSimulatedBodies",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Прикрепить актор к компоненту",
+  "note": "round23b-pre: член Actor (как R23)."
+ },
+ {
+  "id": "DetachFromActor",
+  "title": "Detach From Actor",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_DetachFromActor",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "LocationRule",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EDetachmentRule",
+    "dv": "KeepRelative"
+   },
+   {
+    "name": "RotationRule",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EDetachmentRule",
+    "dv": "KeepRelative"
+   },
+   {
+    "name": "ScaleRule",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EDetachmentRule",
+    "dv": "KeepRelative"
+   }
+  ],
+  "verified": false,
+  "desc": "Открепить актор",
+  "note": "round23b-pre: член Actor (как R23). EDetachmentRule (KeepRelative/KeepWorld)"
+ },
+ {
+  "id": "AttachComponentToComponent",
+  "title": "Attach Component To Component",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_AttachToComponent",
+  "lib": "SceneComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   },
+   {
+    "name": "Parent",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   },
+   {
+    "name": "SocketName",
+    "dir": "Input",
+    "cat": "name",
+    "dv": "None"
+   },
+   {
+    "name": "LocationRule",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EAttachmentRule",
+    "dv": "KeepRelative"
+   },
+   {
+    "name": "RotationRule",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EAttachmentRule",
+    "dv": "KeepRelative"
+   },
+   {
+    "name": "ScaleRule",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EAttachmentRule",
+    "dv": "KeepRelative"
+   },
+   {
+    "name": "bWeldSimulatedBodies",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Прикрепить компонент к компоненту",
+  "note": "round23b-pre: член SceneComponent (как R23)."
+ },
+ {
+  "id": "DetachFromComponent",
+  "title": "Detach From Component",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_DetachFromComponent",
+  "lib": "SceneComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   },
+   {
+    "name": "LocationRule",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EDetachmentRule",
+    "dv": "KeepRelative"
+   },
+   {
+    "name": "RotationRule",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EDetachmentRule",
+    "dv": "KeepRelative"
+   },
+   {
+    "name": "ScaleRule",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EDetachmentRule",
+    "dv": "KeepRelative"
+   },
+   {
+    "name": "bCallModify",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true"
+   }
+  ],
+  "verified": false,
+  "desc": "Открепить компонент",
+  "note": "round23b-pre: член SceneComponent (как R23)."
+ },
+ {
+  "id": "GetWorldLocation",
+  "title": "Get World Location",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_GetComponentLocation",
+  "lib": "SceneComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "verified": false,
+  "desc": "Позиция компонента (мир)",
+  "note": "round23b-pre: член SceneComponent (как R23).",
+  "pure": true
+ },
+ {
+  "id": "GetWorldRotation",
+  "title": "Get World Rotation",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_GetComponentRotation",
+  "lib": "SceneComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Rotator"
+   }
+  ],
+  "verified": false,
+  "desc": "Поворот компонента (мир)",
+  "note": "round23b-pre: член SceneComponent (как R23).",
+  "pure": true
+ },
+ {
+  "id": "SetWorldLocation",
+  "title": "Set World Location",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_SetWorldLocation",
+  "lib": "SceneComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   },
+   {
+    "name": "NewLocation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "bSweep",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "SweepHitResult",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "HitResult"
+   },
+   {
+    "name": "bTeleport",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Позиция компонента (мир)",
+  "note": "round23b-pre: член SceneComponent (как R23)."
+ },
+ {
+  "id": "SetRelativeLocation",
+  "title": "Set Relative Location",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_SetRelativeLocation",
+  "lib": "SceneComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   },
+   {
+    "name": "NewLocation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "bSweep",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "SweepHitResult",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "HitResult"
+   },
+   {
+    "name": "bTeleport",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Позиция компонента (отн.)",
+  "note": "round23b-pre: член SceneComponent (как R23)."
+ },
+ {
+  "id": "SetRelativeRotation",
+  "title": "Set Relative Rotation",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_SetRelativeRotation",
+  "lib": "SceneComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   },
+   {
+    "name": "NewRotation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "bSweep",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "SweepHitResult",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "HitResult"
+   },
+   {
+    "name": "bTeleport",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Поворот компонента (отн.)",
+  "note": "round23b-pre: член SceneComponent (как R23)."
+ },
+ {
+  "id": "AddLocalRotation",
+  "title": "Add Local Rotation",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_AddLocalRotation",
+  "lib": "SceneComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   },
+   {
+    "name": "DeltaRotation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "bSweep",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "SweepHitResult",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "HitResult"
+   },
+   {
+    "name": "bTeleport",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Повернуть компонент (локально)",
+  "note": "round23b-pre: член SceneComponent (как R23)."
  },
  {
   "id": "Jump",

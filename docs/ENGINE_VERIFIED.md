@@ -669,3 +669,10 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
   - pure-каст (PureState=Pure) — не подтверждён.
 - sweep/22b-cast-any.txt — демо: 4 объектных, 1 pure, 3 классовых каста.
 
+## Round23: Actor — VERIFIED (2026-09-25) + Round23b-pre
+
+- Все 13 записей Actor работают (включая Attach Actor To Actor с EAttachmentRule=KeepRelative).
+- Замечание пользователя: нужны Right/Up vector, Add rotation, Combine Rotators и т.п., Attach Actor To Component, Component To Component.
+  - Combine Rotators = KML ComposeRotators — уже verified в R12.
+- sweep/23b-actor-ext.txt (tools/gen-subset.mjs), 19 узлов: GetActorRight/UpVector, GetActorScale3D, K2_AddActorWorld/LocalRotation, K2_AddActorLocalOffset, SetActorScale3D, K2_SetActorTransform, K2_SetActorLocationAndRotation, Actor.K2_AttachToComponent, K2_DetachFromActor (EDetachmentRule), SceneComponent: K2_AttachToComponent, K2_DetachFromComponent, K2_GetComponentLocation/Rotation, K2_SetWorldLocation, K2_SetRelativeLocation/Rotation, K2_AddLocalRotation. Без референса.
+
