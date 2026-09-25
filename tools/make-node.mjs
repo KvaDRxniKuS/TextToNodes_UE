@@ -16,6 +16,8 @@
 //   get|set <Класс.Свойство> <тип> [знач]  Get/Set свойства любого класса (напр. set PlayerController.bShowMouseCursor bool true)
 //   fn <id-или-функция-реестра> [Пин=значение ...]   любой узел реестра data/ue-functions.json
 //                                          объектный пин = ассет: MappingContext=IMC_Default, Action=IA_Jump, /Game/X/Y
+//   call <Класс.Функция> [pure] [static] Пин:тип[=знач] ... [-> Выход:тип ...]
+//                                          ЛЮБАЯ UFUNCTION, даже не из реестра (член → видимый self; static → библиотека)
 //   link <i>.<Пин> <j>.<Пин>               связь выход→вход (Пин может оканчиваться на *: As* → AsBP Enemy)
 //
 // Классы: Actor | /Script/Module.Class | /Game/Path/BP_X (BP → _C автоматически).
@@ -27,7 +29,7 @@ import fs from 'node:fs';
 import { generateUEText } from '../src/parser.js';
 import { layoutRow, fitComment, linkPins, estNodeWidth } from '../src/generator.js';
 import { validateStrict } from '../src/validate.js';
-import { createCast, createCustomEvent, createCallCustomEvent, createDelegateNode, createEventFor, createCreateEvent, createFn, createWidget, createMemberVar, createInputActionEvent, createInputActionValue } from '../src/modules.js';
+import { createCast, createCustomEvent, createCallCustomEvent, createDelegateNode, createEventFor, createCreateEvent, createFn, createWidget, createMemberVar, createInputActionEvent, createInputActionValue, createCall } from '../src/modules.js';
 
 process.on('uncaughtException', e => { console.error('make-node: ОШИБКА — ' + e.message); process.exit(1); });
 const reg = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8'));
@@ -57,6 +59,7 @@ for (const spec of specs) {
     case 'bind': case 'unbind': case 'clear': { const o = optSig(w); n = createDelegateNode(cmd, o.rest[0], { sig: o.sig, params: o.rest.length > 1 ? o.rest.slice(1) : undefined }); break; }
     case 'create-event': n = createCreateEvent(w[0]); break;
     case 'widget': n = createWidget(w[0] && w[0].toLowerCase() !== 'none' ? w[0] : null); break;
+    case 'call': n = createCall(w[0], w.slice(1).filter(x => x !== 'pure' && x !== 'static'), { pure: w.includes('pure'), isStatic: w.includes('static') }); break;
     case 'ia-event': n = createInputActionEvent(w[0], w[1] || 'bool'); break;
     case 'ia-value': n = createInputActionValue(w[0], w[1] || 'vector2d'); break;
     case 'get': case 'set': n = createMemberVar(cmd, w[0], w[1], w.slice(2).join(' ')); break;
@@ -67,7 +70,7 @@ for (const spec of specs) {
       n = createFn(e, kv(w.slice(1))); break;
     }
     case 'link': links.push(w); continue;
-    default: throw new Error(`неизвестная спека «${cmd}» (cast|event|event-for|call-event|bind|unbind|clear|create-event|widget|ia-event|ia-value|get|set|fn|link)`);
+    default: throw new Error(`неизвестная спека «${cmd}» (cast|event|event-for|call-event|bind|unbind|clear|create-event|widget|ia-event|ia-value|call|get|set|fn|link)`);
   }
   nodes.push(n); kinds.push(cmd);
 }

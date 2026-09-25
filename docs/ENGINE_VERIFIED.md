@@ -724,3 +724,13 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 - Подсистема (член IEnhancedInputSubsystemInterface): RemoveMappingContext, ClearAllMappings, HasMappingContext (pure), QueryKeysMappedToAction (pure), InjectInputForAction, InjectInputVectorForAction.
 - UEnhancedInputLibrary (статик): RequestRebuildControlMappingsUsingContext, FlushPlayerInput, Make/Break InputActionValue, Conv_InputActionValueTo{Bool,Axis1D,Axis2D,Axis3D,String}.
 - GetBoundActionValue сознательно не используется (R21 FAIL).
+
+## Round25 — VERIFIED (движок, 2026-09-25)
+- Все 8 форм Events / Delegates вставились и работают: Custom Event (с параметрами), Call, Bind/Unbind/Unbind all, Create Event.
+- Create Event: движок предлагает «создать соответствующую функцию» — сигнатура делегата прочитана верно.
+
+## Round29-pre: Components / Physics — ждёт вердикта
+- sweep/29-components-physics.txt (make-node --chain), 30 узлов: 23 записи реестра + спека `call`.
+- Источник компонента: Get Component by Class (StaticMeshComponent) → pure Cast To PrimitiveComponent → self всех членов.
+- `call` — любая UFUNCTION без записи в реестре: SetAngularDamping/SetLinearDamping/GetAngularDamping (член), KismetMathLibrary.Abs (static pure).
+- Class-пины в `fn` принимают нативный класс (`ComponentClass=StaticMeshComponent` → /Script/Engine.StaticMeshComponent).

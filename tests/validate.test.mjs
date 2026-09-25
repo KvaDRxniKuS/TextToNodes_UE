@@ -769,6 +769,20 @@ regThrow.forEach(t => console.log('THROW:', t));
   const v = validateStrict(fs.readFileSync(new URL('../sweep/28-enhanced-input-full.txt', import.meta.url), 'utf8'));
   ok(v.errors.length === 0, 'R28: sweep 0 ошибок');
 }
+// R25 VERIFIED + R29 pre: Components / Physics + call (любая UFUNCTION)
+{
+  const M = await import('../src/modules.js');
+  ok(reg.filter(e => e.category === 'Events / Delegates').every(e => e.verified), 'R25: Events / Delegates подтверждены движком');
+  const m = generateUEText([M.createCall('PrimitiveComponent.SetAngularDamping', ['InDamping:float=0.5'])]);
+  ok(m.includes(`MemberParent="/Script/CoreUObject.Class'/Script/Engine.PrimitiveComponent'",MemberName="SetAngularDamping"`) && m.includes('PinName="self"') && m.includes('PinName="execute"') && m.includes('DefaultValue="0.5"'), 'R29: call — член класса с видимым self и exec');
+  const st = generateUEText([M.createCall('KismetMathLibrary.Abs', ['A:float', '->', 'ReturnValue:float'], { pure: true, isStatic: true })]);
+  ok(st.includes('Default__KismetMathLibrary') && !st.includes('PinName="execute"'), 'R29: call static pure — скрытый self библиотеки, без exec');
+  const gc = generateUEText([M.createFn(byId('GetComponentByClass'), { ComponentClass: 'StaticMeshComponent' })]);
+  ok(gc.includes('DefaultObject="/Script/Engine.StaticMeshComponent"'), 'R29: class-пин получает нативный класс');
+  ok(reg.filter(e => e.category === 'Components / Physics').length === 23, 'R29: 23 записи Components / Physics');
+  const v = validateStrict(fs.readFileSync(new URL('../sweep/29-components-physics.txt', import.meta.url), 'utf8'));
+  ok(v.errors.length === 0, 'R29: sweep 0 ошибок');
+}
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);

@@ -13706,9 +13706,9 @@
     "cat": "exec"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Пользовательское событие без параметров (Add Custom Event).",
-  "note": "round25-pre: K2Node_CustomEvent, CustomFunctionName; OutputDelegate без MemberParent (BP-класс неизвестен — движок перепривяжет)"
+  "note": "round25-pre: K2Node_CustomEvent, CustomFunctionName; OutputDelegate без MemberParent (BP-класс неизвестен — движок перепривяжет) | R25 VERIFIED (движок, 2026-09-25): всё вставилось и работает; Create Event предложил «создать соответствующую функцию»"
  },
  {
   "id": "CustomEventParam",
@@ -13736,9 +13736,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Custom Event с входом Amount (float): параметры = UserDefinedPin.",
-  "note": "round25-pre: UserDefinedPin (PinName, PinType, DesiredPinDirection=EGPD_Output) после пинов",
+  "note": "round25-pre: UserDefinedPin (PinName, PinType, DesiredPinDirection=EGPD_Output) после пинов | R25 VERIFIED (движок, 2026-09-25): всё вставилось и работает; Create Event предложил «создать соответствующую функцию»",
   "userPins": [
    {
     "name": "Amount",
@@ -13779,9 +13779,9 @@
     "object": "Actor"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Custom Event с сигнатурой ActorBeginOverlap (OverlappedActor, OtherActor) — для Bind Event.",
-  "note": "round25-pre: как «Create matching event» у Bind Event",
+  "note": "round25-pre: как «Create matching event» у Bind Event | R25 VERIFIED (движок, 2026-09-25): всё вставилось и работает; Create Event предложил «создать соответствующую функцию»",
   "userPins": [
    {
     "name": "OverlappedActor",
@@ -13825,9 +13825,9 @@
     "dv": "10.0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Вызов собственного Custom Event как функции (bSelfContext).",
-  "note": "round25-pre: CallFunction без MemberParent, bSelfContext=True; MemberGuid = NodeGuid события; до компиляции может показать «не найдена функция»"
+  "note": "round25-pre: CallFunction без MemberParent, bSelfContext=True; MemberGuid = NodeGuid события; до компиляции может показать «не найдена функция» | R25 VERIFIED (движок, 2026-09-25): всё вставилось и работает; Create Event предложил «создать соответствующую функцию»"
  },
  {
   "id": "BindEventActorBeginOverlap",
@@ -13861,9 +13861,9 @@
     "memberRef": "MemberParent=\"/Script/CoreUObject.Package'/Script/Engine'\",MemberName=\"ActorBeginOverlapSignature__DelegateSignature\""
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Подписать событие на мультикаст-делегат OnActorBeginOverlap (Target Actor).",
-  "note": "round25-pre: K2Node_AddDelegate, DelegateReference=(Actor, OnActorBeginOverlap); сигнатура /Script/Engine.ActorBeginOverlapSignature__DelegateSignature"
+  "note": "round25-pre: K2Node_AddDelegate, DelegateReference=(Actor, OnActorBeginOverlap); сигнатура /Script/Engine.ActorBeginOverlapSignature__DelegateSignature | R25 VERIFIED (движок, 2026-09-25): всё вставилось и работает; Create Event предложил «создать соответствующую функцию»"
  },
  {
   "id": "UnbindEventActorBeginOverlap",
@@ -13897,9 +13897,9 @@
     "memberRef": "MemberParent=\"/Script/CoreUObject.Package'/Script/Engine'\",MemberName=\"ActorBeginOverlapSignature__DelegateSignature\""
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Отписать событие от OnActorBeginOverlap.",
-  "note": "round25-pre: K2Node_RemoveDelegate"
+  "note": "round25-pre: K2Node_RemoveDelegate | R25 VERIFIED (движок, 2026-09-25): всё вставилось и работает; Create Event предложил «создать соответствующую функцию»"
  },
  {
   "id": "UnbindAllActorBeginOverlap",
@@ -13927,9 +13927,9 @@
     "object": "Actor"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Снять все подписки с OnActorBeginOverlap.",
-  "note": "round25-pre: K2Node_ClearDelegate (без пина Delegate)"
+  "note": "round25-pre: K2Node_ClearDelegate (без пина Delegate) | R25 VERIFIED (движок, 2026-09-25): всё вставилось и работает; Create Event предложил «создать соответствующую функцию»"
  },
  {
   "id": "CreateEvent",
@@ -13952,9 +13952,9 @@
     "cat": "delegate"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Делегат из функции/события по имени (Create Event) — для Bind/Unbind/таймеров.",
-  "note": "round25-pre: K2Node_CreateDelegate, SelectedFunctionName; сигнатуру OutputDelegate движок берёт из подключённого пина"
+  "note": "round25-pre: K2Node_CreateDelegate, SelectedFunctionName; сигнатуру OutputDelegate движок берёт из подключённого пина | R25 VERIFIED (движок, 2026-09-25): всё вставилось и работает; Create Event предложил «создать соответствующую функцию»"
  },
  {
   "id": "SetTimerByEvent",
@@ -15279,5 +15279,888 @@
   "verified": false,
   "desc": "InputActionValue → string",
   "note": "round28-pre: pure autocast"
+ },
+ {
+  "id": "SetSimulatePhysics",
+  "title": "Set Simulate Physics",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetSimulatePhysics",
+  "lib": "PrimitiveComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent"
+   },
+   {
+    "name": "bSimulate",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true"
+   }
+  ],
+  "verified": false,
+  "desc": "Включить физику",
+  "note": "round29-pre: член PrimitiveComponent::SetSimulatePhysics, self явный"
+ },
+ {
+  "id": "SetEnableGravity",
+  "title": "Set Enable Gravity",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetEnableGravity",
+  "lib": "PrimitiveComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent"
+   },
+   {
+    "name": "bGravityEnabled",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true"
+   }
+  ],
+  "verified": false,
+  "desc": "Гравитация вкл/выкл",
+  "note": "round29-pre: член PrimitiveComponent::SetEnableGravity, self явный"
+ },
+ {
+  "id": "AddImpulse",
+  "title": "Add Impulse",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AddImpulse",
+  "lib": "PrimitiveComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent"
+   },
+   {
+    "name": "Impulse",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "dv": "0, 0, 1000"
+   },
+   {
+    "name": "BoneName",
+    "dir": "Input",
+    "cat": "name",
+    "dv": "None"
+   },
+   {
+    "name": "bVelChange",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Импульс",
+  "note": "round29-pre: член PrimitiveComponent::AddImpulse, self явный"
+ },
+ {
+  "id": "AddForce",
+  "title": "Add Force",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AddForce",
+  "lib": "PrimitiveComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent"
+   },
+   {
+    "name": "Force",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "dv": "0, 0, 1000"
+   },
+   {
+    "name": "BoneName",
+    "dir": "Input",
+    "cat": "name",
+    "dv": "None"
+   },
+   {
+    "name": "bAccelChange",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Сила",
+  "note": "round29-pre: член PrimitiveComponent::AddForce, self явный"
+ },
+ {
+  "id": "AddTorqueInRadians",
+  "title": "Add Torque (Radians)",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AddTorqueInRadians",
+  "lib": "PrimitiveComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent"
+   },
+   {
+    "name": "Torque",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector"
+   },
+   {
+    "name": "BoneName",
+    "dir": "Input",
+    "cat": "name",
+    "dv": "None"
+   },
+   {
+    "name": "bAccelChange",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Крутящий момент",
+  "note": "round29-pre: член PrimitiveComponent::AddTorqueInRadians, self явный"
+ },
+ {
+  "id": "SetPhysicsLinearVelocity",
+  "title": "Set Physics Linear Velocity",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetPhysicsLinearVelocity",
+  "lib": "PrimitiveComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent"
+   },
+   {
+    "name": "NewVel",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector"
+   },
+   {
+    "name": "bAddToCurrent",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "BoneName",
+    "dir": "Input",
+    "cat": "name",
+    "dv": "None"
+   }
+  ],
+  "verified": false,
+  "desc": "Задать скорость",
+  "note": "round29-pre: член PrimitiveComponent::SetPhysicsLinearVelocity, self явный"
+ },
+ {
+  "id": "GetPhysicsLinearVelocity",
+  "title": "Get Physics Linear Velocity",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetPhysicsLinearVelocity",
+  "lib": "PrimitiveComponent",
+  "pure": true,
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent"
+   },
+   {
+    "name": "BoneName",
+    "dir": "Input",
+    "cat": "name",
+    "dv": "None"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "verified": false,
+  "desc": "Скорость тела",
+  "note": "round29-pre: член PrimitiveComponent::GetPhysicsLinearVelocity, self явный"
+ },
+ {
+  "id": "GetMass",
+  "title": "Get Mass",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetMass",
+  "lib": "PrimitiveComponent",
+  "pure": true,
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "verified": false,
+  "desc": "Масса",
+  "note": "round29-pre: член PrimitiveComponent::GetMass, self явный"
+ },
+ {
+  "id": "SetMassOverrideInKg",
+  "title": "Set Mass Override In Kg",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetMassOverrideInKg",
+  "lib": "PrimitiveComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent"
+   },
+   {
+    "name": "BoneName",
+    "dir": "Input",
+    "cat": "name",
+    "dv": "None"
+   },
+   {
+    "name": "MassInKg",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "1.0"
+   },
+   {
+    "name": "bOverrideMass",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true"
+   }
+  ],
+  "verified": false,
+  "desc": "Переопределить массу",
+  "note": "round29-pre: член PrimitiveComponent::SetMassOverrideInKg, self явный"
+ },
+ {
+  "id": "SetCollisionEnabled",
+  "title": "Set Collision Enabled",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetCollisionEnabled",
+  "lib": "PrimitiveComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent"
+   },
+   {
+    "name": "NewType",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ECollisionEnabled",
+    "dv": "QueryAndPhysics"
+   }
+  ],
+  "verified": false,
+  "desc": "Режим коллизии",
+  "note": "round29-pre: член PrimitiveComponent::SetCollisionEnabled, self явный"
+ },
+ {
+  "id": "SetCollisionResponseToChannel",
+  "title": "Set Collision Response to Channel",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetCollisionResponseToChannel",
+  "lib": "PrimitiveComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent"
+   },
+   {
+    "name": "Channel",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ECollisionChannel",
+    "dv": "ECC_Pawn"
+   },
+   {
+    "name": "NewResponse",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ECollisionResponse",
+    "dv": "ECR_Overlap"
+   }
+  ],
+  "verified": false,
+  "desc": "Отклик на канал",
+  "note": "round29-pre: член PrimitiveComponent::SetCollisionResponseToChannel, self явный"
+ },
+ {
+  "id": "SetCollisionProfileName",
+  "title": "Set Collision Profile Name",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetCollisionProfileName",
+  "lib": "PrimitiveComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent"
+   },
+   {
+    "name": "InCollisionProfileName",
+    "dir": "Input",
+    "cat": "name",
+    "dv": "BlockAll"
+   },
+   {
+    "name": "bUpdateOverlaps",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true"
+   }
+  ],
+  "verified": false,
+  "desc": "Профиль коллизии",
+  "note": "round29-pre: член PrimitiveComponent::SetCollisionProfileName, self явный"
+ },
+ {
+  "id": "SetGenerateOverlapEvents",
+  "title": "Set Generate Overlap Events",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetGenerateOverlapEvents",
+  "lib": "PrimitiveComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent"
+   },
+   {
+    "name": "bInGenerateOverlapEvents",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true"
+   }
+  ],
+  "verified": false,
+  "desc": "Генерировать overlap",
+  "note": "round29-pre: член PrimitiveComponent::SetGenerateOverlapEvents, self явный"
+ },
+ {
+  "id": "SetMaterial",
+  "title": "Set Material",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetMaterial",
+  "lib": "PrimitiveComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent"
+   },
+   {
+    "name": "ElementIndex",
+    "dir": "Input",
+    "cat": "int",
+    "dv": "0"
+   },
+   {
+    "name": "Material",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.MaterialInterface"
+   }
+  ],
+  "verified": false,
+  "desc": "Материал слота",
+  "note": "round29-pre: член PrimitiveComponent::SetMaterial, self явный"
+ },
+ {
+  "id": "SetComponentVisibility",
+  "title": "Set Visibility (Component)",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetVisibility",
+  "lib": "SceneComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   },
+   {
+    "name": "bNewVisibility",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true"
+   },
+   {
+    "name": "bPropagateToChildren",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Видимость компонента",
+  "note": "round29-pre: член SceneComponent::SetVisibility, self явный"
+ },
+ {
+  "id": "SetHiddenInGameComponent",
+  "title": "Set Hidden In Game (Component)",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetHiddenInGame",
+  "lib": "SceneComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   },
+   {
+    "name": "NewHidden",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true"
+   },
+   {
+    "name": "bPropagateToChildren",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Скрыть в игре",
+  "note": "round29-pre: член SceneComponent::SetHiddenInGame, self явный"
+ },
+ {
+  "id": "SetWorldScale3D",
+  "title": "Set World Scale 3D",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetWorldScale3D",
+  "lib": "SceneComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   },
+   {
+    "name": "NewScale",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "dv": "1, 1, 1"
+   }
+  ],
+  "verified": false,
+  "desc": "Масштаб в мире",
+  "note": "round29-pre: член SceneComponent::SetWorldScale3D, self явный"
+ },
+ {
+  "id": "AddWorldOffset",
+  "title": "Add World Offset",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_AddWorldOffset",
+  "lib": "SceneComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   },
+   {
+    "name": "DeltaLocation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "dv": "0, 0, 10"
+   },
+   {
+    "name": "bSweep",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "SweepHitResult",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "HitResult"
+   },
+   {
+    "name": "bTeleport",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Сдвиг в мире",
+  "note": "round29-pre: член SceneComponent::K2_AddWorldOffset, self явный"
+ },
+ {
+  "id": "GetComponentVelocity",
+  "title": "Get Component Velocity",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetComponentVelocity",
+  "lib": "SceneComponent",
+  "pure": true,
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "verified": false,
+  "desc": "Скорость компонента",
+  "note": "round29-pre: член SceneComponent::GetComponentVelocity, self явный"
+ },
+ {
+  "id": "GetOwnerComponent",
+  "title": "Get Owner",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetOwner",
+  "lib": "ActorComponent",
+  "pure": true,
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.ActorComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   }
+  ],
+  "verified": false,
+  "desc": "Владелец компонента",
+  "note": "round29-pre: член ActorComponent::GetOwner, self явный"
+ },
+ {
+  "id": "SetActiveComponent",
+  "title": "Set Active",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetActive",
+  "lib": "ActorComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.ActorComponent"
+   },
+   {
+    "name": "bNewActive",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true"
+   },
+   {
+    "name": "bReset",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Активность компонента",
+  "note": "round29-pre: член ActorComponent::SetActive, self явный"
+ },
+ {
+  "id": "IsActiveComponent",
+  "title": "Is Active",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsActive",
+  "lib": "ActorComponent",
+  "pure": true,
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.ActorComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": false,
+  "desc": "Активен?",
+  "note": "round29-pre: член ActorComponent::IsActive, self явный"
+ },
+ {
+  "id": "ComponentHasTag",
+  "title": "Component Has Tag",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ComponentHasTag",
+  "lib": "ActorComponent",
+  "pure": true,
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.ActorComponent"
+   },
+   {
+    "name": "Tag",
+    "dir": "Input",
+    "cat": "name",
+    "dv": "Enemy"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": false,
+  "desc": "Тег компонента",
+  "note": "round29-pre: член ActorComponent::ComponentHasTag, self явный"
  }
 ]

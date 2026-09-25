@@ -150,7 +150,8 @@ export function createFn(entry, values = {}, pos) {
   for (const [k, v] of Object.entries(values)) {
     const p = (e.pins || []).find(x => x.name === k && x.dir === 'Input');
     if (!p) throw new Error(`${e.id}: нет входного пина ${k} (есть: ${(e.pins || []).filter(x => x.dir === 'Input').map(x => x.name).join(', ')})`);
-    if ((p.cat === 'object' || p.cat === 'class') && v) p.defObj = assetPath(v, p.object);
+    if (p.cat === 'class' && v) p.defObj = normalizeClassPath(v);
+    else if (p.cat === 'object' && v) p.defObj = assetPath(v, p.object);
     else p.dv = v;
   }
   return createFromEntry(e, pos);
@@ -227,5 +228,31 @@ export function createInputActionValue(ia, type = 'vector2d', pos) {
   n.title = `Get ${assetPath(ia).split('.').pop()}`;
   n.rawProps = [iaProp(ia)];
   n.pins.push(pin('ActionValue', 'Output', iaType(type)));
+  return n;
+}
+
+/* ---------------- любой вызов функции (round29) ----------------
+ * createCall('PrimitiveComponent.SetSimulatePhysics', ['bSimulate:bool=true'])
+ * createCall('KismetMathLibrary.Abs', ['A:float', '->', 'ReturnValue:float'], { pure: true, isStatic: true })
+ * Член класса → видимый self этого класса; static (библиотека) → скрытый self (Default__) достроит парсер.
+ * Пины движок перестроит по самой UFUNCTION — важно верное имя класса и функции. */
+export function createCall(key, words = [], { pure = false, isStatic = false } = {}, pos) {
+  const dot = key.lastIndexOf('.');
+  if (dot < 0) throw new Error(`call ${key}: формат Класс.Функция`);
+  const owner = key.slice(0, dot), fn = key.slice(dot + 1);
+  const arrow = words.indexOf('->');
+  const ins = arrow < 0 ? words : words.slice(0, arrow), outs = arrow < 0 ? [] : words.slice(arrow + 1);
+  const short = 'K2Node_CallFunction';
+  const n = createFromEntry({ id: fn, title: fn, className: `/Script/BlueprintGraph.${short}`, func: fn, pure, pins: [] }, pos);
+  n.memberParent = classRef(owner);
+  if (!pure) n.pins.push(mkPin('execute', 'Input', 'exec'), mkPin('then', 'Output', 'exec'));
+  if (!isStatic) n.pins.push(mkPin('self', 'Input', 'object', { subObj: classRef(owner) }));
+  for (const w of ins) {
+    const pr = parseParam(w);
+    const o = pr.type.cat === 'class' ? { defObj: pr.dv ? normalizeClassPath(pr.dv) : '' } : pr.type.cat === 'object' ? { defObj: pr.dv ? assetPath(pr.dv, pr.type.classPath) : '' } : { dv: pr.dv };
+    if (pr.type.cat === 'struct') o.const = true;
+    n.pins.push(pin(pr.name, 'Input', pr.type, o));
+  }
+  for (const w of outs) { const pr = parseParam(w); n.pins.push(pin(pr.name, 'Output', pr.type)); }
   return n;
 }
