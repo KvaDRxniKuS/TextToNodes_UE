@@ -3,14 +3,14 @@ Begin Object Class=/Script/UnrealEd.EdGraphNode_Comment Name="EdGraphNode_Commen
    NodePosY=-110
    NodeWidth=2450
    NodeHeight=1986
-   NodeComment="SWEEP 03/21: Math / Float (30/30 узлов, 0 verified)"
+   NodeComment="SWEEP 03/21: Math / Float (30/30 узлов, 14 verified)"
    NodeGuid=B2382453CFCC3463B7E94B4B1473802F
 End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node_PromotableOperator_120" ExportPath="/Script/BlueprintGraph.K2Node_PromotableOperator'"/Game/Generated.Generated:EventGraph.K2Node_PromotableOperator_120"'"
    OperationName="Add"
    bDefaultsToPureFunc=True
-   FunctionReference=(MemberParent=Class"/Script/Engine.KismetMathLibrary"',MemberName="Add_DoubleDouble")
+   FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Add_DoubleDouble")
    NodePosX=0
    NodePosY=0
    NodeGuid=9D2DBAE5CABAA28133606D17595DA57D
@@ -22,7 +22,7 @@ End Object
 Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node_PromotableOperator_121" ExportPath="/Script/BlueprintGraph.K2Node_PromotableOperator'"/Game/Generated.Generated:EventGraph.K2Node_PromotableOperator_121"'"
    OperationName="Subtract"
    bDefaultsToPureFunc=True
-   FunctionReference=(MemberParent=Class"/Script/Engine.KismetMathLibrary"',MemberName="Subtract_DoubleDouble")
+   FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Subtract_DoubleDouble")
    NodePosX=390
    NodePosY=0
    NodeGuid=2AE3B8A3B6F696D9788F422DD1A10006
@@ -34,7 +34,7 @@ End Object
 Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node_PromotableOperator_122" ExportPath="/Script/BlueprintGraph.K2Node_PromotableOperator'"/Game/Generated.Generated:EventGraph.K2Node_PromotableOperator_122"'"
    OperationName="Multiply"
    bDefaultsToPureFunc=True
-   FunctionReference=(MemberParent=Class"/Script/Engine.KismetMathLibrary"',MemberName="Multiply_DoubleDouble")
+   FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Multiply_DoubleDouble")
    NodePosX=780
    NodePosY=0
    NodeGuid=A28F90E5E7486B9A9AE41BB78D1C1622
@@ -46,7 +46,7 @@ End Object
 Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node_PromotableOperator_123" ExportPath="/Script/BlueprintGraph.K2Node_PromotableOperator'"/Game/Generated.Generated:EventGraph.K2Node_PromotableOperator_123"'"
    OperationName="Divide"
    bDefaultsToPureFunc=True
-   FunctionReference=(MemberParent=Class"/Script/Engine.KismetMathLibrary"',MemberName="Divide_DoubleDouble")
+   FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Divide_DoubleDouble")
    NodePosX=1170
    NodePosY=0
    NodeGuid=FB229AD4AD4694E3983E0F7F0D24F3B5
@@ -55,27 +55,25 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node
    CustomProperties Pin (PinId=3E5C19B892F68CE05231FB10B52FB749,PinName="ReturnValue",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
 End Object
 
-Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node_PromotableOperator_124" ExportPath="/Script/BlueprintGraph.K2Node_PromotableOperator'"/Game/Generated.Generated:EventGraph.K2Node_PromotableOperator_124"'"
-   OperationName="Percent"
-   bDefaultsToPureFunc=True
-   FunctionReference=(MemberParent=Class"/Script/Engine.KismetMathLibrary"',MemberName="Percent_DoubleDouble")
+Begin Object Class=/Script/BlueprintGraph.K2Node_CallFunction Name="K2Node_CallFunction_124" ExportPath="/Script/BlueprintGraph.K2Node_CallFunction'"/Game/Generated.Generated:EventGraph.K2Node_CallFunction_124"'"
+   FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Percent_FloatFloat")
    NodePosX=1560
    NodePosY=0
    NodeGuid=0BB941EAE85ED81A1B6B0E114730C64C
+   CustomProperties Pin (PinId=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,PinName="self",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultObject="/Script/Engine.Default__KismetMathLibrary",bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
    CustomProperties Pin (PinId=850BCB32E7A367B915C85CB454A414BE,PinName="A",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
    CustomProperties Pin (PinId=378E7201AB3AD6D77DBD2D3DB9C9D916,PinName="B",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
    CustomProperties Pin (PinId=51D6A10157E4185A0F76056175CF4844,PinName="ReturnValue",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
 End Object
 
-Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node_PromotableOperator_125" ExportPath="/Script/BlueprintGraph.K2Node_PromotableOperator'"/Game/Generated.Generated:EventGraph.K2Node_PromotableOperator_125"'"
-   OperationName="Power"
-   bDefaultsToPureFunc=True
-   FunctionReference=(MemberParent=Class"/Script/Engine.KismetMathLibrary"',MemberName="Power_DoubleDouble")
+Begin Object Class=/Script/BlueprintGraph.K2Node_CallFunction Name="K2Node_CallFunction_125" ExportPath="/Script/BlueprintGraph.K2Node_CallFunction'"/Game/Generated.Generated:EventGraph.K2Node_CallFunction_125"'"
+   FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="MultiplyMultiply_FloatFloat")
    NodePosX=0
    NodePosY=296
    NodeGuid=DA9352963ED5C7D26E793D6D96807CA4
-   CustomProperties Pin (PinId=12E1305350892E49805D4C13D2638F1F,PinName="A",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
-   CustomProperties Pin (PinId=31A8ECAFEF2659DE78EFB8D327028866,PinName="B",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB,PinName="self",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultObject="/Script/Engine.Default__KismetMathLibrary",bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=12E1305350892E49805D4C13D2638F1F,PinName="Base",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=31A8ECAFEF2659DE78EFB8D327028866,PinName="Exp",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
    CustomProperties Pin (PinId=90A591E8098806B947AB60CEE34DAC8D,PinName="ReturnValue",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
 End Object
 
@@ -282,8 +280,8 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_CallFunction Name="K2Node_CallF
    CustomProperties Pin (PinId=D0B4805A15DBAD7F43CD111612F4B4FA,PinName="ReturnValue",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
 End Object
 
-Begin Object Class=/Script/BlueprintGraph.K2Node_CallFunction Name="K2Node_CallFunction_144" ExportPath="/Script/BlueprintGraph.K2Node_CallFunction'"/Game/Generated.Generated:EventGraph.K2Node_CallFunction_144"'"
-   FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Max")
+Begin Object Class=/Script/BlueprintGraph.K2Node_CommutativeAssociativeBinaryOperator Name="K2Node_CommutativeAssociativeBinaryOperator_144" ExportPath="/Script/BlueprintGraph.K2Node_CommutativeAssociativeBinaryOperator'"/Game/Generated.Generated:EventGraph.K2Node_CommutativeAssociativeBinaryOperator_144"'"
+   FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="FMax")
    NodePosX=1960
    NodePosY=1272
    NodeGuid=A96DE317B1FDE01CF5F552071F71ADE6
@@ -293,8 +291,8 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_CallFunction Name="K2Node_CallF
    CustomProperties Pin (PinId=DC149806EFBDEAAF4525DB4E87B70DA6,PinName="ReturnValue",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
 End Object
 
-Begin Object Class=/Script/BlueprintGraph.K2Node_CallFunction Name="K2Node_CallFunction_145" ExportPath="/Script/BlueprintGraph.K2Node_CallFunction'"/Game/Generated.Generated:EventGraph.K2Node_CallFunction_145"'"
-   FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Min")
+Begin Object Class=/Script/BlueprintGraph.K2Node_CommutativeAssociativeBinaryOperator Name="K2Node_CommutativeAssociativeBinaryOperator_145" ExportPath="/Script/BlueprintGraph.K2Node_CommutativeAssociativeBinaryOperator'"/Game/Generated.Generated:EventGraph.K2Node_CommutativeAssociativeBinaryOperator_145"'"
+   FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="FMin")
    NodePosX=0
    NodePosY=1590
    NodeGuid=3F021B000FC28DCC3B2289B3B70AF9A9

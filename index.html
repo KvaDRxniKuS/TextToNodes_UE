@@ -375,7 +375,7 @@ function genBlock(n){
   }
   if(n.operationName){
     const member=n.opMemberName||`${n.operationName}_DoubleDouble`;
-    extra+=`   OperationName="${n.operationName}"\n   bDefaultsToPureFunc=True\n   FunctionReference=(MemberParent=Class"/Script/Engine.KismetMathLibrary"',MemberName="${member}")\n`;
+    extra+=`   OperationName="${n.operationName}"\n   bDefaultsToPureFunc=True\n   FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="${member}")\n`;
   }
   if(n.structType) extra+=`   StructType=${n.structType}\n`;
   // round1b: SwitchEnum — Enum=/EnumEntries (зеркало src/parser.js).

@@ -234,7 +234,7 @@ export function createGeneric(regEntry, pos = { x: 0, y: 0 }) {
  *  Бросает только на неизвестных путях (struct/enum/lib) — это сигнал «нужен референс». */
 export function createFromEntry(e, pos = { x: 0, y: 0 }) {
   const short = (e.className || '').split('.').pop();
-  if (short === 'K2Node_CallFunction' || short === 'K2Node_CallArrayFunction') return createCallFunction(e, pos);
+  if (short === 'K2Node_CallFunction' || short === 'K2Node_CallArrayFunction' || short === 'K2Node_CommutativeAssociativeBinaryOperator') return createCallFunction(e, pos);
   if (short === 'K2Node_PromotableOperator') return createOperator(e, pos);
   if (short === 'K2Node_MacroInstance') return createMacroInstance(e, pos);
   if (short === 'K2Node_MakeStruct' || short === 'K2Node_BreakStruct') return createStructNode(e, pos);

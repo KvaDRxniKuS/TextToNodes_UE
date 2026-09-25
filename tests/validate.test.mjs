@@ -418,6 +418,19 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(byId('DoN').verified === true && byId('DoN').macro.graph === 'Do N', 'round1b: DoN — имя с пробелом, verified');
   const seT = generateUEText([createFromEntry(byId('SwitchEnum'))]);
   ok(seT.includes(`Enum="/Script/CoreUObject.Enum'/Script/Engine.EDrawDebugTrace'"`) && seT.includes('EnumEntries(0)=""') && seT.includes('EnumEntries(3)="Persistent"') && !seT.includes('PinName="Default"'), 'round1b: SwitchEnum — Enum/Entries (None→""), без Default');
+  // round3: PromotableOperator — quoted-full MemberParent (unquoted движок отторг в TimeManagement+wildcard).
+  const addT = generateUEText([createFromEntry(byId('Add_Float'))]);
+  ok(addT.includes(`FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Add_DoubleDouble")`), 'round3: Add — quoted-full MemberParent + Add_DoubleDouble');
+  // round3: Percent/Power — CallFunction, не оператор (live-рефы).
+  const pctT = generateUEText([createFromEntry(byId('Percent_Float'))]);
+  ok(pctT.includes('Class=/Script/BlueprintGraph.K2Node_CallFunction') && pctT.includes('MemberName="Percent_FloatFloat"'), 'round3: Percent — CallFunction Percent_FloatFloat');
+  const powT = generateUEText([createFromEntry(byId('Power_Float'))]);
+  ok(powT.includes('MemberName="MultiplyMultiply_FloatFloat"') && powT.includes('PinName="Base"') && powT.includes('PinName="Exp"'), 'round3: Power — MultiplyMultiply_FloatFloat + Base/Exp');
+  // round3: Max/Min float — CommutativeAssociative FMax/FMin (live-рефы).
+  const maxT = generateUEText([createFromEntry(byId('Max_Float'))]);
+  ok(maxT.includes('Class=/Script/BlueprintGraph.K2Node_CommutativeAssociativeBinaryOperator') && maxT.includes('MemberName="FMax"') && maxT.includes('PinName="self"'), 'round3: Max — CommutativeAssociative FMax + self');
+  const minT = generateUEText([createFromEntry(byId('Min_Float'))]);
+  ok(minT.includes('MemberName="FMin"'), 'round3: Min — FMin');
 }
 // Sweep coverage: каждая запись реестра строится (кроме референс-листа)
 {
