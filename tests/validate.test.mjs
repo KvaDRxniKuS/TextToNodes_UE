@@ -716,6 +716,16 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(v.errors.length === 0, 'R25: sweep 0 ошибок');
 }
 }
+// R24 VERIFIED, R26 pre: Timers / Latent
+{
+  ok(reg.filter(e => e.category === 'Pawn / Character').every(e => e.verified), 'R24: 18 записей verified');
+  const tl = reg.filter(e => e.category === 'Timers / Latent');
+  ok(tl.length === 14 && tl.every(e => e.lib === 'KismetSystemLibrary'), 'R26: 14 записей KSL');
+  const t = generateUEText([createFromEntry(byId('SetTimerByEvent')), createFromEntry(byId('ClearAndInvalidateTimerHandle'))]);
+  ok(t.includes('MemberName="TimerDynamicDelegate__DelegateSignature"') && t.includes("Engine.TimerHandle'"), 'R26: Set Timer by Event — сигнатура делегата + FTimerHandle');
+  const v = validateStrict(fs.readFileSync(new URL('../sweep/26-timers-latent.txt', import.meta.url), 'utf8'));
+  ok(v.errors.length === 0, 'R26: sweep 0 ошибок');
+}
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);

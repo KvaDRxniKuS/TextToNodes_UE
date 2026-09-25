@@ -1,0 +1,32 @@
+// tools/gen-r26.mjs — R26 Timers / Latent: связанная сцена.
+// OnTimerTick(Custom Event) ⇒ Set Timer by Event → Pause → Unpause → Clear&Invalidate → Set Timer by Function Name → Clear by Name → Invalidate → Delay Until Next Tick;
+// хендл Set Timer by Event → Pause/Unpause и 6 pure-геттеров (ref-пины Clear&Invalidate/Invalidate не подключаем — им нужна переменная).
+import fs from 'fs';
+import { generateUEText } from '../src/parser.js';
+import { createFromEntry, linkPins, layoutRow, fitComment } from '../src/generator.js';
+import { validateStrict } from '../src/validate.js';
+const reg = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8'));
+const E = id => { const e = reg.find(x => x.id === id); if (!e) throw new Error('no id ' + id); return e; };
+const N = id => createFromEntry(E(id));
+const ceE = JSON.parse(JSON.stringify(E('CustomEvent')));
+ceE.props.CustomFunctionName = '"OnTimerTick"'; ceE.pins[0].memberRef = 'MemberName="OnTimerTick"';
+const ev = createFromEntry(ceE);
+const chain = ['SetTimerByEvent', 'PauseTimerHandle', 'UnPauseTimerHandle', 'ClearAndInvalidateTimerHandle', 'SetTimerByFunctionName', 'ClearTimerByFunctionName', 'InvalidateTimerHandle', 'DelayUntilNextTick'].map(N);
+const [set, pause, unp] = chain;
+const pures = ['IsTimerActiveHandle', 'IsTimerPausedHandle', 'TimerExistsHandle', 'IsValidTimerHandle', 'GetTimerElapsedTimeHandle', 'GetTimerRemainingTimeHandle'].map(N);
+layoutRow(chain.slice(0, 4), 0, 0);
+layoutRow(chain.slice(4), 0, 520);
+layoutRow(pures, 0, 900);
+ev.pos.x = -420; ev.pos.y = 120;
+for (let i = 0; i + 1 < chain.length; i++) linkPins(chain[i], 'then', chain[i + 1], 'execute');
+linkPins(ev, 'OutputDelegate', set, 'Delegate', { align: false });
+linkPins(set, 'ReturnValue', pause, 'Handle', { align: false });
+linkPins(set, 'ReturnValue', unp, 'Handle', { align: false });
+for (const p of pures) linkPins(set, 'ReturnValue', p, 'Handle', { align: false });
+const nodes = [ev, ...chain, ...pures];
+const cm = fitComment('SWEEP 26: Timers / Latent — Set Timer by Event / Function Name, Pause/Unpause/Clear/Invalidate, геттеры хендла, Delay Until Next Tick', nodes);
+const text = generateUEText([cm, ...nodes]);
+const v = validateStrict(text);
+fs.writeFileSync(new URL('../sweep/26-timers-latent.txt', import.meta.url), text);
+console.log(`26: nodes=${nodes.length} errors=${v.errors.length} warnings=${v.warnings.length} bytes=${text.length}`);
+v.errors.forEach(e => console.log('  ', e));

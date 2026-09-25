@@ -13127,9 +13127,9 @@
     "object": "/Script/Engine.Character"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Прыжок",
-  "note": "round24-pre: член Character, self=Target (по образцу AActor-членов R23). "
+  "note": "round24-pre: член Character, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "StopJumping",
@@ -13156,9 +13156,9 @@
     "object": "/Script/Engine.Character"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Прекратить прыжок",
-  "note": "round24-pre: член Character, self=Target (по образцу AActor-членов R23). "
+  "note": "round24-pre: член Character, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "CanJump",
@@ -13181,9 +13181,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Может прыгнуть",
-  "note": "round24-pre: член Character, self=Target (по образцу AActor-членов R23). CanJump() const BlueprintCallable → pure",
+  "note": "round24-pre: член Character, self=Target (по образцу AActor-членов R23). CanJump() const BlueprintCallable → pure | R24 VERIFIED (движок, 2026-09-25)",
   "pure": true
  },
  {
@@ -13230,9 +13230,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Толкнуть персонажа",
-  "note": "round24-pre: член Character, self=Target (по образцу AActor-членов R23). "
+  "note": "round24-pre: член Character, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "Crouch",
@@ -13266,9 +13266,9 @@
     "hidden": true
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Присесть",
-  "note": "round24-pre: член Character, self=Target (по образцу AActor-членов R23). bClientSimulation скрыт (HidePin)"
+  "note": "round24-pre: член Character, self=Target (по образцу AActor-членов R23). bClientSimulation скрыт (HidePin) | R24 VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "UnCrouch",
@@ -13302,9 +13302,9 @@
     "hidden": true
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Встать",
-  "note": "round24-pre: член Character, self=Target (по образцу AActor-членов R23). bClientSimulation скрыт (HidePin)"
+  "note": "round24-pre: член Character, self=Target (по образцу AActor-членов R23). bClientSimulation скрыт (HidePin) | R24 VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "AddMovementInput",
@@ -13351,9 +13351,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Ввод движения",
-  "note": "round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). "
+  "note": "round24-pre: член Pawn, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "AddControllerYawInput",
@@ -13387,9 +13387,9 @@
     "dv": "0.0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Поворот по Yaw",
-  "note": "round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). "
+  "note": "round24-pre: член Pawn, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "AddControllerPitchInput",
@@ -13423,9 +13423,9 @@
     "dv": "0.0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Поворот по Pitch",
-  "note": "round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). "
+  "note": "round24-pre: член Pawn, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "Pawn_GetControlRotation",
@@ -13448,9 +13448,9 @@
     "sub": "Rotator"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Поворот контроллера",
-  "note": "round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). ",
+  "note": "round24-pre: член Pawn, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)",
   "pure": true
  },
  {
@@ -13474,9 +13474,9 @@
     "object": "/Script/Engine.Controller"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Контроллер пешки",
-  "note": "round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). альтернатива Get Player Controller (self) — подсказка пользователя R21b",
+  "note": "round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). альтернатива Get Player Controller (self) — подсказка пользователя R21b | R24 VERIFIED (движок, 2026-09-25)",
   "pure": true
  },
  {
@@ -13500,9 +13500,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Локальное управление",
-  "note": "round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). ",
+  "note": "round24-pre: член Pawn, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)",
   "pure": true
  },
  {
@@ -13526,9 +13526,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Управляет игрок",
-  "note": "round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). ",
+  "note": "round24-pre: член Pawn, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)",
   "pure": true
  },
  {
@@ -13562,9 +13562,9 @@
     "object": "/Script/Engine.Pawn"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Вселиться в пешку",
-  "note": "round24-pre: член Controller, self=Target (по образцу AActor-членов R23). "
+  "note": "round24-pre: член Controller, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "UnPossess",
@@ -13591,9 +13591,9 @@
     "object": "/Script/Engine.Controller"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Покинуть пешку",
-  "note": "round24-pre: член Controller, self=Target (по образцу AActor-членов R23). "
+  "note": "round24-pre: член Controller, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "GetControlledPawn",
@@ -13616,9 +13616,9 @@
     "object": "/Script/Engine.Pawn"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Управляемая пешка",
-  "note": "round24-pre: член Controller, self=Target (по образцу AActor-членов R23). K2_GetPawn const → pure, DisplayName Get Controlled Pawn",
+  "note": "round24-pre: член Controller, self=Target (по образцу AActor-членов R23). K2_GetPawn const → pure, DisplayName Get Controlled Pawn | R24 VERIFIED (движок, 2026-09-25)",
   "pure": true
  },
  {
@@ -13655,9 +13655,9 @@
     "ref": true
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Задать поворот контроллера",
-  "note": "round24-pre: член Controller, self=Target (по образцу AActor-членов R23). NewRotation const FRotator& → const+ref"
+  "note": "round24-pre: член Controller, self=Target (по образцу AActor-членов R23). NewRotation const FRotator& → const+ref | R24 VERIFIED (движок, 2026-09-25)"
  },
  {
   "id": "GetVelocity",
@@ -13680,9 +13680,9 @@
     "sub": "Vector"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Скорость",
-  "note": "round24-pre: член Actor, self=Target (по образцу AActor-членов R23). член AActor",
+  "note": "round24-pre: член Actor, self=Target (по образцу AActor-членов R23). член AActor | R24 VERIFIED (движок, 2026-09-25)",
   "pure": true
  },
  {
@@ -13955,5 +13955,485 @@
   "verified": false,
   "desc": "Делегат из функции/события по имени (Create Event) — для Bind/Unbind/таймеров.",
   "note": "round25-pre: K2Node_CreateDelegate, SelectedFunctionName; сигнатуру OutputDelegate движок берёт из подключённого пина"
+ },
+ {
+  "id": "SetTimerByEvent",
+  "title": "Set Timer by Event",
+  "category": "Timers / Latent",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_SetTimerDelegate",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Delegate",
+    "dir": "Input",
+    "cat": "delegate",
+    "memberRef": "MemberParent=\"/Script/CoreUObject.Package'/Script/Engine'\",MemberName=\"TimerDynamicDelegate__DelegateSignature\""
+   },
+   {
+    "name": "Time",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "1.0"
+   },
+   {
+    "name": "bLooping",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true"
+   },
+   {
+    "name": "bMaxOncePerFrame",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "InitialStartDelay",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.0",
+    "advanced": true
+   },
+   {
+    "name": "InitialStartDelayVariance",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.0",
+    "advanced": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "TimerHandle"
+   }
+  ],
+  "verified": false,
+  "desc": "Таймер на событие (красный пин Event).",
+  "note": "round26-pre: K2_SetTimerDelegate(FTimerDynamicDelegate Delegate «Event», float Time, bLooping, bMaxOncePerFrame, InitialStartDelay/Variance advanced) → FTimerHandle"
+ },
+ {
+  "id": "SetTimerByFunctionName",
+  "title": "Set Timer by Function Name",
+  "category": "Timers / Latent",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_SetTimer",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Object",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object"
+   },
+   {
+    "name": "FunctionName",
+    "dir": "Input",
+    "cat": "string",
+    "dv": "OnTimerTick"
+   },
+   {
+    "name": "Time",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "1.0"
+   },
+   {
+    "name": "bLooping",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true"
+   },
+   {
+    "name": "bMaxOncePerFrame",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "InitialStartDelay",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.0",
+    "advanced": true
+   },
+   {
+    "name": "InitialStartDelayVariance",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.0",
+    "advanced": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "TimerHandle"
+   }
+  ],
+  "verified": false,
+  "desc": "Таймер по имени функции/события.",
+  "note": "round26-pre: K2_SetTimer(UObject* Object DefaultToSelf, FString FunctionName, ...) → FTimerHandle"
+ },
+ {
+  "id": "ClearTimerByFunctionName",
+  "title": "Clear Timer by Function Name",
+  "category": "Timers / Latent",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_ClearTimer",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Object",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object"
+   },
+   {
+    "name": "FunctionName",
+    "dir": "Input",
+    "cat": "string",
+    "dv": "OnTimerTick"
+   }
+  ],
+  "verified": false,
+  "desc": "Остановить таймер по имени функции.",
+  "note": "round26-pre: K2_ClearTimer(Object, FunctionName)"
+ },
+ {
+  "id": "ClearAndInvalidateTimerHandle",
+  "title": "Clear and Invalidate Timer by Handle",
+  "category": "Timers / Latent",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_ClearAndInvalidateTimerHandle",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Handle",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "TimerHandle",
+    "ref": true
+   }
+  ],
+  "verified": false,
+  "desc": "Остановить таймер и обнулить хендл.",
+  "note": "round26-pre: WCO опущен (как Delay); Handle UPARAM(ref) → ref, нужна переменная"
+ },
+ {
+  "id": "PauseTimerHandle",
+  "title": "Pause Timer by Handle",
+  "category": "Timers / Latent",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_PauseTimerHandle",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Handle",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "TimerHandle"
+   }
+  ],
+  "verified": false,
+  "desc": "Пауза таймера.",
+  "note": "round26-pre: WCO опущен"
+ },
+ {
+  "id": "UnPauseTimerHandle",
+  "title": "Unpause Timer by Handle",
+  "category": "Timers / Latent",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_UnPauseTimerHandle",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Handle",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "TimerHandle"
+   }
+  ],
+  "verified": false,
+  "desc": "Снять паузу.",
+  "note": "round26-pre: WCO опущен"
+ },
+ {
+  "id": "InvalidateTimerHandle",
+  "title": "Invalidate Timer Handle",
+  "category": "Timers / Latent",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_InvalidateTimerHandle",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Handle",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "TimerHandle",
+    "ref": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "TimerHandle"
+   }
+  ],
+  "verified": false,
+  "desc": "Обнулить хендл (без остановки).",
+  "note": "round26-pre: Handle ref, BlueprintCallable → exec"
+ },
+ {
+  "id": "IsTimerActiveHandle",
+  "title": "Is Timer Active by Handle",
+  "category": "Timers / Latent",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_IsTimerActiveHandle",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "Handle",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "TimerHandle"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": false,
+  "desc": "Таймер идёт?",
+  "note": "round26-pre: BlueprintPure",
+  "pure": true
+ },
+ {
+  "id": "IsTimerPausedHandle",
+  "title": "Is Timer Paused by Handle",
+  "category": "Timers / Latent",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_IsTimerPausedHandle",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "Handle",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "TimerHandle"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": false,
+  "desc": "Таймер на паузе?",
+  "note": "round26-pre: BlueprintPure",
+  "pure": true
+ },
+ {
+  "id": "TimerExistsHandle",
+  "title": "Does Timer Exist by Handle",
+  "category": "Timers / Latent",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_TimerExistsHandle",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "Handle",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "TimerHandle"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": false,
+  "desc": "Таймер существует?",
+  "note": "round26-pre: BlueprintPure",
+  "pure": true
+ },
+ {
+  "id": "IsValidTimerHandle",
+  "title": "Is Valid Timer Handle",
+  "category": "Timers / Latent",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_IsValidTimerHandle",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "Handle",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "TimerHandle"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": false,
+  "desc": "Хендл валиден?",
+  "note": "round26-pre: BlueprintPure, без WCO",
+  "pure": true
+ },
+ {
+  "id": "GetTimerElapsedTimeHandle",
+  "title": "Get Timer Elapsed Time by Handle",
+  "category": "Timers / Latent",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_GetTimerElapsedTimeHandle",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "Handle",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "TimerHandle"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "verified": false,
+  "desc": "Прошло секунд.",
+  "note": "round26-pre: BlueprintPure → float",
+  "pure": true
+ },
+ {
+  "id": "GetTimerRemainingTimeHandle",
+  "title": "Get Timer Remaining Time by Handle",
+  "category": "Timers / Latent",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_GetTimerRemainingTimeHandle",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "Handle",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "TimerHandle"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "verified": false,
+  "desc": "Осталось секунд.",
+  "note": "round26-pre: BlueprintPure → float",
+  "pure": true
+ },
+ {
+  "id": "DelayUntilNextTick",
+  "title": "Delay Until Next Tick",
+  "category": "Timers / Latent",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "DelayUntilNextTick",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   }
+  ],
+  "verified": false,
+  "desc": "Латентная задержка до следующего кадра.",
+  "note": "round26-pre: как Delay: WCO/LatentInfo движок восстановит (UE 5.2+)"
  }
 ]

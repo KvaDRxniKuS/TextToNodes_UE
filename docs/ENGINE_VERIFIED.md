@@ -690,3 +690,13 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 - K2Node_CreateDelegate: SelectedFunctionName.
 - Вызов Custom Event: CallFunction с bSelfContext, MemberGuid = NodeGuid события.
 - Генератор: пин `memberRef` → PinSubCategoryMemberReference, `userPins` → UserDefinedPin, `n.memberGuid`.
+
+## Round24: Pawn / Character / Controller — VERIFIED (2026-09-25)
+
+- Все 18 записей работают (включая CanJump/K2_GetPawn как pure, Crouch без bClientSimulation, SetControlRotation).
+
+## Round26-pre: Timers / Latent
+
+- sweep/26-timers-latent.txt (tools/gen-r26.mjs), 15 узлов: Custom Event OnTimerTick → Set Timer by Event (Delegate = /Script/Engine.TimerDynamicDelegate__DelegateSignature), Set Timer by Function Name, Clear Timer by Function Name, Pause/Unpause/Clear&Invalidate/Invalidate by Handle, 6 pure-геттеров хендла, Delay Until Next Tick.
+- Новый struct FTimerHandle (/Script/Engine.TimerHandle). WorldContextObject опущен (как у verified Delay).
+- ref-пины Handle (Clear&Invalidate, Invalidate) не подключены — им нужна переменная.

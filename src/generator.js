@@ -52,6 +52,7 @@ export function createCallFunction(regEntry, pos = { x: 0, y: 0 }) {
     if (p.advanced) o.advanced = true;
     if (p.dv) o.dv = p.dv;
     if (p.hidden) o.hidden = true;
+    if (p.memberRef) o.memberRef = p.memberRef;
     n.pins.push(mkPin(p.name, p.dir, p.cat, o));
   }
   return n;

@@ -63,6 +63,7 @@ const STRUCTS_FULL = {
   HitResult:   `"/Script/CoreUObject.ScriptStruct'/Script/Engine.HitResult'"`,        // confirmed (copy-back LineTraceSingle)
   Key:         `"/Script/CoreUObject.ScriptStruct'/Script/InputCore.Key'"`,
   LatentActionInfo: `"/Script/CoreUObject.ScriptStruct'/Script/Engine.LatentActionInfo'"`, // confirmed (copy-back Delay L1/L2)
+  TimerHandle: `"/Script/CoreUObject.ScriptStruct'/Script/Engine.TimerHandle'"`, // round26-pre
   InputActionValue: `"/Script/CoreUObject.ScriptStruct'/Script/EnhancedInput.InputActionValue'"`, // round21-pre: плагин EnhancedInput (в UE 5.8 включён по умолчанию)
 };
 // SHORT: правдоподобная legacy-форма (UE4/ранние UE5), вставкой НЕ проверена.
@@ -75,6 +76,7 @@ const STRUCTS_SHORT = {
   HitResult:        `ScriptStruct'"/Script/Engine.HitResult"'`,
   Key:              `ScriptStruct'"/Script/InputCore.Key"'`,
   LatentActionInfo: `ScriptStruct'"/Script/Engine.LatentActionInfo"'`,
+  TimerHandle:      `ScriptStruct'"/Script/Engine.TimerHandle"'`,
   InputActionValue: `ScriptStruct'"/Script/EnhancedInput.InputActionValue"'`,
 };
 export const UE_STRUCTS = UE_VERSION === 'SHORT' ? STRUCTS_SHORT : STRUCTS_FULL;

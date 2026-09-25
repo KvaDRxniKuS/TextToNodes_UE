@@ -1,6 +1,6 @@
 # Sweep manifest — полный прогон реестра по категориям
 
-Дата: 2026-09-25; записей: 344; построено узлов: 344; упало: 0.
+Дата: 2026-09-25; записей: 358; построено узлов: 358; упало: 0.
 Генератор: tools/gen-sweep.mjs (сетка по 5 в ряд, внутри ряда layoutRow, накрыто fitComment).
 
 Протокол: вставляйте файлы по одному в чистый граф → копируйте обратно → сообщайте номер файла и что сломалось.
@@ -37,8 +37,9 @@
 | 21 | 21-enhanced-input.txt | 6/6 | 5 | 6 | — | 2xW09 |
 | 22 | 22-casting.txt | 11/11 | 11 | 11 | — | 8xW09 |
 | 23 | 23-actor.txt | 32/32 | 32 | 32 | — | 32xW09 |
-| 24 | 24-pawn-character.txt | 18/18 | 0 | 18 | — | 18xW09 |
+| 24 | 24-pawn-character.txt | 18/18 | 18 | 18 | — | 18xW09 |
 | 25 | 25-events-delegates.txt | 8/8 | 0 | 8 | — | 1xW09 |
+| 26 | 26-timers-latent.txt | 14/14 | 0 | 14 | — | 14xW09 |
 
 ## NEEDS-REFERENCE (не построилось — нужен copy-back из движка)
 
@@ -171,22 +172,36 @@
 - 23-actor.txt :: W09: K2Node_CallFunction_437: K2_SetRelativeLocation: round23b-pre: член SceneComponent (как R23). | R23b VERIFIED (движок, 2026-09-25)
 - 23-actor.txt :: W09: K2Node_CallFunction_438: K2_SetRelativeRotation: round23b-pre: член SceneComponent (как R23). | R23b VERIFIED (движок, 2026-09-25)
 - 23-actor.txt :: W09: K2Node_CallFunction_439: K2_AddLocalRotation: round23b-pre: член SceneComponent (как R23). | R23b VERIFIED (движок, 2026-09-25)
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_441: Jump: round24-pre: член Character, self=Target (по образцу AActor-членов R23). 
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_442: StopJumping: round24-pre: член Character, self=Target (по образцу AActor-членов R23). 
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_443: CanJump: round24-pre: член Character, self=Target (по образцу AActor-членов R23). CanJump() const BlueprintCallable → pure
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_444: LaunchCharacter: round24-pre: член Character, self=Target (по образцу AActor-членов R23). 
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_445: Crouch: round24-pre: член Character, self=Target (по образцу AActor-членов R23). bClientSimulation скрыт (HidePin)
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_446: UnCrouch: round24-pre: член Character, self=Target (по образцу AActor-членов R23). bClientSimulation скрыт (HidePin)
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_447: AddMovementInput: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). 
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_448: AddControllerYawInput: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). 
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_449: AddControllerPitchInput: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). 
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_450: GetControlRotation: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). 
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_451: GetController: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). альтернатива Get Player Controller (self) — подсказка пользователя R21b
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_452: IsLocallyControlled: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). 
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_453: IsPlayerControlled: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). 
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_454: Possess: round24-pre: член Controller, self=Target (по образцу AActor-членов R23). 
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_455: UnPossess: round24-pre: член Controller, self=Target (по образцу AActor-членов R23). 
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_456: K2_GetPawn: round24-pre: член Controller, self=Target (по образцу AActor-членов R23). K2_GetPawn const → pure, DisplayName Get Controlled Pawn
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_457: SetControlRotation: round24-pre: член Controller, self=Target (по образцу AActor-членов R23). NewRotation const FRotator& → const+ref
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_458: GetVelocity: round24-pre: член Actor, self=Target (по образцу AActor-членов R23). член AActor
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_441: Jump: round24-pre: член Character, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_442: StopJumping: round24-pre: член Character, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_443: CanJump: round24-pre: член Character, self=Target (по образцу AActor-членов R23). CanJump() const BlueprintCallable → pure | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_444: LaunchCharacter: round24-pre: член Character, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_445: Crouch: round24-pre: член Character, self=Target (по образцу AActor-членов R23). bClientSimulation скрыт (HidePin) | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_446: UnCrouch: round24-pre: член Character, self=Target (по образцу AActor-членов R23). bClientSimulation скрыт (HidePin) | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_447: AddMovementInput: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_448: AddControllerYawInput: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_449: AddControllerPitchInput: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_450: GetControlRotation: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_451: GetController: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). альтернатива Get Player Controller (self) — подсказка пользователя R21b | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_452: IsLocallyControlled: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_453: IsPlayerControlled: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_454: Possess: round24-pre: член Controller, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_455: UnPossess: round24-pre: член Controller, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_456: K2_GetPawn: round24-pre: член Controller, self=Target (по образцу AActor-членов R23). K2_GetPawn const → pure, DisplayName Get Controlled Pawn | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_457: SetControlRotation: round24-pre: член Controller, self=Target (по образцу AActor-членов R23). NewRotation const FRotator& → const+ref | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_458: GetVelocity: round24-pre: член Actor, self=Target (по образцу AActor-членов R23). член AActor | R24 VERIFIED (движок, 2026-09-25)
 - 25-events-delegates.txt :: W09: K2Node_CallFunction_463: OnDamaged: round25-pre: CallFunction без MemberParent, bSelfContext=True; MemberGuid = NodeGuid события; до компиляции может показать «не найдена функция»
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_469: K2_SetTimerDelegate: round26-pre: K2_SetTimerDelegate(FTimerDynamicDelegate Delegate «Event», float Time, bLooping, bMaxOncePerFrame, InitialStartDelay/Variance advanced) → FTimerHandle
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_470: K2_SetTimer: round26-pre: K2_SetTimer(UObject* Object DefaultToSelf, FString FunctionName, ...) → FTimerHandle
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_471: K2_ClearTimer: round26-pre: K2_ClearTimer(Object, FunctionName)
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_472: K2_ClearAndInvalidateTimerHandle: round26-pre: WCO опущен (как Delay); Handle UPARAM(ref) → ref, нужна переменная
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_473: K2_PauseTimerHandle: round26-pre: WCO опущен
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_474: K2_UnPauseTimerHandle: round26-pre: WCO опущен
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_475: K2_InvalidateTimerHandle: round26-pre: Handle ref, BlueprintCallable → exec
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_476: K2_IsTimerActiveHandle: round26-pre: BlueprintPure
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_477: K2_IsTimerPausedHandle: round26-pre: BlueprintPure
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_478: K2_TimerExistsHandle: round26-pre: BlueprintPure
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_479: K2_IsValidTimerHandle: round26-pre: BlueprintPure, без WCO
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_480: K2_GetTimerElapsedTimeHandle: round26-pre: BlueprintPure → float
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_481: K2_GetTimerRemainingTimeHandle: round26-pre: BlueprintPure → float
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_482: DelayUntilNextTick: round26-pre: как Delay: WCO/LatentInfo движок восстановит (UE 5.2+)
