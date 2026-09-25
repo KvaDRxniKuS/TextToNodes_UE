@@ -448,3 +448,13 @@ Select/MinMax64/Sign/F-рефов — уже ingested, новой инфы но�
 Заметка к раунду 07: NearlyEqual_Comparison (был дубль id
 NearlyEqual_Float, переименован) хранит func NearlyEqual — сверить
 с NearlyEqual_FloatFloat к раунду.
+
+## Раунд 3d: 3-fix-2 частично, синглтон Trunc (2026-09-25)
+
+Sign/FFloor/FCeil — белые (verified). FTrunc: движок осиротил наш
+self-пин (субобъект снёс, свой создал, PinId 83E06D24 orphaned) при
+байт-идентичных self у трёх соседей и 12 одинаковых self по 3-fix/
+3-fix-2 (1 синглтон-орфан). Версия: флак вставки. Решение: Trunc в
+verified не переводим, изолированный ретест 3-fix-4 (свежие GUID).
+Если орфан повторится — эксперимент без self-пина. Файл 03:
+26 verified / 4 noted (Trunc/GridSnap/NearlyEqual/GetMappedRange).

@@ -821,9 +821,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Знак",
-  "notes": "MemberName SignOfFloat (live-реф round3b; без F-префикса не существует)"
+  "notes": "round3-fix-2: белая по факту пользователя"
  },
  {
   "id": "Round_Float",
@@ -867,9 +867,9 @@
     "cat": "int"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Вниз",
-  "notes": "MemberName FFloor (live-реф round3b; без F-префикса не существует)"
+  "notes": "round3-fix-2: белая по факту пользователя"
  },
  {
   "id": "Ceil_Float",
@@ -890,9 +890,9 @@
     "cat": "int"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Вверх",
-  "notes": "MemberName FCeil (live-реф round3b; без F-префикса не существует)"
+  "notes": "round3-fix-2: белая по факту пользователя"
  },
  {
   "id": "Trunc_Float",
