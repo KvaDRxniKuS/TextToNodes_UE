@@ -9194,9 +9194,127 @@
    }
   ],
   "verified": false,
-  "note": "round21-pre: статического GetActionValue нет — член UEnhancedInputComponent::GetBoundActionValue(const UInputAction*) const → pure; self = EnhancedInputComponent, RV FInputActionValue. Узел «Get IA_X» (K2Node_GetInputActionValue) требует ассет InputAction — не для свипа",
+  "note": "round21: FAIL — вставилась пустой (член EnhancedInputComponent::GetBoundActionValue движок не принял). Значение действия в BP берут узлом «Get IA_X» (K2Node_GetInputActionValue, нужен ассет) — ждём copy-back. round21-pre: статического GetActionValue нет — член UEnhancedInputComponent::GetBoundActionValue(const UInputAction*) const → pure; self = EnhancedInputComponent, RV FInputActionValue. Узел «Get IA_X» (K2Node_GetInputActionValue) требует ассет InputAction — не для свипа",
   "desc": "Значение действия",
-  "pure": true
+  "pure": true,
+  "hidden": true
+ },
+ {
+  "id": "CastToPlayerController",
+  "title": "Cast To PlayerController",
+  "category": "Enhanced Input",
+  "className": "/Script/BlueprintGraph.K2Node_DynamicCast",
+  "func": "",
+  "props": {
+   "TargetType": "\"/Script/CoreUObject.Class'/Script/Engine.PlayerController'\""
+  },
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "CastFailed",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Object",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object"
+   },
+   {
+    "name": "AsPlayer Controller",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   },
+   {
+    "name": "bSuccess",
+    "dir": "Output",
+    "cat": "bool",
+    "hidden": true
+   }
+  ],
+  "verified": false,
+  "desc": "Каст к PlayerController",
+  "note": "round21b-pre: K2Node_DynamicCast, TargetType=класс; выход As<DisplayName>, bSuccess скрыт у impure-каста — без референса"
+ },
+ {
+  "id": "GetEnhancedInputSubsystem",
+  "title": "Get EnhancedInputLocalPlayerSubsystem",
+  "category": "Enhanced Input",
+  "className": "/Script/BlueprintGraph.K2Node_GetSubsystemFromPC",
+  "func": "",
+  "props": {
+   "CustomClass": "\"/Script/CoreUObject.Class'/Script/EnhancedInput.EnhancedInputLocalPlayerSubsystem'\""
+  },
+  "pins": [
+   {
+    "name": "PlayerController",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.EnhancedInputLocalPlayerSubsystem"
+   }
+  ],
+  "verified": false,
+  "desc": "Подсистема Enhanced Input",
+  "note": "round21b-pre: K2Node_GetSubsystemFromPC, CustomClass=EnhancedInputLocalPlayerSubsystem — без референса"
+ },
+ {
+  "id": "AddMappingContext",
+  "title": "Add Mapping Context",
+  "category": "Enhanced Input",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AddMappingContext",
+  "lib": "EnhancedInputSubsystemInterface",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.EnhancedInputLocalPlayerSubsystem"
+   },
+   {
+    "name": "MappingContext",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.InputMappingContext",
+    "const": true
+   },
+   {
+    "name": "Priority",
+    "dir": "Input",
+    "cat": "int",
+    "dv": "0"
+   }
+  ],
+  "verified": false,
+  "desc": "Добавить контекст ввода",
+  "note": "round21b-pre: член IEnhancedInputSubsystemInterface; Options (FModifyContextOptions) опущен — движок достроит; self типизирован подсистемой — без референса"
  },
  {
   "id": "Distance2D",

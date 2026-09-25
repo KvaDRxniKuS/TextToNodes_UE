@@ -635,6 +635,15 @@ regThrow.forEach(t => console.log('THROW:', t));
   const out = generateUEText([fresh]);
   ok(/DefaultTextValue=NSLOCTEXT\("", "[0-9A-F]{32}", "Hello \{Name\}"\)/.test(out) && !/DefaultValue="Hello/.test(out), 'R20: новый text-дефолт пишется как NSLOCTEXT');
 }
+// R21 вердикт: GetBoundActionValue пустой (FAIL); R21b pre: цепочка Cast → Subsystem → AddMappingContext
+{
+  ok(/FAIL/.test(byId('Enhanced_GetActionValue').note), 'R21: GetBoundActionValue помечен FAIL');
+  const c = createFromEntry(byId('CastToPlayerController'));
+  ok(c.className.endsWith('K2Node_DynamicCast') && (c.rawProps || []).some(p => p.startsWith('TargetType=') && p.includes('Engine.PlayerController')), 'R21b: DynamicCast TargetType=PlayerController');
+  const s = createFromEntry(byId('GetEnhancedInputSubsystem'));
+  ok(s.className.endsWith('K2Node_GetSubsystemFromPC') && (s.rawProps || []).some(p => p.includes('EnhancedInputLocalPlayerSubsystem')), 'R21b: GetSubsystemFromPC CustomClass');
+  ok(/EnhancedInputSubsystemInterface/.test(createFromEntry(byId('AddMappingContext')).memberParent), 'R21b: AddMappingContext — член интерфейса');
+}
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);

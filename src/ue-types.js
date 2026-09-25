@@ -28,6 +28,7 @@ const LIBS_FULL = {
   GameplayStatics:     `"/Script/CoreUObject.Class'/Script/Engine.GameplayStatics'"`,
   PlayerController:    `"/Script/CoreUObject.Class'/Script/Engine.PlayerController'"`, // round18-pre: член-функции (IsInputKeyDown)
   EnhancedInputComponent: `"/Script/CoreUObject.Class'/Script/EnhancedInput.EnhancedInputComponent'"`, // round21-pre: GetBoundActionValue
+  EnhancedInputSubsystemInterface: `"/Script/CoreUObject.Class'/Script/EnhancedInput.EnhancedInputSubsystemInterface'"`, // round21b-pre: AddMappingContext
 };
 const LIBS_SHORT = {
   KismetMathLibrary:   `Class'"/Script/Engine.KismetMathLibrary"'`,
@@ -38,6 +39,7 @@ const LIBS_SHORT = {
   GameplayStatics:     `Class'"/Script/Engine.GameplayStatics"'`,
   PlayerController:    `Class'"/Script/Engine.PlayerController"'`,
   EnhancedInputComponent: `Class'"/Script/EnhancedInput.EnhancedInputComponent"'`,
+  EnhancedInputSubsystemInterface: `Class'"/Script/EnhancedInput.EnhancedInputSubsystemInterface"'`,
 };
 export const UE_LIBS = UE_VERSION === 'SHORT' ? LIBS_SHORT : LIBS_FULL;
 

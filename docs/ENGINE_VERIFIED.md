@@ -626,3 +626,9 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 - round20 Text: FormatText (K2Node_FormatText, Format/Result) — белая. R20 закрыт 1/1.
 - Copy-back (tests/fixtures/formattext-copyback.txt): дефолт text-пина сериализуется как `DefaultTextValue=NSLOCTEXT("[<namespace-guid>]", "<key>", "Hello")` + `PersistentGuid=0…0` (не `DefaultValue`). Парсер теперь читает NSLOCTEXT/INVTEXT, генератор пишет text-дефолты как `NSLOCTEXT("", <guid>, "...")` — вставкой пока не проверено.
 
+## Вердикт round21 (2026-09-25) + Round21b-pre
+
+- round21: EnhancedInputComponent::GetBoundActionValue — вставилась **пустой** (FAIL). Значение действия в BP берётся узлом «Get IA_X» (K2Node_GetInputActionValue) и событием K2Node_EnhancedInputAction — оба требуют ассет InputAction; ждём copy-back.
+- Пользователь: подсистема Enhanced Input берётся своим узлом через Cast To PlayerController и т.п.; базовые ноды покрыты почти все, расширенные — почти нет. Открывается фаза 2 (расширенные узлы).
+- round21b-pre (sweep/21b-enhanced-input-chain.txt, tools/gen-r21b.mjs): GetPlayerController → K2Node_DynamicCast (TargetType PlayerController, выход «AsPlayer Controller») → K2Node_GetSubsystemFromPC (CustomClass EnhancedInputLocalPlayerSubsystem) → AddMappingContext (член EnhancedInputSubsystemInterface, Options опущен). Всё без референсов.
+
