@@ -656,6 +656,15 @@ regThrow.forEach(t => console.log('THROW:', t));
   const v = validateStrict(generateUEText(cs.map(e => createFromEntry(e))));
   ok(v.errors.length === 0, 'R22: Casting 0 ошибок');
 }
+// R23 pre-fix: Actor (члены AActor)
+{
+  const ac = reg.filter(e => e.category === 'Actor');
+  ok(ac.length === 13 && ac.every(e => e.lib === 'Actor' && e.pins.some(p => p.name === 'self')), 'R23: Actor 13 записей, все члены AActor с self');
+  const at = createFromEntry(byId('AttachActorToActor')).pins.find(p => p.name === 'LocationRule');
+  ok(/EAttachmentRule/.test(at.subCategoryObject) && at.defaultValue === 'KeepRelative', 'R23: EAttachmentRule KeepRelative');
+  const v = validateStrict(generateUEText(ac.map(e => createFromEntry(e))));
+  ok(v.errors.length === 0, 'R23: Actor 0 ошибок');
+}
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);

@@ -27,6 +27,7 @@ const LIBS_FULL = {
   KismetArrayLibrary:  `"/Script/CoreUObject.Class'/Script/Engine.KismetArrayLibrary'"`,
   GameplayStatics:     `"/Script/CoreUObject.Class'/Script/Engine.GameplayStatics'"`,
   PlayerController:    `"/Script/CoreUObject.Class'/Script/Engine.PlayerController'"`, // round18-pre: член-функции (IsInputKeyDown)
+  Actor:               `"/Script/CoreUObject.Class'/Script/Engine.Actor'"`, // round23-pre: член-функции AActor
   EnhancedInputComponent: `"/Script/CoreUObject.Class'/Script/EnhancedInput.EnhancedInputComponent'"`, // round21-pre: GetBoundActionValue
   EnhancedInputSubsystemInterface: `"/Script/CoreUObject.Class'/Script/EnhancedInput.EnhancedInputSubsystemInterface'"`, // round21b-pre: AddMappingContext
 };
@@ -38,6 +39,7 @@ const LIBS_SHORT = {
   KismetArrayLibrary:  `Class'"/Script/Engine.KismetArrayLibrary"'`,
   GameplayStatics:     `Class'"/Script/Engine.GameplayStatics"'`,
   PlayerController:    `Class'"/Script/Engine.PlayerController"'`,
+  Actor:               `Class'"/Script/Engine.Actor"'`,
   EnhancedInputComponent: `Class'"/Script/EnhancedInput.EnhancedInputComponent"'`,
   EnhancedInputSubsystemInterface: `Class'"/Script/EnhancedInput.EnhancedInputSubsystemInterface"'`,
 };
@@ -79,6 +81,7 @@ const ENUMS_FULL = {
   ESpawnActorCollisionHandlingMethod: `"/Script/CoreUObject.Enum'/Script/Engine.ESpawnActorCollisionHandlingMethod'"`, // round17-pre (не подтверждён)
   ESpawnActorScaleMethod: `"/Script/CoreUObject.Enum'/Script/Engine.ESpawnActorScaleMethod'"`, // round17-pre (не подтверждён)
   EPSCPoolMethod: `"/Script/CoreUObject.Enum'/Script/Engine.EPSCPoolMethod'"`, // round17-pre (не подтверждён)
+  EAttachmentRule: `"/Script/CoreUObject.Enum'/Script/Engine.EAttachmentRule'"`, // round23-pre
 };
 const ENUMS_SHORT = {
   ETraceTypeQuery: `Enum'"/Script/Engine.ETraceTypeQuery"'`,
@@ -89,6 +92,7 @@ const ENUMS_SHORT = {
   ESpawnActorCollisionHandlingMethod: `Enum'"/Script/Engine.ESpawnActorCollisionHandlingMethod"'`,
   ESpawnActorScaleMethod: `Enum'"/Script/Engine.ESpawnActorScaleMethod"'`,
   EPSCPoolMethod: `Enum'"/Script/Engine.EPSCPoolMethod"'`,
+  EAttachmentRule: `Enum'"/Script/Engine.EAttachmentRule"'`,
 };
 export const UE_ENUMS = UE_VERSION === 'SHORT' ? ENUMS_SHORT : ENUMS_FULL;
 

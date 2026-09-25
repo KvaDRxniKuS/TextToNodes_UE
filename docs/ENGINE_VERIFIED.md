@@ -641,3 +641,7 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 
 - Cast To Pawn/Character (форма DynamicCast как в 21b), Get Class (GameplayStatics::GetObjectClass), ClassIsChildOf, GetDisplayName/GetObjectName (KSL), EqualEqual/NotEqual_ObjectObject, EqualEqual_ClassClass, Conv_ObjectToString.
 
+## Round23-pre: Actor (2026-09-25)
+
+- Члены AActor по образцу белого IsInputKeyDown (MemberParent=Actor, явный self): K2_GetActorLocation/Rotation, GetTransform, GetActorForwardVector, K2_SetActorLocation/Rotation, K2_AddActorWorldOffset, K2_DestroyActor, SetActorHiddenInGame, GetOwner, ActorHasTag, GetComponentByClass, K2_AttachToActor (+enum EAttachmentRule, +lib Actor).
+

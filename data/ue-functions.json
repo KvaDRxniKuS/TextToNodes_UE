@@ -11552,5 +11552,499 @@
   "verified": false,
   "desc": "Объект в строку",
   "note": "round22-pre: KSL(String)::Conv_ObjectToString(UObject* InObj) — компактный конвертер"
+ },
+ {
+  "id": "GetActorLocation",
+  "title": "Get Actor Location",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_GetActorLocation",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "verified": false,
+  "desc": "Позиция актора",
+  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_GetActorLocation const",
+  "pure": true
+ },
+ {
+  "id": "GetActorRotation",
+  "title": "Get Actor Rotation",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_GetActorRotation",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Rotator"
+   }
+  ],
+  "verified": false,
+  "desc": "Поворот актора",
+  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_GetActorRotation const",
+  "pure": true
+ },
+ {
+  "id": "GetActorTransform",
+  "title": "Get Actor Transform",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetTransform",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Transform"
+   }
+  ],
+  "verified": false,
+  "desc": "Трансформ актора",
+  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). UFUNCTION GetTransform (DisplayName GetActorTransform)",
+  "pure": true
+ },
+ {
+  "id": "GetActorForwardVector",
+  "title": "Get Actor Forward Vector",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetActorForwardVector",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "verified": false,
+  "desc": "Вперёд актора",
+  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). const",
+  "pure": true
+ },
+ {
+  "id": "SetActorLocation",
+  "title": "Set Actor Location",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_SetActorLocation",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "NewLocation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "bSweep",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "SweepHitResult",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "HitResult"
+   },
+   {
+    "name": "bTeleport",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Задать позицию",
+  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_SetActorLocation(NewLocation,bSweep,out SweepHitResult,bTeleport)"
+ },
+ {
+  "id": "SetActorRotation",
+  "title": "Set Actor Rotation",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_SetActorRotation",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "NewRotation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "bTeleportPhysics",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Задать поворот",
+  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_SetActorRotation(NewRotation,bTeleportPhysics)"
+ },
+ {
+  "id": "AddActorWorldOffset",
+  "title": "Add Actor World Offset",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_AddActorWorldOffset",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "DeltaLocation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "bSweep",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "SweepHitResult",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "HitResult"
+   },
+   {
+    "name": "bTeleport",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Сдвиг в мире",
+  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_AddActorWorldOffset"
+ },
+ {
+  "id": "DestroyActor",
+  "title": "Destroy Actor",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_DestroyActor",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   }
+  ],
+  "verified": false,
+  "desc": "Уничтожить",
+  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_DestroyActor"
+ },
+ {
+  "id": "SetActorHiddenInGame",
+  "title": "Set Actor Hidden In Game",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetActorHiddenInGame",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "bNewHidden",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Скрыть актора",
+  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). SetActorHiddenInGame(bool)"
+ },
+ {
+  "id": "GetOwner",
+  "title": "Get Owner",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetOwner",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   }
+  ],
+  "verified": false,
+  "desc": "Владелец",
+  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). GetOwner const",
+  "pure": true
+ },
+ {
+  "id": "ActorHasTag",
+  "title": "Actor Has Tag",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ActorHasTag",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "Tag",
+    "dir": "Input",
+    "cat": "name",
+    "dv": "None"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Есть тег?",
+  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). ActorHasTag(FName) const",
+  "pure": true
+ },
+ {
+  "id": "GetComponentByClass",
+  "title": "Get Component By Class",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetComponentByClass",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "ComponentClass",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/Engine.ActorComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.ActorComponent"
+   }
+  ],
+  "verified": false,
+  "desc": "Компонент по классу",
+  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). GetComponentByClass(TSubclassOf<UActorComponent>) const; DeterminesOutputType — RV перетипизируется по классу",
+  "pure": true
+ },
+ {
+  "id": "AttachActorToActor",
+  "title": "Attach Actor To Actor",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_AttachToActor",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "ParentActor",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "SocketName",
+    "dir": "Input",
+    "cat": "name",
+    "dv": "None"
+   },
+   {
+    "name": "LocationRule",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EAttachmentRule",
+    "dv": "KeepRelative"
+   },
+   {
+    "name": "RotationRule",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EAttachmentRule",
+    "dv": "KeepRelative"
+   },
+   {
+    "name": "ScaleRule",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EAttachmentRule",
+    "dv": "KeepRelative"
+   },
+   {
+    "name": "bWeldSimulatedBodies",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Прикрепить к актору",
+  "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_AttachToActor; enum EAttachmentRule (KeepRelative/KeepWorld/SnapToTarget)"
  }
 ]
