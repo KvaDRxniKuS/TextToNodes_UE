@@ -726,6 +726,24 @@ regThrow.forEach(t => console.log('THROW:', t));
   const v = validateStrict(fs.readFileSync(new URL('../sweep/26-timers-latent.txt', import.meta.url), 'utf8'));
   ok(v.errors.length === 0, 'R26: sweep 0 ошибок');
 }
+// R22b VERIFIED + конструктор модулей (src/modules.js, tools/make-node.mjs)
+{
+  const M = await import('../src/modules.js');
+  const ev = M.createCustomEvent('Hit', ['Amount:float', 'Who:object:/Game/X/BP_Y', 'Tags:name[]']);
+  const t = generateUEText([ev]);
+  ok(t.includes('PinName="Tags",PinType=(PinCategory="name",ContainerType=Array)') && t.includes("BlueprintGeneratedClass'/Game/X/BP_Y.BP_Y_C'"), 'modules: Custom Event с произвольными параметрами (массив, BP-класс)');
+  const call = M.createCallCustomEvent(ev, { Amount: '3.0' });
+  ok(call.memberGuid === ev.guid && call.pins.some(p => p.name === 'Amount' && p.defaultValue === '3.0'), 'modules: вызов события берёт параметры и GUID события');
+  const b = generateUEText([M.createDelegateNode('bind', 'PrimitiveComponent.OnComponentBeginOverlap')]);
+  ok(b.includes('ComponentBeginOverlapSignature__DelegateSignature') && b.includes('Engine.PrimitiveComponent'), 'modules: bind к делегату компонента');
+  const bp = generateUEText([M.createDelegateNode('bind', '/Game/BP_Door.OnOpened', { params: ['Who:object:Actor'] })]);
+  ok(bp.includes(`MemberParent="/Script/Engine.BlueprintGeneratedClass'/Game/BP_Door.BP_Door_C'",MemberName="OnOpened__DelegateSignature"`), 'modules: BP-диспетчер — сигнатура в BP-классе');
+  let threw = false; try { M.parseType('quux'); } catch { threw = true; }
+  ok(threw, 'modules: неизвестный тип — ошибка, а не молчаливый мусор');
+  ok(M.createFn(byId('Delay'), { Duration: '2.5' }).pins.find(p => p.name === 'Duration').defaultValue === '2.5', 'modules: createFn переопределяет дефолт');
+  const v = validateStrict(fs.readFileSync(new URL('../sweep/25b-make-node.txt', import.meta.url), 'utf8'));
+  ok(v.errors.length === 0, 'R25b: модуль make-node 0 ошибок');
+}
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);

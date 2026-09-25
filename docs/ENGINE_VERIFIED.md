@@ -700,3 +700,9 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 - sweep/26-timers-latent.txt (tools/gen-r26.mjs), 15 узлов: Custom Event OnTimerTick → Set Timer by Event (Delegate = /Script/Engine.TimerDynamicDelegate__DelegateSignature), Set Timer by Function Name, Clear Timer by Function Name, Pause/Unpause/Clear&Invalidate/Invalidate by Handle, 6 pure-геттеров хендла, Delay Until Next Tick.
 - Новый struct FTimerHandle (/Script/Engine.TimerHandle). WorldContextObject опущен (как у verified Delay).
 - ref-пины Handle (Clear&Invalidate, Invalidate) не подключены — им нужна переменная.
+
+## Round22b: каст к любому классу — VERIFIED (2026-09-25)
+
+- sweep/22b-cast-any.txt работает целиком: нативные и BP-классы (`AsBP AISupport Tester`), pure-каст (PureState=Pure), классовые касты.
+- Требование пользователя: нужны не фиксированные примеры, а инструменты. Добавлены src/modules.js и tools/make-node.mjs (README → «Конструктор модулей»).
+- sweep/25b-make-node.txt — модуль, собранный CLI: TakeAnyDamage → Cast BP → вызов события с параметрами (float, Actor, name[]); таймер на событие. Ждёт проверки вместе с R25.

@@ -290,3 +290,40 @@ MIT — делай что хочешь, указывай авторство.
 - [Unreal Engine Blueprint Docs](https://dev.epicgames.com/documentation/en-us/unreal-engine/blueprints-visual-scripting-in-unreal-engine)
 
 > **Хочешь такую нодовую структуру?** Скинь ссылку на это репо нейросети и скажи: *«Сгенерируй Blueprint граф в формате Begin Object, используя реестр из data/ue-functions.json и system-prompt.md»* — получишь готовый код для `Ctrl+V` в UE.
+
+## Конструктор модулей — `tools/make-node.mjs`
+
+Собирает узлы по параметрам (любые классы, события, делегаты, функции реестра), а не по фиксированным примерам. Библиотека: `src/modules.js`.
+
+```bash
+node tools/make-node.mjs [--chain] [--title "коммент"] [-o out.txt] "<спека>" ...
+```
+
+| Спека | Узел |
+|---|---|
+| `cast <Класс> [class] [pure]` | Cast To (объект / класс / pure) |
+| `event <Имя> [Парам:тип ...]` | Custom Event с параметрами |
+| `event-for <Класс.Делегат> <Имя>` | Custom Event с сигнатурой делегата |
+| `call-event <Имя> [Парам=значение ...]` | вызов своего события |
+| `bind` / `unbind` / `clear <Класс.Делегат>` | Bind / Unbind / Unbind all |
+| `create-event <Функция>` | Create Event |
+| `fn <id или функция реестра> [Пин=значение ...]` | любой узел реестра |
+| `link <i>.<Пин> <j>.<Пин>` | связь (номера узлов с 1, `As*` — префикс) |
+
+- Классы: `Actor`, `/Script/Module.Class`, `/Game/Path/BP_X`.
+- Типы: `bool int int64 byte float string name text vector rotator transform vector2d linearcolor hitresult key timerhandle`, `object:Класс`, `class:Класс`, `enum:EИмя`; суффикс `[]` означает массив.
+- Делегаты движка берутся из таблицы `DELEGATES` в `src/modules.js`:
+  - Actor: BeginOverlap, EndOverlap, Destroyed, Hit, TakeAnyDamage.
+  - PrimitiveComponent: ComponentBeginOverlap, ComponentEndOverlap, ComponentHit.
+- Для BP-диспетчера сигнатура выводится из владельца, параметры задаются в спеке: `bind /Game/BP_Door.OnOpened Who:object:Actor`.
+- Для другого нативного делегата: `--sig /Script/Module.SigName Парам:тип ...`.
+- `--chain` делает две вещи:
+  - соединяет exec по порядку (первая `event` — старт);
+  - подключает выходы `event-for` / `create-event` к свободным входам Delegate.
+- Ошибки ввода (неизвестный тип, делегат, пин, запись реестра) останавливают генерацию с сообщением, а не выдают сломанный текст.
+
+Пример:
+
+```bash
+node tools/make-node.mjs --chain "event Go" "cast /Game/BP/BP_Enemy" "fn Delay Duration=1.5"
+```
