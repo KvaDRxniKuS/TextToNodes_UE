@@ -1,6 +1,6 @@
 # Sweep manifest — полный прогон реестра по категориям
 
-Дата: 2026-09-25; записей: 358; построено узлов: 358; упало: 0.
+Дата: 2026-09-25; записей: 366; построено узлов: 366; упало: 0.
 Генератор: tools/gen-sweep.mjs (сетка по 5 в ряд, внутри ряда layoutRow, накрыто fitComment).
 
 Протокол: вставляйте файлы по одному в чистый граф → копируйте обратно → сообщайте номер файла и что сломалось.
@@ -40,6 +40,7 @@
 | 24 | 24-pawn-character.txt | 18/18 | 18 | 18 | — | 18xW09 |
 | 25 | 25-events-delegates.txt | 8/8 | 0 | 8 | — | 1xW09 |
 | 26 | 26-timers-latent.txt | 14/14 | 0 | 14 | — | 14xW09 |
+| 27 | 27-widgets-ui.txt | 8/8 | 0 | 8 | — | 8xW09 |
 
 ## NEEDS-REFERENCE (не построилось — нужен copy-back из движка)
 
@@ -205,3 +206,11 @@
 - 26-timers-latent.txt :: W09: K2Node_CallFunction_480: K2_GetTimerElapsedTimeHandle: round26-pre: BlueprintPure → float
 - 26-timers-latent.txt :: W09: K2Node_CallFunction_481: K2_GetTimerRemainingTimeHandle: round26-pre: BlueprintPure → float
 - 26-timers-latent.txt :: W09: K2Node_CallFunction_482: DelayUntilNextTick: round26-pre: как Delay: WCO/LatentInfo движок восстановит (UE 5.2+)
+- 27-widgets-ui.txt :: W09: K2Node_CallFunction_484: AddToViewport: round27-pre: член UUserWidget
+- 27-widgets-ui.txt :: W09: K2Node_CallFunction_485: AddToPlayerScreen: round27-pre: член UUserWidget → bool
+- 27-widgets-ui.txt :: W09: K2Node_CallFunction_486: IsInViewport: round27-pre: BlueprintPure const
+- 27-widgets-ui.txt :: W09: K2Node_CallFunction_487: RemoveFromParent: round27-pre: член UWidget (UE 5.1+)
+- 27-widgets-ui.txt :: W09: K2Node_CallFunction_488: SetVisibility: round27-pre: член UWidget, enum ESlateVisibility
+- 27-widgets-ui.txt :: W09: K2Node_CallFunction_489: SetInputMode_UIOnlyEx: round27-pre: UWidgetBlueprintLibrary::SetInputMode_UIOnlyEx
+- 27-widgets-ui.txt :: W09: K2Node_CallFunction_490: SetInputMode_GameAndUIEx: round27-pre: UWidgetBlueprintLibrary::SetInputMode_GameAndUIEx
+- 27-widgets-ui.txt :: W09: K2Node_CallFunction_491: SetInputMode_GameOnly: round27-pre: UWidgetBlueprintLibrary::SetInputMode_GameOnly

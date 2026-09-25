@@ -14435,5 +14435,307 @@
   "verified": false,
   "desc": "Латентная задержка до следующего кадра.",
   "note": "round26-pre: как Delay: WCO/LatentInfo движок восстановит (UE 5.2+)"
+ },
+ {
+  "id": "AddToViewport",
+  "title": "Add to Viewport",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AddToViewport",
+  "lib": "UserWidget",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.UserWidget"
+   },
+   {
+    "name": "ZOrder",
+    "dir": "Input",
+    "cat": "int",
+    "dv": "0"
+   }
+  ],
+  "verified": false,
+  "desc": "Показать виджет.",
+  "note": "round27-pre: член UUserWidget"
+ },
+ {
+  "id": "AddToPlayerScreen",
+  "title": "Add to Player Screen",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AddToPlayerScreen",
+  "lib": "UserWidget",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.UserWidget"
+   },
+   {
+    "name": "ZOrder",
+    "dir": "Input",
+    "cat": "int",
+    "dv": "0"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": false,
+  "desc": "Показать на экране игрока (split-screen).",
+  "note": "round27-pre: член UUserWidget → bool"
+ },
+ {
+  "id": "IsInViewport",
+  "title": "Is in Viewport",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsInViewport",
+  "lib": "UserWidget",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.UserWidget"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": false,
+  "desc": "Виджет на экране?",
+  "note": "round27-pre: BlueprintPure const",
+  "pure": true
+ },
+ {
+  "id": "RemoveFromParent",
+  "title": "Remove from Parent",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "RemoveFromParent",
+  "lib": "Widget",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Widget"
+   }
+  ],
+  "verified": false,
+  "desc": "Убрать виджет.",
+  "note": "round27-pre: член UWidget (UE 5.1+)"
+ },
+ {
+  "id": "SetVisibility",
+  "title": "Set Visibility",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetVisibility",
+  "lib": "Widget",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Widget"
+   },
+   {
+    "name": "InVisibility",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ESlateVisibility",
+    "dv": "Visible"
+   }
+  ],
+  "verified": false,
+  "desc": "Видимость виджета.",
+  "note": "round27-pre: член UWidget, enum ESlateVisibility"
+ },
+ {
+  "id": "SetInputModeUIOnly",
+  "title": "Set Input Mode UI Only",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetInputMode_UIOnlyEx",
+  "lib": "WidgetBlueprintLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "PlayerController",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   },
+   {
+    "name": "InWidgetToFocus",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Widget"
+   },
+   {
+    "name": "InMouseLockMode",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EMouseLockMode",
+    "dv": "DoNotLock"
+   },
+   {
+    "name": "bFlushInput",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Ввод только в UI.",
+  "note": "round27-pre: UWidgetBlueprintLibrary::SetInputMode_UIOnlyEx"
+ },
+ {
+  "id": "SetInputModeGameAndUI",
+  "title": "Set Input Mode Game and UI",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetInputMode_GameAndUIEx",
+  "lib": "WidgetBlueprintLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "PlayerController",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   },
+   {
+    "name": "InWidgetToFocus",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Widget"
+   },
+   {
+    "name": "InMouseLockMode",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EMouseLockMode",
+    "dv": "DoNotLock"
+   },
+   {
+    "name": "bHideCursorDuringCapture",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true"
+   },
+   {
+    "name": "bFlushInput",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Ввод в игру и UI.",
+  "note": "round27-pre: UWidgetBlueprintLibrary::SetInputMode_GameAndUIEx"
+ },
+ {
+  "id": "SetInputModeGameOnly",
+  "title": "Set Input Mode Game Only",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetInputMode_GameOnly",
+  "lib": "WidgetBlueprintLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "PlayerController",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   },
+   {
+    "name": "bFlushInput",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Ввод только в игру.",
+  "note": "round27-pre: UWidgetBlueprintLibrary::SetInputMode_GameOnly"
  }
 ]

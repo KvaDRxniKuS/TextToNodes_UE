@@ -32,6 +32,9 @@ const LIBS_FULL = {
   SceneComponent: `"/Script/CoreUObject.Class'/Script/Engine.SceneComponent'"`, // round23b-pre
   Character: `"/Script/CoreUObject.Class'/Script/Engine.Character'"`, // round24-pre
   Controller: `"/Script/CoreUObject.Class'/Script/Engine.Controller'"`, // round24-pre
+  UserWidget: `"/Script/CoreUObject.Class'/Script/UMG.UserWidget'"`, // round27-pre
+  Widget: `"/Script/CoreUObject.Class'/Script/UMG.Widget'"`, // round27-pre
+  WidgetBlueprintLibrary: `"/Script/CoreUObject.Class'/Script/UMG.WidgetBlueprintLibrary'"`, // round27-pre
   EnhancedInputComponent: `"/Script/CoreUObject.Class'/Script/EnhancedInput.EnhancedInputComponent'"`, // round21-pre: GetBoundActionValue
   EnhancedInputSubsystemInterface: `"/Script/CoreUObject.Class'/Script/EnhancedInput.EnhancedInputSubsystemInterface'"`, // round21b-pre: AddMappingContext
 };
@@ -48,6 +51,9 @@ const LIBS_SHORT = {
   SceneComponent: `Class'"/Script/Engine.SceneComponent"'`,
   Character: `Class'"/Script/Engine.Character"'`,
   Controller: `Class'"/Script/Engine.Controller"'`,
+  UserWidget: `Class'"/Script/UMG.UserWidget"'`,
+  Widget: `Class'"/Script/UMG.Widget"'`,
+  WidgetBlueprintLibrary: `Class'"/Script/UMG.WidgetBlueprintLibrary"'`,
   EnhancedInputComponent: `Class'"/Script/EnhancedInput.EnhancedInputComponent"'`,
   EnhancedInputSubsystemInterface: `Class'"/Script/EnhancedInput.EnhancedInputSubsystemInterface"'`,
 };
@@ -93,6 +99,8 @@ const ENUMS_FULL = {
   EPSCPoolMethod: `"/Script/CoreUObject.Enum'/Script/Engine.EPSCPoolMethod'"`, // round17-pre (не подтверждён)
   EAttachmentRule: `"/Script/CoreUObject.Enum'/Script/Engine.EAttachmentRule'"`, // round23-pre
   EDetachmentRule: `"/Script/CoreUObject.Enum'/Script/Engine.EDetachmentRule'"`, // round23b-pre
+  ESlateVisibility: `"/Script/CoreUObject.Enum'/Script/UMG.ESlateVisibility'"`, // round27-pre
+  EMouseLockMode: `"/Script/CoreUObject.Enum'/Script/Engine.EMouseLockMode'"`, // round27-pre
 };
 const ENUMS_SHORT = {
   ETraceTypeQuery: `Enum'"/Script/Engine.ETraceTypeQuery"'`,
@@ -105,6 +113,8 @@ const ENUMS_SHORT = {
   EPSCPoolMethod: `Enum'"/Script/Engine.EPSCPoolMethod"'`,
   EAttachmentRule: `Enum'"/Script/Engine.EAttachmentRule"'`,
   EDetachmentRule: `Enum'"/Script/Engine.EDetachmentRule"'`,
+  ESlateVisibility: `Enum'"/Script/UMG.ESlateVisibility"'`,
+  EMouseLockMode: `Enum'"/Script/Engine.EMouseLockMode"'`,
 };
 export const UE_ENUMS = UE_VERSION === 'SHORT' ? ENUMS_SHORT : ENUMS_FULL;
 
@@ -139,7 +149,8 @@ export function normalizeClassPath(c){
 export function isBlueprintClassPath(c){ return !normalizeClassPath(c).startsWith('/Script/'); }
 export function classRef(classPath){
   const cp = normalizeClassPath(classPath);
-  const meta = cp.startsWith('/Script/') ? '/Script/CoreUObject.Class' : '/Script/Engine.BlueprintGeneratedClass';
+  // round27-pre: WBP_* — Widget Blueprint → WidgetBlueprintGeneratedClass (UMG).
+  const meta = cp.startsWith('/Script/') ? '/Script/CoreUObject.Class' : (/\/WBP_[^/.]*\./.test(cp) ? '/Script/UMG.WidgetBlueprintGeneratedClass' : '/Script/Engine.BlueprintGeneratedClass');
   return UE_VERSION === 'SHORT' ? `${meta.split('.').pop()}'"${cp}"'` : `"${meta}'${cp}'"`;
 }
 /** FName::NameToDisplayString (упрощённо): '_'→' ', пробел перед Заглавной после строчной/цифры. */

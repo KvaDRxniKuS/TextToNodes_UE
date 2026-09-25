@@ -744,6 +744,17 @@ regThrow.forEach(t => console.log('THROW:', t));
   const v = validateStrict(fs.readFileSync(new URL('../sweep/25b-make-node.txt', import.meta.url), 'utf8'));
   ok(v.errors.length === 0, 'R25b: модуль make-node 0 ошибок');
 }
+// R27 pre: Widgets / UI + конструктор widget/get/set
+{
+  const M = await import('../src/modules.js');
+  const w = generateUEText([M.createWidget('/Game/UI/WBP_Menu')]);
+  ok(w.includes('Class=/Script/UMGEditor.K2Node_CreateWidget') && w.includes('DefaultObject="/Game/UI/WBP_Menu.WBP_Menu_C"') && w.includes("UMG.WidgetBlueprintGeneratedClass'/Game/UI/WBP_Menu.WBP_Menu_C'"), 'R27: Create Widget — класс WBP в DefaultObject, выход типизирован');
+  const s = generateUEText([M.createMemberVar('set', 'PlayerController.bShowMouseCursor', 'bool', 'true')]);
+  ok(s.includes(`VariableReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.PlayerController'",MemberName="bShowMouseCursor")`) && s.includes('PinName="Output_Get"'), 'R27: Set свойства чужого класса');
+  ok(reg.filter(e => e.category === 'Widgets / UI').length === 8, 'R27: 8 записей Widgets / UI');
+  const v = validateStrict(fs.readFileSync(new URL('../sweep/27-widgets-ui.txt', import.meta.url), 'utf8'));
+  ok(v.errors.length === 0, 'R27: sweep 0 ошибок');
+}
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);

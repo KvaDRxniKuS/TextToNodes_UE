@@ -307,6 +307,8 @@ node tools/make-node.mjs [--chain] [--title "коммент"] [-o out.txt] "<с�
 | `call-event <Имя> [Парам=значение ...]` | вызов своего события |
 | `bind` / `unbind` / `clear <Класс.Делегат>` | Bind / Unbind / Unbind all |
 | `create-event <Функция>` | Create Event |
+| `widget <WBP-путь \| none>` | Create Widget (класс WBP; `none` — выбрать в движке) |
+| `get` / `set <Класс.Свойство> <тип> [значение]` | Get/Set свойства любого класса (`set PlayerController.bShowMouseCursor bool true`) |
 | `fn <id или функция реестра> [Пин=значение ...]` | любой узел реестра |
 | `link <i>.<Пин> <j>.<Пин>` | связь (номера узлов с 1, `As*` — префикс) |
 

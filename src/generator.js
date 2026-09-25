@@ -12,7 +12,7 @@ export function mkPin(name, direction, category, opts = {}) {
     subCategory: opts.sub || '', subCategoryObject: opts.subObj || '', isConst: !!opts.const,
     isRef: !!opts.ref, container: opts.container || 'None', ignored: !!opts.ignored, advanced: !!opts.advanced,
     defaultValue: opts.dv || '', hidden: !!opts.hidden, linkedTo: [],
-    memberRef: opts.memberRef || '',
+    memberRef: opts.memberRef || '', defaultObject: opts.defObj || '',
   };
 }
 

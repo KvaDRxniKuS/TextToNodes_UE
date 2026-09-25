@@ -156,3 +156,31 @@ export function createFn(entry, values = {}, pos) {
 }
 
 export { createCast };
+
+/** Create Widget (UMGEditor.K2Node_CreateWidget). wbp: /Game/UI/WBP_X или null (класс выбрать в движке). */
+export function createWidget(wbp, pos) {
+  const n = node('K2Node_CreateWidget', pos);
+  n.rawClass = '/Script/UMGEditor.K2Node_CreateWidget'; n.className = 'UMGEditor.K2Node_CreateWidget';
+  const cp = wbp ? normalizeClassPath(wbp) : '';
+  n.title = `Create ${cp ? cp.split('.').pop().replace(/_C$/, '') : 'Widget'}`;
+  n.pins.push(mkPin('execute', 'Input', 'exec'), mkPin('then', 'Output', 'exec'),
+    mkPin('Class', 'Input', 'class', { subObj: classRef('/Script/UMG.UserWidget'), defObj: cp }),
+    mkPin('ReturnValue', 'Output', 'object', { subObj: cp ? classRef(wbp) : classRef('/Script/UMG.UserWidget') }),
+    mkPin('OwningPlayer', 'Input', 'object', { subObj: classRef('PlayerController') }));
+  return n;
+}
+
+/** Get/Set любого BlueprintVisible-свойства класса: createMemberVar('set', 'PlayerController.bShowMouseCursor', 'bool', 'true'). */
+export function createMemberVar(kind, key, type, value = '', pos) {
+  const dot = key.lastIndexOf('.');
+  const owner = key.slice(0, dot), prop = key.slice(dot + 1);
+  const ty = parseType(type);
+  const short = kind === 'set' ? 'K2Node_VariableSet' : 'K2Node_VariableGet';
+  const n = node(short, pos);
+  n.title = `${kind === 'set' ? 'Set' : 'Get'} ${prop}`;
+  n.rawProps = [`VariableReference=(MemberParent=${classRef(owner)},MemberName="${prop}")`];
+  if (kind === 'set') n.pins.push(mkPin('execute', 'Input', 'exec'), mkPin('then', 'Output', 'exec'), pin(prop, 'Input', ty, { dv: value }), pin('Output_Get', 'Output', ty));
+  else n.pins.push(pin(prop, 'Output', ty));
+  n.pins.push(mkPin('self', 'Input', 'object', { subObj: classRef(owner) }));
+  return n;
+}

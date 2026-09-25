@@ -706,3 +706,13 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 - sweep/22b-cast-any.txt работает целиком: нативные и BP-классы (`AsBP AISupport Tester`), pure-каст (PureState=Pure), классовые касты.
 - Требование пользователя: нужны не фиксированные примеры, а инструменты. Добавлены src/modules.js и tools/make-node.mjs (README → «Конструктор модулей»).
 - sweep/25b-make-node.txt — модуль, собранный CLI: TakeAnyDamage → Cast BP → вызов события с параметрами (float, Actor, name[]); таймер на событие. Ждёт проверки вместе с R25.
+
+## Round23b — подтверждено повторно (2026-09-25)
+
+## Round27-pre: Widgets / UI
+
+- sweep/27-widgets-ui.txt собран конструктором (tools/make-node.mjs), 13 узлов.
+- Create Widget: UMGEditor.K2Node_CreateWidget; Class = DefaultObject "/Game/UI/WBP_Test.WBP_Test_C"; выход типизирован UMG.WidgetBlueprintGeneratedClass (classRef: WBP_* → WidgetBlueprintGeneratedClass).
+- Члены UserWidget (AddToViewport, AddToPlayerScreen, IsInViewport) и Widget (RemoveFromParent, SetVisibility / ESlateVisibility).
+- WidgetBlueprintLibrary: SetInputMode_UIOnlyEx, SetInputMode_GameAndUIEx (EMouseLockMode), SetInputMode_GameOnly.
+- Set/Get PlayerController.bShowMouseCursor: VariableSet/VariableGet с MemberParent=PlayerController и пином self.
