@@ -87,6 +87,7 @@ export function validateStrict(text, { registry = null } = {}) {
       }
       else if (t.startsWith('OperationName=')) node.op = (t.match(/OperationName="([^"]+)"/) || [])[1] || '';
       else if (t.startsWith('StructType=')) node.structType = (t.match(/StructType=([^\s]+)/) || [])[1] || '';
+      else if (t.startsWith('IndexPinType=')) { const c = t.match(/PinCategory="([^"]*)"/); const s = t.match(/PinSubCategory="([^"]*)"/); const o = t.match(/PinSubCategoryObject="([^"]+)"/); node.selectIndex = { cat: c ? c[1] : '', sub: s ? s[1] : '', subObj: o ? '"' + o[1] + '"' : '' }; }
       else if (t.startsWith('MacroGraphReference=')) node.macro = t;
     }
     if (!node.guid) errors.push(`E03: ${name}: нет NodeGuid`);
@@ -159,6 +160,11 @@ export function validateStrict(text, { registry = null } = {}) {
       warnings.push(`W01: ${n.name}: Switch без пина Default`);
     if (n.short === 'K2Node_Select' && !n.pins.some(p => /^Option/.test(p.name)))
       warnings.push(`W02: ${n.name}: Select без Option-пинов`);
+    if (n.short === 'K2Node_Select' && n.selectIndex) {
+      const ix = n.pins.find(p => p.name === 'Index');
+      if (!ix) warnings.push(`W13: ${n.name}: Select с IndexPinType без пина Index`);
+      else if (ix.cat !== n.selectIndex.cat) warnings.push(`W13: ${n.name}: пин Index (${ix.cat}) не совпадает с IndexPinType (${n.selectIndex.cat})`);
+    }
     if (['K2Node_MakeArray', 'K2Node_MakeSet', 'K2Node_MakeMap'].includes(n.short))
       warnings.push(`W03: ${n.name}: ${n.short} требует ContainerType — текст может не вставиться; проверь в движке`);
     n.pins.forEach(p => {

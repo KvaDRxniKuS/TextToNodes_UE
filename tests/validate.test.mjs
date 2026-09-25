@@ -482,7 +482,8 @@ regThrow.forEach(t => console.log('THROW:', t));
   // round8-fix2: SelectBoolean не существует — Select = K2Node_Select wildcard (live-реф пустого Select).
   const selT = generateUEText([createFromEntry(byId('SelectBool'))]);
   ok(selT.includes('K2Node_Select') && selT.includes('PinName="Option 0"') && selT.includes('PinCategory="wildcard"') && !selT.includes('FunctionReference') && !selT.includes('PinName="self"'), 'round8-fix2: Select — K2Node_Select wildcard без FunctionReference/self');
-  ok(selT.includes('PinName="Index"') && selT.includes('PinSubCategory="index"'), 'round8-fix2: Select — Index wildcard/index');
+  ok(selT.includes('PinName="Index"') && selT.includes('PinType.PinCategory="bool"') && !selT.includes('PinSubCategory="index"'), 'round8-fix3: Select — Index bool, wildcard/index ушёл в прошлое');
+  ok(selT.includes('IndexPinType=(PinCategory="bool",PinSubCategory="")') && selT.includes('PinName="Index"') && selT.includes('DefaultValue="false"'), 'round8-fix3: Select — IndexPinType bool + Index bool dv=false');
 }
 // Sweep coverage: каждая запись реестра строится (кроме референс-листа)
 {

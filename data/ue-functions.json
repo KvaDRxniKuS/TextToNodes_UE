@@ -2473,8 +2473,8 @@
    {
     "name": "Index",
     "dir": "Input",
-    "cat": "wildcard",
-    "sub": "index"
+    "cat": "bool",
+    "dv": "false"
    },
    {
     "name": "ReturnValue",
@@ -2484,7 +2484,7 @@
   ],
   "verified": false,
   "desc": "Выбор Bool",
-  "note": "round8-fix2: SelectBoolean не существует (CallFunction-узел не появился вовсе); настоящий Select = K2Node_Select wildcard по live-рефу; bool-резолв проверяется проводами"
+  "note": "round8-fix3: bool-Select = IndexPinType bool + Index bool dv=false (live-рефы 5 типов индекса); wildcard-вариант вставал как int"
  },
  {
   "id": "Add_Int",
@@ -7950,7 +7950,7 @@
    }
   ],
   "verified": false,
-  "note": "Option-pin naming + wildcard types not engine-verified; generator support partial",
+  "note": "Option-pin naming + wildcard types not engine-verified; generator support partial; round8-fix3: IndexPinType выводится из пина Index (см. SelectBool)",
   "desc": "Выбор"
  },
  {

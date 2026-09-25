@@ -76,6 +76,7 @@ export function parseToGraphs(text){
       else if(t.startsWith('bDefaultsToPureFunc=')){ node.pure=true; }
       else if(t.startsWith('FunctionReference=')){ const m=t.match(/MemberName="([^"]+)"/); if(m) node.funcName=m[1]; const mp=t.match(/MemberParent="([^"]+)"/)||t.match(/MemberParent=([^,\)]+)/); if(mp) node.memberParent=mp[1]; }
       else if(t.startsWith('StructType=')){ const m=t.match(/StructType=([^\s]+)/); if(m) node.structType=m[1]; }
+      else if(t.startsWith('IndexPinType=')){ const c=t.match(/PinCategory="([^"]*)"/); const s=t.match(/PinSubCategory="([^"]*)"/); const o=t.match(/PinSubCategoryObject="([^"]+)"/); node.selectIndex={cat:c?c[1]:'',sub:s?s[1]:'',subObj:o?'"'+o[1]+'"':''}; }
       else if(t.startsWith('MacroGraphReference=')){ const m=t.match(/StandardMacros:([^"']+)/); if(m) node.macroGraph=m[1]; const gg=t.match(/GraphGuid=([A-F0-9]+)/); if(gg) node.macroGuid=gg[1]; }
       else if(t.startsWith('OperationName=')) node.operationName=t.match(/OperationName="([^"]+)"/)?.[1]||'';
     }
@@ -180,6 +181,8 @@ function generateBlock(n){
   }
   const pinsText=pinLines.join('\n');
   let extra='';
+  // round8-fix3: Select — IndexPinType (live-рефы round8-fix3; без него движок резолвит Index как int).
+  if(n.selectIndex) extra+=`   IndexPinType=(PinCategory="${n.selectIndex.cat}",PinSubCategory="${n.selectIndex.sub||''}"${n.selectIndex.subObj?`,PinSubCategoryObject=${n.selectIndex.subObj}`:''})\n`;
   if(n.varName) extra+=`   VariableReference=(MemberName="${n.varName}",MemberGuid=${guid32()},bSelfContext=True)\n`;
   if(n.funcName && !n.operationName){
     if(n.pure) extra+=`   bDefaultsToPureFunc=True\n`;

@@ -228,6 +228,11 @@ export function createGeneric(regEntry, pos = { x: 0, y: 0 }) {
     if (p.hidden) o.hidden = true;
     n.pins.push(mkPin(p.name, p.dir, p.cat, o));
   }
+  // round8-fix3: K2Node_Select — IndexPinType из пина Index (live-рефы round8-fix3; wildcard = пустой Select без IndexPinType).
+  if (short === 'K2Node_Select') {
+    const ix = n.pins.find(p => p.name === 'Index');
+    if (ix && ix.category !== 'wildcard') n.selectIndex = { cat: ix.category, sub: ix.subCategory || '', subObj: ix.subCategoryObject || '' };
+  }
   return n;
 }
 

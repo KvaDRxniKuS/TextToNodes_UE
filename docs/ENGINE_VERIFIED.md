@@ -545,3 +545,10 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
   SelectBoolean не существует. Настоящий Select = K2Node_Select wildcard
   (Option 0/1, Index wildcard/index, RV wildcard) по live-рефу пустого Select.
 - 09 Random: 6/6 белых, CLOSED. Отправлены 8-fix-select + тестеры 10 (Vector, 27) и 11 (Collision, 12).
+
+## Раунд 08-fix-select-v2: bool-Select через IndexPinType
+- Пустой Select (без IndexPinType) движок резолвит как int. По 5 live-рефам
+  (bool/int/byte/int64/enum): тип индекса задаёт свойство узла IndexPinType.
+- Bool-Select = IndexPinType bool + Index bool dv=false + Option 0/1/RV wildcard.
+  IndexPinType выводится из пина Index (кроме wildcard); validate: W13-контроль.
+- Enum-Select (NumOptionPins + Enum/EnumEntries) — раунд 19, пока не реализован.
