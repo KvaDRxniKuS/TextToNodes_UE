@@ -16,7 +16,7 @@
 |---|---|---|---|---|---|---|
 | 01 | 01-flow-control.txt | 14/14 | 14 | 1 | — | — |
 | 02 | 02-variables.txt | 4/4 | 4 | 0 | — | — |
-| 03 | 03-math-float.txt | 30/30 | 18 | 8 | — | 2xW09 |
+| 03 | 03-math-float.txt | 30/30 | 23 | 7 | — | 2xW09 |
 | 04 | 04-math-interpolation.txt | 7/7 | 0 | 0 | — | — |
 | 05 | 05-math-integer.txt | 9/9 | 0 | 3 | — | 3xW09 |
 | 06 | 06-math-trig.txt | 17/17 | 0 | 0 | — | — |

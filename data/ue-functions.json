@@ -635,8 +635,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
-  "desc": "Add"
+  "verified": true,
+  "desc": "Add",
+  "notes": "round3-fix: белая по факту пользователя"
  },
  {
   "id": "Subtract_Float",
@@ -662,8 +663,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
-  "desc": "Subtract"
+  "verified": true,
+  "desc": "Subtract",
+  "notes": "round3-fix: белая по факту пользователя"
  },
  {
   "id": "Multiply_Float",
@@ -689,8 +691,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
-  "desc": "Multiply"
+  "verified": true,
+  "desc": "Multiply",
+  "notes": "round3-fix: белая по факту пользователя"
  },
  {
   "id": "Divide_Float",
@@ -716,8 +719,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
-  "desc": "Divide"
+  "verified": true,
+  "desc": "Divide",
+  "notes": "round3-fix: белая по факту пользователя"
  },
  {
   "id": "Percent_Float",
@@ -743,9 +747,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Percent (mod)",
-  "notes": "CallFunction Percent_FloatFloat (live-реф round3; не PromotableOperator)"
+  "notes": "round3-fix: белая по факту пользователя"
  },
  {
   "id": "Power_Float",
@@ -771,9 +775,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Power",
-  "notes": "CallFunction MultiplyMultiply_FloatFloat, пины Base/Exp (live-реф round3)"
+  "notes": "round3-fix: белая по факту пользователя"
  },
  {
   "id": "Abs_Float",
@@ -962,7 +966,7 @@
   ],
   "verified": true,
   "desc": "Остаток",
-  "notes": "round3: белая (не упомянута среди сломанных, инференс)"
+  "notes": "round3: белая, подтверждено (division)"
  },
  {
   "id": "Clamp_Float",
@@ -1213,9 +1217,9 @@
     "cat": "real"
    }
   ],
-  "verified": true,
+  "verified": false,
   "desc": "Map Value",
-  "notes": "round3: белая (не упомянута среди сломанных, инференс)"
+  "notes": "не подтверждено явно; жду факт"
  },
  {
   "id": "FInterpTo",
@@ -1343,7 +1347,7 @@
   "title": "Grid Snap",
   "category": "Math / Float",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-  "func": "GridSnap",
+  "func": "GridSnap_Float",
   "lib": "KismetMathLibrary",
   "pins": [
    {
@@ -1362,25 +1366,30 @@
     "cat": "real"
    }
   ],
-  "verified": true,
+  "verified": false,
   "desc": "Сетка",
-  "notes": "round3: белая (не упомянута среди сломанных, инференс)"
+  "notes": "GridSnap не существует; GridSnap_Float (live-реф round3c)"
  },
  {
-  "id": "IsNearlyZero",
-  "title": "IsNearlyZero",
+  "id": "NearlyEqual_Float",
+  "title": "Nearly Equal",
   "category": "Math / Float",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-  "func": "IsNearlyZero",
+  "func": "NearlyEqual_FloatFloat",
   "lib": "KismetMathLibrary",
   "pins": [
    {
-    "name": "Value",
+    "name": "A",
     "dir": "Input",
     "cat": "real"
    },
    {
-    "name": "Tolerance",
+    "name": "B",
+    "dir": "Input",
+    "cat": "real"
+   },
+   {
+    "name": "ErrorTolerance",
     "dir": "Input",
     "cat": "real"
    },
@@ -1390,9 +1399,9 @@
     "cat": "bool"
    }
   ],
-  "verified": true,
+  "verified": false,
   "desc": "Почти ноль",
-  "notes": "round3: белая (не упомянута среди сломанных, инференс)"
+  "notes": "IsNearlyZero не существует; NearlyEqual_FloatFloat A/B/ErrorTolerance (live-реф round3c)"
  },
  {
   "id": "IsPowerOfTwo",
@@ -1473,9 +1482,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Максимум",
-  "notes": "CommutativeAssociative FMax (live-реф round3); CallFunction Max=int"
+  "notes": "round3-fix: белая по факту пользователя"
  },
  {
   "id": "Min_Float",
@@ -1501,9 +1510,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Минимум",
-  "notes": "CommutativeAssociative FMin (live-реф round3); CallFunction Min=int"
+  "notes": "round3-fix: белая по факту пользователя"
  },
  {
   "id": "Sin",
@@ -2129,7 +2138,7 @@
   "desc": "LessEqual"
  },
  {
-  "id": "NearlyEqual_Float",
+  "id": "NearlyEqual_Comparison",
   "title": "NearlyEqual (float)",
   "category": "Math / Comparison",
   "className": "/Script/BlueprintGraph.K2Node_PromotableOperator",

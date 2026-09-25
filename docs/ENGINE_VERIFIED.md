@@ -433,3 +433,18 @@ A double, RV double у Sign и int у остальных). Round без преф
 (первая: TimeManagement + новые PinId). 3-fix (quoted-full) на момент
 фикса ещё не тестился. Форвард-рефы к раунду 05: SignOfInteger,
 SignOfInteger64, FFloor64, FCeil64.
+
+## Раунд 3c: 3-fix белый, GridSnap/NearlyEqual (2026-09-25)
+
+3-fix (8 нод) — всё белое с первого захода: quoted-full MemberParent
+починил операторы, Percent/Power/Max(FMax)/Min(FMin) встали. Файл 03:
+23 verified. GridSnap и IsNearlyZero не существуют: настоящие имена
+GridSnap_Float (Location/GridSize) и NearlyEqual_FloatFloat (пины
+A/B/ErrorTolerance, RV bool) — live-рефы _170/_171; IsNearlyZero
+переименован в NearlyEqual_Float. FMod подтверждён белым (= division).
+GetMappedRange возвращён в непроверенные (инференс 2/4 — жду явный
+факт). 3-fix-2 (F-имена) на момент фикса не тестился. Дубли Percent/
+Select/MinMax64/Sign/F-рефов — уже ingested, новой инфы ноль.
+Заметка к раунду 07: NearlyEqual_Comparison (был дубль id
+NearlyEqual_Float, переименован) хранит func NearlyEqual — сверить
+с NearlyEqual_FloatFloat к раунду.
