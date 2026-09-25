@@ -30,10 +30,10 @@
 | 14 | 14-string.txt | 28/28 | 28 | 13 | — | 13xW09 |
 | 15 | 15-array.txt | 18/18 | 18 | 18 | — | 17xW09 |
 | 16 | 16-utilities.txt | 19/19 | 19 | 17 | — | 17xW09 |
-| 17 | 17-gameplay.txt | 12/12 | 0 | 12 | — | 11xW09 |
+| 17 | 17-gameplay.txt | 12/12 | 12 | 12 | — | 11xW09 |
 | 18 | 18-input.txt | 2/2 | 0 | 2 | — | 1xW09 |
 | 19 | 19-organization.txt | 6/6 | 2 | 4 | — | — |
-| 20 | 20-text.txt | 1/1 | 0 | 1 | — | 1xW09 |
+| 20 | 20-text.txt | 1/1 | 0 | 1 | — | — |
 | 21 | 21-enhanced-input.txt | 0/1 | 0 | 1 | — | — |
 
 ## NEEDS-REFERENCE (не построилось — нужен copy-back из движка)
@@ -125,4 +125,3 @@
 - 17-gameplay.txt :: W09: K2Node_CallFunction_374: GetGameInstance: round17-pre
 - 17-gameplay.txt :: W09: K2Node_CallFunction_375: GetCurrentLevelName: round17-pre: статического GetWorld в Kismet нет → заменён на GameplayStatics::GetCurrentLevelName
 - 18-input.txt :: W09: K2Node_CallFunction_378: IsInputKeyDown: round18-pre: член APlayerController (UFUNCTION BlueprintCallable, const → pure). MemberParent=PlayerController, пин self (Target) типа PlayerController, Key по значению
-- 20-text.txt :: W09: K2Node_CallFunction_387: Format: Returns FText (KismetTextLibrary::Format) — verify pin categories in engine

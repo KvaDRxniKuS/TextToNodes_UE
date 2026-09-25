@@ -7139,7 +7139,7 @@
     "object": "/Script/Engine.PlayerController"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Контроллер",
   "pure": true,
   "note": "round17-pre"
@@ -7173,7 +7173,7 @@
     "object": "/Script/Engine.Pawn"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Pawn",
   "pure": true,
   "note": "round17-pre"
@@ -7207,7 +7207,7 @@
     "object": "/Script/Engine.Character"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Character",
   "pure": true,
   "note": "round17-pre"
@@ -7252,7 +7252,7 @@
     "container": "Array"
    }
   ],
-  "verified": false,
+  "verified": true,
   "note": "round17-pre: OutActors — Actor Array (container), ActorClass → Actor",
   "desc": "Все акторы"
  },
@@ -7296,7 +7296,7 @@
     "container": "Array"
    }
   ],
-  "verified": false,
+  "verified": true,
   "note": "round17-pre",
   "desc": "По тегу"
  },
@@ -7357,7 +7357,7 @@
     "advanced": true
    }
   ],
-  "verified": false,
+  "verified": true,
   "note": "round17-pre: BeginSpawningActorFromClass — BlueprintInternalUseOnly; в графе K2Node_SpawnActorFromClass (пины без выбранного класса)",
   "desc": "Спавн"
  },
@@ -7444,7 +7444,7 @@
     "object": "/Script/Engine.ParticleSystemComponent"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Эмиттер",
   "note": "round17-pre"
  },
@@ -7541,7 +7541,7 @@
     "advanced": true
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Звук",
   "note": "round17-pre: хвост (InitialParams) движок достроит сам"
  },
@@ -7568,7 +7568,7 @@
     "object": "/Script/Engine.GameModeBase"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "GameMode",
   "pure": true,
   "note": "round17-pre"
@@ -7596,7 +7596,7 @@
     "object": "/Script/Engine.GameStateBase"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "GameState",
   "pure": true,
   "note": "round17-pre"
@@ -7624,7 +7624,7 @@
     "object": "/Script/Engine.GameInstance"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "GameInstance",
   "pure": true,
   "note": "round17-pre"
@@ -7657,7 +7657,7 @@
     "cat": "string"
    }
   ],
-  "verified": false,
+  "verified": true,
   "note": "round17-pre: статического GetWorld в Kismet нет → заменён на GameplayStatics::GetCurrentLevelName",
   "desc": "Имя уровня",
   "pure": true
@@ -9147,23 +9147,22 @@
   "id": "FormatText",
   "title": "Format Text",
   "category": "Text",
-  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-  "func": "Format",
-  "lib": "KismetTextLibrary",
+  "className": "/Script/BlueprintGraph.K2Node_FormatText",
+  "func": "",
   "pins": [
    {
-    "name": "InPattern",
+    "name": "Format",
     "dir": "Input",
-    "cat": "string"
+    "cat": "text"
    },
    {
-    "name": "ReturnValue",
+    "name": "Result",
     "dir": "Output",
     "cat": "text"
    }
   ],
   "verified": false,
-  "note": "Returns FText (KismetTextLibrary::Format) — verify pin categories in engine",
+  "note": "round20-pre: KismetTextLibrary::Format — BlueprintInternalUseOnly; в BP «Format Text» это K2Node_FormatText: вход Format (text), выход Result (text). Пины аргументов движок строит сам по {Имя} в формате",
   "desc": "Формат"
  },
  {

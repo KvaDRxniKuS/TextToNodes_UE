@@ -600,6 +600,15 @@ regThrow.forEach(t => console.log('THROW:', t));
   const v = validateStrict(generateUEText(reg.filter(e => e.category === 'Organization').map(e => createFromEntry(e))));
   ok(v.errors.length === 0 && !v.warnings.some(w => w.startsWith('W03')), 'R19: Organization 0 ошибок, без W03');
 }
+// R17 вердикт: Gameplay 12/12; R20 pre-fix: FormatText
+{
+  const g = reg.filter(e => e.category === 'Gameplay');
+  ok(g.length === 12 && g.every(e => e.verified), 'R17: Gameplay 12/12 verified');
+  const f = createFromEntry(byId('FormatText'));
+  ok(f.className.endsWith('K2Node_FormatText') && f.pins.map(p => p.name).join() === 'Format,Result', 'R20: FormatText → K2Node_FormatText Format/Result');
+  const v = validateStrict(generateUEText([f]));
+  ok(v.errors.length === 0, 'R20: Text 0 ошибок');
+}
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);

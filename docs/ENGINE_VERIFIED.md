@@ -605,3 +605,11 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 - MakeArray/MakeSet/MakeMap — свежая wildcard-форма: входы `[0]`/`[1]` (Map: `Key 0`/`Value 0`), выход `Array`/`Set`/`Map` с ContainerType; NumInputs=2 у Array/Set. W03 валидатора теперь срабатывает только без ContainerType на выходе.
 - Select — по образцу белого SelectBool: Option 0/1 wildcard, Index int (IndexPinType int, dv 0). Enum-Select — ещё не реализован.
 
+## Вердикт round17 (2026-09-25)
+
+- round17 Gameplay: все 12 на месте и работают — pure-геттеры GetPlayerController/Pawn/Character, GetGameMode/GameState/GameInstance (типизированные RV, WCO hidden), GetAllActorsOfClass/WithTag (OutActors Actor Array), SpawnActor как K2Node_SpawnActorFromClass (enum-дефолты CollisionHandlingOverride/TransformScaleMethod), SpawnEmitterAtLocation (EPSCPoolMethod), PlaySoundAtLocation без InitialParams, GetWorld → GetCurrentLevelName. R17 закрыт 12/12.
+
+## Round20-pre: Text (2026-09-25)
+
+- FormatText: KismetTextLibrary::Format — BlueprintInternalUseOnly → узел K2Node_FormatText (Format text → Result text); пины аргументов движок строит по {Имя}.
+
