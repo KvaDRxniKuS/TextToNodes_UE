@@ -198,20 +198,37 @@ export function createComment(text, pos = { x: 0, y: 0 }, w = 400, h = 180) {
 }
 
 /** Комментарий, накрывающий ноды: бокс по граням + отступы (L-фидбек: 400x180 не накрывает). */
+/** Шаг строки пинов (px). Единая оценка для fitComment и alignPinRow. */
+export const PIN_ROW_H = 22;
+
 export function fitComment(text, nodes, pad = 60, topPad = 110) {
   const minX = Math.min(...nodes.map(n => n.pos.x));
   const minY = Math.min(...nodes.map(n => n.pos.y));
   const maxX = Math.max(...nodes.map(n => n.pos.x));
-  const estH = n => 110 + 22 * ((n.pins && n.pins.length) || 0);
+  const estH = n => 110 + PIN_ROW_H * ((n.pins && n.pins.length) || 0);
   const maxBottom = Math.max(...nodes.map(n => n.pos.y + estH(n)));
   const nodeW = 260;
   return createComment(text, { x: minX - pad, y: minY - topPad }, (maxX + nodeW - minX) + pad * 2, (maxBottom - minY) + topPad + pad);
 }
 
-export function linkPins(fromNode, fromPinName, toNode, toPinName) {
+export function linkPins(fromNode, fromPinName, toNode, toPinName, opts = {}) {
   const fp = fromNode.pins.find(p => p.name === fromPinName && p.direction === 'Output');
   const tp = toNode.pins.find(p => p.name === toPinName && p.direction === 'Input');
   if (!fp || !tp) throw new Error(`Pin not found: ${fromNode.id}.${fromPinName} -> ${toNode.id}.${toPinName}`);
   fp.linkedTo.push({ nodeName: toNode.id, pinId: tp.id });
   tp.linkedTo.push({ nodeName: fromNode.id, pinId: fp.id });
+  // Раскладка (N1+): целевой узел сдвигается по Y так, чтобы строки соединённых
+  // пинов совпали (скрытые пины места не занимают). Несколько линков в один узел:
+  // побеждает последний. Exec-цепочки не трогаем (остаются в ряд). Отказ: { align: false }.
+  const isExecLink = fp.category === 'exec' && tp.category === 'exec';
+  if (opts.align !== false && !isExecLink) alignPinRow(fromNode, fromPinName, toNode, toPinName);
+}
+
+/** Сдвинуть toNode по Y: строка toPinName встанет напротив fromPinName. */
+export function alignPinRow(fromNode, fromPinName, toNode, toPinName) {
+  const vis = n => (n.pins || []).filter(p => !p.hidden);
+  const ia = vis(fromNode).findIndex(p => p.name === fromPinName);
+  const ib = vis(toNode).findIndex(p => p.name === toPinName);
+  if (ia < 0 || ib < 0) return;
+  toNode.pos.y = fromNode.pos.y + (ia - ib) * PIN_ROW_H;
 }

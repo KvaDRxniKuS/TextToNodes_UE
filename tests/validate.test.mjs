@@ -269,5 +269,45 @@ regThrow.forEach(t => console.log('THROW:', t));
      qtr.pins.find(p => p.name === 'OutHits').linkedTo.some(l => l.nodeName === 'K2Node_MacroInstance_5') &&
      qel.linkedTo.some(l => l.nodeName === 'K2Node_CallFunction_112'), 'Q2 фикстура: 3 провода на месте');
 }
+
+// Раскладка: linkPins выравнивает строки пинов (N1+)
+{
+  const la = createCallFunction(byId('CapsuleTraceMulti'), { x: 0, y: 0 });
+  const lf = createMacroInstance(byId('ForEachLoop'), { x: 320, y: 0 });
+  const lb = createCallFunction(byId('BreakHitResult_pure'), { x: 640, y: 0 });
+  linkPins(la, 'then', lf, 'Exec');
+  ok(lf.pos.y === 0, 'align: exec-линки не двигают (цепочки в ряд)');
+  linkPins(la, 'OutHits', lf, 'Array');
+  ok(lf.pos.y === 198, 'align: OutHits->Array выравнивает data-провод (last wins, WCO скрыт)');
+  linkPins(lf, 'Array Element', lb, 'Hit');
+  ok(lb.pos.y === 264, 'align: каскад Element(3)->Hit(0)');
+  const lc = createCallFunction(byId('Delay'), { x: 0, y: 100 });
+  const ld = createCallFunction(byId('Delay'), { x: 320, y: 100 });
+  linkPins(lc, 'then', ld, 'execute', { align: false });
+  ok(ld.pos.y === 100, 'align: opts {align:false} не двигает');
+}
+
+// N1 copy-back: 42/42 PinId, резолв wildcard-макро при вставке, 3 провода
+{
+  const n1 = fs.readFileSync(new URL('./fixtures/n1-copyback.txt', import.meta.url), 'utf8');
+  const v = validateStrict(n1);
+  ok(v.valid && v.errors.length === 0 && v.warnings.length === 0, 'N1 copy-back: strict 0 ошибок, 0 варнингов');
+  ok(!n1.includes('PinToolTip'), 'N1 copy-back: свежая вставка без тултипов (движок кеширует их позже)');
+  const gn = parseToGraphs(n1);
+  ok(gn.EventGraph.nodes.length === 4, 'N1 copy-back: 4 ноды');
+  const ntr = gn.EventGraph.nodes.find(n => n.funcName === 'CapsuleTraceMulti');
+  const nfe = gn.EventGraph.nodes.find(n => n.macroGraph === 'ForEachLoop');
+  const npu = gn.EventGraph.nodes.find(n => n.funcName === 'BreakHitResult');
+  ok(ntr && ntr.pins.length === 18, 'N1 copy-back: трейд 17->18 (self добавлен)');
+  ok(npu && npu.pins.length === 20, 'N1 copy-back: pure 19->20 (self добавлен)');
+  const nar = nfe.pins.find(p => p.name === 'Array');
+  const nel = nfe.pins.find(p => p.name === 'Array Element');
+  ok(nar.category === 'struct' && nel.category === 'struct', 'N1 copy-back: движок резолвнул wildcard-макро при вставке с проводами');
+  ok(ntr.pins.find(p => p.name === 'then').linkedTo.some(l => l.nodeName === 'K2Node_MacroInstance_101') &&
+     ntr.pins.find(p => p.name === 'OutHits').linkedTo.some(l => l.nodeName === 'K2Node_MacroInstance_101') &&
+     nel.linkedTo.some(l => l.nodeName === 'K2Node_CallFunction_102'), 'N1 copy-back: 3 провода живы');
+  const ncm = gn.EventGraph.nodes.find(n => n.isComment);
+  ok(ncm && ncm.width === 1020 && ncm.height === 698, 'N1 copy-back: коммент 1020x698 цел');
+}
 console.log(`\nVALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);
