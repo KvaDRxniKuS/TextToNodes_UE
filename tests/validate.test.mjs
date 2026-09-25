@@ -457,6 +457,13 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(viT.includes('PinName="InterpSpeed",PinType.PinCategory="real",PinType.PinSubCategory="float"'), 'round4: VInterpTo — float DeltaTime/InterpSpeed');
   const tiT = generateUEText([createFromEntry(byId('TInterpTo'))]);
   ok(tiT.includes('PinName="Current"') && /PinName="Current".*?bIsReference=True.*?bIsConst=True/.test(tiT), 'round4: TInterpTo — Current const-ref');
+  // round5: int-операторы белые (динамический тип); Clamp/Max/Min — имена Clamp/Max/Min.
+  const aiT = generateUEText([createFromEntry(byId('Add_Int'))]);
+  ok(aiT.includes('MemberName="Add_IntInt"') && aiT.includes(`MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'"`), 'round5: Add_Int — белая quoted-full форма');
+  const clT = generateUEText([createFromEntry(byId('Clamp_Int'))]);
+  const mxT = generateUEText([createFromEntry(byId('Max_Int'))]);
+  const mnT = generateUEText([createFromEntry(byId('Min_Int'))]);
+  ok(clT.includes('MemberName="Clamp"') && mxT.includes('MemberName="Max"') && mnT.includes('MemberName="Min"'), 'round5: Clamp/Max/Min int — имена подтверждены');
 }
 // Sweep coverage: каждая запись реестра строится (кроме референс-листа)
 {

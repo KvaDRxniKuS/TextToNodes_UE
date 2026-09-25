@@ -502,3 +502,11 @@ const-ref. EEasingFunc добавлен в UE_ENUMS (src + index.html).
 (Class"..."') у операторов в sweep 05/07/08/14 — заменён на белую
 quoted-full форму из 03 (18 мест). 05-math-integer: 9 нод, STRICT 0/3
 (3xW09: Clamp/Max/Min int — имена перегрузок не подтверждены).
+
+## Файл 05 CLOSED 8/9 + 1 skipped (2026-09-25)
+
+Белые: 5 int-операторов (динамический тип — без указания int, как float),
+Clamp/Max/Min int (имена Clamp/Max/Min подтверждены). IsPowerOfTwo не
+существует в BP (только кастомная UBlueprintMath из вики + FMath C++) —
+пропущено. +2 теста (189/0). Следующая глава: 06 Math/Trig (17 нод).
+Риск: регистр имён Sin/sin и существование *Deg — движок арбитр.
