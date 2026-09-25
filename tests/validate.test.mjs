@@ -464,6 +464,11 @@ regThrow.forEach(t => console.log('THROW:', t));
   const mxT = generateUEText([createFromEntry(byId('Max_Int'))]);
   const mnT = generateUEText([createFromEntry(byId('Min_Int'))]);
   ok(clT.includes('MemberName="Clamp"') && mxT.includes('MemberName="Max"') && mnT.includes('MemberName="Min"'), 'round5: Clamp/Max/Min int — имена подтверждены');
+  // round6: *Deg не существуют — настоящие имена DegSin/DegCos/.../DegAtan2 (live-рефы).
+  const dsT = generateUEText([createFromEntry(byId('SinDeg'))]);
+  ok(dsT.includes('MemberName="DegSin"'), 'round6: SinDeg — DegSin');
+  const da2T = generateUEText([createFromEntry(byId('Atan2Deg'))]);
+  ok(da2T.includes('MemberName="DegAtan2"') && da2T.includes('PinName="Y"') && da2T.includes('PinName="X"'), 'round6: Atan2Deg — DegAtan2 + Y/X');
 }
 // Sweep coverage: каждая запись реестра строится (кроме референс-листа)
 {

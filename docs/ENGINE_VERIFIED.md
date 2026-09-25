@@ -510,3 +510,11 @@ Clamp/Max/Min int (имена Clamp/Max/Min подтверждены). IsPowerOf
 существует в BP (только кастомная UBlueprintMath из вики + FMath C++) —
 пропущено. +2 теста (189/0). Следующая глава: 06 Math/Trig (17 нод).
 Риск: регистр имён Sin/sin и существование *Deg — движок арбитр.
+
+## Раунд 06: 11/18, фикс 6-fix (2026-09-25)
+
+Белые: Sin/Cos/Tan/Asin/Acos/Atan/Atan2 (верхний регистр подтверждён),
+DegreesToRadians, RadiansToDegrees, GetTAU, GetPI. *Deg не существуют —
+настоящие имена DegSin/DegCos/DegTan/DegAsin/DegAcos/DegAtan + DegAtan2
+(live-рефы; DegAtan2 добавлен в реестр новым, стало 240 записей и 18
+нод в файле 06). +2 теста (191/0).

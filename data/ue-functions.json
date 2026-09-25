@@ -1557,8 +1557,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
-  "desc": "Sin"
+  "verified": true,
+  "desc": "Sin",
+  "notes": "round6: белая по факту пользователя"
  },
  {
   "id": "Cos",
@@ -1579,8 +1580,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
-  "desc": "Cos"
+  "verified": true,
+  "desc": "Cos",
+  "notes": "round6: белая по факту пользователя"
  },
  {
   "id": "Tan",
@@ -1601,8 +1603,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
-  "desc": "Tan"
+  "verified": true,
+  "desc": "Tan",
+  "notes": "round6: белая по факту пользователя"
  },
  {
   "id": "Asin",
@@ -1623,8 +1626,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
-  "desc": "Asin"
+  "verified": true,
+  "desc": "Asin",
+  "notes": "round6: белая по факту пользователя"
  },
  {
   "id": "Acos",
@@ -1645,8 +1649,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
-  "desc": "Acos"
+  "verified": true,
+  "desc": "Acos",
+  "notes": "round6: белая по факту пользователя"
  },
  {
   "id": "Atan",
@@ -1667,8 +1672,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
-  "desc": "Atan"
+  "verified": true,
+  "desc": "Atan",
+  "notes": "round6: белая по факту пользователя"
  },
  {
   "id": "Atan2",
@@ -1694,15 +1700,16 @@
     "cat": "real"
    }
   ],
-  "verified": false,
-  "desc": "Atan2"
+  "verified": true,
+  "desc": "Atan2",
+  "notes": "round6: белая по факту пользователя"
  },
  {
   "id": "SinDeg",
   "title": "SinDeg",
   "category": "Math / Trig",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-  "func": "SinDeg",
+  "func": "DegSin",
   "lib": "KismetMathLibrary",
   "pins": [
    {
@@ -1717,14 +1724,15 @@
    }
   ],
   "verified": false,
-  "desc": "SinDeg"
+  "desc": "SinDeg",
+  "notes": "round6: настоящее имя DegSin (live-реф); SinDeg не существует"
  },
  {
   "id": "CosDeg",
   "title": "CosDeg",
   "category": "Math / Trig",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-  "func": "CosDeg",
+  "func": "DegCos",
   "lib": "KismetMathLibrary",
   "pins": [
    {
@@ -1739,14 +1747,15 @@
    }
   ],
   "verified": false,
-  "desc": "CosDeg"
+  "desc": "CosDeg",
+  "notes": "round6: настоящее имя DegCos (live-реф); CosDeg не существует"
  },
  {
   "id": "TanDeg",
   "title": "TanDeg",
   "category": "Math / Trig",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-  "func": "TanDeg",
+  "func": "DegTan",
   "lib": "KismetMathLibrary",
   "pins": [
    {
@@ -1761,14 +1770,15 @@
    }
   ],
   "verified": false,
-  "desc": "TanDeg"
+  "desc": "TanDeg",
+  "notes": "round6: настоящее имя DegTan (live-реф); TanDeg не существует"
  },
  {
   "id": "AsinDeg",
   "title": "AsinDeg",
   "category": "Math / Trig",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-  "func": "AsinDeg",
+  "func": "DegAsin",
   "lib": "KismetMathLibrary",
   "pins": [
    {
@@ -1783,14 +1793,15 @@
    }
   ],
   "verified": false,
-  "desc": "AsinDeg"
+  "desc": "AsinDeg",
+  "notes": "round6: настоящее имя DegAsin (live-реф); AsinDeg не существует"
  },
  {
   "id": "AcosDeg",
   "title": "AcosDeg",
   "category": "Math / Trig",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-  "func": "AcosDeg",
+  "func": "DegAcos",
   "lib": "KismetMathLibrary",
   "pins": [
    {
@@ -1805,14 +1816,15 @@
    }
   ],
   "verified": false,
-  "desc": "AcosDeg"
+  "desc": "AcosDeg",
+  "notes": "round6: настоящее имя DegAcos (live-реф); AcosDeg не существует"
  },
  {
   "id": "AtanDeg",
   "title": "AtanDeg",
   "category": "Math / Trig",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-  "func": "AtanDeg",
+  "func": "DegAtan",
   "lib": "KismetMathLibrary",
   "pins": [
    {
@@ -1827,7 +1839,8 @@
    }
   ],
   "verified": false,
-  "desc": "AtanDeg"
+  "desc": "AtanDeg",
+  "notes": "round6: настоящее имя DegAtan (live-реф); AtanDeg не существует"
  },
  {
   "id": "DegreesToRadians",
@@ -1848,8 +1861,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
-  "desc": "DegreesToRadians"
+  "verified": true,
+  "desc": "DegreesToRadians",
+  "notes": "round6: белая по факту пользователя"
  },
  {
   "id": "RadiansToDegrees",
@@ -1870,8 +1884,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
-  "desc": "RadiansToDegrees"
+  "verified": true,
+  "desc": "RadiansToDegrees",
+  "notes": "round6: белая по факту пользователя"
  },
  {
   "id": "GetTAU",
@@ -1887,8 +1902,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
-  "desc": "GetTAU"
+  "verified": true,
+  "desc": "GetTAU",
+  "notes": "round6: белая по факту пользователя"
  },
  {
   "id": "GetPI",
@@ -1904,8 +1920,37 @@
     "cat": "real"
    }
   ],
+  "verified": true,
+  "desc": "GetPI",
+  "notes": "round6: белая по факту пользователя"
+ },
+ {
+  "id": "Atan2Deg",
+  "title": "Atan2Deg",
+  "category": "Math / Trig",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "DegAtan2",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "Y",
+    "dir": "Input",
+    "cat": "real"
+   },
+   {
+    "name": "X",
+    "dir": "Input",
+    "cat": "real"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real"
+   }
+  ],
   "verified": false,
-  "desc": "GetPI"
+  "desc": "Atan2",
+  "notes": "round6: DegAtan2 (live-реф от пользователя); пины Y/X как у Atan2"
  },
  {
   "id": "Exp_Float",
