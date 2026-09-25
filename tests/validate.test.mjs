@@ -621,6 +621,20 @@ regThrow.forEach(t => console.log('THROW:', t));
   const o = reg.filter(e => e.category === 'Organization');
   ok(o.length === 6 && o.every(e => e.verified), 'R19: Organization 6/6 verified');
 }
+// R20 вердикт: Text 1/1; DefaultTextValue (copy-back FormatText)
+{
+  ok(reg.filter(e => e.category === 'Text').every(e => e.verified), 'R20: Text verified');
+  const cb = fs.readFileSync(new URL('./fixtures/formattext-copyback.txt', import.meta.url), 'utf8');
+  const g = parseToGraphs(cb);
+  const nodes = (Array.isArray(g) ? g : Object.values(g)).flatMap(x => x.nodes || x);
+  const ft = nodes.find(n => /FormatText/.test(n.className || n.rawClass || ''));
+  const fp = ft && ft.pins.find(p => p.name === 'Format');
+  ok(fp && fp.defaultValue === 'Hello', 'R20: парсер читает DefaultTextValue=NSLOCTEXT → Hello');
+  ok(generateUEText([ft]).includes('NSLOCTEXT("[D5D1BCE066D75A060B2E2C79FD1FC615]", "E97628B2436880A5D76AE2BFF030D3DE", "Hello")'), 'R20: copy-back сохраняет исходный NSLOCTEXT');
+  const fresh = createFromEntry({ ...byId('FormatText'), pins: byId('FormatText').pins.map(p => p.name === 'Format' ? { ...p, dv: 'Hello {Name}' } : p) });
+  const out = generateUEText([fresh]);
+  ok(/DefaultTextValue=NSLOCTEXT\("", "[0-9A-F]{32}", "Hello \{Name\}"\)/.test(out) && !/DefaultValue="Hello/.test(out), 'R20: новый text-дефолт пишется как NSLOCTEXT');
+}
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);

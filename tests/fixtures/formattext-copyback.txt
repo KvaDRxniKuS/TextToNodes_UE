@@ -1,0 +1,15 @@
+Begin Object Class=/Script/UnrealEd.EdGraphNode_Comment Name="EdGraphNode_Comment_388" ExportPath="/Script/UnrealEd.EdGraphNode_Comment'/Game/Blueprints/BP_AISupportTester.BP_AISupportTester:EventGraph.EdGraphNode_Comment_388'"
+   NodePosX=-8688
+   NodePosY=-2368
+   NodeWidth=380
+   NodeHeight=374
+   NodeComment="SWEEP 20/21: Text (1/1 узлов, 0 verified)"
+   NodeGuid=C2A82CEB418FF89A54448DB65C9A45EF
+End Object
+Begin Object Class=/Script/BlueprintGraph.K2Node_FormatText Name="K2Node_FormatText_387" ExportPath="/Script/BlueprintGraph.K2Node_FormatText'/Game/Blueprints/BP_AISupportTester.BP_AISupportTester:EventGraph.K2Node_FormatText_387'"
+   NodePosX=-8624
+   NodePosY=-2272
+   NodeGuid=0EF256C848ABA6F2C5C016AB3F57F331
+   CustomProperties Pin (PinId=4E50184B5DE58FF31494987D8310ED58,PinName="Format",PinType.PinCategory="text",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultTextValue=NSLOCTEXT("[D5D1BCE066D75A060B2E2C79FD1FC615]", "E97628B2436880A5D76AE2BFF030D3DE", "Hello"),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=6DD48404A926A8BD60E731DD8665785E,PinName="Result",Direction="EGPD_Output",PinType.PinCategory="text",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+End Object

@@ -621,3 +621,8 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 
 - round19 Organization: все 6 белые — Reroute, Comment, MakeArray/MakeSet (NumInputs=2 даёт 2 входа), пустой wildcard MakeMap (одна пара Key 0/Value 0 — корректная нода), Select с Index int (движок тип индекса не меняет — к float подставит конвертацию float→int). R19 закрыт 6/6.
 
+## Вердикт round20 (2026-09-25)
+
+- round20 Text: FormatText (K2Node_FormatText, Format/Result) — белая. R20 закрыт 1/1.
+- Copy-back (tests/fixtures/formattext-copyback.txt): дефолт text-пина сериализуется как `DefaultTextValue=NSLOCTEXT("[<namespace-guid>]", "<key>", "Hello")` + `PersistentGuid=0…0` (не `DefaultValue`). Парсер теперь читает NSLOCTEXT/INVTEXT, генератор пишет text-дефолты как `NSLOCTEXT("", <guid>, "...")` — вставкой пока не проверено.
+

@@ -3,14 +3,14 @@ Begin Object Class=/Script/UnrealEd.EdGraphNode_Comment Name="EdGraphNode_Commen
    NodePosY=-110
    NodeWidth=380
    NodeHeight=374
-   NodeComment="SWEEP 20/21: Text (1/1 узлов, 0 verified)"
-   NodeGuid=6824F53DF310B20C8C4F7DCBC5258E38
+   NodeComment="SWEEP 20/21: Text (1/1 узлов, 1 verified)"
+   NodeGuid=113195E888735669B63E7FFB713AAF0E
 End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_FormatText Name="K2Node_FormatText_387" ExportPath="/Script/BlueprintGraph.K2Node_FormatText'"/Game/Generated.Generated:EventGraph.K2Node_FormatText_387"'"
    NodePosX=0
    NodePosY=0
-   NodeGuid=17AEF9837922E52B903B14A5753D50D2
-   CustomProperties Pin (PinId=4E50184B5DE58FF31494987D8310ED58,PinName="Format",PinType.PinCategory="text",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
-   CustomProperties Pin (PinId=6DD48404A926A8BD60E731DD8665785E,PinName="Result",Direction="EGPD_Output",PinType.PinCategory="text",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   NodeGuid=E90AC8F66F981909FCEC5BEFA1103FF0
+   CustomProperties Pin (PinId=C672BEB7C99D7047EE5B856FA0BBF589,PinName="Format",PinType.PinCategory="text",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=EB41F7CB12731388DD0D0573D4493162,PinName="Result",Direction="EGPD_Output",PinType.PinCategory="text",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
 End Object

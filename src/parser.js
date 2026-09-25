@@ -60,7 +60,7 @@ export function parseToGraphs(text){
         const sub=(pinStr.match(/PinSubCategory="([^"]*)"/)||[])[1]||'';
         const hidden=/bHidden=True/.test(pinStr);
                                 const friendly=(pinStr.match(/PinFriendlyName=Text\("([^"]*)"\)/)||[])[1]||(pinStr.match(/PinFriendlyName=NSLOCTEXT\("[^"]*", *\"[^"]*", *\"([^"]*)"\)/)||[])[1]||pinName;
-        const defaultValue=(pinStr.match(/DefaultValue="([^"]*)"/)||[])[1]||'';
+        const defaultValue=(pinStr.match(/DefaultValue="([^"]*)"/)||[])[1]||(pinStr.match(/DefaultTextValue=NSLOCTEXT\("[^"]*", *"[^"]*", *"([^"]*)"\)/)||[])[1]||(pinStr.match(/DefaultTextValue=INVTEXT\("([^"]*)"\)/)||[])[1]||'';
         const subObj=(pinStr.match(/PinSubCategoryObject=([^,\)]+)/)||[])[1]||'';
         const linkedMatch=pinStr.match(/LinkedTo=\(([^)]*)\)/);
         let linked=[]; if(linkedMatch){
@@ -150,7 +150,8 @@ function generateBlock(n){
   const pinLines=n.pins.map(p=>{
     const dir=p.direction==='Output'?`Direction="EGPD_Output",`:'';
     const linked=p.linkedTo.length?`LinkedTo=(${p.linkedTo.map(l=> l.nodeName+' '+l.pinId).join(',')},),`:'';
-    const dv=p.defaultValue?`DefaultValue="${p.defaultValue}",`:'';
+    // round20: text-пины пишут DefaultTextValue=NSLOCTEXT(ns, key, "...") (copy-back FormatText UE 5.8); ключ — случайный, движок перекеширует.
+    const dv=p.defaultValue?(p.category==='text'?`DefaultTextValue=NSLOCTEXT("", "${guid32()}", "${p.defaultValue}"),`:`DefaultValue="${p.defaultValue}",`):'';
     // PinName опускаем при пустом имени (FlipFlop, round1: каноника движка — поля нет вообще).
     const nm=p.name?`PinName="${p.name}",`:'';
         // PinFriendlyName ne pishem: dvizhok hranit NSLOCTEXT i vosstanavlivaet sam.

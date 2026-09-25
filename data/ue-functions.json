@@ -9161,8 +9161,8 @@
     "cat": "text"
    }
   ],
-  "verified": false,
-  "note": "round20-pre: KismetTextLibrary::Format — BlueprintInternalUseOnly; в BP «Format Text» это K2Node_FormatText: вход Format (text), выход Result (text). Пины аргументов движок строит сам по {Имя} в формате",
+  "verified": true,
+  "note": "round20-pre: KismetTextLibrary::Format — BlueprintInternalUseOnly; в BP «Format Text» это K2Node_FormatText: вход Format (text), выход Result (text). Пины аргументов движок строит сам по {Имя} в формате; round20: белая. Copy-back: дефолт text-пина = DefaultTextValue=NSLOCTEXT(\"[ns]\", \"key\", \"Hello\") + PersistentGuid — генератор пишет NSLOCTEXT(\"\", guid, \"...\")",
   "desc": "Формат"
  },
  {
