@@ -54,7 +54,12 @@ cats.forEach((cat, ci) => {
   const txt = generateUEText(withComment);
   const v = validateStrict(txt);
   const fname = `${String(ci + 1).padStart(2, '0')}-${slug(cat)}.txt`;
-  fs.writeFileSync(path.join(OUT, fname), txt + '\n');
+  // Фильтр argv[2] ("11", "11-collision"): точечная регенерация одной категории
+  // после правки реестра — остальные txt не трогаем (без GUID-шума). MANIFEST
+  // пересчитывается всегда.
+  const only = (process.argv[2] || '').toLowerCase();
+  if (!only || fname.toLowerCase().startsWith(only))
+    fs.writeFileSync(path.join(OUT, fname), txt + '\n');
   report.push({ cat, fname, entries, nodes: nodes.length, failed, verified, errors: v.errors, warnings: v.warnings });
   totalOk += nodes.length; totalFail += failed.length;
   console.log(`${fname}: nodes=${nodes.length}/${entries.length} errors=${v.errors.length} warnings=${v.warnings.length}`);

@@ -24,7 +24,7 @@
 | 08 | 08-math-boolean.txt | 7/7 | 0 | 4 | — | — |
 | 09 | 09-math-random.txt | 6/6 | 0 | 0 | — | — |
 | 10 | 10-math-vector.txt | 27/27 | 2 | 0 | — | — |
-| 11 | 11-collision.txt | 12/12 | 11 | 2 | — | 1xW09 |
+| 11 | 11-collision.txt | 12/12 | 12 | 2 | — | 1xW09 |
 | 12 | 12-math-rotator.txt | 12/12 | 0 | 2 | — | — |
 | 13 | 13-math-transform.txt | 4/4 | 0 | 0 | — | — |
 | 14 | 14-string.txt | 26/26 | 2 | 3 | — | 1xW09 |
@@ -56,7 +56,7 @@
 - 05-math-integer.txt :: W09: K2Node_CallFunction_165: Clamp: Int overload func name uncertain — verify in engine
 - 05-math-integer.txt :: W09: K2Node_CallFunction_166: Max: Int overload func name uncertain — verify in engine
 - 05-math-integer.txt :: W09: K2Node_CallFunction_167: Min: Int overload func name uncertain — verify in engine
-- 11-collision.txt :: W09: K2Node_CallFunction_244: BoxTraceSingle: v6: func переименован (было BoxTraceByChannel — не существует, см. киллер J1-J4); имя Single-паттерна выведено, нужен copy-back
+- 11-collision.txt :: W09: K2Node_CallFunction_244: BoxTraceSingle: live-ref 2026-09-25 (BP_WheelActor): полный пин-лист; HalfSize bIsConst=True — в Single констный, в Multi нет (причуда движка, copy-back O1 подтверждает)
 - 14-string.txt :: W09: K2Node_CallFunction_278: ParseIntoArray: Array/Set/Map output needs ContainerType support in generator — verify in engine
 - 16-utilities.txt :: W09: K2Node_CallFunction_323: GetGameTimeInSeconds: Home library uncertain (KismetSystemLibrary vs GameplayStatics)
 - 16-utilities.txt :: W09: K2Node_CallFunction_325: GetWorldDeltaSeconds: Home library uncertain (KismetSystemLibrary vs GameplayStatics)

@@ -146,7 +146,7 @@ export function generateUEText(nodeList){
 
 function generateBlock(n){
   const guid=n.guid||guid32();
-  const pinsText=n.pins.map(p=>{
+  const pinLines=n.pins.map(p=>{
     const dir=p.direction==='Output'?`Direction="EGPD_Output",`:'';
     const linked=p.linkedTo.length?`LinkedTo=(${p.linkedTo.map(l=> l.nodeName+' '+l.pinId).join(',')},),`:'';
     const dv=p.defaultValue?`DefaultValue="${p.defaultValue}",`:'';
@@ -155,7 +155,19 @@ function generateBlock(n){
     // перегенерировать вместе с пином и порвать связь; без поля вставка чистая.
     // v6: ссылки quoted-full (UE 5.8, copy-back H1/J5/LineTraceSingle: "..." + полная форма без внутр. кавычек).
     return `   CustomProperties Pin (PinId=${p.id},PinName="${p.name}",${dir}PinType.PinCategory="${p.category}",PinType.PinSubCategory="${p.category==='struct'?'':(p.subCategory||'')}",PinType.PinSubCategoryObject=${p.subCategoryObject||'None'},PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=${p.container||'None'},PinType.bIsReference=${p.isRef?'True':'False'},PinType.bIsConst=${p.isConst?'True':'False'},PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,${linked}bHidden=${p.hidden?'True':'False'},bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=${p.ignored?'True':'False'},bAdvancedView=${p.advanced?'True':'False'},bOrphanedPin=False,${dv})`;
-  }).join('\n');
+  });
+  // v7: self-пин статического вызова библиотеки (copy-back O1/O2: движок
+  // достраивает его сам — пишем сразу для copy-back 1-в-1). FriendlyName не
+  // пишем (политика выше), DefaultObject выводим из MemberParent. Дубли не
+  // плодим: если self уже есть в пинах (парсинг текста UE) — пропускаем.
+  if(n.funcName&&n.memberParent&&!n.pins.some(p=>p.name==='self')){
+    const mm=/'(\/Script\/[\w/]+)\.(\w+)'/.exec(n.memberParent);
+    if(mm){
+      let idx=0; while(n.pins[idx]&&n.pins[idx].category==='exec')idx++;
+      pinLines.splice(idx,0,`   CustomProperties Pin (PinId=${guid32()},PinName="self",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=${n.memberParent},PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultObject="${mm[1]}.Default__${mm[2]}",bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)`);
+    }
+  }
+  const pinsText=pinLines.join('\n');
   let extra='';
   if(n.varName) extra+=`   VariableReference=(MemberName="${n.varName}",MemberGuid=${guid32()},bSelfContext=True)\n`;
   if(n.funcName && !n.operationName){
