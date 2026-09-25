@@ -3978,77 +3978,85 @@
   "id": "MakeRotator",
   "title": "Make Rotator",
   "category": "Math / Rotator",
-  "className": "/Script/BlueprintGraph.K2Node_MakeStruct",
-  "func": "",
-  "struct": {
-   "name": "Rotator",
-   "path": "\"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Rotator'\""
-  },
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "MakeRotator",
+  "lib": "KismetMathLibrary",
   "pins": [
+   {
+    "name": "Roll",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.0"
+   },
    {
     "name": "Pitch",
     "dir": "Input",
-    "cat": "real"
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.0"
    },
    {
     "name": "Yaw",
     "dir": "Input",
-    "cat": "real"
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.0"
    },
    {
-    "name": "Roll",
-    "dir": "Input",
-    "cat": "real"
-   },
-   {
-    "name": "Rotator",
+    "name": "ReturnValue",
     "dir": "Output",
     "cat": "struct",
-    "sub": "Rotator"
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
    }
   ],
   "verified": false,
-  "note": "Pin order Pitch,Yaw,Roll follows FRotator UPROPERTY order — not engine-verified",
-  "desc": "Создать"
+  "desc": "Собрать ротатор",
+  "pure": true,
+  "note": "round12-pre: MakeStruct-форма у FRotator (HasNativeMake) по аналогии с Vector жёлтая — канон pure MakeRotator Roll/Pitch/Yaw float"
  },
  {
   "id": "BreakRotator",
   "title": "Break Rotator",
   "category": "Math / Rotator",
-  "className": "/Script/BlueprintGraph.K2Node_BreakStruct",
-  "func": "",
-  "struct": {
-   "name": "Rotator",
-   "path": "\"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Rotator'\""
-  },
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "BreakRotator",
+  "lib": "KismetMathLibrary",
   "pins": [
    {
-    "name": "Rotator",
+    "name": "InRot",
     "dir": "Input",
     "cat": "struct",
     "sub": "Rotator",
-    "ref": true,
-    "const": true
-   },
-   {
-    "name": "Pitch",
-    "dir": "Output",
-    "cat": "real"
-   },
-   {
-    "name": "Yaw",
-    "dir": "Output",
-    "cat": "real"
+    "dv": "0, 0, 0"
    },
    {
     "name": "Roll",
     "dir": "Output",
-    "cat": "real"
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.0"
+   },
+   {
+    "name": "Pitch",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.0"
+   },
+   {
+    "name": "Yaw",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.0"
    }
   ],
   "verified": false,
-  "note": "Pin order Pitch,Yaw,Roll follows FRotator UPROPERTY order — not engine-verified",
-  "desc": "Разобрать"
+  "desc": "Разобрать ротатор",
+  "pure": true,
+  "note": "round12-pre: BreakStruct-форма по аналогии с Vector жёлтая — канон pure BreakRotator InRot→Roll/Pitch/Yaw"
  },
  {
   "id": "MakeRotFromX",
@@ -4062,17 +4070,22 @@
     "name": "X",
     "dir": "Input",
     "cat": "struct",
-    "sub": "Vector"
+    "sub": "Vector",
+    "dv": "0, 0, 0",
+    "ref": true,
+    "const": true
    },
    {
     "name": "ReturnValue",
     "dir": "Output",
     "cat": "struct",
-    "sub": "Rotator"
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
    }
   ],
   "verified": false,
-  "desc": "Из X"
+  "desc": "Из X",
+  "pure": true
  },
  {
   "id": "MakeRotFromY",
@@ -4086,17 +4099,22 @@
     "name": "Y",
     "dir": "Input",
     "cat": "struct",
-    "sub": "Vector"
+    "sub": "Vector",
+    "dv": "0, 0, 0",
+    "ref": true,
+    "const": true
    },
    {
     "name": "ReturnValue",
     "dir": "Output",
     "cat": "struct",
-    "sub": "Rotator"
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
    }
   ],
   "verified": false,
-  "desc": "Из Y"
+  "desc": "Из Y",
+  "pure": true
  },
  {
   "id": "MakeRotFromZ",
@@ -4110,17 +4128,22 @@
     "name": "Z",
     "dir": "Input",
     "cat": "struct",
-    "sub": "Vector"
+    "sub": "Vector",
+    "dv": "0, 0, 0",
+    "ref": true,
+    "const": true
    },
    {
     "name": "ReturnValue",
     "dir": "Output",
     "cat": "struct",
-    "sub": "Rotator"
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
    }
   ],
   "verified": false,
-  "desc": "Из Z"
+  "desc": "Из Z",
+  "pure": true
  },
  {
   "id": "MakeRotFromZX",
@@ -4134,23 +4157,31 @@
     "name": "Z",
     "dir": "Input",
     "cat": "struct",
-    "sub": "Vector"
+    "sub": "Vector",
+    "dv": "0, 0, 0",
+    "ref": true,
+    "const": true
    },
    {
     "name": "X",
     "dir": "Input",
     "cat": "struct",
-    "sub": "Vector"
+    "sub": "Vector",
+    "dv": "0, 0, 0",
+    "ref": true,
+    "const": true
    },
    {
     "name": "ReturnValue",
     "dir": "Output",
     "cat": "struct",
-    "sub": "Rotator"
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
    }
   ],
   "verified": false,
-  "desc": "ZX"
+  "desc": "ZX",
+  "pure": true
  },
  {
   "id": "FindLookAtRotation",
@@ -4164,53 +4195,66 @@
     "name": "Start",
     "dir": "Input",
     "cat": "struct",
-    "sub": "Vector"
+    "sub": "Vector",
+    "dv": "0, 0, 0",
+    "ref": true,
+    "const": true
    },
    {
     "name": "Target",
     "dir": "Input",
     "cat": "struct",
-    "sub": "Vector"
+    "sub": "Vector",
+    "dv": "0, 0, 0",
+    "ref": true,
+    "const": true
    },
    {
     "name": "ReturnValue",
     "dir": "Output",
     "cat": "struct",
-    "sub": "Rotator"
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
    }
   ],
   "verified": false,
-  "desc": "Взгляд"
+  "desc": "Взгляд",
+  "pure": true
  },
  {
-  "id": "FindLookAtRotation2D",
-  "title": "Find Look At Rotation 2D",
+  "id": "NormalizedDeltaRotator",
+  "title": "Delta (Rotator)",
   "category": "Math / Rotator",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-  "func": "FindLookAtRotation2D",
+  "func": "NormalizedDeltaRotator",
   "lib": "KismetMathLibrary",
   "pins": [
    {
-    "name": "Start",
+    "name": "A",
     "dir": "Input",
     "cat": "struct",
-    "sub": "Vector"
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
    },
    {
-    "name": "Target",
+    "name": "B",
     "dir": "Input",
     "cat": "struct",
-    "sub": "Vector"
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
    },
    {
     "name": "ReturnValue",
     "dir": "Output",
     "cat": "struct",
-    "sub": "Rotator"
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
    }
   ],
   "verified": false,
-  "desc": "2D"
+  "desc": "Нормализованная разница A-B",
+  "pure": true,
+  "note": "round12-pre: FindLookAtRotation2D в KismetMathLibrary нет — заменена на NormalizedDeltaRotator"
  },
  {
   "id": "ComposeRotators",
@@ -4224,47 +4268,55 @@
     "name": "A",
     "dir": "Input",
     "cat": "struct",
-    "sub": "Rotator"
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
    },
    {
     "name": "B",
     "dir": "Input",
     "cat": "struct",
-    "sub": "Rotator"
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
    },
    {
     "name": "ReturnValue",
     "dir": "Output",
     "cat": "struct",
-    "sub": "Rotator"
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
    }
   ],
   "verified": false,
-  "desc": "Композиция"
+  "desc": "Композиция",
+  "pure": true
  },
  {
-  "id": "InverseRotator",
-  "title": "Inverse Rotator",
+  "id": "NegateRotator",
+  "title": "Invert Rotator",
   "category": "Math / Rotator",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-  "func": "InverseTransformRotation",
+  "func": "NegateRotator",
   "lib": "KismetMathLibrary",
   "pins": [
    {
     "name": "A",
     "dir": "Input",
     "cat": "struct",
-    "sub": "Rotator"
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
    },
    {
     "name": "ReturnValue",
     "dir": "Output",
     "cat": "struct",
-    "sub": "Rotator"
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
    }
   ],
   "verified": false,
-  "desc": "Инверсия"
+  "desc": "Инверсия ротатора",
+  "pure": true,
+  "note": "round12-pre: InverseTransformRotation — это Transform-функция; канон инверсии NegateRotator (Invert Rotator)"
  },
  {
   "id": "RInterpTo",
@@ -4321,28 +4373,41 @@
     "name": "A",
     "dir": "Input",
     "cat": "struct",
-    "sub": "Rotator"
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
    },
    {
     "name": "B",
     "dir": "Input",
     "cat": "struct",
-    "sub": "Rotator"
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
    },
    {
     "name": "Alpha",
     "dir": "Input",
-    "cat": "real"
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.0"
+   },
+   {
+    "name": "bShortestPath",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
    },
    {
     "name": "ReturnValue",
     "dir": "Output",
     "cat": "struct",
-    "sub": "Rotator"
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
    }
   ],
   "verified": false,
-  "desc": "Lerp"
+  "desc": "Lerp",
+  "pure": true,
+  "note": "round12-pre: добавлен пин bShortestPath, Alpha float"
  },
  {
   "id": "SelectRotator",
@@ -4356,28 +4421,117 @@
     "name": "A",
     "dir": "Input",
     "cat": "struct",
-    "sub": "Rotator"
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
    },
    {
     "name": "B",
     "dir": "Input",
     "cat": "struct",
-    "sub": "Rotator"
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
    },
    {
     "name": "Pick A",
     "dir": "Input",
-    "cat": "bool"
+    "cat": "bool",
+    "dv": "false"
    },
    {
     "name": "ReturnValue",
     "dir": "Output",
     "cat": "struct",
-    "sub": "Rotator"
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
    }
   ],
   "verified": false,
-  "desc": "Выбор"
+  "desc": "Выбор",
+  "pure": true
+ },
+ {
+  "id": "GetForwardVector",
+  "title": "Get Forward Vector",
+  "category": "Math / Rotator",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetForwardVector",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "InRot",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector",
+    "dv": "0, 0, 0"
+   }
+  ],
+  "verified": false,
+  "desc": "Forward-вектор ротатора",
+  "pure": true,
+  "note": "round12-pre: новая запись, не проверена движком"
+ },
+ {
+  "id": "GetRightVector",
+  "title": "Get Right Vector",
+  "category": "Math / Rotator",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetRightVector",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "InRot",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector",
+    "dv": "0, 0, 0"
+   }
+  ],
+  "verified": false,
+  "desc": "Right-вектор ротатора",
+  "pure": true,
+  "note": "round12-pre: новая запись, не проверена движком"
+ },
+ {
+  "id": "GetUpVector",
+  "title": "Get Up Vector",
+  "category": "Math / Rotator",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetUpVector",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "InRot",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector",
+    "dv": "0, 0, 0"
+   }
+  ],
+  "verified": false,
+  "desc": "Up-вектор ротатора",
+  "pure": true,
+  "note": "round12-pre: новая запись, не проверена движком"
  },
  {
   "id": "MakeTransform",
