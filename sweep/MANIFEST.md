@@ -1,6 +1,6 @@
 # Sweep manifest — полный прогон реестра по категориям
 
-Дата: 2026-09-25; записей: 296; построено узлов: 296; упало: 0.
+Дата: 2026-09-25; записей: 298; построено узлов: 298; упало: 0.
 Генератор: tools/gen-sweep.mjs (сетка по 5 в ряд, внутри ряда layoutRow, накрыто fitComment).
 
 Протокол: вставляйте файлы по одному в чистый граф → копируйте обратно → сообщайте номер файла и что сломалось.
@@ -34,7 +34,7 @@
 | 18 | 18-input.txt | 2/2 | 2 | 2 | — | 1xW09 |
 | 19 | 19-organization.txt | 6/6 | 6 | 4 | — | — |
 | 20 | 20-text.txt | 1/1 | 1 | 1 | — | — |
-| 21 | 21-enhanced-input.txt | 4/4 | 0 | 4 | — | 2xW09 |
+| 21 | 21-enhanced-input.txt | 6/6 | 0 | 6 | — | 2xW09 |
 | 22 | 22-casting.txt | 10/10 | 0 | 10 | — | 8xW09 |
 | 23 | 23-actor.txt | 13/13 | 0 | 13 | — | 13xW09 |
 
@@ -129,24 +129,24 @@
 - 18-input.txt :: W09: K2Node_CallFunction_378: IsInputKeyDown: round18-pre: член APlayerController (UFUNCTION BlueprintCallable, const → pure). MemberParent=PlayerController, пин self (Target) типа PlayerController, Key по значению; round18: белая (copy-back tests/fixtures/input-r18-copyback.txt: InputKey=SpaceBar принят, self → «Target», Key dv None)
 - 21-enhanced-input.txt :: W09: K2Node_CallFunction_389: GetBoundActionValue: round21: FAIL — вставилась пустой (член EnhancedInputComponent::GetBoundActionValue движок не принял). Значение действия в BP берут узлом «Get IA_X» (K2Node_GetInputActionValue, нужен ассет) — ждём copy-back. round21-pre: статического GetActionValue нет — член UEnhancedInputComponent::GetBoundActionValue(const UInputAction*) const → pure; self = EnhancedInputComponent, RV FInputActionValue. Узел «Get IA_X» (K2Node_GetInputActionValue) требует ассет InputAction — не для свипа
 - 21-enhanced-input.txt :: W09: K2Node_CallFunction_392: AddMappingContext: round21b-pre: член IEnhancedInputSubsystemInterface; Options (FModifyContextOptions) опущен — движок достроит; self типизирован подсистемой — без референса
-- 22-casting.txt :: W09: K2Node_CallFunction_396: GetObjectClass: round22-pre: UGameplayStatics::GetObjectClass (в меню «Get Class»)
-- 22-casting.txt :: W09: K2Node_CallFunction_397: ClassIsChildOf: round22-pre: KML::ClassIsChildOf(TSubclassOf TestClass, TSubclassOf ParentClass)
-- 22-casting.txt :: W09: K2Node_CallFunction_398: GetDisplayName: round22-pre: KSL::GetDisplayName(const UObject*)
-- 22-casting.txt :: W09: K2Node_CallFunction_399: GetObjectName: round22-pre: KSL::GetObjectName(const UObject*)
-- 22-casting.txt :: W09: K2Node_CallFunction_400: EqualEqual_ObjectObject: round22-pre: CallFunction (не PromotableOperator), заголовок «==»
-- 22-casting.txt :: W09: K2Node_CallFunction_401: NotEqual_ObjectObject: round22-pre: заголовок «!=»
-- 22-casting.txt :: W09: K2Node_CallFunction_402: EqualEqual_ClassClass: round22-pre: KML::EqualEqual_ClassClass
-- 22-casting.txt :: W09: K2Node_CallFunction_403: Conv_ObjectToString: round22-pre: KSL(String)::Conv_ObjectToString(UObject* InObj) — компактный конвертер
-- 23-actor.txt :: W09: K2Node_CallFunction_405: K2_GetActorLocation: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_GetActorLocation const
-- 23-actor.txt :: W09: K2Node_CallFunction_406: K2_GetActorRotation: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_GetActorRotation const
-- 23-actor.txt :: W09: K2Node_CallFunction_407: GetTransform: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). UFUNCTION GetTransform (DisplayName GetActorTransform)
-- 23-actor.txt :: W09: K2Node_CallFunction_408: GetActorForwardVector: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). const
-- 23-actor.txt :: W09: K2Node_CallFunction_409: K2_SetActorLocation: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_SetActorLocation(NewLocation,bSweep,out SweepHitResult,bTeleport)
-- 23-actor.txt :: W09: K2Node_CallFunction_410: K2_SetActorRotation: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_SetActorRotation(NewRotation,bTeleportPhysics)
-- 23-actor.txt :: W09: K2Node_CallFunction_411: K2_AddActorWorldOffset: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_AddActorWorldOffset
-- 23-actor.txt :: W09: K2Node_CallFunction_412: K2_DestroyActor: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_DestroyActor
-- 23-actor.txt :: W09: K2Node_CallFunction_413: SetActorHiddenInGame: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). SetActorHiddenInGame(bool)
-- 23-actor.txt :: W09: K2Node_CallFunction_414: GetOwner: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). GetOwner const
-- 23-actor.txt :: W09: K2Node_CallFunction_415: ActorHasTag: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). ActorHasTag(FName) const
-- 23-actor.txt :: W09: K2Node_CallFunction_416: GetComponentByClass: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). GetComponentByClass(TSubclassOf<UActorComponent>) const; DeterminesOutputType — RV перетипизируется по классу
-- 23-actor.txt :: W09: K2Node_CallFunction_417: K2_AttachToActor: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_AttachToActor; enum EAttachmentRule (KeepRelative/KeepWorld/SnapToTarget)
+- 22-casting.txt :: W09: K2Node_CallFunction_398: GetObjectClass: round22-pre: UGameplayStatics::GetObjectClass (в меню «Get Class»)
+- 22-casting.txt :: W09: K2Node_CallFunction_399: ClassIsChildOf: round22-pre: KML::ClassIsChildOf(TSubclassOf TestClass, TSubclassOf ParentClass)
+- 22-casting.txt :: W09: K2Node_CallFunction_400: GetDisplayName: round22-pre: KSL::GetDisplayName(const UObject*)
+- 22-casting.txt :: W09: K2Node_CallFunction_401: GetObjectName: round22-pre: KSL::GetObjectName(const UObject*)
+- 22-casting.txt :: W09: K2Node_CallFunction_402: EqualEqual_ObjectObject: round22-pre: CallFunction (не PromotableOperator), заголовок «==»
+- 22-casting.txt :: W09: K2Node_CallFunction_403: NotEqual_ObjectObject: round22-pre: заголовок «!=»
+- 22-casting.txt :: W09: K2Node_CallFunction_404: EqualEqual_ClassClass: round22-pre: KML::EqualEqual_ClassClass
+- 22-casting.txt :: W09: K2Node_CallFunction_405: Conv_ObjectToString: round22-pre: KSL(String)::Conv_ObjectToString(UObject* InObj) — компактный конвертер
+- 23-actor.txt :: W09: K2Node_CallFunction_407: K2_GetActorLocation: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_GetActorLocation const
+- 23-actor.txt :: W09: K2Node_CallFunction_408: K2_GetActorRotation: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_GetActorRotation const
+- 23-actor.txt :: W09: K2Node_CallFunction_409: GetTransform: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). UFUNCTION GetTransform (DisplayName GetActorTransform)
+- 23-actor.txt :: W09: K2Node_CallFunction_410: GetActorForwardVector: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). const
+- 23-actor.txt :: W09: K2Node_CallFunction_411: K2_SetActorLocation: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_SetActorLocation(NewLocation,bSweep,out SweepHitResult,bTeleport)
+- 23-actor.txt :: W09: K2Node_CallFunction_412: K2_SetActorRotation: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_SetActorRotation(NewRotation,bTeleportPhysics)
+- 23-actor.txt :: W09: K2Node_CallFunction_413: K2_AddActorWorldOffset: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_AddActorWorldOffset
+- 23-actor.txt :: W09: K2Node_CallFunction_414: K2_DestroyActor: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_DestroyActor
+- 23-actor.txt :: W09: K2Node_CallFunction_415: SetActorHiddenInGame: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). SetActorHiddenInGame(bool)
+- 23-actor.txt :: W09: K2Node_CallFunction_416: GetOwner: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). GetOwner const
+- 23-actor.txt :: W09: K2Node_CallFunction_417: ActorHasTag: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). ActorHasTag(FName) const
+- 23-actor.txt :: W09: K2Node_CallFunction_418: GetComponentByClass: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). GetComponentByClass(TSubclassOf<UActorComponent>) const; DeterminesOutputType — RV перетипизируется по классу
+- 23-actor.txt :: W09: K2Node_CallFunction_419: K2_AttachToActor: round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_AttachToActor; enum EAttachmentRule (KeepRelative/KeepWorld/SnapToTarget)

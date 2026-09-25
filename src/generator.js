@@ -198,6 +198,8 @@ export function createGeneric(regEntry, pos = { x: 0, y: 0 }) {
   const short = regEntry.className.split('.').pop();
   const n = baseNode(short, short, pos);
   n.title = regEntry.title || short;
+  // round21c-pre: узлы вне модуля BlueprintGraph (InputBlueprintNodes и т.п.) — класс из реестра как есть.
+  if (/^\/Script\/(?!BlueprintGraph\.)/.test(regEntry.className || '')) { n.rawClass = regEntry.className; n.className = regEntry.className.replace(/^\/Script\//, ''); }
   // round15-pre: произвольные свойства узла (напр. bReturnByRefDesired у GetArrayItem).
   if (regEntry.props) n.rawProps = Object.entries(regEntry.props).map(([k, v]) => `${k}=${v}`);
   if (short === 'K2Node_VariableGet' || short === 'K2Node_VariableSet') {

@@ -665,6 +665,14 @@ regThrow.forEach(t => console.log('THROW:', t));
   const v = validateStrict(generateUEText(ac.map(e => createFromEntry(e))));
   ok(v.errors.length === 0, 'R23: Actor 0 ошибок');
 }
+// R21c pre: узлы вне BlueprintGraph (InputBlueprintNodes) — класс и ExportPath из реестра
+{
+  const ev = createFromEntry(byId('EnhancedInputActionEvent'));
+  const t = generateUEText([ev]);
+  ok(t.includes('Begin Object Class=/Script/InputBlueprintNodes.K2Node_EnhancedInputAction') && t.includes('ExportPath="/Script/InputBlueprintNodes.K2Node_EnhancedInputAction'), 'R21c: класс и ExportPath InputBlueprintNodes');
+  ok(t.includes("InputAction=\"/Script/EnhancedInput.InputAction'/Game/Input/Actions/IA_Jump.IA_Jump'\""), 'R21c: InputAction = путь ассета');
+  ok(generateUEText([createFromEntry(byId('Branch'))]).includes('ExportPath="/Script/BlueprintGraph.K2Node_IfThenElse'), 'R21c: BlueprintGraph-узлы без изменений');
+}
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);

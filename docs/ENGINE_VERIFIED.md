@@ -645,3 +645,8 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 
 - Члены AActor по образцу белого IsInputKeyDown (MemberParent=Actor, явный self): K2_GetActorLocation/Rotation, GetTransform, GetActorForwardVector, K2_SetActorLocation/Rotation, K2_AddActorWorldOffset, K2_DestroyActor, SetActorHiddenInGame, GetOwner, ActorHasTag, GetComponentByClass, K2_AttachToActor (+enum EAttachmentRule, +lib Actor).
 
+## Проверка text-дефолта + Round21c-pre (2026-09-25)
+
+- FormatText с `DefaultTextValue=NSLOCTEXT("", <guid>, "Hello {Name}")` — работает: движок принял пустой namespace и построил пин аргумента Name. Генерация text-дефолтов подтверждена.
+- round21c-pre (sweep/21c-enhanced-input-assets.txt): K2Node_EnhancedInputAction (событие, InputAction=ассет IA_Jump) и K2Node_GetInputActionValue (IA_Move → Vector2D), модуль /Script/InputBlueprintNodes. Генератор теперь берёт класс и ExportPath из реестра для узлов вне BlueprintGraph (вывод BlueprintGraph-узлов не изменился). Пути — из шаблона UE5 (/Game/Input/Actions/…), без референса.
+

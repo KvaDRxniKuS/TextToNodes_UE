@@ -201,7 +201,7 @@ function generateBlock(n){
   if(n.macroGraph) extra+=`   ${macroGraphRef(n.macroGraph, n.macroGuid||null)}\n`;
   if(n.isComment) return `Begin Object Class=${n.rawClass} Name="${n.id}" ExportPath="/Script/UnrealEd.EdGraphNode_Comment'"/Game/Generated.Generated:EventGraph.${n.id}"'"\n   NodePosX=${Math.round(n.pos.x)}\n   NodePosY=${Math.round(n.pos.y)}\n   NodeWidth=${n.width}\n   NodeHeight=${n.height}\n   NodeComment="${n.commentText}"\n   NodeGuid=${guid}\nEnd Object`;
   const cls=n.rawClass||`/Script/BlueprintGraph.${n.className.split('.').pop()}`;
-  return `Begin Object Class=${cls} Name="${n.id}" ExportPath="/Script/BlueprintGraph.${n.className.split('.').pop()}'"/Game/Generated.Generated:EventGraph.${n.id}"'"\n${extra}   NodePosX=${Math.round(n.pos.x)}\n   NodePosY=${Math.round(n.pos.y)}\n   NodeGuid=${guid}\n${pinsText?pinsText+'\n':''}End Object`;
+  return `Begin Object Class=${cls} Name="${n.id}" ExportPath="${cls}'"/Game/Generated.Generated:EventGraph.${n.id}"'"\n${extra}   NodePosX=${Math.round(n.pos.x)}\n   NodePosY=${Math.round(n.pos.y)}\n   NodeGuid=${guid}\n${pinsText?pinsText+'\n':''}End Object`;
 }
 
 export function validateUEText(text){

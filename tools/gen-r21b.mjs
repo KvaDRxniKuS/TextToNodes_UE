@@ -23,3 +23,16 @@ const v = validateStrict(text);
 fs.writeFileSync(new URL('../sweep/21b-enhanced-input-chain.txt', import.meta.url), text);
 console.log(`21b: nodes=${nodes.length} errors=${v.errors.length} warnings=${v.warnings.length}`);
 v.errors.forEach(e => console.log('  ', e));
+
+// R21c: узлы Enhanced Input с ассетами (пути шаблона UE5 — при другом проекте заменить путь InputAction).
+{
+  const ev = createFromEntry(byId('EnhancedInputActionEvent'));
+  const gv = createFromEntry(byId('GetInputActionValue'));
+  layoutRow([ev, gv], 0, 0);
+  const cm2 = fitComment('SWEEP 21c: Enhanced Input — событие IA_Jump + Get IA_Move (пути шаблона /Game/Input/Actions)', [ev, gv]);
+  const t2 = generateUEText([cm2, ev, gv]);
+  const v2 = validateStrict(t2);
+  fs.writeFileSync(new URL('../sweep/21c-enhanced-input-assets.txt', import.meta.url), t2);
+  console.log(`21c: nodes=2 errors=${v2.errors.length} warnings=${v2.warnings.length}`);
+  v2.errors.forEach(e => console.log('  ', e));
+}

@@ -9319,6 +9319,86 @@
   "note": "round21b-pre: член IEnhancedInputSubsystemInterface; Options (FModifyContextOptions) опущен — движок достроит; self типизирован подсистемой — без референса"
  },
  {
+  "id": "EnhancedInputActionEvent",
+  "title": "EnhancedInputAction IA_Jump",
+  "category": "Enhanced Input",
+  "className": "/Script/InputBlueprintNodes.K2Node_EnhancedInputAction",
+  "func": "",
+  "props": {
+   "InputAction": "\"/Script/EnhancedInput.InputAction'/Game/Input/Actions/IA_Jump.IA_Jump'\""
+  },
+  "pins": [
+   {
+    "name": "Triggered",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Started",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Ongoing",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Canceled",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Completed",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "ActionValue",
+    "dir": "Output",
+    "cat": "bool"
+   },
+   {
+    "name": "ElapsedSeconds",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float",
+    "advanced": true
+   },
+   {
+    "name": "TriggeredSeconds",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float",
+    "advanced": true
+   }
+  ],
+  "verified": false,
+  "desc": "Событие действия ввода",
+  "note": "round21c-pre: событие K2Node_EnhancedInputAction (модуль InputBlueprintNodes), InputAction = путь ассета (по умолчанию из шаблона UE5: /Game/Input/Actions/IA_Jump). Пины движок перестроит по ValueType ассета — без референса"
+ },
+ {
+  "id": "GetInputActionValue",
+  "title": "Get IA_Move",
+  "category": "Enhanced Input",
+  "className": "/Script/InputBlueprintNodes.K2Node_GetInputActionValue",
+  "func": "",
+  "props": {
+   "InputAction": "\"/Script/EnhancedInput.InputAction'/Game/Input/Actions/IA_Move.IA_Move'\""
+  },
+  "pins": [
+   {
+    "name": "ActionValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector2D"
+   }
+  ],
+  "verified": false,
+  "desc": "Значение действия",
+  "note": "round21c-pre: pure-узел K2Node_GetInputActionValue, InputAction = ассет (шаблонный IA_Move, Axis2D → Vector2D) — без референса"
+ },
+ {
   "id": "Distance2D",
   "title": "Distance 2D",
   "category": "Math / Vector",
