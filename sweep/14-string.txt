@@ -199,7 +199,7 @@ End Object
 Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node_PromotableOperator_287" ExportPath="/Script/BlueprintGraph.K2Node_PromotableOperator'"/Game/Generated.Generated:EventGraph.K2Node_PromotableOperator_287"'"
    OperationName="EqualEqual"
    bDefaultsToPureFunc=True
-   FunctionReference=(MemberParent=Class"/Script/Engine.KismetMathLibrary"',MemberName="EqualEqual_StrStr")
+   FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="EqualEqual_StrStr")
    NodePosX=1000
    NodePosY=954
    NodeGuid=5B74D959B604A79C94EB2A4173F736DA
@@ -211,7 +211,7 @@ End Object
 Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node_PromotableOperator_288" ExportPath="/Script/BlueprintGraph.K2Node_PromotableOperator'"/Game/Generated.Generated:EventGraph.K2Node_PromotableOperator_288"'"
    OperationName="NotEqual"
    bDefaultsToPureFunc=True
-   FunctionReference=(MemberParent=Class"/Script/Engine.KismetMathLibrary"',MemberName="NotEqual_StrStr")
+   FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="NotEqual_StrStr")
    NodePosX=1390
    NodePosY=954
    NodeGuid=C528ED88E953CAC0FEEC33A07F641043

@@ -1301,9 +1301,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Константа",
-  "notes": "round4: настоящее имя FInterpTo_Constant (live-реф _194); FInterpToConstant не существует"
+  "notes": "round4-fix: белая по факту пользователя (FInterpTo_Constant)"
  },
  {
   "id": "Ease_Float",
@@ -1361,9 +1361,9 @@
     "hidden": true
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Ease",
-  "notes": "round4: не CallFunction — спец-нода K2Node_EaseFunction (live-реф K2Node_EaseFunction_0)"
+  "notes": "round4-fix: белая по факту пользователя (K2Node_EaseFunction)"
  },
  {
   "id": "GridSnap_Float",

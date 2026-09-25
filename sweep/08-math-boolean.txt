@@ -10,7 +10,7 @@ End Object
 Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node_PromotableOperator_196" ExportPath="/Script/BlueprintGraph.K2Node_PromotableOperator'"/Game/Generated.Generated:EventGraph.K2Node_PromotableOperator_196"'"
    OperationName="BooleanAND"
    bDefaultsToPureFunc=True
-   FunctionReference=(MemberParent=Class"/Script/Engine.KismetMathLibrary"',MemberName="BooleanAND")
+   FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="BooleanAND")
    NodePosX=0
    NodePosY=0
    NodeGuid=EC623C154A9341D0AED2926948564842
@@ -22,7 +22,7 @@ End Object
 Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node_PromotableOperator_197" ExportPath="/Script/BlueprintGraph.K2Node_PromotableOperator'"/Game/Generated.Generated:EventGraph.K2Node_PromotableOperator_197"'"
    OperationName="BooleanOR"
    bDefaultsToPureFunc=True
-   FunctionReference=(MemberParent=Class"/Script/Engine.KismetMathLibrary"',MemberName="BooleanOR")
+   FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="BooleanOR")
    NodePosX=390
    NodePosY=0
    NodeGuid=22C7AAEFA08BBA45BCE85CBC903E1B71
@@ -34,7 +34,7 @@ End Object
 Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node_PromotableOperator_198" ExportPath="/Script/BlueprintGraph.K2Node_PromotableOperator'"/Game/Generated.Generated:EventGraph.K2Node_PromotableOperator_198"'"
    OperationName="BooleanNOT"
    bDefaultsToPureFunc=True
-   FunctionReference=(MemberParent=Class"/Script/Engine.KismetMathLibrary"',MemberName="BooleanNOT")
+   FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="BooleanNOT")
    NodePosX=780
    NodePosY=0
    NodeGuid=BBF4205B7FF934107F8272374E39E71D
@@ -45,7 +45,7 @@ End Object
 Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node_PromotableOperator_199" ExportPath="/Script/BlueprintGraph.K2Node_PromotableOperator'"/Game/Generated.Generated:EventGraph.K2Node_PromotableOperator_199"'"
    OperationName="BooleanXOR"
    bDefaultsToPureFunc=True
-   FunctionReference=(MemberParent=Class"/Script/Engine.KismetMathLibrary"',MemberName="BooleanXOR")
+   FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="BooleanXOR")
    NodePosX=1170
    NodePosY=0
    NodeGuid=67E7733624B0147F85871A92CF5EA3E9

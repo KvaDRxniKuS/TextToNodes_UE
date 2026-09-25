@@ -20,7 +20,7 @@ End Object
 Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node_PromotableOperator_160" ExportPath="/Script/BlueprintGraph.K2Node_PromotableOperator'"/Game/Generated.Generated:EventGraph.K2Node_PromotableOperator_160"'"
    OperationName="Add"
    bDefaultsToPureFunc=True
-   FunctionReference=(MemberParent=Class"/Script/Engine.KismetMathLibrary"',MemberName="Add_IntInt")
+   FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Add_IntInt")
    NodePosX=490
    NodePosY=0
    NodeGuid=A002036300EF0610E8A6E5A4C8816DB2
@@ -32,7 +32,7 @@ End Object
 Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node_PromotableOperator_161" ExportPath="/Script/BlueprintGraph.K2Node_PromotableOperator'"/Game/Generated.Generated:EventGraph.K2Node_PromotableOperator_161"'"
    OperationName="Subtract"
    bDefaultsToPureFunc=True
-   FunctionReference=(MemberParent=Class"/Script/Engine.KismetMathLibrary"',MemberName="Subtract_IntInt")
+   FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Subtract_IntInt")
    NodePosX=880
    NodePosY=0
    NodeGuid=679CBD51B33920407D897C8272C3BE06
@@ -44,7 +44,7 @@ End Object
 Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node_PromotableOperator_162" ExportPath="/Script/BlueprintGraph.K2Node_PromotableOperator'"/Game/Generated.Generated:EventGraph.K2Node_PromotableOperator_162"'"
    OperationName="Multiply"
    bDefaultsToPureFunc=True
-   FunctionReference=(MemberParent=Class"/Script/Engine.KismetMathLibrary"',MemberName="Multiply_IntInt")
+   FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Multiply_IntInt")
    NodePosX=1270
    NodePosY=0
    NodeGuid=BD49AA9FCAE4DFF6FEDB6222B1675CB4
@@ -56,7 +56,7 @@ End Object
 Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node_PromotableOperator_163" ExportPath="/Script/BlueprintGraph.K2Node_PromotableOperator'"/Game/Generated.Generated:EventGraph.K2Node_PromotableOperator_163"'"
    OperationName="Divide"
    bDefaultsToPureFunc=True
-   FunctionReference=(MemberParent=Class"/Script/Engine.KismetMathLibrary"',MemberName="Divide_IntInt")
+   FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Divide_IntInt")
    NodePosX=1660
    NodePosY=0
    NodeGuid=823A3383E3961AB4EDD50C638CC6286A
@@ -68,7 +68,7 @@ End Object
 Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node_PromotableOperator_164" ExportPath="/Script/BlueprintGraph.K2Node_PromotableOperator'"/Game/Generated.Generated:EventGraph.K2Node_PromotableOperator_164"'"
    OperationName="Percent"
    bDefaultsToPureFunc=True
-   FunctionReference=(MemberParent=Class"/Script/Engine.KismetMathLibrary"',MemberName="Percent_IntInt")
+   FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Percent_IntInt")
    NodePosX=0
    NodePosY=296
    NodeGuid=6F4AD061C64034A65849507B3E72C6A5

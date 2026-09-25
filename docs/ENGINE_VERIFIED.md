@@ -494,3 +494,11 @@ wildcard A/B/Result + enum-пин Function EEasingFunc, live-реф
 K2Node_EaseFunction_0). Попутно из copy-back: у V/R/T InterpTo
 DeltaTime/InterpSpeed — float (не double); у TInterpTo Current/Target —
 const-ref. EEasingFunc добавлен в UE_ENUMS (src + index.html).
+
+## Файл 04 CLOSED 7/7; предфикс операторов 05/07/08/14 (2026-09-25)
+
+4-fix белый (FInterpTo_Constant + K2Node_EaseFunction) — Interpolation
+закрыт. Перед раундом 05 найден и исправлен протухший MemberParent
+(Class"..."') у операторов в sweep 05/07/08/14 — заменён на белую
+quoted-full форму из 03 (18 мест). 05-math-integer: 9 нод, STRICT 0/3
+(3xW09: Clamp/Max/Min int — имена перегрузок не подтверждены).
