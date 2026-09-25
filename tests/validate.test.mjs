@@ -219,5 +219,24 @@ regThrow.forEach(t => console.log('THROW:', t));
   const fvr = validateStrict(frt);
   ok(fvr.errors.length === 2 && frt.includes('bDefaultsToPureFunc=True'), 'Q6 фикстура: регенерация сохраняет E06 + pure-флаг');
 }
+
+// M1 copy-back: round-trip pure BreakHitResult (трейд 15→16, pure 19→20, провод жив)
+{
+  const m1 = fs.readFileSync(new URL('./fixtures/m1-copyback.txt', import.meta.url), 'utf8');
+  const v = validateStrict(m1);
+  ok(v.valid && v.errors.length === 0 && v.warnings.length === 0, 'M1 copy-back: strict 0 ошибок, 0 варнингов');
+  const gm = parseToGraphs(m1);
+  ok(gm.EventGraph.nodes.length === 3, 'M1 copy-back: 3 ноды');
+  const tr = gm.EventGraph.nodes.find(n => n.funcName === 'LineTraceSingle');
+  const pu = gm.EventGraph.nodes.find(n => n.funcName === 'BreakHitResult');
+  ok(tr && tr.pins.length === 16, 'M1 copy-back: трейд 15->16 (self добавлен)');
+  ok(pu && pu.pure === true && pu.pins.length === 20, 'M1 copy-back: pure 19->20 (self добавлен)');
+  ok(tr && tr.pins.findIndex(p => p.name === 'self') === 2, 'M1 copy-back: self трейда третий (после execute/then)');
+  ok(pu && pu.pins.findIndex(p => p.name === 'self') === 0, 'M1 copy-back: self pure-ноды первый');
+  ok(tr.pins.find(p => p.name === 'OutHit').linkedTo.some(l => l.nodeName === 'K2Node_CallFunction_101') &&
+     pu.pins.find(p => p.name === 'Hit').linkedTo.some(l => l.nodeName === 'K2Node_CallFunction_100'), 'M1 copy-back: провод OutHit<->Hit жив в обе стороны');
+  const cm = gm.EventGraph.nodes.find(n => n.isComment);
+  ok(cm && cm.width === 700 && cm.height === 698, 'M1 copy-back: размер коммента 700x698 пережил round-trip');
+}
 console.log(`\nVALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);

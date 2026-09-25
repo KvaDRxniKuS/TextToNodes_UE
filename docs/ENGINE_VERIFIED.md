@@ -229,3 +229,18 @@ AdvancedPinDisplay=Shown = ручное раскрытие юзером (не э
 M1 (tools/gen-m-series.mjs): трейд + OutHit→Hit round-trip. Фикстура:
 tests/fixtures/breakhitresult-copyback.txt (фрагмент: 2×E06 на вневыборочный _111).
 Q4 частично закрыт (pure CallFunction), остался VarGet/VarSet self-пин.
+
+
+## M1: pure round-trip 34/34 PinId, провод жив (2026-09-25)
+
+Вставка M1 (трейд 15 пинов + pure BreakHitResult 19 пинов + OutHit→Hit): вернулись
+все 34 PinId, движок добавил только self (трейд 15→16, pure 19→20), провод
+двусторонний. Позиция self: у exec-ноды — третий (после execute/then), у pure-ноды —
+первый. Имена нод сохранены, NodeGuid перегенерированы.
+Уточнение K-примечания про комменты: дефолтный размер движок опускает, нестандартный
+(700×698 от fitComment) сериализует обратно — fitComment round-trip-safe.
+Pure-нода вернулась с AdvancedPinDisplay=Shown (трейд — Hidden): либо дефолт движка
+для pure, либо раскрытие перед копипастом — на вставку не влияет, не эмитим.
+Любопытное: тултип Normal в M1 полный («for a sphere trace this points towards...»),
+в Q6-фикстуре (_105) — усечённый вариант; тултипы engine-managed, не эмитим.
+Фикстура: tests/fixtures/m1-copyback.txt (STRICT-OK, 0 варнингов).
