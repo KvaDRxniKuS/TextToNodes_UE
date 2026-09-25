@@ -650,3 +650,12 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 - FormatText с `DefaultTextValue=NSLOCTEXT("", <guid>, "Hello {Name}")` — работает: движок принял пустой namespace и построил пин аргумента Name. Генерация text-дефолтов подтверждена.
 - round21c-pre (sweep/21c-enhanced-input-assets.txt): K2Node_EnhancedInputAction (событие, InputAction=ассет IA_Jump) и K2Node_GetInputActionValue (IA_Move → Vector2D), модуль /Script/InputBlueprintNodes. Генератор теперь берёт класс и ExportPath из реестра для узлов вне BlueprintGraph (вывод BlueprintGraph-узлов не изменился). Пути — из шаблона UE5 (/Game/Input/Actions/…), без референса.
 
+## Round21b: Enhanced Input chain — VERIFIED (2026-09-25)
+
+- Cast To PlayerController (K2Node_DynamicCast, TargetType=класс), Get EnhancedInputLocalPlayerSubsystem (K2Node_GetSubsystemFromPC, CustomClass), Add Mapping Context (EnhancedInputSubsystemInterface) — работают. Форма DynamicCast подтверждена для всех кастов.
+- Подсказка пользователя: вместо Get Player Controller можно использовать Get Controller (self) у Pawn (добавлен в R24).
+
+## Round24-pre: Pawn / Character / Controller
+
+- sweep/24-pawn-character.txt, 18 узлов, члены Character/Pawn/Controller/Actor с явным self (как R23). Без референса.
+

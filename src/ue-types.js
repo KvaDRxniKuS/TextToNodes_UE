@@ -28,6 +28,9 @@ const LIBS_FULL = {
   GameplayStatics:     `"/Script/CoreUObject.Class'/Script/Engine.GameplayStatics'"`,
   PlayerController:    `"/Script/CoreUObject.Class'/Script/Engine.PlayerController'"`, // round18-pre: член-функции (IsInputKeyDown)
   Actor:               `"/Script/CoreUObject.Class'/Script/Engine.Actor'"`, // round23-pre: член-функции AActor
+  Pawn: `"/Script/CoreUObject.Class'/Script/Engine.Pawn'"`, // round24-pre
+  Character: `"/Script/CoreUObject.Class'/Script/Engine.Character'"`, // round24-pre
+  Controller: `"/Script/CoreUObject.Class'/Script/Engine.Controller'"`, // round24-pre
   EnhancedInputComponent: `"/Script/CoreUObject.Class'/Script/EnhancedInput.EnhancedInputComponent'"`, // round21-pre: GetBoundActionValue
   EnhancedInputSubsystemInterface: `"/Script/CoreUObject.Class'/Script/EnhancedInput.EnhancedInputSubsystemInterface'"`, // round21b-pre: AddMappingContext
 };
@@ -40,6 +43,9 @@ const LIBS_SHORT = {
   GameplayStatics:     `Class'"/Script/Engine.GameplayStatics"'`,
   PlayerController:    `Class'"/Script/Engine.PlayerController"'`,
   Actor:               `Class'"/Script/Engine.Actor"'`,
+  Pawn: `Class'"/Script/Engine.Pawn"'`,
+  Character: `Class'"/Script/Engine.Character"'`,
+  Controller: `Class'"/Script/Engine.Controller"'`,
   EnhancedInputComponent: `Class'"/Script/EnhancedInput.EnhancedInputComponent"'`,
   EnhancedInputSubsystemInterface: `Class'"/Script/EnhancedInput.EnhancedInputSubsystemInterface"'`,
 };

@@ -9245,9 +9245,9 @@
     "hidden": true
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Каст к PlayerController",
-  "note": "round21b-pre: K2Node_DynamicCast, TargetType=класс; выход As<DisplayName>, bSuccess скрыт у impure-каста — без референса"
+  "note": "round21b VERIFIED (движок, 2026-09-25): K2Node_DynamicCast, TargetType=класс; выход As<DisplayName>, bSuccess скрыт у impure-каста"
  },
  {
   "id": "GetEnhancedInputSubsystem",
@@ -9272,9 +9272,9 @@
     "object": "/Script/EnhancedInput.EnhancedInputLocalPlayerSubsystem"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Подсистема Enhanced Input",
-  "note": "round21b-pre: K2Node_GetSubsystemFromPC, CustomClass=EnhancedInputLocalPlayerSubsystem — без референса"
+  "note": "round21b VERIFIED (движок, 2026-09-25): K2Node_GetSubsystemFromPC, CustomClass=EnhancedInputLocalPlayerSubsystem"
  },
  {
   "id": "AddMappingContext",
@@ -9314,9 +9314,9 @@
     "dv": "0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Добавить контекст ввода",
-  "note": "round21b-pre: член IEnhancedInputSubsystemInterface; Options (FModifyContextOptions) опущен — движок достроит; self типизирован подсистемой — без референса"
+  "note": "round21b VERIFIED (движок, 2026-09-25): член IEnhancedInputSubsystemInterface; Options (FModifyContextOptions) опущен — движок достроит; self типизирован подсистемой"
  },
  {
   "id": "EnhancedInputActionEvent",
@@ -12126,5 +12126,588 @@
   "verified": false,
   "desc": "Прикрепить к актору",
   "note": "round23-pre: член AActor, self=Target Actor (по образцу белого IsInputKeyDown). K2_AttachToActor; enum EAttachmentRule (KeepRelative/KeepWorld/SnapToTarget)"
+ },
+ {
+  "id": "Jump",
+  "title": "Jump",
+  "category": "Pawn / Character",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Jump",
+  "lib": "Character",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Character"
+   }
+  ],
+  "verified": false,
+  "desc": "Прыжок",
+  "note": "round24-pre: член Character, self=Target (по образцу AActor-членов R23). "
+ },
+ {
+  "id": "StopJumping",
+  "title": "Stop Jumping",
+  "category": "Pawn / Character",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "StopJumping",
+  "lib": "Character",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Character"
+   }
+  ],
+  "verified": false,
+  "desc": "Прекратить прыжок",
+  "note": "round24-pre: член Character, self=Target (по образцу AActor-членов R23). "
+ },
+ {
+  "id": "CanJump",
+  "title": "Can Jump",
+  "category": "Pawn / Character",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "CanJump",
+  "lib": "Character",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Character"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Может прыгнуть",
+  "note": "round24-pre: член Character, self=Target (по образцу AActor-членов R23). CanJump() const BlueprintCallable → pure",
+  "pure": true
+ },
+ {
+  "id": "LaunchCharacter",
+  "title": "Launch Character",
+  "category": "Pawn / Character",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "LaunchCharacter",
+  "lib": "Character",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Character"
+   },
+   {
+    "name": "LaunchVelocity",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "bXYOverride",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "bZOverride",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Толкнуть персонажа",
+  "note": "round24-pre: член Character, self=Target (по образцу AActor-членов R23). "
+ },
+ {
+  "id": "Crouch",
+  "title": "Crouch",
+  "category": "Pawn / Character",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Crouch",
+  "lib": "Character",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Character"
+   },
+   {
+    "name": "bClientSimulation",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false",
+    "hidden": true
+   }
+  ],
+  "verified": false,
+  "desc": "Присесть",
+  "note": "round24-pre: член Character, self=Target (по образцу AActor-членов R23). bClientSimulation скрыт (HidePin)"
+ },
+ {
+  "id": "UnCrouch",
+  "title": "Un Crouch",
+  "category": "Pawn / Character",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "UnCrouch",
+  "lib": "Character",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Character"
+   },
+   {
+    "name": "bClientSimulation",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false",
+    "hidden": true
+   }
+  ],
+  "verified": false,
+  "desc": "Встать",
+  "note": "round24-pre: член Character, self=Target (по образцу AActor-членов R23). bClientSimulation скрыт (HidePin)"
+ },
+ {
+  "id": "AddMovementInput",
+  "title": "Add Movement Input",
+  "category": "Pawn / Character",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AddMovementInput",
+  "lib": "Pawn",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Pawn"
+   },
+   {
+    "name": "WorldDirection",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "ScaleValue",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "1.0"
+   },
+   {
+    "name": "bForce",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Ввод движения",
+  "note": "round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). "
+ },
+ {
+  "id": "AddControllerYawInput",
+  "title": "Add Controller Yaw Input",
+  "category": "Pawn / Character",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AddControllerYawInput",
+  "lib": "Pawn",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Pawn"
+   },
+   {
+    "name": "Val",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.0"
+   }
+  ],
+  "verified": false,
+  "desc": "Поворот по Yaw",
+  "note": "round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). "
+ },
+ {
+  "id": "AddControllerPitchInput",
+  "title": "Add Controller Pitch Input",
+  "category": "Pawn / Character",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AddControllerPitchInput",
+  "lib": "Pawn",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Pawn"
+   },
+   {
+    "name": "Val",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.0"
+   }
+  ],
+  "verified": false,
+  "desc": "Поворот по Pitch",
+  "note": "round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). "
+ },
+ {
+  "id": "Pawn_GetControlRotation",
+  "title": "Get Control Rotation",
+  "category": "Pawn / Character",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetControlRotation",
+  "lib": "Pawn",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Pawn"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Rotator"
+   }
+  ],
+  "verified": false,
+  "desc": "Поворот контроллера",
+  "note": "round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). ",
+  "pure": true
+ },
+ {
+  "id": "GetController",
+  "title": "Get Controller",
+  "category": "Pawn / Character",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetController",
+  "lib": "Pawn",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Pawn"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.Controller"
+   }
+  ],
+  "verified": false,
+  "desc": "Контроллер пешки",
+  "note": "round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). альтернатива Get Player Controller (self) — подсказка пользователя R21b",
+  "pure": true
+ },
+ {
+  "id": "IsLocallyControlled",
+  "title": "Is Locally Controlled",
+  "category": "Pawn / Character",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsLocallyControlled",
+  "lib": "Pawn",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Pawn"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Локальное управление",
+  "note": "round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). ",
+  "pure": true
+ },
+ {
+  "id": "IsPlayerControlled",
+  "title": "Is Player Controlled",
+  "category": "Pawn / Character",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsPlayerControlled",
+  "lib": "Pawn",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Pawn"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": false,
+  "desc": "Управляет игрок",
+  "note": "round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). ",
+  "pure": true
+ },
+ {
+  "id": "Possess",
+  "title": "Possess",
+  "category": "Pawn / Character",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Possess",
+  "lib": "Controller",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Controller"
+   },
+   {
+    "name": "InPawn",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Pawn"
+   }
+  ],
+  "verified": false,
+  "desc": "Вселиться в пешку",
+  "note": "round24-pre: член Controller, self=Target (по образцу AActor-членов R23). "
+ },
+ {
+  "id": "UnPossess",
+  "title": "Un Possess",
+  "category": "Pawn / Character",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "UnPossess",
+  "lib": "Controller",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Controller"
+   }
+  ],
+  "verified": false,
+  "desc": "Покинуть пешку",
+  "note": "round24-pre: член Controller, self=Target (по образцу AActor-членов R23). "
+ },
+ {
+  "id": "GetControlledPawn",
+  "title": "Get Controlled Pawn",
+  "category": "Pawn / Character",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_GetPawn",
+  "lib": "Controller",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Controller"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.Pawn"
+   }
+  ],
+  "verified": false,
+  "desc": "Управляемая пешка",
+  "note": "round24-pre: член Controller, self=Target (по образцу AActor-членов R23). K2_GetPawn const → pure, DisplayName Get Controlled Pawn",
+  "pure": true
+ },
+ {
+  "id": "SetControlRotation",
+  "title": "Set Control Rotation",
+  "category": "Pawn / Character",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetControlRotation",
+  "lib": "Controller",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Controller"
+   },
+   {
+    "name": "NewRotation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Rotator",
+    "dv": "0, 0, 0",
+    "const": true,
+    "ref": true
+   }
+  ],
+  "verified": false,
+  "desc": "Задать поворот контроллера",
+  "note": "round24-pre: член Controller, self=Target (по образцу AActor-членов R23). NewRotation const FRotator& → const+ref"
+ },
+ {
+  "id": "GetVelocity",
+  "title": "Get Velocity",
+  "category": "Pawn / Character",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetVelocity",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "verified": false,
+  "desc": "Скорость",
+  "note": "round24-pre: член Actor, self=Target (по образцу AActor-членов R23). член AActor",
+  "pure": true
  }
 ]

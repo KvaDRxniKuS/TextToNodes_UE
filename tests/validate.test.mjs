@@ -673,6 +673,14 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(t.includes("InputAction=\"/Script/EnhancedInput.InputAction'/Game/Input/Actions/IA_Jump.IA_Jump'\""), 'R21c: InputAction = путь ассета');
   ok(generateUEText([createFromEntry(byId('Branch'))]).includes('ExportPath="/Script/BlueprintGraph.K2Node_IfThenElse'), 'R21c: BlueprintGraph-узлы без изменений');
 }
+// R21b VERIFIED + R24 pre: Pawn / Character / Controller
+{
+  ok(['CastToPlayerController','GetEnhancedInputSubsystem','AddMappingContext'].every(id => byId(id).verified), 'R21b: цепочка verified');
+  const j = generateUEText([createFromEntry(byId('Jump'))]);
+  ok(j.includes('MemberParent="/Script/CoreUObject.Class\'/Script/Engine.Character\'"') && j.includes('MemberName="Jump"'), 'R24: Jump — член Character');
+  const gp = generateUEText([createFromEntry(byId('GetControlledPawn'))]);
+  ok(gp.includes('MemberName="K2_GetPawn"') && !gp.includes('PinName="execute"'), 'R24: Get Controlled Pawn = pure K2_GetPawn');
+}
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);
