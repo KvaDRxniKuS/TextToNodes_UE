@@ -1225,9 +1225,9 @@
     "cat": "real"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Map Value",
-  "notes": "round3g: GetMappedRangeValueClamped не существует в BP (C++-only); настоящая нода MapRangeClamped (Map Range Clamped)"
+  "notes": "round3g: белая по факту пользователя (MapRangeClamped + Unclamped работают)"
  },
  {
   "id": "FInterpTo",

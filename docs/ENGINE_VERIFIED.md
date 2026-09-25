@@ -478,3 +478,9 @@ Trunc_Float — белый по факту пользователя (сингл�
 UKismetMathLibrary::MapRangeClamped(Value, InRangeA, InRangeB, OutRangeA,
 OutRangeB). Реестр + sweep/03 + тест обновлены; проба 3-fix-7.
 Дока: BlueprintAPI Math/Float/MapRangeClamped.
+
+## Файл 03 CLOSED 30/30 (2026-09-25)
+
+GetMappedRange (MapRangeClamped) — белая по факту пользователя;
+MapRangeUnclamped уже была verified. Math/Float закрыт полностью.
+Следующая глава: 04 Math/Interpolation (7 нод).
