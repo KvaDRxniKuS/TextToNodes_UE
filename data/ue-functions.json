@@ -913,9 +913,9 @@
     "cat": "int"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Отбросить дробную",
-  "notes": "MemberName FTrunc (live-реф round3b; без F-префикса не существует)"
+  "notes": "round3-fix-5: белый по факту пользователя (синглтон-орфан из 3-fix-2 не повторился)"
  },
  {
   "id": "Frac_Float",

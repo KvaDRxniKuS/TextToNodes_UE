@@ -464,3 +464,9 @@ verified не переводим, изолированный ретест 3-fix-
 GridSnap_Float + NearlyEqual_FloatFloat — белые (verified). Файл 03:
 28 verified / 2 noted. Остаток: GetMappedRange (факт не получен) и
 Trunc (синглтон-орфан) — отдельная проба 3-fix-5.
+
+## Раунд 3f: Trunc белый, 3-fix-6 (2026-09-25)
+
+Trunc_Float — белый по факту пользователя (синглтон-орфан из 3-fix-2
+не повторился). GridSnap/NearlyEqual подтверждены повторно. Файл 03:
+29 verified / 1 noted. Остаток: GetMappedRange — чистая проба 3-fix-6.
