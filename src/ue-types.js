@@ -27,6 +27,7 @@ const LIBS_FULL = {
   KismetArrayLibrary:  `"/Script/CoreUObject.Class'/Script/Engine.KismetArrayLibrary'"`,
   GameplayStatics:     `"/Script/CoreUObject.Class'/Script/Engine.GameplayStatics'"`,
   PlayerController:    `"/Script/CoreUObject.Class'/Script/Engine.PlayerController'"`, // round18-pre: член-функции (IsInputKeyDown)
+  EnhancedInputComponent: `"/Script/CoreUObject.Class'/Script/EnhancedInput.EnhancedInputComponent'"`, // round21-pre: GetBoundActionValue
 };
 const LIBS_SHORT = {
   KismetMathLibrary:   `Class'"/Script/Engine.KismetMathLibrary"'`,
@@ -36,6 +37,7 @@ const LIBS_SHORT = {
   KismetArrayLibrary:  `Class'"/Script/Engine.KismetArrayLibrary"'`,
   GameplayStatics:     `Class'"/Script/Engine.GameplayStatics"'`,
   PlayerController:    `Class'"/Script/Engine.PlayerController"'`,
+  EnhancedInputComponent: `Class'"/Script/EnhancedInput.EnhancedInputComponent"'`,
 };
 export const UE_LIBS = UE_VERSION === 'SHORT' ? LIBS_SHORT : LIBS_FULL;
 
@@ -49,7 +51,7 @@ const STRUCTS_FULL = {
   HitResult:   `"/Script/CoreUObject.ScriptStruct'/Script/Engine.HitResult'"`,        // confirmed (copy-back LineTraceSingle)
   Key:         `"/Script/CoreUObject.ScriptStruct'/Script/InputCore.Key'"`,
   LatentActionInfo: `"/Script/CoreUObject.ScriptStruct'/Script/Engine.LatentActionInfo'"`, // confirmed (copy-back Delay L1/L2)
-  // InputActionValue — только EnhancedInput: в словаре отсутствует намеренно.
+  InputActionValue: `"/Script/CoreUObject.ScriptStruct'/Script/EnhancedInput.InputActionValue'"`, // round21-pre: плагин EnhancedInput (в UE 5.8 включён по умолчанию)
 };
 // SHORT: правдоподобная legacy-форма (UE4/ранние UE5), вставкой НЕ проверена.
 const STRUCTS_SHORT = {

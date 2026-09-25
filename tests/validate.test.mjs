@@ -508,7 +508,7 @@ regThrow.forEach(t => console.log('THROW:', t));
 }
 // Sweep coverage: каждая запись реестра строится (кроме референс-листа)
 {
-  const THROW_OK = new Set(['Enhanced_GetActionValue']); // InputActionValue вне FULL-словаря
+  const THROW_OK = new Set([]); // round21-pre: InputActionValue добавлен в FULL — строятся все 270
   const buildFail = [];
   for (const e of reg) {
     try { createFromEntry(e); }
@@ -608,6 +608,13 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(f.className.endsWith('K2Node_FormatText') && f.pins.map(p => p.name).join() === 'Format,Result', 'R20: FormatText → K2Node_FormatText Format/Result');
   const v = validateStrict(generateUEText([f]));
   ok(v.errors.length === 0, 'R20: Text 0 ошибок');
+}
+// R21 pre-fix: Enhanced Input
+{
+  const g = createFromEntry(byId('Enhanced_GetActionValue'));
+  ok(g.funcName === 'GetBoundActionValue' && /EnhancedInputComponent/.test(g.memberParent) && g.pure, 'R21: GetBoundActionValue — член EnhancedInputComponent, pure');
+  ok(/EnhancedInput\.InputActionValue/.test(g.pins.find(p => p.name === 'ReturnValue').subCategoryObject), 'R21: RV InputActionValue');
+  ok(validateStrict(generateUEText([g])).errors.length === 0, 'R21: Enhanced Input 0 ошибок');
 }
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);

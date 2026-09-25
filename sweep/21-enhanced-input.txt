@@ -1,8 +1,19 @@
-Begin Object Class=/Script/UnrealEd.EdGraphNode_Comment Name="EdGraphNode_Comment_359" ExportPath="/Script/UnrealEd.EdGraphNode_Comment'"/Game/Generated.Generated:EventGraph.EdGraphNode_Comment_359"'"
+Begin Object Class=/Script/UnrealEd.EdGraphNode_Comment Name="EdGraphNode_Comment_390" ExportPath="/Script/UnrealEd.EdGraphNode_Comment'"/Game/Generated.Generated:EventGraph.EdGraphNode_Comment_390"'"
    NodePosX=-60
    NodePosY=-110
-   NodeWidth=900
-   NodeHeight=200
-   NodeComment="SWEEP 21/21: Enhanced Input (0/1 узлов, 0 verified) — ПУСТО, все записи требуют референсов (см. MANIFEST)"
-   NodeGuid=A38CB924A853B334BF95AD0381663EB9
+   NodeWidth=490
+   NodeHeight=396
+   NodeComment="SWEEP 21/21: Enhanced Input (1/1 узлов, 0 verified)"
+   NodeGuid=09452D05448E1E567FA6D964F315CB16
+End Object
+
+Begin Object Class=/Script/BlueprintGraph.K2Node_CallFunction Name="K2Node_CallFunction_389" ExportPath="/Script/BlueprintGraph.K2Node_CallFunction'"/Game/Generated.Generated:EventGraph.K2Node_CallFunction_389"'"
+   bDefaultsToPureFunc=True
+   FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/EnhancedInput.EnhancedInputComponent'",MemberName="GetBoundActionValue")
+   NodePosX=0
+   NodePosY=0
+   NodeGuid=0EDA238CDE09CE4C39B2793D9D4E9164
+   CustomProperties Pin (PinId=D843CDA18A82095CB2C534639375150D,PinName="self",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject="/Script/CoreUObject.Class'/Script/EnhancedInput.EnhancedInputComponent'",PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=9B1396756B80BDBAF6A62F390376143A,PinName="Action",PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject="/Script/CoreUObject.Class'/Script/EnhancedInput.InputAction'",PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=True,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=675E20207CE566C175C3861BE753D2D9,PinName="ReturnValue",Direction="EGPD_Output",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject="/Script/CoreUObject.ScriptStruct'/Script/EnhancedInput.InputActionValue'",PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
 End Object

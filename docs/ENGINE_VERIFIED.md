@@ -613,3 +613,7 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 
 - FormatText: KismetTextLibrary::Format — BlueprintInternalUseOnly → узел K2Node_FormatText (Format text → Result text); пины аргументов движок строит по {Имя}.
 
+## Round21-pre: Enhanced Input (2026-09-25)
+
+- Enhanced_GetActionValue: статического GetActionValue нет → член UEnhancedInputComponent::GetBoundActionValue (const → pure), self EnhancedInputComponent, Action InputAction (const), RV FInputActionValue. Добавлены struct InputActionValue (FULL) и lib EnhancedInputComponent. Свип строит 270/270.
+

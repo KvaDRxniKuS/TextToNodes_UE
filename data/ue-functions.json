@@ -9167,16 +9167,24 @@
  },
  {
   "id": "Enhanced_GetActionValue",
-  "title": "Get Action Value",
+  "title": "Get Bound Action Value",
   "category": "Enhanced Input",
   "className": "/Script/BlueprintGraph.K2Node_CallFunction",
-  "func": "GetActionValue",
-  "lib": null,
+  "func": "GetBoundActionValue",
+  "lib": "EnhancedInputComponent",
   "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.EnhancedInputComponent"
+   },
    {
     "name": "Action",
     "dir": "Input",
-    "cat": "object"
+    "cat": "object",
+    "object": "/Script/EnhancedInput.InputAction",
+    "const": true
    },
    {
     "name": "ReturnValue",
@@ -9186,8 +9194,9 @@
    }
   ],
   "verified": false,
-  "note": "UE5-ONLY (EnhancedInput); Home library uncertain; skipped in UE4 test loop",
-  "desc": "Значение действия"
+  "note": "round21-pre: статического GetActionValue нет — член UEnhancedInputComponent::GetBoundActionValue(const UInputAction*) const → pure; self = EnhancedInputComponent, RV FInputActionValue. Узел «Get IA_X» (K2Node_GetInputActionValue) требует ассет InputAction — не для свипа",
+  "desc": "Значение действия",
+  "pure": true
  },
  {
   "id": "Distance2D",

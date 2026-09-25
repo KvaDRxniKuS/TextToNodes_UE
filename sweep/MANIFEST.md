@@ -1,6 +1,6 @@
 # Sweep manifest — полный прогон реестра по категориям
 
-Дата: 2026-09-25; записей: 270; построено узлов: 269; упало: 1.
+Дата: 2026-09-25; записей: 270; построено узлов: 270; упало: 0.
 Генератор: tools/gen-sweep.mjs (сетка по 5 в ряд, внутри ряда layoutRow, накрыто fitComment).
 
 Протокол: вставляйте файлы по одному в чистый граф → копируйте обратно → сообщайте номер файла и что сломалось.
@@ -34,11 +34,11 @@
 | 18 | 18-input.txt | 2/2 | 0 | 2 | — | 1xW09 |
 | 19 | 19-organization.txt | 6/6 | 2 | 4 | — | — |
 | 20 | 20-text.txt | 1/1 | 0 | 1 | — | — |
-| 21 | 21-enhanced-input.txt | 0/1 | 0 | 1 | — | — |
+| 21 | 21-enhanced-input.txt | 1/1 | 0 | 1 | — | 1xW09 |
 
 ## NEEDS-REFERENCE (не построилось — нужен copy-back из движка)
 
-- 21-enhanced-input.txt :: Enhanced_GetActionValue (GetActionValue) — Unknown struct in registry: InputActionValue (Enhanced_GetActionValue.ReturnValue)
+Пусто — построилось всё.
 
 ## STRICT-ошибки по файлам (наш валидатор; движок — арбитр)
 
@@ -125,3 +125,4 @@
 - 17-gameplay.txt :: W09: K2Node_CallFunction_374: GetGameInstance: round17-pre
 - 17-gameplay.txt :: W09: K2Node_CallFunction_375: GetCurrentLevelName: round17-pre: статического GetWorld в Kismet нет → заменён на GameplayStatics::GetCurrentLevelName
 - 18-input.txt :: W09: K2Node_CallFunction_378: IsInputKeyDown: round18-pre: член APlayerController (UFUNCTION BlueprintCallable, const → pure). MemberParent=PlayerController, пин self (Target) типа PlayerController, Key по значению
+- 21-enhanced-input.txt :: W09: K2Node_CallFunction_389: GetBoundActionValue: round21-pre: статического GetActionValue нет — член UEnhancedInputComponent::GetBoundActionValue(const UInputAction*) const → pure; self = EnhancedInputComponent, RV FInputActionValue. Узел «Get IA_X» (K2Node_GetInputActionValue) требует ассет InputAction — не для свипа
