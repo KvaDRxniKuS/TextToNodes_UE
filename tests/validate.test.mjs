@@ -411,11 +411,13 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(swS.includes('PinName="NotEqual_StriStri"') && swS.includes('Default__KismetStringLibrary'), 'round1: SwitchString несёт NotEqual_StriStri');
   const swE = generateUEText([createFromEntry(byId('SwitchEnum'))]);
   ok(swE.includes('PinName="NotEqual_ByteByte"') && swE.includes('EDrawDebugTrace'), 'round1: SwitchEnum на EDrawDebugTrace + NotEqual_ByteByte');
-  const MG = { Gate: '5FD0ADDB41B99E726A411F8E87B5F37C', DoOnce: '1281F54248A2ECB5B8B2C5B24AE6FDF4', WhileLoop: 'FA93B260444755CD702C21A123E9A987', ForLoopWithBreak: '1FCFFE2843C702031581E5A273BD4C6B' };
+  const MG = { Gate: '5FD0ADDB41B99E726A411F8E87B5F37C', DoOnce: '1281F54248A2ECB5B8B2C5B24AE6FDF4', WhileLoop: 'FA93B260444755CD702C21A123E9A987', ForLoopWithBreak: '1FCFFE2843C702031581E5A273BD4C6B', DoN: 'E8C56B2F4535DC8B7DB8469140DCA455' };
   for (const [id, g] of Object.entries(MG)) ok(generateUEText([createFromEntry(byId(id))]).includes('GraphGuid=' + g), `round1: ${id} GraphGuid захвачен`);
   const ffT = generateUEText([createFromEntry(byId('FlipFlop'))]);
   ok(validateStrict(ffT).valid && /CustomProperties Pin \(PinId=[A-F0-9]{32},PinType\./.test(ffT), 'round1: FlipFlop безымянный exec-пин, strict чист');
-  ok(byId('DoN').verified === false, 'round1: DoN ждёт live-реф');
+  ok(byId('DoN').verified === true && byId('DoN').macro.graph === 'Do N', 'round1b: DoN — имя с пробелом, verified');
+  const seT = generateUEText([createFromEntry(byId('SwitchEnum'))]);
+  ok(seT.includes(`Enum="/Script/CoreUObject.Enum'/Script/Engine.EDrawDebugTrace'"`) && seT.includes('EnumEntries(3)="Persistent"') && !seT.includes('PinName="Default"'), 'round1b: SwitchEnum — Enum/Entries, без Default');
 }
 // Sweep coverage: каждая запись реестра строится (кроме референс-листа)
 {

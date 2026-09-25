@@ -378,6 +378,8 @@ function genBlock(n){
     extra+=`   OperationName="${n.operationName}"\n   bDefaultsToPureFunc=True\n   FunctionReference=(MemberParent=Class"/Script/Engine.KismetMathLibrary"',MemberName="${member}")\n`;
   }
   if(n.structType) extra+=`   StructType=${n.structType}\n`;
+  // round1b: SwitchEnum — Enum=/EnumEntries (зеркало src/parser.js).
+  if(n.enumRef){ extra+=`   Enum=${n.enumRef}\n`; (n.enumEntries||[]).forEach((en,i)=>{ extra+=`   EnumEntries(${i})="${en}"\n`; }); }
   if(n.macroGraph) extra+=`   MacroGraphReference=${macroRefs(n.macroGraph,n.macroGuid)}\n`;
   if(n.isComment) return `Begin Object Class=${n.rawClass} Name="${n.id}" ExportPath="/Script/UnrealEd.EdGraphNode_Comment'"/Game/Generated.Generated:EventGraph.${n.id}"'"\n   NodePosX=${Math.round(n.pos.x)}\n   NodePosY=${Math.round(n.pos.y)}\n   NodeWidth=${n.width}\n   NodeHeight=${n.height}\n   NodeComment="${n.commentText}"\n   NodeGuid=${g}\nEnd Object`;
   const cls=n.rawClass||`/Script/BlueprintGraph.${n.className.split('.').pop()}`;
@@ -985,6 +987,7 @@ function createFromReg(regId, at){
   if(r.pure) node.pure=true;
   if(r.struct&&r.struct.path) node.structType=r.struct.path;
   if(r.macro&&r.macro.graph){ node.macroGraph=r.macro.graph; node.macroGuid=r.macro.guid||null; }
+  if(r.enum&&UE_ENUMS[r.enum]){ node.enumRef=UE_ENUMS[r.enum]; node.enumEntries=r.enumEntries||[]; }
   (r.pins||[]).forEach(p=>{
     node.pins.push({id:guid(), name:p.name, friendly:p.name, direction:p.dir, category:p.cat, subCategory:(p.cat==='real'? (p.sub||'double') : (p.sub||'')), subCategoryObject:((p.cat==='struct'&&p.sub&&UE_STRUCTS[p.sub])? UE_STRUCTS[p.sub] : ((p.cat==='object'&&p.object)? classRef(p.object) : ((p.enum&&UE_ENUMS[p.enum])? UE_ENUMS[p.enum] : (p.enum||'')))), isConst:!!p.const, isRef:!!p.ref, container:p.container||'None', ignored:!!p.ignored, advanced:!!p.advanced, defaultValue:p.dv||'', hidden:!!p.hidden, linkedTo:[]});
   });

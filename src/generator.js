@@ -201,6 +201,12 @@ export function createGeneric(regEntry, pos = { x: 0, y: 0 }) {
     const v = (regEntry.pins || []).find(p => !['execute', 'then', 'self'].includes(p.name));
     n.varName = v ? v.name : 'Var';
   }
+  // round1b: SwitchEnum несёт Enum=/EnumEntries (live-реф SwitchEnum_0).
+  if (short === 'K2Node_SwitchEnum' && regEntry.enum) {
+    if (!UE_ENUMS[regEntry.enum]) throw new Error(`Unknown enum in registry: ${regEntry.enum} (${regEntry.id})`);
+    n.enumRef = UE_ENUMS[regEntry.enum];
+    n.enumEntries = regEntry.enumEntries || [];
+  }
   for (const p of regEntry.pins || []) {
     const o = {};
     if (p.sub === 'Array' || p.sub === 'Set' || p.sub === 'Map') o.container = p.sub;

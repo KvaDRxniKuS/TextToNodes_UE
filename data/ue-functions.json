@@ -357,8 +357,8 @@
   "className": "/Script/BlueprintGraph.K2Node_MacroInstance",
   "func": "",
   "macro": {
-   "graph": "DoN",
-   "guid": null
+   "graph": "Do N",
+   "guid": "E8C56B2F4535DC8B7DB8469140DCA455"
   },
   "pins": [
    {
@@ -367,7 +367,7 @@
     "cat": "exec"
    },
    {
-    "name": "N",
+    "name": "n",
     "dir": "Input",
     "cat": "int"
    },
@@ -387,8 +387,7 @@
     "cat": "int"
    }
   ],
-  "verified": false,
-  "note": "round1: имя графа 'DoN' движок не резолвит (MacroGraphReference дропнут, пины осиротели) — нужен live-реф",
+  "verified": true,
   "desc": "DoN"
  },
  {
@@ -493,11 +492,6 @@
   "func": "",
   "pins": [
    {
-    "name": "Default",
-    "dir": "Output",
-    "cat": "exec"
-   },
-   {
     "name": "execute",
     "dir": "Input",
     "cat": "exec"
@@ -506,7 +500,8 @@
     "name": "Selection",
     "dir": "Input",
     "cat": "byte",
-    "enum": "EDrawDebugTrace"
+    "enum": "EDrawDebugTrace",
+    "dv": "None"
    },
    {
     "name": "None",
@@ -530,8 +525,15 @@
    }
   ],
   "verified": false,
-  "note": "round1: движок требует конкретный enum — назначен EDrawDebugTrace (наш выбор); кейсы и Selection dv на проверке",
-  "desc": "Switch Enum"
+  "note": "round1b: структура по live-рефу SwitchEnum (Enum=/EnumEntries, без Default, dv=первый); кейсы EDrawDebugTrace на проверке",
+  "desc": "Switch Enum",
+  "enum": "EDrawDebugTrace",
+  "enumEntries": [
+   "None",
+   "ForOneFrame",
+   "ForDuration",
+   "Persistent"
+  ]
  },
  {
   "id": "VarGet",

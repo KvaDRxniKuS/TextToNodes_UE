@@ -191,6 +191,8 @@ function generateBlock(n){
     extra+=`   OperationName="${n.operationName}"\n   bDefaultsToPureFunc=True\n   FunctionReference=(MemberParent=Class"/Script/Engine.KismetMathLibrary"',MemberName="${member}")\n`;
   }
   if(n.structType) extra+=`   StructType=${n.structType}\n`;
+  // round1b: SwitchEnum — Enum=/EnumEntries (live-реф; quoted-full как SubCategoryObject).
+  if(n.enumRef){ extra+=`   Enum=${n.enumRef}\n`; (n.enumEntries||[]).forEach((en,i)=>{ extra+=`   EnumEntries(${i})="${en}"\n`; }); }
   if(n.macroGraph) extra+=`   ${macroGraphRef(n.macroGraph, n.macroGuid||null)}\n`;
   if(n.isComment) return `Begin Object Class=${n.rawClass} Name="${n.id}" ExportPath="/Script/UnrealEd.EdGraphNode_Comment'"/Game/Generated.Generated:EventGraph.${n.id}"'"\n   NodePosX=${Math.round(n.pos.x)}\n   NodePosY=${Math.round(n.pos.y)}\n   NodeWidth=${n.width}\n   NodeHeight=${n.height}\n   NodeComment="${n.commentText}"\n   NodeGuid=${guid}\nEnd Object`;
   const cls=n.rawClass||`/Script/BlueprintGraph.${n.className.split('.').pop()}`;

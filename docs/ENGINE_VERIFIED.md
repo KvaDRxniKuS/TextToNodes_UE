@@ -359,3 +359,16 @@ NotEqual-пин (IntInt/StriStri/ByteByte, bNotConnectable + ReadOnly) — пи�
 Sequence-3 визуально вышел за коммент — нижний отступ fitComment 60→110.
 Copy-back сохраняет наши PinId — дифф по PinId работает. Валидатор: E04
 «пин без PinName» понижен до W12 и только для связанных (FlipFlop).
+
+
+## Раунд 1b: DoN + SwitchEnum live-рефы (2026-09-25)
+
+DoN: настоящее имя графа — «Do N» (с пробелом!), guid E8C56B2F…,
+пин n строчный (был N) — verified. SwitchEnum: живая структура —
+узловые строки Enum="…" (quoted-full) + EnumEntries(i)="…" (по одной
+на кейс), Default-пина НЕТ, Selection dv = имя первого энумератора,
+порядок execute/Selection/NotEqual/кейсы. Наш SwitchEnum пересажен на
+эту структуру (EDrawDebugTrace, 4 кейса) — на проверке. createGeneric
+несёт enumRef/enumEntries (throw на неизвестном enum → NEEDS-REFERENCE);
+эмиссия в parser.js/index.html + билдер песочницы. Известный пробел:
+parse-capture Enum= не добавлен (paste→regen SwitchEnum теряет строки).
