@@ -591,3 +591,17 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 ## Вердикт round13 (2026-09-25)
 
 - round13 Math/Transform: все 10 белые — MakeTransform/BreakTransform (pure KML, Scale dv 1,1,1; BreakTransform все 3 выхода), ComposeTransforms (компактный заголовок «*»), InvertTransform, Transform/InverseTransform Location/Direction/Rotation (T ref+const). R13 закрыт 10/10.
+
+## Вердикт round15 (2026-09-25)
+
+- round15 Array: все 18 белые (K2Node_CallArrayFunction + GetArrayItem с bReturnByRefDesired через `props`). Пользователь подтвердил «всё идеально» — R15 закрыт 18/18. Заодно повторно подтверждены R13 и R14.
+
+## Вердикт round16 (2026-09-25)
+
+- round16 Utilities: все 19 белые без изменений, включая сомнительные места pre-fix: PrintText (клон PrintString), pure IsValid/IsValidClass, GetSystemTime → GetRealTimeSeconds, QuitGame с enum EQuitPreference, SaveGame-функции GameplayStatics (class-пин SaveGameClass с SubCategoryObject). R16 закрыт 19/19.
+
+## Round19-pre: Organization (2026-09-25)
+
+- MakeArray/MakeSet/MakeMap — свежая wildcard-форма: входы `[0]`/`[1]` (Map: `Key 0`/`Value 0`), выход `Array`/`Set`/`Map` с ContainerType; NumInputs=2 у Array/Set. W03 валидатора теперь срабатывает только без ContainerType на выходе.
+- Select — по образцу белого SelectBool: Option 0/1 wildcard, Index int (IndexPinType int, dv 0). Enum-Select — ещё не реализован.
+

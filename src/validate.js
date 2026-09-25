@@ -79,7 +79,8 @@ export function validateStrict(text, { registry = null } = {}) {
         const cat = (s.match(/PinCategory="([^"]*)"/) || [])[1] || '';
         const subObj = (s.match(/PinSubCategoryObject=([^,\)]+)/) || [])[1] || '';
         const isOut = s.includes('EGPD_Output');
-        node.pins.push({ id: pid, name: pname || '', cat, subObj, links, isOut });
+        const container = (s.match(/PinType\.ContainerType=([A-Za-z]+)/) || [])[1] || 'None';
+        node.pins.push({ id: pid, name: pname || '', cat, subObj, links, isOut, container });
       }
       else if (t.startsWith('FunctionReference=')) {
         node.funcName = (t.match(/MemberName="([^"]+)"/) || [])[1] || '';
@@ -165,7 +166,8 @@ export function validateStrict(text, { registry = null } = {}) {
       if (!ix) warnings.push(`W13: ${n.name}: Select с IndexPinType без пина Index`);
       else if (ix.cat !== n.selectIndex.cat) warnings.push(`W13: ${n.name}: пин Index (${ix.cat}) не совпадает с IndexPinType (${n.selectIndex.cat})`);
     }
-    if (['K2Node_MakeArray', 'K2Node_MakeSet', 'K2Node_MakeMap'].includes(n.short))
+    // round19-pre: варнинг только если у выходного пина нет ContainerType.
+    if (['K2Node_MakeArray', 'K2Node_MakeSet', 'K2Node_MakeMap'].includes(n.short) && !n.pins.some(p => p.isOut && p.container !== 'None'))
       warnings.push(`W03: ${n.name}: ${n.short} требует ContainerType — текст может не вставиться; проверь в движке`);
     n.pins.forEach(p => {
       const known = !!p.subObj && KNOWN_SUBOBJ.has(p.subObj);

@@ -582,6 +582,24 @@ regThrow.forEach(t => console.log('THROW:', t));
   const v = validateStrict(generateUEText(reg.filter(e => e.category === 'Input').map(e => createFromEntry(e))));
   ok(v.errors.length === 0, 'R18: Input 0 ошибок');
 }
+// R15/R16 вердикт: Array 18/18, Utilities 19/19 белые
+{
+  const a = reg.filter(e => e.category === 'Array'), u = reg.filter(e => e.category === 'Utilities');
+  ok(a.length === 18 && a.every(e => e.verified), 'R15: Array 18/18 verified');
+  ok(u.length === 19 && u.every(e => e.verified), 'R16: Utilities 19/19 verified');
+}
+// R19 pre-fix: Organization
+{
+  const ma = createFromEntry(byId('MakeArray'));
+  ok((ma.rawProps || []).includes('NumInputs=2') && ma.pins.map(p => p.name).join() === '[0],[1],Array', 'R19: MakeArray [0],[1],Array + NumInputs=2');
+  ok(ma.pins.find(p => p.name === 'Array').container === 'Array', 'R19: MakeArray выход ContainerType=Array');
+  ok(createFromEntry(byId('MakeSet')).pins.find(p => p.name === 'Set').container === 'Set', 'R19: MakeSet выход Set');
+  ok(createFromEntry(byId('MakeMap')).pins.map(p => p.name).join() === 'Key 0,Value 0,Map', 'R19: MakeMap Key 0/Value 0/Map');
+  const se = createFromEntry(byId('Select'));
+  ok(se.selectIndex && se.selectIndex.cat === 'int', 'R19: Select IndexPinType int');
+  const v = validateStrict(generateUEText(reg.filter(e => e.category === 'Organization').map(e => createFromEntry(e))));
+  ok(v.errors.length === 0 && !v.warnings.some(w => w.startsWith('W03')), 'R19: Organization 0 ошибок, без W03');
+}
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);
