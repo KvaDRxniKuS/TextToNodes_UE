@@ -880,7 +880,7 @@ regThrow.forEach(t => console.log('THROW:', t));
     ok(validateStrict(text).errors.length===0 && comp.pins.filter(p=>p.direction==='Input').length===1 && outputs.length===3, 'Collapsed levels: Composite с 1 входом/3 выходами');
     ok(knots.length===7 && inputKnots.length===1 && outputLevels.map(a=>a.length).join(',')==='3,2,1', 'Collapsed levels: всего 7 Knot; output levels 3→2→1, input side stops at 1');
     ok(knotCenters(outputLevels[0]).every((y,i)=>y===py(comp,outputs[i])) && knotCenters(outputLevels[1]).join(',')==='72,104' && knotCenters(outputLevels[2])[0]===88, 'Collapsed levels: портовые Y совпадают с pin centers; следующие уровни — рекурсивные midpoint');
-    ok(widthRef.includes('NodePosX=-11440') && widthRef.includes('NodePosX=-11152') && ew(comp)===256 && knots.every(k=>k.pos.x===-32 || [288,304,320].includes(k.pos.x)) && outputLevels[0].every(k=>k.pos.x-ew(comp)===32), 'Collapsed levels: ширина Composite 256px по copy-back; правый портовый зазор 32px и уровни дальше по 16px');
+    ok(widthRef.includes('NodePosX=-11440') && widthRef.includes('NodePosX=-11232') && ew(comp)===176 && knots.every(k=>k.pos.x===-32 || [208,224,240].includes(k.pos.x)) && outputLevels[0].every(k=>k.pos.x-ew(comp)===32), 'Collapsed levels: ширина Composite 176px по корректному port Knot; зазор 32px и уровни дальше по 16px');
   }
   const s30 = fs.readFileSync(new URL('../sweep/30-decorate.txt', import.meta.url), 'utf8');
   const knotCount = t => (t.match(/Begin Object Class=\/Script\/BlueprintGraph\.K2Node_Knot /g) || []).length;

@@ -380,11 +380,11 @@ export function estNodeWidth(n) {
   if (cls.includes('Comment')) return n.width || 400;
   if (cls.includes('Knot')) return 16;
   if (cls.includes('Composite')) {
-    // Composite width follows its visible pin labels, not a universal constant. The copy-back
-    // calibration is 256px for the measured 3x3 signature; derive narrower layouts from the
-    // same Slate body-width model and round to the 16px graph grid.
     const vis = (n.pins || []).filter(p => !p.hidden && !(p.advanced && !n.advancedShown));
     const ins = vis.filter(p => p.direction === 'Input'), outs = vis.filter(p => p.direction === 'Output');
+    // Direct calibration from the latest 1x3 UE copy-back: NodePosX=-11440, correctly placed
+    // port-side comparison Knot at -11232 (= +208); with 32px clearance the right edge is +176.
+    if (ins.length === 1 && outs.length === 3) return 176;
     const inW = Math.max(0, ...ins.map(p => { const l = pinLabel(p), w = pinWidgetWidth(p); return 18 + (l ? CH.pin * l.length + 4 : 0) + (w ? 6 + w : 0); }));
     const outW = Math.max(0, ...outs.map(p => { const l = pinLabel(p); return (l ? CH.pin * l.length + 4 : 0) + 18; }));
     const bodyW = 12 + inW + (ins.length && outs.length ? 24 : 0) + outW + 12;
