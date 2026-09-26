@@ -30,7 +30,7 @@ const add=make('K2Node_AddDelegate','K2Node_AddDelegate_3002',0,ref(),[exec('exe
 const call=make('K2Node_CallDelegate','K2Node_CallDelegate_3001',0,ref(),[exec('execute','Input'),exec('then','Output'),self()]);
 const remove=make('K2Node_RemoveDelegate','K2Node_RemoveDelegate_3003',0,ref(),[exec('execute','Input'),exec('then','Output'),self(),delegatePin()]);
 const clear=make('K2Node_ClearDelegate','K2Node_ClearDelegate_3004',0,ref(),[exec('execute','Input'),exec('then','Output'),self()]);
-layoutPinChain([start,add,call,remove,clear],{x0:0,y0:0,gap:48});
+layoutPinChain([start,add,call,remove,clear],{x0:0,y0:0,gap:120});
 const handler=createCustomEvent('DispatcherProbeHandler',[],{x:add.pos.x,y:add.pos.y+160});
 const handlerDelegate=handler.pins.find(p=>p.name==='OutputDelegate');
 handlerDelegate.memberRef=`MemberParent=${bp},MemberName="DispatcherProbeHandler",MemberGuid=${handler.guid}`;

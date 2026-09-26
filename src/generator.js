@@ -395,7 +395,7 @@ function nodeTitleParts(n) {
   const t = n.title || cls.split('.').pop();
   return { title: /\s/.test(t) ? t : displayName(t.replace(/^K2Node_/, '')), sub: '' };
 }
-const MIN_W = [['Knot', 16], ['ExecutionSequence', 150], ['IfThenElse', 140], ['MakeStruct', 180], ['BreakStruct', 180], ['MacroInstance', 180], ['PromotableOperator', 120], ['CommutativeAssociativeBinaryOperator', 120], ['Switch', 160], ['Select', 150], ['CallFunction', 120]];
+const MIN_W = [['Knot', 16], ['K2Node_AddDelegate', 240], ['K2Node_CallDelegate', 240], ['K2Node_RemoveDelegate', 240], ['K2Node_ClearDelegate', 240], ['ExecutionSequence', 150], ['IfThenElse', 140], ['MakeStruct', 180], ['BreakStruct', 180], ['MacroInstance', 180], ['PromotableOperator', 120], ['CommutativeAssociativeBinaryOperator', 120], ['Switch', 160], ['Select', 150], ['CallFunction', 120]];
 export function estNodeWidth(n) {
   if (!n) return 100;
   const cls = n.className || '';
