@@ -705,7 +705,7 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 
 - sweep/22b-cast-any.txt работает целиком: нативные и BP-классы (`AsBP AISupport Tester`), pure-каст (PureState=Pure), классовые касты.
 - Требование пользователя: нужны не фиксированные примеры, а инструменты. Добавлены src/modules.js и tools/make-node.mjs (README → «Конструктор модулей»).
-- sweep/25b-make-node.txt — модуль, собранный CLI: TakeAnyDamage → Cast BP → вызов события с параметрами (float, Actor, name[]); таймер на событие. Ждёт проверки вместе с R25.
+- sweep/25b-make-node.txt — модуль, собранный CLI: TakeAnyDamage → Cast BP → вызов события с параметрами (float, Actor, name[]); таймер на событие. VERIFIED («25b норма», 2026-09-26) — первый модуль make-node, подтверждённый движком целиком (event-for + AddDelegate, DynamicCast к BP-классу, `call` своего события с параметрами, create-event → Delegate таймера).
 
 ## Round23b — подтверждено повторно (2026-09-25)
 
