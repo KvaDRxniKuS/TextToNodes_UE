@@ -825,3 +825,5 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 
 - Пользователь: «28 норма». Полный блок Enhanced Input подтверждён.
 - Copy-back также выявил ограничение текущей раскладки рядов: одинаковый NodePosY не гарантирует выравнивание exec-пинов при разной высоте заголовка (ClearAllMappings с двухстрочной шапкой vs FlushPlayerInput с одной строкой). Требуется layout по exec-pin center; оценку offset брать из заголовка/подзаголовка и порядка пинов, уже доступных генератору (не запрашивать ручной offset).
+
+- Follow-up to exec-pin test (2026-09-26): user reported Branch aligned, FlushPlayerInput one row too high. Root cause: static Blueprint Function Library calls do not render the generic Target subtitle; `pinCenterY` now uses visible self-pin presence for CallFunction header height. Rebuilt test/R30/27b, awaiting confirmation.

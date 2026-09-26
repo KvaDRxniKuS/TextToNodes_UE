@@ -481,9 +481,15 @@ export function pinCenterY(n, pin) {
   if ((n.className || '').includes('Knot')) return n.pos.y + 8;
   const vis = n.pins.filter(p => !p.hidden && p.direction === pin.direction && p.name !== 'OutputDelegate'); // делегат — в шапке
   const { sub, compact } = nodeTitleParts(n);
-  // UE paints a second header line for a function subtitle (e.g. "Target is …").
-  // Pins start below that line; the old fixed 34px offset aligned node tops, not exec pins.
-  const header = compact ? 18 : 34 + (sub ? HEADER_LINE_H : 0);
+  // CallFunction Target appears as a second header line only for visible instance self pins.
+  // Static Function Library calls have hidden/implicit self even though width estimates
+  // retain their generic subtitle contribution (calibrated separately for node geometry).
+  const selfPin = (n.pins || []).find(p => p.name === 'self' && p.direction === 'Input');
+  const hasSubtitle = (n.className || '').includes('CallFunction')
+    ? Boolean(selfPin && !selfPin.hidden)
+    : Boolean(sub);
+  // Engine copy-back: an extra header line shifts the pins by about 32 px.
+  const header = compact ? 18 : 34 + (hasSubtitle ? HEADER_LINE_H : 0);
   return n.pos.y + header + Math.max(0, vis.indexOf(pin)) * PIN_ROW_H + PIN_ROW_H / 2;
 }
 

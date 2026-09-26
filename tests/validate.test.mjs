@@ -436,7 +436,7 @@ regThrow.forEach(t => console.log('THROW:', t));
     const d1 = Math.abs(pinCenterY(one, outThen) - pinCenterY(twoA, execIn(twoA)));
     const d2 = Math.abs(pinCenterY(one, outElse) - pinCenterY(twoB, execIn(twoB)));
     ok(d1 <= 1 && d2 <= 1, `layoutRows: совмещаются конкретные linked exec pins, включая Branch.then/else (${d1}/${d2})`);
-    ok(twoA.pos.y !== twoB.pos.y, `layoutRows: разные exec-выходы Branch ставят цели на разную высоту (${twoA.pos.y}/${twoB.pos.y})`);
+    ok(twoA.pos.y !== twoB.pos.y, `layoutRows: разные уровни Branch.then/else дают разные позиции целей (${twoA.pos.y}/${twoB.pos.y})`);
   }
   const s1 = createCallFunction(byId('SphereTraceSingle'));
   const c1 = createCallFunction(byId('CapsuleTraceSingle'));

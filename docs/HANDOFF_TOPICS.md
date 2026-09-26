@@ -118,3 +118,8 @@
 - First implementation was insufficient: aligning one representative exec pin per node (and snapping Y back to grid) ignored individual pins/outputs and destroyed the alignment. User supplied Branch → ClearAllMappings → FlushPlayerInput copy-back showing NodePosY offsets; each Branch output (`then`, `else`) is a distinct pin row.
 - Replaced with per-link constraints in `layoutRows`: for every connected exec output/input pair within a row, position the target from those exact pin centers. `layoutDecorated` now preserves the row-internal offsets while shifting rows around data subrows. `make-node --decorate` snaps X to 16px but intentionally leaves Y unsnapped so exact exec-pin alignment survives. Subtitle header offset uses 32px per extra header line, matching supplied Branch/CallFunction NodePosY delta.
 - Test `sweep/exec-pin-alignment-test.txt` now exercises Event.then → Branch.execute, Branch.then → ClearAllMappings.execute, and Branch.else → FlushPlayerInput.execute. Internal pin-center check: each connected pair equal; then/else destinations differ vertically. R30 / 27b rebuilt and strict-validated.
+
+### FlushPlayerInput Y correction (2026-09-26)
+
+- User feedback on the per-pin test: Branch was correct, but FlushPlayerInput landed one pin-row too high. Cause: generic `nodeTitleParts` counted `Target is Enhanced Input Library` as a rendered second header line for a static library call with implicit/hidden self.
+- `pinCenterY` now counts a CallFunction subtitle only when it has a visible `self`/Target input. Width estimation retains its calibrated generic model (including PrintString=176); pin-header height and width estimate are treated separately. Regenerate `sweep/exec-pin-alignment-test.txt`, R30 and 27b; verify again in engine.
