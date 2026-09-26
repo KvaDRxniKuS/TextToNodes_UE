@@ -9176,8 +9176,26 @@
    }
   ],
   "verified": true,
-  "note": "round19-pre: по образцу белого SelectBool — Option 0/1 wildcard, Index int (IndexPinType int), ReturnValue wildcard. Enum-Select пока не реализован; round19: белая — Index остаётся int (движок не меняет тип индекса, float→int конвертирует)",
+  "note": "round19: обычный Select использует Index int. Enum Select (copy-back 2026-09-26): NumOptionPins=enum size, Enum/EnumEntries + IndexPinType byte/enum; Option pins take enum entry names (None omits PinName) and localized PinFriendlyName. SwitchEnum outputs also use localized PinFriendlyName.",
   "desc": "Выбор"
+ },
+ {
+  "id": "SelectEnum_EDrawDebugTrace",
+  "title": "Select (Enum)",
+  "category": "Organization",
+  "className": "/Script/BlueprintGraph.K2Node_Select",
+  "func": "",
+  "pins": [
+   {"name":"Option 0","dir":"Input","cat":"wildcard"},
+   {"name":"Option 1","dir":"Input","cat":"wildcard"},
+   {"name":"Index","dir":"Input","cat":"byte","enum":"EDrawDebugTrace","dv":"None"},
+   {"name":"ReturnValue","dir":"Output","cat":"wildcard"}
+  ],
+  "enumEntries": ["None","ForOneFrame","ForDuration","Persistent"],
+  "enumDisplayNames": {"ForOneFrame":"For One Frame","ForDuration":"For Duration"},
+  "verified": true,
+  "note": "User UE copy-back 2026-09-26: NumOptionPins=4, Enum/EnumEntries, enum-named wildcard options and localized PinFriendlyName.",
+  "desc": "Select с EDrawDebugTrace"
  },
  {
   "id": "FormatText",

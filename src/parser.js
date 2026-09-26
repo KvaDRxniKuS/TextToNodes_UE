@@ -209,12 +209,13 @@ function generateBlock(n,opts={}){
     const dtv=p.category==='text'&&p.defaultValue?`DefaultTextValue=NSLOCTEXT("", "${guid32()}", "${p.defaultValue}"),`:'';
     // PinName опускаем при пустом имени (FlipFlop, round1: каноника движка — поля нет вообще).
     const nm=p.name?`PinName="${p.name}",`:'';
+    const pfn=p.pinFriendlyName?`PinFriendlyName=NSLOCTEXT("${p.pinFriendlyName.namespace}", "${p.pinFriendlyName.key}", "${p.pinFriendlyName.text}"),`:'';
     const fn=p.name==='self'?TARGET_FN:'';
     const tt=isOp&&p.category!=='exec'?opTooltip(p):'';
     let subObj=p.subCategoryObject||'None';
     if(p.name==='self'&&ownCls&&(!p.subCategoryObject||p.subCategoryObject==='None')) subObj=ownCls;
     // v6: ссылки quoted-full (UE 5.8, copy-back H1/J5/LineTraceSingle: "..." + полная форма без внутр. кавычек).
-    return `   CustomProperties Pin (PinId=${p.id},${nm}${fn}${tt}${dir}PinType.PinCategory="${p.category}",PinType.PinSubCategory="${p.category==='struct'?'':(p.subCategory||'')}",PinType.PinSubCategoryObject=${subObj},PinType.PinSubCategoryMemberReference=(${p.memberRef||''}),PinType.PinValueType=(),PinType.ContainerType=${p.container||'None'},PinType.bIsReference=${p.isRef?'True':'False'},PinType.bIsConst=${p.isConst?'True':'False'},PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,${dv}${p.defaultObject?`DefaultObject="${p.defaultObject}",`:''}${dtv}${linked}PersistentGuid=${ZERO_GUID},bHidden=${p.hidden?'True':'False'},bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=${p.ignored?'True':'False'},bAdvancedView=${p.advanced?'True':'False'},bOrphanedPin=False,)`;
+    return `   CustomProperties Pin (PinId=${p.id},${nm}${pfn}${fn}${tt}${dir}PinType.PinCategory="${p.category}",PinType.PinSubCategory="${p.category==='struct'?'':(p.subCategory||'')}",PinType.PinSubCategoryObject=${subObj},PinType.PinSubCategoryMemberReference=(${p.memberRef||''}),PinType.PinValueType=(),PinType.ContainerType=${p.container||'None'},PinType.bIsReference=${p.isRef?'True':'False'},PinType.bIsConst=${p.isConst?'True':'False'},PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,${dv}${p.defaultObject?`DefaultObject="${p.defaultObject}",`:''}${dtv}${linked}PersistentGuid=${ZERO_GUID},bHidden=${p.hidden?'True':'False'},bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=${p.ignored?'True':'False'},bAdvancedView=${p.advanced?'True':'False'},bOrphanedPin=False,)`;
   });
   // v7: self-пин статического вызова библиотеки (copy-back O1/O2: движок
   // достраивает его сам — пишем сразу для copy-back 1-в-1). FriendlyName не
@@ -238,8 +239,11 @@ function generateBlock(n,opts={}){
   }
   const pinsText=pinLines.join('\n');
   let extra='';
+  // Enum Select metadata is required to reconstruct one wildcard option per enum entry.
+  if(n.selectNumOptionPins) extra+=`   NumOptionPins=${n.selectNumOptionPins}\n`;
   // round8-fix3: Select — IndexPinType (live-рефы round8-fix3; без него движок резолвит Index как int).
   if(n.selectIndex) extra+=`   IndexPinType=(PinCategory="${n.selectIndex.cat}",PinSubCategory="${n.selectIndex.sub||''}"${n.selectIndex.subObj?`,PinSubCategoryObject=${n.selectIndex.subObj}`:''})\n`;
+  if(n.selectEnumRef){ extra+=`   Enum=${n.selectEnumRef}\n`; (n.selectEnumEntries||[]).forEach((en,i)=>{ extra+=`   EnumEntries(${i})="${en==='None'?'':en}"\n`; }); }
   // P1.9: локал функции — MemberScope, без bSelfContext (и без self-пина — его не создаёт конструктор).
   if(n.varName&&n.varScope) extra+=`   VariableReference=(MemberScope="${n.varScope}",MemberName="${n.varName}",MemberGuid=${n.varGuid||guid32()})\n`;
   else if(n.varName) extra+=`   VariableReference=(MemberName="${n.varName}",MemberGuid=${n.varGuid||guid32()},bSelfContext=True)\n`;

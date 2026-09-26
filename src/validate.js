@@ -60,11 +60,12 @@ export function validateStrict(text, { registry = null, fragment = false, contex
     const short = cls.split('.').pop();
     if (names.has(name)) errors.push(`E05: дублирующееся имя ноды ${name}`);
     names.add(name);
-    const node = { name, cls, short, pins: [], guid: '', funcName: '', memberParent: '', op: '', structType: '', macro: '', varRef: null };
+    const node = { name, cls, short, pins: [], guid: '', funcName: '', memberParent: '', op: '', structType: '', macro: '', varRef: null, hasEnumMetadata: false };
     const nodePins = new Map();
     for (const l of b.lines) {
       if (/^([A-Za-z0-9_]+)=\1=/.test(l.trim())) errors.push(`E18: ${name}: задвоенный префикс свойства (${l.trim().slice(0, 40)}...)`);
       const t = l.trim();
+      if (/^(NumOptionPins|Enum)=/.test(t)) node.hasEnumMetadata = true;
       if (t.startsWith('NodeGuid=')) node.guid = (t.match(/NodeGuid=([A-F0-9]+)/) || [])[1] || '';
       else if (t.startsWith('CustomProperties Pin')) {
         const s = t.substring(t.indexOf('Pin (') + 5);
@@ -218,7 +219,8 @@ export function validateStrict(text, { registry = null, fragment = false, contex
     }
     if ((n.short === 'K2Node_SwitchInteger' || n.short === 'K2Node_SwitchString') && !n.pins.some(p => p.name === 'Default'))
       warnings.push(`W01: ${n.name}: Switch без пина Default`);
-    if (n.short === 'K2Node_Select' && !n.pins.some(p => /^Option/.test(p.name)))
+    const enumSelect = n.short === 'K2Node_Select' && n.hasEnumMetadata;
+    if (n.short === 'K2Node_Select' && !n.pins.some(p => /^Option/.test(p.name)) && !enumSelect)
       warnings.push(`W02: ${n.name}: Select без Option-пинов`);
     if (n.short === 'K2Node_Select' && n.selectIndex) {
       const ix = n.pins.find(p => p.name === 'Index');

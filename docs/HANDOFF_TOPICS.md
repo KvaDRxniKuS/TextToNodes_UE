@@ -61,7 +61,7 @@
 
 ## 4. Оставшиеся темы (главы) — в порядке предлагаемой очерёдности
 
-1. **Enum-Select** (K2Node_Select с enum IndexPinType) + Switch on Enum для пользовательских энамов.
+1. **Enum-Select** (K2Node_Select с enum IndexPinType) + Switch on Enum: EDrawDebugTrace UE copy-back получен. Select требует NumOptionPins=4, Enum/EnumEntries, четыре wildcard option pin с enum case именами и PinFriendlyName; SwitchEnum case pins также получают PinFriendlyName. Локальная реализация сверена с референсом. Осталось проверить enum path пользователя, если используем кастомный enum.
 2. **Event Dispatcher**: K2Node_CallDelegate / AddDelegate на свой диспатчер (нужен copy-back пользователя).
 3. **MoveComponentTo** (KismetSystemLibrary, latent, ExpandEnumAsExecs: exec-входы Move/Stop/Return) — нужна
    поддержка нескольких exec-входов в `--chain`.
@@ -149,3 +149,8 @@ Latest verdict 2026-09-26: «высота Branch корректна, но Flush 
 
 
 Superseded after user rejection: the former 3×3 / three-column probe had incorrect header-aware Y and lateral positions. The active replacement is the 4×5, two-columns-per-side probe documented above; do not revive the old geometry.
+
+
+### Enum-Select correction from exact UE reference (2026-09-26)
+
+- Previous probe was wrong: UE silently reconstructed an incomplete Select to two options. User supplied the correct reference: `NumOptionPins=4`, `IndexPinType=byte + EDrawDebugTrace`, node `Enum`/`EnumEntries`; option pins are wildcard and keyed by enum entries (`None` omits `PinName`), with localized `PinFriendlyName`. Generator/test fixture `sweep/enum-select-test.txt` now follows this exact shape. SwitchEnum output pins emit localized friendly names too. This copy-back confirms only the built-in enum; a custom BP enum remains open if needed.

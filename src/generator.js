@@ -242,6 +242,28 @@ export function createGeneric(regEntry, pos = { x: 0, y: 0 }) {
     if (p.defObj) o.defObj = p.defObj;
     n.pins.push(mkPin(p.name, p.dir, p.cat, o));
   }
+  // Enum-indexed Select expands from enum metadata, not the generic Option 0/1 pin template.
+  if (short === 'K2Node_Select') {
+    const indexSpec = (regEntry.pins || []).find(p => p.name === 'Index');
+    const enumName = indexSpec?.enum;
+    const entries = regEntry.enumEntries || [];
+    if (enumName && entries.length) {
+      const enumRef = UE_ENUMS[enumName] || enumName;
+      n.selectEnumRef = enumRef;
+      n.selectEnumEntries = entries;
+      n.selectNumOptionPins = entries.length;
+      const options = entries.map(entry => {
+        const pin = mkPin(entry === 'None' ? '' : entry, 'Input', 'wildcard');
+        pin.pinFriendlyName = {
+          namespace: 'UObjectDisplayNames',
+          key: `${enumName}.${entry}`,
+          text: (regEntry.enumDisplayNames || {})[entry] || displayName(entry),
+        };
+        return pin;
+      });
+      n.pins = [...options, ...n.pins.filter(p => !p.name.startsWith('Option '))];
+    }
+  }
   // round25-pre: CustomEvent — параметры события = UserDefinedPin (строки после пинов, как в копиях UE).
   if (regEntry.userPins) n.tailProps = regEntry.userPins.map(u => {
     const obj = u.object ? `,PinSubCategoryObject=${classRef(u.object)}` : '';

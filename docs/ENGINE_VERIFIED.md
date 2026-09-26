@@ -551,7 +551,7 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
   (bool/int/byte/int64/enum): тип индекса задаёт свойство узла IndexPinType.
 - Bool-Select = IndexPinType bool + Index bool dv=false + Option 0/1/RV wildcard.
   IndexPinType выводится из пина Index (кроме wildcard); validate: W13-контроль.
-- Enum-Select (NumOptionPins + Enum/EnumEntries) — раунд 19, пока не реализован.
+- Enum-Select: now implemented from user copy-back (NumOptionPins + Enum/EnumEntries, enum-named wildcard option pins and PinFriendlyName); see sweep/enum-select-test.txt. Custom BP enum path still needs a separate check.
 - R10: фантомов нет в KML: Normal/IsZero/IsNearlyZero/Distance/DistanceSquared
   (Vector→Vector и A/B) и VSizeSquared2D. Каноны: Vector_IsNormal/Vector_IsZero/
   Vector_IsNearlyZero (A by ref const+ignored, bool), Tolerance FLOAT 0.000100,
@@ -603,7 +603,7 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 ## Round19-pre: Organization (2026-09-25)
 
 - MakeArray/MakeSet/MakeMap — свежая wildcard-форма: входы `[0]`/`[1]` (Map: `Key 0`/`Value 0`), выход `Array`/`Set`/`Map` с ContainerType; NumInputs=2 у Array/Set. W03 валидатора теперь срабатывает только без ContainerType на выходе.
-- Select — по образцу белого SelectBool: Option 0/1 wildcard, Index int (IndexPinType int, dv 0). Enum-Select — ещё не реализован.
+- Select integer/bool forms retain their normal Index types. Enum variant is verified against EDrawDebugTrace copy-back: NumOptionPins=4, EnumEntries and enum-named wildcard options with localized PinFriendlyName.
 
 ## Вердикт round17 (2026-09-25)
 
@@ -833,3 +833,8 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 - Latest correction (2026-09-26): intended split is Branch.then → ClearAllMappings and Branch.else → FlushPlayerInput. Topology is right; false destination was still one cell too high with the 32px delta; moved it another 16px. Fixture now asserts target NodePosY delta=48px (true-to-false); awaiting UE confirmation.
 
 - User provided collapsed-node copy-back with six outputs; consecutive pin rows are modeled at 32px (two 16px cells), independent of horizontal Knot offset (16px). `PIN_ROW_H=32`; first Composite pin center is NodePosY+56px. The 4-in/5-out probe is retained as a validated reference fixture. New recursive-level probe: `node tools/gen-collapsed-knot-test.mjs --inputs 1 --outputs 3 --levels 3` produces one input Knot and output levels 3→2→1 (7 total), stopping each side when a level contains only one Knot. The user clarified the correct right-side comparison in the supplied UE copy-back: Composite `NodePosX=-11440`, correct-gap Knot `K2Node_Knot_17 NodePosX=-11232`; the 208px delta less 32px clearance gives width 176px. `K2Node_Knot_9402` at -11152 is farther outward, not the port-level reference. The fixture uses columns +208/+224/+240. STRICT OK.
+
+
+## Enum Select / SwitchEnum exact copy-back (2026-09-26)
+
+- User correction: the earlier two-option enum Select was structurally wrong despite paste success. Correct live node has `NumOptionPins=4`, `IndexPinType` byte+EDrawDebugTrace, node `Enum` and four `EnumEntries`; four wildcard options are named from enum values (first `None` omits PinName) and carry `UObjectDisplayNames` PinFriendlyName. SwitchEnum uses matching localized output labels. Tools and fixture updated to exact structure; user-defined BP enum path remains untested.

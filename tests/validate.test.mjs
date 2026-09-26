@@ -461,6 +461,11 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(byId('DoN').verified === true && byId('DoN').macro.graph === 'Do N', 'round1b: DoN — имя с пробелом, verified');
   const seT = generateUEText([createFromEntry(byId('SwitchEnum'))]);
   ok(seT.includes(`Enum="/Script/CoreUObject.Enum'/Script/Engine.EDrawDebugTrace'"`) && seT.includes('EnumEntries(0)=""') && seT.includes('EnumEntries(3)="Persistent"') && !seT.includes('PinName="Default"'), 'round1b: SwitchEnum — Enum/Entries (None→""), без Default');
+  const enumSelectText = fs.readFileSync(new URL('../sweep/enum-select-test.txt', import.meta.url), 'utf8');
+  ok(validateStrict(enumSelectText).errors.length===0 && validateStrict(enumSelectText).warnings.length===0 && enumSelectText.includes('NumOptionPins=4') && enumSelectText.includes('IndexPinType=(PinCategory="byte"') && enumSelectText.includes('EnumEntries(3)="Persistent"'), 'Enum Select: NumOptionPins + IndexPinType + EnumEntries');
+  const enumSelectBlock = enumSelectText.split('\n\nBegin Object')[0];
+  ok(!enumSelectBlock.includes('PinName="None"') && enumSelectBlock.includes('PinFriendlyName=NSLOCTEXT("UObjectDisplayNames", "EDrawDebugTrace.None", "None")') && enumSelectBlock.includes('PinName="ForOneFrame"'), 'Enum Select options use enum values and localized friendly names');
+  ok(enumSelectText.includes('PinFriendlyName=NSLOCTEXT("UObjectDisplayNames", "EDrawDebugTrace.ForOneFrame", "For One Frame")'), 'SwitchEnum outputs preserve localized enum display names');
   // round3: PromotableOperator — quoted-full MemberParent (unquoted движок отторг в TimeManagement+wildcard).
   const addT = generateUEText([createFromEntry(byId('Add_Float'))]);
   ok(addT.includes(`FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Add_DoubleDouble")`), 'round3: Add — quoted-full MemberParent + Add_DoubleDouble');
@@ -655,7 +660,7 @@ regThrow.forEach(t => console.log('THROW:', t));
 // R19 вердикт: Organization 6/6
 {
   const o = reg.filter(e => e.category === 'Organization');
-  ok(o.length === 6 && o.every(e => e.verified), 'R19: Organization 6/6 verified');
+  ok(o.length === 7 && o.every(e => e.verified), 'R19: Organization 7/7 verified');
 }
 // R20 вердикт: Text 1/1; DefaultTextValue (copy-back FormatText)
 {
