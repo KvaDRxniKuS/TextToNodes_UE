@@ -38,7 +38,7 @@ TextToNodes_UE — генератор текста для вставки Bluepri
   вид переделан как 27b), R29 (+`call`), R31 (Audio), R32 (компоненты + формат P1). R30 — ноды корректны («30 норма»); knot A дополнительно откалиброван по PrintString copy-back (176px), пересобран, ждёт re-check.
 - FAIL: R21 (GetBoundActionValue — скрыт).
 - Ждут вердикта: 28 Enhanced Input (full).
-- Ждут ПОВТОРНОЙ проверки вида (после правки декора, 2026-09-26): sweep/30-decorate.txt, sweep/27b-widgets-ui-decorated.txt.
+- R30: «норма», проверку расположения knot продолжить по copy-back. 27b: «норма», кроме первого knot (слишком далеко от края); ждём copy-back SetVisibility + правильного knot для калибровки.
 - Отложено: Enum-Select, Event Dispatcher (K2Node_CallDelegate), Timeline, MoveComponentTo, GetAllWidgetsOfClass,
   AddComponentByClass, K2_DestroyComponent.
 
