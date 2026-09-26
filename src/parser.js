@@ -154,6 +154,7 @@ export function generateUEText(nodeList, opts={}){
 //  • PromotableOperator → PinToolTip="<Имя>\\n<Тип>" (у CallFunction тултипы не пишем).
 const ZERO_GUID='00000000000000000000000000000000';
 const TARGET_FN='PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),';
+const MULTICAST_TARGET_FN='PinFriendlyName=NSLOCTEXT("K2Node", "BaseMCDelegateSelfPinName", "Target"),';
 export function typeDefault(p){
   if((p.container||'None')!=='None') return '';
   const so=p.subCategoryObject||'';
@@ -195,6 +196,7 @@ function generateBlock(n,opts={}){
   const guid=n.guid||guid32();
   const shortCls=String(n.rawClass||n.className||'').split('.').pop();
   const fnFamily=/^K2Node_(CallFunction|CallArrayFunction|PromotableOperator|CommutativeAssociativeBinaryOperator|CallMaterialParameterCollectionFunction)$/.test(shortCls);
+  const isMulticastDelegateNode=/^K2Node_(CallDelegate|AddDelegate|RemoveDelegate|ClearDelegate)$/.test(shortCls);
   const isOp=!!n.operationName&&/PromotableOperator/.test(n.className||n.rawClass||'');
   // своя переменная (bSelfContext, без MemberScope/MemberParent): self = класс BP (из ownerClass или --root)
   const ownCls=n.varName&&!n.varScope?(n.ownerClass||bpClassFromRoot(opts.root)):'';
@@ -210,7 +212,7 @@ function generateBlock(n,opts={}){
     // PinName опускаем при пустом имени (FlipFlop, round1: каноника движка — поля нет вообще).
     const nm=p.name?`PinName="${p.name}",`:'';
     const pfn=p.pinFriendlyName?`PinFriendlyName=NSLOCTEXT("${p.pinFriendlyName.namespace}", "${p.pinFriendlyName.key}", "${p.pinFriendlyName.text}"),`:'';
-    const fn=p.name==='self'?TARGET_FN:'';
+    const fn=p.name==='self'?(isMulticastDelegateNode?MULTICAST_TARGET_FN:TARGET_FN):'';
     const tt=isOp&&p.category!=='exec'?opTooltip(p):'';
     let subObj=p.subCategoryObject||'None';
     if(p.name==='self'&&ownCls&&(!p.subCategoryObject||p.subCategoryObject==='None')) subObj=ownCls;

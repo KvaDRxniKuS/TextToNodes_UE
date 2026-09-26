@@ -785,6 +785,12 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(M.createFn(byId('Delay'), { Duration: '2.5' }).pins.find(p => p.name === 'Duration').defaultValue === '2.5', 'modules: createFn переопределяет дефолт');
   const v = validateStrict(fs.readFileSync(new URL('../sweep/25b-make-node.txt', import.meta.url), 'utf8'));
   ok(v.errors.length === 0, 'R25b: модуль make-node 0 ошибок');
+  const db = fs.readFileSync(new URL('../sweep/dispatcher-probe-bound.txt', import.meta.url), 'utf8');
+  const dbNodes = Object.values(parseToGraphs(db))[0].nodes;
+  const bySuffix = suffix => dbNodes.find(n => n.className.endsWith(suffix));
+  ok(validateStrict(db).errors.length===0 && db.includes('MemberName=\"NewEventDispatcher_Probe\"'), 'Dispatcher probe: bound custom event uses self dispatcher');
+  ok([['K2Node_CustomEvent_3000',0],['K2Node_AddDelegate_3002',320],['K2Node_CallDelegate_3001',640],['K2Node_RemoveDelegate_3003',960],['K2Node_ClearDelegate_3004',1280]].every(([id,x])=>dbNodes.find(n=>n.id===id)?.pos.x===x) && dbNodes.find(n=>n.id==='K2Node_CustomEvent_5000')?.pos.x===320, 'Dispatcher probe: graph columns follow Start→Add→Call→Remove→Clear, handler below Add');
+  ok(db.split('LinkedTo=(K2Node_CustomEvent_5000').length-1===2, 'Dispatcher probe: callback linked to both Add and Remove Delegate pins');
 }
 // R27 pre: Widgets / UI + конструктор widget/get/set
 {
