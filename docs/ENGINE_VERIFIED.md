@@ -829,3 +829,5 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 - Follow-up to exec-pin test (2026-09-26): user copy-back fixes expected positions: Branch NodePosY +16 vs ClearAllMappings; FlushPlayerInput shares ClearAllMappings NodePosY. A previous attempt to remove hidden-static-self header offset was wrong; reverted. `pinCenterY` uses Target header offset and per-pin Branch then/else offsets. Sequential sample rebuilt, awaiting confirmation.
 
 - Latest copy-back (2026-09-26): Branch is 16px too low relative to ideal event/exec alignment. Reduced CustomEvent output-pin header offset by one grid cell; split test has Branch.then→ClearAllMappings and Branch.else→FlushPlayerInput. Rebuilt; needs UE re-check.
+
+- Correction to the test topology (2026-09-26): user notes Flush must not be connected to Branch.false; intended chain is Branch.then → ClearAllMappings → FlushPlayerInput. Test graph and topology assertion fixed; awaiting engine check.

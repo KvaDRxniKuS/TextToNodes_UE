@@ -130,3 +130,8 @@
 - User reports Branch NodePosY is still one 16px grid cell too low for ideal alignment. In the supplied split-branch copy-back, Branch.then→ClearAllMappings and Branch.else→FlushPlayerInput are distinct links.
 - `pinCenterY` now estimates a Custom Event's second header row as +16px (rather than generic +32px), shifting Branch up by 16 while aligning Event.then with Branch.execute; test fixture uses the same split topology and asserts every linked exec pair.
 - Rebuilt 30, 27b and `exec-pin-alignment-test.txt`; strict checks pass. Await user engine confirmation.
+
+
+### Correct exec topology after user feedback (2026-09-26)
+
+- User: «Branch height is correct, but Flush still comes from false». The test was mistakenly emitted as Branch.then→Clear and Branch.else→Flush. The actual intended topology is serial: Branch.then→ClearAllMappings→FlushPlayerInput; Branch.else stays unconnected. `sweep/exec-pin-alignment-test.txt` and the regression assertion now use `--chain` for that path and explicitly assert Flush.execute is linked from Clear.then, not Branch.else. No file was opened in the viewer per user preference.
