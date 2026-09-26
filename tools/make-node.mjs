@@ -1,7 +1,13 @@
 #!/usr/bin/env node
 // tools/make-node.mjs — конструктор модулей: любые классы/события/делегаты/функции реестра → текст для вставки в UE.
 //
-//   node tools/make-node.mjs [--chain] [--wrap N | --width PX] [--decorate] [--title "коммент"] [-o out.txt] "<спека>" ...
+//   node tools/make-node.mjs [--chain] [--wrap N | --width PX] [--decorate] [--title "коммент"] [-o out.txt]
+//                            [--root /Game/X/BP_X.BP_X:Граф] [--bp /Game/X/BP_X] [--context ctx.json [--new A,B]] "<спека>" ...
+//
+//   --root PATH   реальный путь графа → ExportPath как у движка (без флага ExportPath не пишется)
+//   --bp PATH     путь своего BP (для self-пина своих переменных; по умолчанию выводится из --root)
+//   --context F   инвентарь целевой функции (tools/inventory.mjs): каждая переменная — из контекста или объявлена
+//                 явно новая (--new A,B — «создаю новую», завести в BP вручную); иначе ошибка E19 (контекст-первый, P2)
 //
 // Раскладка (всё опционально):
 //   --wrap N      не больше N исполняемых узлов в ряду, дальше перенос на ряд ниже (с начала, как строки текста)
@@ -21,6 +27,8 @@
 //   ia-event <IA> [bool|float|vector2d|vector]   событие Enhanced Input (IA_Jump → /Game/Input/Actions/IA_Jump)
 //   ia-value <IA> [bool|float|vector2d|vector]   pure «Get IA_X» (значение действия)
 //   get|set <Класс.Свойство> <тип> [знач]  Get/Set свойства любого класса (напр. set PlayerController.bShowMouseCursor bool true)
+//   self-get|self-set <Имя> <тип> [знач]   своя переменная BP (self = класс BP из --bp или --root)
+//   local-get|local-set <Функция>.<Имя> <тип> [знач]   локал/параметр функции (MemberScope, без self)
 //   fn <id-или-функция-реестра> [Пин=значение ...]   любой узел реестра data/ue-functions.json
 //                                          объектный пин = ассет: MappingContext=IMC_Default, Action=IA_Jump, /Game/X/Y
 //   call <Класс.Функция> [pure] [static] Пин:тип[=знач] ... [-> Выход:тип ...]
@@ -37,12 +45,12 @@ import fs from 'node:fs';
 import { generateUEText } from '../src/parser.js';
 import { layoutRow, layoutRows, layoutDecorated, fitComment, linkPins, estNodeWidth, decorateExec, snapToGrid } from '../src/generator.js';
 import { validateStrict } from '../src/validate.js';
-import { createCast, createCustomEvent, createCallCustomEvent, createDelegateNode, createEventFor, createCreateEvent, createFn, createWidget, createMemberVar, createInputActionEvent, createInputActionValue, createCall } from '../src/modules.js';
+import { createCast, createCustomEvent, createCallCustomEvent, createDelegateNode, createEventFor, createCreateEvent, createFn, createWidget, createMemberVar, createSelfVar, createLocalVarGet, createLocalVarSet, createInputActionEvent, createInputActionValue, createCall } from '../src/modules.js';
 
 process.on('uncaughtException', e => { console.error('make-node: ОШИБКА — ' + e.message); process.exit(1); });
 const reg = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8'));
 const argv = process.argv.slice(2);
-let chain = false, title = '', out = '', decorate = false, wrap = 0, width = 0;
+let chain = false, title = '', out = '', decorate = false, wrap = 0, width = 0, root = '', bp = '', ctxFile = '', newVars = [];
 const specs = [];
 for (let i = 0; i < argv.length; i++) {
   if (argv[i] === '--chain') chain = true;
@@ -51,6 +59,10 @@ for (let i = 0; i < argv.length; i++) {
   else if (argv[i] === '--wrap') wrap = parseInt(argv[++i]);
   else if (argv[i] === '--width') width = parseInt(argv[++i]);
   else if (argv[i] === '-o') out = argv[++i];
+  else if (argv[i] === '--root') root = argv[++i];
+  else if (argv[i] === '--bp') bp = argv[++i];
+  else if (argv[i] === '--context') ctxFile = argv[++i];
+  else if (argv[i] === '--new') newVars = argv[++i].split(',').filter(Boolean);
   else specs.push(argv[i]);
 }
 if (!specs.length) { console.error(fs.readFileSync(new URL(import.meta.url)).toString().split('\n').filter(l => l.startsWith('//')).map(l => l.slice(3)).join('\n')); process.exit(1); }
@@ -75,6 +87,13 @@ for (const spec of specs) {
     case 'ia-event': n = createInputActionEvent(w[0], w[1] || 'bool'); break;
     case 'ia-value': n = createInputActionValue(w[0], w[1] || 'vector2d'); break;
     case 'get': case 'set': n = createMemberVar(cmd, w[0], w[1], w.slice(2).join(' ')); break;
+    case 'self-get': case 'self-set': n = createSelfVar(cmd.slice(5), w[0], w[1], w.slice(2).join(' '), { bp }); break;
+    case 'local-get': case 'local-set': {
+      const d = w[0].indexOf('.'); if (d < 0) throw new Error(`${cmd} ${w[0]}: формат <Функция>.<Имя>`);
+      const [sc, nm] = [w[0].slice(0, d), w[0].slice(d + 1)];
+      n = cmd === 'local-get' ? createLocalVarGet(sc, nm, w[1]) : createLocalVarSet(sc, nm, w[1], w.slice(2).join(' '));
+      break;
+    }
     case 'fn': {
       const e = reg.find(x => x.id === w[0]) || reg.find(x => x.func === w[0]);
       if (!e) throw new Error(`fn ${w[0]}: нет в реестре (id или func)`);
@@ -83,7 +102,7 @@ for (const spec of specs) {
     }
     case 'link': links.push(w); continue;
     case 'row': rowBreakNext = true; continue;
-    default: throw new Error(`неизвестная спека «${cmd}» (cast|event|event-for|call-event|bind|unbind|clear|create-event|widget|ia-event|ia-value|call|get|set|fn|link|row)`);
+    default: throw new Error(`неизвестная спека «${cmd}» (cast|event|event-for|call-event|bind|unbind|clear|create-event|widget|ia-event|ia-value|call|get|set|self-get|self-set|local-get|local-set|fn|link|row)`);
   }
   if (rowBreakNext) { n.rowBreak = true; rowBreakNext = false; }
   nodes.push(n); kinds.push(cmd);
@@ -138,8 +157,10 @@ if (decorate) {
 if (decorate) snapToGrid(nodes);
 if (decorate) nodes.push(...decorateExec(nodes));
 const cm = fitComment(title || `Модуль: ${specs.filter(s => !s.startsWith('link') && s.trim() !== 'row').map(s => s.split(/\s+/).slice(0, 2).join(' ')).join(' → ')}`, nodes);
-const text = generateUEText([cm, ...nodes]);
-const v = validateStrict(text);
+const text = generateUEText([cm, ...nodes], { root });
+// контекст-первый: переменная вне инвентаря допустима только явным --new (создаю новую — её надо завести в BP)
+const ctx = ctxFile ? JSON.parse(fs.readFileSync(ctxFile, 'utf8')) : null;
+const v = validateStrict(text, { context: ctx, newVars });
 if (out) fs.writeFileSync(out, text); else process.stdout.write(text + '\n');
 console.error(`make-node: nodes=${nodes.length} errors=${v.errors.length} warnings=${v.warnings.length} bytes=${text.length}`);
 v.errors.forEach(e => console.error('  ERR ' + e));

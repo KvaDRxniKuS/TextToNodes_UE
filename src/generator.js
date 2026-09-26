@@ -13,6 +13,7 @@ export function mkPin(name, direction, category, opts = {}) {
     isRef: !!opts.ref, container: opts.container || 'None', ignored: !!opts.ignored, advanced: !!opts.advanced,
     defaultValue: opts.dv || '', hidden: !!opts.hidden, linkedTo: [],
     memberRef: opts.memberRef || '', defaultObject: opts.defObj || '',
+    autoDefault: opts.auto || '',
   };
 }
 
@@ -51,6 +52,7 @@ export function createCallFunction(regEntry, pos = { x: 0, y: 0 }) {
     if (p.ignored) o.ignored = true;
     if (p.advanced) o.advanced = true;
     if (p.dv) o.dv = p.dv;
+    o.auto = p.autoDv !== undefined ? p.autoDv : (p.dv || ''); // автоген = объявленный дефолт реестра (не пользовательский)
     if (p.hidden) o.hidden = true;
     if (p.memberRef) o.memberRef = p.memberRef;
     if (p.defObj) o.defObj = p.defObj;
@@ -89,6 +91,7 @@ export function createMacroInstance(regEntry, pos = { x: 0, y: 0 }) {
     if (p.cat === 'real') o.sub = p.sub || 'double';
     if (p.container) o.container = p.container;
     if (p.dv) o.dv = p.dv;
+    o.auto = p.autoDv !== undefined ? p.autoDv : (p.dv || ''); // автоген = объявленный дефолт реестра (не пользовательский)
     n.pins.push(mkPin(p.name, p.dir, p.cat, o));
   }
   return n;
@@ -117,6 +120,7 @@ export function createStructNode(regEntry, pos = { x: 0, y: 0 }) {
     if (p.ignored) o.ignored = true;
     if (p.advanced) o.advanced = true;
     if (p.dv) o.dv = p.dv;
+    o.auto = p.autoDv !== undefined ? p.autoDv : (p.dv || ''); // автоген = объявленный дефолт реестра (не пользовательский)
     if (p.hidden) o.hidden = true;
     n.pins.push(mkPin(p.name, p.dir, p.cat, o));
   }
@@ -232,6 +236,7 @@ export function createGeneric(regEntry, pos = { x: 0, y: 0 }) {
     if (p.ignored) o.ignored = true;
     if (p.advanced) o.advanced = true;
     if (p.dv) o.dv = p.dv;
+    o.auto = p.autoDv !== undefined ? p.autoDv : (p.dv || ''); // автоген = объявленный дефолт реестра (не пользовательский)
     if (p.hidden) o.hidden = true;
     if (p.memberRef) o.memberRef = p.memberRef;
     if (p.defObj) o.defObj = p.defObj;

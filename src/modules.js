@@ -152,7 +152,7 @@ export function createFn(entry, values = {}, pos) {
     if (!p) throw new Error(`${e.id}: нет входного пина ${k} (есть: ${(e.pins || []).filter(x => x.dir === 'Input').map(x => x.name).join(', ')})`);
     if (p.cat === 'class' && v) p.defObj = normalizeClassPath(v);
     else if (p.cat === 'object' && v) p.defObj = assetPath(v, p.object);
-    else p.dv = v;
+    else { if (p.autoDv === undefined) p.autoDv = p.dv || ''; p.dv = v; }
   }
   return createFromEntry(e, pos);
 }
@@ -184,6 +184,41 @@ export function createMemberVar(kind, key, type, value = '', pos) {
   if (kind === 'set') n.pins.push(mkPin('execute', 'Input', 'exec'), mkPin('then', 'Output', 'exec'), pin(prop, 'Input', ty, { dv: value }), pin('Output_Get', 'Output', ty));
   else n.pins.push(pin(prop, 'Output', ty));
   n.pins.push(mkPin('self', 'Input', 'object', { subObj: classRef(owner) }));
+  return n;
+}
+
+/** P1.10: своя переменная BP (bSelfContext). self-пин = класс ЭТОГО BP ("/Script/Engine.BlueprintGeneratedClass'/Game/X/BP_X.BP_X_C'"):
+ *  bp — путь BP (/Game/X/BP_X); без него класс берётся из generateUEText(…, { root }) (--root), иначе пусто (движок достроит).
+ *  createSelfVar('get', 'WheelRadius_M', 'float') · createSelfVar('set', 'V_plane', 'vector', '', { bp: '/Game/Vehicle/wheel/BP_WheelActor' }) */
+export function createSelfVar(kind, name, type, value = '', { bp = '', guid = '' } = {}, pos) {
+  const ty = parseType(type);
+  const short = kind === 'set' ? 'K2Node_VariableSet' : 'K2Node_VariableGet';
+  const n = node(short, pos);
+  n.title = `${kind === 'set' ? 'Set' : 'Get'} ${name}`;
+  n.varName = name; if (guid) n.varGuid = guid;
+  if (bp) n.ownerClass = classRef(bp);
+  if (kind === 'set') n.pins.push(mkPin('execute', 'Input', 'exec'), mkPin('then', 'Output', 'exec'), pin(name, 'Input', ty, { dv: value }), pin('Output_Get', 'Output', ty));
+  else n.pins.push(pin(name, 'Output', ty));
+  n.pins.push(mkPin('self', 'Input', 'object', { hidden: true }));
+  return n;
+}
+
+/** P1.9: локальная переменная (или параметр) функции: VariableReference=(MemberScope="<Функция>",MemberName,MemberGuid),
+ *  без bSelfContext и БЕЗ self-пина (канон BP_WheelActor SlipVel: у локал-гета один пин).
+ *  guid — MemberGuid локала из инвентаря (tools/inventory.mjs), если известен; иначе случайный (движок резолвит по имени).
+ *  createLocalVarGet('SlipVel', 'V_plane', 'vector') */
+export function createLocalVarGet(scope, name, type, { guid = '' } = {}, pos) {
+  const n = node('K2Node_VariableGet', pos);
+  n.title = `Get ${name}`; n.varName = name; n.varScope = scope; if (guid) n.varGuid = guid;
+  n.pins.push(pin(name, 'Output', parseType(type)));
+  return n;
+}
+/** Set локала — форма по аналогии с Get (без self). ⚠ не проверена движком. */
+export function createLocalVarSet(scope, name, type, value = '', { guid = '' } = {}, pos) {
+  const ty = parseType(type);
+  const n = node('K2Node_VariableSet', pos);
+  n.title = `Set ${name}`; n.varName = name; n.varScope = scope; if (guid) n.varGuid = guid;
+  n.pins.push(mkPin('execute', 'Input', 'exec'), mkPin('then', 'Output', 'exec'), pin(name, 'Input', ty, { dv: value }), pin('Output_Get', 'Output', ty));
   return n;
 }
 

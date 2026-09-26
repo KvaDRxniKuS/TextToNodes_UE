@@ -23,7 +23,11 @@ function loadRegistry() {
 
 const KNOWN_SUBOBJ = new Set(ALL_SUBOBJ);
 
-export function validateStrict(text, { registry = null } = {}) {
+// Фрагмент: ссылки на ноды ВНЕ вставки (K2Node_Tunnel_* композитов/функций, внешние Knot'ы и т.п.).
+// Туннели распознаются всегда по имени; --fragment (fragment: true) смягчает до warning ЛЮБУЮ внешнюю ноду.
+const TUNNEL_RE = /^K2Node_(Tunnel|FunctionEntry|FunctionResult|Composite)_\d+$/;
+
+export function validateStrict(text, { registry = null, fragment = false, context = null, newVars = [] } = {}) {
   const errors = [], warnings = [];
   const reg = registry || loadRegistry();
   const funcEntry = new Map();
@@ -45,7 +49,9 @@ export function validateStrict(text, { registry = null } = {}) {
   if (begins !== ends) errors.push(`E01: несбаланс Begin ${begins} vs End ${ends}`);
 
   // --- разбор блоков
-  const nodes = [], pinIds = new Map(), guids = new Map(), names = new Set();
+  // PinId уникален ТОЛЬКО внутри ноды: движок резолвит пару (имя ноды, PinId) — живые дампы
+  // (две копии Dot с одинаковыми id пинов) это подтверждают.
+  const nodes = [], guids = new Map(), names = new Set();
   blocks.forEach((b, bi) => {
     const hm = lines[b.start].trim().match(/Begin Object Class=([^\s]+) Name="([^"]+)"/);
     if (!hm) { errors.push(`E02: блок #${bi + 1}: нет Class/Name в заголовке`); return; }
@@ -53,7 +59,8 @@ export function validateStrict(text, { registry = null } = {}) {
     const short = cls.split('.').pop();
     if (names.has(name)) errors.push(`E05: дублирующееся имя ноды ${name}`);
     names.add(name);
-    const node = { name, cls, short, pins: [], guid: '', funcName: '', memberParent: '', op: '', structType: '', macro: '' };
+    const node = { name, cls, short, pins: [], guid: '', funcName: '', memberParent: '', op: '', structType: '', macro: '', varRef: null };
+    const nodePins = new Map();
     for (const l of b.lines) {
       if (/^([A-Za-z0-9_]+)=\1=/.test(l.trim())) errors.push(`E18: ${name}: задвоенный префикс свойства (${l.trim().slice(0, 40)}...)`);
       const t = l.trim();
@@ -65,8 +72,8 @@ export function validateStrict(text, { registry = null } = {}) {
         if (!pid) errors.push(`E04: ${name}: пин без PinId (${pname || '???'}) — движок перегенерирует пин и порвёт связь`);
         else {
           if (!HEX32.test(pid)) errors.push(`E04: ${name}.${pname}: PinId не 32-HEX (${pid})`);
-          if (pinIds.has(pid)) errors.push(`E05: дублирующийся PinId ${pid} (${pinIds.get(pid)} + ${name}.${pname})`);
-          else pinIds.set(pid, `${name}.${pname}`);
+          if (nodePins.has(pid)) errors.push(`E05: ${name}: дублирующийся PinId ${pid} внутри ноды (${nodePins.get(pid)} + ${pname})`);
+          else nodePins.set(pid, pname);
         }
         const linked = (s.match(/LinkedTo=\(([^)]*)\)/) || [])[1] || '';
         const links = [];
@@ -90,11 +97,18 @@ export function validateStrict(text, { registry = null } = {}) {
       else if (t.startsWith('StructType=')) node.structType = (t.match(/StructType=([^\s]+)/) || [])[1] || '';
       else if (t.startsWith('IndexPinType=')) { const c = t.match(/PinCategory="([^"]*)"/); const s = t.match(/PinSubCategory="([^"]*)"/); const o = t.match(/PinSubCategoryObject="([^"]+)"/); node.selectIndex = { cat: c ? c[1] : '', sub: s ? s[1] : '', subObj: o ? '"' + o[1] + '"' : '' }; }
       else if (t.startsWith('MacroGraphReference=')) node.macro = t;
+      else if (t.startsWith('VariableReference=')) node.varRef = {
+        name: (t.match(/MemberName="([^"]+)"/) || [])[1] || '',
+        scope: (t.match(/MemberScope="([^"]+)"/) || [])[1] || '',
+        parent: (t.match(/MemberParent=("[^"]+"|[^,\)]+)/) || [])[1] || '',
+        self: /bSelfContext=True/.test(t),
+      };
     }
     if (!node.guid) errors.push(`E03: ${name}: нет NodeGuid`);
     else {
       if (!HEX32.test(node.guid)) errors.push(`E03: ${name}: NodeGuid не 32-HEX`);
-      if (guids.has(node.guid)) errors.push(`E05: дублирующийся NodeGuid ${node.guid}`);
+      // NodeGuid движок при вставке перегенерирует (PostPaste) — дубль не ломает вставку, только предупреждение.
+      if (guids.has(node.guid)) warnings.push(`W15: дублирующийся NodeGuid ${node.guid} (${guids.get(node.guid)} + ${name}) — движок перегенерирует при вставке`);
       else guids.set(node.guid, name);
     }
     nodes.push(node);
@@ -104,10 +118,22 @@ export function validateStrict(text, { registry = null } = {}) {
 
   // --- связи: существование + двусторонность
   let linkCount = 0;
+  // авто-детект фрагмента: есть ссылка на отсутствующий K2Node_Tunnel_* → это кусок графа (копия изнутри
+  // функции/композита), остальные внешние ссылки (Knot'ы и т.п.) тоже warning
+  const autoFragment = nodes.some(n => n.pins.some(p => p.links.some(L => !byName.has(L.node) && TUNNEL_RE.test(L.node))));
+  if (autoFragment && fragment !== true) { fragment = true; warnings.push('W14: авто-режим фрагмента — найдены ссылки на туннели вне вставки'); }
+  // fragment: 'auto' (CLI по умолчанию) — живая копия из движка (ExportPath есть у каждого блока; генератор без --root
+  // его не пишет) почти всегда кусок графа: связи на невыделенные ноды остаются в LinkedTo
+  if (fragment === 'auto') fragment = blocks.length > 0 && blocks.every(b => /ExportPath=/.test(lines[b.start]));
   nodes.forEach(n => n.pins.forEach(p => p.links.forEach(L => {
     linkCount++;
     const tgt = byName.get(L.node);
-    if (!tgt) { errors.push(`E06: ${n.name}.${p.name} → несуществующая нода ${L.node}`); return; }
+    if (!tgt) {
+      if (TUNNEL_RE.test(L.node)) warnings.push(`W14: ${n.name}.${p.name} → ${L.node} вне фрагмента (туннель/вход-выход графа) — при вставке связь не восстановится, подключи вручную`);
+      else if (fragment) warnings.push(`W14: ${n.name}.${p.name} → ${L.node} вне фрагмента (--fragment) — связь не восстановится`);
+      else errors.push(`E06: ${n.name}.${p.name} → несуществующая нода ${L.node} (если это кусок графа — --fragment)`);
+      return;
+    }
     const tp = tgt.pins.find(x => x.id === L.pin);
     if (!tp) { errors.push(`E06: ${n.name}.${p.name} → несуществующий пин ${L.node} ${L.pin}`); return; }
     if (!tp.links.some(x => x.node === n.name && x.pin === p.id))
@@ -192,15 +218,38 @@ export function validateStrict(text, { registry = null } = {}) {
     });
   });
 
+  // --- P2: контекст-первый. Каждый VariableGet/Set — из инвентаря целевой функции (tools/inventory.mjs)
+  // или явно объявлен новым (newVars / --new). Ловит «выдуманные» источники вместо существующих V_plane и т.п.
+  if (context) {
+    const known = new Set([...(context.members || []).map(v => v.name), ...(context.locals || []).map(v => v.name), ...(context.params || []).map(v => v.name)]);
+    const fresh = new Set(newVars);
+    nodes.forEach(n => {
+      if (!n.varRef || n.varRef.parent) return; // чужой класс (MemberParent) — не наш инвентарь
+      const v = n.varRef.name;
+      if (!known.has(v) && !fresh.has(v))
+        errors.push(`E19: ${n.name}: переменная «${v}» не найдена в контексте (members/locals/params) — используй существующую или объяви новой (--new ${v})`);
+    });
+  }
+
   return { valid: errors.length === 0, errors, warnings, nodes: nodes.length, links: linkCount };
 }
 
 // CLI: node src/validate.js [file] — без файла читает stdin
 const invokedAs = process.argv[1] ? path.resolve(process.argv[1]) : '';
 if (invokedAs && invokedAs === fileURLToPath(import.meta.url)) {
-  const arg = process.argv[2];
-  const src = (arg && !arg.startsWith('-')) ? fs.readFileSync(arg, 'utf8') : fs.readFileSync(0, 'utf8');
-  const v = validateStrict(src);
+  // node src/validate.js [file] [--fragment | --strict-links] [--context ctx.json] [--new A,B]
+  //   по умолчанию: живая копия движка (ExportPath у всех блоков) → режим фрагмента автоматически
+  const args = process.argv.slice(2);
+  const opt = k => { const i = args.indexOf(k); return i >= 0 ? args[i + 1] : null; };
+  const skip = new Set(); ['--context', '--new'].forEach(k => { const i = args.indexOf(k); if (i >= 0) { skip.add(i); skip.add(i + 1); } });
+  const arg = args.find((a, i) => !skip.has(i) && !a.startsWith('-'));
+  const src = arg ? fs.readFileSync(arg, 'utf8') : fs.readFileSync(0, 'utf8');
+  const ctxFile = opt('--context');
+  const v = validateStrict(src, {
+    fragment: args.includes('--fragment') ? true : args.includes('--strict-links') ? false : 'auto',
+    context: ctxFile ? JSON.parse(fs.readFileSync(ctxFile, 'utf8')) : null,
+    newVars: (opt('--new') || '').split(',').filter(Boolean),
+  });
   v.errors.forEach(e => console.log('❌ ' + e));
   v.warnings.forEach(w => console.log('⚠️ ' + w));
   console.log(`\nНод: ${v.nodes}, связей: ${v.links}, ошибок: ${v.errors.length}, предупреждений: ${v.warnings.length}`);

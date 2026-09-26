@@ -3783,6 +3783,40 @@
   "notes": "round10: белая по факту пользователя"
  },
  {
+  "id": "MakeVector2D_pure",
+  "title": "Make Vector 2D",
+  "category": "Math / Vector",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "MakeVector2D",
+  "lib": "KismetMathLibrary",
+  "pure": true,
+  "pins": [
+   {
+    "name": "X",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "0.0"
+   },
+   {
+    "name": "Y",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "0.0"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector2D"
+   }
+  ],
+  "verified": true,
+  "desc": "Собрать Vector2D (pure KML, форма из живого дампа)",
+  "notes": "P0: KML MakeVector2D как CallFunction — из дампа BP_WheelActor SlipVel (вставка подтверждена пользователем)"
+ },
+ {
   "id": "BreakVector2D",
   "title": "Break Vector2D",
   "category": "Math / Vector",

@@ -91,8 +91,10 @@ const txt = generateUEText([cm, seq2, delay, prt, mk, gt, fl, sw, br]);
 const v0 = validateStrict(txt);
 ok(v0.valid && v0.errors.length === 0, 'позитив: 0 ошибок');
 ok(txt.includes('"/Script/CoreUObject.ScriptStruct') && !txt.includes('/Script/Core.Vector'), 'пути quoted-full');
-ok(!txt.includes('PinFriendlyName='), 'без PinFriendlyName');
-ok(txt.includes("ExportPath=\"/Script/BlueprintGraph.K2Node_CallFunction'\"/Game/"), 'ExportPath в формате движка');
+ok(txt.split('\n').filter(l => l.includes('PinFriendlyName=')).every(l => l.includes('PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target")')), 'PinFriendlyName только у self (Target)');
+ok(!txt.includes('ExportPath='), 'P1.8: без --root ExportPath не пишем');
+{ const tr = generateUEText([prt], { root: '/Game/Vehicle/wheel/BP_WheelActor.BP_WheelActor:EventGraph' });
+  ok(tr.includes(`ExportPath="/Script/BlueprintGraph.K2Node_CallFunction'/Game/Vehicle/wheel/BP_WheelActor.BP_WheelActor:EventGraph.${prt.id}'"`), 'P1.8: --root → ExportPath в форме движка'); }
 ok(txt.includes('MemberParent="/Script/CoreUObject.Class'), 'MemberParent quoted-full');
 ok(txt.includes('PinSubCategory="",PinType.PinSubCategoryObject="/Script/CoreUObject.ScriptStruct'), 'struct-пины: SubCategory пусто + каноника');
 ok(!txt.includes('/Script/Core.Vector'), 'без путей /Script/Core');
@@ -669,9 +671,10 @@ regThrow.forEach(t => console.log('THROW:', t));
 {
   const ev = createFromEntry(byId('EnhancedInputActionEvent'));
   const t = generateUEText([ev]);
-  ok(t.includes('Begin Object Class=/Script/InputBlueprintNodes.K2Node_EnhancedInputAction') && t.includes('ExportPath="/Script/InputBlueprintNodes.K2Node_EnhancedInputAction'), 'R21c: класс и ExportPath InputBlueprintNodes');
+  const tR = generateUEText([ev], { root: '/Game/BP.BP:EventGraph' });
+  ok(t.includes('Begin Object Class=/Script/InputBlueprintNodes.K2Node_EnhancedInputAction') && tR.includes('ExportPath="/Script/InputBlueprintNodes.K2Node_EnhancedInputAction'), 'R21c: класс и ExportPath InputBlueprintNodes');
   ok(t.includes("InputAction=\"/Script/EnhancedInput.InputAction'/Game/Input/Actions/IA_Jump.IA_Jump'\""), 'R21c: InputAction = путь ассета');
-  ok(generateUEText([createFromEntry(byId('Branch'))]).includes('ExportPath="/Script/BlueprintGraph.K2Node_IfThenElse'), 'R21c: BlueprintGraph-узлы без изменений');
+  ok(generateUEText([createFromEntry(byId('Branch'))], { root: '/Game/BP.BP:EventGraph' }).includes('ExportPath="/Script/BlueprintGraph.K2Node_IfThenElse'), 'R21c: BlueprintGraph-узлы без изменений');
 }
 // R21b VERIFIED + R24 pre: Pawn / Character / Controller
 {
@@ -821,6 +824,81 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(ey === cy, '27b: событие в одном ряду с Create Widget (прямая exec)');
   ok(gy > cy && gx < cx, '27b: Get Player Controller — под рядом и левее входа Create Widget');
   ok((t.match(/K2Node_Knot'/g) || []).length === 4, '27b: 4 exec-knot\'а');
+}
+// P0/P1/P2 — живые дампы (BP_WheelActor SlipVel canonical): PinId per-node, фрагменты, формат-паритет, контекст
+{
+  const { createSelfVar, createLocalVarGet, createFn } = await import('../src/modules.js');
+  const { inventory } = await import('../src/inventory.js');
+  // P0.1: одинаковые PinId у ДВУХ нод (копии Dot) — норма; внутри одной ноды — E05
+  const dA = H(9001), dB = H(9002);
+  const dot = nm => block(P + 'K2Node_CallFunction', nm, H(seq++), [FR_LIB('KismetMathLibrary', 'Dot_VectorVector')],
+    [pin('A', { id: dA, cat: 'struct', subObj: VEC }), pin('ReturnValue', { id: dB, cat: 'real', sub: 'double', out: 1 })]);
+  const two = dot('K2Node_CallFunction_1') + '\n' + dot('K2Node_CallFunction_2');
+  const v1 = validateStrict(two);
+  ok(v1.valid && !v1.errors.some(e => e.startsWith('E05')), 'P0.1: одинаковые PinId в разных нодах — не E05');
+  // P0.2: туннели — warning (авто), внешний Knot — E06 без --fragment, warning с ним / при туннелях / в CLI-auto по ExportPath
+  const tun = block(P + 'K2Node_CallFunction', 'K2Node_CallFunction_3', H(seq++), [FR_LIB('KismetMathLibrary', 'Dot_VectorVector')],
+    [pin('A', { cat: 'struct', subObj: VEC, link: 'K2Node_Tunnel_0 ' + H(9100) }), pin('ReturnValue', { cat: 'real', sub: 'double', out: 1, link: 'K2Node_Tunnel_1 ' + H(9101) })]);
+  const vt = validateStrict(tun);
+  ok(vt.valid && vt.warnings.some(w => w.startsWith('W14')), 'P0.2: ссылки на K2Node_Tunnel_0/1 → W14, STRICT OK');
+  const knot = block(P + 'K2Node_CallFunction', 'K2Node_CallFunction_4', H(seq++), [FR_LIB('KismetMathLibrary', 'Dot_VectorVector')],
+    [pin('A', { cat: 'struct', subObj: VEC, link: 'K2Node_Knot_7 ' + H(9102) })]);
+  ok(!validateStrict(knot).valid, 'P0.2: внешний Knot без флага → E06');
+  ok(validateStrict(knot, { fragment: true }).valid, 'P0.2: --fragment → внешний Knot = warning');
+  ok(validateStrict(knot, { fragment: 'auto' }).valid, 'P0.2: auto (живая копия, ExportPath у всех блоков) → фрагмент');
+  ok(validateStrict(tun + '\n' + knot).valid, 'P0.2: туннели в файле → внешний Knot тоже warning');
+  ok(validateStrict(two.replace(/NodeGuid=\w+/g, 'NodeGuid=' + H(9200))).valid, 'P0: дубль NodeGuid — W15, не ошибка');
+  // P0.3: MakeVector2D (KML pure) в реестре
+  const mv = reg.find(e => e.func === 'MakeVector2D');
+  ok(mv && mv.verified && mv.pure && mv.lib === 'KismetMathLibrary', 'P0.3: MakeVector2D pure в реестре, verified');
+  const vm = validateStrict(generateUEText([createFromEntry(mv)]));
+  ok(vm.valid && !vm.warnings.some(w => w.startsWith('W05')), 'P0.3: MakeVector2D без W05');
+  // P0.4: регресс — все живые копии tests/fixtures/ проходят (CLI-режим auto)
+  const fxDir = new URL('./fixtures/', import.meta.url);
+  const fx = fs.readdirSync(fxDir).filter(f => f.endsWith('.txt'));
+  const bad = fx.filter(f => !validateStrict(fs.readFileSync(new URL(f, fxDir), 'utf8'), { fragment: 'auto' }).valid);
+  ok(fx.length >= 11 && bad.length === 0, `P2.12: все живые дампы fixtures/ STRICT OK (${bad.join(', ') || fx.length + ' шт'})`);
+  // P1.4–7: формат
+  const dotN = createFromEntry(byId('Dot_VectorVector'));
+  const td = generateUEText([dotN]);
+  const line = nm => td.split('\n').find(l => l.includes(`PinName="${nm}"`)) || '';
+  ok(line('A').includes('DefaultValue="0, 0, 0",AutogeneratedDefaultValue="0, 0, 0",'), 'P1.4: Vector вход — DefaultValue+Autogenerated');
+  ok(line('ReturnValue').includes('DefaultValue="0.0",AutogeneratedDefaultValue="0.0",'), 'P1.4: real выход — "0.0"+auto');
+  const user = generateUEText([createFn(byId('MakeVector'), { X: '100.000000' })]);
+  const lx = user.split('\n').find(l => l.includes('PinName="X"'));
+  ok(lx.includes('DefaultValue="100.000000",') && !lx.includes('AutogeneratedDefaultValue'), 'P1.4: пользовательское значение — только DefaultValue');
+  ok(td.split('\n').filter(l => l.includes('CustomProperties Pin')).every(l => l.includes('PersistentGuid=00000000000000000000000000000000,bHidden=')), 'P1.5: PersistentGuid=0 на каждом пине (порядок движка)');
+  ok(line('self').includes('PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),'), 'P1.6: self — PinFriendlyName Target');
+  ok(!td.includes('PinToolTip='), 'P1.7: у CallFunction тултипов нет');
+  const op = generateUEText([createFromEntry(reg.find(e => /PromotableOperator/.test(e.className) && e.pins.some(p => p.name === 'A' && p.cat === 'real')))]);
+  ok(op.includes('PinName="A",PinToolTip="A\\nFloat (double-precision)",'), 'P1.7: PromotableOperator A — PinToolTip');
+  // P1.9: локал функции
+  const lg = createLocalVarGet('SlipVel', 'V_plane', 'vector');
+  const tl = generateUEText([lg]);
+  ok(tl.includes('VariableReference=(MemberScope="SlipVel",MemberName="V_plane",MemberGuid=') && !tl.includes('bSelfContext'), 'P1.9: локал — MemberScope без bSelfContext');
+  ok((tl.match(/CustomProperties Pin/g) || []).length === 1 && !tl.includes('PinName="self"'), 'P1.9: у локал-гета один пин, без self');
+  // P1.10: своя переменная — self = BlueprintGeneratedClass BP
+  const ROOT = '/Game/Vehicle/wheel/BP_WheelActor.BP_WheelActor:SlipVel';
+  const BGC = `"/Script/Engine.BlueprintGeneratedClass'/Game/Vehicle/wheel/BP_WheelActor.BP_WheelActor_C'"`;
+  const ts = generateUEText([createSelfVar('get', 'WheelRadius_M', 'float')], { root: ROOT });
+  ok(ts.includes(`PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject=${BGC}`), 'P1.10: self своей переменной из --root');
+  ok(generateUEText([createSelfVar('get', 'X', 'float', '', { bp: '/Game/Vehicle/wheel/BP_WheelActor' })]).includes(BGC), 'P1.10: self своей переменной из --bp');
+  ok(ts.includes(`ExportPath="/Script/BlueprintGraph.K2Node_VariableGet'${ROOT}.`), 'P1.8: ExportPath из --root (граф функции)');
+  // P2.11: инвентарь + линт контекста
+  const fnDump = [
+    block(P + 'K2Node_FunctionEntry', 'K2Node_FunctionEntry_0', H(seq++),
+      ['   FunctionReference=(MemberName="SlipVel")', '   LocalVariables(0)=(VarName="V_plane",VarGuid=' + H(9300) + ',VarType=(PinCategory="struct",PinSubCategoryObject="/Script/CoreUObject.ScriptStruct\'/Script/CoreUObject.Vector\'"),FriendlyName="V plane")'],
+      [pin('then', { out: 1 }), pin('DeltaTime_s', { cat: 'real', sub: 'double', out: 1 })]),
+    generateUEText([createSelfVar('get', 'WheelRadius_M', 'float')], { root: ROOT }),
+  ].join('\n');
+  const inv = inventory(fnDump);
+  ok(inv.locals.some(v => v.scope === 'SlipVel' && v.name === 'V_plane' && v.type === 'vector' && v.guid === H(9300)), 'P2.11: инвентарь — локал V_plane (vector, guid)');
+  ok(inv.params.some(v => v.name === 'DeltaTime_s' && v.type === 'float' && v.dir === 'in'), 'P2.11: инвентарь — параметр DeltaTime_s');
+  ok(inv.members.some(v => v.name === 'WheelRadius_M' && v.type === 'float'), 'P2.11: инвентарь — член WheelRadius_M');
+  const frag = generateUEText([createLocalVarGet('SlipVel', 'V_plane', 'vector'), createSelfVar('get', 'WheelRadius_M', 'float'), createSelfVar('get', 'MadeUpSpeed', 'float')]);
+  const vc = validateStrict(frag, { context: inv });
+  ok(!vc.valid && vc.errors.length === 1 && vc.errors[0].startsWith('E19') && vc.errors[0].includes('MadeUpSpeed'), 'P2.11: выдуманная переменная → E19, существующие — ок');
+  ok(validateStrict(frag, { context: inv, newVars: ['MadeUpSpeed'] }).valid, 'P2.11: --new MadeUpSpeed → ок');
 }
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);
