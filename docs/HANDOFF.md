@@ -35,7 +35,7 @@ TextToNodes_UE — генератор текста для вставки Bluepri
 
 ## Статус раундов (2026-09-26)
 - VERIFIED: R07–R20, R21b, R21c, R22(+b), R23(+b), R24, R25, 25b (модуль make-node, «25b норма» 2026-09-26), R26, R27 (Widgets/UI;
-  вид переделан как 27b), R29 (+`call`), R31 (Audio), R32 (компоненты + формат P1). R30 — ноды корректны, декор починен по вердикту (HANDOFF_TOPICS §2), пересобран.
+  вид переделан как 27b), R29 (+`call`), R31 (Audio), R32 (компоненты + формат P1). R30 — ноды корректны («30 норма»); knot A дополнительно откалиброван по PrintString copy-back (176px), пересобран, ждёт re-check.
 - FAIL: R21 (GetBoundActionValue — скрыт).
 - Ждут вердикта: 28 Enhanced Input (full).
 - Ждут ПОВТОРНОЙ проверки вида (после правки декора, 2026-09-26): sweep/30-decorate.txt, sweep/27b-widgets-ui-decorated.txt.

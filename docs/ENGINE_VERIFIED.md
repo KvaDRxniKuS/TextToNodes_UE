@@ -813,3 +813,9 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
   пользователя добавить дословно, когда пришлёт).
 - Пересобраны: sweep/30-decorate.txt (sweep/gen30.sh) и sweep/27b-widgets-ui-decorated.txt (sweep/gen27b.sh) — те же узлы
   и связи, формат P1 (без ExportPath, PersistentGuid), knot'ы по новому правилу. Ждут оценки вида.
+
+## Round30-fix2: PrintString width calibration (2026-09-26)
+
+- Пользователь подтвердил: «30 норма», но knot A всё ещё сильно правее фактического края ноды.
+- Copy-back из движка для PrintString: NodePosX=-9776, Knot_11 на x=-9600 (правильная граница, Δ=176), Knot_111 на x=-9472 (генератор раньше ставил слишком далеко).
+- `estNodeWidth` теперь калибрует CallFunction PrintString = 176 px; 30/27b пересобраны. Проверка повторного размещения ждёт пользователя.

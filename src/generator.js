@@ -368,6 +368,9 @@ export function estNodeWidth(n) {
   const cls = n.className || '';
   if (cls.includes('Comment')) return n.width || 400;
   if (cls.includes('Knot')) return 16;
+  // Engine copy-back calibration: PrintString's actual right edge is ~176 px
+  // from NodePosX, despite the generic title/subtitle estimate being wider.
+  if (cls.includes('CallFunction') && (n.funcName || '').replace(/^K2_/, '') === 'PrintString') return 176;
   const vis = (n.pins || []).filter(p => !p.hidden && !(p.advanced && !n.advancedShown));
   const ins = vis.filter(p => p.direction === 'Input'), outs = vis.filter(p => p.direction === 'Output');
   const inW = Math.max(0, ...ins.map(p => { const l = pinLabel(p), w = pinWidgetWidth(p); return 18 + (l ? CH.pin * l.length + 4 : 0) + (w ? 6 + w : 0); }));
