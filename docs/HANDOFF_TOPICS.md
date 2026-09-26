@@ -12,7 +12,7 @@
 | R30 декор (knot'ы) | sweep/30-decorate.txt | ЧАСТИЧНО — ноды корректны, см. §2 |
 | R31 Audio (через `call`, тип `single`) | sweep/31-audio.txt | VERIFIED («31 норма», 2026-09-26) |
 | 25b make-node модуль | sweep/25b-* | ждёт вердикта |
-| 27b вид раскладки R27 (layoutDecorated) | sweep/27b-widgets-ui-decorated.txt | ждёт вердикта |
+| 27b вид раскладки R27 (layoutDecorated) | sweep/27b-widgets-ui-decorated.txt | НОРМА (класс Create Widget не выбран — ок; ошибка knot'а как в R30 — до правки декоратора) |
 | R28 Enhanced Input full (15 записей round28-pre) | sweep/28-* | ждёт вердикта |
 | R32 компоненты: жизн. цикл/запросы + новый формат P1 | sweep/32-components-lifecycle.txt (sweep/gen32.sh) | ждёт вердикта |
 | Канон BP_WheelActor_SlipVel (P0 критерий: `node src/validate.js … → STRICT OK`) | — | ждём файл от пользователя → tests/fixtures/ |
@@ -84,3 +84,4 @@
 | 2026-09-26 | R29 | «R29 работает» | 23 записи verified (сделано, dea32b8) |
 | 2026-09-26 | R30 | ноды корректны; knot A не соосен выходу; петля/двойные связи — из испорченной чат-копии | §2 |
 | 2026-09-26 | R31 | «31 норма» | записей реестра нет (всё через `call`) — отмечено в ENGINE_VERIFIED |
+| 2026-09-26 | 27b | «норма»: класс Create Widget не выбран (выбирается локально); есть ошибка, ожидаемая до исправления декоратора (§2) | после правки decorateExec пересобрать 27b; пользователь просил пока ничего не делать |
