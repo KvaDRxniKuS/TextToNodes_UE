@@ -342,7 +342,7 @@ node tools/make-node.mjs --chain "event Go" "cast /Game/BP/BP_Enemy" "fn Delay D
 под своим потребителем. Горизонтальный knot-offset — 16px; вертикальный шаг между видимыми pin-строками — 32px
 (калиброван по copy-back `K2Node_Composite`, 6 выходов). Y может смещаться от сетки для точного совпадения центров пинов.
 Без флагов раскладка прежняя. Тест collapsed-графа с 4 входами/5 выходами и 16 свободными Knot-пробами (две колонки Knot с каждой стороны, центральной нет):
-`node tools/gen-collapsed-knot-test.mjs` → `sweep/collapsed-knot-4x5-test.txt`. Pin-row offset от шапки учтён; outer Knot = ±32px, inter-port Knot ещё ±16px наружу.
+`node tools/gen-collapsed-knot-test.mjs` → `sweep/collapsed-knot-4x5-test.txt`. Число входов/выходов и уровней задаётся флагами; например `node tools/gen-collapsed-knot-test.mjs --inputs 1 --outputs 3 --levels 3` строит `sweep/collapsed-knot-1x3-3levels-test.txt`: уровни Knot-ов рекурсивно делят интервалы между соседними pin centers, добавляя каждый уровень на 16px наружу. Следующий уровень не создаётся, если на текущем один Knot.
 Ширина нод оценивается по геометрии редактора (`estNodeWidth`: шапка «Заголовок / Target is Класс» против тела пинов
 с виджетами дефолтов) — движок ширину не сериализует, поэтому это оценка ±1 клетка сетки.
 

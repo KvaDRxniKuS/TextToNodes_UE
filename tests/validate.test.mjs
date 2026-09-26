@@ -866,6 +866,21 @@ regThrow.forEach(t => console.log('THROW:', t));
     ok(leftPorts.length===4 && rightPorts.length===5 && leftBetween.length===3 && rightBetween.length===4 && knots.every(k=>[-KNOT_SIDE_OFFSET,-KNOT_SIDE_OFFSET-KNOT_X_STEP,width+KNOT_SIDE_OFFSET,width+KNOT_SIDE_OFFSET+KNOT_X_STEP].includes(k.pos.x)), 'Collapsed test: только 2 Knot-столбца с каждой стороны, −32/+32 у портов и ещё ±16 у промежуточных');
     ok(leftMids.every((y,i)=>y===(inCenters[i]+inCenters[i+1])/2) && rightMids.every((y,i)=>y===(outCenters[i]+outCenters[i+1])/2), 'Collapsed test: промежуточные Knot точно посередине соседних pin rows');
   }
+  // Recursive collapsed-node Knot levels: 1 input stops after its single port Knot; 3 outputs yield 3, 2, 1.
+  {
+    const text = fs.readFileSync(new URL('../sweep/collapsed-knot-1x3-3levels-test.txt', import.meta.url), 'utf8');
+    const graph = Object.values(parseToGraphs(text))[0];
+    const comp = graph.nodes.find(n => n.isComposite), knots = graph.nodes.filter(n => n.isReroute);
+    const { pinCenterY: py, estNodeWidth: ew, KNOT_SIDE_OFFSET, KNOT_X_STEP } = await import('../src/generator.js');
+    const inputKnots = knots.filter(k => k.pos.x === -KNOT_SIDE_OFFSET);
+    const outputLevels = [0,1,2].map(level => knots.filter(k => k.pos.x === ew(comp)+KNOT_SIDE_OFFSET+level*KNOT_X_STEP));
+    const knotCenters = arr => arr.map(k=>k.pos.y+8).sort((a,b)=>a-b);
+    const outputs = comp.pins.filter(p=>p.direction==='Output');
+    ok(validateStrict(text).errors.length===0 && comp.pins.filter(p=>p.direction==='Input').length===1 && outputs.length===3, 'Collapsed levels: Composite с 1 входом/3 выходами');
+    ok(knots.length===7 && inputKnots.length===1 && outputLevels.map(a=>a.length).join(',')==='3,2,1', 'Collapsed levels: всего 7 Knot; output levels 3→2→1, input side stops at 1');
+    ok(knotCenters(outputLevels[0]).every((y,i)=>y===py(comp,outputs[i])) && knotCenters(outputLevels[1]).join(',')==='72,104' && knotCenters(outputLevels[2])[0]===88, 'Collapsed levels: портовые Y совпадают с pin centers; следующие уровни — рекурсивные midpoint');
+    ok(knots.every(k=>k.pos.x===-32 || [288,304,320].includes(k.pos.x)), 'Collapsed levels: каждый уровень смещён наружу на 16px без центральных столбцов');
+  }
   const s30 = fs.readFileSync(new URL('../sweep/30-decorate.txt', import.meta.url), 'utf8');
   const knotCount = t => (t.match(/Begin Object Class=\/Script\/BlueprintGraph\.K2Node_Knot /g) || []).length;
   ok(validateStrict(s30).errors.length === 0 && knotCount(s30) === 4, 'R30: sweep 0 ошибок, 4 knot\'а');
