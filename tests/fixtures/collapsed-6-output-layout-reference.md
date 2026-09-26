@@ -1,14 +1,10 @@
-# Collapsed Composite pin-pitch reference (UE copy-back, user-supplied 2026-09-26)
+# K2Node_Composite pin geometry reference (user copy-back, 2026-09-26)
 
-Derived from the supplied `K2Node_Composite_0` (`NodePosY=-2400`) and six outer Knot probes. This records the geometry evidence used for the generic pin-row step; the full user paste also contained the nested Tunnel graph and corresponding pins.
+The corrected reference has `K2Node_Composite_9000` at `NodePosX=-12160`, `NodePosY=-4624`. Outer side knots show the exact geometry:
 
-| Composite output | Type | Knot | Knot NodePosY | Relative to previous |
-|---|---|---|---:|---:|
-| `OutputPin` | exec | `Knot_37` | -2352 | — |
-| `OutputPin2` | exec | `Knot_38` | -2320 | 32 px |
-| `OutputPin3` | exec | `Knot_29` | -2288 | 32 px |
-| `OutputPin4` | interface | `Knot_31` | -2256 | 32 px |
-| `OutputPin5` | interface | `Knot_33` | -2224 | 32 px |
-| `OutputPin6` | interface | `Knot_35` | -2192 | 32 px |
+- Port-level knot: `x=-12192` (32px left of node edge); opposite side: `x=-11872` (32px beyond the inferred right edge at -11904; composite width 256px).
+- Between-port knot: `x=-12208` (another 16px outward on the input side); output-side analog is another 16px beyond the output port-knot column.
+- First knot row `NodePosY=-4576` is 48px below the node origin; with the knot center at +8px, the first pin center is +56px. Later rows: -4544 and -4512, giving a 32px pin-row pitch.
+- The corresponding six-output reference independently lists three exec outputs and three interface outputs at 32px increments, confirming category-independent row pitch.
 
-Conclusion: consecutive visible output pin levels use a 32 px vertical pitch across exec and interface types. The horizontal test stagger requested for the new probe is one 16 px grid unit. This is a derived measurement note, not a replacement for the original UE copy-back.
+This fixture note records measurements from the pasted live dump; it is not a substitute for the full composite serialization.

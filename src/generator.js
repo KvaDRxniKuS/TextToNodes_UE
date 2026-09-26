@@ -307,9 +307,12 @@ export const PIN_ROW_H = 32;
 export const PIN_CENTER_OFFSET = 11; // first pin center below its header
 // Engine copy-back: an extra title/subtitle header line shifts node pins by ~32 px.
 export const HEADER_LINE_H = 32;
-// Blueprint grid step used for lateral Knot staggering (input side -16, output side +16).
+// One Blueprint grid cell used to push between-port Knot probes farther outward.
 export const KNOT_X_STEP = 16;
-// Vertical pin pitch is one pin-row step, independent of the 16px horizontal grid cell.
+export const KNOT_SIDE_OFFSET = 32; // two 16px grid cells from the composite edge
+// Composite header height calibration from user copy-back: first pin center is NodePosY + 56px.
+export const COMPOSITE_PIN_HEADER_EXTRA = 11;
+// Vertical pin pitch is one pin-row step, independent of horizontal knot offsets.
 export const PIN_GRID_STEP = PIN_ROW_H;
 
 /** Оценка ширины ноды (px) — по геометрии Slate-ноды, а не по фиксированной базе класса.
@@ -376,6 +379,7 @@ export function estNodeWidth(n) {
   const cls = n.className || '';
   if (cls.includes('Comment')) return n.width || 400;
   if (cls.includes('Knot')) return 16;
+  if (cls.includes('Composite')) return 256; // UE copy-back: node edge to outer knots = 256px
   // Engine copy-back calibration: PrintString's actual right edge is ~176 px
   // from NodePosX, despite the generic title/subtitle estimate being wider.
   if (cls.includes('CallFunction') && (n.funcName || '').replace(/^K2_/, '') === 'PrintString') return 176;
@@ -490,8 +494,10 @@ export function pinCenterY(n, pin) {
   // CallFunction's Target subtitle affects pin Y even when its synthetic self pin is hidden.
   // Engine copy-back also shows Branch.then below the input exec row; Branch outputs are
   // not vertically equivalent to execute. Keep each output's own row offset.
-  const headerExtra = (n.className || '').includes('CustomEvent') ? 16 : (sub ? HEADER_LINE_H : 0);
-  const header = compact ? 18 : 34 + headerExtra;
+  const cls = n.className || '';
+  const headerExtra = cls.includes('CustomEvent') ? 16 : (sub ? HEADER_LINE_H : 0);
+  const compositeHeaderExtra = cls.includes('Composite') ? COMPOSITE_PIN_HEADER_EXTRA : 0;
+  const header = compact ? 18 : 34 + headerExtra + compositeHeaderExtra;
   const rowOffset = Math.max(0, vis.indexOf(pin)) * PIN_ROW_H;
   return n.pos.y + header + rowOffset + PIN_CENTER_OFFSET;
 }

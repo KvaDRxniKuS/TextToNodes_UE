@@ -847,21 +847,24 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(flushA.pos.y - clearA.pos.y === 32, `Exec alignment: adjacent Branch outputs use one 32px pin row (${clearA.pos.y}/${flushA.pos.y})`);
   const execEventA = eg.find(n => n.rawLines.some(l => l.includes('CustomFunctionName="A"'))), brA = eg.find(n => n.className.includes('IfThenElse'));
   ok(execEventA && brA && brA.pos.y - execEventA.pos.y === 16, `Exec alignment: Branch на один шаг выше старого офсета от Custom Event (${execEventA?.pos.y}/${brA?.pos.y})`);
-  // 3×3 collapsed-node geometry probe: 32px between pin rows, lateral loose-knot probes ±16.
+  // Collapsed-node probe: source header offset, pin-row height, and exact lateral Knot columns.
   {
-    const text = fs.readFileSync(new URL('../sweep/collapsed-knot-3x3-test.txt', import.meta.url), 'utf8');
+    const text = fs.readFileSync(new URL('../sweep/collapsed-knot-4x5-test.txt', import.meta.url), 'utf8');
     const pinRef = fs.readFileSync(new URL('./fixtures/collapsed-6-output-layout-reference.md', import.meta.url), 'utf8');
     const graph = Object.values(parseToGraphs(text))[0];
     const comp = graph.nodes.find(n => n.isComposite), knots = graph.nodes.filter(n => n.isReroute);
-    const { pinCenterY: py, estNodeWidth: ew, PIN_ROW_H, KNOT_X_STEP } = await import('../src/generator.js');
+    const { pinCenterY: py, estNodeWidth: ew, PIN_ROW_H, KNOT_X_STEP, KNOT_SIDE_OFFSET, COMPOSITE_PIN_HEADER_EXTRA } = await import('../src/generator.js');
     const ins = comp.pins.filter(p => p.direction === 'Input'), outs = comp.pins.filter(p => p.direction === 'Output');
-    const ys = [...new Set(knots.map(k => k.pos.y))].sort((a,b)=>a-b);
-    const byY = y => knots.filter(k => k.pos.y === y);
-    const width = ew(comp);
-    ok(validateStrict(text).errors.length === 0 && comp.isComposite && ins.length === 3 && outs.length === 3, 'Collapsed test: валидная K2Node_Composite с 3 входами/3 выходами');
-    ok(knots.length === 9 && knots.every(k => k.pins.every(p => !p.linkedTo.length)), 'Collapsed test: 9 Knot проб, все полностью неподключённые');
-    ok(pinRef.includes('32 px vertical pitch') && ys.length === 3 && ys[1]-ys[0]===PIN_ROW_H && ys[2]-ys[1]===PIN_ROW_H && ins.every((p,i)=>py(comp,p)===byY(ys[i])[0].pos.y+8), 'Collapsed test: 32px шаг подтверждён 6-output copy-back; Knot центры по уровням входов');
-    ok(ys.every(y=>byY(y).length===3&&byY(y).some(k=>k.pos.x===-KNOT_X_STEP)&&byY(y).some(k=>k.pos.x===Math.round(width/2))&&byY(y).some(k=>k.pos.x===width+KNOT_X_STEP)), 'Collapsed test: на каждом уровне Knot слева −16 / между / справа +16');
+    const width = ew(comp), leftPorts=knots.filter(k=>k.pos.x===-KNOT_SIDE_OFFSET), rightPorts=knots.filter(k=>k.pos.x===width+KNOT_SIDE_OFFSET);
+    const leftBetween=knots.filter(k=>k.pos.x===-KNOT_SIDE_OFFSET-KNOT_X_STEP), rightBetween=knots.filter(k=>k.pos.x===width+KNOT_SIDE_OFFSET+KNOT_X_STEP);
+    const centers = arr => arr.map(k=>k.pos.y+8).sort((a,b)=>a-b);
+    const inCenters=centers(leftPorts), outCenters=centers(rightPorts), leftMids=centers(leftBetween), rightMids=centers(rightBetween);
+    ok(validateStrict(text).errors.length===0 && comp.isComposite && ins.length===4 && outs.length===5, 'Collapsed test: K2Node_Composite с 4 входами/5 выходами');
+    ok(knots.length===16 && knots.every(k=>k.pins.every(p=>!p.linkedTo.length)), 'Collapsed test: 16 свободных Knot (4+3 слева, 5+4 справа)');
+    ok(pinRef.includes('NodePosY=-4624') && pinRef.includes('NodePosY=-4576') && inCenters[0]===py(comp,ins[0]) && outCenters[0]===py(comp,outs[0]) && py(comp,ins[0])-comp.pos.y===34+COMPOSITE_PIN_HEADER_EXTRA+11, 'Collapsed test: Knot Y учтён от header и pin center по reference');
+    ok(inCenters.length===4 && outCenters.length===5 && inCenters.every((y,i)=>i===0||y-inCenters[i-1]===PIN_ROW_H) && outCenters.every((y,i)=>i===0||y-outCenters[i-1]===PIN_ROW_H), 'Collapsed test: pin row pitch 32px по всем типам');
+    ok(leftPorts.length===4 && rightPorts.length===5 && leftBetween.length===3 && rightBetween.length===4 && knots.every(k=>[-KNOT_SIDE_OFFSET,-KNOT_SIDE_OFFSET-KNOT_X_STEP,width+KNOT_SIDE_OFFSET,width+KNOT_SIDE_OFFSET+KNOT_X_STEP].includes(k.pos.x)), 'Collapsed test: только 2 Knot-столбца с каждой стороны, −32/+32 у портов и ещё ±16 у промежуточных');
+    ok(leftMids.every((y,i)=>y===(inCenters[i]+inCenters[i+1])/2) && rightMids.every((y,i)=>y===(outCenters[i]+outCenters[i+1])/2), 'Collapsed test: промежуточные Knot точно посередине соседних pin rows');
   }
   const s30 = fs.readFileSync(new URL('../sweep/30-decorate.txt', import.meta.url), 'utf8');
   const knotCount = t => (t.match(/Begin Object Class=\/Script\/BlueprintGraph\.K2Node_Knot /g) || []).length;
