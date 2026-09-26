@@ -803,6 +803,13 @@ regThrow.forEach(t => console.log('THROW:', t));
   const s30 = fs.readFileSync(new URL('../sweep/30-decorate.txt', import.meta.url), 'utf8');
   ok(validateStrict(s30).errors.length === 0 && (s30.match(/K2Node_Knot'/g) || []).length === 4, 'R30: sweep 0 ошибок, 4 knot\'а');
 }
+// R31 pre: Audio через call, тип single (C++ float)
+{
+  const s31 = fs.readFileSync(new URL('../sweep/31-audio.txt', import.meta.url), 'utf8');
+  ok(validateStrict(s31).errors.length === 0, 'R31: sweep 0 ошибок');
+  ok(s31.includes('MemberName="SpawnSound2D"') && s31.includes("Engine.AudioComponent'") && /PinName="NewVolumeMultiplier",PinType\.PinCategory="real",PinType\.PinSubCategory="float"/.test(s31), 'R31: SpawnSound2D + AudioComponent + single→float');
+  ok((s31.match(/K2Node_Knot'/g) || []).length === 4, 'R31: --decorate 4 knot\'а');
+}
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);

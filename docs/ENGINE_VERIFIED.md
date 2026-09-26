@@ -744,3 +744,8 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 - make-node: `--wrap N` / `--width PX` (перенос рядов), спека `row` (принудительный перенос), `--decorate` (knot'ы + события-источники в ряд перед своими узлами + сетка 16). Exec вперёд с перепадом ≥48px → «ступенька» из 2 knot'ов. Без флагов раскладка прежняя.
 - generator.js: createKnot(pos, category), layoutRows, decorateExec, snapToGrid, estNodeHeight, pinCenterY.
 - sweep/30-decorate.txt — только узлы R26 (verified), проверяется именно декор: 11 узлов, 3+ ряда, 4 knot'а.
+
+## Round31-pre: Audio — ждёт вердикта
+- sweep/31-audio.txt собран make-node `call` + --chain --wrap 4 --decorate: PlaySound2D, PlaySoundAtLocation, SpawnSound2D → AudioComponent Play/SetVolumeMultiplier/SetPitchMultiplier/SetPaused/FadeIn/FadeOut/Stop, IsPlaying (pure), SpawnSoundAtLocation.
+- Новый тип make-node `single` = C++ float (PinSubCategory="float"); `float` по-прежнему double.
+- Sound-пины пустые (выбрать ассет в движке); WCO/advanced-пины опущены — движок достроит.

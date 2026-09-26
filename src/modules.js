@@ -12,11 +12,11 @@ function node(short, pos = { x: 0, y: 0 }) {
 }
 
 /* ---------------- типы ----------------
- * bool int int64 byte float(=double) string name text
+ * bool int int64 byte float(=double) single(=C++ float, sub float) string name text
  * vector rotator transform vector2d linearcolor hitresult key timerhandle … (любой ключ UE_STRUCTS, без учёта регистра)
  * object:Класс  class:Класс  enum:EИмя   суффикс [] → массив
  * Класс: Actor | /Script/Module.Class | /Game/Path/BP_X            */
-const SCALAR = { bool: ['bool'], int: ['int'], int64: ['int64'], byte: ['byte'], float: ['real', 'double'], double: ['real', 'double'], real: ['real', 'double'], string: ['string'], name: ['name'], text: ['text'] };
+const SCALAR = { bool: ['bool'], int: ['int'], int64: ['int64'], byte: ['byte'], float: ['real', 'double'], single: ['real', 'float'], double: ['real', 'double'], real: ['real', 'double'], string: ['string'], name: ['name'], text: ['text'] };
 export function parseType(t) {
   let s = String(t).trim(), container = 'None';
   if (s.endsWith('[]')) { container = 'Array'; s = s.slice(0, -2); }
