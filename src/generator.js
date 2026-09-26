@@ -391,9 +391,9 @@ export function estNodeWidth(n) {
     const { title, sub, compact } = nodeTitleParts(n);
     const titleW = compact ? 0 : 64 + Math.max(CH.title * title.length, CH.sub * sub.length);
     // Slate body estimate has 12px built-in margins; add 18px for the Composite frame.
-    // Snap to the nearest 16px editor grid: measured 3x3 reference remains 256px, while
-    // the narrower 1x3 pin-label geometry resolves to 240px.
-    return Math.round(Math.max(titleW, bodyW + 18, 100) / 16) * 16;
+    // Snap upward to the 16px editor grid, matching the supplied UE copy-back: the right port
+    // Knot is 288px from NodePosX, i.e. a 256px Composite plus the measured 32px edge gap.
+    return Math.ceil(Math.max(titleW, bodyW + 18, 100) / 16) * 16;
   }
   // Engine copy-back calibration: PrintString's actual right edge is ~176 px
   // from NodePosX, despite the generic title/subtitle estimate being wider.
