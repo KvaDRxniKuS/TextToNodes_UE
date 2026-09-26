@@ -121,5 +121,6 @@
 
 ### FlushPlayerInput Y correction (2026-09-26)
 
-- User feedback on the per-pin test: Branch was correct, but FlushPlayerInput landed one pin-row too high. Cause: generic `nodeTitleParts` counted `Target is Enhanced Input Library` as a rendered second header line for a static library call with implicit/hidden self.
-- `pinCenterY` now counts a CallFunction subtitle only when it has a visible `self`/Target input. Width estimation retains its calibrated generic model (including PrintString=176); pin-header height and width estimate are treated separately. Regenerate `sweep/exec-pin-alignment-test.txt`, R30 and 27b; verify again in engine.
+- User copy-back confirms the desired vertical positions for Event → Branch → ClearAllMappings → FlushPlayerInput: Branch NodePosY is 16px below ClearAllMappings; ClearAllMappings and FlushPlayerInput share NodePosY. `Branch.then` must therefore be modeled 16px below the base exec row; Clear/Flush exec pins share the same effective header offset even though Flush's synthetic self is hidden.
+- The previous change that removed the subtitle offset for hidden static self was incorrect; reverted for pin geometry. `pinCenterY` now applies the Target header row to CallFunction as before, and adds the per-pin `IfThenElse` then/else offsets. Test fixture mirrors the exact sequential chain and its emitted NodePosY deltas.
+- Rebuild/check after this correction; user verification pending.
