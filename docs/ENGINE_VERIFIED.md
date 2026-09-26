@@ -827,3 +827,5 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 - Copy-back также выявил ограничение текущей раскладки рядов: одинаковый NodePosY не гарантирует выравнивание exec-пинов при разной высоте заголовка (ClearAllMappings с двухстрочной шапкой vs FlushPlayerInput с одной строкой). Требуется layout по exec-pin center; оценку offset брать из заголовка/подзаголовка и порядка пинов, уже доступных генератору (не запрашивать ручной offset).
 
 - Follow-up to exec-pin test (2026-09-26): user copy-back fixes expected positions: Branch NodePosY +16 vs ClearAllMappings; FlushPlayerInput shares ClearAllMappings NodePosY. A previous attempt to remove hidden-static-self header offset was wrong; reverted. `pinCenterY` uses Target header offset and per-pin Branch then/else offsets. Sequential sample rebuilt, awaiting confirmation.
+
+- Latest copy-back (2026-09-26): Branch is 16px too low relative to ideal event/exec alignment. Reduced CustomEvent output-pin header offset by one grid cell; split test has Branch.then→ClearAllMappings and Branch.else→FlushPlayerInput. Rebuilt; needs UE re-check.

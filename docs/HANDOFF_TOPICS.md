@@ -124,3 +124,9 @@
 - User copy-back confirms the desired vertical positions for Event → Branch → ClearAllMappings → FlushPlayerInput: Branch NodePosY is 16px below ClearAllMappings; ClearAllMappings and FlushPlayerInput share NodePosY. `Branch.then` must therefore be modeled 16px below the base exec row; Clear/Flush exec pins share the same effective header offset even though Flush's synthetic self is hidden.
 - The previous change that removed the subtitle offset for hidden static self was incorrect; reverted for pin geometry. `pinCenterY` now applies the Target header row to CallFunction as before, and adds the per-pin `IfThenElse` then/else offsets. Test fixture mirrors the exact sequential chain and its emitted NodePosY deltas.
 - Rebuild/check after this correction; user verification pending.
+
+### Custom Event → Branch pin offset (2026-09-26)
+
+- User reports Branch NodePosY is still one 16px grid cell too low for ideal alignment. In the supplied split-branch copy-back, Branch.then→ClearAllMappings and Branch.else→FlushPlayerInput are distinct links.
+- `pinCenterY` now estimates a Custom Event's second header row as +16px (rather than generic +32px), shifting Branch up by 16 while aligning Event.then with Branch.execute; test fixture uses the same split topology and asserts every linked exec pair.
+- Rebuilt 30, 27b and `exec-pin-alignment-test.txt`; strict checks pass. Await user engine confirmation.

@@ -484,7 +484,8 @@ export function pinCenterY(n, pin) {
   // CallFunction's Target subtitle affects pin Y even when its synthetic self pin is hidden.
   // Engine copy-back also shows Branch.then below the input exec row; Branch outputs are
   // not vertically equivalent to execute. Keep each output's own row offset.
-  const header = compact ? 18 : 34 + (sub ? HEADER_LINE_H : 0);
+  const headerExtra = (n.className || '').includes('CustomEvent') ? 16 : (sub ? HEADER_LINE_H : 0);
+  const header = compact ? 18 : 34 + headerExtra;
   let rowOffset = Math.max(0, vis.indexOf(pin)) * PIN_ROW_H;
   if ((n.className || '').includes('IfThenElse') && pin.direction === 'Output') {
     rowOffset = pin.name === 'then' ? 16 : pin.name === 'else' ? 38 : rowOffset;
