@@ -488,7 +488,7 @@ export function pinCenterY(n, pin) {
   const header = compact ? 18 : 34 + headerExtra;
   let rowOffset = Math.max(0, vis.indexOf(pin)) * PIN_ROW_H;
   if ((n.className || '').includes('IfThenElse') && pin.direction === 'Output') {
-    rowOffset = pin.name === 'then' ? 16 : pin.name === 'else' ? 38 : rowOffset;
+    rowOffset = pin.name === 'then' ? 16 : pin.name === 'else' ? 48 : rowOffset;
   }
   return n.pos.y + header + rowOffset + PIN_ROW_H / 2;
 }

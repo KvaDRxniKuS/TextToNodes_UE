@@ -830,4 +830,4 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 
 - Latest copy-back (2026-09-26): Branch is 16px too low relative to ideal event/exec alignment. Reduced CustomEvent output-pin header offset by one grid cell; split test has Branch.then→ClearAllMappings and Branch.else→FlushPlayerInput. Rebuilt; needs UE re-check.
 
-- Correction to the test topology (2026-09-26): user notes Flush must not be connected to Branch.false; intended chain is Branch.then → ClearAllMappings → FlushPlayerInput. Test graph and topology assertion fixed; awaiting engine check.
+- Latest correction (2026-09-26): intended split is Branch.then → ClearAllMappings and Branch.else → FlushPlayerInput. Topology is right; false destination needed two 16px grid steps below true, not one. Set Branch then/else output centers 32px apart; fixture asserts target NodePosY delta=32. Awaiting UE confirmation.
