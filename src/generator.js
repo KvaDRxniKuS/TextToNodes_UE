@@ -180,15 +180,15 @@ export function createBranch(pos) {
 }
 
 /** K2Node_Knot (reroute) — форма из copy-back UE 5.8: wildcard + InputPin ignored. */
-export function createKnot(pos = { x: 0, y: 0 }) {
+export function createKnot(pos = { x: 0, y: 0 }, category = 'wildcard') {
   return {
     id: nextId('K2Node_Knot'),
     className: 'BlueprintGraph.K2Node_Knot',
     rawClass: '/Script/BlueprintGraph.K2Node_Knot',
     guid: guid32(), pos, title: 'Reroute',
     pins: [
-      mkPin('InputPin', 'Input', 'wildcard', { ignored: true }),
-      mkPin('OutputPin', 'Output', 'wildcard'),
+      mkPin('InputPin', 'Input', category, { ignored: true }),
+      mkPin('OutputPin', 'Output', category),
     ]
   };
 }
@@ -361,4 +361,91 @@ export function alignPinRow(fromNode, fromPinName, toNode, toPinName) {
   const ib = vis(toNode).findIndex(p => p.name === toPinName);
   if (ia < 0 || ib < 0) return;
   toNode.pos.y = fromNode.pos.y + (ia - ib) * PIN_ROW_H;
+}
+
+// ─── Декор (опционально): перенос рядов, exec-knot'ы, сетка 16 ───────────────
+// Форма exec-knot'а — copy-back UE (BP_AISupportTester, 2026-09-26): K2Node_Knot, InputPin/OutputPin
+// PinCategory="exec", InputPin bDefaultValueIsIgnored=True.
+
+export const GRID = 16;
+const snap = v => Math.round(v / GRID) * GRID;
+export const estNodeHeight = n => (n.className || '').includes('Knot') ? 16 : 70 + PIN_ROW_H * Math.max(
+  (n.pins || []).filter(p => !p.hidden && p.direction === 'Input').length,
+  (n.pins || []).filter(p => !p.hidden && p.direction === 'Output').length);
+
+/** Ряды с переносом: не больше perRow узлов или maxWidth px в ряду; каждый ряд с x0 (как строки текста).
+ *  Возвращает массив рядов и Y под последним рядом. */
+export function layoutRows(nodes, { x0 = 0, y0 = 0, perRow = 0, maxWidth = 0, gap = ROW_GAP, rowGap = 240 } = {}) {
+  const rows = [[]]; let w = 0;
+  for (const n of nodes) {
+    const nw = estNodeWidth(n);
+    const cur = rows[rows.length - 1];
+    if (cur.length && (n.rowBreak || (perRow && cur.length >= perRow) || (maxWidth && w + nw > maxWidth))) { rows.push([]); w = 0; }
+    rows[rows.length - 1].push(n); w += nw + gap;
+  }
+  let y = y0;
+  for (const r of rows) {
+    layoutRow(r, x0, y, gap);
+    y += Math.max(...r.map(estNodeHeight)) + rowGap;
+  }
+  return { rows, bottom: y };
+}
+
+/** Y центра пина (приближённо): шапка ~34px, строка 22px; knot — центр ~8px. */
+export function pinCenterY(n, pin) {
+  if ((n.className || '').includes('Knot')) return n.pos.y + 8;
+  const vis = n.pins.filter(p => !p.hidden && p.direction === pin.direction && p.name !== 'OutputDelegate'); // делегат — в шапке
+  return n.pos.y + 34 + Math.max(0, vis.indexOf(pin)) * PIN_ROW_H + PIN_ROW_H / 2;
+}
+
+/** Все координаты на сетку 16 (как «Straighten/Align» в редакторе). */
+export function snapToGrid(nodes) { for (const n of nodes) { n.pos.x = snap(n.pos.x); n.pos.y = snap(n.pos.y); } return nodes; }
+
+/** Exec-связи с перепадом → knot'ы. Возвращает НОВЫЕ узлы (добавить в вывод).
+ *  • назад (вход левее выхода — перенос на ряд ниже/позади): 2 knot'а на «коридоре» между рядами —
+ *    первый под выходом первого ряда, второй над входом второго ряда;
+ *  • вперёд с перепадом высоты ≥ minDy: «ступенька» — 2 knot'а на одной X посередине, на высотах пинов.
+ *  Прямые связи (одна высота, вперёд) не трогаются. */
+export function decorateExec(nodes, { minDy = 48, pad = 48 } = {}) {
+  const byId = new Map(nodes.map(n => [n.id, n]));
+  const knots = [];
+  const relink = (A, fp, B, tp, pts) => {
+    fp.linkedTo = fp.linkedTo.filter(l => l.pinId !== tp.id);
+    tp.linkedTo = tp.linkedTo.filter(l => l.pinId !== fp.id);
+    let prevN = A, prevP = fp;
+    for (const [x, y] of pts) {
+      const k = createKnot({ x: snap(x), y: snap(y) }, 'exec');
+      const [ki, ko] = k.pins;
+      prevP.linkedTo.push({ nodeName: k.id, pinId: ki.id }); ki.linkedTo.push({ nodeName: prevN.id, pinId: prevP.id });
+      knots.push(k); prevN = k; prevP = ko;
+    }
+    prevP.linkedTo.push({ nodeName: B.id, pinId: tp.id }); tp.linkedTo.push({ nodeName: prevN.id, pinId: prevP.id });
+  };
+  const jobs = [];
+  for (const A of nodes) {
+    if ((A.className || '').includes('Knot')) continue;
+    for (const fp of A.pins.filter(p => p.direction === 'Output' && p.category === 'exec'))
+      for (const l of fp.linkedTo) {
+        const B = byId.get(l.nodeName);
+        if (!B || (B.className || '').includes('Knot')) continue;
+        const tp = B.pins.find(p => p.id === l.pinId);
+        if (tp) jobs.push([A, fp, B, tp]);
+      }
+  }
+  for (const [A, fp, B, tp] of jobs) {
+    const outX = A.pos.x + estNodeWidth(A), inX = B.pos.x;
+    const yA = pinCenterY(A, fp) - 8, yB = pinCenterY(B, tp) - 8;
+    if (inX < outX + pad) {
+      // коридор: между низом верхнего узла и верхом нижнего (если ряд ниже), иначе под обоими
+      // низ ВСЕГО ряда A (самый высокий узел ряда), чтобы коридор не резал соседей
+      const lowA = Math.max(...nodes.filter(n => !(n.className || '').includes('Knot') && Math.abs(n.pos.y - A.pos.y) < 1)
+        .map(n => n.pos.y + estNodeHeight(n)));
+      const corridor = B.pos.y > lowA ? (lowA + B.pos.y) / 2 : Math.max(lowA, B.pos.y + estNodeHeight(B)) + 80;
+      relink(A, fp, B, tp, [[outX, corridor], [inX, corridor]]);
+    } else if (Math.abs(yA - yB) >= minDy) {
+      const mx = (outX + inX) / 2;
+      relink(A, fp, B, tp, [[mx, yA], [mx, yB]]);
+    }
+  }
+  return knots;
 }

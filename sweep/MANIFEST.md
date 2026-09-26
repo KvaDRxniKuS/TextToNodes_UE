@@ -1,6 +1,6 @@
 # Sweep manifest — полный прогон реестра по категориям
 
-Дата: 2026-09-25; записей: 404; построено узлов: 404; упало: 0.
+Дата: 2026-09-26; записей: 404; построено узлов: 404; упало: 0.
 Генератор: tools/gen-sweep.mjs (сетка по 5 в ряд, внутри ряда layoutRow, накрыто fitComment).
 
 Протокол: вставляйте файлы по одному в чистый граф → копируйте обратно → сообщайте номер файла и что сломалось.
@@ -39,7 +39,7 @@
 | 23 | 23-actor.txt | 32/32 | 32 | 32 | — | 32xW09 |
 | 24 | 24-pawn-character.txt | 18/18 | 18 | 18 | — | 18xW09 |
 | 25 | 25-events-delegates.txt | 8/8 | 8 | 8 | — | 1xW09 |
-| 26 | 26-timers-latent.txt | 14/14 | 0 | 14 | — | 14xW09 |
+| 26 | 26-timers-latent.txt | 14/14 | 14 | 14 | — | 14xW09 |
 | 27 | 27-widgets-ui.txt | 8/8 | 0 | 8 | — | 8xW09 |
 | 28 | 28-enhanced-input-full.txt | 15/15 | 0 | 15 | — | 15xW09 |
 | 29 | 29-components-physics.txt | 23/23 | 0 | 23 | — | 23xW09 |
@@ -194,20 +194,20 @@
 - 24-pawn-character.txt :: W09: K2Node_CallFunction_457: SetControlRotation: round24-pre: член Controller, self=Target (по образцу AActor-членов R23). NewRotation const FRotator& → const+ref | R24 VERIFIED (движок, 2026-09-25)
 - 24-pawn-character.txt :: W09: K2Node_CallFunction_458: GetVelocity: round24-pre: член Actor, self=Target (по образцу AActor-членов R23). член AActor | R24 VERIFIED (движок, 2026-09-25)
 - 25-events-delegates.txt :: W09: K2Node_CallFunction_463: OnDamaged: round25-pre: CallFunction без MemberParent, bSelfContext=True; MemberGuid = NodeGuid события; до компиляции может показать «не найдена функция» | R25 VERIFIED (движок, 2026-09-25): всё вставилось и работает; Create Event предложил «создать соответствующую функцию»
-- 26-timers-latent.txt :: W09: K2Node_CallFunction_469: K2_SetTimerDelegate: round26-pre: K2_SetTimerDelegate(FTimerDynamicDelegate Delegate «Event», float Time, bLooping, bMaxOncePerFrame, InitialStartDelay/Variance advanced) → FTimerHandle
-- 26-timers-latent.txt :: W09: K2Node_CallFunction_470: K2_SetTimer: round26-pre: K2_SetTimer(UObject* Object DefaultToSelf, FString FunctionName, ...) → FTimerHandle
-- 26-timers-latent.txt :: W09: K2Node_CallFunction_471: K2_ClearTimer: round26-pre: K2_ClearTimer(Object, FunctionName)
-- 26-timers-latent.txt :: W09: K2Node_CallFunction_472: K2_ClearAndInvalidateTimerHandle: round26-pre: WCO опущен (как Delay); Handle UPARAM(ref) → ref, нужна переменная
-- 26-timers-latent.txt :: W09: K2Node_CallFunction_473: K2_PauseTimerHandle: round26-pre: WCO опущен
-- 26-timers-latent.txt :: W09: K2Node_CallFunction_474: K2_UnPauseTimerHandle: round26-pre: WCO опущен
-- 26-timers-latent.txt :: W09: K2Node_CallFunction_475: K2_InvalidateTimerHandle: round26-pre: Handle ref, BlueprintCallable → exec
-- 26-timers-latent.txt :: W09: K2Node_CallFunction_476: K2_IsTimerActiveHandle: round26-pre: BlueprintPure
-- 26-timers-latent.txt :: W09: K2Node_CallFunction_477: K2_IsTimerPausedHandle: round26-pre: BlueprintPure
-- 26-timers-latent.txt :: W09: K2Node_CallFunction_478: K2_TimerExistsHandle: round26-pre: BlueprintPure
-- 26-timers-latent.txt :: W09: K2Node_CallFunction_479: K2_IsValidTimerHandle: round26-pre: BlueprintPure, без WCO
-- 26-timers-latent.txt :: W09: K2Node_CallFunction_480: K2_GetTimerElapsedTimeHandle: round26-pre: BlueprintPure → float
-- 26-timers-latent.txt :: W09: K2Node_CallFunction_481: K2_GetTimerRemainingTimeHandle: round26-pre: BlueprintPure → float
-- 26-timers-latent.txt :: W09: K2Node_CallFunction_482: DelayUntilNextTick: round26-pre: как Delay: WCO/LatentInfo движок восстановит (UE 5.2+)
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_469: K2_SetTimerDelegate: round26-pre: K2_SetTimerDelegate(FTimerDynamicDelegate Delegate «Event», float Time, bLooping, bMaxOncePerFrame, InitialStartDelay/Variance advanced) → FTimerHandle | R26 VERIFIED (движок, 2026-09-26)
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_470: K2_SetTimer: round26-pre: K2_SetTimer(UObject* Object DefaultToSelf, FString FunctionName, ...) → FTimerHandle | R26 VERIFIED (движок, 2026-09-26)
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_471: K2_ClearTimer: round26-pre: K2_ClearTimer(Object, FunctionName) | R26 VERIFIED (движок, 2026-09-26)
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_472: K2_ClearAndInvalidateTimerHandle: round26-pre: WCO опущен (как Delay); Handle UPARAM(ref) → ref, нужна переменная | R26 VERIFIED (движок, 2026-09-26)
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_473: K2_PauseTimerHandle: round26-pre: WCO опущен | R26 VERIFIED (движок, 2026-09-26)
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_474: K2_UnPauseTimerHandle: round26-pre: WCO опущен | R26 VERIFIED (движок, 2026-09-26)
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_475: K2_InvalidateTimerHandle: round26-pre: Handle ref, BlueprintCallable → exec | R26 VERIFIED (движок, 2026-09-26)
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_476: K2_IsTimerActiveHandle: round26-pre: BlueprintPure | R26 VERIFIED (движок, 2026-09-26)
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_477: K2_IsTimerPausedHandle: round26-pre: BlueprintPure | R26 VERIFIED (движок, 2026-09-26)
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_478: K2_TimerExistsHandle: round26-pre: BlueprintPure | R26 VERIFIED (движок, 2026-09-26)
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_479: K2_IsValidTimerHandle: round26-pre: BlueprintPure, без WCO | R26 VERIFIED (движок, 2026-09-26)
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_480: K2_GetTimerElapsedTimeHandle: round26-pre: BlueprintPure → float | R26 VERIFIED (движок, 2026-09-26)
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_481: K2_GetTimerRemainingTimeHandle: round26-pre: BlueprintPure → float | R26 VERIFIED (движок, 2026-09-26)
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_482: DelayUntilNextTick: round26-pre: как Delay: WCO/LatentInfo движок восстановит (UE 5.2+) | R26 VERIFIED (движок, 2026-09-26)
 - 27-widgets-ui.txt :: W09: K2Node_CallFunction_484: AddToViewport: round27-pre: член UUserWidget
 - 27-widgets-ui.txt :: W09: K2Node_CallFunction_485: AddToPlayerScreen: round27-pre: член UUserWidget → bool
 - 27-widgets-ui.txt :: W09: K2Node_CallFunction_486: IsInViewport: round27-pre: BlueprintPure const

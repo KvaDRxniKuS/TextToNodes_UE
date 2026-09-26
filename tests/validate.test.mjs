@@ -783,6 +783,26 @@ regThrow.forEach(t => console.log('THROW:', t));
   const v = validateStrict(fs.readFileSync(new URL('../sweep/29-components-physics.txt', import.meta.url), 'utf8'));
   ok(v.errors.length === 0, 'R29: sweep 0 ошибок');
 }
+// R26 VERIFIED + R30 pre: декор (--decorate): exec-knot'ы на переносе рядов
+{
+  const { execFileSync } = await import('node:child_process');
+  const reg30 = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8'));
+  ok(reg30.filter(e => e.category === 'Timers / Latent').every(e => e.verified), 'R26: все 14 Timers/Latent verified');
+  const mk = args => execFileSync('node', ['tools/make-node.mjs', ...args], { cwd: new URL('..', import.meta.url).pathname, stdio: ['ignore', 'pipe', 'ignore'] }).toString();
+  const specs = ['event A', 'fn Delay', 'fn PrintString', 'fn Delay', 'fn PrintString'];
+  const plain = mk(['--chain', '--wrap', '2', ...specs]);
+  ok(!plain.includes('K2Node_Knot'), 'R30: без --decorate knot\'ов нет');
+  const dec = mk(['--chain', '--wrap', '2', '--decorate', ...specs]);
+  const knots = dec.split('Begin Object').filter(b => b.startsWith(' Class=/Script/BlueprintGraph.K2Node_Knot '));
+  ok(knots.length === 4, 'R30: 2 переноса → 4 knot\'а (' + knots.length + ')');
+  ok(knots.every(b => /PinName="InputPin",PinType\.PinCategory="exec"/.test(b) && /PinName="OutputPin",Direction="EGPD_Output",PinType\.PinCategory="exec"/.test(b)), 'R30: knot-пины exec');
+  ok(knots.every(b => /PinName="InputPin"[^\n]*bDefaultValueIsIgnored=True/.test(b)), 'R30: InputPin ignored (как copy-back)');
+  ok(knots.every(b => (b.match(/LinkedTo=\(/g) || []).length === 2), 'R30: каждый knot связан вход+выход');
+  ok([...dec.matchAll(/NodePos[XY]=(-?\d+)/g)].every(m => Number(m[1]) % 16 === 0 || /-?(60|110)$/.test(m[1])), 'R30: сетка 16 (кроме коммента)');
+  ok(validateStrict(dec).errors.length === 0, 'R30: decorate 0 ошибок');
+  const s30 = fs.readFileSync(new URL('../sweep/30-decorate.txt', import.meta.url), 'utf8');
+  ok(validateStrict(s30).errors.length === 0 && (s30.match(/K2Node_Knot'/g) || []).length === 4, 'R30: sweep 0 ошибок, 4 knot\'а');
+}
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);

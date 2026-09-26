@@ -734,3 +734,13 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 - Источник компонента: Get Component by Class (StaticMeshComponent) → pure Cast To PrimitiveComponent → self всех членов.
 - `call` — любая UFUNCTION без записи в реестре: SetAngularDamping/SetLinearDamping/GetAngularDamping (член), KismetMathLibrary.Abs (static pure).
 - Class-пины в `fn` принимают нативный класс (`ComponentClass=StaticMeshComponent` → /Script/Engine.StaticMeshComponent).
+
+## Round26 — VERIFIED (движок, 2026-09-26)
+- Пользователь: «26 идеально». Все 14 записей Timers / Latent → verified.
+
+## Round30-pre: декор раскладки (опционально) — ждёт вердикта
+- Форма exec-knot'а взята из copy-back пользователя (BP_AISupportTester): K2Node_Knot, InputPin/OutputPin PinCategory="exec", у InputPin bDefaultValueIsIgnored=True.
+- Правило пользователя: перенос на ряд ниже и позади → 2 knot'а в коридоре между рядами: один по вертикали под выходом первого ряда, второй — над входом второго ряда.
+- make-node: `--wrap N` / `--width PX` (перенос рядов), спека `row` (принудительный перенос), `--decorate` (knot'ы + события-источники в ряд перед своими узлами + сетка 16). Exec вперёд с перепадом ≥48px → «ступенька» из 2 knot'ов. Без флагов раскладка прежняя.
+- generator.js: createKnot(pos, category), layoutRows, decorateExec, snapToGrid, estNodeHeight, pinCenterY.
+- sweep/30-decorate.txt — только узлы R26 (verified), проверяется именно декор: 11 узлов, 3+ ряда, 4 knot'а.

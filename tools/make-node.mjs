@@ -1,7 +1,14 @@
 #!/usr/bin/env node
 // tools/make-node.mjs — конструктор модулей: любые классы/события/делегаты/функции реестра → текст для вставки в UE.
 //
-//   node tools/make-node.mjs [--chain] [--title "коммент"] [-o out.txt] "<спека>" "<спека>" ...
+//   node tools/make-node.mjs [--chain] [--wrap N | --width PX] [--decorate] [--title "коммент"] [-o out.txt] "<спека>" ...
+//
+// Раскладка (всё опционально):
+//   --wrap N      не больше N исполняемых узлов в ряду, дальше перенос на ряд ниже (с начала, как строки текста)
+//   --width PX    перенос по ширине ряда в px (напр. 3000)
+//   --decorate    декор: exec-связи с переносом назад → 2 knot'а в коридоре между рядами (под выходом / над входом),
+//                 exec со сдвигом высоты → «ступенька» из 2 knot'ов; стартовое событие — в начало ряда 0;
+//                 все координаты — на сетку 16. Без флага раскладка прежняя.
 //
 // Спеки (по одной на узел, номера узлов = порядок, с 1):
 //   cast <Класс> [class] [pure]            Cast To <Класс>; class → Cast To <Класс> Class; pure → без exec
@@ -18,6 +25,7 @@
 //                                          объектный пин = ассет: MappingContext=IMC_Default, Action=IA_Jump, /Game/X/Y
 //   call <Класс.Функция> [pure] [static] Пин:тип[=знач] ... [-> Выход:тип ...]
 //                                          ЛЮБАЯ UFUNCTION, даже не из реестра (член → видимый self; static → библиотека)
+//   row                                    следующий узел — с нового ряда (номер узла не занимает)
 //   link <i>.<Пин> <j>.<Пин>               связь выход→вход (Пин может оканчиваться на *: As* → AsBP Enemy)
 //
 // Классы: Actor | /Script/Module.Class | /Game/Path/BP_X (BP → _C автоматически).
@@ -27,24 +35,28 @@
 // --chain: exec по порядку (then→execute, первая «event» — старт), делегаты event-for/create-event → ближайший свободный вход Delegate.
 import fs from 'node:fs';
 import { generateUEText } from '../src/parser.js';
-import { layoutRow, fitComment, linkPins, estNodeWidth } from '../src/generator.js';
+import { layoutRow, layoutRows, fitComment, linkPins, estNodeWidth, decorateExec, snapToGrid } from '../src/generator.js';
 import { validateStrict } from '../src/validate.js';
 import { createCast, createCustomEvent, createCallCustomEvent, createDelegateNode, createEventFor, createCreateEvent, createFn, createWidget, createMemberVar, createInputActionEvent, createInputActionValue, createCall } from '../src/modules.js';
 
 process.on('uncaughtException', e => { console.error('make-node: ОШИБКА — ' + e.message); process.exit(1); });
 const reg = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8'));
 const argv = process.argv.slice(2);
-let chain = false, title = '', out = '';
+let chain = false, title = '', out = '', decorate = false, wrap = 0, width = 0;
 const specs = [];
 for (let i = 0; i < argv.length; i++) {
   if (argv[i] === '--chain') chain = true;
   else if (argv[i] === '--title') title = argv[++i];
+  else if (argv[i] === '--decorate') decorate = true;
+  else if (argv[i] === '--wrap') wrap = parseInt(argv[++i]);
+  else if (argv[i] === '--width') width = parseInt(argv[++i]);
   else if (argv[i] === '-o') out = argv[++i];
   else specs.push(argv[i]);
 }
 if (!specs.length) { console.error(fs.readFileSync(new URL(import.meta.url)).toString().split('\n').filter(l => l.startsWith('//')).map(l => l.slice(3)).join('\n')); process.exit(1); }
 
 const nodes = [], links = [], kinds = [];
+let rowBreakNext = false;
 const kv = words => Object.fromEntries(words.map(w => { const i = w.indexOf('='); if (i < 0) throw new Error(`«${w}»: ожидалось Пин=значение`); return [w.slice(0, i), w.slice(i + 1)]; }));
 const optSig = words => { const i = words.indexOf('--sig'); if (i < 0) return { rest: words }; return { sig: words[i + 1], rest: words.filter((_, j) => j !== i && j !== i + 1) }; };
 
@@ -70,17 +82,15 @@ for (const spec of specs) {
       n = createFn(e, kv(w.slice(1))); break;
     }
     case 'link': links.push(w); continue;
-    default: throw new Error(`неизвестная спека «${cmd}» (cast|event|event-for|call-event|bind|unbind|clear|create-event|widget|ia-event|ia-value|call|get|set|fn|link)`);
+    case 'row': rowBreakNext = true; continue;
+    default: throw new Error(`неизвестная спека «${cmd}» (cast|event|event-for|call-event|bind|unbind|clear|create-event|widget|ia-event|ia-value|call|get|set|fn|link|row)`);
   }
+  if (rowBreakNext) { n.rowBreak = true; rowBreakNext = false; }
   nodes.push(n); kinds.push(cmd);
 }
 
-// раскладка: исполняемые узлы — ряд 0, события/pure — ряд 1
-const hasExecIn = n => n.pins.some(p => p.name === 'execute' && p.direction === 'Input');
-const top = nodes.filter(hasExecIn), bottom = nodes.filter(n => !hasExecIn(n));
-layoutRow(top, 0, 0);
-layoutRow(bottom, 0, 420);
 
+const hasExecIn = n => n.pins.some(p => p.name === 'execute' && p.direction === 'Input');
 const findPin = (n, name, dir) => {
   const pr = name.endsWith('*') ? p => p.name.startsWith(name.slice(0, -1)) : p => p.name === name;
   const p = n.pins.find(x => x.direction === dir && pr(x));
@@ -108,7 +118,24 @@ for (const [a, b] of links) {
   linkPins(A, findPin(A, pa, 'Output'), B, findPin(B, pb, 'Input'), { align: false });
 }
 
-const cm = fitComment(title || `Модуль: ${specs.filter(s => !s.startsWith('link')).map(s => s.split(/\s+/).slice(0, 2).join(' ')).join(' → ')}`, nodes);
+// раскладка: исполняемые узлы — ряд 0 (или ряды с переносом), события/pure — ниже
+// (после связей: exec/делегатные связи узлы не двигают) стартовое событие = первый узел без execute,
+// чей then ведёт в исполняемый узел; в --decorate оно встаёт в начало ряда 0 (прямая exec).
+// --decorate: КАЖДОЕ событие-источник exec (без execute, с подключённым then) встаёт в ряд перед своими узлами
+// в порядке спек — связь событие→узел прямая. Спека «row» — принудительный перенос ряда.
+const isExecSrc = n => !hasExecIn(n) && n.pins.some(p => p.name === 'then' && p.direction === 'Output' && p.linkedTo.length);
+const inTop = n => hasExecIn(n) || (decorate && isExecSrc(n));
+const top = nodes.filter(inTop), bottom = nodes.filter(n => !inTop(n));
+if (wrap || width || nodes.some(n => n.rowBreak)) {
+  const { bottom: yb } = layoutRows(top, { perRow: wrap, maxWidth: width });
+  layoutRows(bottom, { y0: yb, maxWidth: width || 0, perRow: wrap ? wrap + 1 : 0 });
+} else {
+  layoutRow(top, 0, 0);
+  layoutRow(bottom, 0, 420);
+}
+if (decorate) snapToGrid(nodes);
+if (decorate) nodes.push(...decorateExec(nodes));
+const cm = fitComment(title || `Модуль: ${specs.filter(s => !s.startsWith('link') && s.trim() !== 'row').map(s => s.split(/\s+/).slice(0, 2).join(' ')).join(' → ')}`, nodes);
 const text = generateUEText([cm, ...nodes]);
 const v = validateStrict(text);
 if (out) fs.writeFileSync(out, text); else process.stdout.write(text + '\n');

@@ -14022,9 +14022,9 @@
     "sub": "TimerHandle"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Таймер на событие (красный пин Event).",
-  "note": "round26-pre: K2_SetTimerDelegate(FTimerDynamicDelegate Delegate «Event», float Time, bLooping, bMaxOncePerFrame, InitialStartDelay/Variance advanced) → FTimerHandle"
+  "note": "round26-pre: K2_SetTimerDelegate(FTimerDynamicDelegate Delegate «Event», float Time, bLooping, bMaxOncePerFrame, InitialStartDelay/Variance advanced) → FTimerHandle | R26 VERIFIED (движок, 2026-09-26)"
  },
  {
   "id": "SetTimerByFunctionName",
@@ -14098,9 +14098,9 @@
     "sub": "TimerHandle"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Таймер по имени функции/события.",
-  "note": "round26-pre: K2_SetTimer(UObject* Object DefaultToSelf, FString FunctionName, ...) → FTimerHandle"
+  "note": "round26-pre: K2_SetTimer(UObject* Object DefaultToSelf, FString FunctionName, ...) → FTimerHandle | R26 VERIFIED (движок, 2026-09-26)"
  },
  {
   "id": "ClearTimerByFunctionName",
@@ -14133,9 +14133,9 @@
     "dv": "OnTimerTick"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Остановить таймер по имени функции.",
-  "note": "round26-pre: K2_ClearTimer(Object, FunctionName)"
+  "note": "round26-pre: K2_ClearTimer(Object, FunctionName) | R26 VERIFIED (движок, 2026-09-26)"
  },
  {
   "id": "ClearAndInvalidateTimerHandle",
@@ -14163,9 +14163,9 @@
     "ref": true
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Остановить таймер и обнулить хендл.",
-  "note": "round26-pre: WCO опущен (как Delay); Handle UPARAM(ref) → ref, нужна переменная"
+  "note": "round26-pre: WCO опущен (как Delay); Handle UPARAM(ref) → ref, нужна переменная | R26 VERIFIED (движок, 2026-09-26)"
  },
  {
   "id": "PauseTimerHandle",
@@ -14192,9 +14192,9 @@
     "sub": "TimerHandle"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Пауза таймера.",
-  "note": "round26-pre: WCO опущен"
+  "note": "round26-pre: WCO опущен | R26 VERIFIED (движок, 2026-09-26)"
  },
  {
   "id": "UnPauseTimerHandle",
@@ -14221,9 +14221,9 @@
     "sub": "TimerHandle"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Снять паузу.",
-  "note": "round26-pre: WCO опущен"
+  "note": "round26-pre: WCO опущен | R26 VERIFIED (движок, 2026-09-26)"
  },
  {
   "id": "InvalidateTimerHandle",
@@ -14257,9 +14257,9 @@
     "sub": "TimerHandle"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Обнулить хендл (без остановки).",
-  "note": "round26-pre: Handle ref, BlueprintCallable → exec"
+  "note": "round26-pre: Handle ref, BlueprintCallable → exec | R26 VERIFIED (движок, 2026-09-26)"
  },
  {
   "id": "IsTimerActiveHandle",
@@ -14281,9 +14281,9 @@
     "cat": "bool"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Таймер идёт?",
-  "note": "round26-pre: BlueprintPure",
+  "note": "round26-pre: BlueprintPure | R26 VERIFIED (движок, 2026-09-26)",
   "pure": true
  },
  {
@@ -14306,9 +14306,9 @@
     "cat": "bool"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Таймер на паузе?",
-  "note": "round26-pre: BlueprintPure",
+  "note": "round26-pre: BlueprintPure | R26 VERIFIED (движок, 2026-09-26)",
   "pure": true
  },
  {
@@ -14331,9 +14331,9 @@
     "cat": "bool"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Таймер существует?",
-  "note": "round26-pre: BlueprintPure",
+  "note": "round26-pre: BlueprintPure | R26 VERIFIED (движок, 2026-09-26)",
   "pure": true
  },
  {
@@ -14356,9 +14356,9 @@
     "cat": "bool"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Хендл валиден?",
-  "note": "round26-pre: BlueprintPure, без WCO",
+  "note": "round26-pre: BlueprintPure, без WCO | R26 VERIFIED (движок, 2026-09-26)",
   "pure": true
  },
  {
@@ -14382,9 +14382,9 @@
     "sub": "float"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Прошло секунд.",
-  "note": "round26-pre: BlueprintPure → float",
+  "note": "round26-pre: BlueprintPure → float | R26 VERIFIED (движок, 2026-09-26)",
   "pure": true
  },
  {
@@ -14408,9 +14408,9 @@
     "sub": "float"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Осталось секунд.",
-  "note": "round26-pre: BlueprintPure → float",
+  "note": "round26-pre: BlueprintPure → float | R26 VERIFIED (движок, 2026-09-26)",
   "pure": true
  },
  {
@@ -14432,9 +14432,9 @@
     "cat": "exec"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Латентная задержка до следующего кадра.",
-  "note": "round26-pre: как Delay: WCO/LatentInfo движок восстановит (UE 5.2+)"
+  "note": "round26-pre: как Delay: WCO/LatentInfo движок восстановит (UE 5.2+) | R26 VERIFIED (движок, 2026-09-26)"
  },
  {
   "id": "AddToViewport",

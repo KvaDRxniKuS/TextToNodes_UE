@@ -311,6 +311,7 @@ node tools/make-node.mjs [--chain] [--title "коммент"] [-o out.txt] "<с�
 | `ia-event <IA> [bool\|float\|vector2d\|vector]` | Событие Enhanced Input любого IA (`IA_Jump` → `/Game/Input/Actions/IA_Jump`) |
 | `ia-value <IA> [тип]` | Pure «Get IA_X» — значение действия |
 | `call <Класс.Функция> [pure] [static] Пин:тип[=v] … [-> Выход:тип …]` | Любая UFUNCTION, даже не из реестра (член → видимый self, static → библиотека) |
+| `row` | следующий узел — с нового ряда (номер узла не занимает) |
 | `get` / `set <Класс.Свойство> <тип> [значение]` | Get/Set свойства любого класса (`set PlayerController.bShowMouseCursor bool true`) |
 | `fn <id или функция реестра> [Пин=значение ...]` | любой узел реестра |
 | `link <i>.<Пин> <j>.<Пин>` | связь (номера узлов с 1, `As*` — префикс) |
@@ -331,4 +332,13 @@ node tools/make-node.mjs [--chain] [--title "коммент"] [-o out.txt] "<с�
 
 ```bash
 node tools/make-node.mjs --chain "event Go" "cast /Game/BP/BP_Enemy" "fn Delay Duration=1.5"
+```
+
+### Декор раскладки (опционально)
+`--wrap N` / `--width PX` — перенос исполняемых узлов на новые ряды; `--decorate` — exec-связи на переносе
+идут через 2 reroute-knot'а в коридоре между рядами (под выходом верхнего ряда / над входом нижнего),
+события встают в ряд перед своими узлами, координаты — на сетку 16. Без флагов раскладка прежняя.
+
+```
+node tools/make-node.mjs --chain --wrap 3 --decorate "event Go" "fn Delay" "fn PrintString" "fn Delay" "fn PrintString"
 ```
