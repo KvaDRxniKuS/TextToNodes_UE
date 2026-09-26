@@ -2,8 +2,8 @@
 // Bound custom dispatcher probe after user creates NewEventDispatcher_Probe in BP_AISupportTester.
 // Spatial order follows execution: start -> Add -> Call -> Remove -> Clear.
 import fs from 'node:fs';
-import { mkPin, layoutPinChain } from '../src/generator.js';
-import { createCustomEvent } from '../src/modules.js';
+import { mkPin, createCustomEvent } from '../src/creator.js';
+import { arrangeRows, decorateLayout } from '../src/layout-pipeline.js';
 import { generateUEText, guid32 } from '../src/parser.js';
 import { validateStrict } from '../src/validate.js';
 
@@ -30,14 +30,17 @@ const add=make('K2Node_AddDelegate','K2Node_AddDelegate_3002',0,ref(),[exec('exe
 const call=make('K2Node_CallDelegate','K2Node_CallDelegate_3001',0,ref(),[exec('execute','Input'),exec('then','Output'),self()]);
 const remove=make('K2Node_RemoveDelegate','K2Node_RemoveDelegate_3003',0,ref(),[exec('execute','Input'),exec('then','Output'),self(),delegatePin()]);
 const clear=make('K2Node_ClearDelegate','K2Node_ClearDelegate_3004',0,ref(),[exec('execute','Input'),exec('then','Output'),self()]);
-layoutPinChain([start,add,call,remove,clear],{x0:0,y0:0,gap:120});
-const handler=createCustomEvent('DispatcherProbeHandler',[],{x:add.pos.x,y:add.pos.y+160});
+const handler=createCustomEvent('DispatcherProbeHandler',[],{x:0,y:0});
 const handlerDelegate=handler.pins.find(p=>p.name==='OutputDelegate');
 handlerDelegate.memberRef=`MemberParent=${bp},MemberName="DispatcherProbeHandler",MemberGuid=${handler.guid}`;
 function link(a,out,b,input){const p=a.pins.find(x=>x.name===out),q=b.pins.find(x=>x.name===input);p.linkedTo.push({nodeName:b.id,pinId:q.id});q.linkedTo.push({nodeName:a.id,pinId:p.id});}
 link(start,'then',add,'execute'); link(add,'then',call,'execute'); link(call,'then',remove,'execute'); link(remove,'then',clear,'execute');
 link(handler,'OutputDelegate',add,'Delegate'); link(handler,'OutputDelegate',remove,'Delegate');
-const text=generateUEText([start,add,call,remove,clear,handler])+'\n';
+arrangeRows([[start,add,call,remove,clear]],{x:0,y:0,gap:160,rowGap:160});
+handler.pos={x:add.pos.x,y:add.pos.y+160};
+const positioned=[start,add,call,remove,clear,handler];
+const layoutResult=decorateLayout(positioned,{clearance:160,addExecKnots:false});
+const text=generateUEText([...positioned,...layoutResult.knots])+'\n';
 const v=validateStrict(text);
 fs.writeFileSync('sweep/dispatcher-probe-bound.txt',text);
 console.log(`wrote sweep/dispatcher-probe-bound.txt (${text.length} bytes); nodes=6; exec links=4; delegate links=2; errors=${v.errors.length}, warnings=${v.warnings.length}`);

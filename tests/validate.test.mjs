@@ -285,21 +285,22 @@ regThrow.forEach(t => console.log('THROW:', t));
      qel.linkedTo.some(l => l.nodeName === 'K2Node_CallFunction_112'), 'Q2 фикстура: 3 провода на месте');
 }
 
-// Раскладка: linkPins выравнивает строки пинов (N1+)
+// Stage 1: linking records graph semantics but never changes placement.
 {
   const la = createCallFunction(byId('CapsuleTraceMulti'), { x: 0, y: 0 });
   const lf = createMacroInstance(byId('ForEachLoop'), { x: 320, y: 0 });
   const lb = createCallFunction(byId('BreakHitResult_pure'), { x: 640, y: 0 });
   linkPins(la, 'then', lf, 'Exec');
-  ok(lf.pos.y === 0, 'align: exec-линки не двигают (цепочки в ряд)');
   linkPins(la, 'OutHits', lf, 'Array');
-  ok(lf.pos.y === 288, 'align: OutHits->Array выравнивает data-провод (last wins, WCO скрыт)');
   linkPins(lf, 'Array Element', lb, 'Hit');
-  ok(lb.pos.y === 384, 'align: каскад Element(3)->Hit(0)');
-  const lc = createCallFunction(byId('Delay'), { x: 0, y: 100 });
-  const ld = createCallFunction(byId('Delay'), { x: 320, y: 100 });
-  linkPins(lc, 'then', ld, 'execute', { align: false });
-  ok(ld.pos.y === 100, 'align: opts {align:false} не двигает');
+  ok(lf.pos.y === 0 && lb.pos.y === 0, 'creator: linkPins wires pins without moving nodes');
+  ok(la.pins.find(p=>p.name==='then').linkedTo.length===1 && lf.pins.find(p=>p.name==='Array').linkedTo.length===1, 'creator: linkPins records reciprocal endpoints');
+  const backSource=createCallFunction(byId('Delay'));
+  const backTarget=createCallFunction(byId('Delay'));
+  linkPins(backSource,'then',backTarget,'execute');
+  const {arrangeRows}=await import('../src/arranger.js');
+  const routed=arrangeRows([[backTarget],[backSource]]);
+  ok(routed.knots.length===2 && routed.nodes.length===4 && backSource.pins.find(p=>p.name==='then').linkedTo[0].nodeName===routed.knots[0].id, 'arranger: backward exec flow requests and creates two reroute knots');
 }
 
 // N1 copy-back: 42/42 PinId, резолв wildcard-макро при вставке, 3 провода
@@ -790,8 +791,11 @@ regThrow.forEach(t => console.log('THROW:', t));
   const bySuffix = suffix => dbNodes.find(n => n.className.endsWith(suffix));
   ok(validateStrict(db).errors.length===0 && db.includes('MemberName=\"NewEventDispatcher_Probe\"'), 'Dispatcher probe: bound custom event uses self dispatcher');
   const execChain=['K2Node_CustomEvent_3000','K2Node_AddDelegate_3002','K2Node_CallDelegate_3001','K2Node_RemoveDelegate_3003','K2Node_ClearDelegate_3004'].map(id=>dbNodes.find(n=>n.id===id));
-  ok(execChain.every((n,i)=>n && (!i || n.pos.x - execChain[i-1].pos.x >= 345)) && dbNodes.find(n=>n.id==='K2Node_CustomEvent_5000')?.pos.x===execChain[1].pos.x && dbNodes.find(n=>n.id==='K2Node_CustomEvent_5000')?.pos.y>execChain[1].pos.y, 'Dispatcher probe: pin-chain layout leaves clearance between ordered nodes and handler below Add');
-  ok(db.split('LinkedTo=(K2Node_CustomEvent_5000').length-1===2, 'Dispatcher probe: callback linked to both Add and Remove Delegate pins');
+  ok(execChain.every((n,i)=>n && (!i || n.pos.x - execChain[i-1].pos.x >= 400)) && dbNodes.find(n=>n.id==='K2Node_CustomEvent_5000')?.pos.x===execChain[1].pos.x && dbNodes.find(n=>n.id==='K2Node_CustomEvent_5000')?.pos.y>execChain[1].pos.y, 'Dispatcher probe: arranger leaves clear left-to-right corridors, handler below Add');
+  const {pinCenterY}=await import('../src/generator.js');
+  const execAligned=execChain.slice(0,-1).every((n,i)=>{const out=n.pins.find(p=>p.name==='then');const dest=execChain[i+1];const input=dest.pins.find(p=>p.name==='execute');return Math.abs(pinCenterY(n,out)-pinCenterY(dest,input))<1;});
+  ok(execAligned, 'Dispatcher probe: decorator aligns every connected exec pin center');
+  ok(db.split('LinkedTo=(K2Node_CustomEvent_5000').length-1===2 && !db.includes('K2Node_Knot_'), 'Dispatcher probe: callback links preserved, no unnecessary reroute knots');
 }
 // R27 pre: Widgets / UI + конструктор widget/get/set
 {

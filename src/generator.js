@@ -459,14 +459,11 @@ export function linkPins(fromNode, fromPinName, toNode, toPinName, opts = {}) {
   if (!fp || !tp) throw new Error(`Pin not found: ${fromNode.id}.${fromPinName} -> ${toNode.id}.${toPinName}`);
   fp.linkedTo.push({ nodeName: toNode.id, pinId: tp.id });
   tp.linkedTo.push({ nodeName: fromNode.id, pinId: fp.id });
-  // Раскладка (N1+): целевой узел сдвигается по Y так, чтобы строки соединённых
-  // пинов совпали (скрытые пины места не занимают). Несколько линков в один узел:
-  // побеждает последний. Exec-цепочки не трогаем (остаются в ряд). Отказ: { align: false }.
-  const isExecLink = fp.category === 'exec' && tp.category === 'exec';
-  if (opts.align !== false && !isExecLink) alignPinRow(fromNode, fromPinName, toNode, toPinName);
+  // Stage 1 (creator) only records graph semantics. Position changes belong to
+  // Stage 2/3; `opts.align` is accepted for backward compatibility but ignored.
 }
 
-/** Сдвинуть toNode по Y: строка toPinName встанет напротив fromPinName. */
+/** Legacy estimate helper. New layouts should use decorateLayout from src/decorator.js. */
 export function alignPinRow(fromNode, fromPinName, toNode, toPinName) {
   const vis = n => (n.pins || []).filter(p => !p.hidden);
   const ia = vis(fromNode).findIndex(p => p.name === fromPinName);
@@ -482,29 +479,6 @@ export function alignPinRow(fromNode, fromPinName, toNode, toPinName) {
  * increasing even when node widths differ.
  * `chain` is [{ node, outputPin?, inputPin? }, ...]; defaults are then/execute.
  */
-export function layoutPinChain(chain, { x0 = 0, y0 = 0, gap = ROW_GAP } = {}) {
-  if (!Array.isArray(chain) || !chain.length) return chain || [];
-  let x = x0;
-  chain.forEach((entry, i) => {
-    const node = entry.node || entry;
-    node.pos.x = x;
-    if (i === 0) node.pos.y = y0;
-    else {
-      const prevEntry = chain[i - 1];
-      const prev = prevEntry.node || prevEntry;
-      const outName = prevEntry.outputPin || 'then';
-      const inName = entry.inputPin || 'execute';
-      const outputRows = (prev.pins || []).filter(p => !p.hidden && p.direction === 'Output');
-      const inputRows = (node.pins || []).filter(p => !p.hidden && p.direction === 'Input');
-      const oi = outputRows.findIndex(p => p.name === outName);
-      const ii = inputRows.findIndex(p => p.name === inName);
-      if (oi < 0 || ii < 0) throw new Error(`Exec pin not found: ${prev.id}.${outName} -> ${node.id}.${inName}`);
-      node.pos.y = prev.pos.y + (oi - ii) * PIN_ROW_H;
-    }
-    x += estNodeWidth(node) + gap;
-  });
-  return chain;
-}
 
 // ─── Декор (опционально): перенос рядов, exec-knot'ы, сетка 16 ───────────────
 // Форма exec-knot'а — copy-back UE (BP_AISupportTester, 2026-09-26): K2Node_Knot, InputPin/OutputPin
