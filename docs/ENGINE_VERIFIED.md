@@ -824,4 +824,4 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 ## Round28 — VERIFIED (движок, 2026-09-26)
 
 - Пользователь: «28 норма». Полный блок Enhanced Input подтверждён.
-- Copy-back также выявил ограничение текущей раскладки рядов: одинаковый NodePosY не гарантирует выравнивание exec-пинов при разной высоте заголовка (ClearAllMappings с двухстрочной шапкой vs FlushPlayerInput с одной строкой). Требуется layout по exec-pin center.
+- Copy-back также выявил ограничение текущей раскладки рядов: одинаковый NodePosY не гарантирует выравнивание exec-пинов при разной высоте заголовка (ClearAllMappings с двухстрочной шапкой vs FlushPlayerInput с одной строкой). Требуется layout по exec-pin center; оценку offset брать из заголовка/подзаголовка и порядка пинов, уже доступных генератору (не запрашивать ручной offset).
