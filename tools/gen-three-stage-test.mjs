@@ -7,8 +7,10 @@
 //   node tools/gen-three-stage-test.mjs --report       # таблица координат по ступеням
 //
 // Ступени связаны ТЕКСТОМ (как в рабочем процессе: файл скопировал → инструмент применил):
-//   1 генератор нод  src/stage1.js    спека → код нод (пины, связи, марки), без knot'ов/комментов
-//   2 расстановщик   src/arranger.js  код ступени 1 + марки → черновая расстановка + knot-переносы
+//   1 генератор нод  src/stage1.js    спека → ТОЛЬКО код нод: ни координат, ни проводов,
+//                                    ни knot'ов/комментов; марки и соединения только заложены
+//   2 расстановщик   src/arranger.js  код ступени 1 + заложенные марки/соединения →
+//                                    материализует связи, черновая расстановка, knot-переносы
 //   3 декоратор      src/decorator.js код ступени 2 → выравнивание пинов, зазор, knot'ы
 //
 // GUID детерминированы (seedGuids по имени теста): перегенерация не создаёт шума в diff'е,
@@ -19,7 +21,7 @@ import { fileURLToPath } from 'node:url';
 import { generateUEText, parseToGraphs, seedGuids } from '../src/parser.js';
 import { validateStrict } from '../src/validate.js';
 import { createStage1Graph, describeStage1, parseSpec, rowsFromMarks } from '../src/stage1.js';
-import { arrangeRows } from '../src/arranger.js';
+import { applyConnections, arrangeRows } from '../src/arranger.js';
 import { decorateLayout } from '../src/decorator.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -88,14 +90,12 @@ function main() {
   const g1 = createStage1Graph(specGraph, { registry });
   const rows = rowsFromMarks(g1.nodes);
   if (run(1)) {
-    const knots1 = g1.nodes.filter(n => /Knot/.test(n.className)).length;
-    const comments1 = g1.nodes.filter(n => /Comment/.test(n.className)).length;
-    if (knots1 || comments1) failures.push(`ступень 1: созданы ${knots1} knot'ов и ${comments1} комментов — ступень 1 пишет только код нод`);
     failures.push(...g1.problems.map(p => `ступень 1: ${p}`));
     failures.push(...g1.validation.errors.map(e => `ступень 1 STRICT: ${e}`));
     failures.push(...g1.warnings.map(w => `ступень 1: ${w}`));
     console.log(`Ступень 1 — ${STAGE_NAME[1]}`);
-    console.log(`  узлов=${g1.nodes.length} уровней=${rows.length} связей=${g1.links.length} knot'ов=0 комментов=0`);
+    console.log(`  узлов=${g1.nodes.length} · уровней заложено=${rows.length} · соединений заложено=${g1.connections.length}`
+      + ` · координат=0 · проводов=0 · knot'ов=0 · комментов=0`);
     checkText(OUT[1], g1.text);
   }
 
@@ -104,6 +104,8 @@ function main() {
   const marks = new Map(g1.nodes.map(n => [n.id, n.mark]));
   const parsed = parseToGraphs(stage1Text).EventGraph.nodes.filter(n => !n.isComment);
   parsed.forEach((n, i) => { n.mark = marks.get(n.id) || { row: 0, col: i }; });
+  // ступень 2 превращает заложенные соединения в провода (двусторонние LinkedTo) — до раскладки
+  const wired = applyConnections(parsed, g1.connections);
   const s2rows = rowsFromMarks(parsed).map(r => r.nodes);
   const arr = arrangeRows(s2rows, { x: 0, y: 0, gap: spec.settings.gap ?? 160, rowGap: spec.settings.rowGap ?? 160, createRerouteKnots: true });
   const stage2Text = generateUEText(arr.nodes, { syncLinks: true }) + '\n';
@@ -111,7 +113,7 @@ function main() {
     const d = diffAgainstInput(stage1Text, stage2Text);
     failures.push(...d.problems.map(p => `ступень 2: ${p}`));
     console.log(`Ступень 2 — ${STAGE_NAME[2]}`);
-    console.log(`  узлов=${arr.nodes.length} (knot'ов создано ${arr.knots.length}) рядов=${s2rows.length}${d.unchanged.length ? ` · без сдвига: ${d.unchanged.join(', ')}` : ''}`);
+    console.log(`  узлов=${arr.nodes.length} (knot'ов создано ${arr.knots.length}) рядов=${s2rows.length} проводов проложено=${wired.length}${d.unchanged.length ? ` · без сдвига: ${d.unchanged.length} шт` : ''}`);
     checkText(OUT[2], stage2Text);
   }
 
@@ -151,17 +153,18 @@ function main() {
     failures.forEach(f => console.log('  ! ' + f));
     process.exit(1);
   }
-  console.log("\n✓ Проверки ступеней чистые: STRICT, round-trip, «только координаты», ступень 1 без knot'ов.");
+  console.log("\n✓ Проверки ступеней чистые: STRICT, round-trip, «ступень трогает только координаты и LinkedTo»,"
+    + " ступень 1 — без координат, проводов, knot'ов и комментов.");
 }
 
 function printReport(g1, arr, dec) {
   const arrById = new Map(arr.nodes.map(n => [n.id, n]));
   const decById = new Map(dec.nodes.map(n => [n.id, n]));
   const pad = (s, w) => String(s).padEnd(w);
-  console.log('\nСтупень 1 — пины и связи (звёздочка = пин без связи):');
+  console.log('\nСтупень 1 — ноды, пины и ЗАЛОЖЕННЫЕ соединения (⚬ = пин без заложенного соединения; код нод при этом чист: без координат и проводов)');
   for (const d of describeStage1(g1)) {
     console.log(`  #${pad(d.index, 3)} ${pad(d.id, 34)} ${pad(`row=${d.row} col=${d.col}`, 16)} ${d.pins.join(' ')}`);
-    for (const l of d.links) console.log(`        ${l}`);
+    for (const l of d.lays) console.log(`        закладка: ${l}`);
   }
   console.log('\nКоординаты по ступеням (1 = марки, 2 = черновая расстановка, 3 = пины/сетка):');
   for (const n of g1.nodes) {

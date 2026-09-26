@@ -5,6 +5,29 @@ import { createKnot } from './creator.js';
 
 const isKnot = n => (n.className || '').includes('Knot');
 
+/**
+ * Ступень 2 материализует соединения, заложенные ступенью 1: генератор пишет только код
+ * нод (ни одного LinkedTo), а расстановщик записывает взаимные ссылки пинов — перед тем
+ * как считать геометрию и решать, куда вставлять knot-переносы.
+ * Конец связи ищется по PinId (как его заложила ступень 1), иначе — по имени пина.
+ */
+export function applyConnections(nodes, connections) {
+  const byId = new Map(nodes.map(n => [n.id, n]));
+  const applied = [];
+  for (const c of connections) {
+    const A = byId.get(c.from.node), B = byId.get(c.to.node);
+    if (!A || !B) throw new Error(`connection ${c.spec || ''}: нет ноды ${A ? c.to.node : c.from.node} в тексте — соединения нужно заявлять по узлам этой вставки`);
+    const out = A.pins.find(p => p.id === c.from.pinId) || A.pins.find(p => p.name === c.from.pin && p.direction === 'Output');
+    const input = B.pins.find(p => p.id === c.to.pinId) || B.pins.find(p => p.name === c.to.pin && p.direction === 'Input');
+    if (!out || !input) throw new Error(`connection ${c.spec || ''}: нет пина ${A.id}.${c.from.pin} / ${B.id}.${c.to.pin} — ступень 1 обязана была его создать`);
+    if (out.linkedTo.some(l => l.pinId === input.id)) continue; // уже проведено (повторный проход по тому же тексту)
+    out.linkedTo.push({ nodeName: B.id, pinId: input.id });
+    input.linkedTo.push({ nodeName: A.id, pinId: out.id });
+    applied.push({ source: A, out, target: B, input });
+  }
+  return applied;
+}
+
 /** Create reroutes for exec edges which must travel backward or change rows. */
 function createExecReroutes(nodes) {
   const byId = new Map(nodes.map(n => [n.id, n]));

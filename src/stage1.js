@@ -1,32 +1,31 @@
 // src/stage1.js — Ступень 1: «генератор нод».
 //
 // Зона ответственности (по трёхступенчатому конвейеру):
-//   1) генератор нод  — ЭТА СТУПЕНЬ. Отвечает за КОРРЕКТНОСТЬ нод: класс, количество,
-//      входы/выходы (пины), значения по умолчанию и ДВУСТОРОННИЕ связи «выход → вход».
-//      Принимает на вход последовательность нод, связи пинов и МАРКИ позиционирования
-//      (@row/@col/@…), отдаёт ТОЛЬКО код нод.
-//   2) расстановщик    — src/arranger.js: черновая расстановка по шаблонам + knot-переносы.
-//   3) декоратор       — src/decorator.js: выравнивание соединённых пинов и knot-ов.
+//   1) генератор нод — ЭТА СТУПЕНЬ. Отвечает за КОРРЕКТНОСТЬ нод: класс, количество,
+//      входы/выходы (пины), значения по умолчанию. Принимает на вход последовательность
+//      нод, соединения пинов и марки позиционирования, а отдаёт ТОЛЬКО КОД НОД.
+//      Генератор НИКАК НЕ ДВИГАЕТ ноды (все NodePosX/NodePosY = 0) и НЕ СОЕДИНЯЕТ их
+//      (ни одного LinkedTo в коде): он только ЗАКЛАДЫВАЕТ расположение и соединения —
+//      разрешает спеку, проверяет, что пины под эти намерения существуют, и передаёт
+//      намерения дальше как данные (marks + connections), а не как геометрию.
+//   2) расстановщик   — src/arranger.js: материализует соединения (пины ↔ пины), ставит
+//      черновые координаты по шаблонам и создаёт knot-переносы между уровнями.
+//   3) декоратор      — src/decorator.js: выравнивает соединённые пины, зазор, knot'ы.
 //
-// Чего генератор принципиально НЕ делает: не считает ширину нод, не выравнивает пины,
-// не создаёт reroute-knot'ы и комментарии, не «догадывается» о порядке — координаты
-// только из марок спеки. Если марки не заданы — ошибка, а не молчаливое 0,0.
-//
-// Формат спеки (одна нода на строку, нумерация с 1 — ею ссылаются связи):
+// Форма спеки (одна нода на строку, нумерация с 1 — ею ссылаются соединения):
 //   # комментарий
-//   set colStep 400            — параметры сетки марок (colStep/rowStep/grid/x0/y0)
+//   set nameBase 1000        — имя узла = <Класс>_(nameBase + номер): «узел 7» видно в тексте
 //   1 bind Actor.OnActorBeginOverlap          @row=0 @col=0
-//   2 fn Sequence3                             @row=0 @col=1
-//   5 event-for Actor.OnActorBeginOverlap Evt  @row=1 @col=0 @role=delegate-handler
+//   2 fn Sequence                              @row=0 @col=1
+//   5 event-for Actor.OnActorBeginOverlap Evt  @row=1 @col=-1 @role=delegate-handler
 //   link 5.OutputDelegate 1.Delegate           — <источник>.<выход> <приёмник>.<вход>
 //   <спека> = любой тип make-node: cast|event|event-for|call-event|bind|unbind|clear|
 //             create-event|widget|ia-event|ia-value|get|set|self-get|self-set|
 //             local-get|local-set|fn|call
-//   @mark=value — марки позиционирования; @row/@col обязательны, row дробный
-//             (2.5 = подряд уровнем 2, т.е. данные под исполняемой строкой).
+//   @mark=value — марки позиционирования; @row/@col обязательны, @row дробный
+//             (2.5 = подряд уровнем 2, т.е. данные под исполняемой строкой уровня).
 import { generateUEText, parseToGraphs } from './parser.js';
 import { validateStrict } from './validate.js';
-import { linkPins } from './generator.js';
 import * as M from './modules.js';
 
 /** «Пин=значение Пин2=значение2» → объект (как в make-node). */
@@ -53,7 +52,7 @@ export function findPin(n, name, dir) {
 export const SPEC_TYPES = 'bool int int64 byte float single string name text vector rotator transform vector2d linearcolor hitresult key timerhandle object:Класс class:Класс enum:EИмя []';
 
 /** Одна спека → запись узла. Возвращает { node, kind } либо { directive, args } для
- *  управляющих строк (link/row/set/comment — их обрабатывает вызывающая сторона).
+ *  управляющих строк (link/set — их обрабатывает вызывающая сторона).
  *  `notes` — собирает замечания реестра (скрытые/неподтверждённые записи). */
 export function buildSpecNode(spec, { registry = [], nodes = [], notes = [], bp = '' } = {}) {
   const [cmd, ...w] = String(spec).trim().split(/\s+/).filter(Boolean);
@@ -92,7 +91,7 @@ const MARK_RE = /@([a-zA-Z][\w.-]*)=([^\s]+)/g;
 const num = v => (/^-?\d+(\.\d+)?$/.test(v) ? Number(v) : v);
 
 /** Текст спеки → { nodes:[{idx,spec,marks,kind,line}], links:[[a,b]], settings:{} }.
- *  Разбор строгий: дубль номера/ячейки или нераспознанная строка = ошибка, а не «молчаливый 0». */
+ *  Разбор строгий: дубль номера/ячейки или нераспознанная строка = ошибка. */
 export function parseSpec(text) {
   const spec = { nodes: [], links: [], settings: {} };
   const lines = String(text).replace(/^/, '').split(/\r?\n/);
@@ -118,7 +117,7 @@ export function parseSpec(text) {
     if (!rest.length) throw new Error(`строка ${li + 1}: у узла ${idx} нет спеки`);
     if (spec.nodes.some(n => n.idx === idx)) throw new Error(`узел ${idx}: дубль номера`);
     for (const key of ['row', 'col']) {
-      if (typeof marks[key] !== 'number') throw new Error(`узел ${idx}: нужна марка @${key}=<число> (позиционирование задаёт генератор, а не угадывает)`);
+      if (typeof marks[key] !== 'number') throw new Error(`узел ${idx}: нужна марка @${key}=<число> (генератор закладывает позиционирование, а не угадывает его)`);
     }
     spec.nodes.push({ idx, spec: rest.join(' '), marks, line });
   });
@@ -133,22 +132,11 @@ export function parseSpec(text) {
   return spec;
 }
 
-/** Марки → координаты грубой сетки. Никакой геометрии нод: только ряд/столбец. */
-export function placeByMarks(nodes, { colStep = 400, rowStep = 320, x0 = 0, y0 = 0, grid = 16 } = {}) {
-  const snap = v => Math.round(v / grid) * grid;
-  for (const n of nodes) {
-    const { row = 0, col = 0 } = n.mark || {};
-    n.pos = { x: snap(x0 + col * colStep), y: snap(y0 + row * rowStep) };
-  }
-  return nodes;
-}
-
 /** Уровень строки: целая часть @row (2.5 → 2, «подстрока данных» того же уровня). */
 export const levelOf = row => Math.floor(row);
 
-/** Ряды расстановки из марок: [{ row, level, nodes: [...] }] слева направо по @col.
- *  `level` — целый уровень строки (2.5 → 2); ступень 2 пока кладёт каждый @row в отдельный
- *  ряд, это зафиксированное расхождение (tests/three-stage-01.sequence.md §4). */
+/** Ряды расстановки из заложенных марок: [{ row, level, nodes:[…] }] слева направо по @col.
+ *  Пригодны ступени 2: генератор по ним координаты НЕ считает. */
 export function rowsFromMarks(nodes) {
   const byRow = new Map();
   for (const n of nodes) {
@@ -160,47 +148,41 @@ export function rowsFromMarks(nodes) {
     .map(([row, list]) => ({ row, level: levelOf(row), nodes: list.slice().sort((a, b) => (a.mark?.col ?? 0) - (b.mark?.col ?? 0)) }));
 }
 
-/** Модель ↔ текст: сериализованный код должен содержать все ноды/пины/связи модели.
- *  Дополнительные пины допускаются только «достроенные движком» (self/NotEqual_*). */
+/** Модель ↔ текст: код обязан содержать ровно те ноды и пины, что заданы спекой,
+ *  БЕЗ координат и БЕЗ проводов (их дело ступени 2). Лишние пины допускаются только
+ *  «достроенные движком» (self/NotEqual_*). */
 export function verifyStage1(nodes, text) {
   const problems = [];
-  const graphs = parseToGraphs(text);
-  const parsed = graphs.EventGraph.nodes;
+  const parsed = parseToGraphs(text).EventGraph.nodes;
   if (parsed.length !== nodes.length) problems.push(`round-trip: нод в тексте ${parsed.length}, в модели ${nodes.length}`);
+  const linkedInText = (text.match(/LinkedTo=\([^)]*\)/g) || []).filter(s => !/\(\s*\)/.test(s)).length;
+  if (linkedInText) problems.push(`ступень 1 не соединяет ноды: в тексте ${linkedInText} непустых LinkedTo`);
   const byName = new Map(parsed.map(n => [n.id, n]));
   for (const n of nodes) {
     const p = byName.get(n.id);
     if (!p) { problems.push(`round-trip: нода ${n.id} потеряна при сериализации`); continue; }
-    if (p.pos.x !== Math.round(n.pos.x) || p.pos.y !== Math.round(n.pos.y))
-      problems.push(`round-trip: ${n.id}: позиция в тексте (${p.pos.x},${p.pos.y}) ≠ марок (${Math.round(n.pos.x)},${Math.round(n.pos.y)})`);
+    if (n.pos.x || n.pos.y || p.pos.x || p.pos.y)
+      problems.push(`ступень 1 не двигает ноды: ${n.id} имеет координаты (текст: ${p.pos.x},${p.pos.y}; модель: ${n.pos.x},${n.pos.y})`);
+    if (/Knot|EdGraphNode_Comment/.test(p.className)) problems.push(`ступень 1 не создаёт knot'ы/комменты: ${n.id} (${p.className})`);
     const extras = p.pins.filter(pp => !n.pins.some(x => x.id === pp.id));
     for (const pp of extras) if (pp.name !== 'self' && !/^NotEqual_/.test(pp.name)) problems.push(`round-trip: ${n.id}: лишний пин ${pp.name}`);
     for (const pp of n.pins) {
       const q = p.pins.find(x => x.id === pp.id);
       if (!q) { problems.push(`round-trip: ${n.id}: пин ${pp.name} потерян`); continue; }
-      if (q.category !== pp.category || q.direction !== pp.direction)
-        problems.push(`round-trip: ${n.id}.${pp.name}: тип/направление распались (${q.direction} ${q.category} ≠ ${pp.direction} ${pp.category})`);
-      if (q.linkedTo.length !== pp.linkedTo.length)
-        problems.push(`round-trip: ${n.id}.${pp.name}: связей ${q.linkedTo.length}, в модели ${pp.linkedTo.length}`);
+      if (q.name !== pp.name || q.category !== pp.category || q.direction !== pp.direction)
+        problems.push(`round-trip: ${n.id}.${pp.name}: пин распался (${q.direction} ${q.category} ≠ ${pp.direction} ${pp.category})`);
+      if (q.linkedTo.length) problems.push(`ступень 1 не соединяет ноды: ${n.id}.${pp.name} уже имеет связь`);
     }
-  }
-  // Симметрия связей в модели (движок принимает связь только при двусторонней записи).
-  for (const n of nodes) for (const p of n.pins) for (const l of p.linkedTo) {
-    const other = nodes.find(x => x.id === l.nodeName);
-    const op = other?.pins.find(x => x.id === l.pinId);
-    if (!op) { problems.push(`связь ${n.id}.${p.name} → ${l.nodeName}/${l.pinId}: конец не найден`); continue; }
-    if (!op.linkedTo.some(x => x.nodeName === n.id && x.pinId === p.id))
-      problems.push(`связь ${n.id}.${p.name} → ${other.id}.${op.name}: односторонняя`);
   }
   return problems;
 }
 
-/** Полный проход ступени 1: спека → коды нод + самопроверка.
- *  Возвращает { nodes, byIndex, spec, links, text, validation, problems }. */
-export function createStage1Graph(specText, { registry = [], colStep, rowStep, grid, x0, y0, root } = {}) {
+/** Полный проход ступени 1: спека → КОД НОД + заложенные марки/соединения + самопроверки.
+ *  Возвращает { nodes, byIndex, spec, marks, connections, text, validation, problems, warnings }. */
+export function createStage1Graph(specText, { registry = [], nameBase, root } = {}) {
   const spec = parseSpec(specText);
-  const settings = { colStep: 400, rowStep: 320, grid: 16, x0: 0, y0: 0, nameBase: 0, ...spec.settings };
-  for (const [k, v] of Object.entries({ colStep, rowStep, grid, x0, y0 })) if (v !== undefined) settings[k] = v;
+  const settings = { nameBase: 0, ...spec.settings };
+  if (nameBase !== undefined) settings.nameBase = nameBase;
 
   const nodes = [], byIndex = new Map(), notes = [];
   for (const s of spec.nodes) {
@@ -209,51 +191,75 @@ export function createStage1Graph(specText, { registry = [], colStep, rowStep, g
     catch (e) { throw new Error(`узел ${s.idx} («${s.spec}»): ${e.message}`); }
     if (built.directive) throw new Error(`узел ${s.idx}: директива ${built.directive} не ожидается здесь`);
     const n = built.node;
-    // nameBase: имя узла = <Класс>_<nameBase + номер узла> — чтобы «узел 7» из спеки,
+    // nameBase: имя узла = <Класс>_(nameBase + номер узла) — чтобы «узел 7» из спеки,
     // «K2Node_CallFunction_1007» в тексте и «#7» в отчёте были одним и тем же узлом.
     if (settings.nameBase) n.id = `${(n.rawClass || n.className).split('.').pop()}_${settings.nameBase + s.idx}`;
+    n.pos = { x: 0, y: 0 };        // генератор НЕ двигает: геометрия — дело ступени 2
     n.mark = { ...s.marks, index: s.idx, kind: built.kind };
     n.specLine = s.line;
     nodes.push(n); byIndex.set(s.idx, n);
   }
 
-  const links = [];
-  for (const [a, b] of spec.links) {
+  // Соединения РАЗРЕШАЮТСЯ (проверяется, что пины под намерение существуют — это и есть
+  // компетенция генератора «входы/выходы»), но В ПИНЫ НЕ ЗАПИСЫВАЮТСЯ: расстановщик
+  // материализует их своим проходом вместе с координатами.
+  const connections = [];
+  spec.links.forEach(([a, b], i) => {
     const [ia, pa] = [Number(a.slice(0, a.indexOf('.'))), a.slice(a.indexOf('.') + 1)];
     const [ib, pb] = [Number(b.slice(0, b.indexOf('.'))), b.slice(b.indexOf('.') + 1)];
     const A = byIndex.get(ia), B = byIndex.get(ib);
     if (!A || !B) throw new Error(`link ${a} ${b}: нет узла ${!A ? ia : ib}`);
     if (A === B) throw new Error(`link ${a} ${b}: выход и вход на одной ноде`);
-    const pinA = findPin(A, pa, 'Output'), pinB = findPin(B, pb, 'Input');
-    linkPins(A, pinA, B, pinB);
-    links.push({ source: A, out: pinA, target: B, input: pinB, from: a, to: b });
-  }
+    const outName = findPin(A, pa, 'Output'), inName = findPin(B, pb, 'Input');
+    const out = A.pins.find(p => p.name === outName && p.direction === 'Output');
+    const input = B.pins.find(p => p.name === inName && p.direction === 'Input');
+    if (out.linkedTo.some(l => l.pinId === input.id) || input.linkedTo.some(l => l.pinId === out.id))
+      throw new Error(`link ${a} ${b}: связь уже есть в модели — ступень 1 их не создаёт, проверь спеку`);
+    connections.push({
+      n: i + 1, from: { index: ia, node: A.id, pin: out.name, pinId: out.id },
+      to: { index: ib, node: B.id, pin: input.name, pinId: input.id },
+      category: out.category, exec: out.category === 'exec', spec: `link ${a} ${b}`,
+    });
+  });
 
-  placeByMarks(nodes, settings);
   const text = generateUEText(nodes, root ? { root } : {});
   const validation = validateStrict(text);
   const problems = verifyStage1(nodes, text);
-  // «Висячие» пины — частый симптом незаполненной спеки. Предупреждения, не ошибки:
-  // terminal-узел без потребителя — норма, а вот невключённая ветка Sequence/Branch — нет.
-  const warnings = [];
+
+  // Предупреждения по ЗАЛОЖЕННЫМ соединениям (в пинах их ещё нет намеренно).
+  const warnings = [...notes];
+  const linked = new Map();   // nodeId|pinName → число соединений
+  for (const c of connections) {
+    linked.set(`${c.from.node}|${c.from.pin}`, (linked.get(`${c.from.node}|${c.from.pin}`) || 0) + 1);
+    linked.set(`${c.to.node}|${c.to.pin}`, (linked.get(`${c.to.node}|${c.to.pin}`) || 0) + 1);
+  }
   for (const n of nodes) {
     const execIn = n.pins.filter(p => p.direction === 'Input' && p.category === 'exec' && !p.hidden);
     const execOut = n.pins.filter(p => p.direction === 'Output' && p.category === 'exec' && !p.hidden);
-    if (execIn.length && execIn.every(p => !p.linkedTo.length)) warnings.push(`${n.title} (${n.id}): ни один exec-вход не подключён`);
-    if (execOut.length > 1) for (const p of execOut) if (!p.linkedTo.length) warnings.push(`${n.title} (${n.id}): ветка ${p.name} не подключена`);
-    for (const p of n.pins) if (p.direction === 'Input' && p.category !== 'exec' && !p.hidden && !p.linkedTo.length && !(p.defaultValue || '').length && p.name !== 'self' && p.name !== 'WorldContextObject')
-      warnings.push(`${n.title} (${n.id}): вход ${p.name} пуст и не подключён`);
+    if (execIn.length && execIn.every(p => !linked.get(`${n.id}|${p.name}`))) warnings.push(`${n.title} (${n.id}): ни один exec-вход не заявлен в link`);
+    if (execOut.length > 1) for (const p of execOut) if (!linked.get(`${n.id}|${p.name}`)) warnings.push(`${n.title} (${n.id}): ветка ${p.name} не заявлена в link`);
+    for (const p of n.pins) if (p.direction === 'Input' && p.category !== 'exec' && !p.hidden && !linked.get(`${n.id}|${p.name}`) && !(p.defaultValue || '').length && p.name !== 'self' && p.name !== 'WorldContextObject')
+      warnings.push(`${n.title} (${n.id}): вход ${p.name} пуст и не заявлен в link`);
   }
-  return { nodes, byIndex, spec, links, text, validation, problems, warnings: [...notes, ...warnings], settings };
+  // Двойное соединение в один exec-вход — законно (слияние веток), но стоит показать.
+  for (const c of connections) {
+    const dup = connections.filter(x => x.to.node === c.to.node && x.to.pin === c.to.pin);
+    if (dup.length > 1 && c === dup[0]) warnings.push(`${c.to.node}.${c.to.pin}: вход принимает ${dup.length} соединения (${dup.map(d => `${d.from.node}.${d.from.pin}`).join(', ')})`);
+  }
+  return { nodes, byIndex, spec, marks: nodes.map(n => ({ index: n.mark.index, id: n.id, row: n.mark.row, col: n.mark.col })), connections, text, validation, problems, warnings, settings };
 }
 
-/** Человекочитаемая сводка ступени 1 (для отчёта в тесте/CLI). */
-export function describeStage1({ nodes }) {
+/** Человекочитаемая сводка ступени 1 (отчёт теста/CLI): ноды, пины, заложенные связи. */
+export function describeStage1({ nodes, connections = [] }) {
   return nodes.map(n => ({
     index: n.mark?.index, id: n.id, title: n.title, className: n.className,
     row: n.mark?.row, col: n.mark?.col, pos: { ...n.pos },
-    // →/← направление; =значение — незаполненный вход с литералом; * — пин без связи и без значения
-    pins: n.pins.filter(p => !p.hidden).map(p => `${p.direction === 'Output' ? '→' : '←'}${p.name}${p.linkedTo.length ? '' : (p.defaultValue ? `=${p.defaultValue}` : '*')}`),
-    links: n.pins.flatMap(p => p.linkedTo.map(l => `${p.name} → ${l.nodeName}`)),
+    // →/← направление; =значение — литерал на входе; ⚬ — пин без заложенного соединения
+    pins: n.pins.filter(p => !p.hidden).map(p => {
+      const used = connections.some(c => c.from.node === n.id && c.from.pin === p.name)
+        || connections.some(c => c.to.node === n.id && c.to.pin === p.name);
+      return `${p.direction === 'Output' ? '→' : '←'}${p.name}${used ? '' : (p.defaultValue ? `=${p.defaultValue}` : '⚬')}`;
+    }),
+    lays: connections.filter(c => c.from.node === n.id).map(c => `${c.from.pin} ⇢ ${c.to.node}.${c.to.pin}`),
   }));
 }
