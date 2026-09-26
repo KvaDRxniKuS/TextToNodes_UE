@@ -804,6 +804,17 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(execAligned, 'Dispatcher probe: decorator aligns every connected exec pin center');
   ok(db.split('LinkedTo=(K2Node_CustomEvent_5000').length-1===2 && !db.includes('K2Node_Knot_'), 'Dispatcher probe: callback links preserved, no unnecessary reroute knots');
 }
+// End-to-end smoke through creator -> arranger -> decorator.
+{
+  const text=fs.readFileSync(new URL('../sweep/current-pipeline-smoke.txt',import.meta.url),'utf8');
+  const nodes=Object.values(parseToGraphs(text))[0].nodes;
+  const order=['K2Node_CustomEvent_5000','K2Node_CallFunction_100','K2Node_CallFunction_101'].map(id=>nodes.find(n=>n.id===id));
+  const {pinCenterY}=await import('../src/generator.js');
+  ok(validateStrict(text).errors.length===0 && nodes.length===3, 'pipeline smoke: three-node text is STRICT-clean');
+  ok(order.every((n,i)=>n && (!i || n.pos.x>order[i-1].pos.x)) && !nodes.some(n=>n.className.endsWith('K2Node_Knot')), 'pipeline smoke: Start→Delay→Print laid out in order without unnecessary knots');
+  ok(order.slice(0,-1).every((n,i)=>{const out=n.pins.find(p=>p.name==='then'),input=order[i+1].pins.find(p=>p.name==='execute');return Math.abs(pinCenterY(n,out)-pinCenterY(order[i+1],input))<1;}), 'pipeline smoke: linked exec pin centers align in the model');
+}
+
 // R27 pre: Widgets / UI + конструктор widget/get/set
 {
   const M = await import('../src/modules.js');

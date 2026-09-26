@@ -9,6 +9,7 @@
 - `node tools/make-node.mjs ...` — конструктор Blueprint-модулей. Запустите без спецификаций, чтобы увидеть синтаксис из комментария в скрипте.
 - `node tools/gen-sweep.mjs` — пересобирает категорийные пробы и manifest; аргумент `zz` обновляет только `sweep/MANIFEST.md`, числовой префикс пересобирает соответствующую категорию.
 - `node tools/gen-dispatcher-bound-test.mjs` — создаёт dispatcher layout fixture.
+- `node tools/gen-current-pipeline-smoke.mjs` — создаёт короткий Custom Event → Delay → PrintString пример через creator → arranger → decorator.
 - `node tools/inventory.mjs <dump.txt> -o <context.json>` — строит инвентарь Blueprint-контекста для validate/make-node.
 
 Новые генераторы строить отдельными этапами: [`src/creator.js`](../src/creator.js) → [`src/arranger.js`](../src/arranger.js) → [`src/decorator.js`](../src/decorator.js). См. [`docs/LAYOUT_PIPELINE.md`](../docs/LAYOUT_PIPELINE.md).
