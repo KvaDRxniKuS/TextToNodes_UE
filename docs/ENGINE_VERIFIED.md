@@ -791,3 +791,6 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 
 ## Round31 — VERIFIED (движок, 2026-09-26)
 - Пользователь: «31 норма». Audio через `call` (PlaySound2D, SpawnSound2D, AudioComponent члены), тип `single`.
+
+## Round32 — VERIFIED (движок, 2026-09-26)
+- Пользователь: «32 норма». Первый блок в формате P1 — формат подтверждён. UMG-классы только с модулем /Script/UMG.
