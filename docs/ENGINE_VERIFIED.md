@@ -831,3 +831,5 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 - Latest copy-back (2026-09-26): Branch is 16px too low relative to ideal event/exec alignment. Reduced CustomEvent output-pin header offset by one grid cell; split test has Branch.then→ClearAllMappings and Branch.else→FlushPlayerInput. Rebuilt; needs UE re-check.
 
 - Latest correction (2026-09-26): intended split is Branch.then → ClearAllMappings and Branch.else → FlushPlayerInput. Topology is right; false destination was still one cell too high with the 32px delta; moved it another 16px. Fixture now asserts target NodePosY delta=48px (true-to-false); awaiting UE confirmation.
+
+- User requested Flush two cells lower and a reusable pin-height rule. Added explicit `PIN_GRID_STEP=16`, independent of 22px pin-list row estimate. Current Branch.false level uses five intermediate knot-height steps; resulting target Y delta is 80px from true target (Flush Y=80 vs Clear Y=0), i.e. 32px lower than the last test file. Await visual confirmation; six-mixed-output reference description recorded for generalization.

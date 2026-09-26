@@ -138,3 +138,8 @@
 
 
 Latest verdict 2026-09-26: «высота Branch корректна, но Flush не на высоте false, а ровно посередине; между уровнями одна клетка вместо двух». After feedback that 32px still left Flush one cell too high, increased Branch.else target offset by another 16px; test now verifies NodePosY delta Clear→Flush = 48 px. Awaiting UE confirmation.
+
+### Pin-height mechanism (2026-09-26)
+
+- Treat vertical pin placement as explicit grid-step math, not node-specific Flush coordinates: `PIN_GRID_STEP=16px`; each exec wire target is positioned by the source pin's row offset and target pin's row offset. `Branch.then` anchors at one grid step; the false level includes five intervening Knot-height steps (`else = (1 + 5) * 16px` from the Branch base). Current test therefore places `FlushPlayerInput` at Y=80 relative to `ClearAllMappings` at Y=0 (two more grid steps than the previously delivered Y=48 file). 
+- `PIN_ROW_H=22` remains the text/pin-list row estimate for non-exec geometry; exec/knot routing levels use the 16px grid step. Generalizing to arbitrary nodes with six mixed output pins must use visible-pin order plus one `PIN_GRID_STEP` per adjacent pin slot; keep the Branch true/false separator from the 5-knot reference as its node's pin topology, not a `FlushPlayerInput` special case.

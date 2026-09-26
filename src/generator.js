@@ -305,6 +305,9 @@ export function createComment(text, pos = { x: 0, y: 0 }, w = 400, h = 180) {
 export const PIN_ROW_H = 22;
 // Engine copy-back (R28): an extra title/subtitle header line shifts node pins by ~32 px.
 export const HEADER_LINE_H = 32;
+// Blueprint coordinate grid. Exec pin levels and reroute guides are expressed as integer grid steps.
+export const PIN_GRID_STEP = 16;
+const BRANCH_FALSE_GAP_STEPS = 5; // copy-back reference: five knot-height intervals between true and false levels
 
 /** Оценка ширины ноды (px) — по геометрии Slate-ноды, а не по фиксированной базе класса.
  *  R30-фидбек: база 340 у CallFunction завышала (Pause Timer by Handle в движке ≈ 288) — knot переноса
@@ -488,7 +491,9 @@ export function pinCenterY(n, pin) {
   const header = compact ? 18 : 34 + headerExtra;
   let rowOffset = Math.max(0, vis.indexOf(pin)) * PIN_ROW_H;
   if ((n.className || '').includes('IfThenElse') && pin.direction === 'Output') {
-    rowOffset = pin.name === 'then' ? 16 : pin.name === 'else' ? 64 : rowOffset;
+    rowOffset = pin.name === 'then' ? PIN_GRID_STEP
+      : pin.name === 'else' ? PIN_GRID_STEP * (1 + BRANCH_FALSE_GAP_STEPS)
+        : rowOffset;
   }
   return n.pos.y + header + rowOffset + PIN_ROW_H / 2;
 }
