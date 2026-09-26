@@ -16240,5 +16240,79 @@
   "verified": true,
   "desc": "Тег компонента",
   "note": "R29 VERIFIED"
+ },
+ {
+  "id": "DrawDebugArrow",
+  "title": "Draw Debug Arrow",
+  "category": "Debug",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "DrawDebugArrow",
+  "lib": "KismetSystemLibrary",
+  "enabledState": "DevelopmentOnly",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "WorldContextObject",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object",
+    "const": true,
+    "hidden": true
+   },
+   {
+    "name": "LineStart",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true,
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "LineEnd",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true,
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "ArrowSize",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "0.0"
+   },
+   {
+    "name": "LineColor",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor"
+   },
+   {
+    "name": "Duration",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "0.0"
+   },
+   {
+    "name": "Thickness",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "0.0"
+   }
+  ],
+  "verified": false,
+  "desc": "Рисует отладочную стрелку"
  }
 ]

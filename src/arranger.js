@@ -54,11 +54,12 @@ function createExecReroutes(nodes) {
  * row's estimated bottom. `gap` is free horizontal space after estimated width.
  * Returns positioned graph nodes, plus any reroute knots created at this stage.
  */
-export function arrangeRows(rows, { x = 0, y = 0, gap = 160, rowGap = 160, createRerouteKnots = true } = {}) {
+export function arrangeRows(rows, { x = 0, y = 0, gap = 160, rowGap = 160, createRerouteKnots = true, continueX = false } = {}) {
   let rowY = y;
+  let nextRowX = x;
   const placed = [];
   for (const row of rows) {
-    let cursorX = x;
+    let cursorX = continueX ? nextRowX : x;
     let rowBottom = rowY;
     for (const node of row) {
       node.pos ||= { x: 0, y: 0 };
@@ -68,6 +69,7 @@ export function arrangeRows(rows, { x = 0, y = 0, gap = 160, rowGap = 160, creat
       rowBottom = Math.max(rowBottom, rowY + estNodeHeight(node));
       placed.push(node);
     }
+    if (continueX) nextRowX = cursorX;
     rowY = rowBottom + rowGap;
   }
   const knots = createRerouteKnots ? createExecReroutes(placed) : [];
