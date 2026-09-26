@@ -14467,9 +14467,9 @@
     "dv": "0"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Показать виджет.",
-  "note": "round27-pre: член UUserWidget"
+  "note": "round27-pre: член UUserWidget | R27 VERIFIED (движок, 2026-09-26; Construct NONE — класс виджета выбирается локально)"
  },
  {
   "id": "AddToPlayerScreen",
@@ -14507,9 +14507,9 @@
     "cat": "bool"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Показать на экране игрока (split-screen).",
-  "note": "round27-pre: член UUserWidget → bool"
+  "note": "round27-pre: член UUserWidget → bool | R27 VERIFIED (движок, 2026-09-26; Construct NONE — класс виджета выбирается локально)"
  },
  {
   "id": "IsInViewport",
@@ -14531,9 +14531,9 @@
     "cat": "bool"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Виджет на экране?",
-  "note": "round27-pre: BlueprintPure const",
+  "note": "round27-pre: BlueprintPure const | R27 VERIFIED (движок, 2026-09-26; Construct NONE — класс виджета выбирается локально)",
   "pure": true
  },
  {
@@ -14561,9 +14561,9 @@
     "object": "/Script/UMG.Widget"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Убрать виджет.",
-  "note": "round27-pre: член UWidget (UE 5.1+)"
+  "note": "round27-pre: член UWidget (UE 5.1+) | R27 VERIFIED (движок, 2026-09-26; Construct NONE — класс виджета выбирается локально)"
  },
  {
   "id": "SetVisibility",
@@ -14597,9 +14597,9 @@
     "dv": "Visible"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Видимость виджета.",
-  "note": "round27-pre: член UWidget, enum ESlateVisibility"
+  "note": "round27-pre: член UWidget, enum ESlateVisibility | R27 VERIFIED (движок, 2026-09-26; Construct NONE — класс виджета выбирается локально)"
  },
  {
   "id": "SetInputModeUIOnly",
@@ -14645,9 +14645,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Ввод только в UI.",
-  "note": "round27-pre: UWidgetBlueprintLibrary::SetInputMode_UIOnlyEx"
+  "note": "round27-pre: UWidgetBlueprintLibrary::SetInputMode_UIOnlyEx | R27 VERIFIED (движок, 2026-09-26; Construct NONE — класс виджета выбирается локально)"
  },
  {
   "id": "SetInputModeGameAndUI",
@@ -14699,9 +14699,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Ввод в игру и UI.",
-  "note": "round27-pre: UWidgetBlueprintLibrary::SetInputMode_GameAndUIEx"
+  "note": "round27-pre: UWidgetBlueprintLibrary::SetInputMode_GameAndUIEx | R27 VERIFIED (движок, 2026-09-26; Construct NONE — класс виджета выбирается локально)"
  },
  {
   "id": "SetInputModeGameOnly",
@@ -14734,9 +14734,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Ввод только в игру.",
-  "note": "round27-pre: UWidgetBlueprintLibrary::SetInputMode_GameOnly"
+  "note": "round27-pre: UWidgetBlueprintLibrary::SetInputMode_GameOnly | R27 VERIFIED (движок, 2026-09-26; Construct NONE — класс виджета выбирается локально)"
  },
  {
   "id": "RemoveMappingContext",

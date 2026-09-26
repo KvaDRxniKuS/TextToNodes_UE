@@ -40,7 +40,7 @@
 | 24 | 24-pawn-character.txt | 18/18 | 18 | 18 | — | 18xW09 |
 | 25 | 25-events-delegates.txt | 8/8 | 8 | 8 | — | 1xW09 |
 | 26 | 26-timers-latent.txt | 14/14 | 14 | 14 | — | 14xW09 |
-| 27 | 27-widgets-ui.txt | 8/8 | 0 | 8 | — | 8xW09 |
+| 27 | 27-widgets-ui.txt | 8/8 | 8 | 8 | — | 8xW09 |
 | 28 | 28-enhanced-input-full.txt | 15/15 | 0 | 15 | — | 15xW09 |
 | 29 | 29-components-physics.txt | 23/23 | 0 | 23 | — | 23xW09 |
 
@@ -208,14 +208,14 @@
 - 26-timers-latent.txt :: W09: K2Node_CallFunction_480: K2_GetTimerElapsedTimeHandle: round26-pre: BlueprintPure → float | R26 VERIFIED (движок, 2026-09-26)
 - 26-timers-latent.txt :: W09: K2Node_CallFunction_481: K2_GetTimerRemainingTimeHandle: round26-pre: BlueprintPure → float | R26 VERIFIED (движок, 2026-09-26)
 - 26-timers-latent.txt :: W09: K2Node_CallFunction_482: DelayUntilNextTick: round26-pre: как Delay: WCO/LatentInfo движок восстановит (UE 5.2+) | R26 VERIFIED (движок, 2026-09-26)
-- 27-widgets-ui.txt :: W09: K2Node_CallFunction_484: AddToViewport: round27-pre: член UUserWidget
-- 27-widgets-ui.txt :: W09: K2Node_CallFunction_485: AddToPlayerScreen: round27-pre: член UUserWidget → bool
-- 27-widgets-ui.txt :: W09: K2Node_CallFunction_486: IsInViewport: round27-pre: BlueprintPure const
-- 27-widgets-ui.txt :: W09: K2Node_CallFunction_487: RemoveFromParent: round27-pre: член UWidget (UE 5.1+)
+- 27-widgets-ui.txt :: W09: K2Node_CallFunction_484: AddToViewport: round27-pre: член UUserWidget | R27 VERIFIED (движок, 2026-09-26; Construct NONE — класс виджета выбирается локально)
+- 27-widgets-ui.txt :: W09: K2Node_CallFunction_485: AddToPlayerScreen: round27-pre: член UUserWidget → bool | R27 VERIFIED (движок, 2026-09-26; Construct NONE — класс виджета выбирается локально)
+- 27-widgets-ui.txt :: W09: K2Node_CallFunction_486: IsInViewport: round27-pre: BlueprintPure const | R27 VERIFIED (движок, 2026-09-26; Construct NONE — класс виджета выбирается локально)
+- 27-widgets-ui.txt :: W09: K2Node_CallFunction_487: RemoveFromParent: round27-pre: член UWidget (UE 5.1+) | R27 VERIFIED (движок, 2026-09-26; Construct NONE — класс виджета выбирается локально)
 - 27-widgets-ui.txt :: W09: K2Node_CallFunction_488: SetVisibility: round29-pre: член SceneComponent::SetVisibility, self явный
-- 27-widgets-ui.txt :: W09: K2Node_CallFunction_489: SetInputMode_UIOnlyEx: round27-pre: UWidgetBlueprintLibrary::SetInputMode_UIOnlyEx
-- 27-widgets-ui.txt :: W09: K2Node_CallFunction_490: SetInputMode_GameAndUIEx: round27-pre: UWidgetBlueprintLibrary::SetInputMode_GameAndUIEx
-- 27-widgets-ui.txt :: W09: K2Node_CallFunction_491: SetInputMode_GameOnly: round27-pre: UWidgetBlueprintLibrary::SetInputMode_GameOnly
+- 27-widgets-ui.txt :: W09: K2Node_CallFunction_489: SetInputMode_UIOnlyEx: round27-pre: UWidgetBlueprintLibrary::SetInputMode_UIOnlyEx | R27 VERIFIED (движок, 2026-09-26; Construct NONE — класс виджета выбирается локально)
+- 27-widgets-ui.txt :: W09: K2Node_CallFunction_490: SetInputMode_GameAndUIEx: round27-pre: UWidgetBlueprintLibrary::SetInputMode_GameAndUIEx | R27 VERIFIED (движок, 2026-09-26; Construct NONE — класс виджета выбирается локально)
+- 27-widgets-ui.txt :: W09: K2Node_CallFunction_491: SetInputMode_GameOnly: round27-pre: UWidgetBlueprintLibrary::SetInputMode_GameOnly | R27 VERIFIED (движок, 2026-09-26; Construct NONE — класс виджета выбирается локально)
 - 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_493: RemoveMappingContext: round28-pre: член IEnhancedInputSubsystemInterface; Options опущен (как в AddMappingContext R21b)
 - 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_494: ClearAllMappings: round28-pre: член IEnhancedInputSubsystemInterface
 - 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_495: HasMappingContext: round28-pre: const-член → pure в BP

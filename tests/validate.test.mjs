@@ -810,6 +810,18 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(s31.includes('MemberName="SpawnSound2D"') && s31.includes("Engine.AudioComponent'") && /PinName="NewVolumeMultiplier",PinType\.PinCategory="real",PinType\.PinSubCategory="float"/.test(s31), 'R31: SpawnSound2D + AudioComponent + single→float');
   ok((s31.match(/K2Node_Knot'/g) || []).length === 4, 'R31: --decorate 4 knot\'а');
 }
+// R27 VERIFIED + 27b: --decorate кладёт pure под потребителя (горизонтальное выравнивание)
+{
+  const reg27 = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8'));
+  ok(reg27.filter(e => e.category === 'Widgets / UI').every(e => e.verified), 'R27: все 8 Widgets/UI verified');
+  const t = fs.readFileSync(new URL('../sweep/27b-widgets-ui-decorated.txt', import.meta.url), 'utf8');
+  ok(validateStrict(t).errors.length === 0, '27b: 0 ошибок');
+  const pos = name => { const b = t.split('Begin Object').find(x => x.includes(`Name="${name}"`)); return [+b.match(/NodePosX=(-?\d+)/)[1], +b.match(/NodePosY=(-?\d+)/)[1]]; };
+  const [gx, gy] = pos('K2Node_CallFunction_100'), [cx, cy] = pos('K2Node_CreateWidget_5001'), [ex, ey] = pos('K2Node_CustomEvent_5000');
+  ok(ey === cy, '27b: событие в одном ряду с Create Widget (прямая exec)');
+  ok(gy > cy && gx < cx, '27b: Get Player Controller — под рядом и левее входа Create Widget');
+  ok((t.match(/K2Node_Knot'/g) || []).length === 4, '27b: 4 exec-knot\'а');
+}
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);

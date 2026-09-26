@@ -8,7 +8,7 @@
 //   --width PX    перенос по ширине ряда в px (напр. 3000)
 //   --decorate    декор: exec-связи с переносом назад → 2 knot'а в коридоре между рядами (под выходом / над входом),
 //                 exec со сдвигом высоты → «ступенька» из 2 knot'ов; стартовое событие — в начало ряда 0;
-//                 все координаты — на сетку 16. Без флага раскладка прежняя.
+//                 pure/данные — подрядом под своим потребителем (выравнивание по X); сетка 16. Без флага раскладка прежняя.
 //
 // Спеки (по одной на узел, номера узлов = порядок, с 1):
 //   cast <Класс> [class] [pure]            Cast To <Класс>; class → Cast To <Класс> Class; pure → без exec
@@ -35,7 +35,7 @@
 // --chain: exec по порядку (then→execute, первая «event» — старт), делегаты event-for/create-event → ближайший свободный вход Delegate.
 import fs from 'node:fs';
 import { generateUEText } from '../src/parser.js';
-import { layoutRow, layoutRows, fitComment, linkPins, estNodeWidth, decorateExec, snapToGrid } from '../src/generator.js';
+import { layoutRow, layoutRows, layoutDecorated, fitComment, linkPins, estNodeWidth, decorateExec, snapToGrid } from '../src/generator.js';
 import { validateStrict } from '../src/validate.js';
 import { createCast, createCustomEvent, createCallCustomEvent, createDelegateNode, createEventFor, createCreateEvent, createFn, createWidget, createMemberVar, createInputActionEvent, createInputActionValue, createCall } from '../src/modules.js';
 
@@ -126,7 +126,9 @@ for (const [a, b] of links) {
 const isExecSrc = n => !hasExecIn(n) && n.pins.some(p => p.name === 'then' && p.direction === 'Output' && p.linkedTo.length);
 const inTop = n => hasExecIn(n) || (decorate && isExecSrc(n));
 const top = nodes.filter(inTop), bottom = nodes.filter(n => !inTop(n));
-if (wrap || width || nodes.some(n => n.rowBreak)) {
+if (decorate) {
+  layoutDecorated(top, bottom, { perRow: wrap, maxWidth: width });
+} else if (wrap || width || nodes.some(n => n.rowBreak)) {
   const { bottom: yb } = layoutRows(top, { perRow: wrap, maxWidth: width });
   layoutRows(bottom, { y0: yb, maxWidth: width || 0, perRow: wrap ? wrap + 1 : 0 });
 } else {

@@ -749,3 +749,8 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 - sweep/31-audio.txt собран make-node `call` + --chain --wrap 4 --decorate: PlaySound2D, PlaySoundAtLocation, SpawnSound2D → AudioComponent Play/SetVolumeMultiplier/SetPitchMultiplier/SetPaused/FadeIn/FadeOut/Stop, IsPlaying (pure), SpawnSoundAtLocation.
 - Новый тип make-node `single` = C++ float (PinSubCategory="float"); `float` по-прежнему double.
 - Sound-пины пустые (выбрать ассет в движке); WCO/advanced-пины опущены — движок достроит.
+
+## Round27 — VERIFIED (движок, 2026-09-26)
+- Пользователь: создаётся корректно; «Construct NONE» — класс виджета не выбран (выбирается локально), с классом компилируется без ошибок. 8 записей Widgets / UI → verified.
+- Замечание: ужасная компоновка, нет горизонтального выравнивания (событие в нижнем ряду, Get Player Controller далеко от потребителей).
+- Исправление: `--decorate` теперь раскладывает через generator.layoutDecorated — события-источники в ряд перед узлами, pure/данные подрядом под рядом своего первого потребителя, выходом левее его входа (глубже — левее); коридор knot'ов идёт ниже подряда. sweep/27b-widgets-ui-decorated.txt — тот же R27, перекомпонованный (--chain --decorate --wrap 4); ждёт оценки вида.

@@ -438,7 +438,8 @@ export function decorateExec(nodes, { minDy = 48, pad = 48 } = {}) {
     if (inX < outX + pad) {
       // коридор: между низом верхнего узла и верхом нижнего (если ряд ниже), иначе под обоими
       // низ ВСЕГО ряда A (самый высокий узел ряда), чтобы коридор не резал соседей
-      const lowA = Math.max(...nodes.filter(n => !(n.className || '').includes('Knot') && Math.abs(n.pos.y - A.pos.y) < 1)
+      // низ всего, что стоит между рядом A и рядом B (ряд A + его подряд данных), чтобы коридор никого не резал
+      const lowA = Math.max(...nodes.filter(n => !(n.className || '').includes('Knot') && n.pos.y >= A.pos.y - 1 && (B.pos.y <= A.pos.y || n.pos.y < B.pos.y))
         .map(n => n.pos.y + estNodeHeight(n)));
       const corridor = B.pos.y > lowA ? (lowA + B.pos.y) / 2 : Math.max(lowA, B.pos.y + estNodeHeight(B)) + 80;
       relink(A, fp, B, tp, [[outX, corridor], [inX, corridor]]);
@@ -448,4 +449,51 @@ export function decorateExec(nodes, { minDy = 48, pad = 48 } = {}) {
     }
   }
   return knots;
+}
+
+/** --decorate: раскладка с «подрядами» данных (R27-фидбек: не было горизонтального выравнивания).
+ *  Исполняемые ряды как в layoutRows; каждый pure/данные-узел (и событие, отдающее только делегат)
+ *  получает «якорь» — первый (левый) исполняемый узел, куда в итоге идёт его выход (через цепочку pure —
+ *  глубина+1), и встаёт в подряд ПОД рядом якоря, выходом левее входа якоря; более глубокие — левее.
+ *  Неподключённые данные — последним рядом. */
+export function layoutDecorated(top, data, { perRow = 0, maxWidth = 0, gap = ROW_GAP, rowGap = 200, subGap = 60, dataGap = 48 } = {}) {
+  const { rows } = layoutRows(top, { perRow, maxWidth, gap });
+  const all = [...top, ...data];
+  const byId = new Map(all.map(n => [n.id, n]));
+  const topSet = new Set(top);
+  const memo = new Map();
+  const rowOf = new Map(); rows.forEach((r, i) => r.forEach(n => rowOf.set(n, i)));
+  const anchorOf = (n, seen = new Set()) => {
+    if (memo.has(n)) return memo.get(n);
+    if (seen.has(n)) return null; seen.add(n);
+    let best = null;
+    for (const p of n.pins) if (p.direction === 'Output') for (const l of p.linkedTo) {
+      const c = byId.get(l.nodeName); if (!c) continue;
+      const cand = topSet.has(c) ? { a: c, d: 1 } : (() => { const r = anchorOf(c, seen); return r && { a: r.a, d: r.d + 1 }; })();
+      const key = c2 => [rowOf.get(c2.a), c2.a.pos.x];
+      if (cand && (!best || key(cand)[0] < key(best)[0] || (key(cand)[0] === key(best)[0] && key(cand)[1] < key(best)[1]) || (cand.a === best.a && cand.d > best.d))) best = cand;
+    }
+    memo.set(n, best); return best;
+  };
+  const buckets = rows.map(() => []), loose = [];
+  for (const n of data) { const a = anchorOf(n); if (a) buckets[rowOf.get(a.a)].push({ n, ...a }); else loose.push(n); }
+  let y = 0;
+  rows.forEach((r, i) => {
+    r.forEach(n => { n.pos.y = y; });
+    let bottom = y + Math.max(...r.map(estNodeHeight));
+    const b = buckets[i].sort((p, q) => p.a.pos.x - q.a.pos.x || q.d - p.d);
+    if (b.length) {
+      const sy = bottom + subGap; let cursor = -Infinity;
+      for (const { n, a, d } of b) {
+        const w = estNodeWidth(n);
+        // правый край (выход) — левее входа якоря: провод идёт вперёд-вверх, не петлёй; глубже — ещё левее
+        const x = Math.max(cursor, a.pos.x - (w + dataGap) * d);
+        n.pos.x = x; n.pos.y = sy; cursor = x + w + dataGap;
+      }
+      bottom = sy + Math.max(...b.map(e => estNodeHeight(e.n)));
+    }
+    y = bottom + rowGap;
+  });
+  if (loose.length) layoutRow(loose, 0, y, gap);
+  return rows;
 }
