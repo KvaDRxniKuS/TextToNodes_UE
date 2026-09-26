@@ -3,8 +3,10 @@
 import fs from 'node:fs';
 import { createCallFunction, createCustomEvent, linkPins } from '../src/creator.js';
 import { positionBlueprint } from '../src/layout-pipeline.js';
-import { generateUEText } from '../src/parser.js';
+import { generateUEText, seedGuids } from '../src/parser.js';
 import { validateStrict } from '../src/validate.js';
+
+seedGuids('current-pipeline-smoke'); // PinId/Guid детерминированы: перегенерация без шума в diff
 
 const registry = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8'));
 const entry = id => {

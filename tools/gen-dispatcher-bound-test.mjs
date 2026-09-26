@@ -4,8 +4,10 @@
 import fs from 'node:fs';
 import { mkPin, createCustomEvent } from '../src/creator.js';
 import { arrangeRows, decorateLayout } from '../src/layout-pipeline.js';
-import { generateUEText, guid32 } from '../src/parser.js';
+import { generateUEText, guid32, seedGuids } from '../src/parser.js';
 import { validateStrict } from '../src/validate.js';
+
+seedGuids('dispatcher-probe-bound'); // PinId/Guid детерминированы: перегенерация не даёт шума в diff
 
 const bp = `"/Script/Engine.BlueprintGeneratedClass'/Game/Blueprints/BP_AISupportTester.BP_AISupportTester_C'"`;
 const dispatcher='NewEventDispatcher_Probe';

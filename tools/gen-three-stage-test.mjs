@@ -120,7 +120,7 @@ function main() {
   // ── Ступень 3: декоратор (вход — ТЕКСТ ступени 2) ──────────────────────────
   const stage2In = run(3) && only === 3 && fs.existsSync(OUT[2]) ? fs.readFileSync(OUT[2], 'utf8') : stage2Text;
   const decNodes = parseToGraphs(stage2In).EventGraph.nodes.filter(n => !n.isComment);
-  const dec = decorateLayout(decNodes, { clearance: spec.settings.clearance ?? 160, grid: spec.settings.grid ?? 16 });
+  const dec = decorateLayout(decNodes, { clearance: spec.settings.clearance ?? 5 * (spec.settings.grid ?? 16), grid: spec.settings.grid ?? 16 });
   const stage3Text = generateUEText(dec.nodes, { syncLinks: true }) + '\n';
   if (run(3)) {
     const d = diffAgainstInput(stage2In, stage3Text);
@@ -174,8 +174,15 @@ function printReport(g1, arr, dec) {
   }
   const knots = arr.nodes.filter(n => /Knot/.test(n.className));
   if (knots.length) {
-    console.log("  knot'ы, созданные расстановщиком:");
-    for (const k of knots) console.log(`    ${k.id}: 2:(${k.pos.x},${k.pos.y}) 3:(${decById.get(k.id)?.pos.x},${decById.get(k.id)?.pos.y})`);
+    console.log("  knot'ы (2 = коридор расстановщика, 3 = по пинам концов):");
+    for (const k of knots) {
+      const d = decById.get(k.id);
+      console.log(`    ${k.id}: 2:(${k.pos.x},${k.pos.y}) 3:(${d?.pos.x},${d?.pos.y})`);
+    }
+  }
+  if (dec.notes?.length) {
+    console.log('  решения декоратора (что не стало ровняться и почему):');
+    for (const note of dec.notes) console.log(`    · ${note}`);
   }
   const execLinks = [];
   for (const n of dec.nodes) for (const p of n.pins) {
