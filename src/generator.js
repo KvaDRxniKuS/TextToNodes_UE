@@ -449,7 +449,19 @@ export function layoutRows(nodes, { x0 = 0, y0 = 0, perRow = 0, maxWidth = 0, ga
   let y = y0;
   for (const r of rows) {
     layoutRow(r, x0, y, gap);
-    y += Math.max(...r.map(estNodeHeight)) + rowGap;
+    // Align each exec chain by the actual estimated exec-pin center, not node tops.
+    // A subtitle adds a header line, so a two-line node must sit higher by one pin row
+    // for its exec pin to meet the neighboring one-line node's exec pin.
+    const execPin = n => n.pins.find(p => p.category === 'exec' &&
+      ((p.direction === 'Output' && p.name !== 'Default' && p.name !== 'CastFailed') || p.name === 'execute'));
+    const offsets = r.map(n => { const p = execPin(n); return p ? pinCenterY({ ...n, pos: { x: n.pos.x, y: 0 } }, p) : null; }).filter(v => v !== null);
+    const baseline = y + Math.max(0, ...offsets);
+    for (const n of r) {
+      const p = execPin(n);
+      if (p) n.pos.y = baseline - pinCenterY({ ...n, pos: { x: n.pos.x, y: 0 } }, p);
+    }
+    const bottom = Math.max(...r.map(n => n.pos.y + estNodeHeight(n)));
+    y = bottom + rowGap;
   }
   return { rows, bottom: y };
 }
@@ -458,7 +470,11 @@ export function layoutRows(nodes, { x0 = 0, y0 = 0, perRow = 0, maxWidth = 0, ga
 export function pinCenterY(n, pin) {
   if ((n.className || '').includes('Knot')) return n.pos.y + 8;
   const vis = n.pins.filter(p => !p.hidden && p.direction === pin.direction && p.name !== 'OutputDelegate'); // делегат — в шапке
-  return n.pos.y + 34 + Math.max(0, vis.indexOf(pin)) * PIN_ROW_H + PIN_ROW_H / 2;
+  const { sub, compact } = nodeTitleParts(n);
+  // UE paints a second header line for a function subtitle (e.g. "Target is …").
+  // Pins start below that line; the old fixed 34px offset aligned node tops, not exec pins.
+  const header = compact ? 18 : 34 + (sub ? PIN_ROW_H : 0);
+  return n.pos.y + header + Math.max(0, vis.indexOf(pin)) * PIN_ROW_H + PIN_ROW_H / 2;
 }
 
 /** Все координаты на сетку 16 (как «Straighten/Align» в редакторе). */

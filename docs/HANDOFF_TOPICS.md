@@ -106,3 +106,9 @@
 
 
 Обновление 2026-09-26: получено «28 норма». Также обнаружен дефект раскладки рядов: равное NodePosY/выравнивание по верху не гарантирует одинаковую высоту exec-пинов, если заголовки нод занимают разное число строк. Пример copy-back ClearAllMappings → FlushPlayerInput: одинаковый NodePosY, но у первой ноды двухстрочная шапка/описание и exec-pin ниже. Следующая задача layout: использовать имеющиеся в модели метаданные ноды (заголовок/подзаголовок и список пинов), оценивать центр exec-пина с учётом высоты шапки и выравнивать по нему. Не запрашивать у пользователя ручные offsets; проверять по engine copy-back после реализации. Отдельно остаётся калибровка ширины Knot A для SetVisibility.
+
+## Exec-pin alignment fix (2026-09-26)
+
+- `layoutRows` now computes exec-pin center offsets from node title/subtitle metadata and repositions nodes in each row so the pins align; `pinCenterY` includes a subtitle header row. Tested by `tests/validate.test.mjs` (1-line Branch vs 2-line CallFunction).
+- `sweep/exec-pin-alignment-test.txt` is a paste-ready engine check: event → Branch → ClearAllMappings → FlushPlayerInput, with the row wrapped at four nodes. Strict validation passes; two expected W09 registry notices.
+- R30 and 27b rebuilt with new layout; strict validation remains clean. Await engine visual verdict. Current registry examples expose 1-/2-line headers; no confirmed native 3-line exec node in this test set. Text export does not preserve rendered title wrapping, so a three-line title (if encountered) still needs a real copy-back to calibrate.

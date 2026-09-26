@@ -418,6 +418,19 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(pw >= 272 && pw <= 296, `estNodeWidth: Pause Timer by Handle ≈ 288 (${pw})`);
   ok(estNodeWidth(createCallFunction(byId('PrintString'))) < 300, 'estNodeWidth: advanced-пины (свёрнуты) ширину не раздувают');
   ok(estNodeWidth(createBranch({ x: 0, y: 0 })) < estNodeWidth(createCallFunction(byId('Delay'))), 'estNodeWidth: Branch уже CallFunction с подзаголовком «Target is …»');
+  // Exec rows align by pin center, accounting for one-line vs two-line headers.
+  {
+    const { layoutRows, pinCenterY } = await import('../src/generator.js');
+    const one = createBranch({ x: 0, y: 0 });
+    const twoA = createCallFunction(byId('ClearAllMappings'), { x: 0, y: 0 });
+    const twoB = createCallFunction(byId('FlushPlayerInput'), { x: 0, y: 0 });
+    const row = [one, twoA, twoB];
+    layoutRows(row, { perRow: 3, rowGap: 0 });
+    const execOut = n => n.pins.find(p => p.category === 'exec' && p.direction === 'Output' && p.name !== 'Default');
+    const centers = row.map(n => pinCenterY(n, execOut(n)));
+    ok(Math.max(...centers) - Math.min(...centers) <= 1, `layoutRows: exec pin центры совмещены у шапок в 1 и 2 строки (${centers.join('/')})`);
+    ok(twoA.pos.y < one.pos.y, `layoutRows: двухстрочная шапка поднята относительно однострочной (${twoA.pos.y} < ${one.pos.y})`);
+  }
   const s1 = createCallFunction(byId('SphereTraceSingle'));
   const c1 = createCallFunction(byId('CapsuleTraceSingle'));
   const fo = createCallFunction(byId('LineTraceSingleForObjects'));
