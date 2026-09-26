@@ -420,16 +420,23 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(estNodeWidth(createBranch({ x: 0, y: 0 })) < estNodeWidth(createCallFunction(byId('Delay'))), 'estNodeWidth: Branch уже CallFunction с подзаголовком «Target is …»');
   // Exec rows align by pin center, accounting for one-line vs two-line headers.
   {
-    const { layoutRows, pinCenterY } = await import('../src/generator.js');
+    const { layoutRows, pinCenterY, snapToGrid } = await import('../src/generator.js');
     const one = createBranch({ x: 0, y: 0 });
     const twoA = createCallFunction(byId('ClearAllMappings'), { x: 0, y: 0 });
     const twoB = createCallFunction(byId('FlushPlayerInput'), { x: 0, y: 0 });
+    linkPins(one, 'then', twoA, 'execute', { align: false });
+    linkPins(one, 'else', twoB, 'execute', { align: false });
     const row = [one, twoA, twoB];
     layoutRows(row, { perRow: 3, rowGap: 0 });
-    const execOut = n => n.pins.find(p => p.category === 'exec' && p.direction === 'Output' && p.name !== 'Default');
-    const centers = row.map(n => pinCenterY(n, execOut(n)));
-    ok(Math.max(...centers) - Math.min(...centers) <= 1, `layoutRows: exec pin центры совмещены у шапок в 1 и 2 строки (${centers.join('/')})`);
-    ok(twoA.pos.y < one.pos.y, `layoutRows: двухстрочная шапка поднята относительно однострочной (${twoA.pos.y} < ${one.pos.y})`);
+    snapToGrid(row, { xOnly: true });
+    const execIn = n => n.pins.find(p => p.category === 'exec' && p.direction === 'Input' && p.name === 'execute');
+    const execOut = n => n.pins.find(p => p.category === 'exec' && p.direction === 'Output' && p.name === 'then');
+    const outThen = one.pins.find(p => p.name === 'then' && p.direction === 'Output');
+    const outElse = one.pins.find(p => p.name === 'else' && p.direction === 'Output');
+    const d1 = Math.abs(pinCenterY(one, outThen) - pinCenterY(twoA, execIn(twoA)));
+    const d2 = Math.abs(pinCenterY(one, outElse) - pinCenterY(twoB, execIn(twoB)));
+    ok(d1 <= 1 && d2 <= 1, `layoutRows: совмещаются конкретные linked exec pins, включая Branch.then/else (${d1}/${d2})`);
+    ok(twoA.pos.y !== twoB.pos.y, `layoutRows: разные exec-выходы Branch ставят цели на разную высоту (${twoA.pos.y}/${twoB.pos.y})`);
   }
   const s1 = createCallFunction(byId('SphereTraceSingle'));
   const c1 = createCallFunction(byId('CapsuleTraceSingle'));
@@ -826,7 +833,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(knots.every(b => /PinName="InputPin",PinType\.PinCategory="exec"/.test(b) && /PinName="OutputPin",Direction="EGPD_Output",PinType\.PinCategory="exec"/.test(b)), 'R30: knot-пины exec');
   ok(knots.every(b => /PinName="InputPin"[^\n]*bDefaultValueIsIgnored=True/.test(b)), 'R30: InputPin ignored (как copy-back)');
   ok(knots.every(b => (b.match(/LinkedTo=\(/g) || []).length === 2), 'R30: каждый knot связан вход+выход');
-  ok([...dec.matchAll(/NodePos[XY]=(-?\d+)/g)].every(m => Number(m[1]) % 16 === 0 || /-?(60|110)$/.test(m[1])), 'R30: сетка 16 (кроме коммента)');
+  ok([...dec.matchAll(/NodePosX=(-?\d+)/g)].every(m => Number(m[1]) % 16 === 0 || Number(m[1]) === -60), 'R30: X-сетка 16 (кроме коммента; Y сохраняет выравнивание Exec-пинов)');
   ok(validateStrict(dec).errors.length === 0, 'R30: decorate 0 ошибок');
   const s30 = fs.readFileSync(new URL('../sweep/30-decorate.txt', import.meta.url), 'utf8');
   const knotCount = t => (t.match(/Begin Object Class=\/Script\/BlueprintGraph\.K2Node_Knot /g) || []).length;
@@ -873,7 +880,13 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(validateStrict(t).errors.length === 0, '27b: 0 ошибок');
   const pos = name => { const b = t.split('Begin Object').find(x => x.includes(`Name="${name}"`)); return [+b.match(/NodePosX=(-?\d+)/)[1], +b.match(/NodePosY=(-?\d+)/)[1]]; };
   const [gx, gy] = pos('K2Node_CallFunction_100'), [cx, cy] = pos('K2Node_CreateWidget_5001'), [ex, ey] = pos('K2Node_CustomEvent_5000');
-  ok(ey === cy, '27b: событие в одном ряду с Create Widget (прямая exec)');
+  {
+    const { pinCenterY } = await import('../src/generator.js');
+    const nodes = Object.values(parseToGraphs(t))[0].nodes;
+    const ev = nodes.find(n => n.id === 'K2Node_CustomEvent_5000'), cw = nodes.find(n => n.id === 'K2Node_CreateWidget_5001');
+    const ep = ev.pins.find(p => p.name === 'then' && p.direction === 'Output'), cp = cw.pins.find(p => p.name === 'execute' && p.direction === 'Input');
+    ok(Math.abs(pinCenterY(ev, ep) - pinCenterY(cw, cp)) <= 1, '27b: exec-пин события совмещён с execute Create Widget');
+  }
   ok(gy > cy && gx < cx, '27b: Get Player Controller — под рядом и левее входа Create Widget');
   ok((t.match(/Begin Object Class=\/Script\/BlueprintGraph\.K2Node_Knot /g) || []).length === 4, '27b: 4 exec-knot\'а');
 }

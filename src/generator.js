@@ -303,6 +303,8 @@ export function createComment(text, pos = { x: 0, y: 0 }, w = 400, h = 180) {
 /** Комментарий, накрывающий ноды: бокс по граням + отступы (L-фидбек: 400x180 не накрывает). */
 /** Шаг строки пинов (px). Единая оценка для fitComment и alignPinRow. */
 export const PIN_ROW_H = 22;
+// Engine copy-back (R28): an extra title/subtitle header line shifts node pins by ~32 px.
+export const HEADER_LINE_H = 32;
 
 /** Оценка ширины ноды (px) — по геометрии Slate-ноды, а не по фиксированной базе класса.
  *  R30-фидбек: база 340 у CallFunction завышала (Pause Timer by Handle в движке ≈ 288) — knot переноса
@@ -449,16 +451,24 @@ export function layoutRows(nodes, { x0 = 0, y0 = 0, perRow = 0, maxWidth = 0, ga
   let y = y0;
   for (const r of rows) {
     layoutRow(r, x0, y, gap);
-    // Align each exec chain by the actual estimated exec-pin center, not node tops.
-    // A subtitle adds a header line, so a two-line node must sit higher by one pin row
-    // for its exec pin to meet the neighboring one-line node's exec pin.
-    const execPin = n => n.pins.find(p => p.category === 'exec' &&
-      ((p.direction === 'Output' && p.name !== 'Default' && p.name !== 'CastFailed') || p.name === 'execute'));
-    const offsets = r.map(n => { const p = execPin(n); return p ? pinCenterY({ ...n, pos: { x: n.pos.x, y: 0 } }, p) : null; }).filter(v => v !== null);
-    const baseline = y + Math.max(0, ...offsets);
-    for (const n of r) {
-      const p = execPin(n);
-      if (p) n.pos.y = baseline - pinCenterY({ ...n, pos: { x: n.pos.x, y: 0 } }, p);
+    // Align connected exec pins pair-by-pair. A node can have several exec pins
+    // at distinct rows (Branch.then / Branch.else); choosing one representative pin
+    // per node is incorrect. Walk the row left-to-right and place each target from
+    // the exact linked source/target pin centers.
+    const inRow = new Set(r.map(n => n.id));
+    const ordered = [...r].sort((a, b) => a.pos.x - b.pos.x);
+    for (const a of ordered) {
+      for (const fp of a.pins.filter(p => p.category === 'exec' && p.direction === 'Output')) {
+        for (const l of fp.linkedTo || []) {
+          if (!inRow.has(l.nodeName)) continue;
+          const b = ordered.find(n => n.id === l.nodeName);
+          const tp = b?.pins.find(p => p.id === l.pinId && p.category === 'exec' && p.direction === 'Input');
+          if (!b || !tp) continue;
+          const sourceY = pinCenterY(a, fp);
+          const targetOffset = pinCenterY({ ...b, pos: { x: b.pos.x, y: 0 } }, tp);
+          b.pos.y = sourceY - targetOffset;
+        }
+      }
     }
     const bottom = Math.max(...r.map(n => n.pos.y + estNodeHeight(n)));
     y = bottom + rowGap;
@@ -473,12 +483,12 @@ export function pinCenterY(n, pin) {
   const { sub, compact } = nodeTitleParts(n);
   // UE paints a second header line for a function subtitle (e.g. "Target is …").
   // Pins start below that line; the old fixed 34px offset aligned node tops, not exec pins.
-  const header = compact ? 18 : 34 + (sub ? PIN_ROW_H : 0);
+  const header = compact ? 18 : 34 + (sub ? HEADER_LINE_H : 0);
   return n.pos.y + header + Math.max(0, vis.indexOf(pin)) * PIN_ROW_H + PIN_ROW_H / 2;
 }
 
 /** Все координаты на сетку 16 (как «Straighten/Align» в редакторе). */
-export function snapToGrid(nodes) { for (const n of nodes) { n.pos.x = snap(n.pos.x); n.pos.y = snap(n.pos.y); } return nodes; }
+export function snapToGrid(nodes, { xOnly = false } = {}) { for (const n of nodes) { n.pos.x = snap(n.pos.x); if (!xOnly) n.pos.y = snap(n.pos.y); } return nodes; }
 
 /** Exec-связи с перепадом → knot'ы. Возвращает НОВЫЕ узлы (добавить в вывод).
  *  • назад (вход левее выхода — перенос на ряд ниже/позади): 2 knot'а на «коридоре» между рядами —
@@ -560,8 +570,12 @@ export function layoutDecorated(top, data, { perRow = 0, maxWidth = 0, gap = ROW
   for (const n of data) { const a = anchorOf(n); if (a) buckets[rowOf.get(a.a)].push({ n, ...a }); else loose.push(n); }
   let y = 0;
   rows.forEach((r, i) => {
-    r.forEach(n => { n.pos.y = y; });
-    let bottom = y + Math.max(...r.map(estNodeHeight));
+    // Keep layoutRows' per-node Y offsets (exec-pin alignment) while shifting the
+    // whole row below prior data subrows.
+    const rowTop = Math.min(...r.map(n => n.pos.y));
+    const shift = y - rowTop;
+    r.forEach(n => { n.pos.y += shift; });
+    let bottom = Math.max(...r.map(n => n.pos.y + estNodeHeight(n)));
     const b = buckets[i].sort((p, q) => p.a.pos.x - q.a.pos.x || q.d - p.d);
     if (b.length) {
       const sy = bottom + subGap; let cursor = -Infinity;

@@ -166,7 +166,7 @@ if (decorate) {
   layoutRow(top, 0, 0);
   layoutRow(bottom, 0, 420);
 }
-if (decorate) snapToGrid(nodes);
+if (decorate) snapToGrid(nodes, { xOnly: true }); // сохраняем точное Y-выравнивание подключённых exec-пинов (R28)
 if (decorate) nodes.push(...decorateExec(nodes));
 const cm = fitComment(title || `Модуль: ${specs.filter(s => !s.startsWith('link') && s.trim() !== 'row').map(s => s.split(/\s+/).slice(0, 2).join(' ')).join(' → ')}`, nodes);
 const text = generateUEText([cm, ...nodes], { root });
