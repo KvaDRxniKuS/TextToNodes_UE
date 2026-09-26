@@ -8,6 +8,6 @@ node tools/make-node.mjs --chain --decorate --wrap 4 --title "R32: компон�
  "call ActorComponent.IsComponentTickEnabled pure -> ReturnValue:bool" \
  "call Actor.K2_GetComponentsByClass pure ComponentClass:class:ActorComponent=StaticMeshComponent -> ReturnValue:object:ActorComponent[]" \
  "call Actor.GetComponentsByTag pure ComponentClass:class:ActorComponent=StaticMeshComponent Tag:name=Wheel -> ReturnValue:object:ActorComponent[]" \
- "call WidgetBlueprintLibrary.GetAllWidgetsOfClass static WidgetClass:class:UserWidget TopLevelOnly:bool=true -> FoundWidgets:object:UserWidget[]" \
+ "call /Script/UMG.WidgetBlueprintLibrary.GetAllWidgetsOfClass static WidgetClass:class:/Script/UMG.UserWidget TopLevelOnly:bool=true -> FoundWidgets:object:/Script/UMG.UserWidget[]" \
  "call ActorComponent.K2_DestroyComponent" \
  "link 2.ReturnValue 3.self" "link 2.ReturnValue 4.self" "link 2.ReturnValue 5.self" "link 2.ReturnValue 6.self" "link 2.ReturnValue 10.self"

@@ -908,6 +908,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(validateStrict(t).valid, '32: 0 ошибок (строго)');
   ok(!t.includes('ExportPath=') && t.split('\n').filter(l => l.includes('CustomProperties Pin')).every(l => l.includes('PersistentGuid=0')), '32: новый формат (без ExportPath, PersistentGuid)');
   ok(['Deactivate', 'Activate', 'SetComponentTickEnabled', 'IsComponentTickEnabled', 'K2_GetComponentsByClass', 'GetComponentsByTag', 'GetAllWidgetsOfClass', 'K2_DestroyComponent'].every(f => t.includes(`MemberName="${f}"`)), '32: все 8 функций');
+  ok(!/Engine\.(UserWidget|WidgetBlueprintLibrary)'/.test(t) && t.includes('DefaultObject="/Script/UMG.Default__WidgetBlueprintLibrary"'), '32: UMG-классы с модулем UMG, не Engine');
 }
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);
