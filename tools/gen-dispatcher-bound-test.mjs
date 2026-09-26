@@ -12,8 +12,8 @@ const dispatcher='NewEventDispatcher_Probe';
 const dispatcherGuid='073EE614EED927BA45E99D9984BCAF70';
 const signatureGuid='901C1E11766DF5CC94200F263776D2F8';
 const startName='DispatcherProbeBoundStart';
-function make(short,id,x,rawProps=[],pins=[]) {
-  return {id,className:`BlueprintGraph.${short}`,rawClass:`/Script/BlueprintGraph.${short}`,title:short,guid:guid32(),pos:{x,y:0},rawProps,pins};
+function make(short,id,x,rawProps=[],pins=[],y=0) {
+  return {id,className:`BlueprintGraph.${short}`,rawClass:`/Script/BlueprintGraph.${short}`,title:short,guid:guid32(),pos:{x,y},rawProps,pins};
 }
 const exec=(name,dir)=>mkPin(name,dir,'exec');
 const self=()=>mkPin('self','Input','object',{subObj:bp});
@@ -25,12 +25,12 @@ function delegatePin(){
 }
 const start=make('K2Node_CustomEvent','K2Node_CustomEvent_3000',0,[`CustomFunctionName="${startName}"`],[
   mkPin('OutputDelegate','Output','delegate',{memberRef:`MemberName="${startName}"`}),exec('then','Output')
-]);
-const add=make('K2Node_AddDelegate','K2Node_AddDelegate_3002',320,ref(),[exec('execute','Input'),exec('then','Output'),self(),delegatePin()]);
-const call=make('K2Node_CallDelegate','K2Node_CallDelegate_3001',640,ref(),[exec('execute','Input'),exec('then','Output'),self()]);
-const remove=make('K2Node_RemoveDelegate','K2Node_RemoveDelegate_3003',960,ref(),[exec('execute','Input'),exec('then','Output'),self(),delegatePin()]);
-const clear=make('K2Node_ClearDelegate','K2Node_ClearDelegate_3004',1280,ref(),[exec('execute','Input'),exec('then','Output'),self()]);
-const handler=createCustomEvent('DispatcherProbeHandler',[],{x:320,y:240});
+],-20);
+const add=make('K2Node_AddDelegate','K2Node_AddDelegate_3002',280,ref(),[exec('execute','Input'),exec('then','Output'),self(),delegatePin()]);
+const call=make('K2Node_CallDelegate','K2Node_CallDelegate_3001',560,ref(),[exec('execute','Input'),exec('then','Output'),self()]);
+const remove=make('K2Node_RemoveDelegate','K2Node_RemoveDelegate_3003',840,ref(),[exec('execute','Input'),exec('then','Output'),self(),delegatePin()]);
+const clear=make('K2Node_ClearDelegate','K2Node_ClearDelegate_3004',1120,ref(),[exec('execute','Input'),exec('then','Output'),self()]);
+const handler=createCustomEvent('DispatcherProbeHandler',[],{x:280,y:240});
 const handlerDelegate=handler.pins.find(p=>p.name==='OutputDelegate');
 handlerDelegate.memberRef=`MemberParent=${bp},MemberName="DispatcherProbeHandler",MemberGuid=${handler.guid}`;
 function link(a,out,b,input){const p=a.pins.find(x=>x.name===out),q=b.pins.find(x=>x.name===input);p.linkedTo.push({nodeName:b.id,pinId:q.id});q.linkedTo.push({nodeName:a.id,pinId:p.id});}

@@ -789,7 +789,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   const dbNodes = Object.values(parseToGraphs(db))[0].nodes;
   const bySuffix = suffix => dbNodes.find(n => n.className.endsWith(suffix));
   ok(validateStrict(db).errors.length===0 && db.includes('MemberName=\"NewEventDispatcher_Probe\"'), 'Dispatcher probe: bound custom event uses self dispatcher');
-  ok([['K2Node_CustomEvent_3000',0],['K2Node_AddDelegate_3002',320],['K2Node_CallDelegate_3001',640],['K2Node_RemoveDelegate_3003',960],['K2Node_ClearDelegate_3004',1280]].every(([id,x])=>dbNodes.find(n=>n.id===id)?.pos.x===x) && dbNodes.find(n=>n.id==='K2Node_CustomEvent_5000')?.pos.x===320, 'Dispatcher probe: graph columns follow Start→Add→Call→Remove→Clear, handler below Add');
+  ok([['K2Node_CustomEvent_3000',0],['K2Node_AddDelegate_3002',280],['K2Node_CallDelegate_3001',560],['K2Node_RemoveDelegate_3003',840],['K2Node_ClearDelegate_3004',1120]].every(([id,x])=>dbNodes.find(n=>n.id===id)?.pos.x===x) && dbNodes.find(n=>n.id==='K2Node_CustomEvent_3000')?.pos.y===-20 && dbNodes.find(n=>n.id==='K2Node_CustomEvent_5000')?.pos.x===280, 'Dispatcher probe: graph columns follow Start→Add→Call→Remove→Clear, handler below Add');
   ok(db.split('LinkedTo=(K2Node_CustomEvent_5000').length-1===2, 'Dispatcher probe: callback linked to both Add and Remove Delegate pins');
 }
 // R27 pre: Widgets / UI + конструктор widget/get/set
