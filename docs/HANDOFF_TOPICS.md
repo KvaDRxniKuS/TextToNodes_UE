@@ -139,7 +139,11 @@
 
 Latest verdict 2026-09-26: «высота Branch корректна, но Flush не на высоте false, а ровно посередине; между уровнями одна клетка вместо двух». After feedback that 32px still left Flush one cell too high, increased Branch.else target offset by another 16px; test now verifies NodePosY delta Clear→Flush = 48 px. Awaiting UE confirmation.
 
-### Pin-height mechanism (2026-09-26)
+### Pin-height mechanism and 3×3 collapsed-node probe (2026-09-26)
 
-- Treat vertical pin placement as explicit grid-step math, not node-specific Flush coordinates: `PIN_GRID_STEP=16px`; each exec wire target is positioned by the source pin's row offset and target pin's row offset. `Branch.then` anchors at one grid step; the false level includes five intervening Knot-height steps (`else = (1 + 5) * 16px` from the Branch base). Current test therefore places `FlushPlayerInput` at Y=80 relative to `ClearAllMappings` at Y=0 (two more grid steps than the previously delivered Y=48 file). 
-- `PIN_ROW_H=22` remains the text/pin-list row estimate for non-exec geometry; exec/knot routing levels use the 16px grid step. Generalizing to arbitrary nodes with six mixed output pins must use visible-pin order plus one `PIN_GRID_STEP` per adjacent pin slot; keep the Branch true/false separator from the 5-knot reference as its node's pin topology, not a `FlushPlayerInput` special case.
+- User copy-back of a collapsed node with six outputs establishes the vertical pin-row pitch: consecutive visible input/output pins are 32px apart (two 16px grid cells), irrespective of pin category. `PIN_ROW_H=32` is the shared vertical row step used by `pinCenterY`, `alignPinRow`, and node-height estimates. Horizontal test-knot stagger remains `KNOT_X_STEP=16`.
+- `tools/gen-collapsed-knot-test.mjs` writes `sweep/collapsed-knot-3x3-test.txt`: valid-shaped `K2Node_Composite`, 3 inputs / 3 outputs (one exec + two interface on each side), and nine unconnected knot probes. Each row has one knot 16px outside the input edge, one midpoint knot, and one 16px outside the output edge; adjacent pin levels are 32px apart. All conditions are asserted in `tests/validate.test.mjs`.
+- This is a layout probe, not engine-verified yet; run `node tools/gen-collapsed-knot-test.mjs` to reproduce. User requested that generated files not be opened in the viewer after edits.
+
+
+User test request fulfilled: three inputs, three outputs, each row has three unconnected reroutes (input side −16, midpoint, output side +16); 32px vertical pin-row pitch based on supplied composite dump. Waiting on UE visual verdict.

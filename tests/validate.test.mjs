@@ -293,9 +293,9 @@ regThrow.forEach(t => console.log('THROW:', t));
   linkPins(la, 'then', lf, 'Exec');
   ok(lf.pos.y === 0, 'align: exec-линки не двигают (цепочки в ряд)');
   linkPins(la, 'OutHits', lf, 'Array');
-  ok(lf.pos.y === 198, 'align: OutHits->Array выравнивает data-провод (last wins, WCO скрыт)');
+  ok(lf.pos.y === 288, 'align: OutHits->Array выравнивает data-провод (last wins, WCO скрыт)');
   linkPins(lf, 'Array Element', lb, 'Hit');
-  ok(lb.pos.y === 264, 'align: каскад Element(3)->Hit(0)');
+  ok(lb.pos.y === 384, 'align: каскад Element(3)->Hit(0)');
   const lc = createCallFunction(byId('Delay'), { x: 0, y: 100 });
   const ld = createCallFunction(byId('Delay'), { x: 320, y: 100 });
   linkPins(lc, 'then', ld, 'execute', { align: false });
@@ -438,7 +438,7 @@ regThrow.forEach(t => console.log('THROW:', t));
     const d2 = Math.abs(pinCenterY(twoA, outTwoA) - pinCenterY(twoB, execIn(twoB)));
     ok(d1 <= 1 && d2 <= 1, `layoutRows: Branch.then→Clear.execute и Clear.then→Flush.execute центры совпадают (${d1}/${d2})`);
     ok(twoA.pos.y === twoB.pos.y, `layoutRows: ClearAllMappings и FlushPlayerInput NodePosY совпадают, их exec-пины связаны (${twoA.pos.y}/${twoB.pos.y})`);
-    ok(pinCenterY(one, outElse) - pinCenterY(one, outThen) === 80, 'layoutRows: Branch.then и Branch.else — разные вертикальные ряды');
+    ok(pinCenterY(one, outElse) - pinCenterY(one, outThen) === 32, 'layoutRows: Branch.then и Branch.else — разные вертикальные ряды');
   }
   const s1 = createCallFunction(byId('SphereTraceSingle'));
   const c1 = createCallFunction(byId('CapsuleTraceSingle'));
@@ -844,9 +844,25 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(epairs.length === 3 && epairs.every(([a, p, b, q]) => Math.abs(py(a, p) - py(b, q)) <= 1), 'Exec alignment: Event→Branch, then→Clear, else→Flush pin centers coincide');
   const clearA = eg.find(n => n.funcName === 'ClearAllMappings'), flushA = eg.find(n => n.funcName === 'FlushPlayerInput'), branchElse = eg.find(n => n.className.includes('IfThenElse'));
   ok(branchElse.pins.find(p => p.name === 'then').linkedTo[0]?.nodeName === clearA.id && branchElse.pins.find(p => p.name === 'else').linkedTo[0]?.nodeName === flushA.id, 'Exec topology: true→Clear, false→Flush');
-  ok(flushA.pos.y - clearA.pos.y === 80, `Exec alignment: Branch true/false branches separated by two 16px grid steps (${clearA.pos.y}/${flushA.pos.y})`);
+  ok(flushA.pos.y - clearA.pos.y === 32, `Exec alignment: adjacent Branch outputs use one 32px pin row (${clearA.pos.y}/${flushA.pos.y})`);
   const execEventA = eg.find(n => n.rawLines.some(l => l.includes('CustomFunctionName="A"'))), brA = eg.find(n => n.className.includes('IfThenElse'));
   ok(execEventA && brA && brA.pos.y - execEventA.pos.y === 16, `Exec alignment: Branch на один шаг выше старого офсета от Custom Event (${execEventA?.pos.y}/${brA?.pos.y})`);
+  // 3×3 collapsed-node geometry probe: 32px between pin rows, lateral loose-knot probes ±16.
+  {
+    const text = fs.readFileSync(new URL('../sweep/collapsed-knot-3x3-test.txt', import.meta.url), 'utf8');
+    const pinRef = fs.readFileSync(new URL('./fixtures/collapsed-6-output-layout-reference.md', import.meta.url), 'utf8');
+    const graph = Object.values(parseToGraphs(text))[0];
+    const comp = graph.nodes.find(n => n.isComposite), knots = graph.nodes.filter(n => n.isReroute);
+    const { pinCenterY: py, estNodeWidth: ew, PIN_ROW_H, KNOT_X_STEP } = await import('../src/generator.js');
+    const ins = comp.pins.filter(p => p.direction === 'Input'), outs = comp.pins.filter(p => p.direction === 'Output');
+    const ys = [...new Set(knots.map(k => k.pos.y))].sort((a,b)=>a-b);
+    const byY = y => knots.filter(k => k.pos.y === y);
+    const width = ew(comp);
+    ok(validateStrict(text).errors.length === 0 && comp.isComposite && ins.length === 3 && outs.length === 3, 'Collapsed test: валидная K2Node_Composite с 3 входами/3 выходами');
+    ok(knots.length === 9 && knots.every(k => k.pins.every(p => !p.linkedTo.length)), 'Collapsed test: 9 Knot проб, все полностью неподключённые');
+    ok(pinRef.includes('32 px vertical pitch') && ys.length === 3 && ys[1]-ys[0]===PIN_ROW_H && ys[2]-ys[1]===PIN_ROW_H && ins.every((p,i)=>py(comp,p)===byY(ys[i])[0].pos.y+8), 'Collapsed test: 32px шаг подтверждён 6-output copy-back; Knot центры по уровням входов');
+    ok(ys.every(y=>byY(y).length===3&&byY(y).some(k=>k.pos.x===-KNOT_X_STEP)&&byY(y).some(k=>k.pos.x===Math.round(width/2))&&byY(y).some(k=>k.pos.x===width+KNOT_X_STEP)), 'Collapsed test: на каждом уровне Knot слева −16 / между / справа +16');
+  }
   const s30 = fs.readFileSync(new URL('../sweep/30-decorate.txt', import.meta.url), 'utf8');
   const knotCount = t => (t.match(/Begin Object Class=\/Script\/BlueprintGraph\.K2Node_Knot /g) || []).length;
   ok(validateStrict(s30).errors.length === 0 && knotCount(s30) === 4, 'R30: sweep 0 ошибок, 4 knot\'а');

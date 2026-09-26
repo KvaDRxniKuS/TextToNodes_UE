@@ -302,12 +302,15 @@ export function createComment(text, pos = { x: 0, y: 0 }, w = 400, h = 180) {
 
 /** Комментарий, накрывающий ноды: бокс по граням + отступы (L-фидбек: 400x180 не накрывает). */
 /** Шаг строки пинов (px). Единая оценка для fitComment и alignPinRow. */
-export const PIN_ROW_H = 22;
-// Engine copy-back (R28): an extra title/subtitle header line shifts node pins by ~32 px.
+// UE pin rows from the collapsed-graph copy-back: adjacent visible pins are 32px apart (2 grid cells).
+export const PIN_ROW_H = 32;
+export const PIN_CENTER_OFFSET = 11; // first pin center below its header
+// Engine copy-back: an extra title/subtitle header line shifts node pins by ~32 px.
 export const HEADER_LINE_H = 32;
-// Blueprint coordinate grid. Exec pin levels and reroute guides are expressed as integer grid steps.
-export const PIN_GRID_STEP = 16;
-const BRANCH_FALSE_GAP_STEPS = 5; // copy-back reference: five knot-height intervals between true and false levels
+// Blueprint grid step used for lateral Knot staggering (input side -16, output side +16).
+export const KNOT_X_STEP = 16;
+// Vertical pin pitch is one pin-row step, independent of the 16px horizontal grid cell.
+export const PIN_GRID_STEP = PIN_ROW_H;
 
 /** Оценка ширины ноды (px) — по геометрии Slate-ноды, а не по фиксированной базе класса.
  *  R30-фидбек: база 340 у CallFunction завышала (Pause Timer by Handle в движке ≈ 288) — knot переноса
@@ -479,7 +482,7 @@ export function layoutRows(nodes, { x0 = 0, y0 = 0, perRow = 0, maxWidth = 0, ga
   return { rows, bottom: y };
 }
 
-/** Y центра пина (приближённо): шапка ~34px, строка 22px; knot — центр ~8px. */
+/** Y центра пина (оценка): шапка ~34px + subtitle; соседние pin rows = 32px; knot center = NodePosY + 8px. */
 export function pinCenterY(n, pin) {
   if ((n.className || '').includes('Knot')) return n.pos.y + 8;
   const vis = n.pins.filter(p => !p.hidden && p.direction === pin.direction && p.name !== 'OutputDelegate'); // делегат — в шапке
@@ -489,13 +492,8 @@ export function pinCenterY(n, pin) {
   // not vertically equivalent to execute. Keep each output's own row offset.
   const headerExtra = (n.className || '').includes('CustomEvent') ? 16 : (sub ? HEADER_LINE_H : 0);
   const header = compact ? 18 : 34 + headerExtra;
-  let rowOffset = Math.max(0, vis.indexOf(pin)) * PIN_ROW_H;
-  if ((n.className || '').includes('IfThenElse') && pin.direction === 'Output') {
-    rowOffset = pin.name === 'then' ? PIN_GRID_STEP
-      : pin.name === 'else' ? PIN_GRID_STEP * (1 + BRANCH_FALSE_GAP_STEPS)
-        : rowOffset;
-  }
-  return n.pos.y + header + rowOffset + PIN_ROW_H / 2;
+  const rowOffset = Math.max(0, vis.indexOf(pin)) * PIN_ROW_H;
+  return n.pos.y + header + rowOffset + PIN_CENTER_OFFSET;
 }
 
 /** Все координаты на сетку 16 (как «Straighten/Align» в редакторе). */
