@@ -79,11 +79,13 @@ L.push('Для сломанных нод прикладывайте copy-back ц
 L.push('');
 L.push('Известные оговорки (не баги свипа):');
 L.push('- 02-variables: VariableReference указывает на несуществующую переменную (MemberName из реестра, случайный MemberGuid) — движок подсветит неизвестную переменную, это ожидаемо; нужны референсы из BP с настоящими переменными.');
-L.push('- MakeArray/MakeSet/MakeMap/Select (19-organization): форма смоделирована механически (sub Array/Set/Map → ContainerType) — движок арбитр, ждём copy-back.');
+L.push('- MakeArray/MakeSet/MakeMap: форма смоделирована по механике типов контейнера; проверяйте в движке при использовании. Enum Select для EDrawDebugTrace использует отдельную копию из UE (sweep/enum-select-test.txt); не обобщать её на пользовательские enum без reference.');
 L.push('- Макросы без GraphGuid (W07 в 01-flow-control): движок обычно прощает; guid доберём из copy-back.');
 L.push('- W09: у записи есть note — вставляйте внимательнее, это зафиксированные сомнения.');
 L.push('');
-L.push('| # | Файл | Нод | Verified | Noted | Err | Warn |');
+L.push('Колонка `Registry verified` буквально считает записи с `verified: true` в реестре; она не означает, что каждая запись категории была отдельно перепроверена в одном UE-сеансе. `Warn` — предупреждения локального валидатора.');
+L.push('');
+L.push('| # | Файл | Нод | Registry verified | Notes | Err | Warn |');
 L.push('|---|---|---|---|---|---|---|');
 report.forEach((r, i) => {
   const wc = {};

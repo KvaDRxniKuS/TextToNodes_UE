@@ -2,7 +2,8 @@
 // reciprocal links; do not call arrangement or decoration from this module.
 export { mkPin, linkPins } from './generator.js';
 export {
-  createCallFunction, createMacroInstance, createBranch, createSequence,
-  createKnot, createComment, createFromEntry,
+  createCallFunction, createOperator, createMacroInstance, createStructNode,
+  createSequence, createSwitch, createVariableGet, createBranch, createKnot,
+  createGeneric, createCast, createFromEntry, createComment,
 } from './generator.js';
 export * from './modules.js';

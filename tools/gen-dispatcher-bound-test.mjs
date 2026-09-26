@@ -39,7 +39,7 @@ link(handler,'OutputDelegate',add,'Delegate'); link(handler,'OutputDelegate',rem
 arrangeRows([[start,add,call,remove,clear]],{x:0,y:0,gap:160,rowGap:160});
 handler.pos={x:add.pos.x,y:add.pos.y+160};
 const positioned=[start,add,call,remove,clear,handler];
-const layoutResult=decorateLayout(positioned,{clearance:160,addExecKnots:false});
+const layoutResult=decorateLayout(positioned,{clearance:160});
 const text=generateUEText([...positioned,...layoutResult.knots])+'\n';
 const v=validateStrict(text);
 fs.writeFileSync('sweep/dispatcher-probe-bound.txt',text);

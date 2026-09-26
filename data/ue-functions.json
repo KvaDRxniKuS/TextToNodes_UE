@@ -9186,13 +9186,39 @@
   "className": "/Script/BlueprintGraph.K2Node_Select",
   "func": "",
   "pins": [
-   {"name":"Option 0","dir":"Input","cat":"wildcard"},
-   {"name":"Option 1","dir":"Input","cat":"wildcard"},
-   {"name":"Index","dir":"Input","cat":"byte","enum":"EDrawDebugTrace","dv":"None"},
-   {"name":"ReturnValue","dir":"Output","cat":"wildcard"}
+   {
+    "name": "Option 0",
+    "dir": "Input",
+    "cat": "wildcard"
+   },
+   {
+    "name": "Option 1",
+    "dir": "Input",
+    "cat": "wildcard"
+   },
+   {
+    "name": "Index",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EDrawDebugTrace",
+    "dv": "None"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "wildcard"
+   }
   ],
-  "enumEntries": ["None","ForOneFrame","ForDuration","Persistent"],
-  "enumDisplayNames": {"ForOneFrame":"For One Frame","ForDuration":"For Duration"},
+  "enumEntries": [
+   "None",
+   "ForOneFrame",
+   "ForDuration",
+   "Persistent"
+  ],
+  "enumDisplayNames": {
+   "ForOneFrame": "For One Frame",
+   "ForDuration": "For Duration"
+  },
   "verified": true,
   "note": "User UE copy-back 2026-09-26: NumOptionPins=4, Enum/EnumEntries, enum-named wildcard options and localized PinFriendlyName.",
   "desc": "Select с EDrawDebugTrace"
@@ -14822,9 +14848,9 @@
     "const": true
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Убрать контекст ввода",
-  "note": "round28-pre: член IEnhancedInputSubsystemInterface; Options опущен (как в AddMappingContext R21b)"
+  "note": "R28 VERIFIED (движок, 2026-09-26): член IEnhancedInputSubsystemInterface; Options опущен (как в AddMappingContext R21b)"
  },
  {
   "id": "ClearAllMappings",
@@ -14851,9 +14877,9 @@
     "object": "/Script/EnhancedInput.EnhancedInputLocalPlayerSubsystem"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Снять все контексты",
-  "note": "round28-pre: член IEnhancedInputSubsystemInterface"
+  "note": "R28 VERIFIED (движок, 2026-09-26): член IEnhancedInputSubsystemInterface"
  },
  {
   "id": "HasMappingContext",
@@ -14887,9 +14913,9 @@
     "cat": "bool"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Контекст добавлен? + приоритет",
-  "note": "round28-pre: const-член → pure в BP",
+  "note": "R28 VERIFIED (движок, 2026-09-26): const-член → pure в BP",
   "pure": true
  },
  {
@@ -14922,9 +14948,9 @@
     "container": "Array"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Клавиши, назначенные на IA",
-  "note": "round28-pre: const-член → pure, RV TArray<FKey>"
+  "note": "R28 VERIFIED (движок, 2026-09-26): const-член → pure, RV TArray<FKey>"
  },
  {
   "id": "InjectInputForAction",
@@ -14982,9 +15008,9 @@
     "ref": true
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Сымитировать ввод IA (InputActionValue)",
-  "note": "round28-pre: Modifiers/Triggers AutoCreateRefTerm — можно не подключать"
+  "note": "R28 VERIFIED (движок, 2026-09-26): Modifiers/Triggers AutoCreateRefTerm — можно не подключать"
  },
  {
   "id": "InjectInputVectorForAction",
@@ -15042,9 +15068,9 @@
     "ref": true
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Сымитировать ввод IA (вектор)",
-  "note": "round28-pre: Modifiers/Triggers AutoCreateRefTerm"
+  "note": "R28 VERIFIED (движок, 2026-09-26): Modifiers/Triggers AutoCreateRefTerm"
  },
  {
   "id": "RequestRebuildControlMappings",
@@ -15078,9 +15104,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Перестроить маппинги по контексту",
-  "note": "round28-pre: статик UEnhancedInputLibrary, self скрыт"
+  "note": "R28 VERIFIED (движок, 2026-09-26): статик UEnhancedInputLibrary, self скрыт"
  },
  {
   "id": "FlushPlayerInput",
@@ -15107,9 +15133,9 @@
     "object": "/Script/Engine.PlayerController"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Сбросить накопленный ввод",
-  "note": "round28-pre: статик UEnhancedInputLibrary"
+  "note": "R28 VERIFIED (движок, 2026-09-26): статик UEnhancedInputLibrary"
  },
  {
   "id": "MakeInputActionValue",
@@ -15156,9 +15182,9 @@
     "sub": "InputActionValue"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Собрать InputActionValue",
-  "note": "round28-pre: pure; MatchValueType задаёт тип (без подключения — Boolean)"
+  "note": "R28 VERIFIED (движок, 2026-09-26): pure; MatchValueType задаёт тип (без подключения — Boolean)"
  },
  {
   "id": "BreakInputActionValue",
@@ -15200,9 +15226,9 @@
     "enum": "EInputActionValueType"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Разобрать InputActionValue",
-  "note": "round28-pre: pure; выход Type = EInputActionValueType"
+  "note": "R28 VERIFIED (движок, 2026-09-26): pure; выход Type = EInputActionValueType"
  },
  {
   "id": "Conv_InputActionValueToBool",
@@ -15225,9 +15251,9 @@
     "cat": "bool"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "InputActionValue → bool",
-  "note": "round28-pre: pure autocast"
+  "note": "R28 VERIFIED (движок, 2026-09-26): pure autocast"
  },
  {
   "id": "Conv_InputActionValueToAxis1D",
@@ -15251,9 +15277,9 @@
     "sub": "double"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "InputActionValue → float",
-  "note": "round28-pre: pure autocast"
+  "note": "R28 VERIFIED (движок, 2026-09-26): pure autocast"
  },
  {
   "id": "Conv_InputActionValueToAxis2D",
@@ -15277,9 +15303,9 @@
     "sub": "Vector2D"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "InputActionValue → Vector2D",
-  "note": "round28-pre: pure autocast"
+  "note": "R28 VERIFIED (движок, 2026-09-26): pure autocast"
  },
  {
   "id": "Conv_InputActionValueToAxis3D",
@@ -15303,9 +15329,9 @@
     "sub": "Vector"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "InputActionValue → Vector",
-  "note": "round28-pre: pure autocast"
+  "note": "R28 VERIFIED (движок, 2026-09-26): pure autocast"
  },
  {
   "id": "Conv_InputActionValueToString",
@@ -15328,9 +15354,9 @@
     "cat": "string"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "InputActionValue → string",
-  "note": "round28-pre: pure autocast"
+  "note": "R28 VERIFIED (движок, 2026-09-26): pure autocast"
  },
  {
   "id": "SetSimulatePhysics",

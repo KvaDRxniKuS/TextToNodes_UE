@@ -1,156 +1,45 @@
-# HANDOFF_TOPICS — оставшиеся темы, открытые вердикты, журнал вердиктов
+# Открытые темы и очередность
 
-Файл для продолжения в НОВОМ чате (вместе с `docs/HANDOFF.md`). Состояние на 2026-09-26, ветка
-`arena/01a0dce8-texttonodes-ue` (продолжение `arena/01a0d554-…`, прошлый чат упал из-за очереди сообщений).
-Новые блоки пока НЕ генерируем — сначала резюмируем вердикты, которые пришлёт пользователь (28, повторный вид 30/27b; 25b — «норма», получен).
+Актуальное состояние на 2026-09-26. Этот файл сохраняет порядок следующих UE-задач; completed-пункты не повторять как незавершённые. Длинная история copy-back и прежних гипотез находится в [`ENGINE_VERIFIED.md`](ENGINE_VERIFIED.md).
 
-## 1. Статус блоков
+## Проверенные раунды
 
-| Блок | Файл | Статус |
-|---|---|---|
-| R07–R20, R21b, R21c, R22(+b), R23(+b), R24, R25, R26, R27, R29 (+`call`) | sweep/* | VERIFIED |
-| R21 GetBoundActionValue | sweep/21-* | FAIL (скрыт) |
-| R30 декор (knot'ы) | sweep/30-decorate.txt (sweep/gen30.sh) | ноды корректны; декор ПОЧИНЕН по §2 и пересобран (2026-09-26) — ожидает повторной проверки вида |
-| R31 Audio (через `call`, тип `single`) | sweep/31-audio.txt | VERIFIED («31 норма», 2026-09-26) |
-| 25b make-node модуль | sweep/25b-make-node.txt | VERIFIED («25b норма», 2026-09-26) — CLI-сборка модуля подтверждена движком |
-| 27b вид раскладки R27 (layoutDecorated) | sweep/27b-widgets-ui-decorated.txt (sweep/gen27b.sh) | Остальное НОРМА; первый knot всё ещё слишком далеко от края — нужна copy-back координата/нода для калибровки (вердикт 2026-09-26) |
-| R28 Enhanced Input full (15 записей round28-pre) | sweep/28-enhanced-input-full.txt | VERIFIED («28 норма», 2026-09-26) |
-| R32 компоненты: жизн. цикл/запросы + новый формат P1 | sweep/32-components-lifecycle.txt (sweep/gen32.sh) | VERIFIED («32 норма») — формат P1 подтверждён движком |
-| Канон BP_WheelActor_SlipVel | — | НЕ НУЖЕН в тулките (тест для проекта пользователя); P0 проверен синтетикой + fixtures |
-| MakeVector2D JSON пользователя | — | не дошёл; добавлен свой `MakeVector2D_pure` — сверить |
+Статусы ниже относятся к verdict пользователя в Unreal Editor; локальный STRICT сам по себе статус VERIFIED не присваивает.
 
-## 2. R30 — вердикт пользователя (2026-09-26) и что чинить — СДЕЛАНО (2026-09-26, новый чат)
+| Тема | Текущий статус |
+|---|---|
+| R07–R20, R21b/R21c, R22/R22b, R23/R23b, R24–R27, R28, R29, R31, R32 | VERIFIED; детали и версии — в `ENGINE_VERIFIED.md` |
+| R21 GetBoundActionValue | Не использовать: нода скрыта/не доступна в проверенной конфигурации |
+| Enum Select для `EDrawDebugTrace` | Точная форма сверена с UE copy-back: 4 options, enum IndexPinType, Enum/EnumEntries и friendly names; fixture `sweep/enum-select-test.txt`. Кастомный BP enum отдельно не подтверждён |
+| Dispatcher layout follow-up | `sweep/dispatcher-probe-bound.txt` обновлён инструментами трёх этапов; новая визуальная раскладка ещё ждёт verdict пользователя |
+| R30/27b и другие старые layout probes | Не считать последнее ручное смещение универсально откалиброванным. При необходимости сверять с актуальным UE copy-back, а не возрождать старые offsets из журнала |
 
-Итог правки (подробности — ENGINE_VERIFIED «Round30-fix»): `estNodeWidth` считается по геометрии ноды (шапка
-«Заголовок / Target is Класс» против тела пинов; Pause Timer ≈ 281, было 340); knot A = правый край + 16 (`KNOT_DX`);
-валидатор E20 (exec-выход ×2, выход↔выход, своя нода, exec↔данные, петля knot'ов) + `tests/fixtures/negative/`
-(синтетическая копия дефектов; настоящий copy-back — попросить прислать заново); `--chain` — каждое событие начинает
-свою цепочку (иначе 30 не собирался одним вызовом); 30 и 27b пересобраны (gen30.sh / gen27b.sh) и ждут оценки вида.
+## Следующие темы — в заданном порядке
 
-Исходный вердикт. Ноды корректны. Замечания:
-1. **Первый knot переноса (под выходом ряда 1)** должен стоять соосно по вертикали с выходом последней ноды ряда,
-   чуть правее её правого края. Второй knot (перед входом первой ноды следующего ряда) — корректен.
-   Факт: Pause Timer at x=1040 → knot у нас 1376, пользователь сдвинул на 1344 (−32) → реальная ширина ≈ 288,
-   т.е. `estNodeWidth` для CallFunction (база 340) завышает. Чинить в `decorateExec`: knot A x = source.x +
-   реальная ширина + ~16; уточнить `estNodeWidth` (CallFunction с короткими пинами ≈ 280–300).
-2. **Петля knot'ов между Print «Resumed» и Clear and Invalidate** (Knot_111 ↔ Knot_112) и
-3. **двойной выход/вход у Print «Resumed»**, 4. ошибки компиляции (Direction mismatch, loop, same node,
-   «Exec output pin cannot have more than one connection») — ВСЁ из-за испорченной копии в чате (Knot_112 был
-   перепечатан руками при отправке 30-decorate; файл sweep/30-decorate.txt корректен). Правило: пасты только
-   дословно из read_file.
-   TODO валидатора: ловить связь выход→выход / вход→вход (Direction mismatch), пин, связанный сам с собой/своей
-   нодой, и exec-выход с >1 связью — новый E-код. Copy-back R30 пользователя сохранить как негативный fixture
-   (`tests/fixtures/negative/`, попросить прислать заново — перепечатывать нельзя).
-5. После починки — пересобрать 30 (make-node --decorate, узлы R26) и 27b, отправить на повторную проверку вида.
+1. **Завершить UE-проверку текущего layout pipeline** на dispatcher fixture: последовательность слева направо, реальный зазор между exec-пинами, pin-center alignment и handler. Новые позиции/solver утверждать только после copy-back пользователя.
+2. **MoveComponentTo** — latent узел, `ExpandEnumAsExecs`, несколько exec-выходов; расширить creator/arranger для таких форм после получения канонического UE reference.
+3. **AddComponentByClass / Add Static Mesh Component** — специальная K2-нода, нужен copy-back и проверка формы пинов.
+4. **Timeline** — K2Node_Timeline и референс с curve asset.
+5. **Blueprint Interfaces** — Message nodes и Does Implement Interface.
+6. **Расширенные loops/array by-ref** — ForEachLoopWithBreak, ReverseForEach, WhileLoop, Get/Set by ref.
+7. **Пользовательские structs** — Make/Break и Set Members in Struct.
+8. **Save Game** — CreateSaveGameObject, Save/Load Game to Slot, DoesSaveGameExist и async варианты.
+9. **Data Table** — GetDataTableRow / GetDataTableRowNames.
+10. **AI** — AI MoveTo, Blackboard Get/Set, Run Behavior Tree, GetAIController.
+11. **Animation** — Play Montage, Montage_Play/Stop, Anim Instance.
+12. **Materials** — Dynamic Material Instance, parameter operations, MPC.
+13. **Niagara/FX** — spawn и variable operations.
+14. **Camera** — SpringArm/Camera, view target, camera shake.
+15. **Level streaming** — Open Level, Load/Unload Stream Level, Get Streaming Level.
+16. **Gameplay Tags** — HasTag, containers, Matches Tag.
+17. **Random streams / math extras** — stream-based random, seed, noise.
+18. **Networking** — replicated custom events, authority, local control.
+19. **Input остаток** — альтернативы скрытому GetBoundActionValue и mapping-context priority.
+20. **Tooling follow-ups** — оценить синхронизацию embedded generator в `index.html` с каноническим serializer/layout API и fallback-реестра (сейчас 239 записей против 406 в JSON; по HTTP загружается актуальный файл); проверить дефолты и local-set по copy-back; рассмотреть getter duplication; расширять regression fixtures только из реальных copy-back.
 
-## 3. Открытые вопросы по формату/инструментам (P0–P2 сделаны, коммит 236394e)
+## Зафиксированные решения, не менять без нового UE evidence
 
-- index.html (песочница) имеет свой встроенный генератор со СТАРЫМ форматом (фейковый ExportPath, без
-  PersistentGuid) — синхронизировать? (спросить пользователя).
-- Не проверено движком: PinToolTip PromotableOperator для B/ReturnValue; `local-set`; MemberGuid локала
-  (случайный, если нет в инвентаре).
-- Автоген-дефолты у K2-узлов не-функций (Branch Condition и т.п.) — не пишем; уточнить по дампам.
-- Из copy-back R30: движок пишет `AutogeneratedDefaultValue` = объявленный дефолт функции даже при другом
-  DefaultValue (Time "1.0"/auto "0.0", Duration "0.5"/auto "0.2", InString "Resumed"/auto "Hello").
-  Сейчас пользовательское значение пишем БЕЗ auto (по указанию P1.4) — это допустимо, но для паритета можно писать
-  auto = дефолт реестра всегда, когда он известен. Решить с пользователем.
-- Из того же copy-back: у Delay/DelayUntilNextTick выход `then` с `PinFriendlyName="Completed"`;
-  у Delegate-пина K2_SetTimerDelegate `PinFriendlyName=INVTEXT("Event")`; CustomEvent OutputDelegate
-  MemberReference содержит MemberParent (BGC своего BP) и MemberGuid = NodeGuid события.
-- Идея: флаг дублирования getter'ов на каждого потребителя (длинные провода от GetPlayerController в 27b).
-
-## 4. Оставшиеся темы (главы) — в порядке предлагаемой очерёдности
-
-1. **Enum-Select** (K2Node_Select с enum IndexPinType) + Switch on Enum: EDrawDebugTrace UE copy-back получен. Select требует NumOptionPins=4, Enum/EnumEntries, четыре wildcard option pin с enum case именами и PinFriendlyName; SwitchEnum case pins также получают PinFriendlyName. Локальная реализация сверена с референсом. Осталось проверить enum path пользователя, если используем кастомный enum.
-2. **Event Dispatcher**: K2Node_CallDelegate / AddDelegate на свой диспатчер (нужен copy-back пользователя).
-3. **MoveComponentTo** (KismetSystemLibrary, latent, ExpandEnumAsExecs: exec-входы Move/Stop/Return) — нужна
-   поддержка нескольких exec-входов в `--chain`.
-4. **AddComponentByClass** (K2Node_AddComponentByClass — спец-узел, не CallFunction) + Add Static Mesh Component.
-5. **Timeline** (K2Node_Timeline — нужен шаблон/копия из движка, ассет кривой).
-6. **Blueprint Interfaces**: Message-вызовы (K2Node_Message), Does Implement Interface.
-7. **Loops расширенные**: ForEachLoopWithBreak, ReverseForEach, WhileLoop (macro), Array Get/Set by ref.
-8. **Structs пользовательские**: Make/Break своего struct (/Game/...), Set Members in Struct (K2Node_SetFieldsInStruct).
-9. **Save Game**: CreateSaveGameObject, Save/Load Game to Slot, DoesSaveGameExist, Async-версии.
-10. **Data Table**: GetDataTableRow (K2Node_GetDataTableRow), GetDataTableRowNames.
-11. **AI**: AI MoveTo (latent proxy), Blackboard Get/Set Value as *, Run Behavior Tree, GetAIController.
-12. **Animation**: Play Montage (proxy), Montage_Play/Stop, Get Anim Instance, Set Anim Instance Class.
-13. **Materials**: Create Dynamic Material Instance, Set Scalar/Vector Parameter Value, MPC Set/Get (K2Node_CallMaterialParameterCollectionFunction).
-14. **Niagara/FX**: Spawn System at Location/Attached, Set Niagara Variable.
-15. **Camera**: SpringArm/Camera members, Set View Target with Blend, Camera Shake.
-16. **Level**: Open Level (by name/object ref), Load/Unload Stream Level (latent), Get Streaming Level.
-17. **Gameplay Tags**: HasTag, MakeGameplayTagContainer, Matches Tag.
-18. **Random streams / Math extras**: RandomFloatInRangeFromStream, Seed, Noise.
-19. **Networking**: Replicated Custom Events (Run on Server/Multicast — флаги CustomEvent), Has Authority, Is Locally Controlled.
-20. **Input остаток**: GetBoundActionValue (R21 FAIL) — альтернатива; Mapping Context приоритеты.
-21. **Инструменты**: регресс-фикстуры из каждого copy-back (в т.ч. настоящий испорченный R30 → negative/); синк index.html;
-    getter-duplication; калибровка `estNodeWidth` по новым замерам пользователя (если knot'ы снова не соосны — прислать x нод и knot'ов).
-
-## 5. Журнал вердиктов (заполнять по мере прихода, затем флипнуть реестр/тесты/docs в новом чате)
-
-| Дата | Блок | Вердикт пользователя | Действие |
-|---|---|---|---|
-| 2026-09-26 | R29 | «R29 работает» | 23 записи verified (сделано, dea32b8) |
-| 2026-09-26 | R30 | ноды корректны; knot A не соосен выходу; петля/двойные связи — из испорченной чат-копии | §2 |
-| 2026-09-26 | R31 | «31 норма» | записей реестра нет (всё через `call`) — отмечено в ENGINE_VERIFIED |
-| 2026-09-26 | 27b | «норма»: класс Create Widget не выбран (выбирается локально); есть ошибка, ожидаемая до исправления декоратора (§2) | после правки decorateExec пересобрать 27b; пользователь просил пока ничего не делать |
-| 2026-09-26 | P0–P2 | канон не нужен — это реальный тест проекта пользователя, в тулкит не добавлять | убрано из ожиданий и из fixtures/README |
-| 2026-09-26 | R32 | «32 норма» | новый формат P1 (PersistentGuid, Autogenerated, self Target, без ExportPath) подтверждён; `call` для ActorComponent/Actor/UMG-статиков; записей реестра нет — при желании завести в новом чате |
-| 2026-09-26 | 25b | «25b норма» | VERIFIED; записей реестра нет (Cast/AddDelegate/CustomEvent/`call` события + K2_SetTimerDelegate уже verified в R26) — статус в HANDOFF/ENGINE_VERIFIED |
-| 2026-09-26 | R30-fix | — (сделано по вердикту, без нового вердикта) | estNodeWidth по геометрии, knot A = край+16, E20, negative/, --chain по событиям; 30 и 27b пересобраны — на повторную проверку вида |
-
-
-Дополнение 2026-09-26: получено «30 норма», но knot A остаётся слишком далеко от реального края. Copy-back показал PrintString width 176 px (NodePosX=-9776, правильный Knot_11 x=-9600); добавлена точечная калибровка `estNodeWidth(PrintString)=176`, 30/27b пересобраны, ожидают повторной проверки раскладки. R28 full по-прежнему ждёт вердикта.
-
-
-Обновление 2026-09-26: «27b норма, но всё ещё сохраняется проблема расположения первого knot». В графе 27b первый knot — Knot_109 (предыдущая строка заканчивается SetVisibility, Knot_109 сейчас x=1344); для точной калибровки нужен engine copy-back с NodePosX ширины/правого края SetVisibility и координатой фактически правильного knot. PrintString-калибровка из 30 не устраняет калибровку других классов.
-
-
-Обновление 2026-09-26: получено «28 норма». Также обнаружен дефект раскладки рядов: равное NodePosY/выравнивание по верху не гарантирует одинаковую высоту exec-пинов, если заголовки нод занимают разное число строк. Пример copy-back ClearAllMappings → FlushPlayerInput: одинаковый NodePosY, но у первой ноды двухстрочная шапка/описание и exec-pin ниже. Следующая задача layout: использовать имеющиеся в модели метаданные ноды (заголовок/подзаголовок и список пинов), оценивать центр exec-пина с учётом высоты шапки и выравнивать по нему. Не запрашивать у пользователя ручные offsets; проверять по engine copy-back после реализации. Отдельно остаётся калибровка ширины Knot A для SetVisibility.
-
-## Exec-pin alignment fix (2026-09-26)
-
-- `layoutRows` now computes exec-pin center offsets from node title/subtitle metadata and repositions nodes in each row so the pins align; `pinCenterY` includes a subtitle header row. Tested by `tests/validate.test.mjs` (1-line Branch vs 2-line CallFunction).
-- `sweep/exec-pin-alignment-test.txt` is a paste-ready engine check: event → Branch → ClearAllMappings → FlushPlayerInput, with the row wrapped at four nodes. Strict validation passes; two expected W09 registry notices.
-- R30 and 27b rebuilt with new layout; strict validation remains clean. Await engine visual verdict. Current registry examples expose 1-/2-line headers; no confirmed native 3-line exec node in this test set. Text export does not preserve rendered title wrapping, so a three-line title (if encountered) still needs a real copy-back to calibrate.
-
-### Exec-pin alignment correction after engine counterexample (2026-09-26)
-
-- First implementation was insufficient: aligning one representative exec pin per node (and snapping Y back to grid) ignored individual pins/outputs and destroyed the alignment. User supplied Branch → ClearAllMappings → FlushPlayerInput copy-back showing NodePosY offsets; each Branch output (`then`, `else`) is a distinct pin row.
-- Replaced with per-link constraints in `layoutRows`: for every connected exec output/input pair within a row, position the target from those exact pin centers. `layoutDecorated` now preserves the row-internal offsets while shifting rows around data subrows. `make-node --decorate` snaps X to 16px but intentionally leaves Y unsnapped so exact exec-pin alignment survives. Subtitle header offset uses 32px per extra header line, matching supplied Branch/CallFunction NodePosY delta.
-- Test `sweep/exec-pin-alignment-test.txt` now exercises Event.then → Branch.execute, Branch.then → ClearAllMappings.execute, and Branch.else → FlushPlayerInput.execute. Internal pin-center check: each connected pair equal; then/else destinations differ vertically. R30 / 27b rebuilt and strict-validated.
-
-### FlushPlayerInput Y correction (2026-09-26)
-
-- User copy-back confirms the desired vertical positions for Event → Branch → ClearAllMappings → FlushPlayerInput: Branch NodePosY is 16px below ClearAllMappings; ClearAllMappings and FlushPlayerInput share NodePosY. `Branch.then` must therefore be modeled 16px below the base exec row; Clear/Flush exec pins share the same effective header offset even though Flush's synthetic self is hidden.
-- The previous change that removed the subtitle offset for hidden static self was incorrect; reverted for pin geometry. `pinCenterY` now applies the Target header row to CallFunction as before, and adds the per-pin `IfThenElse` then/else offsets. Test fixture mirrors the exact sequential chain and its emitted NodePosY deltas.
-- Rebuild/check after this correction; user verification pending.
-
-### Custom Event → Branch pin offset (2026-09-26)
-
-- User reports Branch NodePosY is still one 16px grid cell too low for ideal alignment. In the supplied split-branch copy-back, Branch.then→ClearAllMappings and Branch.else→FlushPlayerInput are distinct links.
-- `pinCenterY` now estimates a Custom Event's second header row as +16px (rather than generic +32px), shifting Branch up by 16 while aligning Event.then with Branch.execute; test fixture uses the same split topology and asserts every linked exec pair.
-- Rebuilt 30, 27b and `exec-pin-alignment-test.txt`; strict checks pass. Await user engine confirmation.
-
-
-### Correct exec topology after user feedback (2026-09-26)
-
-- User: «Branch height is correct, but Flush still comes from false». The test was mistakenly emitted as Branch.then→Clear and Branch.else→Flush. The actual intended topology is serial: Branch.then→ClearAllMappings→FlushPlayerInput; Branch.else stays unconnected. `sweep/exec-pin-alignment-test.txt` and the regression assertion now use `--chain` for that path and explicitly assert Flush.execute is linked from Clear.then, not Branch.else. No file was opened in the viewer per user preference.
-
-
-Latest verdict 2026-09-26: «высота Branch корректна, но Flush не на высоте false, а ровно посередине; между уровнями одна клетка вместо двух». After feedback that 32px still left Flush one cell too high, increased Branch.else target offset by another 16px; test now verifies NodePosY delta Clear→Flush = 48 px. Awaiting UE confirmation.
-
-### Pin-height mechanism and 4×5 collapsed-node probe (2026-09-26)
-
-- User copy-back of a collapsed node with six outputs establishes the vertical pin-row pitch: consecutive visible input/output pins are 32px apart (two 16px grid cells), irrespective of pin category. `PIN_ROW_H=32` is the shared vertical row step used by `pinCenterY`, `alignPinRow`, and node-height estimates. Horizontal test-knot stagger remains `KNOT_X_STEP=16`.
-- `tools/gen-collapsed-knot-test.mjs` now writes `sweep/collapsed-knot-4x5-test.txt`: `K2Node_Composite` with 4 inputs / 5 outputs and 16 loose knots. There are only two knot columns per side: one knot per port 32px beyond the edge, plus one knot between neighboring port knots another 16px outward; no midpoint column. Header-aware pin levels use the measured first pin center (+56px from NodePosY), then 32px per pin row. Tests enforce counts, X columns, header offset, and mid-row positions.
-- This is a layout probe, not engine-verified yet; run `node tools/gen-collapsed-knot-test.mjs` to reproduce. User requested that generated files not be opened in the viewer after edits.
-- Follow-up probe: `node tools/gen-collapsed-knot-test.mjs --inputs 1 --outputs 3 --levels 3` writes `sweep/collapsed-knot-1x3-3levels-test.txt`. The input side has one level with one Knot, so it stops there. The output side recursively yields 3→2→1 Knots: port-aligned centers, then midpoint centers; each level moves 16px farther outward. A level with one Knot terminates recursion.
-- Width correction based on the user's clarification of the supplied reference: `K2Node_Knot_17` at `NodePosX=-11232` is the correctly spaced right-side comparison to Composite `NodePosX=-11440`, so delta 208 minus 32px clearance gives width 176px. `K2Node_Knot_9402` at -11152 is 80px farther outward and is not the port-level calibration point. The 1×3 fixture now uses right port column x=NodePosX+208, with recursive levels +224/+240. The previous 256px interpretation was wrong; STRICT/test validated.
-
-
-Superseded after user rejection: the former 3×3 / three-column probe had incorrect header-aware Y and lateral positions. The active replacement is the 4×5, two-columns-per-side probe documented above; do not revive the old geometry.
-
-
-### Enum-Select correction from exact UE reference (2026-09-26)
-
-- Previous probe was wrong: UE silently reconstructed an incomplete Select to two options. User supplied the correct reference: `NumOptionPins=4`, `IndexPinType=byte + EDrawDebugTrace`, node `Enum`/`EnumEntries`; option pins are wildcard and keyed by enum entries (`None` omits `PinName`), with localized `PinFriendlyName`. Generator/test fixture `sweep/enum-select-test.txt` now follows this exact shape. SwitchEnum output pins emit localized friendly names too. This copy-back confirms only the built-in enum; a custom BP enum remains open if needed.
+- Вставки и copy-back из пользователя передавать дословно, не редактировать вручную.
+- Полноценный enum Select не сводить к двум wildcard options: для указанного EDrawDebugTrace эталон — четыре enum options; см. fixture и `ENGINE_VERIFIED.md`.
+- Composite/Knot геометрию из завершённых тестов не смешивать с dispatcher/layout work.
+- Реальные пользовательские проектные дампы, которые пользователь не разрешал включать в toolkit, не добавлять в Git.

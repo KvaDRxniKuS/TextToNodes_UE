@@ -1,63 +1,40 @@
-# HANDOFF — продолжение в новом чате
+# Project handoff
 
-> Оставшиеся темы, открытые вердикты и журнал вердиктов — `docs/HANDOFF_TOPICS.md` (читать вторым).
+Сводка актуального состояния репозитория. Дата проверки документации: 2026-09-26. Подробности engine copy-back хранятся в [`ENGINE_VERIFIED.md`](ENGINE_VERIFIED.md), очередь открытых тем — в [`HANDOFF_TOPICS.md`](HANDOFF_TOPICS.md).
 
-Прочитать первым делом в новом чате (без очереди N+1 протокол эха можно упростить).
+## Проект
 
-## Что это
-TextToNodes_UE — генератор текста для вставки Blueprint-узлов в UE 5.x (Ctrl+V в EventGraph).
-Цель пользователя: НЕ фиксированные примеры, а инструменты сборки корректных модулей любых классов.
+TextToNodes_UE парсит, создаёт, проверяет и экспортирует Unreal Engine Blueprint Text. STRICT-проверки выявляют структурные ошибки, но только вставка и проверка в UE подтверждают поведение конкретной версии редактора.
 
-## Инструменты
-- `tools/make-node.mjs` — конструктор модулей (см. шапку файла и README «Конструктор модулей»).
-  Спеки: cast, event, event-for, call-event, bind/unbind/clear, create-event, widget, ia-event, ia-value,
-  get/set, self-get/self-set (своя переменная), local-get/local-set <Функция>.<Имя> (локал/параметр),
-  fn <id реестра>, call <Класс.Функция> (любая UFUNCTION), link, row.
-  Флаги: --chain, --wrap N / --width PX, --decorate (exec-knot'ы на переносах + данные подрядом под потребителем,
-  layoutDecorated, сетка 16), --title, -o, --root <реальный путь графа> (ExportPath; без него не пишется),
-  --bp <путь BP>, --context ctx.json [--new A,B].
-- `tools/inventory.mjs dump.txt -o ctx.json` — КОНТЕКСТ-ПЕРВЫЙ: инвентарь целевой функции (members/locals/params/
-  композиты/туннели) из живой копии. Перед генерацией фрагмента в существующую функцию — сначала инвентарь,
-  затем make-node --context: переменная вне инвентаря = E19 (или явно --new).
-- `data/ue-functions.json` — реестр (verified=true — проверено движком). Писать indent=1, ensure_ascii=False.
-- `src/modules.js` (конструкторы), `src/generator.js` (узлы, раскладка, decorateExec, estNodeWidth по геометрии ноды),
-  `src/validate.js` (strict), `src/inventory.js`. Валидатор: PinId уникален только внутри ноды; ссылки на K2Node_Tunnel_* → W14
-  (авто-фрагмент); `--fragment` / авто по ExportPath (живая копия) — внешние ноды = warning; `--strict-links` — строго;
-  E20 — связи, которые движок отвергает (exec-выход ×2, выход↔выход, своя нода, петля knot'ов) → `tests/fixtures/negative/`.
-- `--chain`: каждое событие (event/event-for/ia-event) начинает СВОЮ цепочку и новый ряд (со второго); узлы до первого
-  события подхватывает первое событие. Главы с несколькими событиями — одним вызовом make-node.
-- `tests/fixtures/` — живые копии из движка; КАЖДЫЙ новый дамп пользователя = новый fixture (тест прогоняет все).
-  `tests/fixtures/negative/` — то, что ОБЯЗАНО падать (E20); пока там синтетика R30, настоящий copy-back — когда пришлёт.
-- `tools/gen-sweep.mjs NN` — пересборка старых глав; `zz` — только MANIFEST. Главы ≥23 собраны make-node, НЕ пересобирать gen-sweep.
-  Команды сборки make-node-глав — `sweep/gen27b.sh`, `sweep/gen30.sh`, `sweep/gen32.sh` (для новых глав заводить такой же genNN.sh).
-- Тесты: `node tests/validate.test.mjs`, `node tests/sandbox.test.mjs`.
-- Журнал проверок в движке: `docs/ENGINE_VERIFIED.md` (раунды, формы, провалы).
+## Архитектура
 
-## Статус раундов (2026-09-26)
-- VERIFIED: R07–R20, R21b, R21c, R22(+b), R23(+b), R24, R25, 25b (модуль make-node, «25b норма» 2026-09-26), R26, R27 (Widgets/UI;
-  вид переделан как 27b), R29 (+`call`), R31 (Audio), R32 (компоненты + формат P1). R30 — ноды корректны («30 норма»); knot A дополнительно откалиброван по PrintString copy-back (176px), пересобран, ждёт re-check. Для раскладки: выравнивать каждый конкретный linked exec output/input pin pair, не один общий pin на ноду и не NodePosY; учитывать Target-header offset и отдельные ряды выходов Branch; copy-back подтвердил отдельные ветви true→Clear / false→Flush; Branch ещё на 16px ниже нормы, CustomEvent offset уменьшен на 16px и тест ждёт повторной проверки. Y намеренно может быть не на сетке. Последний тест: Branch норм, Flush был на строку выше; поправлено, ждёт re-check.
-- FAIL: R21 (GetBoundActionValue — скрыт).
-- VERIFIED: 28 Enhanced Input full («28 норма», 2026-09-26).
-- R30: «норма», проверку расположения knot продолжить по copy-back. 27b: «норма», кроме первого knot (слишком далеко от края); ждём copy-back SetVisibility + правильного knot для калибровки.
-- Отложено: Enum-Select, Event Dispatcher (K2Node_CallDelegate), Timeline, MoveComponentTo, GetAllWidgetsOfClass,
-  AddComponentByClass, K2_DestroyComponent.
+Новый код строить через три явных этапа:
 
-## Протокол работы с пользователем
-- Объяснения по-русски. Сначала КОД (вставка), в конце — состав узлов/связи/сомнения.
-- Каждый ответ — следующий блок (глава), пока пользователь не скажет иначе. Сообщение ≤ ~90KB.
-- Пасты копировать из файла дословно, никогда не перепечатывать руками.
-- Пользователь присылает вердикт + рефы (copy-back из движка) → флипнуть записи реестра, поправить формы, тесты, docs, коммит.
-- Файлы в examples/ не создавать. Превью-сервер поднимать только по просьбе.
+1. **Creator:** `src/creator.js`, `src/modules.js`, фабрики из `src/generator.js`. Создать ноды/пины и записать связи; `linkPins()` не перемещает ноды.
+2. **Arranger:** `src/arranger.js`. Задать визуальные ряды и coarse-порядок; обратные exec-связи могут получить reroute knots. Результат включает созданные ноды.
+3. **Decorator:** `src/decorator.js`. Скорректировать XY по pin-center модели, обеспечить пространство для проводов и привязать координаты к сетке.
 
-## Ключевые правила форм (выжимка; подробности в ENGINE_VERIFIED.md)
-- Члены классов: видимый self с классом владельца; статики: self скрыт, DefaultObject Default__Lib (парсер добавит сам).
-- WCO/LatentInfo можно не писать — движок восстановит пины. Пропущенные advanced-пины тоже.
-- Каст: K2Node_DynamicCast, выход As<DisplayName>; классы: K2Node_ClassDynamicCast.
-- Knot: K2Node_Knot, InputPin (ignored) / OutputPin; exec-knot — PinCategory="exec".
-- Фантомы (не существуют): FInterpToConstant, SinDeg/CosDeg, IsPowerOfTwo, FindLookAtRotation2D; см. Errors в docs.
-- Формат пинов (P1, паритет с дампами): DefaultValue+AutogeneratedDefaultValue на входах И выходах у узлов-функций
-  (real "0.0", bool "false", int "0", name "None", Vector/Rotator "0, 0, 0"); пользовательское значение — только
-  DefaultValue; byte-энамы без auto; у Cast и пр. K2-узлов типовых дефолтов нет. PersistentGuid=000…0 на каждом пине.
-  self: PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"). PromotableOperator: PinToolTip="A\nFloat (double-precision)";
-  у CallFunction тултипов не пишем. Локал: VariableReference=(MemberScope,MemberName,MemberGuid), без self-пина.
-  Своя переменная: self = BlueprintGeneratedClass'/Game/.../BP_X.BP_X_C'.
+`src/layout-pipeline.js` предоставляет общий orchestration API. Оценки ширины и pin-center пока модельные: не считать UE-визуальную корректность подтверждённой без проверки в редакторе. Старые генераторы в `tools/make-node.mjs` используют совместимый layout path; не приписывать ему новые этапы, если он явно не переведён.
+
+## Проверки и источники истины
+
+- Полный тестовый набор: `npm test`.
+- STRICT одного файла: `node src/validate.js PATH`.
+- Обновить только sweep manifest: `node tools/gen-sweep.mjs zz`.
+- Обновить sweep-файл одной категории и manifest: `node tools/gen-sweep.mjs NN`.
+- Сводка покрытия: `sweep/MANIFEST.md`.
+- Факты, подтверждённые copy-back из UE: `docs/ENGINE_VERIFIED.md` и `tests/fixtures/`.
+- Реестр: `data/ue-functions.json`; `verified: true` указывает на engine verification, а не просто на успешный локальный STRICT.
+
+## Важные правила взаимодействия
+
+- Отвечать пользователю по-русски.
+- Любой Blueprint-текст для вставки выдавать дословно из созданного файла; не сокращать и не править вручную.
+- Не открывать сгенерированные файлы в viewer после правок.
+- Для визуальных и функциональных заявлений в UE ждать copy-back или прямой verdict пользователя.
+- Следовать очереди из `HANDOFF_TOPICS.md`, не переставлять темы самовольно.
+- Не добавлять приватные дампы пользователя в fixtures без его решения; настоящие copy-back fixtures сохранять дословно.
+
+## Текущий UE follow-up
+
+Dispatcher fixture: `sweep/dispatcher-probe-bound.txt`, генератор `tools/gen-dispatcher-bound-test.mjs`. Последняя перестройка использует creator → arranger → decorator, но её spacing и pin alignment в Unreal Editor ещё должны быть визуально подтверждены пользователем. См. историю решений и следующий порядок тем в `HANDOFF_TOPICS.md`.

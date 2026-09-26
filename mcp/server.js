@@ -19,7 +19,7 @@ server.setRequestHandler("tools/list", async () => ({
   tools: [
     {
       name: "blueprint_generate",
-      description: "Сгенерировать Blueprint граф в формате Begin Object из текстового описания. Валидирует и возвращает код для Ctrl+V в UE. Используй реестр UE_FUNCS для подсказок.",
+      description: "LLM integration placeholder: возвращает system prompt, описание задачи и имена переменных. Сервер сам не вызывает LLM и не выдаёт сгенерированный Blueprint-код.",
       inputSchema: {
         type: "object",
         properties: {
@@ -67,13 +67,13 @@ server.setRequestHandler("tools/call", async (req) => {
     return { content: [{ type: "text", text: JSON.stringify(found.slice(0, 20), null, 2) }] };
   }
   if (name === "blueprint_generate") {
-    // В реальном сервере здесь вызов LLM с system-prompt.md
-    // Заглушка: возвращаем инструкцию как использовать промпт
+    // Здесь намеренно нет вызова внешней LLM: вернуть prompt-инструкции прозрачно,
+    // чтобы не выдавать шаблон за фактически сгенерированный и проверенный Blueprint.
     const prompt = fs.readFileSync(new URL("../prompt/system-prompt.md", import.meta.url), "utf8");
     return {
       content: [{
         type: "text",
-        text: `Используй этот System Prompt для генерации Begin Object:\n\n${prompt.slice(0, 4000)}\n\nЗапрос: ${args.description}\nПеременные: ${(args.variables||[]).join(", ")}\n\nСгенерируй блоки Begin Object ... End Object с шагом 240/160 и двусторонними LinkedTo.`
+        text: `Инструмент не подключён к LLM и не генерирует Blueprint автоматически. Ниже System Prompt и исходный запрос для использования моделью:\n\n${prompt}\n\nЗапрос: ${args.description}\nПеременные: ${(args.variables||[]).join(", ")}\n\nДля геометрии применяй этапы creator → arranger → decorator; не считай STRICT доказательством корректности в Unreal Editor.`
       }]
     };
   }

@@ -436,7 +436,7 @@ export function estNodeWidth(n) {
 export const ROW_GAP = 120;
 
 /** Ряд без наложений: каждая следующая нода встаёт за правым краем предыдущей + зазор.
- *  Вызывать ДО linkPins (выравнивание двигает только Y) и fitComment. */
+ *  Compatibility layout helper; changes coordinates only and does not inspect graph links. */
 export function layoutRow(nodes, x0 = 0, y = 0, gap = ROW_GAP) {
   let x = x0;
   for (const n of nodes) { n.pos.x = x; n.pos.y = y; x += estNodeWidth(n) + gap; }
@@ -462,23 +462,6 @@ export function linkPins(fromNode, fromPinName, toNode, toPinName, opts = {}) {
   // Stage 1 (creator) only records graph semantics. Position changes belong to
   // Stage 2/3; `opts.align` is accepted for backward compatibility but ignored.
 }
-
-/** Legacy estimate helper. New layouts should use decorateLayout from src/decorator.js. */
-export function alignPinRow(fromNode, fromPinName, toNode, toPinName) {
-  const vis = n => (n.pins || []).filter(p => !p.hidden);
-  const ia = vis(fromNode).findIndex(p => p.name === fromPinName);
-  const ib = vis(toNode).findIndex(p => p.name === toPinName);
-  if (ia < 0 || ib < 0) return;
-  toNode.pos.y = fromNode.pos.y + (ia - ib) * PIN_ROW_H;
-}
-
-/**
- * Place an exec chain left-to-right and align each downstream exec pin to the
- * previous exec pin's estimated row. The target node starts after the previous
- * node's estimated width plus `gap`; X coordinates therefore remain strictly
- * increasing even when node widths differ.
- * `chain` is [{ node, outputPin?, inputPin? }, ...]; defaults are then/execute.
- */
 
 // ─── Декор (опционально): перенос рядов, exec-knot'ы, сетка 16 ───────────────
 // Форма exec-knot'а — copy-back UE (BP_AISupportTester, 2026-09-26): K2Node_Knot, InputPin/OutputPin

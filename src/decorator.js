@@ -1,7 +1,7 @@
 // Stage 3: pin-aware refinement of an already arranged graph.
-// No semantic node/pin creation happens here; only positional corrections and
-// optional structural exec reroutes via the existing Knot factory.
-import { estNodeWidth, pinCenterY, decorateExec, snapToGrid } from './generator.js';
+// No semantic node/pin creation happens here; this stage only corrects
+// positions, including reroute knots already emitted by the arranger.
+import { estNodeWidth, pinCenterY } from './generator.js';
 
 const isKnot = n => (n.className || '').includes('Knot');
 
@@ -26,14 +26,13 @@ function graphLinks(nodes) {
  *   left edge is at least `clearance` right of the source's estimated right edge.
  * - Exec pins are aligned first; remaining data links align a target only when
  *   they do not fight an already-selected exec anchor.
- * - Finally snap positions to the UE 16px grid and optionally add exec reroute knots.
- * Pin centers are estimated from the node model (header + visible pin rows); a
- * caller can supply `pinY(node,pin)` for engine-measured pin-center calibration.
+ * - Finally snap positions to the UE 16px grid and refine existing reroute knots.
+ * Knot creation belongs to Stage 2 (arranger). Pin centers are estimated from
+ * the node model; callers can provide `pinY(node,pin)` using engine measurements.
  */
 export function decorateLayout(nodes, {
   clearance = 160,
   grid = 16,
-  addExecKnots = true,
   pinY = pinCenterY,
 } = {}) {
   const links = graphLinks(nodes);
@@ -64,12 +63,10 @@ export function decorateLayout(nodes, {
     anchored.add(target.id);
   }
 
-  // Grid snap is applied before knot generation so knots are created on-grid.
+  // Arranger already created reroute nodes; decorator only moves those records.
   for (const n of nodes) {
     n.pos.x = Math.round(n.pos.x / grid) * grid;
     n.pos.y = Math.round(n.pos.y / grid) * grid;
   }
-  if (!addExecKnots) return { nodes, knots: [] };
-  const knots = decorateExec(nodes, { pad: clearance });
-  return { nodes, knots };
+  return { nodes, knots: [] };
 }

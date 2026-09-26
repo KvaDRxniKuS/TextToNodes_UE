@@ -9,11 +9,11 @@
 ## Жёсткие правила (нарушать нельзя)
 
 1. Выдавай **только** блоки `Begin Object` / `End Object`, без markdown вне блока (допустим краткий комментарий перед кодом).
-2. Координаты `NodePosX/Y` ставь с шагом **240 по X и 160 по Y**, чтобы граф не слипался. Начинай с `NodePosX=0 NodePosY=0` и раскладывай граф слева-направо.
+2. Не используй один фиксированный шаг NodePosX для всех классов: ширина нод различается. Создание, базовую расстановку и декорирование считай разными этапами. Если доступен проектный API, создавай ноды/связи через `src/creator.js`, раскладывай упорядоченные ряды через `src/arranger.js`, затем корректируй по pin centers через `src/decorator.js` (`src/layout-pipeline.js`). Если генерируешь текст напрямую, ставь связанные exec-ноды слева направо с достаточным зазором, соотноси высоту по конкретным соединённым пинам и не утверждай UE-визуальную корректность без проверки в редакторе.
 3. Для каждой связи указывай `LinkedTo=(NodeName PinId)` **в обеих нодах** (двусторонне). Иначе связь не появится в UE.
 4. `PinId` и `NodeGuid` — уникальные HEX 32 символа (генерируй случайно, например `A1B2C3D4...`). Дубликаты запрещены.
 5. `PinCategory`: `exec` (белый), `bool` (красный), `real` (зелёный, `PinSubCategory="double"`), `int`, `byte`, `object`, `string`, `text`, `struct` (Vector/Rotator/...), `class`, `name`.
-6. Для `exec` пинов: вход — `PinName="execute"`, выход — `PinName="then"` + `Direction="EGPD_Output"`.
+6. Для exec-пинов используй точные имена из записи реестра или engine copy-back. У обычных вызовов это часто `execute`/`then`, но не переименовывай макросы и специализированные ноды (например `LoopBody`, `Completed`, `Triggered`) по этому шаблону.
 7. Используй только классы:
    - `/Script/BlueprintGraph.K2Node_VariableGet` / `K2Node_VariableSet`
    - `/Script/BlueprintGraph.K2Node_PromotableOperator` (+ `OperationName="Greater"` и `FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Greater_DoubleDouble")`; для int-версий MemberName целиком, например `Add_IntInt`)
@@ -24,7 +24,7 @@
    - `/Script/BlueprintGraph.K2Node_CallArrayFunction` (для `Array_*` из KismetArrayLibrary)
    - `/Script/BlueprintGraph.K2Node_MacroInstance` — для ForLoop, WhileLoop, Gate, DoOnce, FlipFlop, DoN (см. правило 12)
    - `/Script/BlueprintGraph.K2Node_MakeStruct` / `K2Node_BreakStruct` — для Make/Break Vector, Rotator, Transform (см. правило 13)
-   - `/Script/BlueprintGraph.K2Node_Select`, `K2Node_MakeArray/Set/Map` — частично поддержаны, требуют проверки в движке
+   - `/Script/BlueprintGraph.K2Node_Select`: для EDrawDebugTrace использовать подтверждённую 4-option форму из `sweep/enum-select-test.txt`; другие пользовательские enum требуют copy-back. MakeArray/Set/Map должны соответствовать записям/фикстурам проекта.
    - `/Script/BlueprintGraph.K2Node_Knot` (reroute, `PinName="InputPin"/"OutputPin"`)
    - `/Script/UnrealEd.EdGraphNode_Comment` (`NodeComment="..."`, `NodeWidth`, `NodeHeight`)
    - `/Script/BlueprintGraph.K2Node_Composite` (Collapsed Graph, содержит `Begin Object Class=/Script/Engine.EdGraph Name="CollapseGraph"` с `K2Node_Tunnel` внутри)
@@ -42,7 +42,7 @@
     Имя макроса и GUID бери из поля `macro` реестра. Если `guid: null` — вставь без GraphGuid (движок обычно прощает), потом захвати GUID из редактора.
 13. **Make/Break структуры** — класс `K2Node_MakeStruct` / `K2Node_BreakStruct` + `StructType="/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Vector'"` (quoted-full путь (UE 5.8) из поля `struct` реестра). Выходной пин Make обязан называться именем структуры (`Vector`, НЕ `ReturnValue`). Struct-пины: PinSubCategory="" (ПУСТО!) + `PinSubCategoryObject=<quoted-full путь UE 5.8>`.
 14. **Имена пинов, которые ломают вставку:** Delay — выход `then` (НЕ `Completed`); PrintString — `bPrintToScreen`/`bPrintToLog`; Switch — case-пины + `Default`; Break — входной пин = имя структуры.
-15. `DefaultValue="..."` пиши для пинов со значением по умолчанию (Selection, TraceChannel, флаги). Struct-пины: PinSubCategory="" + канонический `PinSubCategoryObject` из src/ue-types.js (quoted-full (UE 5.8): `"/Script/CoreUObject.*"` в кавычках; Core-структуры — `/Script/CoreUObject.*`) или None (движок восстановит по сигнатуре, варнинг W10). Enum-пины (TraceChannel): путь энама из UE_ENUMS. ExportPath пиши в двойных кавычках (copy-back движка, v4): `ExportPath="/Script/BlueprintGraph.K2Node_CallFunction'"/Game/Generated.Generated:EventGraph.N"'"`. Поля `PersistentGuid` и `PinFriendlyName` **не пиши вообще**. WCO-пины: object + Class-путь + bIsConst=True + bHidden=True (см. реестр). Движок сам добавляет недостающие пины сигнатуры — минимум: execute/then + связанные.
+15. `DefaultValue="..."` пиши для пинов со значением по умолчанию (Selection, TraceChannel, флаги). Struct-пины: PinSubCategory="" + канонический `PinSubCategoryObject` из src/ue-types.js (quoted-full (UE 5.8): `"/Script/CoreUObject.*"` в кавычках; Core-структуры — `/Script/CoreUObject.*`) или None (движок восстановит по сигнатуре, варнинг W10). Enum-пины (TraceChannel): путь энама из UE_ENUMS. ExportPath пиши в двойных кавычках (copy-back движка, v4): `ExportPath="/Script/BlueprintGraph.K2Node_CallFunction'"/Game/Generated.Generated:EventGraph.N"'"`. Пиши `PersistentGuid=00000000000000000000000000000000` в сериализуемых пинах, если используешь канонический формат этой репозитории. Не выдумывай `PinFriendlyName`; однако сохраняй обязательные localized friendly names у enum Select/Switch pins согласно точному fixture `sweep/enum-select-test.txt`. WCO-пины: object + Class-путь + bIsConst=True + bHidden=True (см. реестр). Движок сам добавляет недостающие пины сигнатуры — минимум: execute/then + связанные.
 16. Перед выдачей прогони текст через `node src/validate.js` (strict) и исправь ВСЕ ошибки. Предупреждения с `note` из реестра — прочитай и учти.
 
 ## Формат ответа

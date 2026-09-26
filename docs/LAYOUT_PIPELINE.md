@@ -1,21 +1,25 @@
-# Blueprint construction pipeline
+# Этапы построения Blueprint-графа
 
-Blueprint generation is split into three explicit stages. Coordinates are not part of Stage 1 semantics.
+Построение графа разделено на три явных этапа. На первом этапе координаты не относятся к смыслу графа.
 
-## 1. Creator — `src/creator.js`
+## 1. Создатель — `src/creator.js`
 
-Create existing UE node types, pins, defaults and reciprocal links. `linkPins()` only records endpoints; it must not move either node. Node factories keep their current optional initial position argument for compatibility, but callers should treat it as a placeholder until Stage 2.
+Создаёт существующие типы UE-нод, пины, значения по умолчанию и двусторонние связи. `linkPins()` только записывает концы связи и не перемещает ноды. У фабрик пока сохранён необязательный параметр стартовой позиции для совместимости; при новом сценарии считай его временным до второго этапа.
 
-## 2. Arranger — `src/arranger.js`
+## 2. Расстановщик — `src/arranger.js`
 
-`arrangeRows(rows, { x, y, gap, rowGap })` places explicit rows. Nodes proceed left-to-right by estimated node width plus a clear gap; each later row goes below the previous one. `arrangeFlow()` can derive a basic order from links, but callers should pass explicit rows for branches, data-only helpers, and layouts where exec order is authoritative.
+`arrangeRows(rows, { x, y, gap, rowGap })` размещает переданные явно ряды: внутри ряда слева направо, каждый следующий ряд ниже предыдущего. Интервал учитывает оценочную ширину ноды и `gap`. `arrangeFlow()` может вывести простой порядок из связей, но для ветвлений, data-only узлов и случаев, где порядок задаётся exec-цепочкой, передавай ряды явно.
 
-This stage owns coarse sequence/topology, row wrapping and creation of two exec reroute knots for any exec edge that would point backward or horizontally into the source node. Its result returns both `placed` nodes and generated `knots` (or all of them in `nodes`). It does not attempt pixel-perfect pin alignment.
+Этот этап отвечает за базовую структуру, последовательность, переносы между рядами и создание reroute-knot узлов для exec-связей, которые идут назад или между разными рядами. Возвращаемый результат содержит исходные расставленные ноды и созданные knot-ноды. Точная геометрия пинов здесь ещё не корректируется.
 
-## 3. Decorator — `src/decorator.js`
+## 3. Декоратор — `src/decorator.js`
 
-`decorateLayout(nodes, options)` refines already-arranged positions from connected pin identities: exec edges are anchors first, then non-exec edges where they do not conflict with an exec anchor. It enforces a horizontal cable corridor for forward links, snaps positions to the UE 16px grid, and can add exec reroute knots. `pinY(node, pin)` can be supplied by an engine-calibrated pin-center model; the default uses the repository's current modeled header/pin-row geometry.
+`decorateLayout(nodes, options)` уточняет уже расставленные ноды по связанным pin identities: в первую очередь использует exec-связи, затем data-связи, если они не конфликтуют с exec-якорем. Поддерживает горизонтальный зазор для прямых связей, сдвигает созданные расстановщиком knot-ноды и привязывает координаты к сетке UE в 16 units. Создание knot не входит в обязанности декоратора.
 
-## Orchestration
+Координаты pin centers по умолчанию оцениваются моделью высоты заголовка и строк пинов. Для калибровки можно передать `pinY(node, pin)` с измерениями из Unreal Editor. Оценка ширины нод также модельная — её нужно сверять в UE.
 
-`src/layout-pipeline.js` exports both stages and `positionBlueprint()` for the standard arrange-then-decorate path. Creation and linking happen before calling it. The former layout helpers in `generator.js` remain as compatibility APIs for existing scripts; new generators should use the three stage modules above. UE copy-back remains the authority for actual Slate geometry; estimated widths/pin centers require visual verification in the editor.
+## Объединённый вызов
+
+`src/layout-pipeline.js` экспортирует `positionBlueprint()` — вызов расстановщика, затем декоратора. Создание нод и связей выполняется заранее. Старые layout-функции в `generator.js` оставлены для совместимости существующих скриптов; для новых генераторов используй отдельные stage-модули.
+
+STRICT и unit-тесты проверяют структуру и расчёты модели, но не подтверждают UE-вставку, компиляцию или фактическое расположение пинов в редакторе.

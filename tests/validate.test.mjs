@@ -301,6 +301,13 @@ regThrow.forEach(t => console.log('THROW:', t));
   const {arrangeRows}=await import('../src/arranger.js');
   const routed=arrangeRows([[backTarget],[backSource]]);
   ok(routed.knots.length===2 && routed.nodes.length===4 && backSource.pins.find(p=>p.name==='then').linkedTo[0].nodeName===routed.knots[0].id, 'arranger: backward exec flow requests and creates two reroute knots');
+  const {positionBlueprint}=await import('../src/layout-pipeline.js');
+  const {pinCenterY}=await import('../src/generator.js');
+  const pipedA=createCallFunction(byId('Delay'));
+  const pipedB=createCallFunction(byId('Delay'));
+  linkPins(pipedA,'then',pipedB,'execute');
+  const piped=positionBlueprint([pipedA,pipedB],{rows:[[pipedA,pipedB]],arrange:{gap:160},decorate:{clearance:160}});
+  ok(piped.nodes.length===2 && pipedB.pos.x>pipedA.pos.x && Math.abs(pinCenterY(pipedA,pipedA.pins.find(p=>p.name==='then'))-pinCenterY(pipedB,pipedB.pins.find(p=>p.name==='execute')))<1, 'pipeline: explicit rows route through arranger then decorator');
 }
 
 // N1 copy-back: 42/42 PinId, резолв wildcard-макро при вставке, 3 провода

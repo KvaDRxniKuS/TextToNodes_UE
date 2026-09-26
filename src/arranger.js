@@ -1,39 +1,59 @@
-// Stage 2: coarse graph arrangement. This module changes only node positions.
-// It does not create nodes, pins, or links.
-import { estNodeWidth, estNodeHeight, createKnot } from './generator.js';
+// Stage 2: coarse graph arrangement. This module changes node positions and
+// creates topology-driven reroute knots through the creator API.
+import { estNodeWidth, estNodeHeight, pinCenterY } from './generator.js';
+import { createKnot } from './creator.js';
 
-/**
- * Lay out explicit left-to-right rows. Pass node objects grouped by visual rows;
- * every row is placed left-to-right with non-overlapping estimated node bounds.
- * Rows advance downward. `gap` is free space AFTER a node's estimated right edge.
- */
-function createBackwardExecKnots(nodes) {
-  const byId = new Map(nodes.map(n => [n.id,n]));
+const isKnot = n => (n.className || '').includes('Knot');
+
+/** Create reroutes for exec edges which must travel backward or change rows. */
+function createExecReroutes(nodes) {
+  const byId = new Map(nodes.map(n => [n.id, n]));
   const jobs = [];
-  for (const source of nodes) for (const out of source.pins || []) {
-    if (out.direction !== 'Output' || out.category !== 'exec') continue;
-    for (const l of out.linkedTo || []) {
-      const target = byId.get(l.nodeName), input = target?.pins.find(p => p.id === l.pinId);
-      if (target && input?.category === 'exec' && input.direction === 'Input' && target.pos.x <= source.pos.x) jobs.push([source,out,target,input]);
+  for (const source of nodes) {
+    if (isKnot(source)) continue;
+    for (const out of source.pins || []) {
+      if (out.direction !== 'Output' || out.category !== 'exec') continue;
+      for (const l of out.linkedTo || []) {
+        const target = byId.get(l.nodeName);
+        const input = target?.pins.find(p => p.id === l.pinId);
+        if (!target || isKnot(target) || input?.category !== 'exec' || input.direction !== 'Input') continue;
+        if (target.pos.x <= source.pos.x || target.pos.y !== source.pos.y) jobs.push([source,out,target,input]);
+      }
     }
   }
-  const knots=[];
+
+  const knots = [];
   for (const [source,out,target,input] of jobs) {
-    out.linkedTo=out.linkedTo.filter(l=>l.pinId!==input.id);
-    input.linkedTo=input.linkedTo.filter(l=>l.pinId!==out.id);
-    const y=Math.max(source.pos.y+estNodeHeight(source),target.pos.y+estNodeHeight(target))+64;
-    const points=[[source.pos.x+estNodeWidth(source)+32,y],[target.pos.x-32,y]];
-    let prevNode=source,prevPin=out;
-    for(const [x,y] of points){
-      const knot=createKnot({x,y},'exec'),[ki,ko]=knot.pins;
-      prevPin.linkedTo.push({nodeName:knot.id,pinId:ki.id});ki.linkedTo.push({nodeName:prevNode.id,pinId:prevPin.id});
-      knots.push(knot);prevNode=knot;prevPin=ko;
+    out.linkedTo = out.linkedTo.filter(l => l.pinId !== input.id);
+    input.linkedTo = input.linkedTo.filter(l => l.pinId !== out.id);
+    const sourceCenterY = pinCenterY(source,out);
+    const targetCenterY = pinCenterY(target,input);
+    const backward = target.pos.x <= source.pos.x;
+    const points = backward
+      ? [[source.pos.x + estNodeWidth(source) + 32, Math.max(source.pos.y + estNodeHeight(source), target.pos.y + estNodeHeight(target)) + 64],
+         [target.pos.x - 32, Math.max(source.pos.y + estNodeHeight(source), target.pos.y + estNodeHeight(target)) + 64]]
+      : [[(source.pos.x + estNodeWidth(source) + target.pos.x) / 2, sourceCenterY - 8],
+         [(source.pos.x + estNodeWidth(source) + target.pos.x) / 2, targetCenterY - 8]];
+    let previousNode = source, previousPin = out;
+    for (const [x,y] of points) {
+      const knot = createKnot({ x, y }, 'exec');
+      const [inputPin, outputPin] = knot.pins;
+      previousPin.linkedTo.push({ nodeName: knot.id, pinId: inputPin.id });
+      inputPin.linkedTo.push({ nodeName: previousNode.id, pinId: previousPin.id });
+      knots.push(knot);
+      previousNode = knot; previousPin = outputPin;
     }
-    prevPin.linkedTo.push({nodeName:target.id,pinId:input.id});input.linkedTo.push({nodeName:prevNode.id,pinId:prevPin.id});
+    previousPin.linkedTo.push({ nodeName: target.id, pinId: input.id });
+    input.linkedTo.push({ nodeName: previousNode.id, pinId: previousPin.id });
   }
   return knots;
 }
 
+/**
+ * Lay out explicit left-to-right rows. Each later row starts below the prior
+ * row's estimated bottom. `gap` is free horizontal space after estimated width.
+ * Returns positioned graph nodes, plus any reroute knots created at this stage.
+ */
 export function arrangeRows(rows, { x = 0, y = 0, gap = 160, rowGap = 160, createRerouteKnots = true } = {}) {
   let rowY = y;
   const placed = [];
@@ -50,12 +70,12 @@ export function arrangeRows(rows, { x = 0, y = 0, gap = 160, rowGap = 160, creat
     }
     rowY = rowBottom + rowGap;
   }
-  const knots = createRerouteKnots ? createBackwardExecKnots(placed) : [];
+  const knots = createRerouteKnots ? createExecReroutes(placed) : [];
   return { nodes: [...placed, ...knots], placed, knots, bottom: rowY };
 }
 
 /** Extract a deterministic topological ordering from graph links. Exec edges are
- * prioritized; non-exec links break ties. Cyclic/data-feedback leftovers retain input order. */
+ * prioritized; cyclic/data-feedback leftovers retain input order. */
 export function topologicalNodes(nodes) {
   const byId = new Map(nodes.map(n => [n.id, n]));
   const incoming = new Map(nodes.map(n => [n.id, 0]));
@@ -87,8 +107,7 @@ export function topologicalNodes(nodes) {
   return result;
 }
 
-/** Arrange a simple linked flow as one row; explicit ordered list is preferred
- * for graphs with branches or disconnected utility nodes. */
+/** Arrange a simple linked flow as one row; explicit rows are preferred for branches. */
 export function arrangeFlow(nodes, options = {}) {
   const ordered = options.order ? options.order.map(x => typeof x === 'string' ? nodes.find(n => n.id === x) : x).filter(Boolean) : topologicalNodes(nodes);
   return arrangeRows([ordered], options);
