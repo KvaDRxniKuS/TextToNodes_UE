@@ -15345,9 +15345,9 @@
     "dv": "true"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Включить физику",
-  "note": "round29-pre: член PrimitiveComponent::SetSimulatePhysics, self явный"
+  "note": "R29 VERIFIED"
  },
  {
   "id": "SetEnableGravity",
@@ -15380,9 +15380,9 @@
     "dv": "true"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Гравитация вкл/выкл",
-  "note": "round29-pre: член PrimitiveComponent::SetEnableGravity, self явный"
+  "note": "R29 VERIFIED"
  },
  {
   "id": "AddImpulse",
@@ -15428,9 +15428,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Импульс",
-  "note": "round29-pre: член PrimitiveComponent::AddImpulse, self явный"
+  "note": "R29 VERIFIED"
  },
  {
   "id": "AddForce",
@@ -15476,9 +15476,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Сила",
-  "note": "round29-pre: член PrimitiveComponent::AddForce, self явный"
+  "note": "R29 VERIFIED"
  },
  {
   "id": "AddTorqueInRadians",
@@ -15523,9 +15523,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Крутящий момент",
-  "note": "round29-pre: член PrimitiveComponent::AddTorqueInRadians, self явный"
+  "note": "R29 VERIFIED"
  },
  {
   "id": "SetPhysicsLinearVelocity",
@@ -15570,9 +15570,9 @@
     "dv": "None"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Задать скорость",
-  "note": "round29-pre: член PrimitiveComponent::SetPhysicsLinearVelocity, self явный"
+  "note": "R29 VERIFIED"
  },
  {
   "id": "GetPhysicsLinearVelocity",
@@ -15602,9 +15602,9 @@
     "sub": "Vector"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Скорость тела",
-  "note": "round29-pre: член PrimitiveComponent::GetPhysicsLinearVelocity, self явный"
+  "note": "R29 VERIFIED"
  },
  {
   "id": "GetMass",
@@ -15628,9 +15628,9 @@
     "sub": "float"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Масса",
-  "note": "round29-pre: член PrimitiveComponent::GetMass, self явный"
+  "note": "R29 VERIFIED"
  },
  {
   "id": "SetMassOverrideInKg",
@@ -15676,9 +15676,9 @@
     "dv": "true"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Переопределить массу",
-  "note": "round29-pre: член PrimitiveComponent::SetMassOverrideInKg, self явный"
+  "note": "R29 VERIFIED"
  },
  {
   "id": "SetCollisionEnabled",
@@ -15712,9 +15712,9 @@
     "dv": "QueryAndPhysics"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Режим коллизии",
-  "note": "round29-pre: член PrimitiveComponent::SetCollisionEnabled, self явный"
+  "note": "R29 VERIFIED"
  },
  {
   "id": "SetCollisionResponseToChannel",
@@ -15755,9 +15755,9 @@
     "dv": "ECR_Overlap"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Отклик на канал",
-  "note": "round29-pre: член PrimitiveComponent::SetCollisionResponseToChannel, self явный"
+  "note": "R29 VERIFIED"
  },
  {
   "id": "SetCollisionProfileName",
@@ -15796,9 +15796,9 @@
     "dv": "true"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Профиль коллизии",
-  "note": "round29-pre: член PrimitiveComponent::SetCollisionProfileName, self явный"
+  "note": "R29 VERIFIED"
  },
  {
   "id": "SetGenerateOverlapEvents",
@@ -15831,9 +15831,9 @@
     "dv": "true"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Генерировать overlap",
-  "note": "round29-pre: член PrimitiveComponent::SetGenerateOverlapEvents, self явный"
+  "note": "R29 VERIFIED"
  },
  {
   "id": "SetMaterial",
@@ -15872,9 +15872,9 @@
     "object": "/Script/Engine.MaterialInterface"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Материал слота",
-  "note": "round29-pre: член PrimitiveComponent::SetMaterial, self явный"
+  "note": "R29 VERIFIED"
  },
  {
   "id": "SetComponentVisibility",
@@ -15913,9 +15913,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Видимость компонента",
-  "note": "round29-pre: член SceneComponent::SetVisibility, self явный"
+  "note": "R29 VERIFIED"
  },
  {
   "id": "SetHiddenInGameComponent",
@@ -15954,9 +15954,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Скрыть в игре",
-  "note": "round29-pre: член SceneComponent::SetHiddenInGame, self явный"
+  "note": "R29 VERIFIED"
  },
  {
   "id": "SetWorldScale3D",
@@ -15990,9 +15990,9 @@
     "dv": "1, 1, 1"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Масштаб в мире",
-  "note": "round29-pre: член SceneComponent::SetWorldScale3D, self явный"
+  "note": "R29 VERIFIED"
  },
  {
   "id": "AddWorldOffset",
@@ -16044,9 +16044,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Сдвиг в мире",
-  "note": "round29-pre: член SceneComponent::K2_AddWorldOffset, self явный"
+  "note": "R29 VERIFIED"
  },
  {
   "id": "GetComponentVelocity",
@@ -16070,9 +16070,9 @@
     "sub": "Vector"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Скорость компонента",
-  "note": "round29-pre: член SceneComponent::GetComponentVelocity, self явный"
+  "note": "R29 VERIFIED"
  },
  {
   "id": "GetOwnerComponent",
@@ -16096,9 +16096,9 @@
     "object": "/Script/Engine.Actor"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Владелец компонента",
-  "note": "round29-pre: член ActorComponent::GetOwner, self явный"
+  "note": "R29 VERIFIED"
  },
  {
   "id": "SetActiveComponent",
@@ -16137,9 +16137,9 @@
     "dv": "false"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Активность компонента",
-  "note": "round29-pre: член ActorComponent::SetActive, self явный"
+  "note": "R29 VERIFIED"
  },
  {
   "id": "IsActiveComponent",
@@ -16162,9 +16162,9 @@
     "cat": "bool"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Активен?",
-  "note": "round29-pre: член ActorComponent::IsActive, self явный"
+  "note": "R29 VERIFIED"
  },
  {
   "id": "ComponentHasTag",
@@ -16193,8 +16193,8 @@
     "cat": "bool"
    }
   ],
-  "verified": false,
+  "verified": true,
   "desc": "Тег компонента",
-  "note": "round29-pre: член ActorComponent::ComponentHasTag, self явный"
+  "note": "R29 VERIFIED"
  }
 ]

@@ -900,6 +900,15 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(!vc.valid && vc.errors.length === 1 && vc.errors[0].startsWith('E19') && vc.errors[0].includes('MadeUpSpeed'), 'P2.11: выдуманная переменная → E19, существующие — ок');
   ok(validateStrict(frag, { context: inv, newVars: ['MadeUpSpeed'] }).valid, 'P2.11: --new MadeUpSpeed → ок');
 }
+// R29 VERIFIED + sweep 32 (компоненты: жизненный цикл/запросы, новый формат пинов)
+{
+  const c29 = reg.filter(e => e.category === 'Components / Physics');
+  ok(c29.length >= 23 && c29.every(e => e.verified), 'R29: Components / Physics verified');
+  const t = fs.readFileSync(new URL('../sweep/32-components-lifecycle.txt', import.meta.url), 'utf8');
+  ok(validateStrict(t).valid, '32: 0 ошибок (строго)');
+  ok(!t.includes('ExportPath=') && t.split('\n').filter(l => l.includes('CustomProperties Pin')).every(l => l.includes('PersistentGuid=0')), '32: новый формат (без ExportPath, PersistentGuid)');
+  ok(['Deactivate', 'Activate', 'SetComponentTickEnabled', 'IsComponentTickEnabled', 'K2_GetComponentsByClass', 'GetComponentsByTag', 'GetAllWidgetsOfClass', 'K2_DestroyComponent'].every(f => t.includes(`MemberName="${f}"`)), '32: все 8 функций');
+}
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);

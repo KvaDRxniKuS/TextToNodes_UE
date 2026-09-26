@@ -27,9 +27,9 @@ TextToNodes_UE — генератор текста для вставки Bluepri
 - Журнал проверок в движке: `docs/ENGINE_VERIFIED.md` (раунды, формы, провалы).
 
 ## Статус раундов (2026-09-26)
-- VERIFIED: R07–R20, R21b, R21c, R22(+b), R23(+b), R24, R25, R26, R27 (Widgets/UI; вид переделан как 27b).
+- VERIFIED: R07–R20, R21b, R21c, R22(+b), R23(+b), R24, R25, R26, R27 (Widgets/UI; вид переделан как 27b), R29 (+`call`).
 - FAIL: R21 (GetBoundActionValue — скрыт).
-- Ждут вердикта: 25b (make-node модуль), 27b (вид раскладки), 28 Enhanced Input (full), 29 Components/Physics + `call`,
+- Ждут вердикта: 25b (make-node модуль), 27b (вид раскладки), 28 Enhanced Input (full), 32 компоненты (жизн. цикл, sweep/gen32.sh),
   30 декор (knot'ы), 31 Audio (через `call`, тип `single` = C++ float).
 - Отложено: Enum-Select, Event Dispatcher (K2Node_CallDelegate), Timeline, MoveComponentTo, GetAllWidgetsOfClass,
   AddComponentByClass, K2_DestroyComponent.
