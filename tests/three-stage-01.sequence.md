@@ -46,7 +46,8 @@ Custom Event-хендлер; после бинда — `Sequence`, ветка A 
 | 11 | Print String `No` | `K2Node_CallFunction` | `execute`, `then`, `InString`… | 3 | 0 |
 | 12 | Print String `Overlap!` (логика хендлера) | `K2Node_CallFunction` | `execute`, `then`, `InString`… | 1 | 0 |
 
-Связи (все записываются **двусторонне**, `LinkedTo` в обеих нодах):
+Соединения (ступень 1 их только **закладывает**; двусторонние `LinkedTo` в обеих нодах пишет
+ступень 2 — `applyConnections`):
 
 ```text
 1.then          → 2.execute           exec, ряд 0
