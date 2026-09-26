@@ -10,11 +10,11 @@ TextToNodes_UE парсит, создаёт, проверяет и экспор�
 
 Новый код строить через три явных этапа:
 
-1. **Creator:** `src/creator.js`, `src/modules.js`, фабрики из `src/generator.js`. Создать ноды/пины и записать связи; `linkPins()` не перемещает ноды.
+1. **Генератор нод (creator):** `src/stage1.js` (спека → код нод, самопроверка round-trip) поверх `src/creator.js`, `src/modules.js` и фабрик `src/generator.js`. Создать ноды/пины и записать связи; `linkPins()` не перемещает ноды, knot'ы и комментарии на этой ступени не создаются.
 2. **Arranger:** `src/arranger.js`. Задать визуальные ряды и coarse-порядок; обратные exec-связи могут получить reroute knots. Результат включает созданные ноды.
 3. **Decorator:** `src/decorator.js`. Скорректировать XY по pin-center модели, обеспечить пространство для проводов и привязать координаты к сетке.
 
-`src/layout-pipeline.js` предоставляет общий orchestration API. Оценки ширины и pin-center пока модельные: не считать UE-визуальную корректность подтверждённой без проверки в редакторе. Старые генераторы в `tools/make-node.mjs` используют совместимый layout path; не приписывать ему новые этапы, если он явно не переведён.
+`src/layout-pipeline.js` предоставляет общий orchestration API; раздельный прогон ступеней с обменом текстом — `tools/gen-three-stage-test.mjs` (фикстуры `tests/three-stage-01.stage*.txt`, `npm run stages`). Оценки ширины и pin-center пока модельные: не считать UE-визуальную корректность подтверждённой без проверки в редакторе. Старые генераторы в `tools/make-node.mjs` используют совместимый layout path; не приписывать ему новые этапы, если он явно не переведён.
 
 ## Проверки и источники истины
 
@@ -36,5 +36,10 @@ TextToNodes_UE парсит, создаёт, проверяет и экспор�
 - Не добавлять приватные дампы пользователя в fixtures без его решения; настоящие copy-back fixtures сохранять дословно.
 
 ## Текущий UE follow-up
+
+Трёхступенчатый тест: `tests/three-stage-01.sequence.md` (эталонная последовательность и критерии
+приёмки ступени 1) → `tests/three-stage-01.stage1-generator.txt` / `.stage2-arranger.txt` /
+`.stage3-decorator.txt`. Ступень 1 откалибрована и ждёт вердикта пользователя; затем калибруются
+расстановщик и декоратор (расхождения перечислены в §4 спеки).
 
 Dispatcher fixture: `sweep/dispatcher-probe-bound.txt`, генератор `tools/gen-dispatcher-bound-test.mjs`. Последняя перестройка использует creator → arranger → decorator, но её spacing и pin alignment в Unreal Editor ещё должны быть визуально подтверждены пользователем. См. историю решений и следующий порядок тем в `HANDOFF_TOPICS.md`.

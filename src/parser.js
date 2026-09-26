@@ -3,8 +3,18 @@
 // Используется и в браузере (index.html) и в Node для валидации LLM ответов
 import { macroGraphRef } from './ue-types.js';
 
+// guid32 — 32 HEX. По умолчанию случайный; seedGuids(строка|число) включает
+// детерминированный PRNG, чтобы фикстуры (tests/, sweep/) перегенерялись побайтово
+// и их можно было сравнивать diff'ом между прогонами stages.
+let rand = Math.random;
+export function seedGuids(seed){
+  if(seed===null||seed===undefined){ rand=Math.random; return; }
+  let s = typeof seed==='number' ? (seed>>>0) : [...String(seed)].reduce((a,c)=>(a*131+c.charCodeAt(0))>>>0, 7);
+  if(!s) s=0x9E3779B9;
+  rand = ()=>{ s^=s<<13; s>>>=0; s^=s>>>17; s^=s<<5; s>>>=0; return s/4294967296; };
+}
 export function guid32(){
-  const h='0123456789ABCDEF'; let s=''; for(let i=0;i<32;i++) s+=h[Math.floor(Math.random()*16)]; return s;
+  const h='0123456789ABCDEF'; let s=''; for(let i=0;i<32;i++) s+=h[Math.floor(rand()*16)]; return s;
 }
 
 export function parseToGraphs(text){
@@ -51,6 +61,7 @@ export function parseToGraphs(text){
       else if(t.startsWith('NodeWidth=')) node.width=parseInt(t.match(/NodeWidth=(\d+)/)?.[1]||'180',10);
       else if(t.startsWith('NodeHeight=')) node.height=parseInt(t.match(/NodeHeight=(\d+)/)?.[1]||'80',10);
       else if(t.startsWith('NodeComment=')) commentText=t.match(/NodeComment="([^"]*)"/)?.[1]||'';
+      else if(t.startsWith('CustomFunctionName=')) node.eventName=(t.match(/CustomFunctionName="([^"]*)"/)||[])[1]||'';
       else if(t.startsWith('CustomProperties Pin')){
         const pinStr=t.substring(t.indexOf('Pin (')+5);
         const pinId=(pinStr.match(/PinId=([A-F0-9]+)/)||[])[1]||guid32();
@@ -126,6 +137,28 @@ export function parseToGraphs(text){
   return graphs;
 }
 
+// Ступени 2/3 работают с ЧУЖИМ текстом: блок сохраняется дословно, но расстановщик
+// вправе (а) передвинуть ноду и (б) переподключить пины — например пустить exec-связь
+// через knot-перенос. syncBlockLinks переписывает из модели только LinkedTo пинов,
+// остальной текст блока (порядок полей, кавычки, неизвестные свойства) не трогает.
+export function syncBlockLinks(block, node){
+  const byId=new Map((node.pins||[]).map(p=>[p.id,p]));
+  return String(block).split(/\r?\n/).map(line=>{
+    const t=line.trim();
+    if(!t.startsWith('CustomProperties Pin (')) return line;
+    const body=t.slice(t.indexOf('Pin (')+5).replace(/\)\s*$/,'');
+    const pid=(body.match(/PinId=([A-F0-9]{32})/)||[])[1];
+    const p=pid&&byId.get(pid);
+    if(!p) return line; // чужой/вложенный пин — не наш
+    const linked=(p.linkedTo||[]).length?`LinkedTo=(${p.linkedTo.map(l=>l.nodeName+' '+l.pinId).join(',')},),`:'';
+    const rest=body.replace(/LinkedTo=\([^)]*\),?/g,'');
+    if(!linked) return `${line.slice(0,line.length-line.trimStart().length)}CustomProperties Pin (${rest})`;
+    const at=rest.indexOf('PersistentGuid='); // каноника движка: LinkedTo стоит перед PersistentGuid
+    const idx=at<0?rest.length:at;
+    return `${line.slice(0,line.length-line.trimStart().length)}CustomProperties Pin (${rest.slice(0,idx)}${linked}${rest.slice(idx)})`;
+  }).join('\n');
+}
+
 export function generateUEText(nodeList, opts={}){
   if(!nodeList.length) return '';
   return nodeList.map(n=>{
@@ -135,6 +168,7 @@ export function generateUEText(nodeList, opts={}){
     } else {
       block=block.replace(/NodePosX=-?\d+/g, `NodePosX=${Math.round(n.pos.x)}`);
       block=block.replace(/NodePosY=-?\d+/g, `NodePosY=${Math.round(n.pos.y)}`);
+      if(opts.syncLinks) block=syncBlockLinks(block,n);
       if(n.isComment){
         block=block.replace(/NodeWidth=\d+/g, `NodeWidth=${n.width}`);
         block=block.replace(/NodeHeight=\d+/g, `NodeHeight=${n.height}`);

@@ -12,11 +12,12 @@
 | R21 GetBoundActionValue | Не использовать: нода скрыта/не доступна в проверенной конфигурации |
 | Enum Select для `EDrawDebugTrace` | Точная форма сверена с UE copy-back: 4 options, enum IndexPinType, Enum/EnumEntries и friendly names; fixture `sweep/enum-select-test.txt`. Кастомный BP enum отдельно не подтверждён |
 | Dispatcher layout follow-up | `sweep/dispatcher-probe-bound.txt` обновлён инструментами трёх этапов; новая визуальная раскладка ещё ждёт verdict пользователя |
+| Трёхступенчатый конвейер отдельными инструментами | Ступень 1 (генератор нод, `src/stage1.js`) откалибрована на `tests/three-stage-01.sequence.md`: 12 нод, 11 двусторонних связей, марки `@row/@col`, STRICT + round-trip чистые; визуальный verdict пользователя ещё не получен. Ступени 2/3 правилам ТЗ не следуют — список расхождений в `tests/three-stage-01.sequence.md` §4 |
 | R30/27b и другие старые layout probes | Не считать последнее ручное смещение универсально откалиброванным. При необходимости сверять с актуальным UE copy-back, а не возрождать старые offsets из журнала |
 
 ## Следующие темы — в заданном порядке
 
-1. **Завершить UE-проверку текущего layout pipeline** на dispatcher fixture: последовательность слева направо, реальный зазор между exec-пинами, pin-center alignment и handler. Новые позиции/solver утверждать только после copy-back пользователя.
+1. **Завершить UE-проверку текущего layout pipeline** на dispatcher fixture: последовательность слева направо, реальный зазор между exec-пинами, pin-center alignment и handler. Новые позиции/solver утверждать только после copy-back пользователя. Параллельно идёт калибровка ступеней по одному инструменту на `tests/three-stage-01.*`: следующий шаг — расстановщик (шаблоны «делегат левее ниже», «правее предыдущей», knot-перенос между уровнями), затем декоратор (Y пинов совпадает, зазор 5 клеток, knot'ы по X пинов и по середине коридора).
 2. **MoveComponentTo** — latent узел, `ExpandEnumAsExecs`, несколько exec-выходов; расширить creator/arranger для таких форм после получения канонического UE reference.
 3. **AddComponentByClass / Add Static Mesh Component** — специальная K2-нода, нужен copy-back и проверка формы пинов.
 4. **Timeline** — K2Node_Timeline и референс с curve asset.
@@ -40,6 +41,8 @@
 ## Зафиксированные решения, не менять без нового UE evidence
 
 - Вставки и copy-back из пользователя передавать дословно, не редактировать вручную.
+- Ступени конвейера обмениваются ТЕКСТОМ; ступень 2/3 вправе менять в чужом блоке только `NodePosX/Y` и `LinkedTo` (`generateUEText(…, { syncLinks: true })`) — остальной код ноды остаётся дословным.
+- Ступень 1 не угадывает позиционирование: без `@row`/`@col` узел не создаётся; knot'ы и комментарии генератор не пишет.
 - Полноценный enum Select не сводить к двум wildcard options: для указанного EDrawDebugTrace эталон — четыре enum options; см. fixture и `ENGINE_VERIFIED.md`.
 - Composite/Knot геометрию из завершённых тестов не смешивать с dispatcher/layout work.
 - Реальные пользовательские проектные дампы, которые пользователь не разрешал включать в toolkit, не добавлять в Git.

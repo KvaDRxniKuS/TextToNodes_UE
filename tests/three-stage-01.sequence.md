@@ -1,0 +1,174 @@
+# Трёхступенчатый тест 01 — делегат + Sequence + второй уровень
+
+Эталонная последовательность нод для проверки конвейера **по одному инструменту на ступень**:
+
+| Ступень | Инструмент | Вход | Выход (файл для копирования в UE) |
+|---|---|---|---|
+| 1 — генератор нод | `src/stage1.js` (`tools/gen-three-stage-test.mjs --stage 1`) | эта спека | `tests/three-stage-01.stage1-generator.txt` |
+| 2 — расстановщик | `src/arranger.js` (`--stage 2`) | код ступени 1 + марки | `tests/three-stage-01.stage2-arranger.txt` |
+| 3 — декоратор | `src/decorator.js` (`--stage 3`) | код ступени 2 | `tests/three-stage-01.stage3-decorator.txt` |
+
+Файлы `.stage*.txt` генерируются (не правятся руками): `node tools/gen-three-stage-test.mjs`.
+Блок ```graph ниже — единственный источник истины по нодам/связям/маркам: его читает
+`parseSpec()` из `src/stage1.js`.
+
+## 1. Что за граф
+
+Логика: событие инициализации биндит мультикаст-делегат `Actor.OnActorBeginOverlap` на свой
+Custom Event-хендлер; после бинда — `Sequence`, ветка A печатает отчёт, ветка B делает `Delay`,
+после задержки exec переходит **на второй уровень**, где идёт `Branch` с условием из переменной
+(нода данных — подряд под уровнем), `then` остаётся на уровне, `else` уходит на **третий уровень**.
+
+Тестируемые шаблоны расстановки:
+
+1. **Делегат** — хендлер (`event-for`) стоит **левее и ниже** ноды `Bind Event`, провод в `Delegate` идёт
+   снизу-слева и не пересекает exec-цепочку (`@row=1 @col=-1` у узла 6).
+2. **Последовательность** — каждый следующий узел ряда правее предыдущего (1 → 2 → 3, дальше ветки 4 и 5).
+3. **Развилка** — `Sequence` (два exec-выхода, оба использованы) и `Branch` (`then` + `else`).
+4. **Перенос уровня** — `5.then → 7.execute` идёт назад-влево на другой уровень → пара knot-переносов;
+   так же `8.else → 11.execute`.
+5. **Нода данных под уровнем** — `Get bDebug` (строка `2.5`) питает `Branch.Condition`.
+
+Номера узлов = номера в спеке, ими ссылаются `link`.
+
+| # | Нода | Класс UE | Пины в тесте | @row | @col |
+|---|---|---|---|---|---|
+| 1 | Custom Event `InitOverlapHook` | `K2Node_CustomEvent` | `OutputDelegate`, `then` | 0 | 0 |
+| 2 | Bind Event to `OnActorBeginOverlap` | `K2Node_AddDelegate` | `execute`, `then`, `self`, `Delegate` | 0 | 1 |
+| 3 | Sequence | `K2Node_ExecutionSequence` | `execute`, `then_0`, `then_1` | 0 | 2 |
+| 4 | Print String `Bound` | `K2Node_CallFunction` | `execute`, `then`, `InString`… | 0 | 3 |
+| 5 | Delay `0.2` | `K2Node_CallFunction` | `execute`, `then`, `Duration` | 0 | 4 |
+| 6 | Custom Event `OnActorBeginOverlap` (подпись делегата) | `K2Node_CustomEvent` | `OutputDelegate`, `then`, `OverlappedActor`, `OtherActor` | 1 | −1 |
+| 7 | Print String `AfterDelay` | `K2Node_CallFunction` | `execute`, `then`, `InString`… | 2 | 0 |
+| 8 | Branch | `K2Node_IfThenElse` | `execute`, `Condition`, `then`, `else` | 2 | 1 |
+| 9 | Get `bDebug` (своя переменная) | `K2Node_VariableGet` | `bDebug` | 2.5 | 0 |
+| 10 | Print String `Yes` | `K2Node_CallFunction` | `execute`, `then`, `InString`… | 2 | 2 |
+| 11 | Print String `No` | `K2Node_CallFunction` | `execute`, `then`, `InString`… | 3 | 0 |
+| 12 | Print String `Overlap!` (логика хендлера) | `K2Node_CallFunction` | `execute`, `then`, `InString`… | 1 | 0 |
+
+Связи (все записываются **двусторонне**, `LinkedTo` в обеих нодах):
+
+```text
+1.then          → 2.execute           exec, ряд 0
+2.then          → 3.execute           exec, ряд 0
+3.then_0        → 4.execute           exec, ряд 0 (ветка A — отчёт)
+3.then_1        → 5.execute           exec, ряд 0 (ветка B — задержка)
+5.then          → 7.execute           exec, ПЕРЕНОС ряд 0 → ряд 2
+6.OutputDelegate→ 2.Delegate          делегат (хендлер левее-ниже)
+6.then          → 12.execute          exec, ряд 1 (цепочка хендлера)
+7.then          → 8.execute           exec, ряд 2
+9.bDebug        → 8.Condition         данные (нода данных под уровнем)
+8.then          → 10.execute          exec, ряд 2
+8.else          → 11.execute          exec, ПЕРЕНОС ряд 2 → ряд 3
+```
+
+## 2. Спека (читается инструментом)
+
+```graph
+# ─── конфигурация сетки марок (ступень 1) и зазоров (ступени 2/3) ───
+set colStep 448        # шаг столбца: грубая сетка марок, геометрию нод ступень 1 не считает
+set rowStep 576        # шаг уровня
+set grid 16            # клетка редактора UE
+set nameBase 1000      # имя узла = <Класс>_(1000 + номер узла) — «узел 7» видно в тексте
+set gap 160            # ступень 2: горизонтальный зазор расстановщика
+set rowGap 160         # ступень 2: зазор между уровнями
+set clearance 160      # ступень 3: зазор декоратора (цель по ТЗ = 5 * grid = 80)
+
+# ─── уровень 0: событие → бинд делегата → Sequence → ветки ───
+1 event InitOverlapHook                                         @row=0 @col=0 @role=event
+2 bind Actor.OnActorBeginOverlap                                @row=0 @col=1 @role=delegate-binder
+3 fn Sequence                                                    @row=0 @col=2 @role=fork
+4 fn PrintString InString=Bound                                  @row=0 @col=3
+5 fn Delay Duration=0.2                                          @row=0 @col=4
+
+# ─── уровень 1: хендлер делегата (левее и ниже ноды бинда) и его цепочка ───
+6 event-for Actor.OnActorBeginOverlap OnActorBeginOverlap        @row=1 @col=-1 @role=delegate-handler
+12 fn PrintString InString=Overlap!                              @row=1 @col=0
+
+# ─── уровень 2: перенос с 5.then (назад-влево) → Branch → then ───
+7 fn PrintString InString=AfterDelay                              @row=2 @col=0
+8 fn Branch                                                        @row=2 @col=1 @role=branch
+10 fn PrintString InString=Yes                                     @row=2 @col=2
+9 self-get bDebug bool                                             @row=2.5 @col=0 @role=data
+
+# ─── уровень 3: else-ветка (ещё один перенос) ───
+11 fn PrintString InString=No                                      @row=3 @col=0
+
+# ─── связи пинов ───
+link 1.then 2.execute
+link 2.then 3.execute
+link 3.then_0 4.execute
+link 3.then_1 5.execute
+link 5.then 7.execute
+link 6.OutputDelegate 2.Delegate
+link 6.then 12.execute
+link 7.then 8.execute
+link 9.bDebug 8.Condition
+link 8.then 10.execute
+link 8.else 11.execute
+```
+
+## 3. Критерии приёмки ступени 1 (генератор нод)
+
+Ступень 1 отвечает **только** за корректность нод. Прогон
+`node tools/gen-three-stage-test.mjs --stage 1` обязан выдать файл, в котором:
+
+- [ ] выдать 12 блоков `Begin Object` — ни больше, ни меньше;
+- [ ] НЕ содержать `K2Node_Knot` (это ступень 2) и `EdGraphNode_Comment` (это украшательство);
+- [ ] пины каждой ноды — из реестра/copy-back формы, имена и типы точные;
+- [ ] каждая связь из спеки — двусторонняя (`LinkedTo` в обеих нодах), в тот пин, что указан;
+- [ ] `NodePosX/NodePosY` = сетка марок (`col*colStep`, `row*rowStep`, кратно 16) — без попыток
+  «красиво расставить»: это задача ступеней 2–3;
+- [ ] `node src/validate.js` — 0 ошибок; round-trip-самопроверка `verifyStage1()` — 0 расхождений
+  (текст ↔ модель: ноды, пины, количество связей, позиции);
+- [ ] 0 предупреждений спеки (висячих exec-веток и пустых входов).
+
+## 4. Ожидания от ступеней 2 и 3 и зафиксированные расхождения
+
+Следующие два шага — калибровка расстановщика и декоратора. Прогон этого теста (2026-09-26)
+показал, что текущие `src/arranger.js` / `src/decorator.js` правилам ТЗ не следуют; ниже — что
+должно быть и что получилось фактически (координаты из `--report`).
+
+### Ступень 2 — расстановщик
+
+| Правило ТЗ | Сейчас |
+|---|---|
+| шаблон «делегат левее ниже»: хендлер слева и под нодой бинда | работает случайно: `arrangeRows` начинает каждый ряд с `x=0`, хендлер попал в ряд 1 (`0,454`), бинд — в `362,0`; отдельного шаблона нет |
+| «последующая нода правее предыдущей» | есть, но только как порядок внутри ряда; уровень 1 (хендлер + его цепочка) склеен в один ряд, узел `#12` встал справа от хендлера (`393,454`) |
+| knot-переносы между двумя уровнями | создаются на ЛЮБУЮ межуровневую exec-связь (`target.y !== source.y`), в т.ч. когда провод идёт прямо вниз; Y knot'ов = `max(низ источника, низ приёмника) + 64` → коридор вышел под обоими рядами (`1266` при вершине ряда 2 = `1152`), X = «правый край + 32» / «левый край − 32», а не по пинам |
+| дробные уровни (`@row=2.5` = данные под уровнем) | `arrangeRows` не знает про уровни: `2.5` стал отдельным рядом и сдвинул вниз весь уровень 3 (`1624` вместо `1408`) |
+
+### Ступень 3 — декоратор
+
+| Правило ТЗ | Сейчас |
+|---|---|
+| выровнять Y соединённых пинов | делает, но только для exec-первой связи и только сдвигая приёмник; данные (`9.bDebug → 8.Condition`) не выравниваются вовсе — `Get bDebug` остался на `y=1360` при входе Branch на `y≈944` |
+| зазор по X = 5 клеток сетки (80 при grid 16) | `clearance = 160` (после округления фактический зазор ≈ 166) |
+| knot-переносы: X1 = X пина-выхода первой не-knot ноды, X2 = X пина-входа второй, Y обоих = середина между низом верхнего и верхом нижнего ряда | декоратор knot'ы не выравнивает; они участвуют в solve как обычные узлы и уезжают в неизвестно куда: `108 → (1904,80)`, `109 → (-32,80)` — правее своего приёмника (`#7` на `x=0`) и на уровне 0 вместо коридора |
+| ряды/уровни должны сохраниться | после декорирования уровень 2 разъехался по Y `912…1200`, уровень 3 — `1920`; геометрия уровней разрушена |
+
+### Найденные дефекты инструментов (уже правятся/исправлены)
+
+- **Исправлено:** `generateUEText` на распарсенном блоке перезаписывал только `NodePosX/Y`,
+  поэтому переподключение расстановщика (связь → knot'ы) в текст не попадало и STRICT ловил
+  `E07: односторонняя связь` на 4 knot-пинах. Добавлен `generateUEText(nodes, { syncLinks: true })`
+  (`src/parser.js`): дословный блок + переписанные из модели `LinkedTo`.
+- **Исправлено:** `parseToGraphs` терял `CustomFunctionName`, из-за чего на входе ступени 2
+  ширина Custom Event оценивалась по имени класса.
+- **На очереди (ступень 2/3):** пункты таблиц выше; дополнительно — `tools/make-node.mjs` по-прежнему
+  смешивает ступени (legacy layout + knot'ы + комментарий), а `ultimate-test.txt` и
+  `sweep/32-components-lifecycle.txt` расходятся со своими генераторами (позиции), т.е.
+  фикстуры не пересобраны.
+
+## 5. Прогон
+
+```bash
+node tools/gen-three-stage-test.mjs            # все три файла (перегенерация)
+node tools/gen-three-stage-test.mjs --stage 1  # только генератор (читает спеку ниже)
+node tools/gen-three-stage-test.mjs --report   # таблица пинов/связей/координат по ступеням
+node tools/gen-three-stage-test.mjs --check    # побайтовая сверка файлов с генератором (часть npm test)
+```
+
+GUID детерминированы (`seedGuids('three-stage-01')`), поэтому повторный прогон не создаёт
+шума в diff и файлы сверяются побайтово. Для вставки в UE: `.stage1-generator.txt` целиком
+(`Ctrl+V` в EventGraph), переменную `bDebug` нужно завести в BP (или заменить узел `#9`).
