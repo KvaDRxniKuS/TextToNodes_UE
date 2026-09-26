@@ -1,6 +1,7 @@
 // src/validate.js — СТРОГАЯ валидация UE-текста перед вставкой в движок.
 // Проверяет всё, что ломалось в engine-тестах v1/v2 (см. docs/ENGINE_VERIFIED.md):
-// двусторонние связи, GUID, MemberParent, StructType, MacroInstance, Delay/then...
+// двусторонние связи, GUID, MemberParent, StructType, MacroInstance, Delay/then,
+// E20 — связи, которые движок отвергает при компиляции (выход↔выход, своя нода, exec-выход ×2, петля knot'ов)...
 //
 // CLI:  node src/validate.js graph.txt   (без файла — читает stdin; exit 1 при ошибках)
 // API:  import { validateStrict } from './validate.js'
@@ -125,7 +126,14 @@ export function validateStrict(text, { registry = null, fragment = false, contex
   // fragment: 'auto' (CLI по умолчанию) — живая копия из движка (ExportPath есть у каждого блока; генератор без --root
   // его не пишет) почти всегда кусок графа: связи на невыделенные ноды остаются в LinkedTo
   if (fragment === 'auto') fragment = blocks.length > 0 && blocks.every(b => /ExportPath=/.test(lines[b.start]));
-  nodes.forEach(n => n.pins.forEach(p => p.links.forEach(L => {
+  // E20 (R30, испорченная чат-копия): связи, которые движок отвергает при компиляции —
+  // выход↔выход / вход↔вход (Direction mismatch), пин на собственную ноду, exec-выход с >1 связью,
+  // exec↔данные, петля из одних knot'ов (Knot_111 ↔ Knot_112). Пара репортится один раз.
+  const seenPair = new Set();
+  nodes.forEach(n => n.pins.forEach(p => {
+    if (p.isOut && p.cat === 'exec' && p.links.length > 1)
+      errors.push(`E20: ${n.name}.${p.name}: exec-выход с ${p.links.length} связями (${p.links.map(L => L.node).join(', ')}) — у exec-выхода может быть только одна`);
+    p.links.forEach(L => {
     linkCount++;
     const tgt = byName.get(L.node);
     if (!tgt) {
@@ -138,7 +146,32 @@ export function validateStrict(text, { registry = null, fragment = false, contex
     if (!tp) { errors.push(`E06: ${n.name}.${p.name} → несуществующий пин ${L.node} ${L.pin}`); return; }
     if (!tp.links.some(x => x.node === n.name && x.pin === p.id))
       errors.push(`E07: односторонняя связь ${n.name}.${p.name} → ${L.node}.${tp.name} (нет обратной LinkedTo)`);
-  })));
+    const key = [`${n.name}.${p.id}`, `${L.node}.${L.pin}`].sort().join('|');
+    if (seenPair.has(key)) return; seenPair.add(key);
+    if (L.node === n.name) errors.push(`E20: ${n.name}: пин ${p.name} связан с собственной нодой (${tp.name}) — движок: same node`);
+    else if (tp.isOut === p.isOut) errors.push(`E20: ${n.name}.${p.name} ↔ ${L.node}.${tp.name}: оба ${p.isOut ? 'выходы' : 'входы'} — Direction mismatch`);
+    else if ((p.cat === 'exec') !== (tp.cat === 'exec') && p.cat !== 'wildcard' && tp.cat !== 'wildcard')
+      errors.push(`E20: ${n.name}.${p.name} (${p.cat}) ↔ ${L.node}.${tp.name} (${tp.cat}): exec-пин связан с пином данных`);
+    });
+  }));
+  // петля только из knot'ов: OutputPin → InputPin следующего knot'а … → снова первый (нет источника — компилятор: loop)
+  const knotNext = new Map();
+  nodes.filter(n => n.short === 'K2Node_Knot').forEach(n => {
+    const out = n.pins.find(p => p.name === 'OutputPin');
+    (out ? out.links : []).forEach(L => { const t = byName.get(L.node); if (t && t.short === 'K2Node_Knot') knotNext.set(n.name, [...(knotNext.get(n.name) || []), L.node]); });
+  });
+  const loopSeen = new Set();
+  for (const start of knotNext.keys()) {
+    if (loopSeen.has(start)) continue;
+    const stack = [[start, [start]]];
+    while (stack.length) {
+      const [cur, path] = stack.pop();
+      for (const nx of knotNext.get(cur) || []) {
+        if (nx === start) { path.forEach(k => loopSeen.add(k)); errors.push(`E20: петля из knot'ов ${[...path, start].join(' → ')} — нет источника сигнала`); stack.length = 0; break; }
+        if (!path.includes(nx)) stack.push([nx, [...path, nx]]);
+      }
+    }
+  }
 
   // --- правила движка (из v1/v2 тестов)
   const BANNED_FLOW = ['K2Node_ForLoop', 'K2Node_WhileLoop', 'K2Node_Gate', 'K2Node_DoOnceMultiInput', 'K2Node_FlipFlop', 'K2Node_DoN'];

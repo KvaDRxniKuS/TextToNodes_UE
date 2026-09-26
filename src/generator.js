@@ -304,25 +304,80 @@ export function createComment(text, pos = { x: 0, y: 0 }, w = 400, h = 180) {
 /** Шаг строки пинов (px). Единая оценка для fitComment и alignPinRow. */
 export const PIN_ROW_H = 22;
 
-/** Оценка ширины ноды (px): база по классу + длинные имена видимых пинов.
- *  O-фидбек: фиксированный шаг 320 перекрывает широкие CallFunction (трейды ~400px).
- *  Ошибка — только в сторону запаса: лишние пиксели безвредны, наложение — нет. */
+/** Оценка ширины ноды (px) — по геометрии Slate-ноды, а не по фиксированной базе класса.
+ *  R30-фидбек: база 340 у CallFunction завышала (Pause Timer by Handle в движке ≈ 288) — knot переноса
+ *  вставал не соосно выходу. Модель: max(шапка, тело пинов), где
+ *  • шапка = отступы 64 (10 слева + иконка + 30 справа) + max(заголовок ×7.6, подзаголовок ×7.0);
+ *    подзаголовок CallFunction — «Target is <Класс>» (кроме self-контекста), CustomEvent — «Custom Event»;
+ *  • тело = 12 + макс. входная строка (иконка 18 + подпись ×6.2 + виджет дефолта) + 24 + макс. выходная (подпись + 18) + 12;
+ *    скрытые и свёрнутые advanced-пины места не занимают; execute/then без подписи; self → «Target».
+ *  Компактные узлы (Get переменной, операторы) — без шапки. Числа — оценка (±1 клетка сетки), не измерение. */
+const CH = { title: 7.6, sub: 7.0, pin: 6.2 };
+/** FName::NameToDisplayString (упрощённо): InString → In String, Axis2D → Axis 2D, '_' → пробел. */
+export const displayName = s => String(s || '').replace(/_/g, ' ').replace(/([a-z0-9])([A-Z])/g, '$1 $2').replace(/([A-Za-z])(\d)/g, '$1 $2').replace(/\s+/g, ' ').trim();
+/** Подпись пина в редакторе ('' — без подписи). */
+export function pinLabel(p) {
+  if (!p) return '';
+  if (p.category === 'exec' && (p.name === 'execute' || p.name === 'then')) return '';
+  if (p.name === 'self') return 'Target';
+  if (p.name === 'OutputDelegate' || p.name === 'Output_Get') return '';
+  let s = p.friendly && p.friendly !== p.name ? p.friendly : p.name;
+  if (p.category === 'bool' && /^b[A-Z]/.test(s)) s = s.slice(1);
+  return displayName(s);
+}
+/** Ширина встроенного редактора дефолта у неподключённого входа (checkbox, число, текст, вектор, комбо, пикер). */
+function pinWidgetWidth(p) {
+  if (p.direction !== 'Input' || (p.linkedTo || []).length || p.ignored) return 0;
+  if ((p.container || 'None') !== 'None') return 0;
+  const dv = p.defaultValue || '';
+  const sub = String(p.subCategoryObject || '').split('.').pop().replace(/['"]/g, '');
+  switch (p.category) {
+    case 'bool': return 18;
+    case 'int': case 'int64': case 'real': return 40;
+    case 'string': case 'name': case 'text': return Math.min(160, Math.max(44, CH.pin * dv.length + 20));
+    case 'byte': return p.subCategoryObject ? Math.max(80, CH.pin * dv.length + 40) : 40;
+    case 'class': return 120;
+    case 'object': return p.defaultObject ? 140 : 0;
+    case 'struct': return /^(Vector|Rotator)$/.test(sub) ? 120 : sub === 'Vector2D' ? 80 : sub === 'LinearColor' ? 40 : 0;
+    default: return 0;
+  }
+}
+/** Заголовок/подзаголовок ноды как в редакторе; compact — без шапки (Get переменной, операторы, Knot). */
+function nodeTitleParts(n) {
+  const cls = n.className || '';
+  const parentName = ref => { const m = String(ref || '').match(/'([^']+)'/); return m ? classDisplayName(m[1]) : ''; };
+  if (cls.includes('Knot') || cls.includes('VariableGet') || cls.includes('PromotableOperator') || cls.includes('CommutativeAssociativeBinaryOperator')) return { title: '', sub: '', compact: true };
+  if (cls.includes('CustomEvent')) {
+    const raw = (n.rawProps || []).find(l => l.startsWith('CustomFunctionName=')) || '';
+    const name = n.eventName || (raw.match(/"([^"]*)"/) || [])[1] || (n.props && String(n.props.CustomFunctionName || '').replace(/"/g, '')) || n.title || '';
+    return { title: name, sub: 'Custom Event' };
+  }
+  if (cls.includes('VariableSet')) return { title: 'SET', sub: '' };
+  if (cls.includes('CallFunction') || cls.includes('CallArrayFunction')) {
+    const t = n.title || n.funcName || '';
+    const title = /\s/.test(t) ? t : displayName(t.replace(/^K2_/, '')); // K2_DestroyComponent → Destroy Component (DisplayName движка)
+    const owner = parentName(n.memberParent);
+    return { title, sub: owner ? `Target is ${owner}` : '' };
+  }
+  const t = n.title || cls.split('.').pop();
+  return { title: /\s/.test(t) ? t : displayName(t.replace(/^K2Node_/, '')), sub: '' };
+}
+const MIN_W = [['Knot', 16], ['ExecutionSequence', 150], ['IfThenElse', 140], ['MakeStruct', 180], ['BreakStruct', 180], ['MacroInstance', 180], ['PromotableOperator', 120], ['CommutativeAssociativeBinaryOperator', 120], ['Switch', 160], ['Select', 150], ['CallFunction', 120]];
 export function estNodeWidth(n) {
-  const cls = (n && n.className) || '';
-  let base = 260;
-  if (cls.includes('Knot')) base = 100;
-  else if (cls.includes('ExecutionSequence')) base = 160;
-  else if (cls.includes('Switch')) base = 200;
-  else if (cls.includes('IfThenElse')) base = 180;
-  else if (cls.includes('VariableGet') || cls.includes('VariableSet')) base = 180;
-  else if (cls.includes('PromotableOperator')) base = 240;
-  else if (cls.includes('MakeStruct') || cls.includes('BreakStruct')) base = 260;
-  else if (cls.includes('MacroInstance')) base = 280;
-  else if (cls.includes('CallFunction') || cls.includes('CallArrayFunction')) base = 340;
-  else if (cls.includes('Comment')) return (n && n.width) || 400;
-  const vis = ((n && n.pins) || []).filter(p => !p.hidden);
-  const maxName = vis.reduce((m, p) => Math.max(m, (p.name || '').length), 8);
-  return Math.min(480, base + Math.max(0, maxName - 8) * 10);
+  if (!n) return 100;
+  const cls = n.className || '';
+  if (cls.includes('Comment')) return n.width || 400;
+  if (cls.includes('Knot')) return 16;
+  const vis = (n.pins || []).filter(p => !p.hidden && !(p.advanced && !n.advancedShown));
+  const ins = vis.filter(p => p.direction === 'Input'), outs = vis.filter(p => p.direction === 'Output');
+  const inW = Math.max(0, ...ins.map(p => { const l = pinLabel(p), w = pinWidgetWidth(p); return 18 + (l ? CH.pin * l.length + 4 : 0) + (w ? 6 + w : 0); }));
+  const outW = Math.max(0, ...outs.map(p => { const l = pinLabel(p); return (l ? CH.pin * l.length + 4 : 0) + 18; }));
+  const bodyW = 12 + inW + (ins.length && outs.length ? 24 : 0) + outW + 12;
+  const { title, sub, compact } = nodeTitleParts(n);
+  const delegateBox = (n.pins || []).some(p => p.name === 'OutputDelegate' && p.direction === 'Output') ? 24 : 0;
+  const titleW = compact ? 0 : 64 + Math.max(CH.title * title.length, CH.sub * sub.length) + delegateBox;
+  const minW = (MIN_W.find(([k]) => cls.includes(k)) || [0, 100])[1];
+  return Math.ceil(Math.max(titleW, bodyW, minW));
 }
 
 /** Зазор между нодами в ряду (px). */
@@ -408,10 +463,12 @@ export function snapToGrid(nodes) { for (const n of nodes) { n.pos.x = snap(n.po
 
 /** Exec-связи с перепадом → knot'ы. Возвращает НОВЫЕ узлы (добавить в вывод).
  *  • назад (вход левее выхода — перенос на ряд ниже/позади): 2 knot'а на «коридоре» между рядами —
- *    первый под выходом первого ряда, второй над входом второго ряда;
+ *    первый соосно выходу последней ноды ряда (правый край + KNOT_DX, R30-вердикт), второй над входом
+ *    первой ноды следующего ряда (его левый край);
  *  • вперёд с перепадом высоты ≥ minDy: «ступенька» — 2 knot'а на одной X посередине, на высотах пинов.
  *  Прямые связи (одна высота, вперёд) не трогаются. */
-export function decorateExec(nodes, { minDy = 48, pad = 48 } = {}) {
+export const KNOT_DX = 16;
+export function decorateExec(nodes, { minDy = 48, pad = 48, knotDx = KNOT_DX } = {}) {
   const byId = new Map(nodes.map(n => [n.id, n]));
   const knots = [];
   const relink = (A, fp, B, tp, pts) => {
@@ -447,7 +504,7 @@ export function decorateExec(nodes, { minDy = 48, pad = 48 } = {}) {
       const lowA = Math.max(...nodes.filter(n => !(n.className || '').includes('Knot') && n.pos.y >= A.pos.y - 1 && (B.pos.y <= A.pos.y || n.pos.y < B.pos.y))
         .map(n => n.pos.y + estNodeHeight(n)));
       const corridor = B.pos.y > lowA ? (lowA + B.pos.y) / 2 : Math.max(lowA, B.pos.y + estNodeHeight(B)) + 80;
-      relink(A, fp, B, tp, [[outX, corridor], [inX, corridor]]);
+      relink(A, fp, B, tp, [[outX + knotDx, corridor], [inX, corridor]]);
     } else if (Math.abs(yA - yB) >= minDy) {
       const mx = (outX + inX) / 2;
       relink(A, fp, B, tp, [[mx, yA], [mx, yB]]);

@@ -40,7 +40,9 @@
 // Типы: bool int int64 byte float string name text vector rotator transform vector2d linearcolor hitresult key timerhandle
 //       object:Класс class:Класс enum:EИмя, суффикс [] — массив.
 // Неизвестный делегат: bind /Game/BP_Door.OnOpened --sig /Game/BP_Door.OnOpened Who:object:Actor  (сигнатура + параметры).
-// --chain: exec по порядку (then→execute, первая «event» — старт), делегаты event-for/create-event → ближайший свободный вход Delegate.
+// --chain: exec по порядку спек (then→execute); КАЖДОЕ событие (event/event-for/ia-event) начинает свою цепочку
+//          и (со второго) новый ряд; узлы до первого события подхватывает первое событие;
+//          делегаты event-for/create-event → ближайший свободный вход Delegate.
 import fs from 'node:fs';
 import { generateUEText } from '../src/parser.js';
 import { layoutRow, layoutRows, layoutDecorated, fitComment, linkPins, estNodeWidth, decorateExec, snapToGrid } from '../src/generator.js';
@@ -116,13 +118,23 @@ const findPin = (n, name, dir) => {
   if (!p) throw new Error(`${n.title}: нет ${dir === 'Output' ? 'выхода' : 'входа'} ${name} (есть: ${n.pins.filter(x => x.direction === dir).map(x => x.name).join(', ')})`);
   return p.name;
 };
+// Событие-источник exec: узел без execute с exec-выходом (event, event-for, ia-event).
+const isExecSource = n => !hasExecIn(n) && n.pins.some(p => p.direction === 'Output' && p.category === 'exec');
+// Основной exec-выход: then, иначе первый exec-выход (ia-event → Triggered, Sequence → then_0).
+const mainOut = n => (n.pins.find(p => p.name === 'then' && p.direction === 'Output') || n.pins.find(p => p.direction === 'Output' && p.category === 'exec' && p.name !== 'Default' && p.name !== 'CastFailed' && p.name !== 'else') || {}).name;
 if (chain) {
-  const execs = nodes.filter(hasExecIn);
-  const start = nodes.find((n, i) => kinds[i] === 'event');
-  if (start && execs[0]) linkPins(start, 'then', execs[0], 'execute');
-  for (let i = 0; i + 1 < execs.length; i++) {
-    const thenPin = execs[i].pins.find(p => p.name === 'then' && p.direction === 'Output');
-    if (thenPin) linkPins(execs[i], 'then', execs[i + 1], 'execute');
+  // exec по порядку спек. КАЖДОЕ событие-источник начинает свою цепочку (R30: TimerDemo → … → Print «Done»;
+  // OnTimerTick → Print «Tick» — отдельно). Исполняемые узлы ДО первого события подхватывает первое событие.
+  let prev = null, sources = 0; const head = [];
+  for (const n of nodes) {
+    if (hasExecIn(n)) {
+      if (prev) { const o = mainOut(prev); if (o) linkPins(prev, o, n, 'execute'); } else head.push(n);
+      prev = n;
+    } else if (isExecSource(n)) {
+      const o = mainOut(n);
+      if (sources++ && !n.rowBreak) n.rowBreak = true; // каждое следующее событие — с нового ряда (как абзац)
+      if (head.length) { if (o) linkPins(n, o, head[0], 'execute'); head.length = 0; } else prev = n;
+    }
   }
   const srcs = nodes.filter((n, i) => kinds[i] === 'event-for' || kinds[i] === 'create-event');
   for (const s of srcs) {
@@ -142,7 +154,7 @@ for (const [a, b] of links) {
 // чей then ведёт в исполняемый узел; в --decorate оно встаёт в начало ряда 0 (прямая exec).
 // --decorate: КАЖДОЕ событие-источник exec (без execute, с подключённым then) встаёт в ряд перед своими узлами
 // в порядке спек — связь событие→узел прямая. Спека «row» — принудительный перенос ряда.
-const isExecSrc = n => !hasExecIn(n) && n.pins.some(p => p.name === 'then' && p.direction === 'Output' && p.linkedTo.length);
+const isExecSrc = n => !hasExecIn(n) && n.pins.some(p => p.direction === 'Output' && p.category === 'exec' && p.linkedTo.length);
 const inTop = n => hasExecIn(n) || (decorate && isExecSrc(n));
 const top = nodes.filter(inTop), bottom = nodes.filter(n => !inTop(n));
 if (decorate) {

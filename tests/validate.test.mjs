@@ -46,6 +46,12 @@ cases.push(['E14', block(P + 'K2Node_CallFunction', 'C_1', H(seq++), [FR_SELF('F
 cases.push(['E15', block(P + 'K2Node_MacroInstance', 'MI_1', H(seq++), [], [pin('execute')]), false]);
 cases.push(['E17', block(P + 'K2Node_Knot', 'K_1', H(seq++), [], [pin('InputPin')]), false]);
 cases.push(['E18', block(P + 'K2Node_MacroInstance', 'MI_1', H(seq++), ['   MacroGraphReference=MacroGraphReference=(MacroGraph=X)'], [pin('execute')]), false]);
+// E20 (R30, испорченная чат-копия): выход↔выход, своя нода, exec-выход с 2 связями, петля knot'ов, exec↔данные
+{ const a = H(seq++), b = H(seq++); cases.push(['E20', block(P + 'K2Node_Knot', 'K_1', H(seq++), [], [pin('InputPin'), pin('OutputPin', { id: a, out: 1, link: 'K_2 ' + b })]) + '\n' + block(P + 'K2Node_Knot', 'K_2', H(seq++), [], [pin('InputPin'), pin('OutputPin', { id: b, out: 1, link: 'K_1 ' + a })]), false]); }
+{ const a = H(seq++), b = H(seq++); cases.push(['E20', block(P + 'K2Node_Knot', 'K_1', H(seq++), [], [pin('InputPin', { id: b, link: 'K_1 ' + a }), pin('OutputPin', { id: a, out: 1, link: 'K_1 ' + b })]), false]); }
+{ const a = H(seq++), b = H(seq++), c = H(seq++); cases.push(['E20', block(P + 'K2Node_ExecutionSequence', 'S_1', H(seq++), [], [pin('execute'), pin('then_0', { id: a, out: 1, link: `K_2 ${b},K_3 ${c}` })]) + '\n' + block(P + 'K2Node_Knot', 'K_2', H(seq++), [], [pin('InputPin', { id: b, link: 'S_1 ' + a }), pin('OutputPin', { out: 1 })]) + '\n' + block(P + 'K2Node_Knot', 'K_3', H(seq++), [], [pin('InputPin', { id: c, link: 'S_1 ' + a }), pin('OutputPin', { out: 1 })]), false]); }
+{ const a = H(seq++), b = H(seq++), c = H(seq++), d = H(seq++); cases.push(['E20', block(P + 'K2Node_Knot', 'K_1', H(seq++), [], [pin('InputPin', { id: a, link: 'K_2 ' + d }), pin('OutputPin', { id: b, out: 1, link: 'K_2 ' + c })]) + '\n' + block(P + 'K2Node_Knot', 'K_2', H(seq++), [], [pin('InputPin', { id: c, link: 'K_1 ' + b }), pin('OutputPin', { id: d, out: 1, link: 'K_1 ' + a })]), false]); }
+{ const a = H(seq++), b = H(seq++); cases.push(['E20', block(P + 'K2Node_ExecutionSequence', 'S_1', H(seq++), [], [pin('execute'), pin('then_0', { id: a, out: 1, link: 'C_1 ' + b })]) + '\n' + block(P + 'K2Node_CallFunction', 'C_1', H(seq++), [FR_SELF('F')], [pin('A', { id: b, cat: 'real', sub: 'double', link: 'S_1 ' + a })]), false]); }
 cases.push(['W01', block(P + 'K2Node_SwitchInteger', 'S_1', H(seq++), [], [pin('execute'), pin('Selection', { cat: 'int' })]), true]);
 cases.push(['W02', block(P + 'K2Node_Select', 'S_1', H(seq++), [], [pin('Index', { cat: 'int' }), pin('ReturnValue', { out: 1, cat: 'real', sub: 'double' })]), true]);
 cases.push(['W03', block(P + 'K2Node_MakeArray', 'A_1', H(seq++), [], [pin('[0]', { cat: 'int' }), pin('ReturnValue', { out: 1, cat: 'object' })]), true]);
@@ -151,7 +157,7 @@ ok(txt.includes('DefaultValue="0.2"'), 'Delay: дефолт 0.2 в тексте'
 }
 {
   const fc = fitComment('t', [seq2, delay]);
-  ok(fc.width === 700 && fc.pos.x === -60 && fc.pos.y === -110, 'fitComment: бокс по правым краям (700/-60/-110, Delay=340)');
+  ok(fc.width === 240 + estNodeWidth(delay) + 120 && fc.pos.x === -60 && fc.pos.y === -110, `fitComment: бокс по правым краям (${fc.width}/-60/-110, Delay=${estNodeWidth(delay)})`);
 }
 
 let regErr = 0, regWarn = 0;
@@ -401,11 +407,17 @@ regThrow.forEach(t => console.log('THROW:', t));
 {
   const a = createCallFunction(byId('SphereTraceMulti'));
   const b = createCallFunction(byId('BoxTraceMulti'));
-  ok(estNodeWidth(a) === 400 && estNodeWidth(b) === 400, 'estNodeWidth: трейды по 400px');
+  const wa = estNodeWidth(a), wb = estNodeWidth(b);
+  ok(wa >= 340 && wa <= 420 && wb >= 340 && wb <= 420, `estNodeWidth: трейды ~400px (${wa}/${wb})`);
   layoutRow([a, b]);
-  ok(a.pos.x === 0 && b.pos.x === 520, 'layoutRow: Box встал за правым краем Sphere + зазор (520)');
+  ok(a.pos.x === 0 && b.pos.x === wa + 120, `layoutRow: Box встал за правым краем Sphere + зазор (${b.pos.x})`);
   const fc = fitComment('t', [a, b]);
-  ok(fc.width === 1040 && fc.pos.x === -60, 'fitComment: накрывает ряд по правым краям (1040/-60)');
+  ok(fc.width === wa + 120 + wb + 120 && fc.pos.x === -60, `fitComment: накрывает ряд по правым краям (${fc.width}/-60)`);
+  // R30-фикс: модель ширины по геометрии — Pause Timer by Handle ≈ 288 в движке (было 340), Print String без advanced ≈ 280
+  const pw = estNodeWidth(createCallFunction(byId('PauseTimerHandle')));
+  ok(pw >= 272 && pw <= 296, `estNodeWidth: Pause Timer by Handle ≈ 288 (${pw})`);
+  ok(estNodeWidth(createCallFunction(byId('PrintString'))) < 300, 'estNodeWidth: advanced-пины (свёрнуты) ширину не раздувают');
+  ok(estNodeWidth(createBranch({ x: 0, y: 0 })) < estNodeWidth(createCallFunction(byId('Delay'))), 'estNodeWidth: Branch уже CallFunction с подзаголовком «Target is …»');
   const s1 = createCallFunction(byId('SphereTraceSingle'));
   const c1 = createCallFunction(byId('CapsuleTraceSingle'));
   const fo = createCallFunction(byId('LineTraceSingleForObjects'));
@@ -804,14 +816,41 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok([...dec.matchAll(/NodePos[XY]=(-?\d+)/g)].every(m => Number(m[1]) % 16 === 0 || /-?(60|110)$/.test(m[1])), 'R30: сетка 16 (кроме коммента)');
   ok(validateStrict(dec).errors.length === 0, 'R30: decorate 0 ошибок');
   const s30 = fs.readFileSync(new URL('../sweep/30-decorate.txt', import.meta.url), 'utf8');
-  ok(validateStrict(s30).errors.length === 0 && (s30.match(/K2Node_Knot'/g) || []).length === 4, 'R30: sweep 0 ошибок, 4 knot\'а');
+  const knotCount = t => (t.match(/Begin Object Class=\/Script\/BlueprintGraph\.K2Node_Knot /g) || []).length;
+  ok(validateStrict(s30).errors.length === 0 && knotCount(s30) === 4, 'R30: sweep 0 ошибок, 4 knot\'а');
+  ok(!/ExportPath=/.test(s30) && /PersistentGuid=0{32}/.test(s30), 'R30: пересобран в формате P1 (без ExportPath, PersistentGuid)');
+  // R30-вердикт: первый knot переноса соосен выходу последней ноды ряда — правый край (оценка) + 16, на сетке
+  const { parseToGraphs: pg } = await import('../src/parser.js');
+  const { estNodeWidth: ew, KNOT_DX } = await import('../src/generator.js');
+  const g30 = Object.values(pg(s30))[0].nodes, by30 = new Map(g30.map(n => [n.id, n]));
+  const wraps = g30.filter(n => !n.isReroute && !n.isComment).flatMap(n => n.pins.filter(p => p.direction === 'Output' && p.category === 'exec').flatMap(p => p.linkedTo.map(l => [n, by30.get(l.nodeName)]))).filter(([, k]) => k && k.isReroute);
+  ok(wraps.length === 2 && wraps.every(([a, k]) => k.pos.x === Math.round((a.pos.x + ew(a) + KNOT_DX) / 16) * 16 && k.pos.x % 16 === 0), 'R30: knot A = правый край + 16 (сетка 16), 2 переноса');
+  ok(wraps.every(([a, k]) => k.pos.x - (a.pos.x + ew(a)) <= 24), 'R30: knot A не дальше 24px от правого края (было +48 при базе 340)');
+  const secondKnots = g30.filter(n => n.isReroute).filter(k => k.pins[1].linkedTo.some(l => !by30.get(l.nodeName).isReroute));
+  ok(secondKnots.length === 2 && secondKnots.every(k => k.pos.x === by30.get(k.pins[1].linkedTo[0].nodeName).pos.x), 'R30: knot B над входом первой ноды ряда (x входа)');
+  // R30: второе событие (OnTimerTick) начинает СВОЮ цепочку — Print «Done» не течёт в Print «Tick»
+  const tick = g30.find(n => n.rawLines.some(l => l.includes('CustomFunctionName="OnTimerTick"')));
+  const done = g30.filter(n => n.funcName === 'PrintString').find(n => n.pins.some(p => p.defaultValue === 'Done'));
+  ok(tick && tick.pins.find(p => p.name === 'then').linkedTo.length === 1 && done && done.pins.find(p => p.name === 'then').linkedTo.length === 0, 'R30: --chain — каждое событие начинает свою цепочку');
+  const two = mk(['--chain', 'event A', 'fn Delay', 'event B', 'fn PrintString']);
+  const gt = Object.values(pg(two))[0].nodes;
+  const evB = gt.find(n => n.rawLines.some(l => l.includes('CustomFunctionName="B"'))), dl = gt.find(n => n.funcName === 'Delay');
+  ok(evB.pins.find(p => p.name === 'then').linkedTo.length === 1 && dl.pins.find(p => p.name === 'then').linkedTo.length === 0, '--chain: event B → PrintString, Delay.then свободен');
+  const headed = mk(['--chain', 'fn Delay', 'event A', 'fn PrintString']);
+  const gh = Object.values(pg(headed))[0].nodes;
+  const evA = gh.find(n => n.rawLines.some(l => l.includes('CustomFunctionName="A"'))), dh = gh.find(n => n.funcName === 'Delay');
+  ok(evA.pins.find(p => p.name === 'then').linkedTo[0].nodeName === dh.id && dh.pins.find(p => p.name === 'then').linkedTo.length === 1, '--chain: узлы до первого события подхватывает первое событие (A → Delay → PrintString)');
+  // негативные фикстуры (tests/fixtures/negative/): каждая ДОЛЖНА падать с E20
+  const negDir = new URL('./fixtures/negative/', import.meta.url);
+  const neg = fs.readdirSync(negDir).filter(f => f.endsWith('.txt'));
+  ok(neg.length >= 1 && neg.every(f => validateStrict(fs.readFileSync(new URL(f, negDir), 'utf8')).errors.some(e => e.startsWith('E20'))), `negative/: все ${neg.length} фикстур ловятся E20`);
 }
 // R31 pre: Audio через call, тип single (C++ float)
 {
   const s31 = fs.readFileSync(new URL('../sweep/31-audio.txt', import.meta.url), 'utf8');
   ok(validateStrict(s31).errors.length === 0, 'R31: sweep 0 ошибок');
   ok(s31.includes('MemberName="SpawnSound2D"') && s31.includes("Engine.AudioComponent'") && /PinName="NewVolumeMultiplier",PinType\.PinCategory="real",PinType\.PinSubCategory="float"/.test(s31), 'R31: SpawnSound2D + AudioComponent + single→float');
-  ok((s31.match(/K2Node_Knot'/g) || []).length === 4, 'R31: --decorate 4 knot\'а');
+  ok((s31.match(/Begin Object Class=\/Script\/BlueprintGraph\.K2Node_Knot /g) || []).length === 4, 'R31: --decorate 4 knot\'а');
 }
 // R27 VERIFIED + 27b: --decorate кладёт pure под потребителя (горизонтальное выравнивание)
 {
@@ -823,7 +862,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   const [gx, gy] = pos('K2Node_CallFunction_100'), [cx, cy] = pos('K2Node_CreateWidget_5001'), [ex, ey] = pos('K2Node_CustomEvent_5000');
   ok(ey === cy, '27b: событие в одном ряду с Create Widget (прямая exec)');
   ok(gy > cy && gx < cx, '27b: Get Player Controller — под рядом и левее входа Create Widget');
-  ok((t.match(/K2Node_Knot'/g) || []).length === 4, '27b: 4 exec-knot\'а');
+  ok((t.match(/Begin Object Class=\/Script\/BlueprintGraph\.K2Node_Knot /g) || []).length === 4, '27b: 4 exec-knot\'а');
 }
 // P0/P1/P2 — живые дампы (BP_WheelActor SlipVel canonical): PinId per-node, фрагменты, формат-паритет, контекст
 {

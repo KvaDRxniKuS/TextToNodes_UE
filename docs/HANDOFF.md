@@ -20,18 +20,25 @@ TextToNodes_UE — генератор текста для вставки Bluepri
   композиты/туннели) из живой копии. Перед генерацией фрагмента в существующую функцию — сначала инвентарь,
   затем make-node --context: переменная вне инвентаря = E19 (или явно --new).
 - `data/ue-functions.json` — реестр (verified=true — проверено движком). Писать indent=1, ensure_ascii=False.
-- `src/modules.js` (конструкторы), `src/generator.js` (узлы, раскладка, decorateExec), `src/validate.js` (strict),
-  `src/inventory.js`. Валидатор: PinId уникален только внутри ноды; ссылки на K2Node_Tunnel_* → W14 (авто-фрагмент);
-  `--fragment` / авто по ExportPath (живая копия) — внешние ноды = warning; `--strict-links` — строго.
+- `src/modules.js` (конструкторы), `src/generator.js` (узлы, раскладка, decorateExec, estNodeWidth по геометрии ноды),
+  `src/validate.js` (strict), `src/inventory.js`. Валидатор: PinId уникален только внутри ноды; ссылки на K2Node_Tunnel_* → W14
+  (авто-фрагмент); `--fragment` / авто по ExportPath (живая копия) — внешние ноды = warning; `--strict-links` — строго;
+  E20 — связи, которые движок отвергает (exec-выход ×2, выход↔выход, своя нода, петля knot'ов) → `tests/fixtures/negative/`.
+- `--chain`: каждое событие (event/event-for/ia-event) начинает СВОЮ цепочку и новый ряд (со второго); узлы до первого
+  события подхватывает первое событие. Главы с несколькими событиями — одним вызовом make-node.
 - `tests/fixtures/` — живые копии из движка; КАЖДЫЙ новый дамп пользователя = новый fixture (тест прогоняет все).
+  `tests/fixtures/negative/` — то, что ОБЯЗАНО падать (E20); пока там синтетика R30, настоящий copy-back — когда пришлёт.
 - `tools/gen-sweep.mjs NN` — пересборка старых глав; `zz` — только MANIFEST. Главы ≥23 собраны make-node, НЕ пересобирать gen-sweep.
+  Команды сборки make-node-глав — `sweep/gen27b.sh`, `sweep/gen30.sh`, `sweep/gen32.sh` (для новых глав заводить такой же genNN.sh).
 - Тесты: `node tests/validate.test.mjs`, `node tests/sandbox.test.mjs`.
 - Журнал проверок в движке: `docs/ENGINE_VERIFIED.md` (раунды, формы, провалы).
 
 ## Статус раундов (2026-09-26)
-- VERIFIED: R07–R20, R21b, R21c, R22(+b), R23(+b), R24, R25, R26, R27 (Widgets/UI; вид переделан как 27b), R29 (+`call`), R31 (Audio). R30 — частично (см. HANDOFF_TOPICS §2).
+- VERIFIED: R07–R20, R21b, R21c, R22(+b), R23(+b), R24, R25, R26, R27 (Widgets/UI; вид переделан как 27b), R29 (+`call`), R31 (Audio),
+  R32 (компоненты + формат P1). R30 — ноды корректны, декор починен по вердикту (HANDOFF_TOPICS §2), пересобран.
 - FAIL: R21 (GetBoundActionValue — скрыт).
-- Ждут вердикта: 25b (make-node модуль), 27b (вид раскладки), 28 Enhanced Input (full), 32 компоненты (жизн. цикл, sweep/gen32.sh),
+- Ждут вердикта: 25b (make-node модуль), 28 Enhanced Input (full).
+- Ждут ПОВТОРНОЙ проверки вида (после правки декора, 2026-09-26): sweep/30-decorate.txt, sweep/27b-widgets-ui-decorated.txt.
 - Отложено: Enum-Select, Event Dispatcher (K2Node_CallDelegate), Timeline, MoveComponentTo, GetAllWidgetsOfClass,
   AddComponentByClass, K2_DestroyComponent.
 
