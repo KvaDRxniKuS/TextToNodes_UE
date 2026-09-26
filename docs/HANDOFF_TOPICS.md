@@ -137,4 +137,4 @@
 - User: «Branch height is correct, but Flush still comes from false». The test was mistakenly emitted as Branch.then→Clear and Branch.else→Flush. The actual intended topology is serial: Branch.then→ClearAllMappings→FlushPlayerInput; Branch.else stays unconnected. `sweep/exec-pin-alignment-test.txt` and the regression assertion now use `--chain` for that path and explicitly assert Flush.execute is linked from Clear.then, not Branch.else. No file was opened in the viewer per user preference.
 
 
-Latest verdict 2026-09-26: «высота Branch корректна, но Flush не на высоте false, а ровно посередине; между уровнями одна клетка вместо двух». Adjusted Branch else pin offset so false target is two grid steps below true target; test verified NodePosY delta Clear→Flush = 32 px. Awaiting UE confirmation.
+Latest verdict 2026-09-26: «высота Branch корректна, но Flush не на высоте false, а ровно посередине; между уровнями одна клетка вместо двух». After feedback that 32px still left Flush one cell too high, increased Branch.else target offset by another 16px; test now verifies NodePosY delta Clear→Flush = 48 px. Awaiting UE confirmation.

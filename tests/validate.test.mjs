@@ -438,7 +438,7 @@ regThrow.forEach(t => console.log('THROW:', t));
     const d2 = Math.abs(pinCenterY(twoA, outTwoA) - pinCenterY(twoB, execIn(twoB)));
     ok(d1 <= 1 && d2 <= 1, `layoutRows: Branch.then→Clear.execute и Clear.then→Flush.execute центры совпадают (${d1}/${d2})`);
     ok(twoA.pos.y === twoB.pos.y, `layoutRows: ClearAllMappings и FlushPlayerInput NodePosY совпадают, их exec-пины связаны (${twoA.pos.y}/${twoB.pos.y})`);
-    ok(pinCenterY(one, outElse) - pinCenterY(one, outThen) === 32, 'layoutRows: Branch.then и Branch.else — разные вертикальные ряды');
+    ok(pinCenterY(one, outElse) - pinCenterY(one, outThen) === 48, 'layoutRows: Branch.then и Branch.else — разные вертикальные ряды');
   }
   const s1 = createCallFunction(byId('SphereTraceSingle'));
   const c1 = createCallFunction(byId('CapsuleTraceSingle'));
@@ -844,7 +844,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(epairs.length === 3 && epairs.every(([a, p, b, q]) => Math.abs(py(a, p) - py(b, q)) <= 1), 'Exec alignment: Event→Branch, then→Clear, else→Flush pin centers coincide');
   const clearA = eg.find(n => n.funcName === 'ClearAllMappings'), flushA = eg.find(n => n.funcName === 'FlushPlayerInput'), branchElse = eg.find(n => n.className.includes('IfThenElse'));
   ok(branchElse.pins.find(p => p.name === 'then').linkedTo[0]?.nodeName === clearA.id && branchElse.pins.find(p => p.name === 'else').linkedTo[0]?.nodeName === flushA.id, 'Exec topology: true→Clear, false→Flush');
-  ok(flushA.pos.y - clearA.pos.y === 32, `Exec alignment: Branch true/false branches separated by two 16px grid steps (${clearA.pos.y}/${flushA.pos.y})`);
+  ok(flushA.pos.y - clearA.pos.y === 48, `Exec alignment: Branch true/false branches separated by two 16px grid steps (${clearA.pos.y}/${flushA.pos.y})`);
   const execEventA = eg.find(n => n.rawLines.some(l => l.includes('CustomFunctionName="A"'))), brA = eg.find(n => n.className.includes('IfThenElse'));
   ok(execEventA && brA && brA.pos.y - execEventA.pos.y === 16, `Exec alignment: Branch на один шаг выше старого офсета от Custom Event (${execEventA?.pos.y}/${brA?.pos.y})`);
   const s30 = fs.readFileSync(new URL('../sweep/30-decorate.txt', import.meta.url), 'utf8');
