@@ -1,6 +1,6 @@
 // Stage 2: coarse graph arrangement. This module changes node positions and
 // creates topology-driven reroute knots through the creator API.
-import { estNodeWidth, estNodeHeight, pinCenterY } from './generator.js';
+import { estNodeWidth, estNodeHeight, pinCenterY, KNOT_SIDE_OFFSET, GRID } from './generator.js';
 import { createKnot } from './creator.js';
 
 const isKnot = n => (n.className || '').includes('Knot');
@@ -28,8 +28,31 @@ export function applyConnections(nodes, connections) {
   return applied;
 }
 
+/**
+ * Коридор knot-переноса — щель МЕЖДУ уровнями, а не под целевым рядом (вердикт пользователя:
+ * knot'ы вставали «под 2» вместо «между 1 и 2»). Считается по уровням расстановки: для спуска
+ * вниз — между самым низким низом уровней от источника до предшествующего цели и верхом цели;
+ * для подъёма вверх — зеркально. Если уровни неизвестны (вне arrangeRows) — старое поведение.
+ */
+export function rerouteCorridorY(source, target, levels) {
+  const index = new Map();
+  levels.forEach((l, i) => l.nodes.forEach(n => index.set(n.id, i)));
+  const si = index.get(source.id), ti = index.get(target.id);
+  const srcBottom = source.pos.y + estNodeHeight(source);
+  const tgtBottom = target.pos.y + estNodeHeight(target);
+  if (si !== undefined && ti !== undefined && si !== ti) {
+    if (ti > si) {
+      const bottom = Math.max(srcBottom, ...levels.slice(si, ti).map(l => l.bottom));
+      return (bottom + levels[ti].top) / 2;
+    }
+    const top = Math.min(target.pos.y, ...levels.slice(ti + 1, si + 1).map(l => l.top));
+    return (tgtBottom + top) / 2;
+  }
+  return Math.max(srcBottom, tgtBottom) + 64;
+}
+
 /** Create reroutes for exec edges which must travel backward or change rows. */
-function createExecReroutes(nodes) {
+function createExecReroutes(nodes, { levels = [] } = {}) {
   const byId = new Map(nodes.map(n => [n.id, n]));
   const jobs = [];
   for (const source of nodes) {
@@ -52,9 +75,15 @@ function createExecReroutes(nodes) {
     const sourceCenterY = pinCenterY(source,out);
     const targetCenterY = pinCenterY(target,input);
     const backward = target.pos.x <= source.pos.x;
+    // X knot'ов — от правого края источника и левого края цели (по пинам их выровняет
+    // ступень 3), Y — общий: середина междурядного коридора, чтобы горизонтальный участок
+    // провода не резал ни верхний, ни нижний уровень.
+    const corridorY = Math.round(rerouteCorridorY(source, target, levels) / GRID) * GRID;
+    // узел корреидора привязан к сетке: черновик обязан быть «сеточным», иначе ступень 3
+    // при выравнивании пинов сдвигает knot'ы на произвольные пиксели
     const points = backward
-      ? [[source.pos.x + estNodeWidth(source) + 32, Math.max(source.pos.y + estNodeHeight(source), target.pos.y + estNodeHeight(target)) + 64],
-         [target.pos.x - 32, Math.max(source.pos.y + estNodeHeight(source), target.pos.y + estNodeHeight(target)) + 64]]
+      ? [[source.pos.x + estNodeWidth(source) + KNOT_SIDE_OFFSET, corridorY],
+         [target.pos.x - KNOT_SIDE_OFFSET, corridorY]]
       : [[(source.pos.x + estNodeWidth(source) + target.pos.x) / 2, sourceCenterY - 8],
          [(source.pos.x + estNodeWidth(source) + target.pos.x) / 2, targetCenterY - 8]];
     let previousNode = source, previousPin = out;
@@ -81,6 +110,7 @@ export function arrangeRows(rows, { x = 0, y = 0, gap = 160, rowGap = 160, creat
   let rowY = y;
   let nextRowX = x;
   const placed = [];
+  const levels = [];
   for (const row of rows) {
     let cursorX = continueX ? nextRowX : x;
     let rowBottom = rowY;
@@ -93,10 +123,11 @@ export function arrangeRows(rows, { x = 0, y = 0, gap = 160, rowGap = 160, creat
       placed.push(node);
     }
     if (continueX) nextRowX = cursorX;
+    levels.push({ top: rowY, bottom: rowBottom, nodes: row.slice() });
     rowY = rowBottom + rowGap;
   }
-  const knots = createRerouteKnots ? createExecReroutes(placed) : [];
-  return { nodes: [...placed, ...knots], placed, knots, bottom: rowY };
+  const knots = createRerouteKnots ? createExecReroutes(placed, { levels }) : [];
+  return { nodes: [...placed, ...knots], placed, knots, levels, bottom: rowY };
 }
 
 /** Extract a deterministic topological ordering from graph links. Exec edges are
