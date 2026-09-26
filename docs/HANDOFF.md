@@ -35,9 +35,9 @@ TextToNodes_UE — генератор текста для вставки Bluepri
 
 ## Статус раундов (2026-09-26)
 - VERIFIED: R07–R20, R21b, R21c, R22(+b), R23(+b), R24, R25, 25b (модуль make-node, «25b норма» 2026-09-26), R26, R27 (Widgets/UI;
-  вид переделан как 27b), R29 (+`call`), R31 (Audio), R32 (компоненты + формат P1). R30 — ноды корректны («30 норма»); knot A дополнительно откалиброван по PrintString copy-back (176px), пересобран, ждёт re-check.
+  вид переделан как 27b), R29 (+`call`), R31 (Audio), R32 (компоненты + формат P1). R30 — ноды корректны («30 норма»); knot A дополнительно откалиброван по PrintString copy-back (176px), пересобран, ждёт re-check. Для раскладки выявлено: в рядах нужно выравнивать exec-pin Y, не NodePosY/верх ноды (заголовки могут быть в 1–2 строки).
 - FAIL: R21 (GetBoundActionValue — скрыт).
-- Ждут вердикта: 28 Enhanced Input (full).
+- VERIFIED: 28 Enhanced Input full («28 норма», 2026-09-26).
 - R30: «норма», проверку расположения knot продолжить по copy-back. 27b: «норма», кроме первого knot (слишком далеко от края); ждём copy-back SetVisibility + правильного knot для калибровки.
 - Отложено: Enum-Select, Event Dispatcher (K2Node_CallDelegate), Timeline, MoveComponentTo, GetAllWidgetsOfClass,
   AddComponentByClass, K2_DestroyComponent.
