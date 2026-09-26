@@ -2,7 +2,7 @@
 // Bound custom dispatcher probe after user creates NewEventDispatcher_Probe in BP_AISupportTester.
 // Spatial order follows execution: start -> Add -> Call -> Remove -> Clear.
 import fs from 'node:fs';
-import { mkPin } from '../src/generator.js';
+import { mkPin, layoutPinChain } from '../src/generator.js';
 import { createCustomEvent } from '../src/modules.js';
 import { generateUEText, guid32 } from '../src/parser.js';
 import { validateStrict } from '../src/validate.js';
@@ -25,12 +25,13 @@ function delegatePin(){
 }
 const start=make('K2Node_CustomEvent','K2Node_CustomEvent_3000',0,[`CustomFunctionName="${startName}"`],[
   mkPin('OutputDelegate','Output','delegate',{memberRef:`MemberName="${startName}"`}),exec('then','Output')
-],-16);
-const add=make('K2Node_AddDelegate','K2Node_AddDelegate_3002',288,ref(),[exec('execute','Input'),exec('then','Output'),self(),delegatePin()]);
-const call=make('K2Node_CallDelegate','K2Node_CallDelegate_3001',640,ref(),[exec('execute','Input'),exec('then','Output'),self()]);
-const remove=make('K2Node_RemoveDelegate','K2Node_RemoveDelegate_3003',928,ref(),[exec('execute','Input'),exec('then','Output'),self(),delegatePin()]);
-const clear=make('K2Node_ClearDelegate','K2Node_ClearDelegate_3004',1312,ref(),[exec('execute','Input'),exec('then','Output'),self()]);
-const handler=createCustomEvent('DispatcherProbeHandler',[],{x:32,y:160});
+]);
+const add=make('K2Node_AddDelegate','K2Node_AddDelegate_3002',0,ref(),[exec('execute','Input'),exec('then','Output'),self(),delegatePin()]);
+const call=make('K2Node_CallDelegate','K2Node_CallDelegate_3001',0,ref(),[exec('execute','Input'),exec('then','Output'),self()]);
+const remove=make('K2Node_RemoveDelegate','K2Node_RemoveDelegate_3003',0,ref(),[exec('execute','Input'),exec('then','Output'),self(),delegatePin()]);
+const clear=make('K2Node_ClearDelegate','K2Node_ClearDelegate_3004',0,ref(),[exec('execute','Input'),exec('then','Output'),self()]);
+layoutPinChain([start,add,call,remove,clear],{x0:0,y0:0,gap:48});
+const handler=createCustomEvent('DispatcherProbeHandler',[],{x:add.pos.x,y:add.pos.y+160});
 const handlerDelegate=handler.pins.find(p=>p.name==='OutputDelegate');
 handlerDelegate.memberRef=`MemberParent=${bp},MemberName="DispatcherProbeHandler",MemberGuid=${handler.guid}`;
 function link(a,out,b,input){const p=a.pins.find(x=>x.name===out),q=b.pins.find(x=>x.name===input);p.linkedTo.push({nodeName:b.id,pinId:q.id});q.linkedTo.push({nodeName:a.id,pinId:p.id});}

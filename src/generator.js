@@ -475,6 +475,37 @@ export function alignPinRow(fromNode, fromPinName, toNode, toPinName) {
   toNode.pos.y = fromNode.pos.y + (ia - ib) * PIN_ROW_H;
 }
 
+/**
+ * Place an exec chain left-to-right and align each downstream exec pin to the
+ * previous exec pin's estimated row. The target node starts after the previous
+ * node's estimated width plus `gap`; X coordinates therefore remain strictly
+ * increasing even when node widths differ.
+ * `chain` is [{ node, outputPin?, inputPin? }, ...]; defaults are then/execute.
+ */
+export function layoutPinChain(chain, { x0 = 0, y0 = 0, gap = ROW_GAP } = {}) {
+  if (!Array.isArray(chain) || !chain.length) return chain || [];
+  let x = x0;
+  chain.forEach((entry, i) => {
+    const node = entry.node || entry;
+    node.pos.x = x;
+    if (i === 0) node.pos.y = y0;
+    else {
+      const prevEntry = chain[i - 1];
+      const prev = prevEntry.node || prevEntry;
+      const outName = prevEntry.outputPin || 'then';
+      const inName = entry.inputPin || 'execute';
+      const outputRows = (prev.pins || []).filter(p => !p.hidden && p.direction === 'Output');
+      const inputRows = (node.pins || []).filter(p => !p.hidden && p.direction === 'Input');
+      const oi = outputRows.findIndex(p => p.name === outName);
+      const ii = inputRows.findIndex(p => p.name === inName);
+      if (oi < 0 || ii < 0) throw new Error(`Exec pin not found: ${prev.id}.${outName} -> ${node.id}.${inName}`);
+      node.pos.y = prev.pos.y + (oi - ii) * PIN_ROW_H;
+    }
+    x += estNodeWidth(node) + gap;
+  });
+  return chain;
+}
+
 // ─── Декор (опционально): перенос рядов, exec-knot'ы, сетка 16 ───────────────
 // Форма exec-knot'а — copy-back UE (BP_AISupportTester, 2026-09-26): K2Node_Knot, InputPin/OutputPin
 // PinCategory="exec", InputPin bDefaultValueIsIgnored=True.
