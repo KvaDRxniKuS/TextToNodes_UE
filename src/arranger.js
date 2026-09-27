@@ -1,6 +1,6 @@
 // Stage 2: coarse graph arrangement. This module changes node positions and
 // creates topology-driven reroute knots through the creator API.
-import { estNodeWidth, estNodeHeight, pinCenterY, KNOT_SIDE_OFFSET, GRID } from './generator.js';
+import { estNodeWidth, estNodeHeight, pinCenterY, KNOT_W, GRID } from './generator.js';
 import { createKnot } from './creator.js';
 
 const isKnot = n => (n.className || '').includes('Knot');
@@ -51,6 +51,39 @@ export function rerouteCorridorY(source, target, levels) {
   return Math.max(srcBottom, tgtBottom) + 64;
 }
 
+/**
+ * Маршрут переноса — СТАДИУМ ИЗ 4 knot'ов (вердикт пользователя: «чтобы полностью
+ * исключить любые дефекты, перенос выполняется другой механикой»). Каждый участок провода
+ * соосен по X или по Y, поэтому ошибка модели пинов остаётся внутри короткого отрезка
+ * «пин → knot», а не растягивается на весь перенос:
+ *
+ *   выход A ──X── K1 ──Y── K2 ──X── K3 ──Y── K4 ──X── вход B
+ *
+ *   K1 = (X пина-выхода A, Y пина-выхода A)            — сидит на пине, провод нулевой;
+ *   K2 = (X пина-выхода A + ширина knot'а, Y коридора) — вертикаль вниз от K1;
+ *   K3 = (X пина-входа B − 2·ширины knot'а, Y коридора) — горизонталь по коридору (Y общий);
+ *   K4 = (X пина-входа B − ширина knot'а, Y пина-входа B) — вертикаль к пину B.
+ *
+ * Общий Y обязателен именно для обратного (back) переноса — только тогда средний участок
+ * лежит строго поперёк уровней и никого не пересекает.
+ */
+export function transferRoute(source, out, target, input, { levels = [], corridorY = null, pinY = pinCenterY } = {}) {
+  const srcX = source.pos.x + estNodeWidth(source); // X пина-выхода
+  const tgtX = target.pos.x;                        // X пина-входа
+  // центр knot'а на 8px ниже его NodePosY — чтобы пин knot'а встал ровно на Y пина ноды
+  const srcY = pinY(source, out) - KNOT_W / 2;
+  const tgtY = pinY(target, input) - KNOT_W / 2;
+  const yCorr = corridorY !== null && corridorY !== undefined
+    ? corridorY - KNOT_W / 2
+    : Math.round(rerouteCorridorY(source, target, levels) / GRID) * GRID - KNOT_W / 2;
+  return [
+    { x: srcX, y: srcY, role: 'out' },
+    { x: srcX + KNOT_W, y: yCorr, role: 'corridor-a' },
+    { x: tgtX - 2 * KNOT_W, y: yCorr, role: 'corridor-b' },
+    { x: tgtX - KNOT_W, y: tgtY, role: 'in' },
+  ];
+}
+
 /** Create reroutes for exec edges which must travel backward or change rows. */
 function createExecReroutes(nodes, { levels = [] } = {}) {
   const byId = new Map(nodes.map(n => [n.id, n]));
@@ -72,22 +105,9 @@ function createExecReroutes(nodes, { levels = [] } = {}) {
   for (const [source,out,target,input] of jobs) {
     out.linkedTo = out.linkedTo.filter(l => l.pinId !== input.id);
     input.linkedTo = input.linkedTo.filter(l => l.pinId !== out.id);
-    const sourceCenterY = pinCenterY(source,out);
-    const targetCenterY = pinCenterY(target,input);
-    const backward = target.pos.x <= source.pos.x;
-    // X knot'ов — от правого края источника и левого края цели (по пинам их выровняет
-    // ступень 3), Y — общий: середина междурядного коридора, чтобы горизонтальный участок
-    // провода не резал ни верхний, ни нижний уровень.
-    const corridorY = Math.round(rerouteCorridorY(source, target, levels) / GRID) * GRID;
-    // узел корреидора привязан к сетке: черновик обязан быть «сеточным», иначе ступень 3
-    // при выравнивании пинов сдвигает knot'ы на произвольные пиксели
-    const points = backward
-      ? [[source.pos.x + estNodeWidth(source) + KNOT_SIDE_OFFSET, corridorY],
-         [target.pos.x - KNOT_SIDE_OFFSET, corridorY]]
-      : [[(source.pos.x + estNodeWidth(source) + target.pos.x) / 2, sourceCenterY - 8],
-         [(source.pos.x + estNodeWidth(source) + target.pos.x) / 2, targetCenterY - 8]];
+    const points = transferRoute(source, out, target, input, { levels });
     let previousNode = source, previousPin = out;
-    for (const [x,y] of points) {
+    for (const { x, y } of points) {
       const knot = createKnot({ x, y }, 'exec');
       const [inputPin, outputPin] = knot.pins;
       previousPin.linkedTo.push({ nodeName: knot.id, pinId: inputPin.id });

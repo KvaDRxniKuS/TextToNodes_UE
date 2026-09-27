@@ -332,6 +332,8 @@ export const HEADER_LINE_H = 32;
 // One Blueprint grid cell used to push between-port Knot probes farther outward.
 export const KNOT_X_STEP = 16;
 export const KNOT_SIDE_OFFSET = 32; // two 16px grid cells from the composite edge
+// Ширина reroute-узла: InputPin на левом крае, OutputPin на правом (одна клетка сетки).
+export const KNOT_W = 16;
 // Composite header height calibration from user copy-back: first pin center is NodePosY + 56px.
 export const COMPOSITE_PIN_HEADER_EXTRA = 11;
 // Vertical pin pitch is one pin-row step, independent of horizontal knot offsets.

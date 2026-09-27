@@ -1,26 +1,26 @@
-// Ступень 3: декоратор — визуальное выравнивание черновика, построенного ступенью 2.
+// Ступень 3: декоратор — визуальная доводка черновика, построенного ступенью 2.
 //
-// Правило ТЗ (дословно): «берёт XY пинов соединённых нод, двигает ноды так, чтобы Y
-// подходящих пинов совпадали, и оставляет зазор в 5 шагов сетки по X. Переносные knot'ы:
-// X первого = X пина-выхода первой не-knot ноды, X второго = X пина-входа второй, оба на Y
-// посередине между низом верхней строки и верхом нижней».
+// Правила ТЗ в формулировке пользователя (2026-09-27):
+//   · «Y exec-нод одного ряда должен быть идентичным»  → ряд плоский, без лесенки;
+//   · «если есть несколько exec-выходов (Branch, Sequence), следующие ноды образуют столбец
+//      с числом рядов = числу exec-выходов»            → один X на всех детей, по ряду на выход;
+//   · «Y должен совпадать только у knot-нод, которые используются для back-переноса»
+//     → совмещаем Y средних knot'ов коридора, а не всех подряд;
+//   · зазор по X между нодами ряда = 5 шагов сетки;
+//   · перенос собирается из 4 knot'ов-стадиума (`transferRoute`), каждый участок которого
+//     соосен пину, поэтому ошибка модели пинов не растягивается по всему переносу.
 //
-// Отсюда границы ответственности ступени 3:
-//   · только координаты: ни создания/удаления нод, ни правки пинов и `LinkedTo`;
-//   · узел не уходит из своего уровня и не меняет порядок нод внутри уровня —
-//     черновая структура расстановщика сохраняется;
-//   · knot-переносы не создаются и не удаляются (это ступень 2), а только ставятся по пинам.
-import { estNodeWidth, estNodeHeight, pinCenterY, GRID } from './generator.js';
-import { rerouteCorridorY } from './arranger.js';
+// Границы ответственности: ступень 3 меняет ТОЛЬКО координаты. Ни создания, ни удаления нод,
+// ни правки пинов и `LinkedTo`, ни переноса нод между уровнями.
+import { estNodeWidth, estNodeHeight, pinCenterY, KNOT_W, GRID } from './generator.js';
+import { rerouteCorridorY, transferRoute } from './arranger.js';
 
 export const isKnot = n => (n.className || '').includes('Knot');
+export { KNOT_W };
 const isComment = n => (n.className || '').includes('Comment') || !!(n && n.isComment);
 const dirOf = p => String((p && p.direction) || '').toLowerCase();
 const isOut = p => dirOf(p) === 'output';
 const isIn = p => dirOf(p) === 'input';
-
-// Knot в UE — одна клетка сетки: InputPin на левом крае, OutputPin на правом.
-export const KNOT_W = 16;
 
 /** X пина в модели Slate-ноды: вход прижат к левому краю ноды, выход — к правому. */
 export function pinCenterX(n, pin) {
@@ -35,8 +35,7 @@ function pinOffsetY(n, pin, pinY) {
 
 /**
  * Соединения между РЕАЛЬНЫМИ нодами: цепочки knot-переносов раскрыты и лежат в `via`.
- * Декоратор мыслит связями «нода → нода», поэтому knot'ы для него — способ прокладки,
- * а не участники выравнивания.
+ * Декоратор мыслит связями «нода → нода», поэтому knot'ы для него — способ прокладки.
  */
 export function flatLinks(nodes) {
   const byId = new Map(nodes.map(n => [n.id, n]));
@@ -51,8 +50,7 @@ export function flatLinks(nodes) {
         const via = [];
         while (node && isKnot(node)) {
           via.push(node);
-          // через knot проходим НАПРОЛЁТ: пришёл во вход — вышел из выхода (иначе
-          // вернёмся по взаимной LinkedTo назад в тот же узел)
+          // через knot проходим напролёт: вошли во вход — выходим из выхода
           const forward = (node.pins || []).find(p => p !== pin && isIn(pin) === isOut(p)) || node.pins[1] || node.pins[0];
           const next = (forward.linkedTo || [])[0];
           if (!next) { node = null; pin = null; break; }
@@ -67,7 +65,7 @@ export function flatLinks(nodes) {
   return links;
 }
 
-/** Строки черновика: ноды с одинаковым (привязанным к сетке) NodePosY — это один уровень. */
+/** Строки черновика: ноды с одинаковым (привязанным к сетке) NodePosY — один уровень. */
 export function groupByRowY(nodes, grid = GRID) {
   const map = new Map();
   for (const n of nodes) {
@@ -86,8 +84,8 @@ export function groupByRowY(nodes, grid = GRID) {
 }
 
 /**
- * Уровни по перекрытию вертикальных полос: после выравнивания пинов ряд превращается в
- * «лесенку» (Y нод ряда различаются), поэтому уровень = связная группа полос, а не один Y.
+ * Уровни по перекрытию вертикальных полос: после выравнивания ряд плоский, но под-ряды
+ * форка лежат на 32px ниже и всё ещё относятся к тому же уровню.
  */
 export function buildLevels(nodes) {
   const items = nodes.filter(n => !isKnot(n) && !isComment(n))
@@ -110,16 +108,15 @@ export function buildLevels(nodes) {
 }
 
 /**
- * Выравнивание черновика. Опции:
- *  · `clearance` — зазор по X между соединёнными нодами, по ТЗ = 5 шагов сетки (80 при grid 16);
- *  · `grid`      — клетка редактора (для `snap` и группировки строк);
- *  · `pinY`      — модель Y-центра пина (по умолчанию — оценка из `generator.js`);
- *  · `minLevelGap` — минимальный вертикальный зазор между уровнями, нужное количество рядов
- *                    сдвигается вниз, если выравнивание пинов «съело» межуровневую щель;
- *  · `snap`      — привязать результат к сетке (по умолчанию выкл: округление ломает совмещение
- *                  пинов, а само совмещение и есть критерий ступени 3).
- * Возвращает `{ nodes, levels, rows, moved, notes, knots: [] }`; `knots` пуст — ступень 3
- * переносы не создаёт (в `layout-pipeline` они уже лежат в `nodes`).
+ * Доводка черновика. Опции:
+ *  · `clearance`   — зазор по X между нодами ряда, по ТЗ 5 шагов сетки (80 при grid 16);
+ *  · `grid`        — клетка редактора;
+ *  · `pinY`        — модель Y-центра пина (калибруется замерами из UE);
+ *  · `minLevelGap` — минимальная щель между уровнями; если выравнивание её съело, ряд
+ *                    (и всё под ним) сдвигается вниз — состав уровней не меняется;
+ *  · `snap`        — привязать к сетке (по выкл: округление разбирает соосность пинов).
+ * Возвращает `{ nodes, levels, rows, moved, notes, knots: [] }`; `knots` пуст —
+ * переносы создаёт ступень 2, здесь они только ставятся по пинам.
  */
 export function decorateLayout(nodes, {
   clearance = 5 * GRID,
@@ -140,6 +137,7 @@ export function decorateLayout(nodes, {
   const rect = n => ({ x1: n.pos.x, x2: n.pos.x + estNodeWidth(n), y1: n.pos.y, y2: n.pos.y + estNodeHeight(n) });
   const hit = (a, b) => a.x1 < b.x2 - 1 && b.x1 < a.x2 - 1 && a.y1 < b.y2 - 1 && b.y1 < a.y2 - 1;
   const blocked = (r, self) => real.some(m => m !== self && hit(r, rect(m)));
+  const sizeOf = n => ({ w: estNodeWidth(n), h: estNodeHeight(n) });
   const place = (n, x, y, why) => {
     x = Math.round(x); y = Math.round(y);
     if (n.pos.x === x && n.pos.y === y) return false;
@@ -148,70 +146,97 @@ export function decorateLayout(nodes, {
     moved.push({ id: n.id, from, to: { x, y }, why });
     return true;
   };
-  const sizeOf = n => ({ w: estNodeWidth(n), h: estNodeHeight(n) });
 
-  // ── 1. exec-скелет: следующий узел ряда = правый край предыдущего + зазор, Y — пин в пин ──
-  const execIn = new Map();
-  const dataLinks = [];
+  const execInRow = new Map();   // ребёнок → связи exec из его же ряда
+  const execOutRow = new Map();  // родитель → связи exec в тот же ряд
+  const execOutAny = new Map();  // родитель → ВСЕ использованные exec-выходы (дети и в других рядах)
   for (const l of links) {
-    if (l.exec) {
-      if (!execIn.has(l.target.id)) execIn.set(l.target.id, []);
-      execIn.get(l.target.id).push(l);
-    } else dataLinks.push(l);
+    if (!l.exec || l.source === l.target) continue;
+    const same = rowOf.get(l.source.id) === rowOf.get(l.target.id);
+    if (!execOutAny.has(l.source.id)) execOutAny.set(l.source.id, []);
+    execOutAny.get(l.source.id).push(l);
+    if (!same) continue;
+    if (!execInRow.has(l.target.id)) execInRow.set(l.target.id, []);
+    execInRow.get(l.target.id).push(l);
+    if (!execOutRow.has(l.source.id)) execOutRow.set(l.source.id, []);
+    execOutRow.get(l.source.id).push(l);
   }
-  const execDriven = new Set();
-  for (const row of rows) {
-    const inRow = new Set(row.nodes.map(n => n.id));
-    const queue = row.nodes.slice().sort((a, b) => a.pos.x - b.pos.x || a.pos.y - b.pos.y);
-    const done = new Set();
-    let cursor = -Infinity; // правый край последнего поставленного узла ряда + зазор
-    while (queue.length) {
-      const i = queue.findIndex(n => (execIn.get(n.id) || []).some(e => inRow.has(e.source.id) && done.has(e.source.id) && e.source !== n));
-      if (i < 0) {
-        // вершина ряда (событие) или вход из другого уровня через knot-перенос:
-        // позиция черновика — это и есть структура расстановщика, не трогаем
-        const anchor = queue.shift();
-        done.add(anchor.id);
-        cursor = Math.max(cursor, anchor.pos.x + sizeOf(anchor).w + clearance);
-        continue;
+
+  // ── 1. плоские ряды и столбцы детей форка ────────────────────────────────
+  // Цепочка idёт по exec-связям: следующий узел = правый край водителя + зазор, Y — Y ряда.
+  // Если у ноды несколько использованных exec-выходов, дети встают СТОЛБЦОМ: общий X
+  // (правый край родителя + зазор), ряд 0 — Y родителя, каждый следующий — под-ряд, Y
+  // которого совмещён с пином-выходом родителя.
+  const placedInRow = new Map(rows.map((_, i) => [i, new Set()])); // rowId → Set(nodeId)
+  for (const [rowId, row] of rows.entries()) {
+    const done = placedInRow.get(rowId);
+    const entries = row.nodes
+      .filter(n => !(execInRow.get(n.id) || []).length)
+      .sort((a, b) => a.pos.x - b.pos.x);
+    for (const entry of entries) {
+      if (done.has(entry.id)) continue;
+      walk(entry, entry.pos.x, entry.pos.y, rowId, done);
+    }
+  }
+  function walk(n, x, y, rowId, done) {
+    if (!done.has(n.id)) place(n, x, y, `плоский ряд Y=${y}`);
+    done.add(n.id);
+    const kidsAll = execOutAny.get(n.id) || [];
+    if (!kidsAll.length) return;
+    // порядок детей = порядок exec-выходов родителя (then, then_1, … / then, else)
+    const outs = (n.pins || []).filter(p => p.category === 'exec' && isOut(p) && kidsAll.some(k => k.out === p));
+    const fork = outs.length > 1; // «несколько exec-выходов» → дети образуют столбец
+    const colX = x + sizeOf(n).w + clearance;
+    let cursor = colX;
+    for (const p of outs) {
+      const group = kidsAll.filter(k => k.out === p && !done.has(k.target.id));
+      for (const k of group) {
+        const sameRow = rowOf.get(k.target.id) === rowId;
+        if (!sameRow) {
+          if (!fork) continue; // линейный перенос: приёмник остаётся в позиции расстановщика
+          const childDone = placedInRow.get(rowOf.get(k.target.id));
+          if (!childDone || childDone.has(k.target.id)) continue;
+          // ребёнок форка уехал в другой уровень: столбец по X сохраняем, Y его уровня не трогаем
+          walk(k.target, colX, k.target.pos.y, rowOf.get(k.target.id), childDone);
+          notes.push(`${k.target.id}: в столбце выхода ${n.id}.${p.name} (X=${Math.round(colX)}), Y его уровня ${k.target.pos.y} сохранён`);
+          continue;
+        }
+        // сосед по ряду: тот же Y (ряд плоский), X — следующий слот ряда. Столбец «друг под
+        // другом» для детей одного ряда физически невозможен, если высота ноды больше шага
+        // пинов (32px) — дети бы легли друг на друга, поэтому ряд остаётся лентой.
+        walk(k.target, cursor, y, rowId, done);
+        cursor += sizeOf(k.target).w + clearance;
       }
-      const n = queue.splice(i, 1)[0];
-      const driver = (execIn.get(n.id) || [])
-        .filter(e => inRow.has(e.source.id) && done.has(e.source.id) && e.source !== n)
-        .sort((a, b) => a.source.pos.x - b.source.pos.x)[0];
-      const x = Math.max(cursor, driver.source.pos.x + sizeOf(driver.source).w + clearance);
-      const y = n.pos.y + (pinY(driver.source, driver.out) - (n.pos.y + pinOffsetY(n, driver.input, pinY)));
-      place(n, x, y, `exec ← ${driver.source.id}.${driver.out.name}`);
-      execDriven.add(n.id);
-      done.add(n.id);
-      cursor = x + sizeOf(n).w + clearance;
     }
   }
 
-  // ── 2. данные: совместить Y пинов и выдержать зазор по X, не накладывая ноды ──────
-  // Двигаются только «чистые» ноды данных (геттеры, литералы, чистые функции): позиция
-  // узла с exec-пинами принадлежит exec-цепочке (pass 1) или шаблону расстановщика
-  // (событие-вершина, хендлер делегата «левее и ниже»), и ступень 3 её не трогает.
+  // ── 2. данные: рядом — пин в пин, из другого ряда — вход точно под пином ──
+  // Двигаются только «чистые» ноды данных (без exec-пинов): позиция узла с exec-пинами
+  // принадлежит ряду (pass 1) или шаблону расстановщика.
   const pureData = n => !(n.pins || []).some(p => p.category === 'exec');
   const rectOf = (x, y, w, h) => ({ x1: x, x2: x + w, y1: y, y2: y + h });
   const victim = (r, self) => (real.find(m => m !== self && hit(r, rect(m))) || {}).id || 'соседний узел';
-  for (const { source: p, out, target: c, input } of dataLinks) {
+  for (const { source: p, out, target: c, input } of links) {
+    if (p === c || out.category === 'exec') continue; // exec-связи уже разложил pass 1
     const { w, h } = sizeOf(p);
+    const sameRow = rowOf.get(p.id) === rowOf.get(c.id);
     const yAlign = pinY(c, input) - pinOffsetY(p, out, pinY);
-    const xLeft = c.pos.x - clearance - w;
+    const xPins = c.pos.x - w;          // правый край продюсера = X пина-входа: провод вертикальный
+    const xGap = c.pos.x - clearance - w;
     const label = `данные → ${c.id}.${input.name}`;
     if (!pureData(p)) { notes.push(`${p.id}: узел с exec-пинами — ${label} не двигает ноду (ряд/шаблон важнее)`); continue; }
-    if (c.pos.x <= p.pos.x + w) { notes.push(`${p.id}: ${label} идёт назад по X — зазор не применяется`); continue; }
-    if (!blocked(rectOf(xLeft, yAlign, w, h), p)) place(p, xLeft, yAlign, label);
-    else if (!blocked(rectOf(xLeft, p.pos.y, w, h), p)) {
-      place(p, xLeft, p.pos.y, label);
-      notes.push(`${p.id}: ${label} — Y-выравнивание наложило бы узел на ${victim(rectOf(xLeft, yAlign, w, h), p)}, выровнен только X`);
+    if (sameRow && !blocked(rectOf(xGap, yAlign, w, h), p)) place(p, xGap, yAlign, label);
+    else if (sameRow && !blocked(rectOf(p.pos.x, yAlign, w, h), p)) place(p, p.pos.x, yAlign, label);
+    else if (!blocked(rectOf(xPins, p.pos.y, w, h), p)) {
+      place(p, xPins, p.pos.y, label);
+      const dy = Math.round(yAlign - p.pos.y);
+      notes.push(`${p.id}: ${label} — пин входа на ${Math.abs(dy)}px ${dy < 0 ? 'выше' : 'ниже'} ряда ноды данных, поэтому нода поставлена строго под пин (провод вертикальный)`);
     }
-    else if (!blocked(rectOf(p.pos.x, yAlign, w, h), p)) place(p, p.pos.x, yAlign, label);
-    else notes.push(`${p.id}: ${label} не выравнивается — любое положение с зазором ${clearance}px занято`);
+    else if (!blocked(rectOf(xPins, yAlign, w, h), p)) place(p, xPins, yAlign, label);
+    else notes.push(`${p.id}: ${label} не выравнивается — любое положение занято (${victim(rectOf(xPins, yAlign, w, h), p)})`);
   }
 
-  // ── 3. межуровневые щели не должны закрыться после сдвига нод ─────────────────────────
+  // ── 3. уровни не должны наехать друг на друга после выравнивания ──────────
   for (let i = 1; i < rows.length; i++) {
     const prevBottom = Math.max(...rows[i - 1].nodes.map(n => n.pos.y + estNodeHeight(n)));
     const curTop = Math.min(...rows[i].nodes.map(n => n.pos.y));
@@ -223,9 +248,8 @@ export function decorateLayout(nodes, {
     }
   }
 
-  // ── 4. knot-переносы: X по пинам концов, Y — середина коридора между уровнями ──────────
-  // Уровни — это ряды черновика (их состав задал генератор марками @row), но с ГРАНИЦАМИ
-  // после выравнивания: corridor пересчитывается по фактическим низу/верху строк.
+  // ── 4. переносы: стадиум из 4 knot'ов по пинам концов ─────────────────────
+  // Уровни — ряды черновика, но с границами ПОСЛЕ выравнивания: коридор считается по факту.
   const levels = rows.map(r => ({
     top: Math.min(...r.nodes.map(n => n.pos.y)),
     bottom: Math.max(...r.nodes.map(n => n.pos.y + estNodeHeight(n))),
@@ -233,15 +257,35 @@ export function decorateLayout(nodes, {
   }));
   for (const l of links) {
     if (!l.via.length) continue;
-    const y = Math.round(rerouteCorridorY(l.source, l.target, levels));
-    const x1 = pinCenterX(l.source, l.out);
-    const x2 = pinCenterX(l.target, l.input) - KNOT_W;
+    if (l.via.length === 2) {
+      // совместимость: старая пара — оба knot'а на коридорном Y, X по пинам концов
+      const y = Math.round(rerouteCorridorY(l.source, l.target, levels)) - KNOT_W / 2;
+      const x1 = pinCenterX(l.source, l.out);
+      const x2 = pinCenterX(l.target, l.input) - KNOT_W;
+      l.via.forEach((k, i) => {
+        const from = { x: k.pos.x, y: k.pos.y };
+        k.pos.x = Math.round(i ? x2 : x1); k.pos.y = y;
+        moved.push({ id: k.id, from, to: { ...k.pos }, why: `коридор ${l.source.id} → ${l.target.id}` });
+      });
+      continue;
+    }
+    const route = transferRoute(l.source, l.out, l.target, l.input, { levels });
+    if (route.length !== l.via.length) {
+      // число knot'ов не совпало с маршрутом: раскладываем их по маршруту пропорционально
+      notes.push(`${l.source.id} → ${l.target.id}: knot'ов ${l.via.length}, точек маршрута ${route.length} — расставлены пропорционально`);
+      l.via.forEach((k, i) => {
+        const t = l.via.length === 1 ? 0 : i / (l.via.length - 1);
+        const a = route[Math.floor(t * (route.length - 1))], b = route[Math.ceil(t * (route.length - 1))];
+        const f = route.length === 1 ? 0 : (t * (route.length - 1)) % 1;
+        k.pos.x = Math.round(a.x + (b.x - a.x) * f);
+        k.pos.y = Math.round(a.y + (b.y - a.y) * f);
+      });
+      continue;
+    }
     l.via.forEach((k, i) => {
-      const t = l.via.length === 1 ? 0 : i / (l.via.length - 1);
-      const x = x1 + (x2 - x1) * t;
       const from = { x: k.pos.x, y: k.pos.y };
-      k.pos.x = Math.round(x); k.pos.y = y;
-      moved.push({ id: k.id, from, to: { ...k.pos }, why: `коридор ${l.source.id} → ${l.target.id}` });
+      k.pos.x = Math.round(route[i].x); k.pos.y = Math.round(route[i].y);
+      moved.push({ id: k.id, from, to: { ...k.pos }, why: `стадиум ${l.source.id}.${l.out.name} → ${l.target.id}.${l.input.name}` });
     });
   }
 

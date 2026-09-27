@@ -300,7 +300,8 @@ regThrow.forEach(t => console.log('THROW:', t));
   linkPins(backSource,'then',backTarget,'execute');
   const {arrangeRows}=await import('../src/arranger.js');
   const routed=arrangeRows([[backTarget],[backSource]]);
-  ok(routed.knots.length===2 && routed.nodes.length===4 && backSource.pins.find(p=>p.name==='then').linkedTo[0].nodeName===routed.knots[0].id, 'arranger: backward exec flow requests and creates two reroute knots');
+  ok(routed.knots.length===4 && routed.nodes.length===6 && backSource.pins.find(p=>p.name==='then').linkedTo[0].nodeName===routed.knots[0].id, 'arranger: backward exec flow builds a 4-knot stadium route');
+  ok(routed.knots[1].pos.y===routed.knots[2].pos.y && routed.knots[0].pos.x===backSource.pos.x+estNodeWidth(backSource) && routed.knots[3].pos.x+16===backTarget.pos.x, "arranger: stadium — общий Y средних knot'ов, X крайних knot'ов соосен пинам концов");
   const {positionBlueprint}=await import('../src/layout-pipeline.js');
   const {pinCenterY}=await import('../src/generator.js');
   const pipedA=createCallFunction(byId('Delay'));
@@ -799,9 +800,8 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(validateStrict(db).errors.length===0 && db.includes('MemberName=\"NewEventDispatcher_Probe\"'), 'Dispatcher probe: bound custom event uses self dispatcher');
   const execChain=['K2Node_CustomEvent_3000','K2Node_AddDelegate_3002','K2Node_CallDelegate_3001','K2Node_RemoveDelegate_3003','K2Node_ClearDelegate_3004'].map(id=>dbNodes.find(n=>n.id===id));
   ok(execChain.every((n,i)=>n && (!i || n.pos.x - execChain[i-1].pos.x >= 400)) && dbNodes.find(n=>n.id==='K2Node_CustomEvent_5000')?.pos.x===execChain[1].pos.x && dbNodes.find(n=>n.id==='K2Node_CustomEvent_5000')?.pos.y>execChain[1].pos.y, 'Dispatcher probe: arranger leaves clear left-to-right corridors, handler below Add');
-  const {pinCenterY}=await import('../src/generator.js');
-  const execAligned=execChain.slice(0,-1).every((n,i)=>{const out=n.pins.find(p=>p.name==='then');const dest=execChain[i+1];const input=dest.pins.find(p=>p.name==='execute');return Math.abs(pinCenterY(n,out)-pinCenterY(dest,input))<1;});
-  ok(execAligned, 'Dispatcher probe: decorator aligns every connected exec pin center');
+  const rowFlat=execChain.every(n=>n.pos.y===execChain[0].pos.y);
+  ok(rowFlat, 'Dispatcher probe: decorator keeps one flat row — identical Y for every exec node');
   ok(db.split('LinkedTo=(K2Node_CustomEvent_5000').length-1===2 && !db.includes('K2Node_Knot_'), 'Dispatcher probe: callback links preserved, no unnecessary reroute knots');
 }
 // End-to-end smoke through creator -> arranger -> decorator.
@@ -809,10 +809,10 @@ regThrow.forEach(t => console.log('THROW:', t));
   const text=fs.readFileSync(new URL('../sweep/current-pipeline-smoke.txt',import.meta.url),'utf8');
   const nodes=Object.values(parseToGraphs(text))[0].nodes;
   const order=['K2Node_CustomEvent_5000','K2Node_CallFunction_100','K2Node_CallFunction_101'].map(id=>nodes.find(n=>n.id===id));
-  const {pinCenterY}=await import('../src/generator.js');
+  const {estNodeWidth}=await import('../src/generator.js');
   ok(validateStrict(text).errors.length===0 && nodes.length===3, 'pipeline smoke: three-node text is STRICT-clean');
   ok(order.every((n,i)=>n && (!i || n.pos.x>order[i-1].pos.x)) && !nodes.some(n=>n.className.endsWith('K2Node_Knot')), 'pipeline smoke: Start→Delay→Print laid out in order without unnecessary knots');
-  ok(order.slice(0,-1).every((n,i)=>{const out=n.pins.find(p=>p.name==='then'),input=order[i+1].pins.find(p=>p.name==='execute');return Math.abs(pinCenterY(n,out)-pinCenterY(order[i+1],input))<1;}), 'pipeline smoke: linked exec pin centers align in the model');
+  ok(order.every(n=>n.pos.y===order[0].pos.y) && order.slice(1).every((n,i)=>n.pos.x-(order[i].pos.x+estNodeWidth(order[i]))>=80-1), 'pipeline smoke: flat exec row + gap of 5 grid cells (80px)');
 }
 
 // R27 pre: Widgets / UI + конструктор widget/get/set
