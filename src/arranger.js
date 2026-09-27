@@ -67,15 +67,29 @@ export function rerouteCorridorY(source, target, levels) {
  * Общий Y обязателен именно для обратного (back) переноса — только тогда средний участок
  * лежит строго поперёк уровней и никого не пересекает.
  */
+/**
+ * Y горизонтали переноса. Для связи между уровнями — середина щели между ними
+ * (`rerouteCorridorY`), для связи внутри одного уровня — строка пина-выхода: тогда
+ * выход, K1, K2, K3 лежат на одной линии, а излом ΔY происходит в последних 16px
+ * перед целью (K3 → K4). Так провод остаётся ортогональным и при неточной ширине ноды.
+ */
+export function execCorridorY(source, out, target, input, levels = [], pinY = pinCenterY) {
+  const index = new Map();
+  levels.forEach((l, i) => l.nodes.forEach(n => index.set(n.id, i)));
+  const si = index.get(source?.id), ti = index.get(target?.id);
+  if (si !== undefined && si === ti) return Math.round(pinY(source, out));
+  return Math.round(rerouteCorridorY(source, target, levels) / GRID) * GRID;
+}
+
 export function transferRoute(source, out, target, input, { levels = [], corridorY = null, pinY = pinCenterY } = {}) {
   const srcX = source.pos.x + estNodeWidth(source); // X пина-выхода
   const tgtX = target.pos.x;                        // X пина-входа
   // центр knot'а на 8px ниже его NodePosY — чтобы пин knot'а встал ровно на Y пина ноды
   const srcY = pinY(source, out) - KNOT_W / 2;
   const tgtY = pinY(target, input) - KNOT_W / 2;
-  const yCorr = corridorY !== null && corridorY !== undefined
-    ? corridorY - KNOT_W / 2
-    : Math.round(rerouteCorridorY(source, target, levels) / GRID) * GRID - KNOT_W / 2;
+  const yCorr = (corridorY !== null && corridorY !== undefined
+    ? corridorY
+    : execCorridorY(source, out, target, input, levels, pinY)) - KNOT_W / 2;
   return [
     { x: srcX, y: srcY, role: 'out' },
     { x: srcX + KNOT_W, y: yCorr, role: 'corridor-a' },
@@ -96,7 +110,11 @@ function createExecReroutes(nodes, { levels = [] } = {}) {
         const target = byId.get(l.nodeName);
         const input = target?.pins.find(p => p.id === l.pinId);
         if (!target || isKnot(target) || input?.category !== 'exec' || input.direction !== 'Input') continue;
-        if (target.pos.x <= source.pos.x || target.pos.y !== source.pos.y) jobs.push([source,out,target,input]);
+        // Стадиум кладём на каждый провод, где пины не соосны или цель левее источника:
+        // тогда излом ΔY происходит на knot'ах, а не наискосок через ряд.
+        const coAxis = pinCenterY(source, out) === pinCenterY(target, input);
+        const toTheRight = target.pos.x >= source.pos.x + estNodeWidth(source);
+        if (!(coAxis && toTheRight)) jobs.push([source, out, target, input]);
       }
     }
   }

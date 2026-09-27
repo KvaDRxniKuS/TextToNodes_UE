@@ -309,6 +309,24 @@ regThrow.forEach(t => console.log('THROW:', t));
   linkPins(pipedA,'then',pipedB,'execute');
   const piped=positionBlueprint([pipedA,pipedB],{rows:[[pipedA,pipedB]],arrange:{gap:160},decorate:{clearance:160}});
   ok(piped.nodes.length===2 && pipedB.pos.x>pipedA.pos.x && Math.abs(pinCenterY(pipedA,pipedA.pins.find(p=>p.name==='then'))-pinCenterY(pipedB,pipedB.pins.find(p=>p.name==='execute')))<1, 'pipeline: explicit rows route through arranger then decorator');
+  // несоосные строки пинов внутри одного ряда — тот же стадиум из 4 knot'ов, что и перенос
+  const {createBranch}=await import('../src/generator.js');
+  const rowSrc=createCallFunction(byId('PrintString'));
+  const rowDst=createBranch({x:0,y:0});
+  linkPins(rowSrc,'then',rowDst,'execute');
+  const dyRow=pinCenterY(rowDst,rowDst.pins.find(p=>p.name==='execute'))-pinCenterY(rowSrc,rowSrc.pins.find(p=>p.name==='then'));
+  ok(dyRow===-32, 'arranger: PrintString.then и Branch.execute в модели на разных строках (тест опирается на это)');
+  const rowRes=arrangeRows([[rowSrc,rowDst]],{gap:160});
+  ok(rowRes.knots.length===4, 'arranger: несоосный exec-провод внутри ряда ведётся через стадиум из 4 knot-ов');
+  const rks=rowRes.knots;
+  ok(rks[0].pos.y===rks[1].pos.y && rks[1].pos.y===rks[2].pos.y, 'arranger: горизонталь внутри ряда идёт по строке пина-выхода (K1..K3 соосны), излом — перед целью');
+  ok(rks.every((k,i)=>i===0||k.pos.x>rks[i-1].pos.x) && new Set(rks.map(k=>k.pos.x+':'+k.pos.y)).size===4, 'arranger: knot-ы стадиума не занимают одну клетку 16px');
+  const {decorateLayout}=await import('../src/decorator.js');
+  decorateLayout(rowRes.nodes,{clearance:16,grid:16});
+  ok(rowDst.pos.x-(rowSrc.pos.x+estNodeWidth(rowSrc))>=4*16, 'decorator: щель ряда расширяется до 4 * KNOT_W, чтобы стадиум уместился');
+  const cells=new Set(); let stacked=0;
+  for (const k of rowRes.nodes.filter(n=>(n.className||'').includes('Knot'))) { const key=k.pos.x+':'+k.pos.y; if (cells.has(key)) stacked++; cells.add(key); }
+  ok(stacked===0, 'decorator: на несоосном проводе ни один knot-ы не легли друг на друга');
 }
 
 // N1 copy-back: 42/42 PinId, резолв wildcard-макро при вставке, 3 провода
@@ -802,16 +820,26 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(execChain.every((n,i)=>n && (!i || n.pos.x - execChain[i-1].pos.x >= 400)) && dbNodes.find(n=>n.id==='K2Node_CustomEvent_5000')?.pos.x===execChain[1].pos.x && dbNodes.find(n=>n.id==='K2Node_CustomEvent_5000')?.pos.y>execChain[1].pos.y, 'Dispatcher probe: arranger leaves clear left-to-right corridors, handler below Add');
   const rowFlat=execChain.every(n=>n.pos.y===execChain[0].pos.y);
   ok(rowFlat, 'Dispatcher probe: decorator keeps one flat row — identical Y for every exec node');
-  ok(db.split('LinkedTo=(K2Node_CustomEvent_5000').length-1===2 && !db.includes('K2Node_Knot_'), 'Dispatcher probe: callback links preserved, no unnecessary reroute knots');
+  const { flatLinks: dbFlat } = await import('../src/decorator.js');
+  const { pinCenterY: dbPinY } = await import('../src/generator.js');
+  const dbWires = dbFlat(dbNodes).filter(l => l.exec);
+  ok(db.split('LinkedTo=(K2Node_CustomEvent_5000').length-1===2
+     && dbWires.length===4
+     && dbWires.every(l => (dbPinY(l.source,l.out)===dbPinY(l.target,l.input) ? l.via.length===0 : l.via.length===4)),
+     'Dispatcher probe: callback links preserved, каждый exec-провод соосный или ведёт через стадиум из 4 knot-ов');
 }
 // End-to-end smoke through creator -> arranger -> decorator.
 {
   const text=fs.readFileSync(new URL('../sweep/current-pipeline-smoke.txt',import.meta.url),'utf8');
   const nodes=Object.values(parseToGraphs(text))[0].nodes;
   const order=['K2Node_CustomEvent_5000','K2Node_CallFunction_100','K2Node_CallFunction_101'].map(id=>nodes.find(n=>n.id===id));
-  const {estNodeWidth}=await import('../src/generator.js');
-  ok(validateStrict(text).errors.length===0 && nodes.length===3, 'pipeline smoke: three-node text is STRICT-clean');
-  ok(order.every((n,i)=>n && (!i || n.pos.x>order[i-1].pos.x)) && !nodes.some(n=>n.className.endsWith('K2Node_Knot')), 'pipeline smoke: Start→Delay→Print laid out in order without unnecessary knots');
+  const {estNodeWidth, pinCenterY}=await import('../src/generator.js');
+  const { flatLinks }=await import('../src/decorator.js');
+  const wires=flatLinks(nodes).filter(l=>l.exec);
+  ok(validateStrict(text).errors.length===0 && nodes.filter(n=>!n.className.includes('Knot')).length===3, 'pipeline smoke: three-node text is STRICT-clean');
+  ok(order.every((n,i)=>n && (!i || n.pos.x>order[i-1].pos.x))
+     && wires.every(l=>(pinCenterY(l.source,l.out)===pinCenterY(l.target,l.input) ? l.via.length===0 : l.via.length===4)),
+     'pipeline smoke: Start→Delay→Print laid out in order; кривых проводов нет — несоосные идут через стадиум');
   ok(order.every(n=>n.pos.y===order[0].pos.y) && order.slice(1).every((n,i)=>n.pos.x-(order[i].pos.x+estNodeWidth(order[i]))>=80-1), 'pipeline smoke: flat exec row + gap of 5 grid cells (80px)');
 }
 

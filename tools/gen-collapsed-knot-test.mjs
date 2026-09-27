@@ -3,8 +3,11 @@
 // level inserts midpoint Knots between adjacent entries and moves 16px farther outward.
 // Generation stops when a level contains only one Knot or the requested depth is reached.
 import fs from 'node:fs';
+import { seedGuids } from '../src/parser.js';
 import { createKnot, createComment, estNodeWidth, pinCenterY, KNOT_X_STEP, KNOT_SIDE_OFFSET, PIN_ROW_H } from '../src/generator.js';
 import { generateUEText, guid32 } from '../src/parser.js';
+
+seedGuids('collapsed-knot-4x5'); // фикстура детерминирована: перегенерация = побайтовое совпадение
 
 const OBJ = `"/Script/CoreUObject.Class'/Script/EnhancedInput.EnhancedInputSubsystemInterface'"`;
 const ZERO = '00000000000000000000000000000000';

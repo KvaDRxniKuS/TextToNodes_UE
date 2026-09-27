@@ -14,8 +14,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseToGraphs } from '../src/parser.js';
-import { estNodeWidth, estNodeHeight } from '../src/generator.js';
-import { isKnot, flatLinks, buildLevels, KNOT_W } from '../src/decorator.js';
+import { estNodeWidth, estNodeHeight, pinCenterY } from '../src/generator.js';
+import { isKnot, flatLinks, buildLevels, pinCenterX, KNOT_W } from '../src/decorator.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const file = process.argv[2] ? path.resolve(process.argv[2]) : path.join(ROOT, 'tests/three-stage-01.stage2-arranger.txt');
@@ -48,7 +48,14 @@ for (const l of flatLinks(nodes).filter(x => x.via.length)) {
   if (!run.length) { bad++; console.log(`  ✗ ${l.source.id} → ${l.target.id}: knot'ы без горизонтального участка (${l.via.map(k => `${k.pos.x},${k.pos.y}`).join(' → ')})`); continue; }
   const ls = levelOf.get(l.source.id), lt = levelOf.get(l.target.id);
   if (ls === undefined || lt === undefined || ls === lt) {
-    console.log(`  · ${l.source.id} → ${l.target.id}: тот же уровень (${ls}) — щель не требуется, участок y=${a.pos.y}`);
+    // внутри ряда: горизонталь идёт по строке пина-выхода и живёт в щели между нодами
+    const yRun = pinCenterY(l.source, l.out) - KNOT_W / 2;
+    const xOut = pinCenterX(l.source, l.out), xIn = pinCenterX(l.target, l.input);
+    const okRun = a.pos.y === yRun && l.via.every(k => k.pos.x >= xOut && k.pos.x + KNOT_W <= xIn);
+    if (!okRun) bad++;
+    console.log(`  ${okRun ? '✓' : '✗'} перенос в ряду ${l.source.id}.${l.out.name} → ${l.target.id}.${l.input.name}: `
+      + `knot'ов ${l.via.length}, горизонталь ${Math.min(a.pos.x, b.pos.x)}…${Math.max(a.pos.x, b.pos.x)} на y=${a.pos.y}, `
+      + `строка пина-выхода y=${yRun}, щель между нодами ${xOut}…${xIn}`);
     continue;
   }
   const down = lt > ls;

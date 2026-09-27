@@ -20,7 +20,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseToGraphs } from '../src/parser.js';
 import { estNodeWidth, estNodeHeight, pinCenterY, GRID } from '../src/generator.js';
-import { flatLinks, buildLevels, pinCenterX, isKnot, KNOT_W } from '../src/decorator.js';
+import { flatLinks, buildLevels, pinCenterX, isKnot, isComment, KNOT_W } from '../src/decorator.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const argv = process.argv.slice(2);
@@ -58,7 +58,8 @@ for (const [id, ls] of byParent) {
   const outs = (real.find(n => n.id === id)?.pins || []).filter(p => isOutPin(p) && ls.some(l => l.out === p));
   if (outs.length < 2) continue;
   const parent = real.find(n => n.id === id);
-  const colX = parent.pos.x + estNodeWidth(parent) + clearance;
+  // тот же предел, что и у декоратора: щель ряда не меньше 4 * KNOT_W, чтобы стадиум уместился
+  const colX = parent.pos.x + estNodeWidth(parent) + Math.max(clearance, 4 * KNOT_W);
   for (const l of ls) {
     if (levelOf.get(l.target.id) === levelOf.get(parent.id)) continue; // сосед по ленте ряда
     if (l.target.pos.x !== colX) problems.push(`B: ${l.target.id} — ребёнок выхода ${parent.id}.${l.out.name} не в столбце (x=${l.target.pos.x}, нужно ${colX})`);
@@ -113,14 +114,27 @@ for (const l of links.filter(x => x.via.length)) {
     if (!(mid.pos.y >= Math.min(lo, hi) && mid.pos.y <= Math.max(lo, hi))) {
       problems.push(`D: средний участок переноса ${l.source.id} → ${l.target.id} на y=${mid.pos.y} вне щели ${lo}…${hi}`);
     } else stadium++;
-  } else stadium++;
+  } else {
+    // связь внутри одного уровня: горизонталь обязана идти по строке пина-выхода,
+    // knot'ы — в щели между нодами (иначе провод пересечёт соседний узел)
+    const yRun = srcY - KNOT_W / 2;
+    const xs = v.map(k => k.pos.x);
+    if (mid.pos.y !== yRun) {
+      problems.push(`D: ${l.source.id}.${l.out.name} → ${l.target.id}.${l.input.name} — ряд один, а горизонталь на y=${mid.pos.y}, нужно по строке пина-выхода y=${yRun}`);
+    } else if (Math.min(...xs) < srcX || Math.max(...xs) + KNOT_W > tgtX) {
+      problems.push(`D: ${l.source.id} → ${l.target.id}: knot'ы вылезли за щель ${srcX}…${tgtX} между нодами`);
+    } else stadium++;
+  }
 }
 
-// E: наложения
-const rect = n => ({ x1: n.pos.x, x2: n.pos.x + estNodeWidth(n), y1: n.pos.y, y2: n.pos.y + estNodeHeight(n) });
-for (let i = 0; i < real.length; i++) for (let j = i + 1; j < real.length; j++) {
-  const a = rect(real[i]), b = rect(real[j]);
-  if (a.x1 < b.x2 - 1 && b.x1 < a.x2 - 1 && a.y1 < b.y2 - 1 && b.y1 < a.y2 - 1) problems.push(`E: ${real[i].id} перекрывает ${real[j].id}`);
+// E: наложения — и нод между собой, и knot'ов (16×16) с нодами и между собой
+const rect = n => isKnot(n)
+  ? { x1: n.pos.x, x2: n.pos.x + KNOT_W, y1: n.pos.y, y2: n.pos.y + KNOT_W }
+  : { x1: n.pos.x, x2: n.pos.x + estNodeWidth(n), y1: n.pos.y, y2: n.pos.y + estNodeHeight(n) };
+const boxes = nodes.filter(n => !isComment(n));
+for (let i = 0; i < boxes.length; i++) for (let j = i + 1; j < boxes.length; j++) {
+  const a = rect(boxes[i]), b = rect(boxes[j]);
+  if (a.x1 < b.x2 - 1 && b.x1 < a.x2 - 1 && a.y1 < b.y2 - 1 && b.y1 < a.y2 - 1) problems.push(`E: ${boxes[i].id} перекрывает ${boxes[j].id}`);
 }
 
 // F: уровни и код нод

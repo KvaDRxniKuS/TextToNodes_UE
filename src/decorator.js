@@ -17,7 +17,7 @@ import { rerouteCorridorY, transferRoute } from './arranger.js';
 
 export const isKnot = n => (n.className || '').includes('Knot');
 export { KNOT_W };
-const isComment = n => (n.className || '').includes('Comment') || !!(n && n.isComment);
+export const isComment = n => (n.className || '').includes('Comment') || !!(n && n.isComment);
 const dirOf = p => String((p && p.direction) || '').toLowerCase();
 const isOut = p => dirOf(p) === 'output';
 const isIn = p => dirOf(p) === 'input';
@@ -186,7 +186,13 @@ export function decorateLayout(nodes, {
     // порядок детей = порядок exec-выходов родителя (then, then_1, … / then, else)
     const outs = (n.pins || []).filter(p => p.category === 'exec' && isOut(p) && kidsAll.some(k => k.out === p));
     const fork = outs.length > 1; // «несколько exec-выходов» → дети образуют столбец
-    const colX = x + sizeOf(n).w + clearance;
+    // Щель под стадиум: цепочка из 4 knot'ов, идущая ВПЕРЁД, занимает между нодами
+    // 4 * KNOT_W (64px) — иначе K2 и K3 встают квадрат в квадрат. Меньше нужного не делаем,
+    // больше — по усмотрению (у нас clearance = 5 клеток = 80px).
+    const gapFor = k => (k.via || []).length >= 3 && pinCenterX(k.target, k.input) > pinCenterX(k.source, k.out)
+      ? 4 * KNOT_W : 0;
+    const gap = Math.max(clearance, ...outs.flatMap(o => kidsAll.filter(k => k.out === o)).map(gapFor));
+    const colX = x + sizeOf(n).w + gap;
     let cursor = colX;
     for (const p of outs) {
       const group = kidsAll.filter(k => k.out === p && !done.has(k.target.id));
@@ -205,7 +211,7 @@ export function decorateLayout(nodes, {
         // другом» для детей одного ряда физически невозможен, если высота ноды больше шага
         // пинов (32px) — дети бы легли друг на друга, поэтому ряд остаётся лентой.
         walk(k.target, cursor, y, rowId, done);
-        cursor += sizeOf(k.target).w + clearance;
+        cursor += sizeOf(k.target).w + gap;
       }
     }
   }
