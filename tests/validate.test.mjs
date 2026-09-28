@@ -301,7 +301,10 @@ regThrow.forEach(t => console.log('THROW:', t));
   const {arrangeRows}=await import('../src/arranger.js');
   const routed=arrangeRows([[backTarget],[backSource]]);
   ok(routed.knots.length===4 && routed.nodes.length===6 && backSource.pins.find(p=>p.name==='then').linkedTo[0].nodeName===routed.knots[0].id, 'arranger: backward exec flow builds a 4-knot stadium route');
-  ok(routed.knots[1].pos.y===routed.knots[2].pos.y && routed.knots[0].pos.x===backSource.pos.x+estNodeWidth(backSource) && routed.knots[3].pos.x+16===backTarget.pos.x, "arranger: stadium — общий Y средних knot'ов, X крайних knot'ов соосен пинам концов");
+  ok(routed.knots[0].pos.y===routed.knots[1].pos.y && routed.knots[2].pos.y===routed.knots[3].pos.y
+     && routed.knots[1].pos.x+16===routed.knots[2].pos.x
+     && routed.knots[0].pos.x===backSource.pos.x+estNodeWidth(backSource) && routed.knots[3].pos.x+16===backTarget.pos.x,
+     "arranger: stadium — пары по Y (первые два на строке выхода, последние два на строке входа), вертикаль соосна, крайние knot'ы на пинах");
   const {positionBlueprint}=await import('../src/layout-pipeline.js');
   const {pinCenterY}=await import('../src/generator.js');
   const pipedA=createCallFunction(byId('Delay'));
@@ -319,7 +322,8 @@ regThrow.forEach(t => console.log('THROW:', t));
   const rowRes=arrangeRows([[rowSrc,rowDst]],{gap:160});
   ok(rowRes.knots.length===4, 'arranger: несоосный exec-провод внутри ряда ведётся через стадиум из 4 knot-ов');
   const rks=rowRes.knots;
-  ok(rks[0].pos.y===rks[1].pos.y && rks[1].pos.y===rks[2].pos.y, 'arranger: горизонталь внутри ряда идёт по строке пина-выхода (K1..K3 соосны), излом — перед целью');
+  ok(rks[0].pos.y===rks[1].pos.y && rks[2].pos.y===rks[3].pos.y, 'arranger: внутри ряда пары stadium выровнены по Y — K1·K2 по строке пина-выхода, K3·K4 по строке пина-входа (вердикт «первые два и последние два выровнены по Y между собой»)');
+  ok(rks[0].pos.y+8===pinCenterY(rowSrc,rowSrc.pins.find(p=>p.name==='then')) && rks[2].pos.y+8===pinCenterY(rowDst,rowDst.pins.find(p=>p.name==='execute')), "arranger: обе пары лежат ровно на строках пинов (центр пина knot'а = NodePosY+8), излом ΔY — на вертикали K2→K3");
   ok(rks.every((k,i)=>i===0||k.pos.x>rks[i-1].pos.x) && new Set(rks.map(k=>k.pos.x+':'+k.pos.y)).size===4, 'arranger: knot-ы стадиума не занимают одну клетку 16px');
   const {decorateLayout}=await import('../src/decorator.js');
   decorateLayout(rowRes.nodes,{clearance:16,grid:16});

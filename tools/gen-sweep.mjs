@@ -47,6 +47,7 @@ const HAND_OWNED = {
   '29-components-physics.txt': 'ручная глава R29 (damping-вызовы вне реестра) — заморожен',
 };
 const CHECK = process.argv.slice(2).includes('--check');
+const SCRATCH = new Set(['30-debug.txt']); // пишется для удобства, в git не попадает (`.gitignore`)
 const written = [];   // { fname, text } — для режима --check
 cats.forEach((cat, ci) => {
   const entries = reg.filter(e => e.category === cat);
@@ -78,7 +79,9 @@ cats.forEach((cat, ci) => {
   // после правки реестра — остальные txt не трогаем (без GUID-шума). MANIFEST
   // пересчитывается всегда.
   const owned = HAND_OWNED[fname];
-  if (!owned) written.push({ fname, text: txt + '\n' });   // в --check и в записи — только свои файлы
+  // в --check и в записи — только свои файлы; диагностический вывод вне git не сверяем
+  // (иначе проверка падает на отсутствующем sweep/30-debug.txt, а он не в репозитории)
+  if (!owned && !SCRATCH.has(fname)) written.push({ fname, text: txt + '\n' });
   const only = (process.argv[2] || '').toLowerCase();
   if (!CHECK && !owned && (!only || fname.toLowerCase().startsWith(only)))
     fs.writeFileSync(path.join(OUT, fname), txt + '\n');

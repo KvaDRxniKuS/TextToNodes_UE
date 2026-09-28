@@ -192,7 +192,7 @@ function printReport(g1, arr, dec) {
       console.log(`    ${k.id}: 2:(${k.pos.x},${k.pos.y})` + (dec ? ` 3:(${d?.pos.x},${d?.pos.y})` : ''));
     }
   }
-  if (dec.notes?.length) {
+  if (dec?.notes?.length) {
     console.log('  решения декоратора (что не стало ровняться и почему):');
     for (const note of dec.notes) console.log(`    · ${note}`);
   }

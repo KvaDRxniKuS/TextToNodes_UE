@@ -12,8 +12,9 @@
  *   B. дети узла с несколькими exec-выходами образуют столбец: X = правый край родителя +
  *      зазор, по ряду на каждый выход;
  *   C. зазор между соседями ряда = 5 шагов сетки (по умолчанию 80);
- *   D. перенос — стадиум из 4 knot'ов: каждый участок соосен пину (X или Y), средние knot'ы
- *      делят Y коридора и лежат в щели между уровнями;
+ *   D. перенос — стадиум из 4 knot'ов с парным выравниванием (вердикт 2026-09-28): K1·K2 на
+ *      строке пина-выхода, K3·K4 — на строке пина-входа, между ними соосная вертикаль,
+ *      идущая по свободной колонке (не перечёркивает прямоугольники нод);
  *   E. ноды не наложены друг на друга;
  *   F. уровни сохранены: состав уровня, его верх (минимальный Y) и код нод не изменились.
  * A/C/D считаются по модели пинов из `src/generator.js` — она же у ступеней 1—2.
@@ -83,7 +84,7 @@ for (const l of levels) {
   }
 }
 
-// D: стадиум переноса — каждый участок соосен, средние knot'ы в коридоре на одном Y
+// D: стадиум переноса — пары по Y (первые два / последние два), вертикаль K2→K3 в свободной колонке
 const knotPinY = k => k.pos.y + KNOT_W / 2; // центр пина knot'а
 let stadium = 0;
 for (const l of links.filter(x => x.via.length)) {
@@ -95,8 +96,9 @@ for (const l of links.filter(x => x.via.length)) {
     const k1 = v[0], k2 = v[1], k3 = v[v.length - 2], k4 = v[v.length - 1];
     checks.push([`X K1 ≠ X пина-выхода (${k1.pos.x} / ${srcX})`, k1.pos.x === srcX]);
     checks.push([`Y K1 ≠ Y пина-выхода (${knotPinY(k1)} / ${srcY})`, knotPinY(k1) === srcY]);
-    checks.push([`K2 не под K1 по X (${k2.pos.x} / ${k1.pos.x + KNOT_W})`, k2.pos.x === k1.pos.x + KNOT_W]);
-    checks.push([`K3 и K2 не на одном Y (${k2.pos.y} / ${k3.pos.y}) — средний участок не горизонтален`, k2.pos.y === k3.pos.y]);
+    checks.push([`первые два knot'а не на строке пина-выхода (${knotPinY(k1)} / ${knotPinY(k2)} при пине ${srcY})`, k1.pos.y === k2.pos.y && knotPinY(k1) === srcY]);
+    checks.push([`последние два knot'а не на строке пина-входа (${knotPinY(k3)} / ${knotPinY(k4)} при пине ${tgtY})`, k3.pos.y === k4.pos.y && knotPinY(k3) === tgtY]);
+    checks.push([`вертикаль K2→K3 не соосна (${k2.pos.x + KNOT_W} / ${k3.pos.x})`, k2.pos.x + KNOT_W === k3.pos.x]);
     checks.push([`K4 не соосен K3 по X (${k4.pos.x} / ${k3.pos.x + KNOT_W})`, k4.pos.x === k3.pos.x + KNOT_W]);
     checks.push([`X выхода K4 ≠ X пина-входа (${k4.pos.x + KNOT_W} / ${tgtX})`, k4.pos.x + KNOT_W === tgtX]);
     checks.push([`Y K4 ≠ Y пина-входа (${knotPinY(k4)} / ${tgtY})`, knotPinY(k4) === tgtY]);
@@ -109,22 +111,21 @@ for (const l of links.filter(x => x.via.length)) {
   }
   for (const [msg, ok] of checks) if (!ok) problems.push(`D: ${l.source.id}.${l.out.name} → ${l.target.id}.${l.input.name}: ${msg}`);
   const ls = levelOf.get(l.source.id), lt = levelOf.get(l.target.id);
-  const mid = v.length >= 4 ? v[1] : v[0];
+  const vx = v.length >= 4 ? v[2].pos.x : v[1].pos.x;   // X вертикали (вход K3 / выход K2)
   if (ls !== undefined && lt !== undefined && ls !== lt) {
-    const [lo, hi] = lt > ls
-      ? [Math.max(...levels.slice(ls, lt).map(x => x.bottom)), levels[lt].top]
-      : [levels[lt].bottom, Math.min(...levels.slice(lt + 1, ls + 1).map(x => x.top))];
-    if (!(mid.pos.y >= Math.min(lo, hi) && mid.pos.y <= Math.max(lo, hi))) {
-      problems.push(`D: средний участок переноса ${l.source.id} → ${l.target.id} на y=${mid.pos.y} вне щели ${lo}…${hi}`);
+    // межуровневый перенос: горизонтали лежат на строках пинов, а между уровнями идёт
+    // ВЕРТИКАЛЬ — она обязана стоять в свободной колонке, чтобы не резать ноды поперёк
+    const y0 = Math.min(srcY, tgtY), y1 = Math.max(srcY, tgtY);
+    const crossed = real.filter(n => n.id !== l.source.id && n.id !== l.target.id && !isKnot(n))
+      .filter(n => vx > n.pos.x && vx < n.pos.x + estNodeWidth(n) && y1 > n.pos.y && y0 < n.pos.y + estNodeHeight(n));
+    if (crossed.length) {
+      problems.push(`D: вертикаль x=${vx} переноса ${l.source.id} → ${l.target.id} перечёркивает ноды ${crossed.map(n => n.id).join(', ')}`);
     } else stadium++;
   } else {
-    // связь внутри одного уровня: горизонталь обязана идти по строке пина-выхода,
+    // связь внутри одного уровня: обе горизонтали по строкам пинов,
     // knot'ы — в щели между нодами (иначе провод пересечёт соседний узел)
-    const yRun = srcY - KNOT_W / 2;
     const xs = v.map(k => k.pos.x);
-    if (mid.pos.y !== yRun) {
-      problems.push(`D: ${l.source.id}.${l.out.name} → ${l.target.id}.${l.input.name} — ряд один, а горизонталь на y=${mid.pos.y}, нужно по строке пина-выхода y=${yRun}`);
-    } else if (Math.min(...xs) < srcX || Math.max(...xs) + KNOT_W > tgtX) {
+    if (Math.min(...xs) < srcX || Math.max(...xs) + KNOT_W > tgtX) {
       problems.push(`D: ${l.source.id} → ${l.target.id}: knot'ы вылезли за щель ${srcX}…${tgtX} между нодами`);
     } else stadium++;
   }
