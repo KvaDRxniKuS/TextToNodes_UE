@@ -12,9 +12,9 @@ TextToNodes_UE парсит, создаёт, проверяет и экспор�
 
 1. **Генератор нод (creator):** `src/stage1.js` (спека → только код нод, самопроверка round-trip) поверх `src/creator.js`, `src/modules.js` и фабрик `src/generator.js`. Создать ноды/пины; координаты не считать (0,0), провода не писать — соединения и `@row/@col` остаются закладкой, их материализует ступень 2 (`applyConnections`). `linkPins()` не перемещает ноды; knot'ы и комментарии на этой ступени не создаются.
 2. **Arranger:** `src/arranger.js`. Задать визуальные ряды и coarse-порядок; обратные exec-связи могут получить reroute knots. Результат включает созданные ноды.
-3. **Decorator:** `src/decorator.js`. Плоские ряды (одинаковый Y exec-нод), столбец детей форка, зазор 5 клеток сетки по X, стадиумы из 4 knot'ов соосно пинам на каждом несоосном exec-проводе; ноды, провода и состав уровней не трогает (проверка: `tools/check-decoration.mjs`).
+3. **Decorator ⚠ в разработке:** `src/decorator.js`. Плоские ряды (одинаковый Y exec-нод), столбец детей форка, зазор 5 клеток сетки по X, стадиумы из 4 knot'ов соосно пинам на каждом несоосном exec-проводе; ноды, провода и состав уровней не трогает (проверка: `tools/check-decoration.mjs`). С 2026-09-28 в основной цикл (ступени 1–2) не входит: `positionBlueprint()` её не вызывает, фикстура `.stage3-decorator.WIP.txt` не коммитится, в `npm test` её проверки не включены; прогон — `npm run stages:wip`.
 
-`src/layout-pipeline.js` предоставляет общий orchestration API; раздельный прогон ступеней с обменом текстом — `tools/gen-three-stage-test.mjs` (фикстуры `tests/three-stage-01.stage*.txt`, `npm run stages`). Оценки ширины и pin-center пока модельные: не считать UE-визуальную корректность подтверждённой без проверки в редакторе. Старые генераторы в `tools/make-node.mjs` используют совместимый layout path; не приписывать ему новые этапы, если он явно не переведён.
+`src/layout-pipeline.js` предоставляет общий orchestration API (`positionBlueprint()` = ступень 2; ступень 3 — только явно через опцию `decorate`); раздельный прогон ступеней с обменом текстом — `tools/gen-three-stage-test.mjs` (фикстуры `tests/three-stage-01.stage{1,2}-*.txt`, `npm run stages`). Оценки ширины и pin-center пока модельные: не считать UE-визуальную корректность подтверждённой без проверки в редакторе. Старые генераторы в `tools/make-node.mjs` используют совместимый layout path; не приписывать ему новые этапы, если он явно не переведён.
 
 ## Проверки и источники истины
 
@@ -38,9 +38,10 @@ TextToNodes_UE парсит, создаёт, проверяет и экспор�
 ## Текущий UE follow-up
 
 Трёхступенчатый тест: `tests/three-stage-01.sequence.md` (эталонная последовательность и критерии
-приёмки ступени 1) → `tests/three-stage-01.stage1-generator.txt` / `.stage2-arranger.txt` /
-`.stage3-decorator.txt`. Ступени 1 и 2 приняты; ступень 3
-переписана по ТЗ (плоские ряды, столбец форка, stadium-переносы) и ждёт визуальной проверки в UE.
-Правила и отступления — в §4 спеки.
+приёмки) → `tests/three-stage-01.stage1-generator.txt` / `.stage2-arranger.txt`. Ступени 1 и 2
+приняты и составляют основной цикл; ступень 3 (декоратор) переписана по ТЗ (плоские ряды, столбец
+форка, stadium-переносы), но с 2026-09-28 приостановлена и из цикла вынута — её выход
+`.stage3-decorator.WIP.txt` генерируется `npm run stages:wip` и не коммитится. Правила, отступления
+и координаты decorated-варианта — в §4 спеки.
 
-Dispatcher fixture: `sweep/dispatcher-probe-bound.txt`, генератор `tools/gen-dispatcher-bound-test.mjs`. Последняя перестройка использует creator → arranger → decorator, но её spacing и pin alignment в Unreal Editor ещё должны быть визуально подтверждены пользователем. См. историю решений и следующий порядок тем в `HANDOFF_TOPICS.md`.
+Dispatcher fixture: `sweep/dispatcher-probe-bound.txt`, генератор `tools/gen-dispatcher-bound-test.mjs`. Последняя перестройка использует creator → arranger (декоратор приостановлен), но её spacing и pin alignment в Unreal Editor ещё должны быть визуально подтверждены пользователем. См. историю решений и следующий порядок тем в `HANDOFF_TOPICS.md`.

@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 /**
+ * ⚠ Ступень 3 в разработке (2026-09-28) и в основной цикл не входит: файл ступени 3 не
+ * коммитится, прогон — `npm run stages:wip`, эта проверка запускается вручную.
+ *
  * Критерии приёмки ступени 3 (декоратора) — проверка по TEXT'у двух ступеней.
  *
  *   node tools/check-decoration.mjs [вход(ступень 2)] [выход(ступень 3)] [зазор]
@@ -25,7 +28,7 @@ import { flatLinks, buildLevels, pinCenterX, isKnot, isComment, KNOT_W } from '.
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const argv = process.argv.slice(2);
 const IN = path.resolve(argv[0] || path.join(ROOT, 'tests/three-stage-01.stage2-arranger.txt'));
-const OUT = path.resolve(argv[1] || path.join(ROOT, 'tests/three-stage-01.stage3-decorator.txt'));
+const OUT = path.resolve(argv[1] || path.join(ROOT, 'tests/three-stage-01.stage3-decorator.WIP.txt'));
 const clearance = argv[2] ? Number(argv[2]) : 5 * GRID;
 
 const nodes = parseToGraphs(fs.readFileSync(OUT, 'utf8')).EventGraph.nodes;

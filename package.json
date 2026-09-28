@@ -8,9 +8,10 @@
     "serve": "npx serve .",
     "validate": "node src/validate.js",
     "stages": "node tools/gen-three-stage-test.mjs",
-    "test": "node tests/validate.test.mjs && node tests/sandbox.test.mjs && node tools/gen-three-stage-test.mjs --check && node tools/check-knot-corridor.mjs && node tools/check-knot-corridor.mjs tests/three-stage-01.stage3-decorator.txt && node tools/check-decoration.mjs",
-    "check:knots": "node tools/check-knot-corridor.mjs && node tools/check-knot-corridor.mjs tests/three-stage-01.stage3-decorator.txt",
-    "check:decorate": "node tools/check-decoration.mjs"
+    "test": "node tests/validate.test.mjs && node tests/sandbox.test.mjs && node tools/gen-three-stage-test.mjs --check && node tools/check-knot-corridor.mjs",
+    "check:knots": "node tools/check-knot-corridor.mjs",
+    "check:decorate": "node tools/check-decoration.mjs",
+    "stages:wip": "node tools/gen-three-stage-test.mjs --stage 3"
   },
   "keywords": [
     "unreal-engine",
@@ -22,9 +23,9 @@
     "ue5"
   ],
   "license": "MIT",
-  "author": "UE Blueprint Sandbox",
+  "author": "TextToNodes_UE",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourname/ue-blueprint-toolkit"
+    "url": "https://github.com/KvaDRxniKuS/TextToNodes_UE.git"
   }
 }

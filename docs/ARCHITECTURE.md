@@ -11,7 +11,9 @@ UE copy → parser → JSON graph → inspect/modify → generator → Blueprint
 - `src/parser.js` читает и сериализует Blueprint Text.
 - `src/creator.js` и `src/modules.js` создают семантические записи узлов/пинов; `linkPins()` записывает взаимные ссылки и не отвечает за координаты.
 - `src/arranger.js` создаёт coarse-размещение по рядам, порядку и зазорам; для обратного exec flow может породить reroute knots.
-- `src/decorator.js` уточняет положения пинов/нод, зазоры и сетку.
+- `src/decorator.js` уточняет положения пинов/нод, зазоры и сетку. ⚠ Ступень 3 приостановлена
+  (2026-09-28) и в основной цикл не входит: он = генератор нод + расстановщик; см.
+  [`docs/LAYOUT_PIPELINE.md`](LAYOUT_PIPELINE.md).
 - `src/layout-pipeline.js` предоставляет orchestration двух позиционных этапов.
 - `src/validate.js` проверяет текстовую и графовую структуру; он не эмулирует UE и не подтверждает визуальный layout или успешную компиляцию Blueprint.
 - `index.html` — браузерная песочница. MCP server — отдельный stdio integration endpoint; его зависимости и запуск описаны в `mcp/README.md`.

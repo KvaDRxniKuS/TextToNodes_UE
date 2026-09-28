@@ -32,13 +32,14 @@ function emit(tag, nodes) {
 
 // L2: data + Knot — MakeVector.Vector → Knot → BreakVector.Vector; BreakVector.X → Delay.Duration
 {
-  const mk = createStructNode(byId('MakeVector'));
+  // MakeVector/BreakVector в реестре — K2Node_CallFunction (не struct-ноды): выходы ReturnValue/InVec
+  const mk = createCallFunction(byId('MakeVector'));
   const kn = createKnot();
-  const br = createStructNode(byId('BreakVector'));
+  const br = createCallFunction(byId('BreakVector'));
   const dly = createCallFunction(byId('Delay'));
   layoutRow([mk, kn, br, dly]);
-  linkPins(mk, 'Vector', kn, 'InputPin');
-  linkPins(kn, 'OutputPin', br, 'Vector');
+  linkPins(mk, 'ReturnValue', kn, 'InputPin');
+  linkPins(kn, 'OutputPin', br, 'InVec');
   linkPins(br, 'X', dly, 'Duration');
   emit('L2 data+knot', [fitComment('L2: data Make→Knot→Break, X→Delay.Duration', [mk, kn, br, dly]), mk, kn, br, dly]);
 }

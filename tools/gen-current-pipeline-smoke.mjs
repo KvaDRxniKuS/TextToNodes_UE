@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-// Minimal end-to-end smoke of creator -> arranger -> decorator -> serializer.
+// Minimal end-to-end smoke of the main cycle: creator -> arranger -> serializer.
+// (ступень 3, декоратор, — в разработке и в цикл не входит)
 import fs from 'node:fs';
 import { createCallFunction, createCustomEvent, linkPins } from '../src/creator.js';
 import { positionBlueprint } from '../src/layout-pipeline.js';
@@ -22,11 +23,10 @@ const print = createCallFunction(entry('PrintString'));
 linkPins(start, 'then', delay, 'execute');
 linkPins(delay, 'then', print, 'execute');
 
-// Stage 2 + 3: explicit exec row, then pin-aware refinement.
+// Stage 2: explicit exec row. Decoration (stage 3) is parked — pass `decorate: {}` to re-enable.
 const result = positionBlueprint([start, delay, print], {
   rows: [[start, delay, print]],
   arrange: { x: 0, y: 0, gap: 160, rowGap: 160 },
-  decorate: { clearance: 160 },
 });
 const text = generateUEText(result.nodes) + '\n';
 const validation = validateStrict(text);

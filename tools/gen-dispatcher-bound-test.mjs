@@ -3,7 +3,7 @@
 // Spatial order follows execution: start -> Add -> Call -> Remove -> Clear.
 import fs from 'node:fs';
 import { mkPin, createCustomEvent } from '../src/creator.js';
-import { arrangeRows, decorateLayout } from '../src/layout-pipeline.js';
+import { arrangeRows } from '../src/layout-pipeline.js';
 import { generateUEText, guid32, seedGuids } from '../src/parser.js';
 import { validateStrict } from '../src/validate.js';
 
@@ -38,13 +38,13 @@ handlerDelegate.memberRef=`MemberParent=${bp},MemberName="DispatcherProbeHandler
 function link(a,out,b,input){const p=a.pins.find(x=>x.name===out),q=b.pins.find(x=>x.name===input);p.linkedTo.push({nodeName:b.id,pinId:q.id});q.linkedTo.push({nodeName:a.id,pinId:p.id});}
 link(start,'then',add,'execute'); link(add,'then',call,'execute'); link(call,'then',remove,'execute'); link(remove,'then',clear,'execute');
 link(handler,'OutputDelegate',add,'Delegate'); link(handler,'OutputDelegate',remove,'Delegate');
-// knot'ы создаёт расстановщик — их надо отдать и декоратору, и сериализатору, иначе
-// LinkedTo будет ссылаться на несуществующие узлы (E06).
+// knot'ы создаёт расстановщик — их надо отдать сериализатору, иначе LinkedTo будет ссылаться
+// на несуществующие узлы (E06). Ступень 3 (декоратор) с 2026-09-28 в разработке и не применяется.
 const arranged=arrangeRows([[start,add,call,remove,clear]],{x:0,y:0,gap:160,rowGap:160});
 handler.pos={x:add.pos.x,y:add.pos.y+160};
 const positioned=[start,add,call,remove,clear,handler];
-const layoutResult=decorateLayout([...positioned,...arranged.knots],{clearance:160});
-const text=generateUEText(layoutResult.nodes)+'\n';
+const layoutResult={nodes:[...positioned,...arranged.knots]};
+const text=generateUEText(layoutResult.nodes,{syncLinks:true})+'\n';
 const v=validateStrict(text);
 fs.writeFileSync('sweep/dispatcher-probe-bound.txt',text);
 console.log(`wrote sweep/dispatcher-probe-bound.txt (${text.length} bytes); nodes=6; exec links=4; delegate links=2; errors=${v.errors.length}, warnings=${v.warnings.length}`);

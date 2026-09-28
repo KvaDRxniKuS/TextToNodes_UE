@@ -1,10 +1,15 @@
 #!/usr/bin/env node
 // tools/gen-three-stage-test.mjs — тестовый прогон трёх ступеней РАЗДЕЛЬНЫМИ инструментами.
 //
-//   node tools/gen-three-stage-test.mjs                # все три ступени → tests/*.stage*.txt
+//   node tools/gen-three-stage-test.mjs                # ОСНОВНОЙ ЦИКЛ: ступени 1 и 2
 //   node tools/gen-three-stage-test.mjs --stage 2      # только ступень 2 (вход — файл ступени 1)
+//   node tools/gen-three-stage-test.mjs --stage 3      # отдельно: декоратор (В РАЗРАБОТКЕ)
 //   node tools/gen-three-stage-test.mjs --check        # перегенерировать и сверить с репозиторием
 //   node tools/gen-three-stage-test.mjs --report       # таблица координат по ступеням
+//
+// Ступень 3 (декоратор) с 2026-09-28 в разработке и в основной цикл не входит: её прогон
+// пишется в `tests/<base>.stage3-decorator.WIP.txt` (файл не коммитится) и сверяется только
+// по `--stage 3`.
 //
 // Ступени связаны ТЕКСТОМ (как в рабочем процессе: файл скопировал → инструмент применил):
 //   1 генератор нод  src/stage1.js    спека → ТОЛЬКО код нод: ни координат, ни проводов,
@@ -12,6 +17,7 @@
 //   2 расстановщик   src/arranger.js  код ступени 1 + заложенные марки/соединения →
 //                                    материализует связи, черновая расстановка, knot-переносы
 //   3 декоратор      src/decorator.js код ступени 2 → выравнивание пинов, зазор, knot'ы
+//                                    ⚠ В РАЗРАБОТКЕ — применяется только по явномy `--stage 3`
 //
 // GUID детерминированы (seedGuids по имени теста): перегенерация не создаёт шума в diff'е,
 // а ступени можно сверять побайтово.
@@ -30,7 +36,7 @@ const SPEC_FILE = path.join(ROOT, 'tests', `${BASE}.sequence.md`);
 const OUT = {
   1: path.join(ROOT, 'tests', `${BASE}.stage1-generator.txt`),
   2: path.join(ROOT, 'tests', `${BASE}.stage2-arranger.txt`),
-  3: path.join(ROOT, 'tests', `${BASE}.stage3-decorator.txt`),
+  3: path.join(ROOT, 'tests', `${BASE}.stage3-decorator.WIP.txt`),
 };
 const STAGE_NAME = { 1: 'генератор нод (src/stage1.js)', 2: 'расстановщик (src/arranger.js)', 3: 'декоратор (src/decorator.js)' };
 
@@ -38,7 +44,9 @@ const argv = process.argv.slice(2);
 const flag = name => argv.includes(`--${name}`);
 const opt = name => { const i = argv.indexOf(`--${name}`); return i >= 0 ? argv[i + 1] : null; };
 const only = opt('stage') ? Number(opt('stage')) : 0;
-const run = n => !only || only === n;
+// ступень 3 — только по явному запросу (в разработке), в основном прогоне её нет.
+// Ключи OUT/FILES — строки («1», «2», «3»), поэтому сравниваем числами.
+const run = key => { const n = Number(key); return n === 3 ? only === 3 : (only ? only === 3 || only === n : true); };
 
 /** Спека = первый блок ```graph внутри .sequence.md (для .txt — весь файл). */
 function readSpecGraph(file) {
@@ -120,12 +128,14 @@ function main() {
   // ── Ступень 3: декоратор (вход — ТЕКСТ ступени 2) ──────────────────────────
   const stage2In = run(3) && only === 3 && fs.existsSync(OUT[2]) ? fs.readFileSync(OUT[2], 'utf8') : stage2Text;
   const decNodes = parseToGraphs(stage2In).EventGraph.nodes.filter(n => !n.isComment);
-  const dec = decorateLayout(decNodes, { clearance: spec.settings.clearance ?? 5 * (spec.settings.grid ?? 16), grid: spec.settings.grid ?? 16 });
-  const stage3Text = generateUEText(dec.nodes, { syncLinks: true }) + '\n';
+  const dec = run(3)
+    ? decorateLayout(decNodes, { clearance: spec.settings.clearance ?? 5 * (spec.settings.grid ?? 16), grid: spec.settings.grid ?? 16 })
+    : null;
+  const stage3Text = dec ? generateUEText(dec.nodes, { syncLinks: true }) + '\n' : '';
   if (run(3)) {
     const d = diffAgainstInput(stage2In, stage3Text);
     failures.push(...d.problems.map(p => `ступень 3: ${p}`));
-    console.log(`Ступень 3 — ${STAGE_NAME[3]}`);
+    console.log(`Ступень 3 — ${STAGE_NAME[3]} · В РАЗРАБОТКЕ, вне основного цикла`);
     console.log(`  узлов=${dec.nodes.length} knot'ов на входе=${decNodes.filter(n => /Knot/.test(n.className)).length}${d.unchanged.length ? ` · без сдвига: ${d.unchanged.length} шт` : ''}`);
     checkText(OUT[3], stage3Text);
   }
@@ -154,12 +164,13 @@ function main() {
     process.exit(1);
   }
   console.log("\n✓ Проверки ступеней чистые: STRICT, round-trip, «ступень трогает только координаты и LinkedTo»,"
-    + " ступень 1 — без координат, проводов, knot'ов и комментов.");
+    + " ступень 1 — без координат, проводов, knot'ов и комментов."
+    + (run(3) ? '' : "  (ступень 3 — в разработке, вне цикла; прогон: --stage 3)"));
 }
 
 function printReport(g1, arr, dec) {
   const arrById = new Map(arr.nodes.map(n => [n.id, n]));
-  const decById = new Map(dec.nodes.map(n => [n.id, n]));
+  const decById = new Map((dec?.nodes || []).map(n => [n.id, n]));
   const pad = (s, w) => String(s).padEnd(w);
   console.log('\nСтупень 1 — ноды, пины и ЗАЛОЖЕННЫЕ соединения (⚬ = пин без заложенного соединения; код нод при этом чист: без координат и проводов)');
   for (const d of describeStage1(g1)) {
@@ -170,14 +181,15 @@ function printReport(g1, arr, dec) {
   for (const n of g1.nodes) {
     const a = arrById.get(n.id), d = decById.get(n.id);
     console.log(`  #${pad(n.mark.index, 3)}${pad(n.title, 34)}row=${pad(n.mark.row, 5)}col=${pad(n.mark.col, 4)}`
-      + `| 1:(${pad(n.pos.x, 6)},${pad(n.pos.y, 5)}) 2:(${pad(a?.pos.x, 6)},${pad(a?.pos.y, 5)}) 3:(${pad(d?.pos.x, 6)},${d?.pos.y})`);
+      + `| 1:(${pad(n.pos.x, 6)},${pad(n.pos.y, 5)}) 2:(${pad(a?.pos.x, 6)},${pad(a?.pos.y, 5)})`
+      + (dec ? ` 3:(${pad(d?.pos.x, 6)},${d?.pos.y})` : ' 3:(WIP)'));
   }
   const knots = arr.nodes.filter(n => /Knot/.test(n.className));
   if (knots.length) {
-    console.log("  knot'ы (2 = коридор расстановщика, 3 = по пинам концов):");
+    console.log(`  knot'ы (2 = коридор расстановщика${dec ? ', 3 = по пинам концов' : ''}):`);
     for (const k of knots) {
       const d = decById.get(k.id);
-      console.log(`    ${k.id}: 2:(${k.pos.x},${k.pos.y}) 3:(${d?.pos.x},${d?.pos.y})`);
+      console.log(`    ${k.id}: 2:(${k.pos.x},${k.pos.y})` + (dec ? ` 3:(${d?.pos.x},${d?.pos.y})` : ''));
     }
   }
   if (dec.notes?.length) {
@@ -185,7 +197,7 @@ function printReport(g1, arr, dec) {
     for (const note of dec.notes) console.log(`    · ${note}`);
   }
   const execLinks = [];
-  for (const n of dec.nodes) for (const p of n.pins) {
+  for (const n of (dec ? dec.nodes : arr.nodes)) for (const p of n.pins) {
     if (p.direction !== 'Output') continue;
     for (const l of p.linkedTo) execLinks.push(`${n.id}.${p.name} → ${l.nodeName}`);
   }

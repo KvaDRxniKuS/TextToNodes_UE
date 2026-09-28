@@ -1,0 +1,12 @@
+# служебное
+node_modules/
+*.log
+.DS_Store
+.npm/
+
+# выход ступени 3 (декоратор — в разработке, вне основного цикла):
+# перегенерируется `node tools/gen-three-stage-test.mjs --stage 3` и в git не попадает
+tests/*.stage3-decorator.WIP.txt
+
+# диагностический вывод gen-sweep (категория «Debug»), в репозитории не нужен
+sweep/30-debug.txt
