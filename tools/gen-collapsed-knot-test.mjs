@@ -7,7 +7,6 @@ import { seedGuids } from '../src/parser.js';
 import { createKnot, createComment, estNodeWidth, pinCenterY, KNOT_X_STEP, KNOT_SIDE_OFFSET, PIN_ROW_H } from '../src/generator.js';
 import { generateUEText, guid32 } from '../src/parser.js';
 
-seedGuids('collapsed-knot-4x5'); // фикстура детерминирована: перегенерация = побайтовое совпадение
 
 const OBJ = `"/Script/CoreUObject.Class'/Script/EnhancedInput.EnhancedInputSubsystemInterface'"`;
 const ZERO = '00000000000000000000000000000000';
@@ -24,6 +23,7 @@ const inputCount = option('--inputs', 4), outputCount = option('--outputs', 5), 
 if (![inputCount, outputCount, maxLevels].every(Number.isInteger) || inputCount < 1 || outputCount < 1 || maxLevels < 1) {
   throw new Error('Usage: node tools/gen-collapsed-knot-test.mjs [--inputs N] [--outputs N] [--levels N]');
 }
+seedGuids(`sweep:collapsed-knot-${inputCount}x${outputCount}-${maxLevels}levels.txt`); // seed до построения пинов: GUID детерминированы параметрами
 const makePins = (count, prefix) => Array.from({length:count}, (_,i) => ({
   name: `${prefix}${i ? i + 1 : ''}`, dir: prefix === 'InputPin' ? 'EGPD_Output' : 'EGPD_Input',
   cat: i === 0 ? 'exec' : 'interface',

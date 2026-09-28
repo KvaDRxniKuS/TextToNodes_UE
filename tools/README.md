@@ -35,5 +35,21 @@
   что ни один knot не попал внутрь прямоугольника ноды.
 Пробы, не входящие в `npm test` (пересобирают фикстуры основного цикла без декоратора):
 `gen-current-pipeline-smoke.mjs`, `gen-dispatcher-bound-test.mjs`, `gen-collapsed-knot-test.mjs`,
-`gen-enum-select-test.mjs`, series-генераторы `gen-k/l/m/n/o-*` и `gen-sweep.mjs` (категорийный
-корпус `sweep/NN-*.txt`; пересборка меняет GUID/позиции — коммитится только по решению).
+`gen-enum-select-test.mjs`, series-генераторы `gen-k/l/m/n/o-*`.
+
+## Детерминизм sweep-корпуса
+
+- `node tools/gen-sweep.mjs [--check] [NN]` — категории реестра → `sweep/NN-<slug>.txt` +
+  `MANIFEST.md`. `--check` сверяет байты, ничего не записывая; `NN` — точечная пересборка
+  категории. `seedGuids('sweep:<имя файла>')` ставится **до** построения узлов, поэтому частичный
+  и полный прогон дают один и тот же файл.
+- `node tools/check-fixtures.mjs [--report]` — пересобирает каждую фикстуру `sweep/` её генератором
+  и сравнивает байты; при расхождении печатает дельту и **откатывает** файлы (git status остаётся
+  чистым). Входит в `npm test` (`npm run check:fixtures`). Новый `.txt` в `sweep/` без recipe в
+  `RECIPES` или без внесения в `FROZEN` — провал проверки.
+- `tools/make-node.mjs` — seed по имени `-o` (фикстуры `27b`/`30`/`32` воспроизводимы); `--seed=`
+  переопределяет, вывод в stdout остаётся на `Math.random`, чтобы разные blueprint'ы не делили GUID.
+- Замороженные файлы (правятся только copy-back из UE): `25b-make-node.txt`, `31-audio.txt`,
+  `27-widgets-ui.txt`, `28-enhanced-input-full.txt`, `29-components-physics.txt`. В `gen-sweep.mjs`
+  они стоят в `HAND_OWNED`/`FROZEN` — автоматическая сборка их не перезаписывает (MANIFEST
+  печатает ⊘ в колонке Notes).

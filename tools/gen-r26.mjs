@@ -2,7 +2,9 @@
 // OnTimerTick(Custom Event) ⇒ Set Timer by Event → Pause → Unpause → Clear&Invalidate → Set Timer by Function Name → Clear by Name → Invalidate → Delay Until Next Tick;
 // хендл Set Timer by Event → Pause/Unpause и 6 pure-геттеров (ref-пины Clear&Invalidate/Invalidate не подключаем — им нужна переменная).
 import fs from 'fs';
-import { generateUEText } from '../src/parser.js';
+import { generateUEText, seedGuids } from '../src/parser.js';
+
+seedGuids('sweep:26-timers-latent.txt'); // пересборка без GUID-шума
 import { createFromEntry, linkPins, layoutRow, fitComment } from '../src/generator.js';
 import { validateStrict } from '../src/validate.js';
 const reg = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8'));

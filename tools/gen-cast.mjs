@@ -5,8 +5,10 @@
 //   node tools/gen-cast.mjs --demo → sweep/22b-cast-any.txt
 import fs from 'node:fs';
 import { createCast, layoutRow, fitComment } from '../src/generator.js';
-import { generateUEText } from '../src/parser.js';
+import { generateUEText, seedGuids } from '../src/parser.js';
 import { validateStrict } from '../src/validate.js';
+
+seedGuids('sweep:22b-cast-any.txt'); // --demo пересобирается побайтово (без GUID-шума в diff)
 
 const args = process.argv.slice(2);
 if (args[0] === '--demo') {

@@ -44,7 +44,7 @@
 //          и (со второго) новый ряд; узлы до первого события подхватывает первое событие;
 //          делегаты event-for/create-event → ближайший свободный вход Delegate.
 import fs from 'node:fs';
-import { generateUEText } from '../src/parser.js';
+import { generateUEText, seedGuids } from '../src/parser.js';
 import { layoutRow, layoutRows, layoutDecorated, fitComment, linkPins, estNodeWidth, decorateExec, snapToGrid } from '../src/generator.js';
 import { validateStrict } from '../src/validate.js';
 // Спек-парсер и фабрики узла — общие со ступенью 1 (src/stage1.js), чтобы CLI и
@@ -67,7 +67,17 @@ for (let i = 0; i < argv.length; i++) {
   else if (argv[i] === '--bp') bp = argv[++i];
   else if (argv[i] === '--context') ctxFile = argv[++i];
   else if (argv[i] === '--new') newVars = argv[++i].split(',').filter(Boolean);
+  else if (argv[i].startsWith('--seed=')) { /* seed задаётся ниже — не спецификация узла */ }
   else specs.push(argv[i]);
+}
+// ── Детерминизм фикстур: при записи в файл (-o) GUID сеятся его именем, чтобы повторная
+// пересборка совпадала побайтово (`node tools/gen-sweep.mjs --check`-гарантия для 27b/30/32).
+// Поток в stdout остаётся на Math.random (обычная генерация не должна повторять GUID
+// между разными blueprint'ами одного графа); --seed=<строка> задаёт seed вручную.
+{
+  const seedArg = argv.find(a => a.startsWith('--seed='));
+  if (seedArg !== undefined) seedGuids(seedArg.slice(7) || null);
+  else if (out) seedGuids('sweep:' + out.split('/').pop());
 }
 if (!specs.length) { console.error(fs.readFileSync(new URL(import.meta.url)).toString().split('\n').filter(l => l.startsWith('//')).map(l => l.slice(3)).join('\n')); process.exit(1); }
 

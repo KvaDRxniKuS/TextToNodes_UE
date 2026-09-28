@@ -2,7 +2,9 @@
 // Enum-indexed K2Node_Select + SwitchEnum probe, based on user's EDrawDebugTrace copy-back.
 import fs from 'node:fs';
 import { createFromEntry } from '../src/generator.js';
-import { generateUEText } from '../src/parser.js';
+import { generateUEText, seedGuids } from '../src/parser.js';
+
+seedGuids('sweep:enum-select-test.txt'); // пересборка без GUID-шума
 import { validateStrict } from '../src/validate.js';
 
 const registry = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8'));

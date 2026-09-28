@@ -90,16 +90,25 @@ node tools/make-node.mjs --chain --decorate -o /tmp/graph.txt \
 ## Проверки
 
 ```bash
-npm test                         # unit/regression tests
+npm test                         # unit/regression tests + сверка sweep-корпуса
 node src/validate.js FILE.txt    # STRICT check одного файла
-node tools/gen-sweep.mjs         # пересобрать sweep и MANIFEST целиком
-node tools/gen-sweep.mjs zz      # обновить только MANIFEST
+node tools/gen-sweep.mjs         # пересобрать корпус sweep и MANIFEST
+node tools/gen-sweep.mjs --check # побайтовая сверка sweep/NN-*.txt с генератором (без записей)
+node tools/gen-sweep.mjs 11      # пересобрать только категорию 11
+node tools/check-fixtures.mjs    # пересобрать ВСЕ sweep-фикстуры и сравнить байты (при дрейфе — откат)
+node tools/check-fixtures.mjs --report   # чем пересобран каждый файл, что заморожено
 node tools/gen-dispatcher-bound-test.mjs
 ```
 
 - `tests/fixtures/` содержит положительные реальные copy-back fixtures.
 - `tests/fixtures/negative/` содержит примеры, которые валидатор обязан отклонять.
-- `sweep/` содержит генерируемые пробы/категорийные fixtures; см. их генераторы перед перезаписью.
+- `sweep/` — корпус проб и категорийный регресс. Он **воспроизводим**: GUID сеятся именем файла
+  (`seedGuids`), поэтому `node tools/gen-sweep.mjs --check` и `node tools/check-fixtures.mjs`
+  ловят любой дрейф реестра/генератора, не порождая шума в diff. Полная таблица «чем пересобран
+  каждый файл» — в `sweep/MANIFEST.md` (раздел «Покрытие»); замороженные copy-back-главы
+  (`25b`, `31-audio`, `27`, `28`, `29`) пересборке не подлежат — их правят только через copy-back из UE.
+- `tools/make-node.mjs` сеится от `-o` (повторная сборка фикстуры = те же байты); в stdout GUID
+  остаются случайными, `--seed=<строка>` задаёт seed вручную.
 
 ## MCP
 
@@ -112,4 +121,4 @@ node tools/gen-dispatcher-bound-test.mjs
 - [`docs/HANDOFF.md`](docs/HANDOFF.md), [`docs/HANDOFF_TOPICS.md`](docs/HANDOFF_TOPICS.md) — актуальное состояние и очередь открытых тем.
 - [`docs/ENGINE_VERIFIED.md`](docs/ENGINE_VERIFIED.md) — журнал подтверждений в Unreal Editor; ранние секции исторические.
 
-Лицензия: MIT (`LICENSE`).
+Лицензия: MIT (файл `LICENSE` удалён как заглушка; текст лицензии по запросу).

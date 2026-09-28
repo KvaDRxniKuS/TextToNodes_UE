@@ -3,11 +3,15 @@
 // внутри ряда layoutRow) → fitComment → validateStrict → sweep/NN-slug.txt.
 // Упавшие записи (неизвестные struct/enum/lib) и strict-проблемы прогон не
 // останавливают — уходят в sweep/MANIFEST.md (раздел NEEDS-REFERENCE).
-// Запуск: node tools/gen-sweep.mjs
+// Запуск: node tools/gen-sweep.mjs            — пересобрать корпус
+//         node tools/gen-sweep.mjs 11          — только категория 11 (точечная досылка)
+//         node tools/gen-sweep.mjs --check      — сверить корпус с генератором (часть npm test)
+// GUID детерминированы (seedGuids по имени файла), поэтому повторная сборка даёт побайтовое
+// совпадение и `--check` ловит любой дрейф реестра/генератора без шума в diff'е.
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { generateUEText } from '../src/parser.js';
+import { generateUEText, seedGuids } from '../src/parser.js';
 import { createFromEntry, createComment, fitComment, estNodeWidth, ROW_GAP, PIN_ROW_H } from '../src/generator.js';
 import { validateStrict } from '../src/validate.js';
 
@@ -31,8 +35,25 @@ fs.mkdirSync(OUT, { recursive: true });
 const report = [];
 let totalOk = 0, totalFail = 0;
 
+// Главы, чей txt принадлежит ручной компоновке (связная сцена, а не сетка категорий):
+// gen-sweep считает по ним статистику для MANIFEST, но НЕ перезаписывает файл и исключает
+// его из побайтовой сверки — иначе два генератора воюют за одно имя (исторически файл в git
+// = версия ручной главы, её и проверяют тесты).
+const HAND_OWNED = {
+  '25-events-delegates.txt': 'tools/gen-r25.mjs',
+  '26-timers-latent.txt': 'tools/gen-r26.mjs',
+  '27-widgets-ui.txt': 'ручная глава R27 (сверена с движком) — генератора нет, файл заморожен',
+  '28-enhanced-input-full.txt': 'ручная глава R28 (InputAction-ассеты, CustomEvent SetupInput) — заморожен',
+  '29-components-physics.txt': 'ручная глава R29 (damping-вызовы вне реестра) — заморожен',
+};
+const CHECK = process.argv.slice(2).includes('--check');
+const written = [];   // { fname, text } — для режима --check
 cats.forEach((cat, ci) => {
   const entries = reg.filter(e => e.category === cat);
+  const fname = `${String(ci + 1).padStart(2, '0')}-${slug(cat)}.txt`;
+  // seed ДО построения узлов: PinId/Guid зависят только от имени файла, поэтому точечная
+  // пересборка категории (`11`) даёт те же байты, что и полная сборка
+  seedGuids('sweep:' + fname);
   const nodes = [], failed = [];
   for (const e of entries) {
     try { nodes.push({ e, n: createFromEntry(e) }); }
@@ -53,14 +74,15 @@ cats.forEach((cat, ci) => {
     : [createComment(head + ' — ПУСТО, все записи требуют референсов (см. MANIFEST)', { x: -60, y: -110 }, 900, 200)];
   const txt = generateUEText(withComment);
   const v = validateStrict(txt);
-  const fname = `${String(ci + 1).padStart(2, '0')}-${slug(cat)}.txt`;
   // Фильтр argv[2] ("11", "11-collision"): точечная регенерация одной категории
   // после правки реестра — остальные txt не трогаем (без GUID-шума). MANIFEST
   // пересчитывается всегда.
+  const owned = HAND_OWNED[fname];
+  if (!owned) written.push({ fname, text: txt + '\n' });   // в --check и в записи — только свои файлы
   const only = (process.argv[2] || '').toLowerCase();
-  if (!only || fname.toLowerCase().startsWith(only))
+  if (!CHECK && !owned && (!only || fname.toLowerCase().startsWith(only)))
     fs.writeFileSync(path.join(OUT, fname), txt + '\n');
-  report.push({ cat, fname, entries, nodes: nodes.length, failed, verified, errors: v.errors, warnings: v.warnings });
+  report.push({ cat, fname, entries, nodes: nodes.length, failed, verified, errors: v.errors, warnings: v.warnings, owned });
   totalOk += nodes.length; totalFail += failed.length;
   console.log(`${fname}: nodes=${nodes.length}/${entries.length} errors=${v.errors.length} warnings=${v.warnings.length}`);
   failed.forEach(f => console.log(`   FAIL ${f.e.id}: ${f.reason}`));
@@ -71,7 +93,8 @@ cats.forEach((cat, ci) => {
 const L = [];
 L.push('# Sweep manifest — полный прогон реестра по категориям');
 L.push('');
-L.push(`Дата: ${new Date().toISOString().slice(0, 10)}; записей: ${reg.length}; построено узлов: ${totalOk}; упало: ${totalFail}.`);
+L.push(`Записей в реестре: ${reg.length}; построено узлов: ${totalOk}; упало: ${totalFail}.`);
+L.push('MANIFEST и NN-*.txt побайтово воспроизводимы (дата не пишется): сверка — `node tools/gen-sweep.mjs --check`.');
 L.push(`Генератор: tools/gen-sweep.mjs (сетка по ${COLS} в ряд, внутри ряда layoutRow, накрыто fitComment).`);
 L.push('');
 L.push('Протокол: вставляйте файлы по одному в чистый граф → копируйте обратно → сообщайте номер файла и что сломалось.');
@@ -91,8 +114,31 @@ report.forEach((r, i) => {
   const wc = {};
   r.warnings.forEach(w => { wc[wcode(w)] = (wc[wcode(w)] || 0) + 1; });
   const wsum = Object.entries(wc).map(([c, n]) => `${n}x${c}`).join(' ') || '—';
-  L.push(`| ${String(i + 1).padStart(2, '0')} | ${r.fname} | ${r.nodes}/${r.entries.length} | ${r.verified} | ${r.entries.filter(e => e.note).length} | ${r.errors.length || '—'} | ${wsum} |`);
+  const noteN = r.entries.filter(e => e.note).length;
+  L.push(`| ${String(i + 1).padStart(2, '0')} | ${r.fname} | ${r.nodes}/${r.entries.length} | ${r.verified} | ${r.owned ? '⊘ ' + r.owned : noteN} | ${r.errors.length || '—'} | ${wsum} |`);
 });
+L.push('');
+L.push('## Покрытие: чем пересобран каждый файл');
+L.push('');
+L.push('Все строки ниже побайтово воспроизводимы (`seedGuids` по имени файла), сверка — `node tools/check-fixtures.mjs`:');
+L.push('');
+L.push('| файлы | команда пересборки |');
+L.push('|---|---|');
+L.push('| NN-*.txt категорий реестра, MANIFEST.md | `node tools/gen-sweep.mjs` (одна категория: `node tools/gen-sweep.mjs 11`) — кроме файлов с ⊘ в колонке Notes |');
+L.push('| 21b, 21c | `node tools/gen-r21b.mjs` |');
+L.push('| 22b | `node tools/gen-cast.mjs --demo` |');
+L.push('| 23b | `bash sweep/gen23b.sh` (gen-subset по 19 id реестра) |');
+L.push('| 25, 26 | `node tools/gen-r25.mjs`, `node tools/gen-r26.mjs` (ручная компоновка глав, см. колонку Notes выше) |');
+L.push('| 27b, 30, 32 | `bash sweep/gen27b.sh`, `bash sweep/gen30.sh`, `bash sweep/gen32.sh` (make-node; seed берётся из `-o`) |');
+L.push('| enum-select-test | `node tools/gen-enum-select-test.mjs` |');
+L.push('| collapsed-knot-4x5, collapsed-knot-1x3-3levels | `node tools/gen-collapsed-knot-test.mjs`, затем `--inputs 1 --outputs 3 --levels 3` |');
+L.push('| current-pipeline-smoke, dispatcher-probe-bound | `node tools/gen-current-pipeline-smoke.mjs`, `node tools/gen-dispatcher-bound-test.mjs` |');
+L.push('');
+L.push('Заморожено — copy-back / ручные главы, сверенные с движком; генератора в репозитории нет, пересборка их перезаписывает — запрещено:');
+L.push('- `25b-make-node.txt` (VERIFIED 2026-09-26), `31-audio.txt` (VERIFIED) — продукты `tools/make-node.mjs`, команда сборки не зафиксирована;');
+L.push('- `27-widgets-ui.txt`, `28-enhanced-input-full.txt`, `29-components-physics.txt` — главы R27/R28/R29, собранные до того, как их содержимое попало в реестр (в нём нет, например, Set/GetAngularDamping, LinearDamping и CustomEvent SetupInput). Статистику по этим категориям MANIFEST считает по реестру, файл не трогает.');
+L.push('');
+L.push('Замороженные копии созданы до отказа от `ExportPath` — строки `ExportPath=...` в них сохранены намеренно (это снятые с движка тексты).');
 L.push('');
 L.push('## NEEDS-REFERENCE (не построилось — нужен copy-back из движка)');
 L.push('');
@@ -110,5 +156,25 @@ L.push('');
 if (!report.some(r => r.warnings.length)) L.push('Пусто.');
 for (const r of report) for (const w of r.warnings) L.push(`- ${r.fname} :: ${w}`);
 L.push('');
-fs.writeFileSync(path.join(OUT, 'MANIFEST.md'), L.join('\n'));
+const manifestText = L.join('\n') + '\n';
+// ── --check: побайтовая сверка корпуса и MANIFEST с генератором ──
+if (CHECK) {
+  const drift = [];
+  for (const { fname, text } of written) {
+    const file = path.join(OUT, fname);
+    const committed = fs.existsSync(file) ? fs.readFileSync(file, 'utf8') : '';
+    if (committed.trim() !== text.trim()) drift.push(fname);
+  }
+  const committedManifest = fs.existsSync(path.join(OUT, 'MANIFEST.md'))
+    ? fs.readFileSync(path.join(OUT, 'MANIFEST.md'), 'utf8') : '';
+  if (committedManifest.trim() !== manifestText.trim()) drift.push('MANIFEST.md');
+  if (drift.length) {
+    console.log(`\n✗ sweep расходится с генератором (${drift.length}): ${drift.join(', ')}`);
+    console.log('  пересборка: node tools/gen-sweep.mjs');
+    process.exit(1);
+  }
+  console.log(`\n✓ sweep-корпус совпадает с генератором (категорий=${cats.length}, узлов=${totalOk})`);
+  process.exit(0);
+}
+fs.writeFileSync(path.join(OUT, 'MANIFEST.md'), manifestText);
 console.log(`\nSWEEP: categories=${cats.length} built=${totalOk} failed=${totalFail} → sweep/MANIFEST.md`);

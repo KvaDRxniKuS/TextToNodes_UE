@@ -1,42 +1,42 @@
-Begin Object Class=/Script/UnrealEd.EdGraphNode_Comment Name="EdGraphNode_Comment_119" ExportPath="/Script/UnrealEd.EdGraphNode_Comment'"/Game/Generated.Generated:EventGraph.EdGraphNode_Comment_119"'"
+Begin Object Class=/Script/UnrealEd.EdGraphNode_Comment Name="EdGraphNode_Comment_119"
    NodePosX=-60
    NodePosY=-110
-   NodeWidth=1200
-   NodeHeight=396
-   NodeComment="SWEEP 02/21: Variables (4/4 узлов, 4 verified)"
-   NodeGuid=9C0197960958760AECAFA2CBE157F749
+   NodeWidth=933
+   NodeHeight=426
+   NodeComment="SWEEP 02/30: Variables (4/4 узлов, 4 verified)"
+   NodeGuid=FEB90ACFB8B701CCC864FEB1EBBB7971
 End Object
 
-Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_115" ExportPath="/Script/BlueprintGraph.K2Node_VariableGet'"/Game/Generated.Generated:EventGraph.K2Node_VariableGet_115"'"
-   VariableReference=(MemberName="Var",MemberGuid=32498B7904A761D7B6F17616D4625EDC,bSelfContext=True)
+Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_115"
+   VariableReference=(MemberName="Var",MemberGuid=02CA9E5504585A9F97C1106FD841AF8E,bSelfContext=True)
    NodePosX=0
    NodePosY=0
-   NodeGuid=F6F6D346E2FA6F4C1A3FDCDECC8BAEC4
-   CustomProperties Pin (PinId=AC21C028FB2155656F4D9687B1778F77,PinName="Var",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   NodeGuid=20A542532FB0C1BF1504CE186139B95A
+   CustomProperties Pin (PinId=F13EAC1AC3D90442412D3F78AA6A7E93,PinName="Var",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
 End Object
 
-Begin Object Class=/Script/BlueprintGraph.K2Node_VariableSet Name="K2Node_VariableSet_116" ExportPath="/Script/BlueprintGraph.K2Node_VariableSet'"/Game/Generated.Generated:EventGraph.K2Node_VariableSet_116"'"
-   VariableReference=(MemberName="Var",MemberGuid=FBBE925EB17E08A467135856BE3EA307,bSelfContext=True)
-   NodePosX=300
+Begin Object Class=/Script/BlueprintGraph.K2Node_VariableSet Name="K2Node_VariableSet_116"
+   VariableReference=(MemberName="Var",MemberGuid=CE35771AFDAD718699CA28D8C9AE633B,bSelfContext=True)
+   NodePosX=220
    NodePosY=0
-   NodeGuid=E303168576D796862313334EC7E03385
-   CustomProperties Pin (PinId=19A47FB02B2BC432E907A77567592457,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
-   CustomProperties Pin (PinId=EB6376E957823D76CBD1A5708FB98446,PinName="then",Direction="EGPD_Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
-   CustomProperties Pin (PinId=AC0C4F72C9D8CA09BB9F7063E23F552E,PinName="Var",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   NodeGuid=94D7C6B99DDD892B7E081C4E979D5777
+   CustomProperties Pin (PinId=DDF28D10E033725B1A2200D1710107A8,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=897633B9A32508B27115E728A93C418E,PinName="then",Direction="EGPD_Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   CustomProperties Pin (PinId=588C3C4B90C634FC9E6126F48F16AEB2,PinName="Var",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
 End Object
 
-Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_117" ExportPath="/Script/BlueprintGraph.K2Node_VariableGet'"/Game/Generated.Generated:EventGraph.K2Node_VariableGet_117"'"
-   VariableReference=(MemberName="Var",MemberGuid=0A30E8B0081757DF6E07BC57D46437A6,bSelfContext=True)
-   NodePosX=600
+Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_117"
+   VariableReference=(MemberName="Var",MemberGuid=B049203031F379A6A7D370CAFDBA61AF,bSelfContext=True)
+   NodePosX=493
    NodePosY=0
-   NodeGuid=B2336AD572DA7043EF0B723C33242992
-   CustomProperties Pin (PinId=693B2F362939E600D8A0615BE523C713,PinName="Var",Direction="EGPD_Output",PinType.PinCategory="bool",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   NodeGuid=F6E06BB5FE86A8865E207A009D59CE58
+   CustomProperties Pin (PinId=571CA326A8FDF3AB601049B59CE8849B,PinName="Var",Direction="EGPD_Output",PinType.PinCategory="bool",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
 End Object
 
-Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_118" ExportPath="/Script/BlueprintGraph.K2Node_VariableGet'"/Game/Generated.Generated:EventGraph.K2Node_VariableGet_118"'"
-   VariableReference=(MemberName="Var",MemberGuid=D1681A83F57E7DA96C89056041EC41DE,bSelfContext=True)
-   NodePosX=900
+Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_118"
+   VariableReference=(MemberName="Var",MemberGuid=B6BBE2CA33CC2921424C9F3CD9F139A2,bSelfContext=True)
+   NodePosX=713
    NodePosY=0
-   NodeGuid=B2167ABB39BC93035BA5333B26C82732
-   CustomProperties Pin (PinId=07839DC7746A413CF455A7868564ADE5,PinName="Var",Direction="EGPD_Output",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject="/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Vector'",PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+   NodeGuid=243055DA8DA71F964C1CA5A2DCFBB9BF
+   CustomProperties Pin (PinId=3EFB1B20F8E71F54619D64AE518BF934,PinName="Var",Direction="EGPD_Output",PinType.PinCategory="struct",PinType.PinSubCategory="",PinType.PinSubCategoryObject="/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Vector'",PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
 End Object

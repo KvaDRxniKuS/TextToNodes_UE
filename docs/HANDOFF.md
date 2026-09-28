@@ -20,9 +20,10 @@ TextToNodes_UE парсит, создаёт, проверяет и экспор�
 
 - Полный тестовый набор: `npm test`.
 - STRICT одного файла: `node src/validate.js PATH`.
-- Обновить только sweep manifest: `node tools/gen-sweep.mjs zz`.
-- Обновить sweep-файл одной категории и manifest: `node tools/gen-sweep.mjs NN`.
-- Сводка покрытия: `sweep/MANIFEST.md`.
+- Сверить sweep-корпус с генератором (без записей): `node tools/gen-sweep.mjs --check` (`npm run check:sweep`).
+- Пересобрать sweep одной категории и manifest: `node tools/gen-sweep.mjs NN` (MANIFEST переписывается при любом прогоне; `zz` — способ обновить только его).
+- Пересобрать ВСЕ sweep-фикстуры и сравнить байты: `node tools/check-fixtures.mjs` (`npm run check:fixtures`; входит в `npm test`, при дрейфе откатывает файлы). Таблица покрытия — `node tools/check-fixtures.mjs --report` и раздел «Покрытие» в `sweep/MANIFEST.md`.
+- Сводка покрытия: `sweep/MANIFEST.md`. Корпус побайтово воспроизводим (`seedGuids` по имени файла) — правка реестра обязана заканчиваться пересборкой и коммитом, а не «тихим» расхождением txt с генератором.
 - Факты, подтверждённые copy-back из UE: `docs/ENGINE_VERIFIED.md` и `tests/fixtures/`.
 - Реестр: `data/ue-functions.json`; `verified: true` указывает на engine verification, а не просто на успешный локальный STRICT.
 
@@ -30,6 +31,9 @@ TextToNodes_UE парсит, создаёт, проверяет и экспор�
 
 - Отвечать пользователю по-русски.
 - Любой Blueprint-текст для вставки выдавать дословно из созданного файла; не сокращать и не править вручную.
+- Замороженные фикстуры `sweep/` (`25b-make-node.txt`, `31-audio.txt`, `27-widgets-ui.txt`,
+  `28-enhanced-input-full.txt`, `29-components-physics.txt`) не пересобирать и не «синхронизировать»
+  генератором: это снятые с движка тексты без recipe. Их правят только новым copy-back из UE.
 - Не открывать сгенерированные файлы в viewer после правок.
 - Для визуальных и функциональных заявлений в UE ждать copy-back или прямой verdict пользователя.
 - Следовать очереди из `HANDOFF_TOPICS.md`, не переставлять темы самовольно.

@@ -1,7 +1,9 @@
 // tools/gen-r21b.mjs — R21b: базовая цепочка Enhanced Input (без BeginPlay: K2Node_Event запрещён E08).
 // GetPlayerController → Cast To PlayerController → Get EnhancedInputLocalPlayerSubsystem → Add Mapping Context.
 import fs from 'fs';
-import { generateUEText } from '../src/parser.js';
+import { generateUEText, seedGuids } from '../src/parser.js';
+
+seedGuids('sweep:21b-enhanced-input-chain.txt'); // seed на обе фикстуры главы: пересборка без GUID-шума
 import { createFromEntry, linkPins, layoutRow, fitComment } from '../src/generator.js';
 import { validateStrict } from '../src/validate.js';
 const reg = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8'));

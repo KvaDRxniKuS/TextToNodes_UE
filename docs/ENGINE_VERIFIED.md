@@ -833,3 +833,61 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
 ## Enum Select / SwitchEnum exact copy-back (2026-09-26)
 
 - User correction: the earlier two-option enum Select was structurally wrong despite paste success. Correct live node has `NumOptionPins=4`, `IndexPinType` byte+EDrawDebugTrace, node `Enum` and four `EnumEntries`; four wildcard options are named from enum values (first `None` omits PinName) and carry `UObjectDisplayNames` PinFriendlyName. SwitchEnum uses matching localized output labels. Tools and fixture updated to exact structure; user-defined BP enum path remains untested.
+
+## Санация репозитория: две ступени, воспроизводимый корпус, удалённое (2026-09-28)
+
+- Основной цикл — **ступени 1–2** (генератор нод → расстановщик). Декоратор отложен пользователем
+  как WIP: `src/decorator.js` помечен баннером, из `positionBlueprint()` выключен (опция `decorate`),
+  фикстура ступени 3 больше не хранится в git (`tests/*.stage3-decorator.WIP.txt` в `.gitignore`),
+  `npm run stages:wip` и `node tools/check-decoration.mjs` — ручной прогон. Удалено 166 КБ мёртвого:
+  `tests/three-stage-01.stage3-decorator.txt`, `ultimate-test.txt` + `tools/gen-ultimate-test.mjs`,
+  `sweep/exec-pin-alignment-test.txt` (проверен: читался только удалённым генератором),
+  `tools/table-draft.mjs`; добавлен `.gitignore` (в т.ч. `sweep/30-debug.txt`).
+- **Корпус `sweep/` стал побайтово воспроизводимым.** Причина: `guid32()` до сих пор тянул
+  `Math.random`, поэтому любая пересборка переписывала PinId/Guid и дрейф реестра был не виден.
+  Теперь каждый генератор фиксирует перед set вызывает `seedGuids('sweep:<имя файла>')`
+  (`gen-sweep.mjs` — по категории, до построения узлов; `gen-subset.mjs` — по `-o`;
+  `tools/make-node.mjs` — по `-o`, `--seed=` переопределяет, stdout остаётся случайным, чтобы
+  разные blueprint'ы не делили GUID). `sweep/MANIFEST.md` больше не печатает дату — иначе
+  сверка байтов разваливалась бы между днями.
+- Guard-проверки: `node tools/gen-sweep.mjs --check` (сверка 30 категорий + MANIFEST в памяти, без
+  записей) и `node tools/check-fixtures.mjs` (пересобирает каждую фикстуру её генератором,
+  сравнивает байты, при расхождении откатывает файлы). Обе входят в `npm test`
+  (`npm run check:sweep`, `npm run check:fixtures`); `--report` печатает таблицу покрытия.
+  Новый `.txt` в `sweep/` без recipe и без внесения в `FROZEN` — провал проверки, покрытие
+  обязано оставаться полным.
+- **Замороженные фикстуры** (copy-back/ручные главы без генератора, пересборка их перезаписывала —
+  теперь защищены): `25b-make-node.txt` и `31-audio.txt` (VERIFIED, точные команды CLI не зафиксированы),
+  `27-widgets-ui.txt`, `28-enhanced-input-full.txt`, `29-components-physics.txt`. Последняя тройка
+  собрана до того, как её содержимое попало в реестр — например, `Set/GetAngularDamping`,
+  `LinearDamping` и `CustomEvent SetupInput` в реестре отсутствуют вовсе, а `28` держит
+  `InputAction=/Game/Input/Actions/…` (R21c VERIFIED). В `gen-sweep.mjs` они в `HAND_OWNED`
+  (статистику в MANIFEST считаем, файл не трогаем, в таблице — `⊘`).
+- Дрейф, найденный пересборкой: в git лежали файлы старого прогона (заголовки `SWEEP 01/21`,
+  категории тогда было 21). Сейчас корпус соответствует реестру: 407 узлов, 30 категорий,
+  0 STRICT-ошибок. Содержательных потерь нет — сверено по мультимножеству сигнатур
+  (`Class + FunctionName/MemberName + MemberParent + наличие InputAction`) всего HEAD-корпуса
+  против нового: всё либо совпадает, либо переехало в другую главу. Косметика: из комментариев
+  глав `03`–`09` пропала приписка `— CLOSED` (вердикты живут в MANIFEST и этом журнале), зато
+  строки `ExportPath=` из живых генераторов убраны (их больше не пишут).
+- Рецепт `sweep/23b-actor-ext.txt` восстановлен из самой фикстуры и зафиксирован как
+  `sweep/gen23b.sh` (19 id реестра; двойник `K2_AttachToComponent`: `AttachActorToComponent` для
+  Actor, `AttachComponentToComponent` для SceneComponent — ошибка меняет `MemberParent` 12-го узла).
+  Совпадение с HEAD — побайтовое, кроме ExportPath/позиций/размера комментария.
+- **Два layout-стека оставлены как есть** (решение пользователя: «что лучше работает, то и
+  используем»): основной цикл ходит через `src/stage1.js`→`src/arranger.js`
+  (`positionBlueprint()`), legacy-функции `layoutRow/layoutRows/layoutDecorated/decorateExec` +
+  `estNodeWidth/pinCenterY` в `src/generator.js` остаются, потому что на них сидят CLI
+  `tools/make-node.mjs`, фикстуры `27b`/`30`/`32` и ~40 asserts в `tests/validate.test.mjs`;
+  их удаление переписало бы VERIFIED-геометрию. Для нового кода путь один: stage-модули.
+  Опись стеков — таблица в `docs/LAYOUT_PIPELINE.md`.
+- `index.html` (браузерная песочница, 182 КБ) **не удалена**: условное указание «если отдельно не
+  используется» не сработало — она обслуживает `npm run serve` и проверяется `tests/sandbox.test.mjs`
+  (42 asserts). Дублирование с `src/` сознательное: песочница самодостаточна (single-file).
+- `LICENSE` (52-байтная заглушка без текста и держателя авторских прав) удалён по указанию
+  пользователя; в `package.json` осталось `"license": "MIT"`. Полный текст вернём, когда будет
+  назван copyright holder.
+- Мелочи из ревизии: `tools/gen-l-series.mjs` починен (L2 строил `MakeVector`/`BreakVector` как
+  struct-ноды — в реестре это `K2Node_CallFunction`; прогон L1/L2/L3 снова STRICT-OK),
+  `package.json` — репозиторий, скрипты и `test`-цепочка переписаны, `docs/HANDOFF.md` — опечатка
+  в имени прогона.

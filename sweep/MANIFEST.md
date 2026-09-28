@@ -1,6 +1,7 @@
 # Sweep manifest — полный прогон реестра по категориям
 
-Дата: 2026-09-26; записей: 406; построено узлов: 406; упало: 0.
+Записей в реестре: 407; построено узлов: 407; упало: 0.
+MANIFEST и NN-*.txt побайтово воспроизводимы (дата не пишется): сверка — `node tools/gen-sweep.mjs --check`.
 Генератор: tools/gen-sweep.mjs (сетка по 5 в ряд, внутри ряда layoutRow, накрыто fitComment).
 
 Протокол: вставляйте файлы по одному в чистый граф → копируйте обратно → сообщайте номер файла и что сломалось.
@@ -40,11 +41,34 @@
 | 22 | 22-casting.txt | 11/11 | 11 | 11 | — | 8xW09 |
 | 23 | 23-actor.txt | 32/32 | 32 | 32 | — | 32xW09 |
 | 24 | 24-pawn-character.txt | 18/18 | 18 | 18 | — | 18xW09 |
-| 25 | 25-events-delegates.txt | 8/8 | 8 | 8 | — | 1xW09 |
-| 26 | 26-timers-latent.txt | 14/14 | 14 | 14 | — | 14xW09 |
-| 27 | 27-widgets-ui.txt | 8/8 | 8 | 8 | — | 8xW09 |
-| 28 | 28-enhanced-input-full.txt | 15/15 | 15 | 15 | — | 15xW09 |
-| 29 | 29-components-physics.txt | 23/23 | 23 | 23 | — | 23xW09 |
+| 25 | 25-events-delegates.txt | 8/8 | 8 | ⊘ tools/gen-r25.mjs | — | 1xW09 |
+| 26 | 26-timers-latent.txt | 14/14 | 14 | ⊘ tools/gen-r26.mjs | — | 14xW09 |
+| 27 | 27-widgets-ui.txt | 8/8 | 8 | ⊘ ручная глава R27 (сверена с движком) — генератора нет, файл заморожен | — | 8xW09 |
+| 28 | 28-enhanced-input-full.txt | 15/15 | 15 | ⊘ ручная глава R28 (InputAction-ассеты, CustomEvent SetupInput) — заморожен | — | 15xW09 |
+| 29 | 29-components-physics.txt | 23/23 | 23 | ⊘ ручная глава R29 (damping-вызовы вне реестра) — заморожен | — | 23xW09 |
+| 30 | 30-debug.txt | 1/1 | 0 | 0 | — | — |
+
+## Покрытие: чем пересобран каждый файл
+
+Все строки ниже побайтово воспроизводимы (`seedGuids` по имени файла), сверка — `node tools/check-fixtures.mjs`:
+
+| файлы | команда пересборки |
+|---|---|
+| NN-*.txt категорий реестра, MANIFEST.md | `node tools/gen-sweep.mjs` (одна категория: `node tools/gen-sweep.mjs 11`) — кроме файлов с ⊘ в колонке Notes |
+| 21b, 21c | `node tools/gen-r21b.mjs` |
+| 22b | `node tools/gen-cast.mjs --demo` |
+| 23b | `bash sweep/gen23b.sh` (gen-subset по 19 id реестра) |
+| 25, 26 | `node tools/gen-r25.mjs`, `node tools/gen-r26.mjs` (ручная компоновка глав, см. колонку Notes выше) |
+| 27b, 30, 32 | `bash sweep/gen27b.sh`, `bash sweep/gen30.sh`, `bash sweep/gen32.sh` (make-node; seed берётся из `-o`) |
+| enum-select-test | `node tools/gen-enum-select-test.mjs` |
+| collapsed-knot-4x5, collapsed-knot-1x3-3levels | `node tools/gen-collapsed-knot-test.mjs`, затем `--inputs 1 --outputs 3 --levels 3` |
+| current-pipeline-smoke, dispatcher-probe-bound | `node tools/gen-current-pipeline-smoke.mjs`, `node tools/gen-dispatcher-bound-test.mjs` |
+
+Заморожено — copy-back / ручные главы, сверенные с движком; генератора в репозитории нет, пересборка их перезаписывает — запрещено:
+- `25b-make-node.txt` (VERIFIED 2026-09-26), `31-audio.txt` (VERIFIED) — продукты `tools/make-node.mjs`, команда сборки не зафиксирована;
+- `27-widgets-ui.txt`, `28-enhanced-input-full.txt`, `29-components-physics.txt` — главы R27/R28/R29, собранные до того, как их содержимое попало в реестр (в нём нет, например, Set/GetAngularDamping, LinearDamping и CustomEvent SetupInput). Статистику по этим категориям MANIFEST считает по реестру, файл не трогает.
+
+Замороженные копии созданы до отказа от `ExportPath` — строки `ExportPath=...` в них сохранены намеренно (это снятые с движка тексты).
 
 ## NEEDS-REFERENCE (не построилось — нужен copy-back из движка)
 
@@ -256,3 +280,4 @@
 - 29-components-physics.txt :: W09: K2Node_CallFunction_531: SetActive: R29 VERIFIED
 - 29-components-physics.txt :: W09: K2Node_CallFunction_532: IsActive: R29 VERIFIED
 - 29-components-physics.txt :: W09: K2Node_CallFunction_533: ComponentHasTag: R29 VERIFIED
+

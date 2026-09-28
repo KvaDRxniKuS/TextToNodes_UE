@@ -1,7 +1,9 @@
 // tools/gen-r25.mjs — R25 Events/Delegates: связанная сцена (K2Node_Event запрещён E08 — только CustomEvent/делегатные узлы).
 // MyEvent → Bind(OnActorBeginOverlap ← OnOverlapActor) → Unbind(← Create Event) → Unbind all → Call OnDamaged(10).
 import fs from 'fs';
-import { generateUEText } from '../src/parser.js';
+import { generateUEText, seedGuids } from '../src/parser.js';
+
+seedGuids('sweep:25-events-delegates.txt'); // пересборка без GUID-шума
 import { createFromEntry, linkPins, layoutRow, fitComment } from '../src/generator.js';
 import { validateStrict } from '../src/validate.js';
 const reg = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8'));
