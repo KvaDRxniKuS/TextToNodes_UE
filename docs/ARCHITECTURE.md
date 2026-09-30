@@ -16,7 +16,7 @@ UE copy → parser → JSON graph → inspect/modify → generator → Blueprint
   [`docs/LAYOUT_PIPELINE.md`](LAYOUT_PIPELINE.md).
 - `src/layout-pipeline.js` предоставляет orchestration двух позиционных этапов.
 - `src/validate.js` проверяет текстовую и графовую структуру; он не эмулирует UE и не подтверждает визуальный layout или успешную компиляцию Blueprint.
-- `index.html` — браузерная песочница. MCP server — отдельный stdio integration endpoint; его зависимости и запуск описаны в `mcp/README.md`.
+- MCP server — отдельный stdio integration endpoint; его зависимости и запуск описаны в `mcp/README.md`.
 
 Подробнее об обязанностях этапов, API и модельных ограничениях: [`LAYOUT_PIPELINE.md`](LAYOUT_PIPELINE.md).
 

@@ -38,7 +38,7 @@
 17. **Random streams / math extras** — stream-based random, seed, noise.
 18. **Networking** — replicated custom events, authority, local control.
 19. **Input остаток** — альтернативы скрытому GetBoundActionValue и mapping-context priority.
-20. **Tooling follow-ups** — оценить синхронизацию embedded generator в `index.html` с каноническим serializer/layout API и fallback-реестра (сейчас 239 записей против 406 в JSON; по HTTP загружается актуальный файл); проверить дефолты и local-set по copy-back; рассмотреть getter duplication; расширять regression fixtures только из реальных copy-back.
+20. **Tooling follow-ups** — (index.html удалён 2026-09-30; пункт о синхронизации песочницы снят).
 
 ## Зафиксированные решения, не менять без нового UE evidence
 

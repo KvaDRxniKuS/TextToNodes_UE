@@ -1076,3 +1076,5 @@ UE_LIBS: Image, MovementComponent.
 - удалён `examples/wheel-mu.json` — нигде не читается (`index.html` грузит только `wheel-mu.txt`);
 - удалены `sweep/probes/r36|r38|r39-probe.txt` — после `--register` их ноды лежат в `registry/31-gameplay-systems.txt`, а сама проба
   воспроизводится `gen-probe --batch NN --stdout` (тест R36/R37 читает её так). В `probes/` теперь лежат только пробы, ждущие вердикта.
+
+- (дополнение) удалены по решению пользователя `index.html` (браузерная песочница), `examples/wheel-mu.txt` и `tests/sandbox.test.mjs` (тестировал только встроенный в index.html генератор); `npm run serve` убран.

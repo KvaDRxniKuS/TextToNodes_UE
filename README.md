@@ -10,7 +10,6 @@
 - Фабрики узлов и пинов, подключение связей: `src/creator.js`, `src/modules.js`, `src/generator.js`.
 - Реестр функций и типов: `data/ue-functions.json`, `src/ue-types.js`.
 - Строгая структурная проверка: `src/validate.js`.
-- Браузерная песочница: `index.html`.
 - MCP server: `mcp/server.js`.
 - Регрессии и образцы copy-back: `tests/`.
 
@@ -37,14 +36,6 @@
 npm test
 node src/validate.js sweep/chapters/dispatcher-bound.txt
 ```
-
-Открыть песочницу можно напрямую через `index.html` либо локальным сервером:
-
-```bash
-npx serve .
-```
-
-При `file://` браузер может блокировать загрузку `data/ue-functions.json`; тогда используется встроенный fallback snapshot (239 записей). Через HTTP-сервер загружается актуальный реестр (сейчас 406 записей).
 
 Основные операции песочницы: вставить UE-текст, распарсить граф, просмотреть его, экспортировать текст или JSON. Проверьте функциональность в Unreal Editor перед использованием в проекте.
 

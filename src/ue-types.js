@@ -1,6 +1,5 @@
 // src/ue-types.js — единый источник правды для путей движка UE.
 // Используют: src/generator.js, src/parser.js, src/validate.js, docs, prompt.
-// ВАЖНО: дублируется мини-копией в index.html
 // (UE_VERSION/UE_LIBS/UE_STRUCTS/UE_ENUMS/classRef/macroRefs) — при изменении синхронизируй оба места.
 //
 // v6: движок-цель — UE 5.8.0-55116800 (точная строка версии от пользователя, 2026-09-25).

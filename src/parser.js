@@ -1,6 +1,6 @@
 // UE Blueprint Parser — standalone ES module
 // Парсит Begin Object ... End Object → графы
-// Используется и в браузере (index.html) и в Node для валидации LLM ответов
+// Используется в Node: генераторы, валидация ответов LLM, MCP
 import { macroGraphRef } from './ue-types.js';
 
 // guid32 — 32 HEX. По умолчанию случайный; seedGuids(строка|число) включает
