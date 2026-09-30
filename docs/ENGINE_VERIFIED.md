@@ -1208,3 +1208,8 @@ SetRenderTransformPivot, SetToolTip(Widget). Реестр 732. Не заведе
 Вместо GetIsReplicated — Get переменной `bReplicates` (self, Actor; copy-back пользователя).
 Там же подтверждено: ActorComponent.SetIsReplicated(ShouldReplicate); переменная
 PrimitiveComponent.bReplicatePhysicsToAutonomousProxy (Get/Set, NotSelfContext).
+
+## R47 — большая проба (2026-10-01)
+112 нод: Sound 13, FX 12, Damage 6, AI 13, Blackboard 14, Nav 9, Game 13, HUD 9, UI 23.
+Новые энамы (pre R47): EAudioFaderCurve, ENCPoolMethod, EPathFollowingRequestResult, EPathFollowingStatus,
+EUMGSequencePlayMode, ECameraShakePlaySpace. Файл: `sweep/probes/r47-probe.txt`.

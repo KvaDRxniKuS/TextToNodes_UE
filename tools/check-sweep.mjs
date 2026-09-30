@@ -40,6 +40,7 @@ const RECIPES = [
   ['current-pipeline smoke', ['node', 'tools/gen-pipeline-smoke.mjs'], ['sweep/layout/pipeline-smoke.txt']],
   ['dispatcher bound probe', ['node', 'tools/gen-dispatcher-bound.mjs'], ['sweep/chapters/dispatcher-bound.txt']],
   ['structured section demo', ['node', 'tools/gen-structured-demo.mjs'], ['sweep/layout/structured-demo.txt']],
+  ['R47 probe (ждёт вердикта)', ['node', 'tools/gen-probe.mjs', '--batch', '47'], ['sweep/probes/r47-probe.txt']],
 ];
 
 // Сверяются с движком вручную и не имеют генератора — только читать, не пересобирать.
