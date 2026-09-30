@@ -300,7 +300,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   const backTarget=createCallFunction(byId('Delay'));
   linkPins(backSource,'then',backTarget,'execute');
   const {arrangeRows}=await import('../src/arranger.js');
-  const routed=arrangeRows([[backTarget],[backSource]]);
+  const routed=arrangeRows([[backTarget],[backSource]],{rowGap:400});
   ok(routed.knots.length===3 && routed.nodes.length===5 && backSource.pins.find(p=>p.name==='then').linkedTo[0].nodeName===routed.knots[0].id, 'arranger: backward exec flow builds a stadium route (K3+K4 merged → 3 knots)');
   { const {mergeCloseKnots}=await import('../src/arranger.js'); const mm=mergeCloseKnots([{x:0,y:0},{x:900,y:0},{x:916,y:16},{x:932,y:16}]); ok(mm.length===2 && mm[1].x===900 && mm[1].y===16, 'arranger: close knots (<48px) merge into one');
   { const ar=await import('../src/arranger.js'); const g=await import('../src/generator.js'); ok(g.GRID===16 && ar.MIN_KNOT_GAP_STEPS===7 && ar.MIN_KNOT_GAP===112, 'grid: шаг 16px, минимум между knot-ами = 7 шагов (112px)'); } }
@@ -322,9 +322,11 @@ regThrow.forEach(t => console.log('THROW:', t));
   linkPins(rowSrc,'then',rowDst,'execute');
   const dyRow=pinCenterY(rowDst,rowDst.pins.find(p=>p.name==='execute'))-pinCenterY(rowSrc,rowSrc.pins.find(p=>p.name==='then'));
   ok(dyRow===-32, 'arranger: PrintString.then и Branch.execute в модели на разных строках (тест опирается на это)');
-  const rowRes=arrangeRows([[rowSrc,rowDst]],{gap:160});
+  const rowRes=arrangeRows([[rowSrc,rowDst]],{gap:400});
   ok(rowRes.knots.length===2, 'arranger: короткий несоосный exec-провод в ряду (ΔY=32): K2·K3·K4 ближе 48px слиты → 2 knot-а');
   const rks=rowRes.knots;
+  { const a1=createCallFunction(byId('PrintString')), b1=createBranch({x:0,y:0}); linkPins(a1,'then',b1,'execute');
+    const near=arrangeRows([[a1,b1]],{gap:160}); ok(near.knots.length===0, 'arranger: выход→вход ближе 20 шагов (320px) — knot-ов нет, провод прямой'); }
   ok(rks[0].pos.y+8===pinCenterY(rowSrc,rowSrc.pins.find(p=>p.name==='then')) && rks[1].pos.y+8===pinCenterY(rowDst,rowDst.pins.find(p=>p.name==='execute')), 'arranger: слитый перенос — K1 на строке выхода, второй knot на строке входа');
   ok(rks.every((k,i)=>i===0||k.pos.x>rks[i-1].pos.x) && new Set(rks.map(k=>k.pos.x+':'+k.pos.y)).size===rks.length && rks.length>=2, 'arranger: knot-ы переноса не занимают одну клетку 16px');
   // декоратор (ступень 3, отложен) рассчитан на 4-knot стадиум; его проверки на слитых переносах сняты до возврата к ступени 3
@@ -826,7 +828,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   const dbWires = dbFlat(dbNodes).filter(l => l.exec);
   ok(db.split('LinkedTo=(K2Node_CustomEvent_5000').length-1===2
      && dbWires.length===4
-     && dbWires.every(l => (dbPinY(l.source,l.out)===dbPinY(l.target,l.input) ? l.via.length===0 : (l.via.length>=1 && l.via.length<=4))),
+     && dbWires.every(l => (dbPinY(l.source,l.out)===dbPinY(l.target,l.input) ? l.via.length===0 : (l.via.length<=4 && (l.via.length>=1 || Math.max(Math.abs(l.target.pos.x-l.source.pos.x-estNodeWidth(l.source)),Math.abs(dbPinY(l.target,l.input)-dbPinY(l.source,l.out)))<320)))),
      'Dispatcher probe: callback links preserved, каждый exec-провод соосный или ведёт через стадиум (близкие knot-ы слиты, 1–4)');
 }
 // End-to-end smoke through creator -> arranger -> decorator.
@@ -839,7 +841,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   const wires=flatLinks(nodes).filter(l=>l.exec);
   ok(validateStrict(text).errors.length===0 && nodes.filter(n=>!n.className.includes('Knot')).length===3, 'pipeline smoke: three-node text is STRICT-clean');
   ok(order.every((n,i)=>n && (!i || n.pos.x>order[i-1].pos.x))
-     && wires.every(l=>(pinCenterY(l.source,l.out)===pinCenterY(l.target,l.input) ? l.via.length===0 : (l.via.length>=1 && l.via.length<=4))),
+     && wires.every(l=>(pinCenterY(l.source,l.out)===pinCenterY(l.target,l.input) ? l.via.length===0 : (l.via.length<=4 && (l.via.length>=1 || Math.max(Math.abs(l.target.pos.x-l.source.pos.x-estNodeWidth(l.source)),Math.abs(pinCenterY(l.target,l.input)-pinCenterY(l.source,l.out)))<320)))),
      'pipeline smoke: Start→Delay→Print laid out in order; кривых проводов нет — несоосные идут через стадиум');
   ok(order.every(n=>n.pos.y===order[0].pos.y) && order.slice(1).every((n,i)=>n.pos.x-(order[i].pos.x+estNodeWidth(order[i]))>=80-1), 'pipeline smoke: flat exec row + gap of 5 grid cells (80px)');
 }
