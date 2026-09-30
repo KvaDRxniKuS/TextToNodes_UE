@@ -769,6 +769,7 @@ const BATCHES = {
     ['Flow', 'Get Game Instance (член Widget)', mem('/Script/UMG.Widget.GetGameInstance', ['->', 'ReturnValue:object:/Script/Engine.GameInstance'], true)],
   ],
   '50': [
+    // R50 вердикт: SetScore, SetName, CancelAsyncLoading, SpawnObject в 5.8 как BP-ноды не существуют — убраны.
     // R50: мультиплеер / Game Framework / система. Сигнатуры — по заголовкам UE 5.x, «всё сразу, пофиксим».
     ['Net', 'Is Local Player Controller (член Controller, pure)', mem('Controller.IsLocalPlayerController', ['->', 'ReturnValue:bool'], true)],
     ['Net', 'Get Local Viewing Player Controller (член Pawn, pure)', mem('Pawn.GetLocalViewingPlayerController', ['->', 'ReturnValue:object:PlayerController'], true)],
@@ -778,7 +779,6 @@ const BATCHES = {
     ['Net', 'Is Only A Spectator (член PlayerState, pure)', mem('PlayerState.IsOnlyASpectator', ['->', 'ReturnValue:bool'], true)],
     ['Net', 'Get Pawn (член PlayerState, pure)', mem('PlayerState.GetPawn', ['->', 'ReturnValue:object:Pawn'], true)],
     ['Net', 'Get Player Controller (член PlayerState, pure)', mem('PlayerState.GetPlayerController', ['->', 'ReturnValue:object:PlayerController'], true)],
-    ['Net', 'Set Score (член PlayerState)', mem('PlayerState.SetScore', ['NewScore:single'])],
     ['Net', 'Get Compressed Ping (член PlayerState, pure)', mem('PlayerState.GetCompressedPing', ['->', 'ReturnValue:byte'], true)],
     ['State', 'Has Begun Play (член GameStateBase, pure)', mem('GameStateBase.HasBegunPlay', ['->', 'ReturnValue:bool'], true)],
     ['State', 'Has Match Started (член GameStateBase, pure)', mem('GameStateBase.HasMatchStarted', ['->', 'ReturnValue:bool'], true)],
@@ -796,7 +796,6 @@ const BATCHES = {
     ['State', 'Is Match In Progress (член GameMode, pure)', mem('GameMode.IsMatchInProgress', ['->', 'ReturnValue:bool'], true)],
     ['State', 'Get Match State (член GameMode, pure)', mem('GameMode.GetMatchState', ['->', 'ReturnValue:name'], true)],
     ['State', 'Say (член GameMode)', mem('GameMode.Say', ['Msg:string'])],
-    ['PC', 'Set Name (член PlayerController)', mem('PlayerController.SetName', ['S:string'])],
     ['PC', 'Console Command (член PlayerController)', mem('PlayerController.ConsoleCommand', ['Command:string', 'bWriteToLog:bool=true', '->', 'ReturnValue:string'])],
     ['PC', 'Get Focal Location (член PlayerController, pure)', mem('PlayerController.GetFocalLocation', ['->', 'ReturnValue:vector'], true)],
     ['PC', 'Play Dynamic Force Feedback (член PlayerController)', mem('PlayerController.PlayDynamicForceFeedback', ['Intensity:single', 'Duration:single=-1.000000', 'bAffectsLeftLarge:bool=true', 'bAffectsLeftSmall:bool=true', 'bAffectsRightLarge:bool=true', 'bAffectsRightSmall:bool=true'])],
@@ -828,8 +827,6 @@ const BATCHES = {
     ['Statics', 'Get World Origin Location (GameplayStatics, pure)', lib('GameplayStatics.GetWorldOriginLocation', ['->', 'ReturnValue:intvector'], true)],
     ['Statics', 'Get Actor Array Average Location (GameplayStatics, pure)', lib('GameplayStatics.GetActorArrayAverageLocation', ['Actors:object:Actor[]', '->', 'ReturnValue:vector'], true)],
     ['Statics', 'Flush Level Streaming (GameplayStatics)', lib('GameplayStatics.FlushLevelStreaming', [])],
-    ['Statics', 'Cancel Async Loading (GameplayStatics)', lib('GameplayStatics.CancelAsyncLoading', [])],
-    ['Statics', 'Spawn Object (GameplayStatics)', lib('GameplayStatics.SpawnObject', ['ObjectClass:class:/Script/CoreUObject.Object', 'Outer:object:/Script/CoreUObject.Object', '->', 'ReturnValue:object:/Script/CoreUObject.Object'])],
     ['Statics', 'Announce Accessible String (GameplayStatics)', lib('GameplayStatics.AnnounceAccessibleString', ['AnnouncementString:string'])],
   ],
 };

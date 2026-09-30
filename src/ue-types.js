@@ -73,6 +73,7 @@ const LIBS_FULL = {
   HUD: `"/Script/CoreUObject.Class'/Script/Engine.HUD'"`, // R47 VERIFIED
   GameStateBase: `"/Script/CoreUObject.Class'/Script/Engine.GameStateBase'"`, // R47 VERIFIED
   GameModeBase: `"/Script/CoreUObject.Class'/Script/Engine.GameModeBase'"`, // R47 VERIFIED
+  GameMode: `"/Script/CoreUObject.Class'/Script/Engine.GameMode'"`, // confirmed R50
   NavigationPath: `"/Script/CoreUObject.Class'/Script/NavigationSystem.NavigationPath'"`, // R47 VERIFIED
   KismetInputLibrary: `"/Script/CoreUObject.Class'/Script/Engine.KismetInputLibrary'"`, // R46 VERIFIED
   PlayerState: `"/Script/CoreUObject.Class'/Script/Engine.PlayerState'"`, // R46 VERIFIED
@@ -152,6 +153,7 @@ const LIBS_SHORT = {
   HUD: `Class'"/Script/Engine.HUD"'`,
   GameStateBase: `Class'"/Script/Engine.GameStateBase"'`,
   GameModeBase: `Class'"/Script/Engine.GameModeBase"'`,
+  GameMode: `Class'"/Script/Engine.GameMode"'`,
   NavigationPath: `Class'"/Script/NavigationSystem.NavigationPath"'`,
   KismetInputLibrary: `Class'"/Script/Engine.KismetInputLibrary"'`,
   PlayerState: `Class'"/Script/Engine.PlayerState"'`,
@@ -191,7 +193,7 @@ const STRUCTS_FULL = {
   WidgetTransform: `"/Script/CoreUObject.ScriptStruct'/Script/UMG.WidgetTransform'"`, // copy-back R45b
   DateTime: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.DateTime'"`, // confirmed R48
   Timespan: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Timespan'"`, // confirmed R48
-  IntVector: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.IntVector'"`, // R50 probe
+  IntVector: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.IntVector'"`, // confirmed R50
   HitResult:   `"/Script/CoreUObject.ScriptStruct'/Script/Engine.HitResult'"`,        // confirmed (copy-back LineTraceSingle)
   Key:         `"/Script/CoreUObject.ScriptStruct'/Script/InputCore.Key'"`,
   LatentActionInfo: `"/Script/CoreUObject.ScriptStruct'/Script/Engine.LatentActionInfo'"`, // confirmed (copy-back Delay L1/L2)

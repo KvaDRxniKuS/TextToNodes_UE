@@ -39028,5 +39028,1598 @@
   "desc": "R48b · CharMove: Get Anim Root Motion Translation Scale",
   "probe": "R48b проба (CharMove) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R48b · CharMove: Get Anim Root Motion Translation Scale (член Character, pure)",
   "from": "probe"
+ },
+ {
+  "id": "IsLocalPlayerController_Controller",
+  "title": "Is Local Player Controller",
+  "from": "probe",
+  "category": "Player / Controller",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsLocalPlayerController",
+  "lib": "Controller",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Controller"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Local Player Controller",
+  "probe": "R50 проба (Net) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Local Player Controller (член Controller, pure)"
+ },
+ {
+  "id": "GetLocalViewingPlayerController",
+  "title": "Get Local Viewing Player Controller",
+  "from": "probe",
+  "category": "Pawn / Character",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetLocalViewingPlayerController",
+  "lib": "Pawn",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Pawn"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Local Viewing Player Controller",
+  "probe": "R50 проба (Net) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Local Viewing Player Controller (член Pawn, pure)"
+ },
+ {
+  "id": "GetPlayerViewPoint",
+  "title": "Get Player View Point",
+  "from": "probe",
+  "category": "Player / Controller",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetPlayerViewPoint",
+  "lib": "Controller",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Controller"
+   },
+   {
+    "name": "Location",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   },
+   {
+    "name": "Rotation",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Rotator"
+   }
+  ],
+  "verified": true,
+  "desc": "Get Player View Point",
+  "probe": "R50 проба (Net) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Player View Point (член Controller)"
+ },
+ {
+  "id": "IsABot",
+  "title": "Is ABot",
+  "from": "probe",
+  "category": "Player / Controller",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsABot",
+  "lib": "PlayerState",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerState"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is A Bot",
+  "probe": "R50 проба (Net) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is A Bot (член PlayerState, pure)"
+ },
+ {
+  "id": "IsSpectator",
+  "title": "Is Spectator",
+  "from": "probe",
+  "category": "Player / Controller",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsSpectator",
+  "lib": "PlayerState",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerState"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Spectator",
+  "probe": "R50 проба (Net) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Spectator (член PlayerState, pure)"
+ },
+ {
+  "id": "IsOnlyASpectator",
+  "title": "Is Only ASpectator",
+  "from": "probe",
+  "category": "Player / Controller",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsOnlyASpectator",
+  "lib": "PlayerState",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerState"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Only A Spectator",
+  "probe": "R50 проба (Net) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Only A Spectator (член PlayerState, pure)"
+ },
+ {
+  "id": "GetPawn",
+  "title": "Get Pawn",
+  "from": "probe",
+  "category": "Player / Controller",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetPawn",
+  "lib": "PlayerState",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerState"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.Pawn"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Pawn",
+  "probe": "R50 проба (Net) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Pawn (член PlayerState, pure)"
+ },
+ {
+  "id": "GetPlayerController_PlayerState",
+  "title": "Get Player Controller",
+  "from": "probe",
+  "category": "Player / Controller",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetPlayerController",
+  "lib": "PlayerState",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerState"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Player Controller",
+  "probe": "R50 проба (Net) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Player Controller (член PlayerState, pure)"
+ },
+ {
+  "id": "GetCompressedPing",
+  "title": "Get Compressed Ping",
+  "from": "probe",
+  "category": "Player / Controller",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetCompressedPing",
+  "lib": "PlayerState",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerState"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "byte"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Compressed Ping",
+  "probe": "R50 проба (Net) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Compressed Ping (член PlayerState, pure)"
+ },
+ {
+  "id": "HasBegunPlay",
+  "title": "Has Begun Play",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "HasBegunPlay",
+  "lib": "GameStateBase",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameStateBase"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Has Begun Play",
+  "probe": "R50 проба (State) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Has Begun Play (член GameStateBase, pure)"
+ },
+ {
+  "id": "HasMatchStarted",
+  "title": "Has Match Started",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "HasMatchStarted",
+  "lib": "GameStateBase",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameStateBase"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Has Match Started",
+  "probe": "R50 проба (State) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Has Match Started (член GameStateBase, pure)"
+ },
+ {
+  "id": "HasMatchEnded",
+  "title": "Has Match Ended",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "HasMatchEnded",
+  "lib": "GameStateBase",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameStateBase"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Has Match Ended",
+  "probe": "R50 проба (State) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Has Match Ended (член GameStateBase, pure)"
+ },
+ {
+  "id": "GetPlayerStartTime",
+  "title": "Get Player Start Time",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetPlayerStartTime",
+  "lib": "GameStateBase",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameStateBase"
+   },
+   {
+    "name": "Controller",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Controller"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Player Start Time",
+  "probe": "R50 проба (State) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Player Start Time (член GameStateBase, pure)"
+ },
+ {
+  "id": "ReturnToMainMenuHost",
+  "title": "Return To Main Menu Host",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ReturnToMainMenuHost",
+  "lib": "GameModeBase",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameModeBase"
+   }
+  ],
+  "verified": true,
+  "desc": "Return To Main Menu Host",
+  "probe": "R50 проба (State) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Return To Main Menu Host (член GameModeBase)"
+ },
+ {
+  "id": "HasMatchStarted_GameModeBase",
+  "title": "Has Match Started",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "HasMatchStarted",
+  "lib": "GameModeBase",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameModeBase"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Has Match Started",
+  "probe": "R50 проба (State) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Has Match Started (член GameModeBase, pure)"
+ },
+ {
+  "id": "HasMatchEnded_GameModeBase",
+  "title": "Has Match Ended",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "HasMatchEnded",
+  "lib": "GameModeBase",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameModeBase"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Has Match Ended",
+  "probe": "R50 проба (State) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Has Match Ended (член GameModeBase, pure)"
+ },
+ {
+  "id": "ResetLevel",
+  "title": "Reset Level",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ResetLevel",
+  "lib": "GameModeBase",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameModeBase"
+   }
+  ],
+  "verified": true,
+  "desc": "Reset Level",
+  "probe": "R50 проба (State) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Reset Level (член GameModeBase)"
+ },
+ {
+  "id": "StartMatch",
+  "title": "Start Match",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "StartMatch",
+  "lib": "GameMode",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameMode"
+   }
+  ],
+  "verified": true,
+  "desc": "Start Match",
+  "probe": "R50 проба (State) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Start Match (член GameMode)"
+ },
+ {
+  "id": "EndMatch",
+  "title": "End Match",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "EndMatch",
+  "lib": "GameMode",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameMode"
+   }
+  ],
+  "verified": true,
+  "desc": "End Match",
+  "probe": "R50 проба (State) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). End Match (член GameMode)"
+ },
+ {
+  "id": "RestartGame",
+  "title": "Restart Game",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "RestartGame",
+  "lib": "GameMode",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameMode"
+   }
+  ],
+  "verified": true,
+  "desc": "Restart Game",
+  "probe": "R50 проба (State) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Restart Game (член GameMode)"
+ },
+ {
+  "id": "AbortMatch",
+  "title": "Abort Match",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AbortMatch",
+  "lib": "GameMode",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameMode"
+   }
+  ],
+  "verified": true,
+  "desc": "Abort Match",
+  "probe": "R50 проба (State) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Abort Match (член GameMode)"
+ },
+ {
+  "id": "IsMatchInProgress",
+  "title": "Is Match In Progress",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsMatchInProgress",
+  "lib": "GameMode",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameMode"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Match In Progress",
+  "probe": "R50 проба (State) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Match In Progress (член GameMode, pure)"
+ },
+ {
+  "id": "GetMatchState",
+  "title": "Get Match State",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetMatchState",
+  "lib": "GameMode",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameMode"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "name"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Match State",
+  "probe": "R50 проба (State) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Match State (член GameMode, pure)"
+ },
+ {
+  "id": "Say",
+  "title": "Say",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Say",
+  "lib": "GameMode",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameMode"
+   },
+   {
+    "name": "Msg",
+    "dir": "Input",
+    "cat": "string"
+   }
+  ],
+  "verified": true,
+  "desc": "Say",
+  "probe": "R50 проба (State) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Say (член GameMode)"
+ },
+ {
+  "id": "ConsoleCommand",
+  "title": "Console Command",
+  "from": "probe",
+  "category": "Player / Controller",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ConsoleCommand",
+  "lib": "PlayerController",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   },
+   {
+    "name": "Command",
+    "dir": "Input",
+    "cat": "string"
+   },
+   {
+    "name": "bWriteToLog",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "string"
+   }
+  ],
+  "verified": true,
+  "desc": "Console Command",
+  "probe": "R50 проба (PC) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Console Command (член PlayerController)"
+ },
+ {
+  "id": "GetFocalLocation",
+  "title": "Get Focal Location",
+  "from": "probe",
+  "category": "Player / Controller",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetFocalLocation",
+  "lib": "PlayerController",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Focal Location",
+  "probe": "R50 проба (PC) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Focal Location (член PlayerController, pure)"
+ },
+ {
+  "id": "PlayDynamicForceFeedback",
+  "title": "Play Dynamic Force Feedback",
+  "from": "probe",
+  "category": "Player / Controller",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "PlayDynamicForceFeedback",
+  "lib": "PlayerController",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   },
+   {
+    "name": "Intensity",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "Duration",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "-1.000000",
+    "autoDv": ""
+   },
+   {
+    "name": "bAffectsLeftLarge",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   },
+   {
+    "name": "bAffectsLeftSmall",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   },
+   {
+    "name": "bAffectsRightLarge",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   },
+   {
+    "name": "bAffectsRightSmall",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Play Dynamic Force Feedback",
+  "probe": "R50 проба (PC) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Play Dynamic Force Feedback (член PlayerController)"
+ },
+ {
+  "id": "SetVirtualJoystickVisibility",
+  "title": "Set Virtual Joystick Visibility",
+  "from": "probe",
+  "category": "Player / Controller",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetVirtualJoystickVisibility",
+  "lib": "PlayerController",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   },
+   {
+    "name": "bVisible",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Virtual Joystick Visibility",
+  "probe": "R50 проба (PC) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Virtual Joystick Visibility (член PlayerController)"
+ },
+ {
+  "id": "GetGameBundleId",
+  "title": "Get Game Bundle Id",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetGameBundleId",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "string"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Game Bundle Id",
+  "probe": "R50 проба (Sys) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Game Bundle Id (KismetSystemLibrary, pure)"
+ },
+ {
+  "id": "GetOuterObject",
+  "title": "Get Outer Object",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetOuterObject",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "Object",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Outer Object",
+  "probe": "R50 проба (Sys) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Outer Object (KismetSystemLibrary, pure)"
+ },
+ {
+  "id": "GetConsoleVariableFloatValue",
+  "title": "Get Console Variable Float Value",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetConsoleVariableFloatValue",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "VariableName",
+    "dir": "Input",
+    "cat": "string"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Console Variable Float Value",
+  "probe": "R50 проба (Sys) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Console Variable Float Value (KismetSystemLibrary, pure)"
+ },
+ {
+  "id": "GetConsoleVariableIntValue",
+  "title": "Get Console Variable Int Value",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetConsoleVariableIntValue",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "VariableName",
+    "dir": "Input",
+    "cat": "string"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Console Variable Int Value",
+  "probe": "R50 проба (Sys) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Console Variable Int Value (KismetSystemLibrary, pure)"
+ },
+ {
+  "id": "GetConsoleVariableBoolValue",
+  "title": "Get Console Variable Bool Value",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetConsoleVariableBoolValue",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "VariableName",
+    "dir": "Input",
+    "cat": "string"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Console Variable Bool Value",
+  "probe": "R50 проба (Sys) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Console Variable Bool Value (KismetSystemLibrary, pure)"
+ },
+ {
+  "id": "CollectGarbage",
+  "title": "Collect Garbage",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "CollectGarbage",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   }
+  ],
+  "verified": true,
+  "desc": "Collect Garbage",
+  "probe": "R50 проба (Sys) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Collect Garbage (KismetSystemLibrary)"
+ },
+ {
+  "id": "GetPlatformUserDir",
+  "title": "Get Platform User Dir",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetPlatformUserDir",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "string"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Platform User Dir",
+  "probe": "R50 проба (Sys) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Platform User Dir (KismetSystemLibrary, pure)"
+ },
+ {
+  "id": "GetDeviceId",
+  "title": "Get Device Id",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetDeviceId",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "string"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Device Id",
+  "probe": "R50 проба (Sys) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Device Id (KismetSystemLibrary, pure)"
+ },
+ {
+  "id": "ControlScreensaver",
+  "title": "Control Screensaver",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ControlScreensaver",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "bAllowScreenSaver",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Control Screensaver",
+  "probe": "R50 проба (Sys) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Control Screensaver (KismetSystemLibrary)"
+ },
+ {
+  "id": "GetRenderingDetailMode",
+  "title": "Get Rendering Detail Mode",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetRenderingDetailMode",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Rendering Detail Mode",
+  "probe": "R50 проба (Sys) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Rendering Detail Mode (KismetSystemLibrary, pure)"
+ },
+ {
+  "id": "MakeLiteralInt",
+  "title": "Make Literal Int",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "MakeLiteralInt",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "Value",
+    "dir": "Input",
+    "cat": "int"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Make Literal Int",
+  "probe": "R50 проба (Sys) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Make Literal Int (KismetSystemLibrary, pure)"
+ },
+ {
+  "id": "GetNumPlayerControllers",
+  "title": "Get Num Player Controllers",
+  "from": "probe",
+  "category": "Player / Controller",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetNumPlayerControllers",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Num Player Controllers",
+  "probe": "R50 проба (Statics) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Num Player Controllers (GameplayStatics, pure)"
+ },
+ {
+  "id": "GetNumLocalPlayerControllers",
+  "title": "Get Num Local Player Controllers",
+  "from": "probe",
+  "category": "Player / Controller",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetNumLocalPlayerControllers",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Num Local Player Controllers",
+  "probe": "R50 проба (Statics) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Num Local Player Controllers (GameplayStatics, pure)"
+ },
+ {
+  "id": "GetAudioTimeSeconds",
+  "title": "Get Audio Time Seconds",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetAudioTimeSeconds",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Audio Time Seconds",
+  "probe": "R50 проба (Statics) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Audio Time Seconds (GameplayStatics, pure)"
+ },
+ {
+  "id": "GetAllActorsWithInterface",
+  "title": "Get All Actors With Interface",
+  "from": "probe",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetAllActorsWithInterface",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Interface",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/CoreUObject.Interface"
+   },
+   {
+    "name": "OutActors",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.Actor",
+    "container": "Array"
+   }
+  ],
+  "verified": true,
+  "desc": "Get All Actors with Interface",
+  "probe": "R50 проба (Statics) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get All Actors with Interface (GameplayStatics)"
+ },
+ {
+  "id": "FindNearestActor",
+  "title": "Find Nearest Actor",
+  "from": "probe",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "FindNearestActor",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Origin",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "ActorsToCheck",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor",
+    "container": "Array"
+   },
+   {
+    "name": "Distance",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   }
+  ],
+  "verified": true,
+  "desc": "Find Nearest Actor",
+  "probe": "R50 проба (Statics) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Find Nearest Actor (GameplayStatics)"
+ },
+ {
+  "id": "SetEnableWorldRendering",
+  "title": "Set Enable World Rendering",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetEnableWorldRendering",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "bEnable",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Enable World Rendering",
+  "probe": "R50 проба (Statics) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Enable World Rendering (GameplayStatics)"
+ },
+ {
+  "id": "GetEnableWorldRendering",
+  "title": "Get Enable World Rendering",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetEnableWorldRendering",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Enable World Rendering",
+  "probe": "R50 проба (Statics) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Enable World Rendering (GameplayStatics, pure)"
+ },
+ {
+  "id": "SetSubtitlesEnabled",
+  "title": "Set Subtitles Enabled",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetSubtitlesEnabled",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "bEnabled",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Subtitles Enabled",
+  "probe": "R50 проба (Statics) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Subtitles Enabled (GameplayStatics)"
+ },
+ {
+  "id": "AreSubtitlesEnabled",
+  "title": "Are Subtitles Enabled",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AreSubtitlesEnabled",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Are Subtitles Enabled",
+  "probe": "R50 проба (Statics) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Are Subtitles Enabled (GameplayStatics, pure)"
+ },
+ {
+  "id": "HasLaunchOption",
+  "title": "Has Launch Option",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "HasLaunchOption",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "OptionToCheck",
+    "dir": "Input",
+    "cat": "string"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Has Launch Option",
+  "probe": "R50 проба (Statics) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Has Launch Option (GameplayStatics, pure)"
+ },
+ {
+  "id": "ParseOption",
+  "title": "Parse Option",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ParseOption",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "Options",
+    "dir": "Input",
+    "cat": "string"
+   },
+   {
+    "name": "Key",
+    "dir": "Input",
+    "cat": "string"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "string"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Parse Option",
+  "probe": "R50 проба (Statics) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Parse Option (GameplayStatics, pure)"
+ },
+ {
+  "id": "HasOption",
+  "title": "Has Option",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "HasOption",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "Options",
+    "dir": "Input",
+    "cat": "string"
+   },
+   {
+    "name": "InKey",
+    "dir": "Input",
+    "cat": "string"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Has Option",
+  "probe": "R50 проба (Statics) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Has Option (GameplayStatics, pure)"
+ },
+ {
+  "id": "GetIntOption",
+  "title": "Get Int Option",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetIntOption",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "Options",
+    "dir": "Input",
+    "cat": "string"
+   },
+   {
+    "name": "Key",
+    "dir": "Input",
+    "cat": "string"
+   },
+   {
+    "name": "DefaultValue",
+    "dir": "Input",
+    "cat": "int"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Int Option",
+  "probe": "R50 проба (Statics) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Int Option (GameplayStatics, pure)"
+ },
+ {
+  "id": "GetWorldOriginLocation",
+  "title": "Get World Origin Location",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetWorldOriginLocation",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "IntVector"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get World Origin Location",
+  "probe": "R50 проба (Statics) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get World Origin Location (GameplayStatics, pure)"
+ },
+ {
+  "id": "GetActorArrayAverageLocation",
+  "title": "Get Actor Array Average Location",
+  "from": "probe",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetActorArrayAverageLocation",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "Actors",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor",
+    "container": "Array"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Actor Array Average Location",
+  "probe": "R50 проба (Statics) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Actor Array Average Location (GameplayStatics, pure)"
+ },
+ {
+  "id": "FlushLevelStreaming",
+  "title": "Flush Level Streaming",
+  "from": "probe",
+  "category": "Level Streaming",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "FlushLevelStreaming",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   }
+  ],
+  "verified": true,
+  "desc": "Flush Level Streaming",
+  "probe": "R50 проба (Statics) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Flush Level Streaming (GameplayStatics)"
+ },
+ {
+  "id": "AnnounceAccessibleString",
+  "title": "Announce Accessible String",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AnnounceAccessibleString",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "AnnouncementString",
+    "dir": "Input",
+    "cat": "string"
+   }
+  ],
+  "verified": true,
+  "desc": "Announce Accessible String",
+  "probe": "R50 проба (Statics) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Announce Accessible String (GameplayStatics)"
  }
 ]

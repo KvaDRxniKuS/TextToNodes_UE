@@ -1253,3 +1253,4 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 
 - `sweep/probes/r50-probe.txt`, 61 нода. Ряды: Net 10, State 16, PC 5, Sys 11, Statics 19. Сигнатуры взяты по заголовкам UE 5.x и ждут вердикта.
 - Добавлен тип `IntVector` (UE_STRUCTS), нужен для GetWorldOriginLocation.
+- **Вердикт R50 (2026-10-01):** 57 из 61 встали. В 5.8 как BP-ноды не существуют (альтернатив пользователь не нашёл): `PlayerState.SetScore`, `PlayerController.SetName`, `GameplayStatics.CancelAsyncLoading`, `GameplayStatics.SpawnObject` (объект создаётся нодой Construct Object from Class). В реестр добавлено 56 записей, всего 1080. `K2_FindPlayerStart` уже был в реестре с R47: мой фильтр повторов его пропустил. Добавлен UE_LIBS-ключ `GameMode`, IntVector подтверждён. Проба и её recipe удалены.
