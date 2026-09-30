@@ -21038,5 +21038,559 @@
   "verified": true,
   "desc": "Выгрузить стрим-уровень по soft-ссылке (latent)",
   "probe": "R40 copy-back (2026-09-30, BP_AISupportTester): latent, then=Completed, скрытые WorldContextObject(const)+LatentInfo"
+ },
+ {
+  "id": "IsFalling",
+  "title": "Is Falling",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsFalling",
+  "lib": "CharacterMovementComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.CharacterMovementComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Falling",
+  "probe": "R41 проба (Movement) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Falling (член CharacterMovementComponent — NavMovementComponent, pure)"
+ },
+ {
+  "id": "IsMovingOnGround",
+  "title": "Is Moving On Ground",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsMovingOnGround",
+  "lib": "CharacterMovementComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.CharacterMovementComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Moving On Ground",
+  "probe": "R41 проба (Movement) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Moving On Ground (член CharacterMovementComponent, pure)"
+ },
+ {
+  "id": "DisableMovement",
+  "title": "Disable Movement",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "DisableMovement",
+  "lib": "CharacterMovementComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.CharacterMovementComponent"
+   }
+  ],
+  "verified": true,
+  "desc": "Disable Movement",
+  "probe": "R41 проба (Movement) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Disable Movement (член CharacterMovementComponent)"
+ },
+ {
+  "id": "SetMovementMode",
+  "title": "Set Movement Mode",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetMovementMode",
+  "lib": "CharacterMovementComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.CharacterMovementComponent"
+   },
+   {
+    "name": "NewMovementMode",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EMovementMode"
+   },
+   {
+    "name": "NewCustomMode",
+    "dir": "Input",
+    "cat": "byte"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Movement Mode",
+  "probe": "R41 проба (Movement) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Movement Mode (член CharacterMovementComponent). Ждём: NewMovementMode enum, NewCustomMode byte"
+ },
+ {
+  "id": "PlaySound2D",
+  "title": "Play Sound2 D",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "PlaySound2D",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Sound",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SoundBase"
+   },
+   {
+    "name": "VolumeMultiplier",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "1.000000",
+    "autoDv": ""
+   },
+   {
+    "name": "PitchMultiplier",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "1.000000",
+    "autoDv": ""
+   },
+   {
+    "name": "StartTime",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "verified": true,
+  "desc": "Play Sound 2D",
+  "probe": "R41 проба (Audio) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Play Sound 2D (GameplayStatics). Пины Concurrency/Owning движок достроит"
+ },
+ {
+  "id": "GetGlobalTimeDilation",
+  "title": "Get Global Time Dilation",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetGlobalTimeDilation",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Global Time Dilation",
+  "probe": "R41 проба (World) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Global Time Dilation (GameplayStatics, pure)"
+ },
+ {
+  "id": "IsGamePaused",
+  "title": "Is Game Paused",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsGamePaused",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Game Paused",
+  "probe": "R41 проба (World) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Game Paused (GameplayStatics, pure)"
+ },
+ {
+  "id": "GetActorOfClass",
+  "title": "Get Actor Of Class",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetActorOfClass",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "ActorClass",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   }
+  ],
+  "verified": true,
+  "desc": "Get Actor Of Class",
+  "probe": "R41 проба (World) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Actor Of Class (GameplayStatics). Выход по классу"
+ },
+ {
+  "id": "Conv_TextToString",
+  "title": "Conv Text To String",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Conv_TextToString",
+  "lib": "KismetTextLibrary",
+  "pins": [
+   {
+    "name": "InText",
+    "dir": "Input",
+    "cat": "text"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "string"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "To String",
+  "probe": "R41 проба (Text) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). To String (Text) — Conv_TextToString (KismetTextLibrary, pure)"
+ },
+ {
+  "id": "Conv_StringToText",
+  "title": "Conv String To Text",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Conv_StringToText",
+  "lib": "KismetTextLibrary",
+  "pins": [
+   {
+    "name": "InString",
+    "dir": "Input",
+    "cat": "string"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "text"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "To Text",
+  "probe": "R41 проба (Text) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). To Text (String) — Conv_StringToText (KismetTextLibrary, pure)"
+ },
+ {
+  "id": "TextIsEmpty",
+  "title": "Text Is Empty",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "TextIsEmpty",
+  "lib": "KismetTextLibrary",
+  "pins": [
+   {
+    "name": "InText",
+    "dir": "Input",
+    "cat": "text"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Text Is Empty",
+  "probe": "R41 проба (Text) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Text Is Empty (KismetTextLibrary, pure)"
+ },
+ {
+  "id": "GetHitResultUnderCursorByChannel",
+  "title": "Get Hit Result Under Cursor By Channel",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetHitResultUnderCursorByChannel",
+  "lib": "PlayerController",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   },
+   {
+    "name": "TraceChannel",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ETraceTypeQuery"
+   },
+   {
+    "name": "bTraceComplex",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "HitResult",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "HitResult"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Hit Result Under Cursor by Channel",
+  "probe": "R41 проба (Input) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Hit Result Under Cursor by Channel (член PlayerController)"
+ },
+ {
+  "id": "RandomPointInBoundingBox",
+  "title": "Random Point In Bounding Box",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "RandomPointInBoundingBox",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Center",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "HalfSize",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "verified": true,
+  "desc": "Random Point in Bounding Box",
+  "probe": "R41 проба (Math) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Random Point in Bounding Box (KismetMathLibrary)"
+ },
+ {
+  "id": "K2_GetRandomReachablePointInRadius",
+  "title": "K2 Get Random Reachable Point In Radius",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_GetRandomReachablePointInRadius",
+  "lib": "NavigationSystemV1",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Origin",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "Radius",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "NavData",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/NavigationSystem.NavigationData"
+   },
+   {
+    "name": "FilterClass",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/NavigationSystem.NavigationQueryFilter"
+   },
+   {
+    "name": "RandomLocation",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Get Random Reachable Point in Radius",
+  "probe": "R41 проба (Nav) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Random Reachable Point in Radius (NavigationSystemV1)"
+ },
+ {
+  "id": "K2_GetComponentsByClass",
+  "title": "K2 Get Components By Class",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_GetComponentsByClass",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "ComponentClass",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/Engine.ActorComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.ActorComponent",
+    "container": "Array"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Components by Class",
+  "probe": "R41 проба (Actor) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Components by Class (член Actor, pure). Выход — массив по классу"
+ },
+ {
+  "id": "SetValue",
+  "title": "Set Value",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetValue",
+  "lib": "Slider",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Slider"
+   },
+   {
+    "name": "InValue",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Value",
+  "probe": "R41 проба (UI) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Value (член Slider)"
+ },
+ {
+  "id": "GetValue",
+  "title": "Get Value",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetValue",
+  "lib": "Slider",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Slider"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Value",
+  "probe": "R41 проба (UI) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Value (член Slider, pure)"
  }
 ]

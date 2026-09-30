@@ -59,6 +59,9 @@ const LIBS_FULL = {
   AudioComponent: `"/Script/CoreUObject.Class'/Script/Engine.AudioComponent'"`, // R38 VERIFIED
   Image: `"/Script/CoreUObject.Class'/Script/UMG.Image'"`, // R39 VERIFIED
   MovementComponent: `"/Script/CoreUObject.Class'/Script/Engine.MovementComponent'"`, // R39 VERIFIED
+  CharacterMovementComponent: `"/Script/CoreUObject.Class'/Script/Engine.CharacterMovementComponent'"`, // R41 VERIFIED
+  NavigationSystemV1: `"/Script/CoreUObject.Class'/Script/NavigationSystem.NavigationSystemV1'"`, // R41 VERIFIED
+  Slider: `"/Script/CoreUObject.Class'/Script/UMG.Slider'"`, // R41 VERIFIED
 };
 const LIBS_SHORT = {
   KismetMathLibrary:   `Class'"/Script/Engine.KismetMathLibrary"'`,
@@ -101,6 +104,9 @@ const LIBS_SHORT = {
   AudioComponent: `Class'"/Script/Engine.AudioComponent"'`,
   Image: `Class'"/Script/UMG.Image"'`,
   MovementComponent: `Class'"/Script/Engine.MovementComponent"'`,
+  CharacterMovementComponent: `Class'"/Script/Engine.CharacterMovementComponent"'`,
+  NavigationSystemV1: `Class'"/Script/NavigationSystem.NavigationSystemV1"'`,
+  Slider: `Class'"/Script/UMG.Slider"'`,
 };
 export const UE_LIBS = UE_VERSION === 'SHORT' ? LIBS_SHORT : LIBS_FULL;
 
@@ -161,7 +167,7 @@ const ENUMS_FULL = {
   ETimelineDirection: `"/Script/CoreUObject.Enum'/Script/Engine.ETimelineDirection'"`, // confirmed R40 copy-back (Timeline.Direction)
   EPathFollowingResult: `"/Script/CoreUObject.Enum'/Script/AIModule.EPathFollowingResult'"`, // confirmed R40 copy-back (AIMoveTo.MovementResult)
   ECollisionChannel: `"/Script/CoreUObject.Enum'/Script/Engine.ECollisionChannel'"`, // round29-pre
-  EMovementMode: `"/Script/CoreUObject.Enum'/Script/Engine.EMovementMode'"`, // R41-pre
+  EMovementMode: `"/Script/CoreUObject.Enum'/Script/Engine.EMovementMode'"`, // confirmed R41 (SetMovementMode)
   EMoveComponentAction: `"/Script/CoreUObject.Enum'/Script/Engine.EMoveComponentAction'"`, // R34 copy-back: MoveComponentTo
   EDrawDebugSceneDepthPriorityGroup: `"/Script/CoreUObject.Enum'/Script/Engine.EDrawDebugSceneDepthPriorityGroup'"`, // R33 copy-back: DrawDebugArrow.DepthPriority
   ECollisionResponse: `"/Script/CoreUObject.Enum'/Script/Engine.ECollisionResponse'"`, // round29-pre

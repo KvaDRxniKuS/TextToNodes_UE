@@ -1104,7 +1104,7 @@ UE_LIBS: Image, MovementComponent.
 - `createDelegateNode` ставит пузырь автоматически для владельцев из `/Game/…`.
 - В `sweep/chapters/dispatcher-bound.txt` пузырь стоит на 4 нодах.
 
-## R41 — широкая проба (2026-09-30, ждёт вердикта)
+## R41 — широкая проба (2026-09-30) — VERIFIED: все 17 нод вставились идеально
 
 `sweep/probes/r41-probe.txt` (`node tools/gen-probe.mjs --batch 41`), 17 нод, STRICT без ошибок.
 
@@ -1120,3 +1120,5 @@ UE_LIBS: Image, MovementComponent.
 - **UI:** `Slider.SetValue` / `GetValue`.
 
 Добавлен энам `EMovementMode` (pre, не подтверждён). Сетевые функции вынесены в отдельный следующий шаг (Networking).
+
+R41 зарегистрирован: реестр +17, всего 551. В UE_LIBS добавлены `CharacterMovementComponent`, `NavigationSystemV1` и `Slider`. Энам `EMovementMode` подтверждён. `gen-probe --register` теперь переносит в запись реестра энам-пины (`enum`). Файл пробы удалён. Воспроизвести: `node tools/gen-probe.mjs --batch 41 --stdout`.

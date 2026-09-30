@@ -12,7 +12,7 @@
 
 import fs from 'node:fs';
 import { fitComment, estNodeWidth, estNodeHeight, createMacroInstance, createCallFunction } from '../src/generator.js';
-import { UE_LIBS, UE_STRUCTS } from '../src/ue-types.js';
+import { UE_LIBS, UE_STRUCTS, UE_ENUMS } from '../src/ue-types.js';
 import { generateUEText, seedGuids } from '../src/parser.js';
 import { validateStrict } from '../src/validate.js';
 import { createCall, createAddComponentByClass } from '../src/modules.js';
@@ -258,6 +258,7 @@ if (REGISTER) {
   const reg = JSON.parse(fs.readFileSync(regPath, 'utf8'));
   const have = new Set(reg.map(e => e.id));
   const libByRef = Object.fromEntries(Object.entries(UE_LIBS).map(([k, v]) => [v, k]));
+  const enumByRef = Object.fromEntries(Object.entries(UE_ENUMS).map(([k, v]) => [v, k]));
   const structByRef = Object.fromEntries(Object.entries(UE_STRUCTS).map(([k, v]) => [v, k]));
   const objPath = ref => (ref.match(/'([^'"]+)'"?$/) || ref.match(/"([^"]+)"'$/) || [])[1] || ref;
   const title = f => f.replace(/_/g, ' ').replace(/([a-z0-9])([A-Z])/g, '$1 $2').replace(/\s+/g, ' ').trim();
@@ -272,6 +273,7 @@ if (REGISTER) {
       if (p.category === 'real') o.sub = p.subCategory;
       if (p.category === 'struct') o.sub = structByRef[p.subCategoryObject];
       if ((p.category === 'object' || p.category === 'class') && p.subCategoryObject) o.object = objPath(p.subCategoryObject);
+      if (p.category === 'byte' && p.subCategoryObject) o.enum = enumByRef[p.subCategoryObject] || p.subCategoryObject; // R41: энам-пины
       if (p.isConst) o.const = true;
       if (p.isRef) o.ref = true;
       if (p.container !== 'None') o.container = p.container;

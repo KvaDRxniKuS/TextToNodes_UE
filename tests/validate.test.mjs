@@ -1173,6 +1173,9 @@ regThrow.forEach(t => console.log('THROW:', t));
     && /PinName="Reply",[^\n]*bIsReference=True/.test(generateUEText([createCallFunction(r38.find(e => e.id === 'ClearUserFocus'))])), 'R38: 41 запись реестра (без несуществующего K2_ClearTimerHandle; ClearUserFocus.Reply by-ref)');
   const r39 = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8')).filter(e => /^R39 проба/.test(e.probe || ''));
   ok(r39.length === 47 && validateStrict(r39.map(e => generateUEText([createCallFunction(e)])).join('\n')).warnings.length === 0, 'R39: 47 записей реестра строятся без предупреждений');
+  const r41 = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8')).filter(e => /^R41 проба/.test(e.probe || ''));
+  ok(r41.length === 17 && validateStrict(r41.map(e => generateUEText([createCallFunction(e)])).join('\n')).warnings.length === 0
+    && /EMovementMode/.test(generateUEText([createCallFunction(r41.find(e => e.id === 'SetMovementMode'))])), 'R41: 17 записей реестра без предупреждений (SetMovementMode с энамом EMovementMode)');
   // R40: copy-back спец-нод → стрим-уровни в реестре (soft-ссылка = bIsUObjectWrapper) + шаблонные спец-ноды
   const r40 = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8')).filter(e => /^R40 copy-back/.test(e.probe || ''));
   const soft = generateUEText([createCallFunction(r40.find(e => e.id === 'LoadStreamLevelBySoftObjectPtr'))]);
