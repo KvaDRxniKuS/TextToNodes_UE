@@ -38393,5 +38393,31 @@
   "verified": true,
   "desc": "IsBoneHiddenByName",
   "probe": "R48 проба (DataAnim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). IsBoneHiddenByName (член SkinnedMeshComponent)"
+ },
+ {
+  "id": "GetAnimRootMotionTranslationScale",
+  "title": "Get Anim Root Motion Translation Scale",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetAnimRootMotionTranslationScale",
+  "lib": "Character",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Character"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "R48b · CharMove: Get Anim Root Motion Translation Scale",
+  "probe": "R48b проба (CharMove) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R48b · CharMove: Get Anim Root Motion Translation Scale (член Character, pure)"
  }
 ]

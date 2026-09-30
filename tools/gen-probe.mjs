@@ -739,6 +739,10 @@ const BATCHES = {
     ['DataAnim', 'UnHideBoneByName (член SkinnedMeshComponent)', mem('/Script/Engine.SkinnedMeshComponent.UnHideBoneByName', ['BoneName:name'])],
     ['DataAnim', 'IsBoneHiddenByName (член SkinnedMeshComponent)', mem('/Script/Engine.SkinnedMeshComponent.IsBoneHiddenByName', ['BoneName:name', '->', 'ReturnValue:bool'])],
   ],
+  '48b': [
+    // R48 copy-back пользователя: у Character есть только геттер (сеттер SetAnimRootMotionTranslationScale не BP)
+    ['CharMove', 'Get Anim Root Motion Translation Scale (член Character, pure)', mem('/Script/Engine.Character.GetAnimRootMotionTranslationScale', ['->', 'ReturnValue:single'], true)],
+  ],
 };
 
 const list = BATCHES[batch];

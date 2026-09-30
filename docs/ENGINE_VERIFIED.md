@@ -1227,4 +1227,4 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 
 ## R48 — вердикт (2026-10-01)
 Компиляция без ошибок; 160 из 161 в реестре. Не встала: Character.SetAnimRootMotionTranslationScale
-(в UE 5.8 не BlueprintCallable). DateTime/Timespan и 3 энама R48 подтверждены.
+(в UE 5.8 не BlueprintCallable; есть только GetAnimRootMotionTranslationScale — заведён по copy-back). DateTime/Timespan и 3 энама R48 подтверждены.
