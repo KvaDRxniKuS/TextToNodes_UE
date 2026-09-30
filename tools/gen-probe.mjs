@@ -34,6 +34,14 @@ const macro = (graph, pins) => () => createMacroInstance({ id: graph, title: gra
 // + FUNC_Net 0x40 [+ Reliable 0x80] + Server 0x200000 | Multicast 0x4000 | Client 0x1000000. Гипотеза — ждёт copy-back.
 const repEvent = (name, bits) => () => { const n = createCustomEvent(name, []); n.rawProps.push(`FunctionFlags=${(0x0C020000 | 0x40 | bits) >>> 0}`); return n; }; // R42 VERIFIED (Details совпали)
 
+
+// R45: контейнерные wildcard-пины (BlueprintMapLibrary/BlueprintSetLibrary, CustomThunk). spec: { Пин: 'Map'|'Set'|'Array'|'' , ... }
+// '' — одиночный wildcard; суффикс '&' — by-ref, '!' — const. Тип резолвится движком при подключении.
+const wild = (make, spec) => () => { const n = make(); for (const [nm, v] of Object.entries(spec)) {
+  const p = n.pins.find(x => x.name === nm); const c = v.replace(/[&!]/g, '');
+  p.category = 'wildcard'; p.subCategory = ''; p.subCategoryObject = ''; p.container = c || 'None';
+  if (c === 'Map') p.valueType = 'wildcard'; if (v.includes('&')) p.isRef = true; if (v.includes('!')) p.isConst = true; } return n; };
+
 /* Пакеты проб. Каждая проба: [тема, текст пузыря, фабрика]. Текст пузыря — что за нода и чего ждём. */
 const BATCHES = {
   '36': [
@@ -318,6 +326,92 @@ const BATCHES = {
     ['SplineEdit', 'Set Spline Point Type. ESplinePointType', mem('/Script/Engine.SplineComponent.SetSplinePointType', ['PointIndex:int', 'Type:enum:ESplinePointType', 'bUpdateSpline:bool=true'])],
     ['SplineEdit', 'Update Spline', mem('/Script/Engine.SplineComponent.UpdateSpline', [])],
   ],
+  '45': [
+    ['Render', 'Set Scalar Parameter Value on Materials (член PrimitiveComponent)', mem('PrimitiveComponent.SetScalarParameterValueOnMaterials', ['ParameterName:name', 'ParameterValue:single'])],
+    ['Render', 'Set Vector Parameter Value on Materials (член PrimitiveComponent)', mem('PrimitiveComponent.SetVectorParameterValueOnMaterials', ['ParameterName:name', 'ParameterValue:vector'])],
+    ['Render', 'Get Vector Parameter Value (член MaterialInstanceDynamic, pure)', mem('MaterialInstanceDynamic.K2_GetVectorParameterValue', ['ParameterName:name', '->', 'ReturnValue:linearcolor'], true)],
+    ['Render', 'Set Render Custom Depth (член PrimitiveComponent)', mem('PrimitiveComponent.SetRenderCustomDepth', ['bValue:bool'])],
+    ['Render', 'Set Custom Depth Stencil Value (член PrimitiveComponent)', mem('PrimitiveComponent.SetCustomDepthStencilValue', ['Value:int'])],
+    ['Render', 'Set Overlay Material (член MeshComponent)', mem('/Script/Engine.MeshComponent.SetOverlayMaterial', ['NewOverlayMaterial:object:/Script/Engine.MaterialInterface'])],
+    ['Render', 'Spawn Decal Attached (GameplayStatics). EAttachLocation', lib('GameplayStatics.SpawnDecalAttached', ['DecalMaterial:object:/Script/Engine.MaterialInterface', 'DecalSize:vector', 'AttachToComponent:object:SceneComponent', 'AttachPointName:name', 'Location:vector', 'Rotation:rotator', 'LocationType:enum:EAttachLocation', 'LifeSpan:single', '->', 'ReturnValue:object:/Script/Engine.DecalComponent'])],
+    ['Render', 'Set Fade Out (член DecalComponent)', mem('/Script/Engine.DecalComponent.SetFadeOut', ['StartDelay:single', 'Duration:single', 'DestroyOwnerAfterFade:bool=true'])],
+    ['Render', 'Set Decal Material (член DecalComponent)', mem('/Script/Engine.DecalComponent.SetDecalMaterial', ['NewDecalMaterial:object:/Script/Engine.MaterialInterface'])],
+    ['Light', 'Set Attenuation Radius (член PointLightComponent)', mem('/Script/Engine.PointLightComponent.SetAttenuationRadius', ['NewRadius:single'])],
+    ['Light', 'Set Source Radius (член PointLightComponent)', mem('/Script/Engine.PointLightComponent.SetSourceRadius', ['bNewValue:single'])],
+    ['Light', 'Set Inner Cone Angle (член SpotLightComponent)', mem('/Script/Engine.SpotLightComponent.SetInnerConeAngle', ['NewInnerConeAngle:single'])],
+    ['Light', 'Set Outer Cone Angle (член SpotLightComponent)', mem('/Script/Engine.SpotLightComponent.SetOuterConeAngle', ['NewOuterConeAngle:single'])],
+    ['Light', 'Set Cast Shadows (член LightComponentBase)', mem('/Script/Engine.LightComponentBase.SetCastShadows', ['bNewValue:bool'])],
+    ['Physics', 'Set Linear Damping (член PrimitiveComponent)', mem('PrimitiveComponent.SetLinearDamping', ['InDamping:single'])],
+    ['Physics', 'Set Angular Damping (член PrimitiveComponent)', mem('PrimitiveComponent.SetAngularDamping', ['InDamping:single'])],
+    ['Physics', 'Add Radial Impulse (член PrimitiveComponent). ERadialImpulseFalloff', mem('PrimitiveComponent.AddRadialImpulse', ['Origin:vector', 'Radius:single', 'Strength:single', 'Falloff:enum:ERadialImpulseFalloff', 'bVelChange:bool'])],
+    ['Physics', 'Add Radial Force (член PrimitiveComponent)', mem('PrimitiveComponent.AddRadialForce', ['Origin:vector', 'Radius:single', 'Strength:single', 'Falloff:enum:ERadialImpulseFalloff', 'bAccelChange:bool'])],
+    ['Physics', 'Wake Rigid Body (член PrimitiveComponent)', mem('PrimitiveComponent.WakeRigidBody', ['BoneName:name'])],
+    ['Physics', 'Put Rigid Body to Sleep (член PrimitiveComponent)', mem('PrimitiveComponent.PutRigidBodyToSleep', ['BoneName:name'])],
+    ['Physics', 'Set Physics Angular Velocity in Degrees (член PrimitiveComponent)', mem('PrimitiveComponent.SetPhysicsAngularVelocityInDegrees', ['NewAngVel:vector', 'bAddToCurrent:bool', 'BoneName:name'])],
+    ['Physics', 'Get Center of Mass (член PrimitiveComponent, pure)', mem('PrimitiveComponent.GetCenterOfMass', ['BoneName:name', '->', 'ReturnValue:vector'], true)],
+    ['Physics', 'Fire Impulse (член RadialForceComponent)', mem('/Script/Engine.RadialForceComponent.FireImpulse', [])],
+    ['Constraint', 'Set Constrained Components (член PhysicsConstraintComponent)', mem('/Script/Engine.PhysicsConstraintComponent.SetConstrainedComponents', ['Component1:object:PrimitiveComponent', 'BoneName1:name', 'Component2:object:PrimitiveComponent', 'BoneName2:name'])],
+    ['Constraint', 'Break Constraint (член PhysicsConstraintComponent)', mem('/Script/Engine.PhysicsConstraintComponent.BreakConstraint', [])],
+    ['Constraint', 'Set Linear X Limit. ELinearConstraintMotion', mem('/Script/Engine.PhysicsConstraintComponent.SetLinearXLimit', ['ConstraintType:enum:ELinearConstraintMotion', 'LimitSize:single'])],
+    ['Constraint', 'Set Angular Swing 1 Limit. EAngularConstraintMotion', mem('/Script/Engine.PhysicsConstraintComponent.SetAngularSwing1Limit', ['MotionType:enum:EAngularConstraintMotion', 'Swing1LimitAngle:single'])],
+    ['Constraint', 'Set Linear Position Drive', mem('/Script/Engine.PhysicsConstraintComponent.SetLinearPositionDrive', ['bEnableDriveX:bool', 'bEnableDriveY:bool', 'bEnableDriveZ:bool'])],
+    ['Constraint', 'Set Angular Velocity Target', mem('/Script/Engine.PhysicsConstraintComponent.SetAngularVelocityTarget', ['InVelTarget:vector'])],
+    ['Grab', 'Grab Component at Location (член PhysicsHandleComponent)', mem('/Script/Engine.PhysicsHandleComponent.GrabComponentAtLocation', ['Component:object:PrimitiveComponent', 'InBoneName:name', 'GrabLocation:vector'])],
+    ['Grab', 'Grab Component at Location with Rotation', mem('/Script/Engine.PhysicsHandleComponent.GrabComponentAtLocationWithRotation', ['Component:object:PrimitiveComponent', 'InBoneName:name', 'Location:vector', 'Rotation:rotator'])],
+    ['Grab', 'Release Component', mem('/Script/Engine.PhysicsHandleComponent.ReleaseComponent', [])],
+    ['Grab', 'Set Target Location', mem('/Script/Engine.PhysicsHandleComponent.SetTargetLocation', ['NewLocation:vector'])],
+    ['Grab', 'Set Target Location and Rotation', mem('/Script/Engine.PhysicsHandleComponent.SetTargetLocationAndRotation', ['NewLocation:vector', 'NewRotation:rotator'])],
+    ['Grab', 'Get Grabbed Component (pure)', mem('/Script/Engine.PhysicsHandleComponent.GetGrabbedComponent', ['->', 'ReturnValue:object:PrimitiveComponent'], true)],
+    ['String', 'Starts With (KismetStringLibrary, pure). ESearchCase', lib('KismetStringLibrary.StartsWith', ['SourceString:string', 'InPrefix:string', 'SearchCase:enum:ESearchCase', '->', 'ReturnValue:bool'], true)],
+    ['String', 'Ends With (pure)', lib('KismetStringLibrary.EndsWith', ['SourceString:string', 'InSuffix:string', 'SearchCase:enum:ESearchCase', '->', 'ReturnValue:bool'], true)],
+    ['String', 'Split (pure). Выходы Left/Right, ESearchDir', lib('KismetStringLibrary.Split', ['SourceString:string', 'InStr:string', 'SearchCase:enum:ESearchCase', 'SearchDir:enum:ESearchDir', '->', 'LeftS:string', 'RightS:string', 'ReturnValue:bool'], true)],
+    ['String', 'Reverse (pure)', lib('KismetStringLibrary.Reverse', ['SourceString:string', '->', 'ReturnValue:string'], true)],
+    ['String', 'Is Numeric (pure)', lib('KismetStringLibrary.IsNumeric', ['SourceString:string', '->', 'ReturnValue:bool'], true)],
+    ['String', 'String to Double — Conv_StringToDouble (pure)', lib('KismetStringLibrary.Conv_StringToDouble', ['InString:string', '->', 'ReturnValue:double'], true)],
+    ['String', 'Left Pad (pure)', lib('KismetStringLibrary.LeftPad', ['SourceString:string', 'ChCount:int', '->', 'ReturnValue:string'], true)],
+    ['String', 'Get Character as Number (pure)', lib('KismetStringLibrary.GetCharacterAsNumber', ['SourceString:string', 'Index:int', '->', 'ReturnValue:int'], true)],
+    ['Map', 'Map Add (BlueprintMapLibrary). Пины wildcard-Map', wild(lib('/Script/Engine.BlueprintMapLibrary.Map_Add', ['TargetMap:int', 'Key:int', 'Value:int']), { TargetMap: 'Map&', Key: '&!', Value: '&!' })],
+    ['Map', 'Map Remove', wild(lib('/Script/Engine.BlueprintMapLibrary.Map_Remove', ['TargetMap:int', 'Key:int', '->', 'ReturnValue:bool']), { TargetMap: 'Map&', Key: '&!' })],
+    ['Map', 'Map Find (pure). Выход Value + bool', wild(lib('/Script/Engine.BlueprintMapLibrary.Map_Find', ['TargetMap:int', 'Key:int', '->', 'Value:int', 'ReturnValue:bool'], true), { TargetMap: 'Map&!', Key: '&!', Value: '&' })],
+    ['Map', 'Map Contains (pure)', wild(lib('/Script/Engine.BlueprintMapLibrary.Map_Contains', ['TargetMap:int', 'Key:int', '->', 'ReturnValue:bool'], true), { TargetMap: 'Map&!', Key: '&!' })],
+    ['Map', 'Map Keys (pure)', wild(lib('/Script/Engine.BlueprintMapLibrary.Map_Keys', ['TargetMap:int', '->', 'Keys:int'], true), { TargetMap: 'Map&!', Keys: 'Array&' })],
+    ['Map', 'Map Values (pure)', wild(lib('/Script/Engine.BlueprintMapLibrary.Map_Values', ['TargetMap:int', '->', 'Values:int'], true), { TargetMap: 'Map&!', Values: 'Array&' })],
+    ['Map', 'Map Length (pure)', wild(lib('/Script/Engine.BlueprintMapLibrary.Map_Length', ['TargetMap:int', '->', 'ReturnValue:int'], true), { TargetMap: 'Map&!' })],
+    ['Map', 'Map Clear', wild(lib('/Script/Engine.BlueprintMapLibrary.Map_Clear', ['TargetMap:int']), { TargetMap: 'Map&' })],
+    ['Set', 'Set Add (BlueprintSetLibrary)', wild(lib('/Script/Engine.BlueprintSetLibrary.Set_Add', ['TargetSet:int', 'NewItem:int']), { TargetSet: 'Set&', NewItem: '&!' })],
+    ['Set', 'Set Add Items', wild(lib('/Script/Engine.BlueprintSetLibrary.Set_AddItems', ['TargetSet:int', 'NewItems:int']), { TargetSet: 'Set&', NewItems: 'Array&!' })],
+    ['Set', 'Set Remove', wild(lib('/Script/Engine.BlueprintSetLibrary.Set_Remove', ['TargetSet:int', 'Item:int', '->', 'ReturnValue:bool']), { TargetSet: 'Set&', Item: '&!' })],
+    ['Set', 'Set Contains (pure)', wild(lib('/Script/Engine.BlueprintSetLibrary.Set_Contains', ['TargetSet:int', 'ItemToFind:int', '->', 'ReturnValue:bool'], true), { TargetSet: 'Set&!', ItemToFind: '&!' })],
+    ['Set', 'Set Length (pure)', wild(lib('/Script/Engine.BlueprintSetLibrary.Set_Length', ['TargetSet:int', '->', 'ReturnValue:int'], true), { TargetSet: 'Set&!' })],
+    ['Set', 'Set To Array (pure)', wild(lib('/Script/Engine.BlueprintSetLibrary.Set_ToArray', ['A:int', '->', 'Result:int'], true), { A: 'Set&!', Result: 'Array&' })],
+    ['Set', 'Set Union (pure)', wild(lib('/Script/Engine.BlueprintSetLibrary.Set_Union', ['A:int', 'B:int', '->', 'Result:int'], true), { A: 'Set&!', B: 'Set&!', Result: 'Set&' })],
+    ['Set', 'Set Clear', wild(lib('/Script/Engine.BlueprintSetLibrary.Set_Clear', ['TargetSet:int']), { TargetSet: 'Set&' })],
+    ['UI', 'Set Is Checked (член CheckBox)', mem('/Script/UMG.CheckBox.SetIsChecked', ['InIsChecked:bool'])],
+    ['UI', 'Is Checked (член CheckBox, pure)', mem('/Script/UMG.CheckBox.IsChecked', ['->', 'ReturnValue:bool'], true)],
+    ['UI', 'Get Checked State (член CheckBox, pure). ECheckBoxState', mem('/Script/UMG.CheckBox.GetCheckedState', ['->', 'ReturnValue:enum:ECheckBoxState'], true)],
+    ['UI', 'Add Option (член ComboBoxString)', mem('/Script/UMG.ComboBoxString.AddOption', ['Option:string'])],
+    ['UI', 'Get Selected Option (член ComboBoxString, pure)', mem('/Script/UMG.ComboBoxString.GetSelectedOption', ['->', 'ReturnValue:string'], true)],
+    ['UI', 'Set Selected Option (член ComboBoxString)', mem('/Script/UMG.ComboBoxString.SetSelectedOption', ['Option:string'])],
+    ['UI', 'Clear Options (член ComboBoxString)', mem('/Script/UMG.ComboBoxString.ClearOptions', [])],
+    ['UI', 'Scroll to End (член ScrollBox)', mem('/Script/UMG.ScrollBox.ScrollToEnd', [])],
+    ['UI', 'Scroll to Start (член ScrollBox)', mem('/Script/UMG.ScrollBox.ScrollToStart', [])],
+    ['UI', 'Set Scroll Offset (член ScrollBox)', mem('/Script/UMG.ScrollBox.SetScrollOffset', ['NewScrollOffset:single'])],
+    ['UI', 'Get Scroll Offset (член ScrollBox, pure)', mem('/Script/UMG.ScrollBox.GetScrollOffset', ['->', 'ReturnValue:single'], true)],
+    ['UILayout', 'Add Child (член PanelWidget)', mem('/Script/UMG.PanelWidget.AddChild', ['Content:object:Widget', '->', 'ReturnValue:object:/Script/UMG.PanelSlot'])],
+    ['UILayout', 'Clear Children (член PanelWidget)', mem('/Script/UMG.PanelWidget.ClearChildren', [])],
+    ['UILayout', 'Get Children Count (член PanelWidget, pure)', mem('/Script/UMG.PanelWidget.GetChildrenCount', ['->', 'ReturnValue:int'], true)],
+    ['UILayout', 'Slot as Canvas Slot (WidgetLayoutLibrary, pure)', lib('/Script/UMG.WidgetLayoutLibrary.SlotAsCanvasSlot', ['Widget:object:Widget', '->', 'ReturnValue:object:/Script/UMG.CanvasPanelSlot'], true)],
+    ['UILayout', 'Set Size (член CanvasPanelSlot)', mem('/Script/UMG.CanvasPanelSlot.SetSize', ['InSize:vector2d'])],
+    ['UILayout', 'Set Alignment (член CanvasPanelSlot)', mem('/Script/UMG.CanvasPanelSlot.SetAlignment', ['InAlignment:vector2d'])],
+    ['UILayout', 'Set ZOrder (член CanvasPanelSlot)', mem('/Script/UMG.CanvasPanelSlot.SetZOrder', ['InZOrder:int'])],
+    ['UILayout', 'Set Auto Size (член CanvasPanelSlot)', mem('/Script/UMG.CanvasPanelSlot.SetAutoSize', ['InbAutoSize:bool'])],
+    ['UILayout', 'Set Render Transform Angle (член Widget)', mem('Widget.SetRenderTransformAngle', ['Angle:single'])],
+    ['UILayout', 'Set Tool Tip Text (член Widget)', mem('Widget.SetToolTipText', ['InToolTipText:text'])],
+    ['UILayout', 'Set Keyboard Focus (член Widget)', mem('Widget.SetKeyboardFocus', [])],
+    ['UILayout', 'Has Keyboard Focus (член Widget, pure)', mem('Widget.HasKeyboardFocus', ['->', 'ReturnValue:bool'], true)],
+    ['UILayout', 'Set Color and Opacity (член Image)', mem('/Script/UMG.Image.SetColorAndOpacity', ['InColorAndOpacity:linearcolor'])],
+    ['UILayout', 'Set Justification (член TextBlock). ETextJustify', mem('/Script/UMG.TextBlock.SetJustification', ['InJustification:enum:ETextJustify'])],
+  ],
 };
 
 const list = BATCHES[batch];
@@ -343,7 +437,8 @@ for (const topic of topics) {
 }
 // fitComment(текст, ноды) возвращает НОВЫЙ коммент по габаритам нод (R36-фикс: раньше коммент создавался минимальным,
 // а результат fitComment терялся). Верхний отступ больше — над каждой нодой висит пузырь.
-const cm = fitComment(`R${batch}: пробы новых нод (${list.length}). Над каждой нодой — пузырь с её названием. Пришлите copy-back тех, что не встали или встали неправильно.`, nodes, 64, 176, 96);
+const perRow = topics.map(t => `${t} ${list.filter(p => p[0] === t).length}`).join(', ');
+const cm = fitComment(`R${batch}: пробы новых нод (${list.length}). Ряды сверху вниз: ${perRow}. Над каждой нодой — пузырь с её названием. Пришлите copy-back тех, что не встали или встали неправильно.`, nodes, 64, 176, 96);
 const text = generateUEText([cm, ...nodes]);
 const v = validateStrict(text);
 if (!STDOUT) console.log(`R${batch}: нод=${nodes.length} тем=${topics.length} STRICT errors=${v.errors.length} warnings=${v.warnings.length}`);

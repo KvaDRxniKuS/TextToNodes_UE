@@ -182,6 +182,14 @@ const ENUMS_FULL = {
   ESplinePointType: `"/Script/CoreUObject.Enum'/Script/Engine.ESplinePointType'"`, // confirmed R44
   EAnimationMode: `"/Script/CoreUObject.Enum'/Script/Engine.EAnimationMode'"`, // confirmed R44
   ECameraProjectionMode: `"/Script/CoreUObject.Enum'/Script/Engine.ECameraProjectionMode'"`, // confirmed R44
+  EAttachLocation: `"/Script/CoreUObject.Enum'/Script/Engine.EAttachLocation'"`, // pre R45
+  ERadialImpulseFalloff: `"/Script/CoreUObject.Enum'/Script/Engine.ERadialImpulseFalloff'"`, // pre R45
+  ELinearConstraintMotion: `"/Script/CoreUObject.Enum'/Script/Engine.ELinearConstraintMotion'"`, // pre R45
+  EAngularConstraintMotion: `"/Script/CoreUObject.Enum'/Script/Engine.EAngularConstraintMotion'"`, // pre R45
+  ESearchCase: `"/Script/CoreUObject.Enum'/Script/CoreUObject.ESearchCase'"`, // pre R45
+  ESearchDir: `"/Script/CoreUObject.Enum'/Script/CoreUObject.ESearchDir'"`, // pre R45
+  ECheckBoxState: `"/Script/CoreUObject.Enum'/Script/SlateCore.ECheckBoxState'"`, // pre R45
+  ETextJustify: `"/Script/CoreUObject.Enum'/Script/Slate.ETextJustify'"`, // pre R45
   EMoveComponentAction: `"/Script/CoreUObject.Enum'/Script/Engine.EMoveComponentAction'"`, // R34 copy-back: MoveComponentTo
   EDrawDebugSceneDepthPriorityGroup: `"/Script/CoreUObject.Enum'/Script/Engine.EDrawDebugSceneDepthPriorityGroup'"`, // R33 copy-back: DrawDebugArrow.DepthPriority
   ECollisionResponse: `"/Script/CoreUObject.Enum'/Script/Engine.ECollisionResponse'"`, // round29-pre
@@ -209,6 +217,14 @@ const ENUMS_SHORT = {
   ESplinePointType: `Enum'"/Script/Engine.ESplinePointType"'`,
   EAnimationMode: `Enum'"/Script/Engine.EAnimationMode"'`,
   ECameraProjectionMode: `Enum'"/Script/Engine.ECameraProjectionMode"'`,
+  EAttachLocation: `Enum'"/Script/Engine.EAttachLocation"'`,
+  ERadialImpulseFalloff: `Enum'"/Script/Engine.ERadialImpulseFalloff"'`,
+  ELinearConstraintMotion: `Enum'"/Script/Engine.ELinearConstraintMotion"'`,
+  EAngularConstraintMotion: `Enum'"/Script/Engine.EAngularConstraintMotion"'`,
+  ESearchCase: `Enum'"/Script/CoreUObject.ESearchCase"'`,
+  ESearchDir: `Enum'"/Script/CoreUObject.ESearchDir"'`,
+  ECheckBoxState: `Enum'"/Script/SlateCore.ECheckBoxState"'`,
+  ETextJustify: `Enum'"/Script/Slate.ETextJustify"'`,
   EMoveComponentAction: `Enum'"/Script/Engine.EMoveComponentAction"'`,
   EDrawDebugSceneDepthPriorityGroup: `Enum'"/Script/Engine.EDrawDebugSceneDepthPriorityGroup"'`,
   ECollisionResponse: `Enum'"/Script/Engine.ECollisionResponse"'`,

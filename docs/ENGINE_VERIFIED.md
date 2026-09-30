@@ -1173,3 +1173,10 @@ R41 зарегистрирован: реестр +17, всего 551. В UE_LIBS
 - **Spline / SplineEdit:** 13 запросов (…AtDistanceAlongSpline, Length, NumberOfPoints, FindClosest…) и 6 правок (AddSplinePoint, ClearSplinePoints, SetLocationAtSplinePoint, SetClosedLoop, SetSplinePointType, UpdateSpline).
 - Энамы pre: ESplineCoordinateSpace, ESplinePointType, EAnimationMode, ECameraProjectionMode. При регистрации нужны UE_LIBS: SpringArmComponent, SplineComponent.
 - **Вердикт R44:** пользователь сверил число нод по рядам (9, 6, 7, 3, 13, 6 = 44), ошибок вставки и компиляции нет. Реестр +44; UE_LIBS + SpringArmComponent, SplineComponent; 4 энама подтверждены. Файл пробы удалён, воспроизвести: `gen-probe --batch 44 --stdout`.
+
+## R45 — рендер/свет, физика/constraint/grab, строки, Map/Set, UI (2026-09-30) — ждёт вердикта
+`sweep/probes/r45-probe.txt` (`node tools/gen-probe.mjs --batch 45`), 84 ноды, 10 рядов, STRICT без ошибок.
+Ряды сверху вниз: Render 9, Light 5, Physics 9, Constraint 6, Grab 6, String 8, Map 8, Set 8, UI 11, UILayout 14 — теперь это пишется и в общий комментарий пробы (сверка по числу нод).
+- Map/Set — `BlueprintMapLibrary` / `BlueprintSetLibrary`, контейнерные wildcard-пины (гипотеза: K2Node_CallFunction, Map-пин с `PinValueType=(TerminalCategory="wildcard")`; сериализатор научился `p.valueType`).
+- Энамы pre: EAttachLocation, ERadialImpulseFalloff, ELinearConstraintMotion, EAngularConstraintMotion, ESearchCase, ESearchDir, ECheckBoxState, ETextJustify.
+- Ноды виджетов (UI, UILayout) — вставлять в Widget BP.
