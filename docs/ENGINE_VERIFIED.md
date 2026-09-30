@@ -1296,3 +1296,4 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 
 ## 2026-10-01 — R54 проба: GameMode / настройки / UI / HUD (ждёт вердикта)
 `gen-probe --batch 54` → `sweep/probes/r54-probe.txt`, 35 нод. Ряды: GameMode 3, Settings 15, UI 6, UIList 7, HUD 4. UE_LIBS += WidgetSwitcher, ListView, Border (UMG), GameUserSettings (Engine).
+- R54 вердикт: +33 в реестр (1204). Не найдены: `GameModeBase.MustSpectate`, `HUD.ShowDebug`, `HUD.RemoveAllDebugStrings`. Замены из copy-back (`sweep/copyback/r54-ui-hud.txt`): `ListView.BP_SetListItems` (InListItems — const ref array, ignored) и `ListView.BP_SetSelectedItem` вместо SetListItems/SetSelectedItem; `KismetSystemLibrary.FlushDebugStrings` (движок ставит EnabledState=DevelopmentOnly сам); вместо ShowDebug — переменная `HUD.bShowDebugInfo` (Get через `createMemberVar('get','HUD.bShowDebugInfo','bool')`). Проба удалена.

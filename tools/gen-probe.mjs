@@ -936,11 +936,12 @@ const BATCHES = {
     ['Stimuli', 'Pawn Make Noise (член Pawn)', mem('Pawn.PawnMakeNoise', ['Loudness:float', 'NoiseLocation:vector', 'bUseNoiseMakerLocation:bool=true', 'NoiseMaker:object:Actor'])],
   ],
   '54': [
+    // R54 вердикт: MustSpectate, HUD.ShowDebug, HUD.RemoveAllDebugStrings не найдены. SetListItems/SetSelectedItem → BP_SetListItems/BP_SetSelectedItem,
+    // RemoveAllDebugStrings → KismetSystemLibrary.FlushDebugStrings, вместо ShowDebug — переменная HUD.bShowDebugInfo (createMemberVar). copy-back: sweep/copyback/r54-ui-hud.txt
     // R54: GameMode / настройки / UI / HUD — только отсутствующее в реестре. BlueprintNativeEvent-only (SpawnDefaultPawnFor,
     // ChoosePlayerStart, CanSpectate…) не берём — их не вызвать нодой. Enum/struct-пины без референса (EMouseCursor, Margin, SlateColor) — позже.
     ['GameMode', 'Start Play (член GameModeBase)', mem('GameModeBase.StartPlay', [])],
     ['GameMode', 'Get Default Pawn Class For Controller (член GameModeBase, pure)', mem('GameModeBase.GetDefaultPawnClassForController', ['InController:object:Controller', '->', 'ReturnValue:class:Pawn'], true)],
-    ['GameMode', 'Must Spectate (член GameModeBase)', mem('GameModeBase.MustSpectate', ['NewPlayerController:object:PlayerController', '->', 'ReturnValue:bool'])],
     ['Settings', 'Get Game User Settings (GameUserSettings, static)', lib('GameUserSettings.GetGameUserSettings', ['->', 'ReturnValue:object:GameUserSettings'])],
     ['Settings', 'Apply Settings (член GameUserSettings)', mem('GameUserSettings.ApplySettings', ['bCheckForCommandLineOverrides:bool'])],
     ['Settings', 'Save Settings (член GameUserSettings)', mem('GameUserSettings.SaveSettings', [])],
@@ -967,11 +968,10 @@ const BATCHES = {
     ['UIList', 'Set Active Widget (член WidgetSwitcher)', mem('/Script/UMG.WidgetSwitcher.SetActiveWidget', ['Widget:object:/Script/UMG.Widget'])],
     ['UIList', 'Add Item (член ListView)', mem('/Script/UMG.ListView.AddItem', ['Item:object:/Script/CoreUObject.Object'])],
     ['UIList', 'Clear List Items (член ListView)', mem('/Script/UMG.ListView.ClearListItems', [])],
-    ['UIList', 'Set List Items (член ListView)', mem('/Script/UMG.ListView.SetListItems', ['InListItems:object:/Script/CoreUObject.Object[]'])],
-    ['UIList', 'Set Selected Item (член ListView)', mem('/Script/UMG.ListView.SetSelectedItem', ['Item:object:/Script/CoreUObject.Object'])],
+    ['UIList', 'Set List Items (член ListView)', pf(mem('/Script/UMG.ListView.BP_SetListItems', ['InListItems:object:/Script/CoreUObject.Object[]']), { InListItems: '&!~' })],
+    ['UIList', 'Set Selected Item (член ListView)', mem('/Script/UMG.ListView.BP_SetSelectedItem', ['Item:object:/Script/CoreUObject.Object'])],
+    ['HUD', 'Flush Debug Strings (KismetSystemLibrary; замена HUD.RemoveAllDebugStrings, R54 copy-back)', lib('KismetSystemLibrary.FlushDebugStrings', [])],
     ['HUD', 'Deproject (член HUD)', mem('HUD.Deproject', ['ScreenX:float', 'ScreenY:float', '->', 'WorldPosition:vector', 'WorldDirection:vector'])],
-    ['HUD', 'Show Debug (член HUD)', mem('HUD.ShowDebug', ['DebugType:name'])],
-    ['HUD', 'Remove All Debug Strings (член HUD)', mem('HUD.RemoveAllDebugStrings', [])],
     ['HUD', 'Get Actors In Selection Rectangle (член HUD)', mem('HUD.GetActorsInSelectionRectangle', ['ClassFilter:class:Actor', 'FirstPoint:vector2d', 'SecondPoint:vector2d', 'bIncludeNonCollidingComponents:bool=true', 'bActorMustBeFullyEnclosed:bool=false', '->', 'OutActors:object:Actor[]'])],
   ],
 };

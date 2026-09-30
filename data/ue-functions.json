@@ -44396,5 +44396,1164 @@
   "verified": true,
   "desc": "Pawn Make Noise",
   "probe": "R53 проба (Stimuli) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Pawn Make Noise (член Pawn)"
+ },
+ {
+  "id": "StartPlay",
+  "title": "Start Play",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "StartPlay",
+  "lib": "GameModeBase",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameModeBase"
+   }
+  ],
+  "verified": true,
+  "desc": "Start Play",
+  "probe": "R54 проба (GameMode) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Start Play (член GameModeBase)"
+ },
+ {
+  "id": "GetDefaultPawnClassForController",
+  "title": "Get Default Pawn Class For Controller",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetDefaultPawnClassForController",
+  "lib": "GameModeBase",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameModeBase"
+   },
+   {
+    "name": "InController",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Controller"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "class",
+    "object": "/Script/Engine.Pawn"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Default Pawn Class For Controller",
+  "probe": "R54 проба (GameMode) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Default Pawn Class For Controller (член GameModeBase, pure)"
+ },
+ {
+  "id": "GetGameUserSettings",
+  "title": "Get Game User Settings",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetGameUserSettings",
+  "lib": "GameUserSettings",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.GameUserSettings"
+   }
+  ],
+  "verified": true,
+  "desc": "Get Game User Settings",
+  "probe": "R54 проба (Settings) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Game User Settings (GameUserSettings, static)"
+ },
+ {
+  "id": "ApplySettings",
+  "title": "Apply Settings",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ApplySettings",
+  "lib": "GameUserSettings",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameUserSettings"
+   },
+   {
+    "name": "bCheckForCommandLineOverrides",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Apply Settings",
+  "probe": "R54 проба (Settings) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Apply Settings (член GameUserSettings)"
+ },
+ {
+  "id": "SaveSettings",
+  "title": "Save Settings",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SaveSettings",
+  "lib": "GameUserSettings",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameUserSettings"
+   }
+  ],
+  "verified": true,
+  "desc": "Save Settings",
+  "probe": "R54 проба (Settings) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Save Settings (член GameUserSettings)"
+ },
+ {
+  "id": "LoadSettings",
+  "title": "Load Settings",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "LoadSettings",
+  "lib": "GameUserSettings",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameUserSettings"
+   },
+   {
+    "name": "bForceReload",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Load Settings",
+  "probe": "R54 проба (Settings) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Load Settings (член GameUserSettings)"
+ },
+ {
+  "id": "SetVSyncEnabled",
+  "title": "Set VSync Enabled",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetVSyncEnabled",
+  "lib": "GameUserSettings",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameUserSettings"
+   },
+   {
+    "name": "bEnable",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set VSync Enabled",
+  "probe": "R54 проба (Settings) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set VSync Enabled (член GameUserSettings)"
+ },
+ {
+  "id": "IsVSyncEnabled",
+  "title": "Is VSync Enabled",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsVSyncEnabled",
+  "lib": "GameUserSettings",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameUserSettings"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is VSync Enabled",
+  "probe": "R54 проба (Settings) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is VSync Enabled (член GameUserSettings, pure)"
+ },
+ {
+  "id": "SetOverallScalabilityLevel",
+  "title": "Set Overall Scalability Level",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetOverallScalabilityLevel",
+  "lib": "GameUserSettings",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameUserSettings"
+   },
+   {
+    "name": "Value",
+    "dir": "Input",
+    "cat": "int"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Overall Scalability Level",
+  "probe": "R54 проба (Settings) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Overall Scalability Level (член GameUserSettings)"
+ },
+ {
+  "id": "GetOverallScalabilityLevel",
+  "title": "Get Overall Scalability Level",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetOverallScalabilityLevel",
+  "lib": "GameUserSettings",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameUserSettings"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Overall Scalability Level",
+  "probe": "R54 проба (Settings) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Overall Scalability Level (член GameUserSettings, pure)"
+ },
+ {
+  "id": "SetFrameRateLimit",
+  "title": "Set Frame Rate Limit",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetFrameRateLimit",
+  "lib": "GameUserSettings",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameUserSettings"
+   },
+   {
+    "name": "NewLimit",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Frame Rate Limit",
+  "probe": "R54 проба (Settings) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Frame Rate Limit (член GameUserSettings)"
+ },
+ {
+  "id": "GetFrameRateLimit",
+  "title": "Get Frame Rate Limit",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetFrameRateLimit",
+  "lib": "GameUserSettings",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameUserSettings"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Frame Rate Limit",
+  "probe": "R54 проба (Settings) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Frame Rate Limit (член GameUserSettings, pure)"
+ },
+ {
+  "id": "RunHardwareBenchmark",
+  "title": "Run Hardware Benchmark",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "RunHardwareBenchmark",
+  "lib": "GameUserSettings",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameUserSettings"
+   },
+   {
+    "name": "WorkScale",
+    "dir": "Input",
+    "cat": "int",
+    "dv": "10",
+    "autoDv": ""
+   },
+   {
+    "name": "CPUMultiplier",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "1.0",
+    "autoDv": ""
+   },
+   {
+    "name": "GPUMultiplier",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "1.0",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Run Hardware Benchmark",
+  "probe": "R54 проба (Settings) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Run Hardware Benchmark (член GameUserSettings)"
+ },
+ {
+  "id": "ApplyHardwareBenchmarkResults",
+  "title": "Apply Hardware Benchmark Results",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ApplyHardwareBenchmarkResults",
+  "lib": "GameUserSettings",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameUserSettings"
+   }
+  ],
+  "verified": true,
+  "desc": "Apply Hardware Benchmark Results",
+  "probe": "R54 проба (Settings) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Apply Hardware Benchmark Results (член GameUserSettings)"
+ },
+ {
+  "id": "ConfirmVideoMode",
+  "title": "Confirm Video Mode",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ConfirmVideoMode",
+  "lib": "GameUserSettings",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameUserSettings"
+   }
+  ],
+  "verified": true,
+  "desc": "Confirm Video Mode",
+  "probe": "R54 проба (Settings) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Confirm Video Mode (член GameUserSettings)"
+ },
+ {
+  "id": "RevertVideoMode",
+  "title": "Revert Video Mode",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "RevertVideoMode",
+  "lib": "GameUserSettings",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameUserSettings"
+   }
+  ],
+  "verified": true,
+  "desc": "Revert Video Mode",
+  "probe": "R54 проба (Settings) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Revert Video Mode (член GameUserSettings)"
+ },
+ {
+  "id": "SetResolutionScaleNormalized",
+  "title": "Set Resolution Scale Normalized",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetResolutionScaleNormalized",
+  "lib": "GameUserSettings",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameUserSettings"
+   },
+   {
+    "name": "NewScaleNormalized",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Resolution Scale Normalized",
+  "probe": "R54 проба (Settings) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Resolution Scale Normalized (член GameUserSettings)"
+ },
+ {
+  "id": "SetUserFocus",
+  "title": "Set User Focus",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetUserFocus",
+  "lib": "Widget",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Widget"
+   },
+   {
+    "name": "PlayerController",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   }
+  ],
+  "verified": true,
+  "desc": "Set User Focus",
+  "probe": "R54 проба (UI) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set User Focus (член Widget)"
+ },
+ {
+  "id": "HasAnyUserFocus",
+  "title": "Has Any User Focus",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "HasAnyUserFocus",
+  "lib": "Widget",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Widget"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Has Any User Focus",
+  "probe": "R54 проба (UI) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Has Any User Focus (член Widget, pure)"
+ },
+ {
+  "id": "SetOpacity",
+  "title": "Set Opacity",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetOpacity",
+  "lib": "Image",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Image"
+   },
+   {
+    "name": "InOpacity",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Opacity",
+  "probe": "R54 проба (UI) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Opacity (член Image)"
+ },
+ {
+  "id": "SetStepSize",
+  "title": "Set Step Size",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetStepSize",
+  "lib": "Slider",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Slider"
+   },
+   {
+    "name": "InValue",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Step Size",
+  "probe": "R54 проба (UI) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Step Size (член Slider)"
+ },
+ {
+  "id": "RemoveChild",
+  "title": "Remove Child",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "RemoveChild",
+  "lib": "PanelWidget",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.PanelWidget"
+   },
+   {
+    "name": "Content",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Widget"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Remove Child",
+  "probe": "R54 проба (UI) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Remove Child (член PanelWidget)"
+ },
+ {
+  "id": "SetContentColorAndOpacity",
+  "title": "Set Content Color And Opacity",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetContentColorAndOpacity",
+  "lib": "Border",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Border"
+   },
+   {
+    "name": "InContentColorAndOpacity",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "Set Content Color And Opacity",
+  "probe": "R54 проба (UI) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Content Color And Opacity (член Border)"
+ },
+ {
+  "id": "SetActiveWidgetIndex",
+  "title": "Set Active Widget Index",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetActiveWidgetIndex",
+  "lib": "WidgetSwitcher",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.WidgetSwitcher"
+   },
+   {
+    "name": "Index",
+    "dir": "Input",
+    "cat": "int"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Active Widget Index",
+  "probe": "R54 проба (UIList) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Active Widget Index (член WidgetSwitcher)"
+ },
+ {
+  "id": "GetActiveWidgetIndex",
+  "title": "Get Active Widget Index",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetActiveWidgetIndex",
+  "lib": "WidgetSwitcher",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.WidgetSwitcher"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Active Widget Index",
+  "probe": "R54 проба (UIList) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Active Widget Index (член WidgetSwitcher, pure)"
+ },
+ {
+  "id": "SetActiveWidget",
+  "title": "Set Active Widget",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetActiveWidget",
+  "lib": "WidgetSwitcher",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.WidgetSwitcher"
+   },
+   {
+    "name": "Widget",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Widget"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Active Widget",
+  "probe": "R54 проба (UIList) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Active Widget (член WidgetSwitcher)"
+ },
+ {
+  "id": "AddItem",
+  "title": "Add Item",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AddItem",
+  "lib": "ListView",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.ListView"
+   },
+   {
+    "name": "Item",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object"
+   }
+  ],
+  "verified": true,
+  "desc": "Add Item",
+  "probe": "R54 проба (UIList) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Add Item (член ListView)"
+ },
+ {
+  "id": "ClearListItems",
+  "title": "Clear List Items",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ClearListItems",
+  "lib": "ListView",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.ListView"
+   }
+  ],
+  "verified": true,
+  "desc": "Clear List Items",
+  "probe": "R54 проба (UIList) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Clear List Items (член ListView)"
+ },
+ {
+  "id": "BP_SetListItems",
+  "title": "BP Set List Items",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "BP_SetListItems",
+  "lib": "ListView",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.ListView"
+   },
+   {
+    "name": "InListItems",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object",
+    "const": true,
+    "ref": true,
+    "container": "Array",
+    "ignored": true
+   }
+  ],
+  "verified": true,
+  "desc": "Set List Items",
+  "probe": "R54 проба (UIList) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set List Items (член ListView)"
+ },
+ {
+  "id": "BP_SetSelectedItem",
+  "title": "BP Set Selected Item",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "BP_SetSelectedItem",
+  "lib": "ListView",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.ListView"
+   },
+   {
+    "name": "Item",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Selected Item",
+  "probe": "R54 проба (UIList) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Selected Item (член ListView)"
+ },
+ {
+  "id": "FlushDebugStrings",
+  "title": "Flush Debug Strings",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "FlushDebugStrings",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   }
+  ],
+  "verified": true,
+  "desc": "Flush Debug Strings",
+  "probe": "R54 проба (HUD) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Flush Debug Strings (KismetSystemLibrary; замена HUD.RemoveAllDebugStrings, R54 copy-back)"
+ },
+ {
+  "id": "Deproject",
+  "title": "Deproject",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Deproject",
+  "lib": "HUD",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.HUD"
+   },
+   {
+    "name": "ScreenX",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "ScreenY",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "WorldPosition",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   },
+   {
+    "name": "WorldDirection",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "verified": true,
+  "desc": "Deproject",
+  "probe": "R54 проба (HUD) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Deproject (член HUD)"
+ },
+ {
+  "id": "GetActorsInSelectionRectangle",
+  "title": "Get Actors In Selection Rectangle",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetActorsInSelectionRectangle",
+  "lib": "HUD",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.HUD"
+   },
+   {
+    "name": "ClassFilter",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "FirstPoint",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector2D",
+    "const": true
+   },
+   {
+    "name": "SecondPoint",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector2D",
+    "const": true
+   },
+   {
+    "name": "bIncludeNonCollidingComponents",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   },
+   {
+    "name": "bActorMustBeFullyEnclosed",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false",
+    "autoDv": ""
+   },
+   {
+    "name": "OutActors",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.Actor",
+    "container": "Array"
+   }
+  ],
+  "verified": true,
+  "desc": "Get Actors In Selection Rectangle",
+  "probe": "R54 проба (HUD) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Actors In Selection Rectangle (член HUD)"
  }
 ]
