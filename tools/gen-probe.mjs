@@ -1,0 +1,120 @@
+#!/usr/bin/env node
+// tools/gen-probe.mjs — пробы новых нод для проверки в UE (R36+).
+//
+// Порядок работы (решение пользователя 2026-09-30): генератор сам собирает нужные ноды, у КАЖДОЙ — открытый
+// пузырь-комментарий «что это за нода» (bCommentBubbleVisible=True + NodeComment). Пользователь вставляет файл в UE
+// и присылает copy-back только тех нод, что не встали или встали неправильно; остальные считаются подтверждёнными.
+//
+// Ноды без проводов, раскладка — сетка по темам (без расстановщика: связей нет). GUID детерминированы
+// (seedGuids), поэтому повторный запуск даёт тот же файл; --check сверяет с файлом на диске.
+//
+// Запуск: node tools/gen-probe.mjs [--batch 36] [--check]
+
+import fs from 'node:fs';
+import { createFromEntry, createComment, fitComment, estNodeWidth, estNodeHeight, createMacroInstance } from '../src/generator.js';
+import { generateUEText, seedGuids } from '../src/parser.js';
+import { validateStrict } from '../src/validate.js';
+import { createCall, createAddComponentByClass } from '../src/modules.js';
+
+const args = process.argv.slice(2);
+const batch = (args[args.indexOf('--batch') + 1] && args.includes('--batch')) ? args[args.indexOf('--batch') + 1] : '36';
+const CHECK = args.includes('--check');
+
+// Шорткаты: статическая функция библиотеки / член класса. Слова пинов — как в createCall: «Имя:тип[=значение]», «->».
+const lib = (key, words, pure = false) => () => createCall(key, words, { pure, isStatic: true });
+const mem = (key, words, pure = false) => () => createCall(key, words, { pure });
+const macro = (graph, pins) => () => createMacroInstance({ id: graph, title: graph, macro: { graph }, pins });
+
+/* Пакеты проб. Каждая проба: [тема, текст пузыря, фабрика]. Текст пузыря — что за нода и чего ждём. */
+const BATCHES = {
+  '36': [
+    // 4 — Blueprint Interfaces (Message-ноды требуют ассет интерфейса — только Does Implement)
+    ['Interfaces', 'Does Implement Interface (KismetSystemLibrary, pure). Ждём: bool-выход, пин Interface', lib('KismetSystemLibrary.DoesImplementInterface', ['TestObject:object:/Script/CoreUObject.Object', 'Interface:class:/Script/CoreUObject.Interface', '->', 'ReturnValue:bool'], true)],
+    // 5 — циклы (макросы StandardMacros; GUID графа неизвестен — проверяем, резолвит ли UE по имени)
+    ['Loops', 'ForEachLoopWithBreak (макрос, GUID графа не известен — узнаём, найдёт ли UE по имени)', macro('ForEachLoopWithBreak', [
+      { name: 'Exec', dir: 'Input', cat: 'exec' }, { name: 'Array', dir: 'Input', cat: 'wildcard', container: 'Array' }, { name: 'Break', dir: 'Input', cat: 'exec' },
+      { name: 'LoopBody', dir: 'Output', cat: 'exec' }, { name: 'Array Element', dir: 'Output', cat: 'wildcard' }, { name: 'Array Index', dir: 'Output', cat: 'int' }, { name: 'Completed', dir: 'Output', cat: 'exec' }])],
+    ['Loops', 'ReverseForEachLoop (макрос, GUID графа не известен)', macro('ReverseForEachLoop', [
+      { name: 'Exec', dir: 'Input', cat: 'exec' }, { name: 'Array', dir: 'Input', cat: 'wildcard', container: 'Array' },
+      { name: 'LoopBody', dir: 'Output', cat: 'exec' }, { name: 'Array Element', dir: 'Output', cat: 'wildcard' }, { name: 'Array Index', dir: 'Output', cat: 'int' }, { name: 'Completed', dir: 'Output', cat: 'exec' }])],
+    // 7 — Save Game (Create/Save/Load/DoesExist уже VERIFIED в реестре — не повторяем)
+    ['SaveGame', 'Delete Game in Slot (GameplayStatics)', lib('GameplayStatics.DeleteGameInSlot', ['SlotName:string', 'UserIndex:int', '->', 'ReturnValue:bool'])],
+    // 8 — Data Table (Get Data Table Row — особая K2-нода, отдельно)
+    ['DataTable', 'Get Data Table Row Names (DataTableFunctionLibrary). Ждём: Table → массив Name', lib('DataTableFunctionLibrary.GetDataTableRowNames', ['Table:object:DataTable', '->', 'OutRowNames:name[]'])],
+    ['DataTable', 'Does Data Table Row Exist (DataTableFunctionLibrary, pure)', lib('DataTableFunctionLibrary.DoesDataTableRowExist', ['Table:object:DataTable', 'RowName:name', '->', 'ReturnValue:bool'], true)],
+    // 9 — AI (AI MoveTo — отдельный async-узел)
+    ['AI', 'Get AI Controller (AIBlueprintHelperLibrary, pure)', lib('/Script/AIModule.AIBlueprintHelperLibrary.GetAIController', ['ControlledActor:object:Actor', '->', 'ReturnValue:object:/Script/AIModule.AIController'], true)],
+    ['AI', 'Simple Move to Location (AIBlueprintHelperLibrary)', lib('/Script/AIModule.AIBlueprintHelperLibrary.SimpleMoveToLocation', ['Controller:object:Controller', 'Goal:vector'])],
+    ['AI', 'Run Behavior Tree (член AIController)', mem('/Script/AIModule.AIController.RunBehaviorTree', ['BTAsset:object:/Script/AIModule.BehaviorTree', '->', 'ReturnValue:bool'])],
+    ['AI', 'Get Blackboard (AIBlueprintHelperLibrary, pure)', lib('/Script/AIModule.AIBlueprintHelperLibrary.GetBlackboard', ['Target:object:Actor', '->', 'ReturnValue:object:/Script/AIModule.BlackboardComponent'], true)],
+    ['AI', 'Set Value as Vector (член BlackboardComponent)', mem('/Script/AIModule.BlackboardComponent.SetValueAsVector', ['KeyName:name', 'VectorValue:vector'])],
+    ['AI', 'Get Value as Vector (член BlackboardComponent, pure)', mem('/Script/AIModule.BlackboardComponent.GetValueAsVector', ['KeyName:name', '->', 'ReturnValue:vector'], true)],
+    // 10 — Animation
+    ['Animation', 'Play Anim Montage (член Character). Ждём: AnimMontage, InPlayRate, StartSectionName → float', mem('Character.PlayAnimMontage', ['AnimMontage:object:AnimMontage', 'InPlayRate:single=1.000000', 'StartSectionName:name', '->', 'ReturnValue:single'])],
+    ['Animation', 'Get Anim Instance (член SkeletalMeshComponent, pure)', mem('SkeletalMeshComponent.GetAnimInstance', ['->', 'ReturnValue:object:AnimInstance'], true)],
+    ['Animation', 'Montage Play (член AnimInstance)', mem('AnimInstance.Montage_Play', ['MontageToPlay:object:AnimMontage', 'InPlayRate:single=1.000000', '->', 'ReturnValue:single'])],
+    ['Animation', 'Montage Stop (член AnimInstance)', mem('AnimInstance.Montage_Stop', ['InBlendOutTime:single', 'Montage:object:AnimMontage'])],
+    // 11 — Materials
+    ['Materials', 'Create Dynamic Material Instance (член PrimitiveComponent)', mem('PrimitiveComponent.CreateDynamicMaterialInstance', ['ElementIndex:int', 'SourceMaterial:object:MaterialInterface', 'OptionalName:name', '->', 'ReturnValue:object:MaterialInstanceDynamic'])],
+    ['Materials', 'Set Scalar Parameter Value (член MaterialInstanceDynamic)', mem('MaterialInstanceDynamic.SetScalarParameterValue', ['ParameterName:name', 'Value:single'])],
+    ['Materials', 'Set Vector Parameter Value (член MaterialInstanceDynamic)', mem('MaterialInstanceDynamic.SetVectorParameterValue', ['ParameterName:name', 'Value:linearcolor'])],
+    ['Materials', 'Set Scalar Parameter Value для MPC (KismetMaterialLibrary)', lib('KismetMaterialLibrary.SetScalarParameterValue', ['Collection:object:MaterialParameterCollection', 'ParameterName:name', 'ParameterValue:single'])],
+    // 12 — Niagara
+    ['Niagara', 'Spawn System at Location (NiagaraFunctionLibrary). Ждём полный набор пинов после вставки', lib('/Script/Niagara.NiagaraFunctionLibrary.SpawnSystemAtLocation', ['SystemTemplate:object:/Script/Niagara.NiagaraSystem', 'Location:vector', 'Rotation:rotator', '->', 'ReturnValue:object:/Script/Niagara.NiagaraComponent'])],
+    ['Niagara', 'Set Float Parameter (член NiagaraComponent: SetVariableFloat)', mem('/Script/Niagara.NiagaraComponent.SetVariableFloat', ['InVariableName:name', 'InValue:single'])],
+    // 13 — Camera
+    ['Camera', 'Get Player Camera Manager (GameplayStatics, pure)', lib('GameplayStatics.GetPlayerCameraManager', ['PlayerIndex:int', '->', 'ReturnValue:object:PlayerCameraManager'], true)],
+    ['Camera', 'Start Camera Shake (член PlayerCameraManager)', mem('PlayerCameraManager.StartCameraShake', ['ShakeClass:class:CameraShakeBase', 'Scale:single=1.000000', '->', 'ReturnValue:object:CameraShakeBase'])],
+    ['Camera', 'Set View Target with Blend (член PlayerController)', mem('PlayerController.SetViewTargetWithBlend', ['NewViewTarget:object:Actor', 'BlendTime:single'])],
+    // 14 — Level streaming (OpenLevel уже VERIFIED; Load/Unload Stream Level — latent, отдельно)
+    ['Levels', 'Get Streaming Level (GameplayStatics, pure)', lib('GameplayStatics.GetStreamingLevel', ['PackageName:name', '->', 'ReturnValue:object:LevelStreaming'], true)],
+    // 15 — Gameplay Tags
+    ['Tags', 'Matches Tag (BlueprintGameplayTagLibrary, pure)', lib('/Script/GameplayTags.BlueprintGameplayTagLibrary.MatchesTag', ['TagOne:gameplaytag', 'TagTwo:gameplaytag', 'bExactMatch:bool', '->', 'ReturnValue:bool'], true)],
+    ['Tags', 'Has Tag (BlueprintGameplayTagLibrary, pure)', lib('/Script/GameplayTags.BlueprintGameplayTagLibrary.HasTag', ['TagContainer:gameplaytagcontainer', 'Tag:gameplaytag', 'bExactMatch:bool', '->', 'ReturnValue:bool'], true)],
+    // 16 — Random streams / noise
+    ['Random', 'Random Float from Stream (KismetMathLibrary, pure)', lib('KismetMathLibrary.RandomFloatFromStream', ['Stream:randomstream', '->', 'ReturnValue:real'], true)],
+    ['Random', 'Random Integer from Stream (KismetMathLibrary, pure)', lib('KismetMathLibrary.RandomIntegerFromStream', ['Stream:randomstream', 'Max:int', '->', 'ReturnValue:int'], true)],
+    ['Random', 'Perlin Noise 1D (KismetMathLibrary, pure)', lib('KismetMathLibrary.PerlinNoise1D', ['Value:single', '->', 'ReturnValue:single'], true)],
+    // 17 — Networking (IsLocallyControlled уже VERIFIED)
+    ['Network', 'Has Authority (член Actor, pure)', mem('Actor.HasAuthority', ['->', 'ReturnValue:bool'], true)],
+    ['Network', 'Is Server (KismetSystemLibrary, pure)', lib('KismetSystemLibrary.IsServer', ['->', 'ReturnValue:bool'], true)],
+    // досылка R35: вариант с выбранным классом ещё не сверен
+    ['R35', 'Add Component by Class с выбранным классом StaticMeshComponent (вариант не сверен copy-back)', () => createAddComponentByClass('StaticMeshComponent')],
+  ],
+};
+
+const list = BATCHES[batch];
+if (!list) { console.error(`нет пакета ${batch}; есть: ${Object.keys(BATCHES).join(', ')}`); process.exit(1); }
+const out = new URL(`../sweep/${batch}-probe.txt`, import.meta.url);
+
+seedGuids(`probe:${batch}`);
+const nodes = [], GAPX = 64, GAPY = 96;
+let y = 0;
+const topics = [...new Set(list.map(p => p[0]))];
+for (const topic of topics) {
+  let x = 0, rowH = 0;
+  for (const [, bubble, make] of list.filter(p => p[0] === topic)) {
+    const n = make();
+    n.pos = { x, y };
+    n.bubble = `R${batch} · ${topic}: ${bubble}`;
+    nodes.push(n);
+    x += Math.max(estNodeWidth(n), 320) + GAPX;
+    rowH = Math.max(rowH, estNodeHeight(n));
+  }
+  y += rowH + GAPY + 48; // +48 — место под пузырь над нодой следующего ряда
+}
+const cm = createComment(`R${batch}: пробы новых нод (${list.length}). Над каждой нодой — пузырь с её названием. Пришлите copy-back тех, что не встали или встали неправильно.`, { x: -64, y: -112 });
+fitComment(cm, nodes);
+const text = generateUEText([cm, ...nodes]);
+const v = validateStrict(text);
+console.log(`R${batch}: нод=${nodes.length} тем=${topics.length} STRICT errors=${v.errors.length} warnings=${v.warnings.length}`);
+v.errors.forEach(e => console.log('  ERR ' + e));
+if (!v.valid) process.exit(1);
+if (CHECK) {
+  const disk = fs.existsSync(out) ? fs.readFileSync(out, 'utf8') : '';
+  if (disk !== text) { console.log(`✗ sweep/${batch}-probe.txt расходится с генератором`); process.exit(1); }
+  console.log(`✓ sweep/${batch}-probe.txt совпадает с генератором`);
+} else {
+  fs.writeFileSync(out, text);
+  console.log(`→ sweep/${batch}-probe.txt`);
+}

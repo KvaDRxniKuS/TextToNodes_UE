@@ -70,6 +70,9 @@ const STRUCTS_FULL = {
   Vector:      `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Vector'"`,      // confirmed (copy-back LineTraceSingle, UE 5.8)
   Rotator:     `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Rotator'"`,
   Vector2D:    `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Vector2D'"`,
+  GameplayTag: `"/Script/CoreUObject.ScriptStruct'/Script/GameplayTags.GameplayTag'"`, // R36 проба
+  GameplayTagContainer: `"/Script/CoreUObject.ScriptStruct'/Script/GameplayTags.GameplayTagContainer'"`, // R36 проба
+  RandomStream: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.RandomStream'"`, // R36 проба
   Quat:        `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Quat'"`, // R33 copy-back: Quat_IsNormalized
   Transform:   `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Transform'"`,
   LinearColor: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.LinearColor'"`, // confirmed (copy-back H1/J5)
@@ -84,6 +87,9 @@ const STRUCTS_SHORT = {
   Vector:           `ScriptStruct'"/Script/CoreUObject.Vector"'`,
   Rotator:          `ScriptStruct'"/Script/CoreUObject.Rotator"'`,
   Vector2D:         `ScriptStruct'"/Script/CoreUObject.Vector2D"'`,
+  GameplayTag: `ScriptStruct'"/Script/GameplayTags.GameplayTag"'`,
+  GameplayTagContainer: `ScriptStruct'"/Script/GameplayTags.GameplayTagContainer"'`,
+  RandomStream: `ScriptStruct'"/Script/CoreUObject.RandomStream"'`,
   Quat:             `ScriptStruct'"/Script/CoreUObject.Quat"'`,
   Transform:        `ScriptStruct'"/Script/CoreUObject.Transform"'`,
   LinearColor:      `ScriptStruct'"/Script/CoreUObject.LinearColor"'`,

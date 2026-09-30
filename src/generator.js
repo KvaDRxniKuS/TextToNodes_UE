@@ -16,6 +16,7 @@ export function mkPin(name, direction, category, opts = {}) {
     autoDefault: opts.auto || '',
     ...(opts.friendlyPlain ? { friendlyPlain: opts.friendlyPlain } : {}),
     ...(opts.notConnectable ? { notConnectable: true } : {}),
+    ...(opts.loc ? { pinFriendlyName: { namespace: opts.loc[0], key: opts.loc[1], text: opts.loc[2] } } : {}),
     ...(opts.readOnly ? { readOnly: true } : {}),
     ...(opts.autoFixed !== undefined ? { autoFixed: opts.autoFixed } : {}),
   };
@@ -184,9 +185,10 @@ export function createBranch(pos) {
     guid: guid32(), pos, title: 'Branch',
     pins: [
       mkPin('execute', 'Input', 'exec'),
-      mkPin('Condition', 'Input', 'bool', { dv: 'true' }),
-      mkPin('then', 'Output', 'exec'),
-      mkPin('else', 'Output', 'exec')
+      mkPin('Condition', 'Input', 'bool', { dv: 'true', auto: 'true' }),
+      // R36 copy-back (Branch): подписи then/else — NSLOCTEXT("K2Node", "true"/"false")
+      mkPin('then', 'Output', 'exec', { loc: ['K2Node', 'true', 'true'] }),
+      mkPin('else', 'Output', 'exec', { loc: ['K2Node', 'false', 'false'] })
     ]
   };
 }

@@ -33,6 +33,7 @@ const RECIPES = [
   ['27b — Widgets/UI, make-node --decorate', ['bash', 'sweep/gen27b.sh'], ['sweep/27b-widgets-ui-decorated.txt']],
   ['30 — декор переносов на узлах R26', ['bash', 'sweep/gen30.sh'], ['sweep/30-decorate.txt']],
   ['32 — компоненты: lifecycle/запросы', ['bash', 'sweep/gen32.sh'], ['sweep/32-components-lifecycle.txt']],
+  ['36 — пробы новых нод (пузыри-комментарии)', ['node', 'tools/gen-probe.mjs', '--batch', '36'], ['sweep/36-probe.txt']],
   ['enum-select — Enum Select по копии из UE', ['node', 'tools/gen-enum-select-test.mjs'], ['sweep/enum-select-test.txt']],
   ['collapsed-knot 4×5 (2 уровня)', ['node', 'tools/gen-collapsed-knot-test.mjs'], ['sweep/collapsed-knot-4x5-test.txt']],
   ['collapsed-knot 1×3 (3 уровня)', ['node', 'tools/gen-collapsed-knot-test.mjs', '--inputs', '1', '--outputs', '3', '--levels', '3'], ['sweep/collapsed-knot-1x3-3levels-test.txt']],

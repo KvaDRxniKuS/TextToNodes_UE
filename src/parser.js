@@ -93,6 +93,7 @@ export function parseToGraphs(text){
     }
     if(!node.guid) node.guid=guid32();
     if(node.isComment) node.commentText=commentText||'Comment';
+    else if(commentText) node.bubble=commentText; // R36: пузырь-комментарий обычной ноды
     if(node.isReroute) node.title='Reroute';
     else if(node.isTunnel) node.title=node.name||'Tunnel';
     else if(node.className.includes('K2Node_VariableGet')) node.title='Get '+(node.varName||'Var');
@@ -304,7 +305,7 @@ function generateBlock(n,opts={}){
   if(n.macroGraph) extra+=`   ${macroGraphRef(n.macroGraph, n.macroGuid||null)}\n`;
   if(n.isComment) return `Begin Object Class=${n.rawClass} Name="${n.id}"${exportPathAttr('/Script/UnrealEd.EdGraphNode_Comment',n.id,opts)}\n   NodePosX=${Math.round(n.pos.x)}\n   NodePosY=${Math.round(n.pos.y)}\n   NodeWidth=${n.width}\n   NodeHeight=${n.height}\n   NodeComment="${n.commentText}"\n   NodeGuid=${guid}\nEnd Object`;
   const cls=n.rawClass||`/Script/BlueprintGraph.${n.className.split('.').pop()}`;
-  return `Begin Object Class=${cls} Name="${n.id}"${exportPathAttr(cls,n.id,opts)}\n${extra}   NodePosX=${Math.round(n.pos.x)}\n   NodePosY=${Math.round(n.pos.y)}\n${(n.postPosProps||[]).map(l=>`   ${l}\n`).join('')}   NodeGuid=${guid}\n${pinsText?pinsText+'\n':''}${(n.tailProps||[]).map(l=>`   ${l}\n`).join('')}End Object`;
+  return `Begin Object Class=${cls} Name="${n.id}"${exportPathAttr(cls,n.id,opts)}\n${extra}   NodePosX=${Math.round(n.pos.x)}\n   NodePosY=${Math.round(n.pos.y)}\n${(n.postPosProps||[]).map(l=>`   ${l}\n`).join('')}${n.bubble?`   bCommentBubbleVisible=True\n   NodeComment="${String(n.bubble).replace(/"/g,"'")}"\n`:''}   NodeGuid=${guid}\n${pinsText?pinsText+'\n':''}${(n.tailProps||[]).map(l=>`   ${l}\n`).join('')}End Object`;
 }
 
 export function validateUEText(text){
