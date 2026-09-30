@@ -60,12 +60,18 @@ export function buildSections(spec) {
       [yes, no].forEach(ch => ch.slice(1).forEach((st, i) => linkPins(ch[i].node, 'then', st.node, 'execute')));
       return { kind: 'branch', node: b, tree: t, yes, no };
     });
+    if (sec.layout === 'chain') {       // цепочка: then_0 → Set1 → Set2 → …, then_1 → дальше
+      const seq = add(createSequence(2));
+      linkPins(seq, 'then_0', steps[0].node, 'execute');
+      steps.slice(1).forEach((st, i) => linkPins(steps[i].node, 'then', st.node, 'execute'));
+      return { title: sec.title, seq, steps, chain: true, lastOut: 'then_1' };
+    }
     const seq = add(createSequence(steps.length + 1));
     steps.forEach((st, i) => linkPins(seq, `then_${i}`, st.node, 'execute'));
-    return { title: sec.title, seq, steps };
+    return { title: sec.title, seq, steps, lastOut: `then_${steps.length}` };
   });
   linkPins(entry, 'then', sections[0].seq, 'execute');
-  sections.slice(1).forEach((sec, i) => linkPins(sections[i].seq, `then_${sections[i].steps.length}`, sec.seq, 'execute'));
+  sections.slice(1).forEach((sec, i) => linkPins(sections[i].seq, sections[i].lastOut, sec.seq, 'execute'));
   return { entry, sections, nodes: all };
 }
 
@@ -111,8 +117,19 @@ export function arrangeSections(built, origin = { x: 0, y: 0 }) {
     sec.seq.pos = { x: snap(left), y: snap(top) };
     const setX = snap(left + Math.max(SEQ_W, treesW) + 96);
     let treeY = top + 32 + 24 * (sec.steps.length + 1);
-    let setY = top, maxX = setX, bottom = treeY;
-    for (const st of sec.steps) {
+    let setY = top, maxX = sec.chain ? left : setX, bottom = treeY;
+    if (sec.chain) {                      // Set'ы в ряд; дерево каждого — в промежутке перед ним, ниже ряда
+      let cur = left + SEQ_W + 64; bottom = top + 112;
+      for (const st of sec.steps) {
+        const cwi = st.tree ? colWidths([st.tree]) : [];
+        const tw = cwi.reduce((a, b) => a + b + COL_GAP, 0);
+        const sx = snap(cur + tw + 32);
+        st.node.pos = { x: sx, y: snap(top) };
+        if (st.tree) { placeTree(st.tree, sx - 32, top + 144, cwi); bottom = Math.max(bottom, top + 144 + treeH(st.tree)); }
+        cur = sx + w(st.node) + 32; maxX = Math.max(maxX, sx + w(st.node));
+      }
+    }
+    for (const st of (sec.chain ? [] : sec.steps)) {
       st.node.pos = { x: setX, y: snap(setY) };
       if (st.tree) { placeTree(st.tree, setX - 96, treeY, cw); treeY += treeH(st.tree) + 16; }
       let rowH = SET_STEP;
@@ -132,7 +149,7 @@ export function arrangeSections(built, origin = { x: 0, y: 0 }) {
     }
     // шина: последний then Sequence → knot под деревьями → knot у правого края → следующая секция
     const busY = snap(bottom + 16);
-    const last = `then_${sec.steps.length}`;
+    const last = sec.lastOut;
     if (si < built.sections.length - 1) {
       const k1 = createKnot({ x: snap(left + SEQ_W + 16), y: busY }, 'exec');
       const k2 = createKnot({ x: snap(maxX + PAD - 16), y: busY }, 'exec');

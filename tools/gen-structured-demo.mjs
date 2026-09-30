@@ -21,7 +21,7 @@ const spec = {
       { set: 'Drag', expr: ['*', ['*', ['*', 0.5, 'Rho'], ['*', 'Cd', 'Area']], ['sq', 'Speed']] },
       { set: 'DragAx', expr: ['*', ['/', 'Drag', ['max', 'Mass', 0.001]], ['*', ['sign', 'VelX'], -1]] },
     ] },
-    { title: 'C - интегрирование', steps: [
+    { title: 'C - интегрирование (цепочка)', layout: 'chain', steps: [
       { set: 'VelX', expr: ['+', 'VelX', ['*', 'DragAx', 'Dt']] },
       { set: 'VelZ', expr: ['-', 'VelZ', ['*', 'Gravity', 'Dt']] },
       { set: 'PosX', expr: ['+', 'PosX', ['*', 'VelX', 'Dt']] },
