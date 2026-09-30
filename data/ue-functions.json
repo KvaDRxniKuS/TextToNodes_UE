@@ -42607,5 +42607,722 @@
   "verified": true,
   "desc": "Invalidate Layout and Volatility",
   "probe": "R51 проба (Widget) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Invalidate Layout and Volatility (член Widget)"
+ },
+ {
+  "id": "CreateSound2D",
+  "title": "Create Sound2 D",
+  "from": "probe",
+  "category": "Audio",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "CreateSound2D",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Sound",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SoundBase"
+   },
+   {
+    "name": "VolumeMultiplier",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "1.0",
+    "autoDv": ""
+   },
+   {
+    "name": "PitchMultiplier",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "1.0",
+    "autoDv": ""
+   },
+   {
+    "name": "StartTime",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "0.0",
+    "autoDv": ""
+   },
+   {
+    "name": "ConcurrencySettings",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SoundConcurrency"
+   },
+   {
+    "name": "bPersistAcrossLevelTransition",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false",
+    "autoDv": ""
+   },
+   {
+    "name": "bAutoDestroy",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.AudioComponent"
+   }
+  ],
+  "verified": true,
+  "desc": "Create Sound 2D",
+  "probe": "R52 проба (Sound) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Create Sound 2D (GameplayStatics) — компонент без автостарта"
+ },
+ {
+  "id": "GetCurrentReverbEffect",
+  "title": "Get Current Reverb Effect",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetCurrentReverbEffect",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.ReverbEffect"
+   }
+  ],
+  "verified": true,
+  "desc": "Get Current Reverb Effect",
+  "probe": "R52 проба (Sound) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Current Reverb Effect (GameplayStatics)"
+ },
+ {
+  "id": "AreAnyListenersWithinRange",
+  "title": "Are Any Listeners Within Range",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AreAnyListenersWithinRange",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Location",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "MaximumRange",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Are Any Listeners Within Range",
+  "probe": "R52 проба (Sound) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Are Any Listeners Within Range (GameplayStatics)"
+ },
+ {
+  "id": "SetGlobalPitchModulation",
+  "title": "Set Global Pitch Modulation",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetGlobalPitchModulation",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "PitchModulation",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "TimeSec",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Global Pitch Modulation",
+  "probe": "R52 проба (Sound) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Global Pitch Modulation (GameplayStatics)"
+ },
+ {
+  "id": "SetGlobalListenerFocusParameters",
+  "title": "Set Global Listener Focus Parameters",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetGlobalListenerFocusParameters",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "FocusAzimuthScale",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "1.0",
+    "autoDv": ""
+   },
+   {
+    "name": "NonFocusAzimuthScale",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "1.0",
+    "autoDv": ""
+   },
+   {
+    "name": "FocusDistanceScale",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "1.0",
+    "autoDv": ""
+   },
+   {
+    "name": "NonFocusDistanceScale",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "1.0",
+    "autoDv": ""
+   },
+   {
+    "name": "FocusVolumeScale",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "1.0",
+    "autoDv": ""
+   },
+   {
+    "name": "NonFocusVolumeScale",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "1.0",
+    "autoDv": ""
+   },
+   {
+    "name": "FocusPriorityScale",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "1.0",
+    "autoDv": ""
+   },
+   {
+    "name": "NonFocusPriorityScale",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "1.0",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Set Global Listener Focus Parameters",
+  "probe": "R52 проба (Sound) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Global Listener Focus Parameters (GameplayStatics)"
+ },
+ {
+  "id": "SetFloatParameter",
+  "title": "Set Float Parameter",
+  "from": "probe",
+  "category": "Audio",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetFloatParameter",
+  "lib": "AudioComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AudioComponent"
+   },
+   {
+    "name": "InName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "InFloat",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Float Parameter",
+  "probe": "R52 проба (AudioComp) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Float Parameter (AudioComponent)"
+ },
+ {
+  "id": "SetBoolParameter",
+  "title": "Set Bool Parameter",
+  "from": "probe",
+  "category": "Audio",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetBoolParameter",
+  "lib": "AudioComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AudioComponent"
+   },
+   {
+    "name": "InName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "InBool",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Bool Parameter",
+  "probe": "R52 проба (AudioComp) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Bool Parameter (AudioComponent)"
+ },
+ {
+  "id": "SetIntParameter",
+  "title": "Set Int Parameter",
+  "from": "probe",
+  "category": "Audio",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetIntParameter",
+  "lib": "AudioComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AudioComponent"
+   },
+   {
+    "name": "InName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "InInt",
+    "dir": "Input",
+    "cat": "int"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Integer Parameter",
+  "probe": "R52 проба (AudioComp) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Integer Parameter (AudioComponent)"
+ },
+ {
+  "id": "SetWaveParameter",
+  "title": "Set Wave Parameter",
+  "from": "probe",
+  "category": "Audio",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetWaveParameter",
+  "lib": "AudioComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AudioComponent"
+   },
+   {
+    "name": "InName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "InWave",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SoundWave"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Wave Parameter",
+  "probe": "R52 проба (AudioComp) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Wave Parameter (AudioComponent)"
+ },
+ {
+  "id": "SetLowPassFilterEnabled",
+  "title": "Set Low Pass Filter Enabled",
+  "from": "probe",
+  "category": "Audio",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetLowPassFilterEnabled",
+  "lib": "AudioComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AudioComponent"
+   },
+   {
+    "name": "InLowPassFilterEnabled",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Low Pass Filter Enabled",
+  "probe": "R52 проба (AudioComp) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Low Pass Filter Enabled (AudioComponent)"
+ },
+ {
+  "id": "SetLowPassFilterFrequency",
+  "title": "Set Low Pass Filter Frequency",
+  "from": "probe",
+  "category": "Audio",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetLowPassFilterFrequency",
+  "lib": "AudioComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AudioComponent"
+   },
+   {
+    "name": "InLowPassFilterFrequency",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Low Pass Filter Frequency",
+  "probe": "R52 проба (AudioComp) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Low Pass Filter Frequency (AudioComponent)"
+ },
+ {
+  "id": "StopDelayed",
+  "title": "Stop Delayed",
+  "from": "probe",
+  "category": "Audio",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "StopDelayed",
+  "lib": "AudioComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AudioComponent"
+   },
+   {
+    "name": "DelayTime",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "Stop Delayed",
+  "probe": "R52 проба (AudioComp) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Stop Delayed (AudioComponent)"
+ },
+ {
+  "id": "ClientStopCameraShake",
+  "title": "Client Stop Camera Shake",
+  "from": "probe",
+  "category": "Player / Controller",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ClientStopCameraShake",
+  "lib": "PlayerController",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   },
+   {
+    "name": "Shake",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/Engine.CameraShakeBase"
+   },
+   {
+    "name": "bImmediately",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Client Stop Camera Shake",
+  "probe": "R52 проба (Feedback) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Client Stop Camera Shake (PlayerController)"
+ },
+ {
+  "id": "StopAllInstancesOfCameraShake",
+  "title": "Stop All Instances Of Camera Shake",
+  "from": "probe",
+  "category": "Camera",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "StopAllInstancesOfCameraShake",
+  "lib": "PlayerCameraManager",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerCameraManager"
+   },
+   {
+    "name": "Shake",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/Engine.CameraShakeBase"
+   },
+   {
+    "name": "bImmediately",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Stop All Instances of Camera Shake",
+  "probe": "R52 проба (Feedback) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Stop All Instances of Camera Shake (PlayerCameraManager)"
+ },
+ {
+  "id": "SpawnForceFeedbackAtLocation",
+  "title": "Spawn Force Feedback At Location",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SpawnForceFeedbackAtLocation",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "ForceFeedbackEffect",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.ForceFeedbackEffect"
+   },
+   {
+    "name": "Location",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "Rotation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Rotator",
+    "const": true
+   },
+   {
+    "name": "bLooping",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false",
+    "autoDv": ""
+   },
+   {
+    "name": "IntensityMultiplier",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "1.0",
+    "autoDv": ""
+   },
+   {
+    "name": "StartTime",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "0.0",
+    "autoDv": ""
+   },
+   {
+    "name": "AttenuationSettings",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.ForceFeedbackAttenuation"
+   },
+   {
+    "name": "bAutoDestroy",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.ForceFeedbackComponent"
+   }
+  ],
+  "verified": true,
+  "desc": "Spawn Force Feedback at Location",
+  "probe": "R52 проба (Feedback) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Spawn Force Feedback at Location (GameplayStatics)"
  }
 ]

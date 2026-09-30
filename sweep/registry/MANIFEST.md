@@ -1,6 +1,6 @@
 # Sweep manifest — полный прогон реестра по категориям
 
-Записей в реестре: 1129; построено узлов: 1129; упало: 0.
+Записей в реестре: 1144; построено узлов: 1144; упало: 0.
 MANIFEST и NN-*.txt побайтово воспроизводимы (дата не пишется): сверка — `node tools/gen-sweep.mjs --check`.
 Генератор: tools/gen-sweep.mjs (сетка по 5 в ряд, внутри ряда layoutRow, накрыто fitComment).
 
@@ -51,16 +51,16 @@ MANIFEST и NN-*.txt побайтово воспроизводимы (дата �
 | 32 | 32-ai-navigation.txt | 50/50 | 50 | 0 | — | — |
 | 33 | 33-animation.txt | 38/38 | 38 | 0 | — | — |
 | 34 | 34-materials-fx.txt | 31/31 | 31 | 0 | — | — |
-| 35 | 35-camera.txt | 20/20 | 20 | 0 | — | — |
-| 36 | 36-player-controller.txt | 50/50 | 50 | 0 | — | — |
+| 35 | 35-camera.txt | 21/21 | 21 | 0 | — | — |
+| 36 | 36-player-controller.txt | 51/51 | 51 | 0 | — | — |
 | 37 | 37-level-streaming.txt | 6/6 | 6 | 0 | — | — |
 | 38 | 38-gameplay-tags.txt | 9/9 | 9 | 0 | — | — |
 | 39 | 39-networking.txt | 12/12 | 12 | 0 | — | — |
 | 40 | 40-damage.txt | 4/4 | 4 | 0 | — | — |
-| 41 | 41-game-framework.txt | 55/55 | 55 | 0 | — | — |
+| 41 | 41-game-framework.txt | 60/60 | 60 | 0 | — | — |
 | 42 | 42-components-scene.txt | 42/42 | 42 | 0 | — | — |
 | 43 | 43-lights.txt | 7/7 | 7 | 0 | — | — |
-| 44 | 44-audio.txt | 23/23 | 23 | 0 | — | — |
+| 44 | 44-audio.txt | 31/31 | 31 | 0 | — | — |
 | 45 | 45-containers.txt | 16/16 | 16 | 0 | — | — |
 | 46 | 46-math-vector2d.txt | 7/7 | 7 | 0 | — | — |
 | 47 | 47-math-color.txt | 6/6 | 6 | 0 | — | — |

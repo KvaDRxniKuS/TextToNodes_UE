@@ -896,16 +896,20 @@ const BATCHES = {
     ['AudioComp', 'Set Low Pass Filter Enabled (AudioComponent)', mem('AudioComponent.SetLowPassFilterEnabled', ['InLowPassFilterEnabled:bool'])],
     ['AudioComp', 'Set Low Pass Filter Frequency (AudioComponent)', mem('AudioComponent.SetLowPassFilterFrequency', ['InLowPassFilterFrequency:float'])],
     ['AudioComp', 'Stop Delayed (AudioComponent)', mem('AudioComponent.StopDelayed', ['DelayTime:float'])],
-    ['Niagara', 'Set Auto Destroy (NiagaraComponent)', mem('NiagaraComponent.SetAutoDestroy', ['bInAutoDestroy:bool'])],
-    ['Niagara', 'Is Paused (NiagaraComponent, pure)', mem('NiagaraComponent.IsPaused', ['->', 'ReturnValue:bool'], true)],
-    ['Niagara', 'Set Desired Age (NiagaraComponent)', mem('NiagaraComponent.SetDesiredAge', ['InDesiredAge:float'])],
-    ['Niagara', 'Advance Simulation (NiagaraComponent)', mem('NiagaraComponent.AdvanceSimulation', ['TickCount:int', 'TickDeltaSeconds:float'])],
-    ['Niagara', 'Set Rendering Enabled (NiagaraComponent)', mem('NiagaraComponent.SetRenderingEnabled', ['bInRenderingEnabled:bool'])],
-    ['Niagara', 'Set Force Solo (NiagaraComponent)', mem('NiagaraComponent.SetForceSolo', ['bInForceSolo:bool'])],
-    ['Niagara', 'Set Niagara Variable (Position) (NiagaraComponent)', mem('NiagaraComponent.SetVariablePosition', ['InVariableName:name', 'InValue:vector'])],
     ['Feedback', 'Client Stop Camera Shake (PlayerController)', mem('PlayerController.ClientStopCameraShake', ['Shake:class:CameraShakeBase', 'bImmediately:bool=true'])],
     ['Feedback', 'Stop All Instances of Camera Shake (PlayerCameraManager)', mem('PlayerCameraManager.StopAllInstancesOfCameraShake', ['Shake:class:CameraShakeBase', 'bImmediately:bool=true'])],
     ['Feedback', 'Spawn Force Feedback at Location (GameplayStatics)', lib('GameplayStatics.SpawnForceFeedbackAtLocation', ['ForceFeedbackEffect:object:ForceFeedbackEffect', 'Location:vector', 'Rotation:rotator', 'bLooping:bool=false', 'IntensityMultiplier:float=1.0', 'StartTime:float=0.0', 'AttenuationSettings:object:ForceFeedbackAttenuation', 'bAutoDestroy:bool=true', '->', 'ReturnValue:object:ForceFeedbackComponent'])],
+  ],
+  '52b': [
+    // R52 вердикт: Niagara-ряд не вставился — баг генератора: mem('NiagaraComponent.X') резолвился в /Script/Engine
+    // (класс в /Script/Niagara; Niagara НЕ устарела — устарел Cascade/ParticleSystem). Повтор с верным путём.
+    ['Niagara', 'Set Auto Destroy (NiagaraComponent)', mem('/Script/Niagara.NiagaraComponent.SetAutoDestroy', ['bInAutoDestroy:bool'])],
+    ['Niagara', 'Is Paused (NiagaraComponent, pure)', mem('/Script/Niagara.NiagaraComponent.IsPaused', ['->', 'ReturnValue:bool'], true)],
+    ['Niagara', 'Set Desired Age (NiagaraComponent)', mem('/Script/Niagara.NiagaraComponent.SetDesiredAge', ['InDesiredAge:float'])],
+    ['Niagara', 'Advance Simulation (NiagaraComponent)', mem('/Script/Niagara.NiagaraComponent.AdvanceSimulation', ['TickCount:int', 'TickDeltaSeconds:float'])],
+    ['Niagara', 'Set Rendering Enabled (NiagaraComponent)', mem('/Script/Niagara.NiagaraComponent.SetRenderingEnabled', ['bInRenderingEnabled:bool'])],
+    ['Niagara', 'Set Force Solo (NiagaraComponent)', mem('/Script/Niagara.NiagaraComponent.SetForceSolo', ['bInForceSolo:bool'])],
+    ['Niagara', 'Set Niagara Variable (Position) (NiagaraComponent)', mem('/Script/Niagara.NiagaraComponent.SetVariablePosition', ['InVariableName:name', 'InValue:vector'])],
   ],
 };
 

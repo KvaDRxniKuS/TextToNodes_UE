@@ -345,7 +345,9 @@ export const UE_MACROS = {
  *  '/Game/.../BP_X' или '/Game/.../BP_X.BP_X_C' → BlueprintGeneratedClass (без референса). */
 export function normalizeClassPath(c){
   c = String(c).trim();
-  if (!c.startsWith('/')) return `/Script/Engine.${c}`;
+  // R52: короткое имя класса НЕ всегда в /Script/Engine (NiagaraComponent → /Script/Niagara, AIController → AIModule):
+  // сначала модуль из LIBS_FULL, иначе Engine.
+  if (!c.startsWith('/')) { const m = (LIBS_FULL[c] || '').match(/'(\/Script\/[^']+)'/); return m ? m[1] : `/Script/Engine.${c}`; }
   if (c.startsWith('/Script/')) return c;
   const [pkg, obj] = c.split('.');
   const base = pkg.split('/').pop();
