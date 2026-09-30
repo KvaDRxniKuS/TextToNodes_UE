@@ -22,17 +22,17 @@ TextToNodes_UE парсит, создаёт, проверяет и экспор�
 - STRICT одного файла: `node src/validate.js PATH`.
 - Сверить sweep-корпус с генератором (без записей): `node tools/gen-sweep.mjs --check` (`npm run check:sweep`).
 - Пересобрать sweep одной категории и manifest: `node tools/gen-sweep.mjs NN` (MANIFEST переписывается при любом прогоне; `zz` — способ обновить только его).
-- Пересобрать ВСЕ sweep-фикстуры и сравнить байты: `node tools/check-fixtures.mjs` (`npm run check:fixtures`; входит в `npm test`, при дрейфе откатывает файлы). Таблица покрытия — `node tools/check-fixtures.mjs --report` и раздел «Покрытие» в `sweep/MANIFEST.md`.
-- Сводка покрытия: `sweep/MANIFEST.md`. Корпус побайтово воспроизводим (`seedGuids` по имени файла) — правка реестра обязана заканчиваться пересборкой и коммитом, а не «тихим» расхождением txt с генератором.
-- Факты, подтверждённые copy-back из UE: `docs/ENGINE_VERIFIED.md` и `tests/fixtures/`.
+- Пересобрать ВСЕ файлы sweep/ и сравнить байты: `node tools/check-sweep.mjs` (`npm run check:sweep`; входит в `npm test`, при дрейфе откатывает файлы). Таблица покрытия — `node tools/check-sweep.mjs --report` и раздел «Покрытие» в `sweep/registry/MANIFEST.md`.
+- Сводка покрытия: `sweep/registry/MANIFEST.md`. Корпус побайтово воспроизводим (`seedGuids` по имени файла) — правка реестра обязана заканчиваться пересборкой и коммитом, а не «тихим» расхождением txt с генератором.
+- Факты, подтверждённые copy-back из UE: `docs/ENGINE_VERIFIED.md` и `sweep/copyback/`.
 - Реестр: `data/ue-functions.json`; `verified: true` указывает на engine verification, а не просто на успешный локальный STRICT.
 
 ## Важные правила взаимодействия
 
 - Отвечать пользователю по-русски.
 - Любой Blueprint-текст для вставки выдавать дословно из созданного файла; не сокращать и не править вручную.
-- Замороженные фикстуры `sweep/` (`25b-make-node.txt`, `31-audio.txt`, `27-widgets-ui.txt`,
-  `28-enhanced-input-full.txt`, `29-components-physics.txt`) не пересобирать и не «синхронизировать»
+- Замороженные фикстуры `sweep/` (`r25-make-node.txt`, `r31-audio.txt`, `r27-widgets-ui.txt`,
+  `r28-enhanced-input-full.txt`, `r29-components-physics.txt`) не пересобирать и не «синхронизировать»
   генератором: это снятые с движка тексты без recipe. Их правят только новым copy-back из UE.
 - Не открывать сгенерированные файлы в viewer после правок.
 - Для визуальных и функциональных заявлений в UE ждать copy-back или прямой verdict пользователя.
@@ -48,4 +48,4 @@ TextToNodes_UE парсит, создаёт, проверяет и экспор�
 `.stage3-decorator.WIP.txt` генерируется `npm run stages:wip` и не коммитится. Правила, отступления
 и координаты decorated-варианта — в §4 спеки.
 
-Dispatcher fixture: `sweep/dispatcher-probe-bound.txt`, генератор `tools/gen-dispatcher-bound-test.mjs`. Последняя перестройка использует creator → arranger (декоратор приостановлен), но её spacing и pin alignment в Unreal Editor ещё должны быть визуально подтверждены пользователем. См. историю решений и следующий порядок тем в `HANDOFF_TOPICS.md`.
+Dispatcher fixture: `sweep/chapters/dispatcher-bound.txt`, генератор `tools/gen-dispatcher-bound.mjs`. Последняя перестройка использует creator → arranger (декоратор приостановлен), но её spacing и pin alignment в Unreal Editor ещё должны быть визуально подтверждены пользователем. См. историю решений и следующий порядок тем в `HANDOFF_TOPICS.md`.

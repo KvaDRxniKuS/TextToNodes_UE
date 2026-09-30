@@ -5,7 +5,7 @@
 # (fitComment). Двойник K2_AttachToComponent для SceneComponent — id AttachComponentToComponent,
 # для Actor — AttachActorToComponent; ошибка в этом id меняет MemberParent у 12-го узла.
 # Seed детерминирован именем выхода (gen-subset), повторный запуск = те же байты.
-node tools/gen-subset.mjs sweep/23b-actor-ext.txt "SWEEP 23b: Actor/SceneComponent — досылка" \
+node tools/gen-subset.mjs --seed=sweep:23b-actor-ext.txt sweep/chapters/r23-actor-ext.txt "SWEEP 23b: Actor/SceneComponent — досылка" \
   GetActorRightVector GetActorUpVector GetActorScale3D \
   AddActorWorldRotation AddActorLocalRotation AddActorLocalOffset \
   SetActorScale3D SetActorTransform SetActorLocationAndRotation \

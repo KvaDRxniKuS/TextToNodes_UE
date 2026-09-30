@@ -37,12 +37,12 @@ UE copy → parser → JSON graph → inspect/modify → generator → Blueprint
 npm test
 node src/validate.js path/to/blueprint.txt
 node tools/gen-sweep.mjs --check      # корпус vs генератор, без записей
-node tools/check-fixtures.mjs         # пересборка всех фикстур sweep/ + побайтовая сверка
+node tools/check-sweep.mjs         # пересборка всех генерируемых файлов sweep/ + побайтовая сверка
 ```
 
 Корпус `sweep/` воспроизводим побайтово: GUID сеятся именем файла, поэтому дрейф реестра виден
 сразу и не сопровождается шумом в diff. Часть файлов заморожена (сверенные с движком copy-back без
 генератора) — они защищены от перезаписи в `gen-sweep.mjs` и перечислены в `FROZEN` у
-`tools/check-fixtures.mjs`.
+`tools/check-sweep.mjs`.
 
-Статус sweep находится в [`../sweep/MANIFEST.md`](../sweep/MANIFEST.md). Текущие открытые темы и их фиксированный порядок — [`HANDOFF_TOPICS.md`](HANDOFF_TOPICS.md).
+Статус sweep находится в [`../sweep/registry/MANIFEST.md`](../sweep/registry/MANIFEST.md). Текущие открытые темы и их фиксированный порядок — [`HANDOFF_TOPICS.md`](HANDOFF_TOPICS.md).

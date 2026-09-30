@@ -1,5 +1,5 @@
 # R32 Components lifecycle/queries — make-node (не gen-sweep)
-node tools/make-node.mjs --chain --decorate --wrap 4 --title "R32: компоненты — жизненный цикл и запросы" -o sweep/32-components-lifecycle.txt \
+node tools/make-node.mjs --seed=sweep:32-components-lifecycle.txt --chain --decorate --wrap 4 --title "R32: компоненты — жизненный цикл и запросы" -o sweep/chapters/r32-components-lifecycle.txt \
  "event R32Components" \
  "fn GetComponentByClass ComponentClass=StaticMeshComponent" \
  "call ActorComponent.Deactivate" \

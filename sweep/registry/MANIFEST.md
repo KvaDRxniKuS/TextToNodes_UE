@@ -1,6 +1,6 @@
 # Sweep manifest — полный прогон реестра по категориям
 
-Записей в реестре: 442; построено узлов: 442; упало: 0.
+Записей в реестре: 483; построено узлов: 483; упало: 0.
 MANIFEST и NN-*.txt побайтово воспроизводимы (дата не пишется): сверка — `node tools/gen-sweep.mjs --check`.
 Генератор: tools/gen-sweep.mjs (сетка по 5 в ряд, внутри ряда layoutRow, накрыто fitComment).
 
@@ -9,7 +9,7 @@ MANIFEST и NN-*.txt побайтово воспроизводимы (дата �
 
 Известные оговорки (не баги свипа):
 - 02-variables: VariableReference указывает на несуществующую переменную (MemberName из реестра, случайный MemberGuid) — движок подсветит неизвестную переменную, это ожидаемо; нужны референсы из BP с настоящими переменными.
-- MakeArray/MakeSet/MakeMap: форма смоделирована по механике типов контейнера; проверяйте в движке при использовании. Enum Select для EDrawDebugTrace использует отдельную копию из UE (sweep/enum-select-test.txt); не обобщать её на пользовательские enum без reference.
+- MakeArray/MakeSet/MakeMap: форма смоделирована по механике типов контейнера; проверяйте в движке при использовании. Enum Select для EDrawDebugTrace использует отдельную копию из UE (sweep/chapters/enum-select.txt); не обобщать её на пользовательские enum без reference.
 - Макросы без GraphGuid (W07 в 01-flow-control): движок обычно прощает; guid доберём из copy-back.
 - W09: у записи есть note — вставляйте внимательнее, это зафиксированные сомнения.
 
@@ -41,35 +41,15 @@ MANIFEST и NN-*.txt побайтово воспроизводимы (дата �
 | 22 | 22-casting.txt | 11/11 | 11 | 11 | — | 8xW09 |
 | 23 | 23-actor.txt | 32/32 | 32 | 32 | — | 32xW09 |
 | 24 | 24-pawn-character.txt | 18/18 | 18 | 18 | — | 18xW09 |
-| 25 | 25-events-delegates.txt | 8/8 | 8 | ⊘ tools/gen-r25.mjs | — | 1xW09 |
-| 26 | 26-timers-latent.txt | 14/14 | 14 | ⊘ tools/gen-r26.mjs | — | 14xW09 |
-| 27 | 27-widgets-ui.txt | 8/8 | 8 | ⊘ ручная глава R27 (сверена с движком) — генератора нет, файл заморожен | — | 8xW09 |
-| 28 | 28-enhanced-input-full.txt | 15/15 | 15 | ⊘ ручная глава R28 (InputAction-ассеты, CustomEvent SetupInput) — заморожен | — | 15xW09 |
-| 29 | 29-components-physics.txt | 23/23 | 23 | ⊘ ручная глава R29 (damping-вызовы вне реестра) — заморожен | — | 23xW09 |
+| 25 | 25-events-delegates.txt | 8/8 | 8 | 8 | — | 1xW09 |
+| 26 | 26-timers-latent.txt | 14/14 | 14 | 14 | — | 14xW09 |
+| 27 | 27-widgets-ui.txt | 8/8 | 8 | 8 | — | 8xW09 |
+| 28 | 28-enhanced-input-full.txt | 15/15 | 15 | 15 | — | 15xW09 |
+| 29 | 29-components-physics.txt | 23/23 | 23 | 23 | — | 23xW09 |
 | 30 | 30-debug.txt | 1/1 | 1 | 0 | — | — |
-| 31 | 31-gameplay-systems.txt | 31/31 | 31 | 0 | — | — |
+| 31 | 31-gameplay-systems.txt | 72/72 | 72 | 0 | — | — |
 
-## Покрытие: чем пересобран каждый файл
-
-Все строки ниже побайтово воспроизводимы (`seedGuids` по имени файла), сверка — `node tools/check-fixtures.mjs`:
-
-| файлы | команда пересборки |
-|---|---|
-| NN-*.txt категорий реестра, MANIFEST.md | `node tools/gen-sweep.mjs` (одна категория: `node tools/gen-sweep.mjs 11`) — кроме файлов с ⊘ в колонке Notes |
-| 21b, 21c | `node tools/gen-r21b.mjs` |
-| 22b | `node tools/gen-cast.mjs --demo` |
-| 23b | `bash sweep/gen23b.sh` (gen-subset по 19 id реестра) |
-| 25, 26 | `node tools/gen-r25.mjs`, `node tools/gen-r26.mjs` (ручная компоновка глав, см. колонку Notes выше) |
-| 27b, 30, 32 | `bash sweep/gen27b.sh`, `bash sweep/gen30.sh`, `bash sweep/gen32.sh` (make-node; seed берётся из `-o`) |
-| enum-select-test | `node tools/gen-enum-select-test.mjs` |
-| collapsed-knot-4x5, collapsed-knot-1x3-3levels | `node tools/gen-collapsed-knot-test.mjs`, затем `--inputs 1 --outputs 3 --levels 3` |
-| current-pipeline-smoke, dispatcher-probe-bound | `node tools/gen-current-pipeline-smoke.mjs`, `node tools/gen-dispatcher-bound-test.mjs` |
-
-Заморожено — copy-back / ручные главы, сверенные с движком; генератора в репозитории нет, пересборка их перезаписывает — запрещено:
-- `25b-make-node.txt` (VERIFIED 2026-09-26), `31-audio.txt` (VERIFIED) — продукты `tools/make-node.mjs`, команда сборки не зафиксирована;
-- `27-widgets-ui.txt`, `28-enhanced-input-full.txt`, `29-components-physics.txt` — главы R27/R28/R29, собранные до того, как их содержимое попало в реестр (в нём нет, например, Set/GetAngularDamping, LinearDamping и CustomEvent SetupInput). Статистику по этим категориям MANIFEST считает по реестру, файл не трогает.
-
-Замороженные копии созданы до отказа от `ExportPath` — строки `ExportPath=...` в них сохранены намеренно (это снятые с движка тексты).
+Остальные папки sweep/ (chapters, probes, layout, copyback) и команды их пересборки — в `sweep/README.md`; сверка всего — `node tools/check-sweep.mjs`.
 
 ## NEEDS-REFERENCE (не построилось — нужен copy-back из движка)
 
@@ -159,7 +139,7 @@ MANIFEST и NN-*.txt побайтово воспроизводимы (дата �
 - 17-gameplay.txt :: W09: K2Node_CallFunction_378: GetGameState: round17-pre
 - 17-gameplay.txt :: W09: K2Node_CallFunction_379: GetGameInstance: round17-pre
 - 17-gameplay.txt :: W09: K2Node_CallFunction_380: GetCurrentLevelName: round17-pre: статического GetWorld в Kismet нет → заменён на GameplayStatics::GetCurrentLevelName
-- 18-input.txt :: W09: K2Node_CallFunction_383: IsInputKeyDown: round18-pre: член APlayerController (UFUNCTION BlueprintCallable, const → pure). MemberParent=PlayerController, пин self (Target) типа PlayerController, Key по значению; round18: белая (copy-back tests/fixtures/input-r18-copyback.txt: InputKey=SpaceBar принят, self → «Target», Key dv None)
+- 18-input.txt :: W09: K2Node_CallFunction_383: IsInputKeyDown: round18-pre: член APlayerController (UFUNCTION BlueprintCallable, const → pure). MemberParent=PlayerController, пин self (Target) типа PlayerController, Key по значению; round18: белая (copy-back sweep/copyback/input-r18.txt: InputKey=SpaceBar принят, self → «Target», Key dv None)
 - 21-enhanced-input.txt :: W09: K2Node_CallFunction_395: GetBoundActionValue: round21: FAIL — вставилась пустой (член EnhancedInputComponent::GetBoundActionValue движок не принял). Значение действия в BP берут узлом «Get IA_X» (K2Node_GetInputActionValue, нужен ассет) — ждём copy-back. round21-pre: статического GetActionValue нет — член UEnhancedInputComponent::GetBoundActionValue(const UInputAction*) const → pure; self = EnhancedInputComponent, RV FInputActionValue. Узел «Get IA_X» (K2Node_GetInputActionValue) требует ассет InputAction — не для свипа
 - 21-enhanced-input.txt :: W09: K2Node_CallFunction_398: AddMappingContext: round21b VERIFIED (движок, 2026-09-25): член IEnhancedInputSubsystemInterface; Options (FModifyContextOptions) опущен — движок достроит; self типизирован подсистемой
 - 22-casting.txt :: W09: K2Node_CallFunction_404: GetObjectClass: round22-pre: UGameplayStatics::GetObjectClass (в меню «Get Class») | R22 VERIFIED (движок, 2026-09-25)

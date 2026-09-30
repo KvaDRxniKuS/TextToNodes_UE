@@ -52,6 +52,12 @@ const LIBS_FULL = {
   NiagaraComponent: `"/Script/CoreUObject.Class'/Script/Niagara.NiagaraComponent'"`, // R37 (R36 VERIFIED)
   PlayerCameraManager: `"/Script/CoreUObject.Class'/Script/Engine.PlayerCameraManager'"`, // R37 (R36 VERIFIED)
   BlueprintGameplayTagLibrary: `"/Script/CoreUObject.Class'/Script/GameplayTags.BlueprintGameplayTagLibrary'"`, // R37 (R36 VERIFIED)
+  TextBlock: `"/Script/CoreUObject.Class'/Script/UMG.TextBlock'"`, // R38 VERIFIED
+  ProgressBar: `"/Script/CoreUObject.Class'/Script/UMG.ProgressBar'"`, // R38 VERIFIED
+  StaticMeshComponent: `"/Script/CoreUObject.Class'/Script/Engine.StaticMeshComponent'"`, // R38 VERIFIED
+  CameraComponent: `"/Script/CoreUObject.Class'/Script/Engine.CameraComponent'"`, // R38 VERIFIED
+  LightComponent: `"/Script/CoreUObject.Class'/Script/Engine.LightComponent'"`, // R38 VERIFIED
+  AudioComponent: `"/Script/CoreUObject.Class'/Script/Engine.AudioComponent'"`, // R38 VERIFIED
 };
 const LIBS_SHORT = {
   KismetMathLibrary:   `Class'"/Script/Engine.KismetMathLibrary"'`,
@@ -86,6 +92,12 @@ const LIBS_SHORT = {
   NiagaraComponent: `Class'"/Script/Niagara.NiagaraComponent"'`,
   PlayerCameraManager: `Class'"/Script/Engine.PlayerCameraManager"'`,
   BlueprintGameplayTagLibrary: `Class'"/Script/GameplayTags.BlueprintGameplayTagLibrary"'`,
+  TextBlock: `Class'"/Script/UMG.TextBlock"'`,
+  ProgressBar: `Class'"/Script/UMG.ProgressBar"'`,
+  StaticMeshComponent: `Class'"/Script/Engine.StaticMeshComponent"'`,
+  CameraComponent: `Class'"/Script/Engine.CameraComponent"'`,
+  LightComponent: `Class'"/Script/Engine.LightComponent"'`,
+  AudioComponent: `Class'"/Script/Engine.AudioComponent"'`,
 };
 export const UE_LIBS = UE_VERSION === 'SHORT' ? LIBS_SHORT : LIBS_FULL;
 
@@ -104,6 +116,7 @@ const STRUCTS_FULL = {
   Key:         `"/Script/CoreUObject.ScriptStruct'/Script/InputCore.Key'"`,
   LatentActionInfo: `"/Script/CoreUObject.ScriptStruct'/Script/Engine.LatentActionInfo'"`, // confirmed (copy-back Delay L1/L2)
   TimerHandle: `"/Script/CoreUObject.ScriptStruct'/Script/Engine.TimerHandle'"`, // round26-pre
+  EventReply: `"/Script/CoreUObject.ScriptStruct'/Script/UMG.EventReply'"`, // R38 copy-back ClearUserFocus
   InputActionValue: `"/Script/CoreUObject.ScriptStruct'/Script/EnhancedInput.InputActionValue'"`, // round21-pre: плагин EnhancedInput (в UE 5.8 включён по умолчанию)
 };
 // SHORT: правдоподобная legacy-форма (UE4/ранние UE5), вставкой НЕ проверена.
@@ -121,6 +134,7 @@ const STRUCTS_SHORT = {
   Key:              `ScriptStruct'"/Script/InputCore.Key"'`,
   LatentActionInfo: `ScriptStruct'"/Script/Engine.LatentActionInfo"'`,
   TimerHandle:      `ScriptStruct'"/Script/Engine.TimerHandle"'`,
+  EventReply:       `ScriptStruct'"/Script/UMG.EventReply"'`,
   InputActionValue: `ScriptStruct'"/Script/EnhancedInput.InputActionValue"'`,
 };
 export const UE_STRUCTS = UE_VERSION === 'SHORT' ? STRUCTS_SHORT : STRUCTS_FULL;

@@ -1,6 +1,6 @@
 # 27b — R27 Widgets / UI (VERIFIED), перекомпоновка --decorate: pure/данные подрядом под потребителем, knot'ы переноса.
 # Пересборка после R30-вердикта (knot A = правый край + 16). Класс виджета WBP_Test — заглушка (в движке выбрать свой).
-node tools/make-node.mjs --chain --wrap 4 --decorate --title "SWEEP 27 (перекомпоновка --decorate): Widgets / UI — Create Widget, Add to Viewport/Player Screen, Visibility, Input Mode, Show Mouse Cursor" -o sweep/27b-widgets-ui-decorated.txt \
+node tools/make-node.mjs --seed=sweep:27b-widgets-ui-decorated.txt --chain --wrap 4 --decorate --title "SWEEP 27 (перекомпоновка --decorate): Widgets / UI — Create Widget, Add to Viewport/Player Screen, Visibility, Input Mode, Show Mouse Cursor" -o sweep/chapters/r27-widgets-ui-decorated.txt \
  "event ShowUI" \
  "fn GetPlayerController" \
  "widget /Game/UI/WBP_Test" \

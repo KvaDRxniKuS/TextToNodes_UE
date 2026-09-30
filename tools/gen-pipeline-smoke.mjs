@@ -34,6 +34,6 @@ if (validation.errors.length) {
   console.error(validation.errors.join('\n'));
   process.exitCode = 1;
 } else {
-  fs.writeFileSync('sweep/current-pipeline-smoke.txt', text);
-  console.log(`Wrote sweep/current-pipeline-smoke.txt; nodes=${result.nodes.length}; errors=0; warnings=${validation.warnings.length}`);
+  fs.writeFileSync('sweep/layout/pipeline-smoke.txt', text);
+  console.log(`Wrote sweep/layout/pipeline-smoke.txt; nodes=${result.nodes.length}; errors=0; warnings=${validation.warnings.length}`);
 }

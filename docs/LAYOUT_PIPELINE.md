@@ -132,7 +132,7 @@ F — состав уровней, их верх и код нод не трон�
 
 | стек | где код | кто им пользуется | что умеет |
 |---|---|---|---|
-| **ступенчатый (основной цикл)** | `src/stage1.js`/`src/creator.js` → `src/arranger.js` (+ отложенный `src/decorator.js`), точка входа `positionBlueprint()` | `tools/gen-three-stage-test.mjs`, `tools/check-decoration.mjs`, `tools/check-knot-corridor.mjs`, пробы `gen-current-pipeline-smoke.mjs`/`gen-dispatcher-bound-test.mjs` | марки рядов (`@row=0.5`), столбцы детей форка, стадиумы из 4 knot'ов с парным Y и свободными колонками вертикалей, контроль наложений; раскладка отделена от создания нод |
+| **ступенчатый (основной цикл)** | `src/stage1.js`/`src/creator.js` → `src/arranger.js` (+ отложенный `src/decorator.js`), точка входа `positionBlueprint()` | `tools/gen-three-stage-test.mjs`, `tools/check-decoration.mjs`, `tools/check-knot-corridor.mjs`, пробы `gen-pipeline-smoke.mjs`/`gen-dispatcher-bound.mjs` | марки рядов (`@row=0.5`), столбцы детей форка, стадиумы из 4 knot'ов с парным Y и свободными колонками вертикалей, контроль наложений; раскладка отделена от создания нод |
 | **legacy** | `layoutRow`/`layoutRows`/`layoutDecorated`/`decorateExec` + `estNodeWidth`/`pinCenterY` в `src/generator.js` | `tools/make-node.mjs` и его фикстуры (`sweep/27b`, `30`, `32`), `tools/gen-sweep.mjs`, `gen-subset`, `gen-r21b/r25/r26`, часть asserts в `tests/` | ряд/сетка по одной строке, `--wrap`, `--decorate` — «упаковка» без рядовых марок и без отдельной ступени декора |
 
 Решение (2026-09-28): оставить оба. Legacy не «дублирует» расстановщик — он обслуживает CLI

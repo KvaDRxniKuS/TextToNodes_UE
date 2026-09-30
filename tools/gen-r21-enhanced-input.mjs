@@ -1,4 +1,4 @@
-// tools/gen-r21b.mjs — R21b: базовая цепочка Enhanced Input (без BeginPlay: K2Node_Event запрещён E08).
+// tools/gen-r21-enhanced-input.mjs — R21b: базовая цепочка Enhanced Input (без BeginPlay: K2Node_Event запрещён E08).
 // GetPlayerController → Cast To PlayerController → Get EnhancedInputLocalPlayerSubsystem → Add Mapping Context.
 import fs from 'fs';
 import { generateUEText, seedGuids } from '../src/parser.js';
@@ -22,7 +22,7 @@ const nodes = [gpc, cast, sub, add];
 const cm = fitComment('SWEEP 21b: Enhanced Input — Cast → Subsystem → AddMappingContext (draft)', nodes);
 const text = generateUEText([cm, ...nodes]);
 const v = validateStrict(text);
-fs.writeFileSync(new URL('../sweep/21b-enhanced-input-chain.txt', import.meta.url), text);
+fs.writeFileSync(new URL('../sweep/chapters/r21-enhanced-input-chain.txt', import.meta.url), text);
 console.log(`21b: nodes=${nodes.length} errors=${v.errors.length} warnings=${v.warnings.length}`);
 v.errors.forEach(e => console.log('  ', e));
 
@@ -34,7 +34,7 @@ v.errors.forEach(e => console.log('  ', e));
   const cm2 = fitComment('SWEEP 21c: Enhanced Input — событие IA_Jump + Get IA_Move (пути шаблона /Game/Input/Actions)', [ev, gv]);
   const t2 = generateUEText([cm2, ev, gv]);
   const v2 = validateStrict(t2);
-  fs.writeFileSync(new URL('../sweep/21c-enhanced-input-assets.txt', import.meta.url), t2);
+  fs.writeFileSync(new URL('../sweep/chapters/r21-enhanced-input-assets.txt', import.meta.url), t2);
   console.log(`21c: nodes=2 errors=${v2.errors.length} warnings=${v2.warnings.length}`);
   v2.errors.forEach(e => console.log('  ', e));
 }

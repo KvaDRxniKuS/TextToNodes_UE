@@ -7,10 +7,10 @@
 ## Основные CLI
 
 - `node tools/make-node.mjs ...` — конструктор Blueprint-модулей. Запустите без спецификаций, чтобы увидеть синтаксис из комментария в скрипте.
-- `node tools/gen-sweep.mjs` — пересобирает категорийные пробы и manifest; аргумент `zz` обновляет только `sweep/MANIFEST.md`, числовой префикс пересобирает соответствующую категорию.
+- `node tools/gen-sweep.mjs` — пересобирает категорийные пробы и manifest; аргумент `zz` обновляет только `sweep/registry/MANIFEST.md`, числовой префикс пересобирает соответствующую категорию.
 - `node tools/gen-probe.mjs [--batch 36] [--check]` — пробы новых нод для проверки в UE: у каждой ноды открытый пузырь-комментарий с её названием (`bCommentBubbleVisible` + `NodeComment`). Пишет `sweep/<batch>-probe.txt`; пользователь присылает copy-back только неудачных нод. Пакеты — объект `BATCHES` в скрипте. `--register` (после вердикта «встали») заводит пробы в `data/ue-functions.json` (`verified`, поле `probe`), сверяя, что запись воспроизводит ноду пробы; затем `node tools/gen-sweep.mjs`.
-- `node tools/gen-dispatcher-bound-test.mjs` — создаёт dispatcher layout fixture.
-- `node tools/gen-current-pipeline-smoke.mjs` — создаёт короткий Custom Event → Delay → PrintString пример через creator → arranger → decorator.
+- `node tools/gen-dispatcher-bound.mjs` — создаёт dispatcher layout fixture.
+- `node tools/gen-pipeline-smoke.mjs` — создаёт короткий Custom Event → Delay → PrintString пример через creator → arranger → decorator.
 - `node tools/gen-three-stage-test.mjs [--stage N] [--report] [--check]` — прогон трёх ступеней РАЗДЕЛЬНЫМИ инструментами на эталонной спеке `tests/three-stage-01.sequence.md`: ступень 1 пишет только код нод (без координат и проводов), ступень 2 материализует соединения и раскладывает черновик со knot-переносами, ступень 3 выравнивает пины. Каждая ступень отдаёт свой copy-paste файл `tests/three-stage-01.stageN-*.txt`, вход следующей — выход предыдущей как текст. `--report` — таблица нод/пинов/закладок и координат по ступеням, `--check` — побайтовая сверка файлов с генератором (входит в `npm test`).
 - `node tools/inventory.mjs <dump.txt> -o <context.json>` — строит инвентарь Blueprint-контекста для validate/make-node.
 
@@ -40,8 +40,8 @@
   нодами; ни один knot не попал внутрь прямоугольника ноды. Совместимый маршрут «пара knot'ов»
   проверяется по-старому: общий Y коридора.
 Пробы, не входящие в `npm test` (пересобирают фикстуры основного цикла без декоратора):
-`gen-current-pipeline-smoke.mjs`, `gen-dispatcher-bound-test.mjs`, `gen-collapsed-knot-test.mjs`,
-`gen-enum-select-test.mjs`, series-генераторы `gen-k/l/m/n/o-*`.
+`gen-pipeline-smoke.mjs`, `gen-dispatcher-bound.mjs`, `gen-collapsed-knot.mjs`,
+`gen-enum-select.mjs`, series-генераторы `gen-k/l/m/n/o-*`.
 
 ## Детерминизм sweep-корпуса
 
@@ -49,13 +49,13 @@
   `MANIFEST.md`. `--check` сверяет байты, ничего не записывая; `NN` — точечная пересборка
   категории. `seedGuids('sweep:<имя файла>')` ставится **до** построения узлов, поэтому частичный
   и полный прогон дают один и тот же файл.
-- `node tools/check-fixtures.mjs [--report]` — пересобирает каждую фикстуру `sweep/` её генератором
+- `node tools/check-sweep.mjs [--report]` — пересобирает каждую фикстуру `sweep/` её генератором
   и сравнивает байты; при расхождении печатает дельту и **откатывает** файлы (git status остаётся
-  чистым). Входит в `npm test` (`npm run check:fixtures`). Новый `.txt` в `sweep/` без recipe в
+  чистым). Входит в `npm test` (`npm run check:sweep`). Новый `.txt` в `sweep/` без recipe в
   `RECIPES` или без внесения в `FROZEN` — провал проверки.
 - `tools/make-node.mjs` — seed по имени `-o` (фикстуры `27b`/`30`/`32` воспроизводимы); `--seed=`
   переопределяет, вывод в stdout остаётся на `Math.random`, чтобы разные blueprint'ы не делили GUID.
-- Замороженные файлы (правятся только copy-back из UE): `25b-make-node.txt`, `31-audio.txt`,
-  `27-widgets-ui.txt`, `28-enhanced-input-full.txt`, `29-components-physics.txt`. В `gen-sweep.mjs`
+- Замороженные файлы (правятся только copy-back из UE): `r25-make-node.txt`, `r31-audio.txt`,
+  `r27-widgets-ui.txt`, `r28-enhanced-input-full.txt`, `r29-components-physics.txt`. В `gen-sweep.mjs`
   они стоят в `HAND_OWNED`/`FROZEN` — автоматическая сборка их не перезаписывает (MANIFEST
   печатает ⊘ в колонке Notes).

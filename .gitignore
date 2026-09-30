@@ -8,5 +8,3 @@ node_modules/
 # перегенерируется `node tools/gen-three-stage-test.mjs --stage 3` и в git не попадает
 tests/*.stage3-decorator.WIP.txt
 
-# диагностический вывод gen-sweep (категория «Debug»), в репозитории не нужен
-sweep/30-debug.txt

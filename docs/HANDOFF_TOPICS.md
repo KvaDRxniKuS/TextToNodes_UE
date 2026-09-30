@@ -10,14 +10,14 @@
 |---|---|
 | R07–R20, R21b/R21c, R22/R22b, R23/R23b, R24–R27, R28, R29, R31, R32 | VERIFIED; детали и версии — в `ENGINE_VERIFIED.md` |
 | R21 GetBoundActionValue | Не использовать: нода скрыта/не доступна в проверенной конфигурации |
-| Enum Select для `EDrawDebugTrace` | Точная форма сверена с UE copy-back: 4 options, enum IndexPinType, Enum/EnumEntries и friendly names; fixture `sweep/enum-select-test.txt`. Кастомный BP enum отдельно не подтверждён |
-| Dispatcher layout follow-up | `sweep/dispatcher-probe-bound.txt` обновлён инструментами трёх этапов; новая визуальная раскладка ещё ждёт verdict пользователя |
+| Enum Select для `EDrawDebugTrace` | Точная форма сверена с UE copy-back: 4 options, enum IndexPinType, Enum/EnumEntries и friendly names; fixture `sweep/chapters/enum-select.txt`. Кастомный BP enum отдельно не подтверждён |
+| Dispatcher layout follow-up | `sweep/chapters/dispatcher-bound.txt` обновлён инструментами трёх этапов; новая визуальная раскладка ещё ждёт verdict пользователя |
 | Трёхступенчатый конвейер отдельными инструментами | Основной цикл = ступени 1–2; ступень 3 (декоратор) с 2026-09-28 помечена «в разработке» и из цикла вынута (модуль, `tools/check-decoration.mjs` и критерии сохранены, прогон — `npm run stages:wip`, выход не коммитится). Ступень 1 (генератор нод, `src/stage1.js`) откалибрована на `tests/three-stage-01.sequence.md` под правило «не двигает и не соединяет»: 12 нод, все координаты 0, ноль `LinkedTo`, 6 уровней и 11 соединений заложены, STRICT + round-trip чистые; визуальный verdict пользователя ещё не получен. Ступень 2: коридор knot-переносов исправлен по замечанию пользователя (knot'ы «под уровнем» → «между уровнями», `rerouteCorridorY` + привязка к сетке) и принят. Ступень 3 переписана по ТЗ и поправлена по вердикту: ряды плоские, столбец детей форка (в эталоне — маркой `@row=0.5`), стадиум из 4 knot'ов по пинам кладётся на любой несоосный exec-провод — и перенос между уровнями, и излом строк пинов в ряду (`transferRoute`/`execCorridorY` в ступени 2), код нод и состав уровней не трогает; критерии — `tools/check-decoration.mjs` в `npm test`. Остальные расхождения — в `tests/three-stage-01.sequence.md` §4 (правила WIP-ступени 3 — там же, справочно) |
 | R30/27b и другие старые layout probes | Не считать последнее ручное смещение универсально откалиброванным. При необходимости сверять с актуальным UE copy-back, а не возрождать старые offsets из журнала |
 
 ## Следующие темы — в заданном порядке
 
-> R36 (2026-09-30): пункты 4–17 собраны пробой `sweep/36-probe.txt` (`tools/gen-probe.mjs`) — ждём copy-back неудачных нод. Timeline, Interface Message, AI MoveTo, Get Data Table Row, Set Members in Struct и latent stream-level — особые узлы, в пробу не вошли.
+> R36 (2026-09-30): пункты 4–17 собраны пробой `sweep/probes/r36-probe.txt` (`tools/gen-probe.mjs`) — ждём copy-back неудачных нод. Timeline, Interface Message, AI MoveTo, Get Data Table Row, Set Members in Struct и latent stream-level — особые узлы, в пробу не вошли.
 
 1. **Завершить UE-проверку текущего layout pipeline** на dispatcher fixture: последовательность слева направо, реальный зазор между exec-пинами, pin-center alignment и handler. Новые позиции/solver утверждать только после copy-back пользователя. Параллельно идёт калибровка ступеней по одному инструменту на `tests/three-stage-01.*`: ступень 2 принята (шаблон «делегат левее ниже» и дробные уровни — открытые пункты, стадиумы уже в ступени 2), ступень 3 приостановлена по решению пользователя и ждёт возврата отдельным решением.
 2. ~~**MoveComponentTo**~~ — VERIFIED (R34, 2026-09-30): входы Move/Stop/Return, выход Completed; см. `ENGINE_VERIFIED.md`.
@@ -48,3 +48,8 @@
 - Полноценный enum Select не сводить к двум wildcard options: для указанного EDrawDebugTrace эталон — четыре enum options; см. fixture и `ENGINE_VERIFIED.md`.
 - Composite/Knot геометрию из завершённых тестов не смешивать с dispatcher/layout work.
 - Реальные пользовательские проектные дампы, которые пользователь не разрешал включать в toolkit, не добавлять в Git.
+
+## Допуск ступени 2 (решение пользователя 2026-09-28)
+
+Результат расстановщика принимается как есть; ручная корректировка нод в пределах сетки 3×3 допустима
+и не является багом расстановщика. Всё, что требует большего сдвига, — дефект ступени 2.

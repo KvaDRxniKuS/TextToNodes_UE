@@ -1,4 +1,4 @@
-// tools/gen-r25.mjs — R25 Events/Delegates: связанная сцена (K2Node_Event запрещён E08 — только CustomEvent/делегатные узлы).
+// tools/gen-r25-events.mjs — R25 Events/Delegates: связанная сцена (K2Node_Event запрещён E08 — только CustomEvent/делегатные узлы).
 // MyEvent → Bind(OnActorBeginOverlap ← OnOverlapActor) → Unbind(← Create Event) → Unbind all → Call OnDamaged(10).
 import fs from 'fs';
 import { generateUEText, seedGuids } from '../src/parser.js';
@@ -25,7 +25,7 @@ const nodes = [ev, bind, unb, clr, call, evOv, mk, evDmg];
 const cm = fitComment('SWEEP 25: Events / Delegates — Custom Event, Bind/Unbind/Unbind all (OnActorBeginOverlap), Create Event, вызов Custom Event', nodes);
 const text = generateUEText([cm, ...nodes]);
 const v = validateStrict(text);
-fs.writeFileSync(new URL('../sweep/25-events-delegates.txt', import.meta.url), text);
+fs.writeFileSync(new URL('../sweep/chapters/r25-events-delegates.txt', import.meta.url), text);
 console.log(`25: nodes=${nodes.length} errors=${v.errors.length} warnings=${v.warnings.length} bytes=${text.length}`);
 v.errors.forEach(e => console.log('  ', e));
 v.warnings.forEach(e => console.log('   W', e.slice(0, 160)));

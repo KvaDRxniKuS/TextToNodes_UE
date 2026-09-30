@@ -21,7 +21,7 @@ const option = (name, fallback) => {
 };
 const inputCount = option('--inputs', 4), outputCount = option('--outputs', 5), maxLevels = option('--levels', 2);
 if (![inputCount, outputCount, maxLevels].every(Number.isInteger) || inputCount < 1 || outputCount < 1 || maxLevels < 1) {
-  throw new Error('Usage: node tools/gen-collapsed-knot-test.mjs [--inputs N] [--outputs N] [--levels N]');
+  throw new Error('Usage: node tools/gen-collapsed-knot.mjs [--inputs N] [--outputs N] [--levels N]');
 }
 seedGuids(`sweep:collapsed-knot-${inputCount}x${outputCount}-${maxLevels}levels.txt`); // seed до построения пинов: GUID детерминированы параметрами
 const makePins = (count, prefix) => Array.from({length:count}, (_,i) => ({
@@ -116,7 +116,7 @@ const totalKnots=knots.length;
 const comment=createComment(`COLLAPSED PIN TEST: ${inputCount} inputs / ${outputCount} outputs; up to ${maxLevels} recursive Knot levels; port offset ${KNOT_SIDE_OFFSET}px; level step ${KNOT_X_STEP}px; vertical pin pitch ${PIN_ROW_H}px`, {x:-96,y:-160}, width+320, 420);
 const text=[generateUEText([comment]),comp,...knots.map(k=>generateUEText([k]))].join('\n\n')+'\n';
 const out=inputCount===4 && outputCount===5 && maxLevels===2
-  ? 'sweep/collapsed-knot-4x5-test.txt'
-  : `sweep/collapsed-knot-${shape}-${maxLevels}levels-test.txt`;
+  ? 'sweep/layout/collapsed-knot-4x5.txt'
+  : `sweep/layout/collapsed-knot-${shape}-${maxLevels}levels.txt`;
 fs.writeFileSync(out,text);
 console.log(`wrote ${out} (${text.length} bytes); inputs=${inputs.length}, outputs=${outputs.length}, maxLevels=${maxLevels}, looseKnots=${totalKnots}, width=${width}`);

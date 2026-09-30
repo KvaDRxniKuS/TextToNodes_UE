@@ -25,6 +25,8 @@ const REGISTER = args.includes('--register'); // после вердикта «�
 // Шорткаты: статическая функция библиотеки / член класса. Слова пинов — как в createCall: «Имя:тип[=значение]», «->».
 const lib = (key, words, pure = false) => () => createCall(key, words, { pure, isStatic: true });
 const mem = (key, words, pure = false) => () => createCall(key, words, { pure });
+// ref(фабрика, пины…): пометить пины by-ref (bIsReference=True), как в copy-back
+const ref = (make, ...names) => () => { const n = make(); n.pins.forEach(p => { if (names.includes(p.name)) p.isRef = true; }); return n; };
 const macro = (graph, pins) => () => createMacroInstance({ id: graph, title: graph, pins });
 
 /* Пакеты проб. Каждая проба: [тема, текст пузыря, фабрика]. Текст пузыря — что за нода и чего ждём. */
@@ -96,7 +98,7 @@ const BATCHES = {
     ['Game', 'Get Time Seconds (GameplayStatics, pure)', lib('GameplayStatics.GetTimeSeconds', ['->', 'ReturnValue:double'], true)],
     ['Game', 'Get Player State (GameplayStatics, pure)', lib('GameplayStatics.GetPlayerState', ['PlayerStateIndex:int', '->', 'ReturnValue:object:PlayerState'], true)],
     // Timers
-    ['Timers', 'Clear Timer by Handle (KismetSystemLibrary: K2_ClearTimerHandle)', lib('KismetSystemLibrary.K2_ClearTimerHandle', ['Handle:timerhandle'])],
+    // Timers: K2_ClearTimerHandle в UE 5.8 нет — ряд пропал при вставке (вердикт R38); весь набор K2_*Timer* уже VERIFIED в реестре (R26)
     // Debug
     ['Debug', 'Draw Debug Line (KismetSystemLibrary). Ждём: остальные пины движок достроит', lib('KismetSystemLibrary.DrawDebugLine', ['LineStart:vector', 'LineEnd:vector', 'LineColor:linearcolor', 'Duration:single', 'Thickness:single'])],
     ['Debug', 'Draw Debug Sphere (KismetSystemLibrary)', lib('KismetSystemLibrary.DrawDebugSphere', ['Center:vector', 'Radius:single=100.000000', 'Segments:int=12', 'LineColor:linearcolor', 'Duration:single', 'Thickness:single'])],
@@ -104,6 +106,8 @@ const BATCHES = {
     ['UI', 'Set Text (член TextBlock)', mem('/Script/UMG.TextBlock.SetText', ['InText:text'])],
     ['UI', 'Set Percent (член ProgressBar)', mem('/Script/UMG.ProgressBar.SetPercent', ['InPercent:single'])],
     ['UI', 'Project World Location to Screen (член PlayerController). Ждём: ScreenLocation Vector2D + bool', mem('PlayerController.ProjectWorldLocationToScreen', ['WorldLocation:vector', 'bPlayerViewportRelative:bool', '->', 'ScreenLocation:vector2d', 'ReturnValue:bool'])],
+    ['UI', 'Set Focus to Game Viewport (WidgetBlueprintLibrary; из copy-back R38)', lib('/Script/UMG.WidgetBlueprintLibrary.SetFocusToGameViewport', [])],
+    ['UI', 'Clear User Focus (WidgetBlueprintLibrary, pure; Reply by-ref; из copy-back R38)', ref(lib('/Script/UMG.WidgetBlueprintLibrary.ClearUserFocus', ['Reply:eventreply', 'bInAllUsers:bool=false', '->', 'ReturnValue:eventreply'], true), 'Reply')],
     // Components
     ['Components', 'Activate (член ActorComponent)', mem('ActorComponent.Activate', ['bReset:bool'])],
     ['Components', 'Deactivate (член ActorComponent)', mem('ActorComponent.Deactivate', [])],
@@ -139,7 +143,7 @@ const BATCHES = {
 
 const list = BATCHES[batch];
 if (!list) { console.error(`нет пакета ${batch}; есть: ${Object.keys(BATCHES).join(', ')}`); process.exit(1); }
-const out = new URL(`../sweep/${batch}-probe.txt`, import.meta.url);
+const out = new URL(`../sweep/probes/r${batch}-probe.txt`, import.meta.url);
 
 seedGuids(`probe:${batch}`);
 const nodes = [], GAPX = 64, GAPY = 96;
@@ -168,11 +172,11 @@ v.errors.forEach(e => console.log('  ERR ' + e));
 if (!v.valid) process.exit(1);
 if (CHECK) {
   const disk = fs.existsSync(out) ? fs.readFileSync(out, 'utf8') : '';
-  if (disk !== text) { console.log(`✗ sweep/${batch}-probe.txt расходится с генератором`); process.exit(1); }
-  console.log(`✓ sweep/${batch}-probe.txt совпадает с генератором`);
+  if (disk !== text) { console.log(`✗ sweep/probes/r${batch}-probe.txt расходится с генератором`); process.exit(1); }
+  console.log(`✓ sweep/probes/r${batch}-probe.txt совпадает с генератором`);
 } else {
   fs.writeFileSync(out, text);
-  console.log(`→ sweep/${batch}-probe.txt`);
+  console.log(`→ sweep/probes/r${batch}-probe.txt`);
 }
 
 // ── --register: пробы, подтверждённые движком, → записи data/ue-functions.json ──────────────────────────
@@ -198,6 +202,7 @@ if (REGISTER) {
       if (p.category === 'struct') o.sub = structByRef[p.subCategoryObject];
       if ((p.category === 'object' || p.category === 'class') && p.subCategoryObject) o.object = objPath(p.subCategoryObject);
       if (p.isConst) o.const = true;
+      if (p.isRef) o.ref = true;
       if (p.container !== 'None') o.container = p.container;
       if (p.defaultValue) o.dv = p.defaultValue;
       if ((p.autoDefault || '') !== (p.defaultValue || '')) o.autoDv = p.autoDefault || '';

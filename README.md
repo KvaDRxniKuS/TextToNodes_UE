@@ -35,7 +35,7 @@
 
 ```bash
 npm test
-node src/validate.js sweep/dispatcher-probe-bound.txt
+node src/validate.js sweep/chapters/dispatcher-bound.txt
 ```
 
 Открыть песочницу можно напрямую через `index.html` либо локальным сервером:
@@ -83,7 +83,7 @@ node tools/make-node.mjs --chain --decorate -o /tmp/graph.txt \
 
 ## Реестр и engine verification
 
-`data/ue-functions.json` — актуальный перечень функций, используемый парсером/генераторами и sweep. Поле `verified` означает, что запись подтверждена вставкой в UE; `note` сохраняет оговорку. Сводка регрессионного прогона: [`sweep/MANIFEST.md`](sweep/MANIFEST.md). Подробные copy-back-наблюдения и исторические тесты: [`docs/ENGINE_VERIFIED.md`](docs/ENGINE_VERIFIED.md).
+`data/ue-functions.json` — актуальный перечень функций, используемый парсером/генераторами и sweep. Поле `verified` означает, что запись подтверждена вставкой в UE; `note` сохраняет оговорку. Сводка регрессионного прогона: [`sweep/registry/MANIFEST.md`](sweep/registry/MANIFEST.md). Подробные copy-back-наблюдения и исторические тесты: [`docs/ENGINE_VERIFIED.md`](docs/ENGINE_VERIFIED.md).
 
 Добавление строки в реестр само по себе **не доказывает**, что UE примет ноду. Подтверждение делается в нужной версии UE через вставку, copy-back и, где применимо, компиляцию Blueprint.
 
@@ -95,17 +95,17 @@ node src/validate.js FILE.txt    # STRICT check одного файла
 node tools/gen-sweep.mjs         # пересобрать корпус sweep и MANIFEST
 node tools/gen-sweep.mjs --check # побайтовая сверка sweep/NN-*.txt с генератором (без записей)
 node tools/gen-sweep.mjs 11      # пересобрать только категорию 11
-node tools/check-fixtures.mjs    # пересобрать ВСЕ sweep-фикстуры и сравнить байты (при дрейфе — откат)
-node tools/check-fixtures.mjs --report   # чем пересобран каждый файл, что заморожено
-node tools/gen-dispatcher-bound-test.mjs
+node tools/check-sweep.mjs    # пересобрать ВСЕ файлы sweep/ и сравнить байты (при дрейфе — откат)
+node tools/check-sweep.mjs --report   # чем пересобран каждый файл, что заморожено
+node tools/gen-dispatcher-bound.mjs
 ```
 
-- `tests/fixtures/` содержит положительные реальные copy-back fixtures.
-- `tests/fixtures/negative/` содержит примеры, которые валидатор обязан отклонять.
+- `sweep/copyback/` содержит дословные copy-back из движка (эталоны).
+- `tests/negative/` содержит примеры, которые валидатор обязан отклонять.
 - `sweep/` — корпус проб и категорийный регресс. Он **воспроизводим**: GUID сеятся именем файла
-  (`seedGuids`), поэтому `node tools/gen-sweep.mjs --check` и `node tools/check-fixtures.mjs`
+  (`seedGuids`), поэтому `node tools/gen-sweep.mjs --check` и `node tools/check-sweep.mjs`
   ловят любой дрейф реестра/генератора, не порождая шума в diff. Полная таблица «чем пересобран
-  каждый файл» — в `sweep/MANIFEST.md` (раздел «Покрытие»); замороженные copy-back-главы
+  каждый файл» — в `sweep/registry/MANIFEST.md` (раздел «Покрытие»); замороженные copy-back-главы
   (`25b`, `31-audio`, `27`, `28`, `29`) пересборке не подлежат — их правят только через copy-back из UE.
 - `tools/make-node.mjs` сеится от `-o` (повторная сборка фикстуры = те же байты); в stdout GUID
   остаются случайными, `--seed=<строка>` задаёт seed вручную.

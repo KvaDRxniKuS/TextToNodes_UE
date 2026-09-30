@@ -1,4 +1,4 @@
-// tools/gen-r26.mjs — R26 Timers / Latent: связанная сцена.
+// tools/gen-r26-timers.mjs — R26 Timers / Latent: связанная сцена.
 // OnTimerTick(Custom Event) ⇒ Set Timer by Event → Pause → Unpause → Clear&Invalidate → Set Timer by Function Name → Clear by Name → Invalidate → Delay Until Next Tick;
 // хендл Set Timer by Event → Pause/Unpause и 6 pure-геттеров (ref-пины Clear&Invalidate/Invalidate не подключаем — им нужна переменная).
 import fs from 'fs';
@@ -29,6 +29,6 @@ const nodes = [ev, ...chain, ...pures];
 const cm = fitComment('SWEEP 26: Timers / Latent — Set Timer by Event / Function Name, Pause/Unpause/Clear/Invalidate, геттеры хендла, Delay Until Next Tick', nodes);
 const text = generateUEText([cm, ...nodes]);
 const v = validateStrict(text);
-fs.writeFileSync(new URL('../sweep/26-timers-latent.txt', import.meta.url), text);
+fs.writeFileSync(new URL('../sweep/chapters/r26-timers-latent.txt', import.meta.url), text);
 console.log(`26: nodes=${nodes.length} errors=${v.errors.length} warnings=${v.warnings.length} bytes=${text.length}`);
 v.errors.forEach(e => console.log('  ', e));

@@ -183,7 +183,7 @@ regThrow.forEach(t => console.log('THROW:', t));
 
 // K1 copy-back: реальный текст движка UE 5.8 (comment + LineTraceSingle 16 пинов)
 {
-  const k1 = fs.readFileSync(new URL('./fixtures/k1-copyback.txt', import.meta.url), 'utf8');
+  const k1 = fs.readFileSync(new URL('../sweep/copyback/k1.txt', import.meta.url), 'utf8');
   const v = validateStrict(k1);
   ok(v.valid && v.errors.length === 0, 'K1 copy-back: strict 0 ошибок (предупреждений: ' + v.warnings.length + ')');
   const gk = parseToGraphs(k1);
@@ -222,7 +222,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(bt.indexOf('bDefaultsToPureFunc=True') !== -1 && bt.indexOf('bDefaultsToPureFunc=True') < bt.indexOf('FunctionReference='), 'pure: bDefaultsToPureFunc перед FunctionReference');
   const bv = validateStrict(bt);
   ok(bv.valid && bv.errors.length === 0 && bv.warnings.length === 0, 'pure: сгенерированный текст STRICT-OK без варнингов');
-  const fx = fs.readFileSync(new URL('./fixtures/breakhitresult-copyback.txt', import.meta.url), 'utf8');
+  const fx = fs.readFileSync(new URL('../sweep/copyback/breakhitresult.txt', import.meta.url), 'utf8');
   const fv = validateStrict(fx);
   ok(fv.errors.length === 2 && fv.errors.every(e => e.startsWith('E06')), 'Q6 фикстура: только 2xE06 (фрагмент, _111 вне выборки)');
   const gf = parseToGraphs(fx);
@@ -238,7 +238,7 @@ regThrow.forEach(t => console.log('THROW:', t));
 
 // M1 copy-back: round-trip pure BreakHitResult (трейд 15→16, pure 19→20, провод жив)
 {
-  const m1 = fs.readFileSync(new URL('./fixtures/m1-copyback.txt', import.meta.url), 'utf8');
+  const m1 = fs.readFileSync(new URL('../sweep/copyback/m1.txt', import.meta.url), 'utf8');
   const v = validateStrict(m1);
   ok(v.valid && v.errors.length === 0 && v.warnings.length === 0, 'M1 copy-back: strict 0 ошибок, 0 варнингов');
   const gm = parseToGraphs(m1);
@@ -269,7 +269,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   const cv = validateStrict(ct);
   ok(cv.valid && cv.errors.length === 0 && cv.warnings.length === 0, 'CapsuleTraceMulti: генерация STRICT-OK без варнингов');
   ok(['SphereTraceMulti', 'BoxTraceMulti'].every(id => { const e = byId(id); return e && e.verified === true && !e.note; }), 'Multi-аналогии: Sphere/Box подтверждены (O1)');
-  const fx = fs.readFileSync(new URL('./fixtures/capsuletracemulti-copyback.txt', import.meta.url), 'utf8');
+  const fx = fs.readFileSync(new URL('../sweep/copyback/capsuletracemulti.txt', import.meta.url), 'utf8');
   const fv = validateStrict(fx);
   ok(fv.valid && fv.errors.length === 0 && fv.warnings.length === 0, 'Q2 фикстура: strict 0 ошибок, 0 варнингов');
   const gq = parseToGraphs(fx);
@@ -336,7 +336,7 @@ regThrow.forEach(t => console.log('THROW:', t));
 
 // N1 copy-back: 42/42 PinId, резолв wildcard-макро при вставке, 3 провода
 {
-  const n1 = fs.readFileSync(new URL('./fixtures/n1-copyback.txt', import.meta.url), 'utf8');
+  const n1 = fs.readFileSync(new URL('../sweep/copyback/n1.txt', import.meta.url), 'utf8');
   const v = validateStrict(n1);
   ok(v.valid && v.errors.length === 0 && v.warnings.length === 0, 'N1 copy-back: strict 0 ошибок, 0 варнингов');
   ok(!n1.includes('PinToolTip'), 'N1 copy-back: свежая вставка без тултипов (движок кеширует их позже)');
@@ -370,7 +370,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   const bt2 = generateUEText([createCallFunction(lbp, { x: 0, y: 0 })]);
   const bv2 = validateStrict(bt2);
   ok(bv2.valid && bv2.errors.length === 0 && bv2.warnings.length === 0, 'ByProfile: генерация STRICT-OK без варнингов');
-  const fx = fs.readFileSync(new URL('./fixtures/linetracemulti-byprofile-copyback.txt', import.meta.url), 'utf8');
+  const fx = fs.readFileSync(new URL('../sweep/copyback/linetracemulti-byprofile.txt', import.meta.url), 'utf8');
   const fv = validateStrict(fx);
   ok(fv.valid && fv.errors.length === 0 && fv.warnings.length === 0, 'Q2-done фикстура: strict 0/0');
   ok(!fx.includes('LinkedTo'), 'Q2-done фикстура: ноды без связей');
@@ -408,7 +408,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   const foV = validateStrict(foTxt);
   ok(foV.valid && foV.errors.length === 0 && foV.warnings.length === 0, 'ForObjects: генерация STRICT-OK без варнингов');
   ok(foTxt.includes(`/Script/Engine.EObjectTypeQuery'`), 'ForObjects: путь энама EObjectTypeQuery в тексте');
-  const o1 = fs.readFileSync(new URL('./fixtures/sphereboxtracemulti-copyback.txt', import.meta.url), 'utf8');
+  const o1 = fs.readFileSync(new URL('../sweep/copyback/sphereboxtracemulti.txt', import.meta.url), 'utf8');
   const o1v = validateStrict(o1);
   ok(o1v.valid && o1v.errors.length === 0 && o1v.warnings.length === 0, 'O1 фикстура: strict 0/0');
   ok(!o1.includes('LinkedTo') && !o1.includes('PinToolTip'), 'O1 фикстура: без связей и тултипов (свежая вставка)');
@@ -420,7 +420,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(o1s.pins.findIndex(p => p.name === 'self') === 2 && o1s.pins.filter(p => p.advanced).length === 3, 'O1 фикстура: self третий, 3 advanced');
   const o1c = go1.EventGraph.nodes.find(n => n.isComment);
   ok(o1c && o1c.width === 960 && o1c.height === 640, 'O1 фикстура: коммент 960x640');
-  const o2 = fs.readFileSync(new URL('./fixtures/tracesingle-forobjects-copyback.txt', import.meta.url), 'utf8');
+  const o2 = fs.readFileSync(new URL('../sweep/copyback/tracesingle-forobjects.txt', import.meta.url), 'utf8');
   const o2v = validateStrict(o2);
   ok(o2v.valid && o2v.errors.length === 0 && o2v.warnings.length === 0, 'O2 фикстура: strict 0/0');
   const go2 = parseToGraphs(o2);
@@ -493,7 +493,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(byId('DoN').verified === true && byId('DoN').macro.graph === 'Do N', 'round1b: DoN — имя с пробелом, verified');
   const seT = generateUEText([createFromEntry(byId('SwitchEnum'))]);
   ok(seT.includes(`Enum="/Script/CoreUObject.Enum'/Script/Engine.EDrawDebugTrace'"`) && seT.includes('EnumEntries(0)=""') && seT.includes('EnumEntries(3)="Persistent"') && !seT.includes('PinName="Default"'), 'round1b: SwitchEnum — Enum/Entries (None→""), без Default');
-  const enumSelectText = fs.readFileSync(new URL('../sweep/enum-select-test.txt', import.meta.url), 'utf8');
+  const enumSelectText = fs.readFileSync(new URL('../sweep/chapters/enum-select.txt', import.meta.url), 'utf8');
   ok(validateStrict(enumSelectText).errors.length===0 && validateStrict(enumSelectText).warnings.length===0 && enumSelectText.includes('NumOptionPins=4') && enumSelectText.includes('IndexPinType=(PinCategory="byte"') && enumSelectText.includes('EnumEntries(3)="Persistent"'), 'Enum Select: NumOptionPins + IndexPinType + EnumEntries');
   const enumSelectBlock = enumSelectText.split('\n\nBegin Object')[0];
   ok(!enumSelectBlock.includes('PinName="None"') && enumSelectBlock.includes('PinFriendlyName=NSLOCTEXT("UObjectDisplayNames", "EDrawDebugTrace.None", "None")') && enumSelectBlock.includes('PinName="ForOneFrame"'), 'Enum Select options use enum values and localized friendly names');
@@ -697,7 +697,7 @@ regThrow.forEach(t => console.log('THROW:', t));
 // R20 вердикт: Text 1/1; DefaultTextValue (copy-back FormatText)
 {
   ok(reg.filter(e => e.category === 'Text').every(e => e.verified), 'R20: Text verified');
-  const cb = fs.readFileSync(new URL('./fixtures/formattext-copyback.txt', import.meta.url), 'utf8');
+  const cb = fs.readFileSync(new URL('../sweep/copyback/formattext.txt', import.meta.url), 'utf8');
   const g = parseToGraphs(cb);
   const nodes = (Array.isArray(g) ? g : Object.values(g)).flatMap(x => x.nodes || x);
   const ft = nodes.find(n => /FormatText/.test(n.className || n.rawClass || ''));
@@ -721,7 +721,7 @@ regThrow.forEach(t => console.log('THROW:', t));
 {
   const inp = reg.filter(e => e.category === 'Input');
   ok(inp.length === 2 && inp.every(e => e.verified), 'R18: Input 2/2 verified');
-  const cb = fs.readFileSync(new URL('./fixtures/input-r18-copyback.txt', import.meta.url), 'utf8');
+  const cb = fs.readFileSync(new URL('../sweep/copyback/input-r18.txt', import.meta.url), 'utf8');
   ok(cb.includes('InputKey=SpaceBar') && cb.includes('NSLOCTEXT("K2Node", "Target", "Target")'), 'R18: copy-back — InputKey принят, self → Target');
   const cs = reg.filter(e => e.category === 'Casting');
   ok(cs.length === 11, 'R22: Casting 11 записей (+ClassCastToPawn)');
@@ -759,7 +759,7 @@ regThrow.forEach(t => console.log('THROW:', t));
 {
   const { createCast } = await import('../src/generator.js');
   ok(reg.filter(e => e.category === 'Casting').every(e => e.verified), 'R22: Casting verified');
-  const ref = fs.readFileSync(new URL('./fixtures/classcast-r22-copyback.txt', import.meta.url), 'utf8');
+  const ref = fs.readFileSync(new URL('../sweep/copyback/classcast-r22.txt', import.meta.url), 'utf8');
   const t = generateUEText([createCast('Pawn', { kind: 'class' })]);
   const sig = s => s.split('\n').filter(l => /TargetType|PureState|PinName=/.test(l)).map(l => l.replace(/PinId=\w+,/, '').replace(/PersistentGuid=0+,/, '').trim());
   ok(JSON.stringify(sig(t)) === JSON.stringify(sig(ref)), 'R22: ClassDynamicCast Pawn = копия пользователя 1:1 (без GUID)');
@@ -775,7 +775,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   const t = generateUEText([createFromEntry(byId('AttachComponentToComponent'))]);
   ok(t.includes("MemberParent=\"/Script/CoreUObject.Class'/Script/Engine.SceneComponent'\",MemberName=\"K2_AttachToComponent\"") && t.includes('DefaultValue="KeepRelative"'), 'R23b: Attach Component To Component — член SceneComponent, правила KeepRelative');
   ok(generateUEText([createFromEntry(byId('DetachFromActor'))]).includes("Engine.EDetachmentRule"), 'R23b: EDetachmentRule');
-  const v = validateStrict(fs.readFileSync(new URL('../sweep/23b-actor-ext.txt', import.meta.url), 'utf8'));
+  const v = validateStrict(fs.readFileSync(new URL('../sweep/chapters/r23-actor-ext.txt', import.meta.url), 'utf8'));
   ok(v.errors.length === 0, 'R23b: sweep 0 ошибок');
 // R21c + R23b VERIFIED, R25 pre: Events / Delegates
 {
@@ -786,7 +786,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   const t = generateUEText([createFromEntry(byId('CustomEventParam')), createFromEntry(byId('BindEventActorBeginOverlap'))]);
   ok(t.includes('CustomFunctionName="OnDamaged"') && t.includes('UserDefinedPin (PinName="Amount",PinType=(PinCategory="real",PinSubCategory="double"),DesiredPinDirection=EGPD_Output)'), 'R25: Custom Event с UserDefinedPin');
   ok(t.includes('MemberName="ActorBeginOverlapSignature__DelegateSignature"') && t.includes('MemberName="OnActorBeginOverlap")'), 'R25: Bind Event — DelegateReference + сигнатура делегата');
-  const v = validateStrict(fs.readFileSync(new URL('../sweep/25-events-delegates.txt', import.meta.url), 'utf8'));
+  const v = validateStrict(fs.readFileSync(new URL('../sweep/chapters/r25-events-delegates.txt', import.meta.url), 'utf8'));
   ok(v.errors.length === 0, 'R25: sweep 0 ошибок');
 }
 }
@@ -797,7 +797,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(tl.length === 14 && tl.every(e => e.lib === 'KismetSystemLibrary'), 'R26: 14 записей KSL');
   const t = generateUEText([createFromEntry(byId('SetTimerByEvent')), createFromEntry(byId('ClearAndInvalidateTimerHandle'))]);
   ok(t.includes('MemberName="TimerDynamicDelegate__DelegateSignature"') && t.includes("Engine.TimerHandle'"), 'R26: Set Timer by Event — сигнатура делегата + FTimerHandle');
-  const v = validateStrict(fs.readFileSync(new URL('../sweep/26-timers-latent.txt', import.meta.url), 'utf8'));
+  const v = validateStrict(fs.readFileSync(new URL('../sweep/chapters/r26-timers-latent.txt', import.meta.url), 'utf8'));
   ok(v.errors.length === 0, 'R26: sweep 0 ошибок');
 }
 // R22b VERIFIED + конструктор модулей (src/modules.js, tools/make-node.mjs)
@@ -815,9 +815,9 @@ regThrow.forEach(t => console.log('THROW:', t));
   let threw = false; try { M.parseType('quux'); } catch { threw = true; }
   ok(threw, 'modules: неизвестный тип — ошибка, а не молчаливый мусор');
   ok(M.createFn(byId('Delay'), { Duration: '2.5' }).pins.find(p => p.name === 'Duration').defaultValue === '2.5', 'modules: createFn переопределяет дефолт');
-  const v = validateStrict(fs.readFileSync(new URL('../sweep/25b-make-node.txt', import.meta.url), 'utf8'));
+  const v = validateStrict(fs.readFileSync(new URL('../sweep/chapters/r25-make-node.txt', import.meta.url), 'utf8'));
   ok(v.errors.length === 0, 'R25b: модуль make-node 0 ошибок');
-  const db = fs.readFileSync(new URL('../sweep/dispatcher-probe-bound.txt', import.meta.url), 'utf8');
+  const db = fs.readFileSync(new URL('../sweep/chapters/dispatcher-bound.txt', import.meta.url), 'utf8');
   const dbNodes = Object.values(parseToGraphs(db))[0].nodes;
   const bySuffix = suffix => dbNodes.find(n => n.className.endsWith(suffix));
   ok(validateStrict(db).errors.length===0 && db.includes('MemberName=\"NewEventDispatcher_Probe\"'), 'Dispatcher probe: bound custom event uses self dispatcher');
@@ -835,7 +835,7 @@ regThrow.forEach(t => console.log('THROW:', t));
 }
 // End-to-end smoke through creator -> arranger -> decorator.
 {
-  const text=fs.readFileSync(new URL('../sweep/current-pipeline-smoke.txt',import.meta.url),'utf8');
+  const text=fs.readFileSync(new URL('../sweep/layout/pipeline-smoke.txt',import.meta.url),'utf8');
   const nodes=Object.values(parseToGraphs(text))[0].nodes;
   const order=['K2Node_CustomEvent_5000','K2Node_CallFunction_100','K2Node_CallFunction_101'].map(id=>nodes.find(n=>n.id===id));
   const {estNodeWidth, pinCenterY}=await import('../src/generator.js');
@@ -856,7 +856,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   const s = generateUEText([M.createMemberVar('set', 'PlayerController.bShowMouseCursor', 'bool', 'true')]);
   ok(s.includes(`VariableReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.PlayerController'",MemberName="bShowMouseCursor")`) && s.includes('PinName="Output_Get"'), 'R27: Set свойства чужого класса');
   ok(reg.filter(e => e.category === 'Widgets / UI').length === 8, 'R27: 8 записей Widgets / UI');
-  const v = validateStrict(fs.readFileSync(new URL('../sweep/27-widgets-ui.txt', import.meta.url), 'utf8'));
+  const v = validateStrict(fs.readFileSync(new URL('../sweep/chapters/r27-widgets-ui.txt', import.meta.url), 'utf8'));
   ok(v.errors.length === 0, 'R27: sweep 0 ошибок');
 }
 // R28 pre: Enhanced Input (full) + ia-event/ia-value + ассеты в объектных пинах
@@ -870,7 +870,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   const add = generateUEText([M.createFn(byId('AddMappingContext'), { MappingContext: 'IMC_Default' })]);
   ok(add.includes('DefaultObject="/Game/Input/IMC_Default.IMC_Default"'), 'R28: объектный пин получает ассет через DefaultObject');
   ok(reg.filter(e => e.category === 'Enhanced Input (full)').length === 15, 'R28: 15 записей Enhanced Input (full)');
-  const v = validateStrict(fs.readFileSync(new URL('../sweep/28-enhanced-input-full.txt', import.meta.url), 'utf8'));
+  const v = validateStrict(fs.readFileSync(new URL('../sweep/chapters/r28-enhanced-input-full.txt', import.meta.url), 'utf8'));
   ok(v.errors.length === 0, 'R28: sweep 0 ошибок');
 }
 // R25 VERIFIED + R29 pre: Components / Physics + call (любая UFUNCTION)
@@ -884,7 +884,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   const gc = generateUEText([M.createFn(byId('GetComponentByClass'), { ComponentClass: 'StaticMeshComponent' })]);
   ok(gc.includes('DefaultObject="/Script/Engine.StaticMeshComponent"'), 'R29: class-пин получает нативный класс');
   ok(reg.filter(e => e.category === 'Components / Physics').length === 23, 'R29: 23 записи Components / Physics');
-  const v = validateStrict(fs.readFileSync(new URL('../sweep/29-components-physics.txt', import.meta.url), 'utf8'));
+  const v = validateStrict(fs.readFileSync(new URL('../sweep/chapters/r29-components-physics.txt', import.meta.url), 'utf8'));
   ok(v.errors.length === 0, 'R29: sweep 0 ошибок');
 }
 // R26 VERIFIED + R30 pre: декор (--decorate): exec-knot'ы на переносе рядов
@@ -916,8 +916,8 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(execEventA && brA && brA.pos.y - execEventA.pos.y === 16, `Exec alignment: Branch на один шаг выше старого офсета от Custom Event (${execEventA?.pos.y}/${brA?.pos.y})`);
   // Collapsed-node probe: source header offset, pin-row height, and exact lateral Knot columns.
   {
-    const text = fs.readFileSync(new URL('../sweep/collapsed-knot-4x5-test.txt', import.meta.url), 'utf8');
-    const pinRef = fs.readFileSync(new URL('./fixtures/collapsed-6-output-layout-reference.md', import.meta.url), 'utf8');
+    const text = fs.readFileSync(new URL('../sweep/layout/collapsed-knot-4x5.txt', import.meta.url), 'utf8');
+    const pinRef = fs.readFileSync(new URL('../sweep/copyback/collapsed-6-output-layout-reference.md', import.meta.url), 'utf8');
     const graph = Object.values(parseToGraphs(text))[0];
     const comp = graph.nodes.find(n => n.isComposite), knots = graph.nodes.filter(n => n.isReroute);
     const { pinCenterY: py, estNodeWidth: ew, PIN_ROW_H, KNOT_X_STEP, KNOT_SIDE_OFFSET, COMPOSITE_PIN_HEADER_EXTRA } = await import('../src/generator.js');
@@ -935,8 +935,8 @@ regThrow.forEach(t => console.log('THROW:', t));
   }
   // Recursive collapsed-node Knot levels: 1 input stops after its single port Knot; 3 outputs yield 3, 2, 1.
   {
-    const text = fs.readFileSync(new URL('../sweep/collapsed-knot-1x3-3levels-test.txt', import.meta.url), 'utf8');
-    const widthRef = fs.readFileSync(new URL('./fixtures/collapsed-1x3-right-width-reference.md', import.meta.url), 'utf8');
+    const text = fs.readFileSync(new URL('../sweep/layout/collapsed-knot-1x3-3levels.txt', import.meta.url), 'utf8');
+    const widthRef = fs.readFileSync(new URL('../sweep/copyback/collapsed-1x3-right-width-reference.md', import.meta.url), 'utf8');
     const graph = Object.values(parseToGraphs(text))[0];
     const comp = graph.nodes.find(n => n.isComposite), knots = graph.nodes.filter(n => n.isReroute);
     const { pinCenterY: py, estNodeWidth: ew, KNOT_SIDE_OFFSET, KNOT_X_STEP } = await import('../src/generator.js');
@@ -949,7 +949,7 @@ regThrow.forEach(t => console.log('THROW:', t));
     ok(knotCenters(outputLevels[0]).every((y,i)=>y===py(comp,outputs[i])) && knotCenters(outputLevels[1]).join(',')==='72,104' && knotCenters(outputLevels[2])[0]===88, 'Collapsed levels: портовые Y совпадают с pin centers; следующие уровни — рекурсивные midpoint');
     ok(widthRef.includes('NodePosX=-11440') && widthRef.includes('NodePosX=-11232') && ew(comp)===176 && knots.every(k=>k.pos.x===-32 || [208,224,240].includes(k.pos.x)) && outputLevels[0].every(k=>k.pos.x-ew(comp)===32), 'Collapsed levels: ширина Composite 176px по корректному port Knot; зазор 32px и уровни дальше по 16px');
   }
-  const s30 = fs.readFileSync(new URL('../sweep/30-decorate.txt', import.meta.url), 'utf8');
+  const s30 = fs.readFileSync(new URL('../sweep/chapters/r30-decorate.txt', import.meta.url), 'utf8');
   const knotCount = t => (t.match(/Begin Object Class=\/Script\/BlueprintGraph\.K2Node_Knot /g) || []).length;
   ok(validateStrict(s30).errors.length === 0 && knotCount(s30) === 4, 'R30: sweep 0 ошибок, 4 knot\'а');
   ok(!/ExportPath=/.test(s30) && /PersistentGuid=0{32}/.test(s30), 'R30: пересобран в формате P1 (без ExportPath, PersistentGuid)');
@@ -974,14 +974,14 @@ regThrow.forEach(t => console.log('THROW:', t));
   const gh = Object.values(pg(headed))[0].nodes;
   const evA = gh.find(n => n.rawLines.some(l => l.includes('CustomFunctionName="A"'))), dh = gh.find(n => n.funcName === 'Delay');
   ok(evA.pins.find(p => p.name === 'then').linkedTo[0].nodeName === dh.id && dh.pins.find(p => p.name === 'then').linkedTo.length === 1, '--chain: узлы до первого события подхватывает первое событие (A → Delay → PrintString)');
-  // негативные фикстуры (tests/fixtures/negative/): каждая ДОЛЖНА падать с E20
-  const negDir = new URL('./fixtures/negative/', import.meta.url);
+  // негативные фикстуры (tests/negative/): каждая ДОЛЖНА падать с E20
+  const negDir = new URL('./negative/', import.meta.url);
   const neg = fs.readdirSync(negDir).filter(f => f.endsWith('.txt'));
   ok(neg.length >= 1 && neg.every(f => validateStrict(fs.readFileSync(new URL(f, negDir), 'utf8')).errors.some(e => e.startsWith('E20'))), `negative/: все ${neg.length} фикстур ловятся E20`);
 }
 // R31 pre: Audio через call, тип single (C++ float)
 {
-  const s31 = fs.readFileSync(new URL('../sweep/31-audio.txt', import.meta.url), 'utf8');
+  const s31 = fs.readFileSync(new URL('../sweep/chapters/r31-audio.txt', import.meta.url), 'utf8');
   ok(validateStrict(s31).errors.length === 0, 'R31: sweep 0 ошибок');
   ok(s31.includes('MemberName="SpawnSound2D"') && s31.includes("Engine.AudioComponent'") && /PinName="NewVolumeMultiplier",PinType\.PinCategory="real",PinType\.PinSubCategory="float"/.test(s31), 'R31: SpawnSound2D + AudioComponent + single→float');
   ok((s31.match(/Begin Object Class=\/Script\/BlueprintGraph\.K2Node_Knot /g) || []).length === 4, 'R31: --decorate 4 knot\'а');
@@ -990,7 +990,7 @@ regThrow.forEach(t => console.log('THROW:', t));
 {
   const reg27 = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8'));
   ok(reg27.filter(e => e.category === 'Widgets / UI').every(e => e.verified), 'R27: все 8 Widgets/UI verified');
-  const t = fs.readFileSync(new URL('../sweep/27b-widgets-ui-decorated.txt', import.meta.url), 'utf8');
+  const t = fs.readFileSync(new URL('../sweep/chapters/r27-widgets-ui-decorated.txt', import.meta.url), 'utf8');
   ok(validateStrict(t).errors.length === 0, '27b: 0 ошибок');
   const pos = name => { const b = t.split('Begin Object').find(x => x.includes(`Name="${name}"`)); return [+b.match(/NodePosX=(-?\d+)/)[1], +b.match(/NodePosY=(-?\d+)/)[1]]; };
   const [gx, gy] = pos('K2Node_CallFunction_100'), [cx, cy] = pos('K2Node_CreateWidget_5001'), [ex, ey] = pos('K2Node_CustomEvent_5000');
@@ -1032,8 +1032,8 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(mv && mv.verified && mv.pure && mv.lib === 'KismetMathLibrary', 'P0.3: MakeVector2D pure в реестре, verified');
   const vm = validateStrict(generateUEText([createFromEntry(mv)]));
   ok(vm.valid && !vm.warnings.some(w => w.startsWith('W05')), 'P0.3: MakeVector2D без W05');
-  // P0.4: регресс — все живые копии tests/fixtures/ проходят (CLI-режим auto)
-  const fxDir = new URL('./fixtures/', import.meta.url);
+  // P0.4: регресс — все живые копии sweep/copyback/ проходят (CLI-режим auto)
+  const fxDir = new URL('../sweep/copyback/', import.meta.url);
   const fx = fs.readdirSync(fxDir).filter(f => f.endsWith('.txt'));
   const bad = fx.filter(f => !validateStrict(fs.readFileSync(new URL(f, fxDir), 'utf8'), { fragment: 'auto' }).valid);
   ok(fx.length >= 11 && bad.length === 0, `P2.12: все живые дампы fixtures/ STRICT OK (${bad.join(', ') || fx.length + ' шт'})`);
@@ -1083,7 +1083,7 @@ regThrow.forEach(t => console.log('THROW:', t));
 {
   const c29 = reg.filter(e => e.category === 'Components / Physics');
   ok(c29.length >= 23 && c29.every(e => e.verified), 'R29: Components / Physics verified');
-  const t = fs.readFileSync(new URL('../sweep/32-components-lifecycle.txt', import.meta.url), 'utf8');
+  const t = fs.readFileSync(new URL('../sweep/chapters/r32-components-lifecycle.txt', import.meta.url), 'utf8');
   ok(validateStrict(t).valid, '32: 0 ошибок (строго)');
   ok(!t.includes('ExportPath=') && t.split('\n').filter(l => l.includes('CustomProperties Pin')).every(l => l.includes('PersistentGuid=0')), '32: новый формат (без ExportPath, PersistentGuid)');
   ok(['Deactivate', 'Activate', 'SetComponentTickEnabled', 'IsComponentTickEnabled', 'K2_GetComponentsByClass', 'GetComponentsByTag', 'GetAllWidgetsOfClass', 'K2_DestroyComponent'].every(f => t.includes(`MemberName="${f}"`)), '32: все 8 функций');
@@ -1154,7 +1154,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(/PinName="Condition".*DefaultValue="true",AutogeneratedDefaultValue="true"/.test(t), 'R36: Branch.Condition автоген true');
   const back = parseToGraphs(t).EventGraph.nodes[0];
   ok(back.bubble === 'это branch' && generateUEText([back]) === t, 'R36: пузырь читается, round-trip идентичен');
-  const probe = fs.readFileSync(new URL('../sweep/36-probe.txt', import.meta.url), 'utf8');
+  const probe = fs.readFileSync(new URL('../sweep/probes/r36-probe.txt', import.meta.url), 'utf8');
   const blocks = probe.split('Begin Object').slice(1).filter(bk => !bk.includes('EdGraphNode_Comment'));
   ok(blocks.length > 0 && blocks.every(bk => bk.includes('bCommentBubbleVisible=True')) && validateStrict(probe).valid, 'R36: проба — у каждой ноды пузырь, STRICT');
   // R37: шапка-коммент накрывает все ноды пробы (в R36 была минимальной)
@@ -1167,6 +1167,10 @@ regThrow.forEach(t => console.log('THROW:', t));
   const r36 = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8')).filter(e => /^R36 проба/.test(e.probe || ''));
   const built = r36.map(e => { try { return generateUEText([e.macro || e.className.endsWith('MacroInstance') ? createMacroInstance(e) : createCallFunction(e)]); } catch (err) { return null; } });
   ok(r36.length === 33 && r36.every(e => e.verified && !e.note) && built.every(Boolean) && validateStrict(built.join('\n')).warnings.length === 0, 'R37: 33 записи реестра из проб R36 строятся без предупреждений');
+  const r38 = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8')).filter(e => /^R38 проба/.test(e.probe || ''));
+  const r38t = r38.map(e => generateUEText([createCallFunction(e)])).join('\n');
+  ok(r38.length === 41 && !r38.some(e => e.func === 'K2_ClearTimerHandle') && validateStrict(r38t).warnings.length === 0
+    && /PinName="Reply",[^\n]*bIsReference=True/.test(generateUEText([createCallFunction(r38.find(e => e.id === 'ClearUserFocus'))])), 'R38: 41 запись реестра (без несуществующего K2_ClearTimerHandle; ClearUserFocus.Reply by-ref)');
 }
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);

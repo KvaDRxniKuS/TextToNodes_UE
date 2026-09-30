@@ -5,8 +5,10 @@ import fs from 'node:fs';
 import { createFromEntry, layoutRow, fitComment } from '../src/generator.js';
 import { generateUEText, seedGuids } from '../src/parser.js';
 import { validateStrict } from '../src/validate.js';
-const [out, title, ...ids] = process.argv.slice(2);
-seedGuids('sweep:' + out.split('/').pop()); // seed по имени выхода: subset пересобирается побайтово
+const argv = process.argv.slice(2);
+const seedArg = argv.find(a => a.startsWith('--seed='));
+const [out, title, ...ids] = argv.filter(a => a !== seedArg);
+seedGuids(seedArg ? seedArg.slice(7) : 'sweep:' + out.split('/').pop()); // seed по имени выхода: subset пересобирается побайтово
 const reg = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8'));
 const nodes = ids.map(id => { const e = reg.find(x => x.id === id); if (!e) throw new Error('no id ' + id); return createFromEntry(e); });
 const PER = 5, rows = [];
