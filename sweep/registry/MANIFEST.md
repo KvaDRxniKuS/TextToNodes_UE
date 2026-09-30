@@ -1,6 +1,6 @@
 # Sweep manifest — полный прогон реестра по категориям
 
-Записей в реестре: 759; построено узлов: 759; упало: 0.
+Записей в реестре: 863; построено узлов: 863; упало: 0.
 MANIFEST и NN-*.txt побайтово воспроизводимы (дата не пишется): сверка — `node tools/gen-sweep.mjs --check`.
 Генератор: tools/gen-sweep.mjs (сетка по 5 в ряд, внутри ряда layoutRow, накрыто fitComment).
 
@@ -32,7 +32,7 @@ MANIFEST и NN-*.txt побайтово воспроизводимы (дата �
 | 13 | 13-math-transform.txt | 10/10 | 10 | 8 | — | 8xW09 |
 | 14 | 14-string.txt | 28/28 | 28 | 13 | — | 13xW09 |
 | 15 | 15-array.txt | 18/18 | 18 | 18 | — | 17xW09 |
-| 16 | 16-utilities.txt | 20/20 | 20 | 17 | — | 17xW09 |
+| 16 | 16-utilities.txt | 20/20 | 20 | 17 | — | 16xW09 |
 | 17 | 17-gameplay.txt | 12/12 | 12 | 12 | — | 11xW09 |
 | 18 | 18-input.txt | 2/2 | 2 | 2 | — | 1xW09 |
 | 19 | 19-organization.txt | 7/7 | 7 | 5 | — | — |
@@ -47,7 +47,7 @@ MANIFEST и NN-*.txt побайтово воспроизводимы (дата �
 | 28 | 28-enhanced-input-full.txt | 15/15 | 15 | 15 | — | 15xW09 |
 | 29 | 29-components-physics.txt | 23/23 | 23 | 23 | — | 23xW09 |
 | 30 | 30-debug.txt | 1/1 | 1 | 0 | — | — |
-| 31 | 31-gameplay-systems.txt | 344/344 | 344 | 0 | — | — |
+| 31 | 31-gameplay-systems.txt | 448/448 | 448 | 0 | — | — |
 | 32 | 32-level-streaming.txt | 4/4 | 4 | 0 | — | — |
 
 Остальные папки sweep/ (chapters, probes, layout, copyback) и команды их пересборки — в `sweep/README.md`; сверка всего — `node tools/check-sweep.mjs`.
@@ -114,7 +114,6 @@ MANIFEST и NN-*.txt побайтово воспроизводимы (дата �
 - 15-array.txt :: W09: K2Node_CallArrayFunction_346: Array_Swap: round15-pre: KismetArrayLibrary CustomThunk — TargetArray wildcard Array by-ref (const у pure/Shuffle/Swap), элемент wildcard const-ref; тип резолвится при подключении
 - 16-utilities.txt :: W09: K2Node_CallFunction_349: PrintText: round16-pre: клон белого PrintString, InText — text const
 - 16-utilities.txt :: W09: K2Node_CallFunction_352: RetriggerableDelay: round16-pre: как белый Delay: выход then, WCO/LatentInfo движок восстанавливает
-- 16-utilities.txt :: W09: K2Node_CallFunction_353: IsValid: round16-pre: pure-форма «? Is Valid»; параметр Object (const UObject*)
 - 16-utilities.txt :: W09: K2Node_CallFunction_354: IsValidClass: round16-pre
 - 16-utilities.txt :: W09: K2Node_CallFunction_355: GetDisplayName: round22-pre: KSL::GetDisplayName(const UObject*) | R22 VERIFIED (движок, 2026-09-25)
 - 16-utilities.txt :: W09: K2Node_CallFunction_356: GetObjectName: round22-pre: KSL::GetObjectName(const UObject*) | R22 VERIFIED (движок, 2026-09-25)

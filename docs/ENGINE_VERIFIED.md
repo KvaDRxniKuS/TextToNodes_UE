@@ -1213,3 +1213,9 @@ PrimitiveComponent.bReplicatePhysicsToAutonomousProxy (Get/Set, NotSelfContext).
 112 нод: Sound 13, FX 12, Damage 6, AI 13, Blackboard 14, Nav 9, Game 13, HUD 9, UI 23.
 Новые энамы (pre R47): EAudioFaderCurve, ENCPoolMethod, EPathFollowingRequestResult, EPathFollowingStatus,
 EUMGSequencePlayMode, ECameraShakePlaySpace. Файл: `sweep/probes/r47-probe.txt`.
+
+## R47 — вердикт (2026-10-01)
+Компиляция без ошибок; 110 из 112 в реестре (863). Не существуют как функции в UE 5.8:
+Actor.SetCanBeDamaged → переменная `bCanBeDamaged` (Set, self Actor); HUD.ShowHUD → переменная
+`HUD.bShowHUD` (Get/Set, NotSelfContext). 6 энамов R47 подтверждены.
+Внимание: TextBlock.SetColorAndOpacity заведён с LinearColor-пином, в движке — FSlateColor (встал, движок переконвертировал).

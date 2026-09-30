@@ -65,6 +65,12 @@ const LIBS_FULL = {
   SkinnedMeshComponent: `"/Script/CoreUObject.Class'/Script/Engine.SkinnedMeshComponent'"`, // R43 VERIFIED
   SpringArmComponent: `"/Script/CoreUObject.Class'/Script/Engine.SpringArmComponent'"`, // R44 VERIFIED
   SplineComponent: `"/Script/CoreUObject.Class'/Script/Engine.SplineComponent'"`, // R44 VERIFIED
+  Button: `"/Script/CoreUObject.Class'/Script/UMG.Button'"`, // R47 VERIFIED
+  EditableTextBox: `"/Script/CoreUObject.Class'/Script/UMG.EditableTextBox'"`, // R47 VERIFIED
+  HUD: `"/Script/CoreUObject.Class'/Script/Engine.HUD'"`, // R47 VERIFIED
+  GameStateBase: `"/Script/CoreUObject.Class'/Script/Engine.GameStateBase'"`, // R47 VERIFIED
+  GameModeBase: `"/Script/CoreUObject.Class'/Script/Engine.GameModeBase'"`, // R47 VERIFIED
+  NavigationPath: `"/Script/CoreUObject.Class'/Script/NavigationSystem.NavigationPath'"`, // R47 VERIFIED
   KismetInputLibrary: `"/Script/CoreUObject.Class'/Script/Engine.KismetInputLibrary'"`, // R46 VERIFIED
   PlayerState: `"/Script/CoreUObject.Class'/Script/Engine.PlayerState'"`, // R46 VERIFIED
   TextLayoutWidget: `"/Script/CoreUObject.Class'/Script/UMG.TextLayoutWidget'"`, // R45 VERIFIED
@@ -135,6 +141,12 @@ const LIBS_SHORT = {
   SkinnedMeshComponent: `Class'"/Script/Engine.SkinnedMeshComponent"'`,
   SpringArmComponent: `Class'"/Script/Engine.SpringArmComponent"'`,
   SplineComponent: `Class'"/Script/Engine.SplineComponent"'`,
+  Button: `Class'"/Script/UMG.Button"'`,
+  EditableTextBox: `Class'"/Script/UMG.EditableTextBox"'`,
+  HUD: `Class'"/Script/Engine.HUD"'`,
+  GameStateBase: `Class'"/Script/Engine.GameStateBase"'`,
+  GameModeBase: `Class'"/Script/Engine.GameModeBase"'`,
+  NavigationPath: `Class'"/Script/NavigationSystem.NavigationPath"'`,
   KismetInputLibrary: `Class'"/Script/Engine.KismetInputLibrary"'`,
   PlayerState: `Class'"/Script/Engine.PlayerState"'`,
   MeshComponent: `Class'"/Script/Engine.MeshComponent"'`,
@@ -235,12 +247,12 @@ const ENUMS_FULL = {
   ECheckBoxState: `"/Script/CoreUObject.Enum'/Script/SlateCore.ECheckBoxState'"`, // confirmed R45
   ETextJustify: `"/Script/CoreUObject.Enum'/Script/Slate.ETextJustify'"`, // confirmed R45
   EViewTargetBlendFunction: `"/Script/CoreUObject.Enum'/Script/Engine.EViewTargetBlendFunction'"`, // confirmed R46
-  EAudioFaderCurve: `"/Script/CoreUObject.Enum'/Script/Engine.EAudioFaderCurve'"`, // pre R47
-  ENCPoolMethod: `"/Script/CoreUObject.Enum'/Script/Niagara.ENCPoolMethod'"`, // pre R47
-  EPathFollowingRequestResult: `"/Script/CoreUObject.Enum'/Script/AIModule.EPathFollowingRequestResult'"`, // pre R47
-  EPathFollowingStatus: `"/Script/CoreUObject.Enum'/Script/AIModule.EPathFollowingStatus'"`, // pre R47
-  EUMGSequencePlayMode: `"/Script/CoreUObject.Enum'/Script/UMG.EUMGSequencePlayMode'"`, // pre R47
-  ECameraShakePlaySpace: `"/Script/CoreUObject.Enum'/Script/Engine.ECameraShakePlaySpace'"`, // pre R47
+  EAudioFaderCurve: `"/Script/CoreUObject.Enum'/Script/Engine.EAudioFaderCurve'"`, // confirmed R47
+  ENCPoolMethod: `"/Script/CoreUObject.Enum'/Script/Niagara.ENCPoolMethod'"`, // confirmed R47
+  EPathFollowingRequestResult: `"/Script/CoreUObject.Enum'/Script/AIModule.EPathFollowingRequestResult'"`, // confirmed R47
+  EPathFollowingStatus: `"/Script/CoreUObject.Enum'/Script/AIModule.EPathFollowingStatus'"`, // confirmed R47
+  EUMGSequencePlayMode: `"/Script/CoreUObject.Enum'/Script/UMG.EUMGSequencePlayMode'"`, // confirmed R47
+  ECameraShakePlaySpace: `"/Script/CoreUObject.Enum'/Script/Engine.ECameraShakePlaySpace'"`, // confirmed R47
   EMoveComponentAction: `"/Script/CoreUObject.Enum'/Script/Engine.EMoveComponentAction'"`, // R34 copy-back: MoveComponentTo
   EDrawDebugSceneDepthPriorityGroup: `"/Script/CoreUObject.Enum'/Script/Engine.EDrawDebugSceneDepthPriorityGroup'"`, // R33 copy-back: DrawDebugArrow.DepthPriority
   ECollisionResponse: `"/Script/CoreUObject.Enum'/Script/Engine.ECollisionResponse'"`, // round29-pre
