@@ -46267,5 +46267,61 @@
   "verified": true,
   "desc": "Draw Texture",
   "probe": "R55 проба (Other) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Draw Texture (член HUD) — enum EBlendMode"
+ },
+ {
+  "id": "IsActive",
+  "title": "Is Active",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsActive",
+  "lib": "CancellableAsyncAction",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.CancellableAsyncAction"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "R56b · Async: Is Active",
+  "probe": "R56b проба (Async) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R56b · Async: Is Active (член CancellableAsyncAction, pure)"
+ },
+ {
+  "id": "Cancel",
+  "title": "Cancel",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Cancel",
+  "lib": "CancellableAsyncAction",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.CancellableAsyncAction"
+   }
+  ],
+  "verified": true,
+  "desc": "R56b · Async: Cancel",
+  "probe": "R56b проба (Async) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R56b · Async: Cancel (член CancellableAsyncAction)"
  }
 ]

@@ -996,12 +996,18 @@ const BATCHES = {
     ['Other', 'Draw Texture (член HUD) — enum EBlendMode', mem('HUD.DrawTexture', ['Texture:object:Texture', 'ScreenX:float', 'ScreenY:float', 'ScreenW:float', 'ScreenH:float', 'TextureU:float', 'TextureV:float', 'TextureUWidth:float=1.0', 'TextureVHeight:float=1.0', 'TintColor:linearcolor', 'BlendMode:enum:EBlendMode', 'Scale:float=1.0', 'bScalePosition:bool=false', 'Rotation:float=0.0', 'RotPivot:vector2d'])],
   ],
   '56': [
+    // R56 вердикт: обе ноды встали, компиляция без ошибок — createAsyncAction VERIFIED.
     // R56: async-ноды сохранения (K2Node_AsyncAction, UAsyncActionHandleSaveGame). Форма — по copy-back R49 AsyncLoadPrimaryAsset.
     // Не функции реестра — модульная фабрика createAsyncAction; --register их пропускает.
     ['Async', 'Async Save Game to Slot (K2Node_AsyncAction) — выход Completed(SaveGame, bSuccess)', () => createAsyncAction({ proxy: '/Script/Engine.AsyncActionHandleSaveGame', factory: 'AsyncSaveGameToSlot',
       inputs: ['SaveGameObject:object:SaveGame', 'SlotName:string', 'UserIndex:int=0'], events: ['Completed'], outputs: ['SaveGame:object:SaveGame', 'bSuccess:bool'] })],
     ['Async', 'Async Load Game from Slot (K2Node_AsyncAction) — выход Completed(SaveGame, bSuccess)', () => createAsyncAction({ proxy: '/Script/Engine.AsyncActionHandleSaveGame', factory: 'AsyncLoadGameFromSlot',
       inputs: ['SlotName:string', 'UserIndex:int=0'], events: ['Completed'], outputs: ['SaveGame:object:SaveGame', 'bSuccess:bool'] })],
+  ],
+  '56b': [
+    // R56 copy-back пользователя (sweep/copyback/r56-cancellable-async.txt): члены базового класса отменяемых async-действий.
+    ['Async', 'Is Active (член CancellableAsyncAction, pure)', mem('CancellableAsyncAction.IsActive', ['->', 'ReturnValue:bool'], true)],
+    ['Async', 'Cancel (член CancellableAsyncAction)', mem('CancellableAsyncAction.Cancel', [])],
   ],
 };
 

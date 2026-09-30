@@ -41,6 +41,7 @@ const LIBS_FULL = {
   ActorComponent: `"/Script/CoreUObject.Class'/Script/Engine.ActorComponent'"`, // round29-pre
   DataTableFunctionLibrary: `"/Script/CoreUObject.Class'/Script/Engine.DataTableFunctionLibrary'"`, // R37 (R36 VERIFIED)
   AIBlueprintHelperLibrary: `"/Script/CoreUObject.Class'/Script/AIModule.AIBlueprintHelperLibrary'"`,
+  CancellableAsyncAction: `"/Script/CoreUObject.Class'/Script/Engine.CancellableAsyncAction'"`, // R56 copy-back
   WidgetSwitcher: `"/Script/CoreUObject.Class'/Script/UMG.WidgetSwitcher'"`, // R54 проба
   ListView: `"/Script/CoreUObject.Class'/Script/UMG.ListView'"`, // R54 проба
   Border: `"/Script/CoreUObject.Class'/Script/UMG.Border'"`, // R54 проба
@@ -129,6 +130,7 @@ const LIBS_SHORT = {
   ActorComponent: `Class'"/Script/Engine.ActorComponent"'`,
   DataTableFunctionLibrary: `Class'"/Script/Engine.DataTableFunctionLibrary"'`,
   AIBlueprintHelperLibrary: `Class'"/Script/AIModule.AIBlueprintHelperLibrary"'`,
+  CancellableAsyncAction: `Class'"/Script/Engine.CancellableAsyncAction"'`,
   WidgetSwitcher: `Class'"/Script/UMG.WidgetSwitcher"'`,
   ListView: `Class'"/Script/UMG.ListView"'`,
   Border: `Class'"/Script/UMG.Border"'`,
