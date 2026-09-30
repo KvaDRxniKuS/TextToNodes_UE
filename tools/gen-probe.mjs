@@ -974,6 +974,27 @@ const BATCHES = {
     ['HUD', 'Deproject (член HUD)', mem('HUD.Deproject', ['ScreenX:float', 'ScreenY:float', '->', 'WorldPosition:vector', 'WorldDirection:vector'])],
     ['HUD', 'Get Actors In Selection Rectangle (член HUD)', mem('HUD.GetActorsInSelectionRectangle', ['ClassFilter:class:Actor', 'FirstPoint:vector2d', 'SecondPoint:vector2d', 'bIncludeNonCollidingComponents:bool=true', 'bActorMustBeFullyEnclosed:bool=false', '->', 'OutActors:object:Actor[]'])],
   ],
+  '55': [
+    // R55: ноды, отложенные из-за типов без референса. Добавлены STRUCTS Margin/SlateColor/SlateFontInfo/SlateBrush/IntPoint,
+    // ENUMS EMouseCursor/EHorizontalAlignment/EVerticalAlignment/EWindowMode/EBlendMode/EControllerHand, типы softobject/softclass.
+    ['Widget', 'Set Cursor (член Widget) — enum EMouseCursor', mem('/Script/UMG.Widget.SetCursor', ['InCursor:enum:EMouseCursor'])],
+    ['Widget', 'Set Padding (член Border) — struct Margin', mem('/Script/UMG.Border.SetPadding', ['InPadding:margin'])],
+    ['Widget', 'Set Horizontal Alignment (член Border) — enum', mem('/Script/UMG.Border.SetHorizontalAlignment', ['InHorizontalAlignment:enum:EHorizontalAlignment'])],
+    ['Widget', 'Set Vertical Alignment (член Border) — enum', mem('/Script/UMG.Border.SetVerticalAlignment', ['InVerticalAlignment:enum:EVerticalAlignment'])],
+    ['Widget', 'Set Brush Tint Color (член Image) — struct SlateColor', mem('/Script/UMG.Image.SetBrushTintColor', ['TintColor:slatecolor'])],
+    ['Widget', 'Set Brush (член Image) — struct SlateBrush', mem('/Script/UMG.Image.SetBrush', ['InBrush:slatebrush'])],
+    ['Widget', 'Set Font (член TextBlock) — struct SlateFontInfo', mem('/Script/UMG.TextBlock.SetFont', ['InFontInfo:slatefontinfo'])],
+    ['Widget', 'Set Checked State (член CheckBox) — enum ECheckBoxState', mem('/Script/UMG.CheckBox.SetCheckedState', ['InCheckedState:enum:ECheckBoxState'])],
+    ['Screen', 'Set Screen Resolution (член GameUserSettings) — struct IntPoint', mem('GameUserSettings.SetScreenResolution', ['Resolution:intpoint'])],
+    ['Screen', 'Get Screen Resolution (член GameUserSettings, pure)', mem('GameUserSettings.GetScreenResolution', ['->', 'ReturnValue:intpoint'], true)],
+    ['Screen', 'Get Desktop Resolution (член GameUserSettings, pure)', mem('GameUserSettings.GetDesktopResolution', ['->', 'ReturnValue:intpoint'], true)],
+    ['Screen', 'Set Fullscreen Mode (член GameUserSettings) — enum EWindowMode', mem('GameUserSettings.SetFullscreenMode', ['InFullscreenMode:enum:EWindowMode'])],
+    ['Screen', 'Get Fullscreen Mode (член GameUserSettings, pure)', mem('GameUserSettings.GetFullscreenMode', ['->', 'ReturnValue:enum:EWindowMode'], true)],
+    ['Other', 'Open Level (by Object Reference) (GameplayStatics) — softobject World', lib('GameplayStatics.OpenLevelBySoftObjectPtr', ['Level:softobject:/Script/Engine.World', 'bAbsolute:bool=true', 'Options:string'])],
+    ['Other', 'Play Haptic Effect (член PlayerController) — enum EControllerHand', mem('PlayerController.PlayHapticEffect', ['HapticEffect:object:HapticFeedbackEffect_Base', 'Hand:enum:EControllerHand', 'Scale:float=1.0', 'bLoop:bool=false'])],
+    ['Other', 'Stop Haptic Effect (член PlayerController)', mem('PlayerController.StopHapticEffect', ['Hand:enum:EControllerHand'])],
+    ['Other', 'Draw Texture (член HUD) — enum EBlendMode', mem('HUD.DrawTexture', ['Texture:object:Texture', 'ScreenX:float', 'ScreenY:float', 'ScreenW:float', 'ScreenH:float', 'TextureU:float', 'TextureV:float', 'TextureUWidth:float=1.0', 'TextureVHeight:float=1.0', 'TintColor:linearcolor', 'BlendMode:enum:EBlendMode', 'Scale:float=1.0', 'bScalePosition:bool=false', 'Rotation:float=0.0', 'RotPivot:vector2d'])],
+  ],
 };
 
 const list = BATCHES[batch];
@@ -1038,7 +1059,7 @@ if (REGISTER) {
       const o = { name: p.name, dir: p.direction, cat: p.category };
       if (p.category === 'real') o.sub = p.subCategory;
       if (p.category === 'struct') o.sub = structByRef[p.subCategoryObject];
-      if ((p.category === 'object' || p.category === 'class') && p.subCategoryObject) o.object = objPath(p.subCategoryObject);
+      if (['object', 'class', 'softobject', 'softclass'].includes(p.category) && p.subCategoryObject) o.object = objPath(p.subCategoryObject);
       if (p.category === 'byte' && p.subCategoryObject) o.enum = enumByRef[p.subCategoryObject] || p.subCategoryObject; // R41: энам-пины
       if (p.isConst) o.const = true;
       if (p.isRef) o.ref = true;

@@ -207,6 +207,11 @@ const STRUCTS_FULL = {
   Quat:        `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Quat'"`, // R33 copy-back: Quat_IsNormalized
   Transform:   `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Transform'"`,
   LinearColor: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.LinearColor'"`, // confirmed (copy-back H1/J5)
+  Margin: `"/Script/CoreUObject.ScriptStruct'/Script/SlateCore.Margin'"`, // R55 проба
+  SlateColor: `"/Script/CoreUObject.ScriptStruct'/Script/SlateCore.SlateColor'"`, // R55 проба
+  SlateFontInfo: `"/Script/CoreUObject.ScriptStruct'/Script/SlateCore.SlateFontInfo'"`, // R55 проба
+  SlateBrush: `"/Script/CoreUObject.ScriptStruct'/Script/SlateCore.SlateBrush'"`, // R55 проба
+  IntPoint: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.IntPoint'"`, // R55 проба
   MaterialParameterInfo: `"/Script/CoreUObject.ScriptStruct'/Script/Engine.MaterialParameterInfo'"`, // copy-back R45b
   WidgetTransform: `"/Script/CoreUObject.ScriptStruct'/Script/UMG.WidgetTransform'"`, // copy-back R45b
   DateTime: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.DateTime'"`, // confirmed R48
@@ -230,6 +235,11 @@ const STRUCTS_SHORT = {
   Quat:             `ScriptStruct'"/Script/CoreUObject.Quat"'`,
   Transform:        `ScriptStruct'"/Script/CoreUObject.Transform"'`,
   LinearColor:      `ScriptStruct'"/Script/CoreUObject.LinearColor"'`,
+  Margin: `ScriptStruct'"/Script/SlateCore.Margin"'`,
+  SlateColor: `ScriptStruct'"/Script/SlateCore.SlateColor"'`,
+  SlateFontInfo: `ScriptStruct'"/Script/SlateCore.SlateFontInfo"'`,
+  SlateBrush: `ScriptStruct'"/Script/SlateCore.SlateBrush"'`,
+  IntPoint: `ScriptStruct'"/Script/CoreUObject.IntPoint"'`,
   MaterialParameterInfo: `ScriptStruct'"/Script/Engine.MaterialParameterInfo"'`,
   WidgetTransform: `ScriptStruct'"/Script/UMG.WidgetTransform"'`,
   DateTime: `ScriptStruct'"/Script/CoreUObject.DateTime"'`,
@@ -257,6 +267,12 @@ const ENUMS_FULL = {
   EAttachmentRule: `"/Script/CoreUObject.Enum'/Script/Engine.EAttachmentRule'"`, // round23-pre
   EDetachmentRule: `"/Script/CoreUObject.Enum'/Script/Engine.EDetachmentRule'"`, // round23b-pre
   ESlateVisibility: `"/Script/CoreUObject.Enum'/Script/UMG.ESlateVisibility'"`, // round27-pre
+  EMouseCursor: `"/Script/CoreUObject.Enum'/Script/CoreUObject.EMouseCursor'"`, // R55 проба
+  EHorizontalAlignment: `"/Script/CoreUObject.Enum'/Script/SlateCore.EHorizontalAlignment'"`, // R55 проба
+  EVerticalAlignment: `"/Script/CoreUObject.Enum'/Script/SlateCore.EVerticalAlignment'"`, // R55 проба
+  EWindowMode: `"/Script/CoreUObject.Enum'/Script/Engine.EWindowMode'"`, // R55 проба
+  EBlendMode: `"/Script/CoreUObject.Enum'/Script/Engine.EBlendMode'"`, // R55 проба
+  EControllerHand: `"/Script/CoreUObject.Enum'/Script/InputCore.EControllerHand'"`, // R55 проба
   EMouseLockMode: `"/Script/CoreUObject.Enum'/Script/Engine.EMouseLockMode'"`, // round27-pre
   EInputActionValueType: `"/Script/CoreUObject.Enum'/Script/EnhancedInput.EInputActionValueType'"`, // round28-pre
   ECollisionEnabled: `"/Script/CoreUObject.Enum'/Script/Engine.ECollisionEnabled'"`, // round29-pre
@@ -304,6 +320,12 @@ const ENUMS_SHORT = {
   EAttachmentRule: `Enum'"/Script/Engine.EAttachmentRule"'`,
   EDetachmentRule: `Enum'"/Script/Engine.EDetachmentRule"'`,
   ESlateVisibility: `Enum'"/Script/UMG.ESlateVisibility"'`,
+  EMouseCursor: `Enum'"/Script/CoreUObject.EMouseCursor"'`,
+  EHorizontalAlignment: `Enum'"/Script/SlateCore.EHorizontalAlignment"'`,
+  EVerticalAlignment: `Enum'"/Script/SlateCore.EVerticalAlignment"'`,
+  EWindowMode: `Enum'"/Script/Engine.EWindowMode"'`,
+  EBlendMode: `Enum'"/Script/Engine.EBlendMode"'`,
+  EControllerHand: `Enum'"/Script/InputCore.EControllerHand"'`,
   EMouseLockMode: `Enum'"/Script/Engine.EMouseLockMode"'`,
   EInputActionValueType: `Enum'"/Script/EnhancedInput.EInputActionValueType"'`,
   ECollisionEnabled: `Enum'"/Script/Engine.ECollisionEnabled"'`,

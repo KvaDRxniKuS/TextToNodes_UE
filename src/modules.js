@@ -23,6 +23,11 @@ export function parseType(t) {
   const [head, ...rest] = s.split(':'); const arg = rest.join(':');
   const k = head.toLowerCase();
   if (SCALAR[k]) return { cat: SCALAR[k][0], sub: SCALAR[k][1] || '', subObj: '', container };
+  // R55: мягкие ссылки TSoftObjectPtr/TSoftClassPtr — категории softobject/softclass, класс в SubCategoryObject
+  if (k === 'softobject' || k === 'softclass') {
+    if (!arg) throw new Error(`тип ${t}: нужен класс, напр. ${k}:/Script/Engine.World`);
+    return { cat: k, sub: '', subObj: classRef(arg), classPath: normalizeClassPath(arg), container };
+  }
   if (k === 'object' || k === 'class') {
     if (!arg) throw new Error(`тип ${t}: нужен класс, напр. ${k}:Actor`);
     return { cat: k, sub: '', subObj: classRef(arg), classPath: normalizeClassPath(arg), container };
@@ -33,7 +38,7 @@ export function parseType(t) {
   }
   const sk = Object.keys(UE_STRUCTS).find(x => x.toLowerCase() === k);
   if (sk) return { cat: 'struct', sub: '', subObj: UE_STRUCTS[sk], container };
-  throw new Error(`неизвестный тип «${t}». Допустимо: ${Object.keys(SCALAR).join(' ')} ${Object.keys(UE_STRUCTS).map(x => x.toLowerCase()).join(' ')} object:X class:X enum:X, суффикс []`);
+  throw new Error(`неизвестный тип «${t}». Допустимо: ${Object.keys(SCALAR).join(' ')} ${Object.keys(UE_STRUCTS).map(x => x.toLowerCase()).join(' ')} object:X class:X softobject:X softclass:X enum:X, суффикс []`);
 }
 /** "Имя:тип" или "Имя:тип=значение" */
 export function parseParam(spec) {
