@@ -1143,3 +1143,7 @@ R41 зарегистрирован: реестр +17, всего 551. В UE_LIBS
   - Значения: Server Reliable = 203555008, Multicast = 201474112, Client Reliable = 218235072.
 - Реестр +20, всего 571. Энамы `ENetRole` и `ENetDormancy` подтверждены.
 - Файл пробы удалён. Воспроизвести: `gen-probe --batch 42 --stdout`.
+
+## Тема 2 — секционная раскладка (2026-09-30, не проверено в движке)
+`src/section-layout.js` (buildSections — ступень 1, arrangeSections — ступень 2) + `tools/gen-structured-demo.mjs` → `sweep/layout/structured-demo.txt`.
+Структура по образцу пользовательского графа: секции-комментарии слева направо, Sequence → столбец Set, деревья Get→операторы под Sequence, exec-шина из последнего then через 2 knot'а в следующую секцию, Branch с Set'ами следующим столбцом. STRICT OK, наложений 0.

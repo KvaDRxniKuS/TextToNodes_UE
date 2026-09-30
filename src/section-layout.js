@@ -1,0 +1,150 @@
+// Секционная раскладка «расчётного» графа — по мотивам структурированного графа пользователя (2026-09-30):
+//   • граф режется на логические секции, каждая в своём комментарии (A — базовые, B — …);
+//   • в секции: Sequence слева сверху; Set-ноды столбиком справа (then_i → Set i);
+//   • под Sequence — деревья чистых вычислений, листья (Get) слева, результат идёт в значение своего Set;
+//   • последний выход Sequence уходит exec-шиной по низу секции (knot'ы) во вход Sequence следующей секции;
+//   • ветвление: Branch в столбце Set'ов, его Set'ы — следующим столбцом справа.
+// Ступень 1 (buildSections) — только ноды и связи, без координат.
+// Ступень 2 (arrangeSections) — координаты, knot'ы шины, боксы-комментарии. Код нод не трогает.
+import fs from 'fs';
+import { createSequence, createBranch, createKnot, createComment, createFromEntry, linkPins, estNodeWidth } from './generator.js';
+import { createSelfVar, createCustomEvent } from './modules.js';
+
+const REG = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8'));
+const byId = id => { const e = REG.find(x => x.id === id); if (!e) throw new Error(`нет в реестре: ${id}`); return e; };
+// оп → [id реестра, входы]
+const OPS = {
+  '+': ['Add_Float', ['A', 'B']], '-': ['Subtract_Float', ['A', 'B']], '*': ['Multiply_Float', ['A', 'B']], '/': ['Divide_Float', ['A', 'B']],
+  '>': ['Greater_Float', ['A', 'B']], '<': ['Less_Float', ['A', 'B']], '<=': ['LessEqual_Float', ['A', 'B']], '>=': ['GreaterEqual_Float', ['A', 'B']],
+  abs: ['Abs_Float', ['A']], sign: ['Sign_Float', ['A']], sq: ['Square_Float', ['A']],
+  max: ['Max_Float', ['A', 'B']], min: ['Min_Float', ['A', 'B']], clamp: ['Clamp_Float', ['Value', 'Min', 'Max']],
+};
+
+// ── ступень 1 ────────────────────────────────────────────────────────────────
+/** spec: { event, bp, sections:[{ title, steps:[ {set, type?, expr} | {branch: expr, then:[set-steps], else:[set-steps]} ] }] }
+ *  expr: 'Var' | число | [op, ...args] */
+export function buildSections(spec) {
+  const all = [];
+  const add = n => (all.push(n), n);
+  const get = name => add(createSelfVar('get', name, 'float', '', { bp: spec.bp }));
+  function expr(e) {               // → { node, out, kids:[subtree] } | { literal }
+    if (typeof e === 'number') return { literal: e.toFixed(6) };
+    if (typeof e === 'string') { const n = get(e); return { node: n, out: e, kids: [] }; }
+    const [op, ...args] = e; const [id, ins] = OPS[op] || [];
+    if (!id) throw new Error(`оп ${op}`);
+    const n = add(createFromEntry(byId(id)));
+    const kids = [];
+    args.forEach((a, i) => {
+      const t = expr(a), pin = n.pins.find(p => p.name === ins[i] && p.direction === 'Input');
+      if (t.literal) { pin.defaultValue = t.literal; return; }
+      linkPins(t.node, t.out, n, ins[i]); kids.push(t);
+    });
+    return { node: n, out: 'ReturnValue', kids };
+  }
+  function setStep(s) {
+    const n = add(createSelfVar('set', s.set, s.type || 'float', '', { bp: spec.bp }));
+    const t = s.expr === undefined ? null : expr(s.expr);
+    if (t && t.literal) n.pins.find(p => p.name === s.set).defaultValue = t.literal;
+    else if (t) linkPins(t.node, t.out, n, s.set);
+    return { kind: 'set', node: n, tree: t && !t.literal ? t : null };
+  }
+  const entry = add(createCustomEvent(spec.event, []));
+  const sections = spec.sections.map(sec => {
+    const steps = sec.steps.map(s => {
+      if (!s.branch) return setStep(s);
+      const b = add(createBranch());
+      const t = expr(s.branch); linkPins(t.node, t.out, b, 'Condition');
+      const yes = s.then.map(setStep), no = s.else.map(setStep);
+      if (yes[0]) linkPins(b, 'then', yes[0].node, 'execute');
+      if (no[0]) linkPins(b, 'else', no[0].node, 'execute');
+      [yes, no].forEach(ch => ch.slice(1).forEach((st, i) => linkPins(ch[i].node, 'then', st.node, 'execute')));
+      return { kind: 'branch', node: b, tree: t, yes, no };
+    });
+    const seq = add(createSequence(steps.length + 1));
+    steps.forEach((st, i) => linkPins(seq, `then_${i}`, st.node, 'execute'));
+    return { title: sec.title, seq, steps };
+  });
+  linkPins(entry, 'then', sections[0].seq, 'execute');
+  sections.slice(1).forEach((sec, i) => linkPins(sections[i].seq, `then_${sections[i].steps.length}`, sec.seq, 'execute'));
+  return { entry, sections, nodes: all };
+}
+
+// ── ступень 2 ────────────────────────────────────────────────────────────────
+const G = 16, snap = v => Math.round(v / G) * G;
+const LEAF_H = 48, COL_GAP = 32, SET_STEP = 112, PAD = 64, TITLE = 64, SEC_GAP = 48, SEQ_W = 160;
+const w = n => Math.max(estNodeWidth(n), n.varName ? 80 + 7 * n.varName.length : 0);
+// высота поддерева: сумма детей, но не меньше собственной ноды (чистый оп ≈ 40 + 24·входов)
+const ownH = n => n.varName ? LEAF_H : 48 + 24 * n.pins.filter(p => p.direction === 'Input' && !p.hidden).length;
+const treeH = t => Math.max(ownH(t.node), t.kids.reduce((s, k) => s + treeH(k), 0));
+const depth = t => 1 + Math.max(0, ...t.kids.map(depth));
+
+/** Дерево справа налево: корень у правой границы xR, листья левее; узел — на уровне первого ребёнка. */
+function placeTree(t, xR, y, colW, d = 0) {
+  t.node.pos = { x: snap(xR - colW[d]), y: snap(y) };
+  let yy = y;
+  for (const k of t.kids) { placeTree(k, xR - colW[d] - COL_GAP, yy, colW, d + 1); yy += treeH(k); }
+}
+function colWidths(trees) {
+  const cw = [];
+  const walk = (t, d) => { cw[d] = Math.max(cw[d] || 0, w(t.node)); t.kids.forEach(k => walk(k, d + 1)); };
+  trees.forEach(t => walk(t, 0));
+  return cw;
+}
+
+function unlink(a, ap, b, bp) {
+  const o = a.pins.find(p => p.name === ap && p.direction === 'Output'), i = b.pins.find(p => p.name === bp && p.direction === 'Input');
+  o.linkedTo = o.linkedTo.filter(l => l.pinId !== i.id); i.linkedTo = i.linkedTo.filter(l => l.pinId !== o.id);
+}
+
+export function arrangeSections(built, origin = { x: 0, y: 0 }) {
+  const knots = [], comments = [];
+  let x0 = origin.x;
+  built.entry.pos = { x: snap(x0), y: snap(origin.y + TITLE) };
+  x0 += 256;
+  built.sections.forEach((sec, si) => {
+    const trees = sec.steps.flatMap(st => [st.tree, ...(st.yes || []).map(c => c.tree), ...(st.no || []).map(c => c.tree)]).filter(Boolean);
+    const cw = colWidths(trees);
+    const treesW = cw.reduce((a, b) => a + b + COL_GAP, 0);
+    const top = origin.y + TITLE;
+    const left = x0 + PAD;
+    // Sequence слева сверху, деревья под ним, столбец Set'ов справа от деревьев
+    sec.seq.pos = { x: snap(left), y: snap(top) };
+    const setX = snap(left + Math.max(SEQ_W, treesW) + 96);
+    let treeY = top + 32 + 24 * (sec.steps.length + 1);
+    let setY = top, maxX = setX, bottom = treeY;
+    for (const st of sec.steps) {
+      st.node.pos = { x: setX, y: snap(setY) };
+      if (st.tree) { placeTree(st.tree, setX - 96, treeY, cw); treeY += treeH(st.tree) + 16; }
+      let rowH = SET_STEP;
+      if (st.kind === 'branch') {         // ветки — следующим столбцом, then сверху, else снизу
+        const kids = [...st.yes, ...st.no].map(c => c.tree).filter(Boolean);
+        const kcw = colWidths(kids);
+        const bx = snap(setX + 224 + kcw.reduce((a, b) => a + b + COL_GAP, 0)); let by = setY;
+        for (const c of [...st.yes, ...st.no]) {
+          c.node.pos = { x: bx, y: snap(by) };
+          if (c.tree) { placeTree(c.tree, bx - 32, snap(by + 48), kcw); }
+          by += Math.max(SET_STEP, (c.tree ? treeH(c.tree) : 0) + 64); maxX = Math.max(maxX, bx + w(c.node));
+        }
+        rowH = Math.max(SET_STEP, by - setY);
+      }
+      setY += rowH; maxX = Math.max(maxX, setX + w(st.node));
+      bottom = Math.max(bottom, treeY, setY);
+    }
+    // шина: последний then Sequence → knot под деревьями → knot у правого края → следующая секция
+    const busY = snap(bottom + 16);
+    const last = `then_${sec.steps.length}`;
+    if (si < built.sections.length - 1) {
+      const k1 = createKnot({ x: snap(left + SEQ_W + 16), y: busY }, 'exec');
+      const k2 = createKnot({ x: snap(maxX + PAD - 16), y: busY }, 'exec');
+      const next = built.sections[si + 1].seq;
+      unlink(sec.seq, last, next, 'execute');
+      linkPins(sec.seq, last, k1, 'InputPin'); linkPins(k1, 'OutputPin', k2, 'InputPin'); linkPins(k2, 'OutputPin', next, 'execute');
+      knots.push(k1, k2);
+    }
+    const boxR = maxX + PAD, boxB = busY + PAD;
+    const cm = createComment(sec.title, { x: snap(x0), y: snap(origin.y) }, snap(boxR - x0), snap(boxB - origin.y));
+    comments.push(cm);
+    x0 = snap(boxR + SEC_GAP);
+  });
+  return { knots, comments };
+}
