@@ -50,7 +50,9 @@ for (const l of flatLinks(nodes).filter(x => x.via.length)) {
   if (!v.length || v.length > 4) problems.push(`перенос из ${v.length} knot'ов`);
   else {
     const first = v[0], last = v[v.length - 1];
-    if (knotPinY(first) !== srcPinY) problems.push(`K1 не на строке пина-выхода: Y ${knotPinY(first)} / ${srcPinY}`);
+    const srcBottom = l.source.pos.y + estNodeHeight(l.source);
+    if (knotPinY(first) < srcBottom) problems.push(`K1 выше низа ноды-источника: Y ${knotPinY(first)} < ${srcBottom}`);
+    if (v.length > 1 && v[1].pos.y !== first.pos.y && v.length > 2) problems.push(`K1·K2 не на одной линии щели`);
     if (first.pos.x !== xOut) problems.push(`K1 не на пине-выходе: x=${first.pos.x} / ${xOut}`);
     if (v.length > 1 && knotPinY(last) !== tgtPinY) problems.push(`последний knot не на строке пина-входа: Y ${knotPinY(last)} / ${tgtPinY}`);
     for (let q = 1; q < v.length; q++) {
@@ -82,7 +84,7 @@ for (const l of flatLinks(nodes).filter(x => x.via.length)) {
     continue;
   }
   console.log(`  ✓ ${tag} ${l.source.id}.${l.out.name} → ${l.target.id}.${l.input.name}: `
-    + `пары по Y (${knotPinY(v[0])} = строка выхода, ${knotPinY(v[v.length - 1])} = строка входа)`
+    + `пары по Y (${knotPinY(v[0])} = линия щели под источником, ${knotPinY(v[v.length - 1])} = строка входа)`
     + (crossLevel ? `, вертикаль в свободной колонке x=${vx}` : `, knot'ы в щели ${xOut}…${xIn}`));
 }
 

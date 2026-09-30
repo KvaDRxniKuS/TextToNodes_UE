@@ -91,14 +91,19 @@ export function transferRoute(source, out, target, input, { levels = [], corrido
   const srcX = source.pos.x + estNodeWidth(source); // X пина-выхода
   const tgtX = target.pos.x;                        // X пина-входа
   // центр пина knot'а на 8px ниже его NodePosY — так пин knot'а встаёт ровно на Y пина ноды
-  const srcY = pinY(source, out) - KNOT_W / 2;
   const tgtY = pinY(target, input) - KNOT_W / 2;
+  // Правило пользователя 2026-10-01: первый knot после выхода — НЕ ВЫШЕ низа ноды-источника; в идеале
+  // по центру щели между низом источника и верхом цели. K1·K2 лежат на этой линии щели. Если цель выше
+  // (щели снизу нет) — на 2 шага сетки ниже низа источника.
+  const srcBottom = source.pos.y + estNodeHeight(source);
+  const gapMid = target.pos.y > srcBottom ? (srcBottom + target.pos.y) / 2 : srcBottom + 2 * GRID;
+  const srcY = Math.max(srcBottom, Math.round(gapMid / GRID) * GRID) - KNOT_W / 2;
   // `corridorY` принят и игнорируется: парное выравнивание не знает отдельной Y-линии коридора
   void corridorY;
   const vx = transferColumnX({ source, target, levels, srcX, srcY, tgtX, tgtY });
   return [
     { x: srcX, y: srcY, role: 'out' },
-    { x: vx - KNOT_W, y: srcY, role: 'line-out' },   // пара 1: общий Y = строка пина-выхода
+    { x: vx - KNOT_W, y: srcY, role: 'line-out' },   // пара 1: общий Y = линия щели под источником
     { x: vx, y: tgtY, role: 'line-in' },             // пара 2: общий Y = строка пина-входа
     { x: tgtX - KNOT_W, y: tgtY, role: 'in' },
   ];
