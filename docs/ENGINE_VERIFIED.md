@@ -1180,3 +1180,13 @@ R41 зарегистрирован: реестр +17, всего 551. В UE_LIBS
 - Map/Set — `BlueprintMapLibrary` / `BlueprintSetLibrary`, контейнерные wildcard-пины (гипотеза: K2Node_CallFunction, Map-пин с `PinValueType=(TerminalCategory="wildcard")`; сериализатор научился `p.valueType`).
 - Энамы pre: EAttachLocation, ERadialImpulseFalloff, ELinearConstraintMotion, EAngularConstraintMotion, ESearchCase, ESearchDir, ECheckBoxState, ETextJustify.
 - Ноды виджетов (UI, UILayout) — вставлять в Widget BP.
+
+## R45 — вердикт (2026-09-30)
+Вставлено 78 из 84, компиляция без ошибок → 78 в реестре (721). Правки по copy-back:
+ERadialImpulseFalloff/ELinearConstraintMotion/EAngularConstraintMotion — `/Script/PhysicsCore`;
+SetAttenuationRadius → LocalLightComponent; SetJustification → UMG.TextLayoutWidget;
+K2_GetVectorParameterValue, Map_Keys, Map_Values, Set_ToArray, Set_Union — с exec (не pure);
+выходные контейнеры/Value не by-ref; входные контейнерные пины `bDefaultValueIsIgnored=True`;
+SetOverlayMaterial +bSetMaterialSlot:bool, SlotIndex:int; SetAngularVelocityTarget.InVelTarget — const ref.
+Не встали 6 → R45b: *OnMaterials — член MeshComponent (не PrimitiveComponent);
+Widget.* — короткий ключ `mem('Widget.X')` дал `/Script/Engine.Widget`, нужен полный `/Script/UMG.Widget.`.

@@ -40,7 +40,7 @@ const repEvent = (name, bits) => () => { const n = createCustomEvent(name, []); 
 const wild = (make, spec) => () => { const n = make(); for (const [nm, v] of Object.entries(spec)) {
   const p = n.pins.find(x => x.name === nm); const c = v.replace(/[&!]/g, '');
   p.category = 'wildcard'; p.subCategory = ''; p.subCategoryObject = ''; p.container = c || 'None';
-  if (c === 'Map') p.valueType = 'wildcard'; if (v.includes('&')) p.isRef = true; if (v.includes('!')) p.isConst = true; } return n; };
+  if (c === 'Map') p.valueType = 'wildcard'; if (c && p.direction === 'Input') p.ignored = true; if (v.includes('&') && p.direction === 'Input') p.isRef = true; if (v.includes('!')) p.isConst = true; } return n; };
 
 /* Пакеты проб. Каждая проба: [тема, текст пузыря, фабрика]. Текст пузыря — что за нода и чего ждём. */
 const BATCHES = {
@@ -327,16 +327,14 @@ const BATCHES = {
     ['SplineEdit', 'Update Spline', mem('/Script/Engine.SplineComponent.UpdateSpline', [])],
   ],
   '45': [
-    ['Render', 'Set Scalar Parameter Value on Materials (член PrimitiveComponent)', mem('PrimitiveComponent.SetScalarParameterValueOnMaterials', ['ParameterName:name', 'ParameterValue:single'])],
-    ['Render', 'Set Vector Parameter Value on Materials (член PrimitiveComponent)', mem('PrimitiveComponent.SetVectorParameterValueOnMaterials', ['ParameterName:name', 'ParameterValue:vector'])],
-    ['Render', 'Get Vector Parameter Value (член MaterialInstanceDynamic, pure)', mem('MaterialInstanceDynamic.K2_GetVectorParameterValue', ['ParameterName:name', '->', 'ReturnValue:linearcolor'], true)],
+    ['Render', 'Get Vector Parameter Value (член MaterialInstanceDynamic; copy-back: с exec)', mem('MaterialInstanceDynamic.K2_GetVectorParameterValue', ['ParameterName:name', '->', 'ReturnValue:linearcolor'])],
     ['Render', 'Set Render Custom Depth (член PrimitiveComponent)', mem('PrimitiveComponent.SetRenderCustomDepth', ['bValue:bool'])],
     ['Render', 'Set Custom Depth Stencil Value (член PrimitiveComponent)', mem('PrimitiveComponent.SetCustomDepthStencilValue', ['Value:int'])],
-    ['Render', 'Set Overlay Material (член MeshComponent)', mem('/Script/Engine.MeshComponent.SetOverlayMaterial', ['NewOverlayMaterial:object:/Script/Engine.MaterialInterface'])],
+    ['Render', 'Set Overlay Material (член MeshComponent)', mem('/Script/Engine.MeshComponent.SetOverlayMaterial', ['NewOverlayMaterial:object:/Script/Engine.MaterialInterface', 'bSetMaterialSlot:bool', 'SlotIndex:int'])],
     ['Render', 'Spawn Decal Attached (GameplayStatics). EAttachLocation', lib('GameplayStatics.SpawnDecalAttached', ['DecalMaterial:object:/Script/Engine.MaterialInterface', 'DecalSize:vector', 'AttachToComponent:object:SceneComponent', 'AttachPointName:name', 'Location:vector', 'Rotation:rotator', 'LocationType:enum:EAttachLocation', 'LifeSpan:single', '->', 'ReturnValue:object:/Script/Engine.DecalComponent'])],
     ['Render', 'Set Fade Out (член DecalComponent)', mem('/Script/Engine.DecalComponent.SetFadeOut', ['StartDelay:single', 'Duration:single', 'DestroyOwnerAfterFade:bool=true'])],
     ['Render', 'Set Decal Material (член DecalComponent)', mem('/Script/Engine.DecalComponent.SetDecalMaterial', ['NewDecalMaterial:object:/Script/Engine.MaterialInterface'])],
-    ['Light', 'Set Attenuation Radius (член PointLightComponent)', mem('/Script/Engine.PointLightComponent.SetAttenuationRadius', ['NewRadius:single'])],
+    ['Light', 'Set Attenuation Radius (член LocalLightComponent)', mem('/Script/Engine.LocalLightComponent.SetAttenuationRadius', ['NewRadius:single'])],
     ['Light', 'Set Source Radius (член PointLightComponent)', mem('/Script/Engine.PointLightComponent.SetSourceRadius', ['bNewValue:single'])],
     ['Light', 'Set Inner Cone Angle (член SpotLightComponent)', mem('/Script/Engine.SpotLightComponent.SetInnerConeAngle', ['NewInnerConeAngle:single'])],
     ['Light', 'Set Outer Cone Angle (член SpotLightComponent)', mem('/Script/Engine.SpotLightComponent.SetOuterConeAngle', ['NewOuterConeAngle:single'])],
@@ -355,7 +353,7 @@ const BATCHES = {
     ['Constraint', 'Set Linear X Limit. ELinearConstraintMotion', mem('/Script/Engine.PhysicsConstraintComponent.SetLinearXLimit', ['ConstraintType:enum:ELinearConstraintMotion', 'LimitSize:single'])],
     ['Constraint', 'Set Angular Swing 1 Limit. EAngularConstraintMotion', mem('/Script/Engine.PhysicsConstraintComponent.SetAngularSwing1Limit', ['MotionType:enum:EAngularConstraintMotion', 'Swing1LimitAngle:single'])],
     ['Constraint', 'Set Linear Position Drive', mem('/Script/Engine.PhysicsConstraintComponent.SetLinearPositionDrive', ['bEnableDriveX:bool', 'bEnableDriveY:bool', 'bEnableDriveZ:bool'])],
-    ['Constraint', 'Set Angular Velocity Target', mem('/Script/Engine.PhysicsConstraintComponent.SetAngularVelocityTarget', ['InVelTarget:vector'])],
+    ['Constraint', 'Set Angular Velocity Target', (() => { const n = mem('/Script/Engine.PhysicsConstraintComponent.SetAngularVelocityTarget', ['InVelTarget:vector'])(); const q = n.pins.find(x => x.name === 'InVelTarget'); q.isRef = true; q.isConst = true; return n; })],
     ['Grab', 'Grab Component at Location (член PhysicsHandleComponent)', mem('/Script/Engine.PhysicsHandleComponent.GrabComponentAtLocation', ['Component:object:PrimitiveComponent', 'InBoneName:name', 'GrabLocation:vector'])],
     ['Grab', 'Grab Component at Location with Rotation', mem('/Script/Engine.PhysicsHandleComponent.GrabComponentAtLocationWithRotation', ['Component:object:PrimitiveComponent', 'InBoneName:name', 'Location:vector', 'Rotation:rotator'])],
     ['Grab', 'Release Component', mem('/Script/Engine.PhysicsHandleComponent.ReleaseComponent', [])],
@@ -372,10 +370,10 @@ const BATCHES = {
     ['String', 'Get Character as Number (pure)', lib('KismetStringLibrary.GetCharacterAsNumber', ['SourceString:string', 'Index:int', '->', 'ReturnValue:int'], true)],
     ['Map', 'Map Add (BlueprintMapLibrary). Пины wildcard-Map', wild(lib('/Script/Engine.BlueprintMapLibrary.Map_Add', ['TargetMap:int', 'Key:int', 'Value:int']), { TargetMap: 'Map&', Key: '&!', Value: '&!' })],
     ['Map', 'Map Remove', wild(lib('/Script/Engine.BlueprintMapLibrary.Map_Remove', ['TargetMap:int', 'Key:int', '->', 'ReturnValue:bool']), { TargetMap: 'Map&', Key: '&!' })],
-    ['Map', 'Map Find (pure). Выход Value + bool', wild(lib('/Script/Engine.BlueprintMapLibrary.Map_Find', ['TargetMap:int', 'Key:int', '->', 'Value:int', 'ReturnValue:bool'], true), { TargetMap: 'Map&!', Key: '&!', Value: '&' })],
+    ['Map', 'Map Find (pure). Выход Value + bool', wild(lib('/Script/Engine.BlueprintMapLibrary.Map_Find', ['TargetMap:int', 'Key:int', '->', 'Value:int', 'ReturnValue:bool'], true), { TargetMap: 'Map&!', Key: '&!' })],
     ['Map', 'Map Contains (pure)', wild(lib('/Script/Engine.BlueprintMapLibrary.Map_Contains', ['TargetMap:int', 'Key:int', '->', 'ReturnValue:bool'], true), { TargetMap: 'Map&!', Key: '&!' })],
-    ['Map', 'Map Keys (pure)', wild(lib('/Script/Engine.BlueprintMapLibrary.Map_Keys', ['TargetMap:int', '->', 'Keys:int'], true), { TargetMap: 'Map&!', Keys: 'Array&' })],
-    ['Map', 'Map Values (pure)', wild(lib('/Script/Engine.BlueprintMapLibrary.Map_Values', ['TargetMap:int', '->', 'Values:int'], true), { TargetMap: 'Map&!', Values: 'Array&' })],
+    ['Map', 'Map Keys (copy-back: с exec)', wild(lib('/Script/Engine.BlueprintMapLibrary.Map_Keys', ['TargetMap:int', '->', 'Keys:int']), { TargetMap: 'Map&!', Keys: 'Array&' })],
+    ['Map', 'Map Values (copy-back: с exec)', wild(lib('/Script/Engine.BlueprintMapLibrary.Map_Values', ['TargetMap:int', '->', 'Values:int']), { TargetMap: 'Map&!', Values: 'Array&' })],
     ['Map', 'Map Length (pure)', wild(lib('/Script/Engine.BlueprintMapLibrary.Map_Length', ['TargetMap:int', '->', 'ReturnValue:int'], true), { TargetMap: 'Map&!' })],
     ['Map', 'Map Clear', wild(lib('/Script/Engine.BlueprintMapLibrary.Map_Clear', ['TargetMap:int']), { TargetMap: 'Map&' })],
     ['Set', 'Set Add (BlueprintSetLibrary)', wild(lib('/Script/Engine.BlueprintSetLibrary.Set_Add', ['TargetSet:int', 'NewItem:int']), { TargetSet: 'Set&', NewItem: '&!' })],
@@ -383,8 +381,8 @@ const BATCHES = {
     ['Set', 'Set Remove', wild(lib('/Script/Engine.BlueprintSetLibrary.Set_Remove', ['TargetSet:int', 'Item:int', '->', 'ReturnValue:bool']), { TargetSet: 'Set&', Item: '&!' })],
     ['Set', 'Set Contains (pure)', wild(lib('/Script/Engine.BlueprintSetLibrary.Set_Contains', ['TargetSet:int', 'ItemToFind:int', '->', 'ReturnValue:bool'], true), { TargetSet: 'Set&!', ItemToFind: '&!' })],
     ['Set', 'Set Length (pure)', wild(lib('/Script/Engine.BlueprintSetLibrary.Set_Length', ['TargetSet:int', '->', 'ReturnValue:int'], true), { TargetSet: 'Set&!' })],
-    ['Set', 'Set To Array (pure)', wild(lib('/Script/Engine.BlueprintSetLibrary.Set_ToArray', ['A:int', '->', 'Result:int'], true), { A: 'Set&!', Result: 'Array&' })],
-    ['Set', 'Set Union (pure)', wild(lib('/Script/Engine.BlueprintSetLibrary.Set_Union', ['A:int', 'B:int', '->', 'Result:int'], true), { A: 'Set&!', B: 'Set&!', Result: 'Set&' })],
+    ['Set', 'Set To Array (copy-back: с exec)', wild(lib('/Script/Engine.BlueprintSetLibrary.Set_ToArray', ['A:int', '->', 'Result:int']), { A: 'Set&!', Result: 'Array&' })],
+    ['Set', 'Set Union (copy-back: с exec)', wild(lib('/Script/Engine.BlueprintSetLibrary.Set_Union', ['A:int', 'B:int', '->', 'Result:int']), { A: 'Set&!', B: 'Set&!', Result: 'Set&' })],
     ['Set', 'Set Clear', wild(lib('/Script/Engine.BlueprintSetLibrary.Set_Clear', ['TargetSet:int']), { TargetSet: 'Set&' })],
     ['UI', 'Set Is Checked (член CheckBox)', mem('/Script/UMG.CheckBox.SetIsChecked', ['InIsChecked:bool'])],
     ['UI', 'Is Checked (член CheckBox, pure)', mem('/Script/UMG.CheckBox.IsChecked', ['->', 'ReturnValue:bool'], true)],
@@ -405,12 +403,17 @@ const BATCHES = {
     ['UILayout', 'Set Alignment (член CanvasPanelSlot)', mem('/Script/UMG.CanvasPanelSlot.SetAlignment', ['InAlignment:vector2d'])],
     ['UILayout', 'Set ZOrder (член CanvasPanelSlot)', mem('/Script/UMG.CanvasPanelSlot.SetZOrder', ['InZOrder:int'])],
     ['UILayout', 'Set Auto Size (член CanvasPanelSlot)', mem('/Script/UMG.CanvasPanelSlot.SetAutoSize', ['InbAutoSize:bool'])],
-    ['UILayout', 'Set Render Transform Angle (член Widget)', mem('Widget.SetRenderTransformAngle', ['Angle:single'])],
-    ['UILayout', 'Set Tool Tip Text (член Widget)', mem('Widget.SetToolTipText', ['InToolTipText:text'])],
-    ['UILayout', 'Set Keyboard Focus (член Widget)', mem('Widget.SetKeyboardFocus', [])],
-    ['UILayout', 'Has Keyboard Focus (член Widget, pure)', mem('Widget.HasKeyboardFocus', ['->', 'ReturnValue:bool'], true)],
     ['UILayout', 'Set Color and Opacity (член Image)', mem('/Script/UMG.Image.SetColorAndOpacity', ['InColorAndOpacity:linearcolor'])],
-    ['UILayout', 'Set Justification (член TextBlock). ETextJustify', mem('/Script/UMG.TextBlock.SetJustification', ['InJustification:enum:ETextJustify'])],
+    ['UILayout', 'Set Justification (член TextLayoutWidget). ETextJustify', mem('/Script/UMG.TextLayoutWidget.SetJustification', ['InJustification:enum:ETextJustify'])],
+  ],
+  '45b': [
+    // R45 досылка: OnMaterials живут в MeshComponent (не PrimitiveComponent); Widget.* ушли в /Script/Engine.Widget по короткому ключу — теперь полный путь UMG
+    ['Render', 'Set Scalar Parameter Value on Materials (член MeshComponent)', mem('/Script/Engine.MeshComponent.SetScalarParameterValueOnMaterials', ['ParameterName:name', 'ParameterValue:single'])],
+    ['Render', 'Set Vector Parameter Value on Materials (член MeshComponent)', mem('/Script/Engine.MeshComponent.SetVectorParameterValueOnMaterials', ['ParameterName:name', 'ParameterValue:vector'])],
+    ['UILayout', 'Set Render Transform Angle (член Widget)', mem('/Script/UMG.Widget.SetRenderTransformAngle', ['Angle:single'])],
+    ['UILayout', 'Set Tool Tip Text (член Widget)', mem('/Script/UMG.Widget.SetToolTipText', ['InToolTipText:text'])],
+    ['UILayout', 'Set Keyboard Focus (член Widget)', mem('/Script/UMG.Widget.SetKeyboardFocus', [])],
+    ['UILayout', 'Has Keyboard Focus (член Widget, pure)', mem('/Script/UMG.Widget.HasKeyboardFocus', ['->', 'ReturnValue:bool'], true)],
   ],
 };
 
@@ -482,6 +485,8 @@ if (REGISTER) {
       if (p.isConst) o.const = true;
       if (p.isRef) o.ref = true;
       if (p.container !== 'None') o.container = p.container;
+      if (p.valueType) o.valueType = p.valueType;
+      if (p.ignored) o.ignored = true;
       if (p.defaultValue) o.dv = p.defaultValue;
       if ((p.autoDefault || '') !== (p.defaultValue || '')) o.autoDv = p.autoDefault || '';
       return o;

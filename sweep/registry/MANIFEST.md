@@ -1,6 +1,6 @@
 # Sweep manifest — полный прогон реестра по категориям
 
-Записей в реестре: 644; построено узлов: 644; упало: 0.
+Записей в реестре: 721; построено узлов: 721; упало: 0.
 MANIFEST и NN-*.txt побайтово воспроизводимы (дата не пишется): сверка — `node tools/gen-sweep.mjs --check`.
 Генератор: tools/gen-sweep.mjs (сетка по 5 в ряд, внутри ряда layoutRow, накрыто fitComment).
 
@@ -47,7 +47,7 @@ MANIFEST и NN-*.txt побайтово воспроизводимы (дата �
 | 28 | 28-enhanced-input-full.txt | 15/15 | 15 | 15 | — | 15xW09 |
 | 29 | 29-components-physics.txt | 23/23 | 23 | 23 | — | 23xW09 |
 | 30 | 30-debug.txt | 1/1 | 1 | 0 | — | — |
-| 31 | 31-gameplay-systems.txt | 229/229 | 229 | 0 | — | — |
+| 31 | 31-gameplay-systems.txt | 306/306 | 306 | 0 | — | — |
 | 32 | 32-level-streaming.txt | 4/4 | 4 | 0 | — | — |
 
 Остальные папки sweep/ (chapters, probes, layout, copyback) и команды их пересборки — в `sweep/README.md`; сверка всего — `node tools/check-sweep.mjs`.

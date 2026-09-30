@@ -65,6 +65,24 @@ const LIBS_FULL = {
   SkinnedMeshComponent: `"/Script/CoreUObject.Class'/Script/Engine.SkinnedMeshComponent'"`, // R43 VERIFIED
   SpringArmComponent: `"/Script/CoreUObject.Class'/Script/Engine.SpringArmComponent'"`, // R44 VERIFIED
   SplineComponent: `"/Script/CoreUObject.Class'/Script/Engine.SplineComponent'"`, // R44 VERIFIED
+  TextLayoutWidget: `"/Script/CoreUObject.Class'/Script/UMG.TextLayoutWidget'"`, // R45 VERIFIED
+  CanvasPanelSlot: `"/Script/CoreUObject.Class'/Script/UMG.CanvasPanelSlot'"`, // R45 VERIFIED
+  WidgetLayoutLibrary: `"/Script/CoreUObject.Class'/Script/UMG.WidgetLayoutLibrary'"`, // R45 VERIFIED
+  PanelWidget: `"/Script/CoreUObject.Class'/Script/UMG.PanelWidget'"`, // R45 VERIFIED
+  ScrollBox: `"/Script/CoreUObject.Class'/Script/UMG.ScrollBox'"`, // R45 VERIFIED
+  ComboBoxString: `"/Script/CoreUObject.Class'/Script/UMG.ComboBoxString'"`, // R45 VERIFIED
+  CheckBox: `"/Script/CoreUObject.Class'/Script/UMG.CheckBox'"`, // R45 VERIFIED
+  BlueprintSetLibrary: `"/Script/CoreUObject.Class'/Script/Engine.BlueprintSetLibrary'"`, // R45 VERIFIED
+  BlueprintMapLibrary: `"/Script/CoreUObject.Class'/Script/Engine.BlueprintMapLibrary'"`, // R45 VERIFIED
+  PhysicsHandleComponent: `"/Script/CoreUObject.Class'/Script/Engine.PhysicsHandleComponent'"`, // R45 VERIFIED
+  PhysicsConstraintComponent: `"/Script/CoreUObject.Class'/Script/Engine.PhysicsConstraintComponent'"`, // R45 VERIFIED
+  RadialForceComponent: `"/Script/CoreUObject.Class'/Script/Engine.RadialForceComponent'"`, // R45 VERIFIED
+  LightComponentBase: `"/Script/CoreUObject.Class'/Script/Engine.LightComponentBase'"`, // R45 VERIFIED
+  SpotLightComponent: `"/Script/CoreUObject.Class'/Script/Engine.SpotLightComponent'"`, // R45 VERIFIED
+  PointLightComponent: `"/Script/CoreUObject.Class'/Script/Engine.PointLightComponent'"`, // R45 VERIFIED
+  LocalLightComponent: `"/Script/CoreUObject.Class'/Script/Engine.LocalLightComponent'"`, // R45 VERIFIED
+  DecalComponent: `"/Script/CoreUObject.Class'/Script/Engine.DecalComponent'"`, // R45 VERIFIED
+  MeshComponent: `"/Script/CoreUObject.Class'/Script/Engine.MeshComponent'"`, // R45 VERIFIED
   Slider: `"/Script/CoreUObject.Class'/Script/UMG.Slider'"`, // R41 VERIFIED
 };
 const LIBS_SHORT = {
@@ -115,6 +133,24 @@ const LIBS_SHORT = {
   SkinnedMeshComponent: `Class'"/Script/Engine.SkinnedMeshComponent"'`,
   SpringArmComponent: `Class'"/Script/Engine.SpringArmComponent"'`,
   SplineComponent: `Class'"/Script/Engine.SplineComponent"'`,
+  MeshComponent: `Class'"/Script/Engine.MeshComponent"'`,
+  DecalComponent: `Class'"/Script/Engine.DecalComponent"'`,
+  LocalLightComponent: `Class'"/Script/Engine.LocalLightComponent"'`,
+  PointLightComponent: `Class'"/Script/Engine.PointLightComponent"'`,
+  SpotLightComponent: `Class'"/Script/Engine.SpotLightComponent"'`,
+  LightComponentBase: `Class'"/Script/Engine.LightComponentBase"'`,
+  RadialForceComponent: `Class'"/Script/Engine.RadialForceComponent"'`,
+  PhysicsConstraintComponent: `Class'"/Script/Engine.PhysicsConstraintComponent"'`,
+  PhysicsHandleComponent: `Class'"/Script/Engine.PhysicsHandleComponent"'`,
+  BlueprintMapLibrary: `Class'"/Script/Engine.BlueprintMapLibrary"'`,
+  BlueprintSetLibrary: `Class'"/Script/Engine.BlueprintSetLibrary"'`,
+  CheckBox: `Class'"/Script/UMG.CheckBox"'`,
+  ComboBoxString: `Class'"/Script/UMG.ComboBoxString"'`,
+  ScrollBox: `Class'"/Script/UMG.ScrollBox"'`,
+  PanelWidget: `Class'"/Script/UMG.PanelWidget"'`,
+  WidgetLayoutLibrary: `Class'"/Script/UMG.WidgetLayoutLibrary"'`,
+  CanvasPanelSlot: `Class'"/Script/UMG.CanvasPanelSlot"'`,
+  TextLayoutWidget: `Class'"/Script/UMG.TextLayoutWidget"'`,
 };
 export const UE_LIBS = UE_VERSION === 'SHORT' ? LIBS_SHORT : LIBS_FULL;
 
@@ -182,14 +218,14 @@ const ENUMS_FULL = {
   ESplinePointType: `"/Script/CoreUObject.Enum'/Script/Engine.ESplinePointType'"`, // confirmed R44
   EAnimationMode: `"/Script/CoreUObject.Enum'/Script/Engine.EAnimationMode'"`, // confirmed R44
   ECameraProjectionMode: `"/Script/CoreUObject.Enum'/Script/Engine.ECameraProjectionMode'"`, // confirmed R44
-  EAttachLocation: `"/Script/CoreUObject.Enum'/Script/Engine.EAttachLocation'"`, // pre R45
-  ERadialImpulseFalloff: `"/Script/CoreUObject.Enum'/Script/Engine.ERadialImpulseFalloff'"`, // pre R45
-  ELinearConstraintMotion: `"/Script/CoreUObject.Enum'/Script/Engine.ELinearConstraintMotion'"`, // pre R45
-  EAngularConstraintMotion: `"/Script/CoreUObject.Enum'/Script/Engine.EAngularConstraintMotion'"`, // pre R45
-  ESearchCase: `"/Script/CoreUObject.Enum'/Script/CoreUObject.ESearchCase'"`, // pre R45
-  ESearchDir: `"/Script/CoreUObject.Enum'/Script/CoreUObject.ESearchDir'"`, // pre R45
-  ECheckBoxState: `"/Script/CoreUObject.Enum'/Script/SlateCore.ECheckBoxState'"`, // pre R45
-  ETextJustify: `"/Script/CoreUObject.Enum'/Script/Slate.ETextJustify'"`, // pre R45
+  EAttachLocation: `"/Script/CoreUObject.Enum'/Script/Engine.EAttachLocation'"`, // confirmed R45
+  ERadialImpulseFalloff: `"/Script/CoreUObject.Enum'/Script/PhysicsCore.ERadialImpulseFalloff'"`, // confirmed R45
+  ELinearConstraintMotion: `"/Script/CoreUObject.Enum'/Script/PhysicsCore.ELinearConstraintMotion'"`, // confirmed R45
+  EAngularConstraintMotion: `"/Script/CoreUObject.Enum'/Script/PhysicsCore.EAngularConstraintMotion'"`, // confirmed R45
+  ESearchCase: `"/Script/CoreUObject.Enum'/Script/CoreUObject.ESearchCase'"`, // confirmed R45
+  ESearchDir: `"/Script/CoreUObject.Enum'/Script/CoreUObject.ESearchDir'"`, // confirmed R45
+  ECheckBoxState: `"/Script/CoreUObject.Enum'/Script/SlateCore.ECheckBoxState'"`, // confirmed R45
+  ETextJustify: `"/Script/CoreUObject.Enum'/Script/Slate.ETextJustify'"`, // confirmed R45
   EMoveComponentAction: `"/Script/CoreUObject.Enum'/Script/Engine.EMoveComponentAction'"`, // R34 copy-back: MoveComponentTo
   EDrawDebugSceneDepthPriorityGroup: `"/Script/CoreUObject.Enum'/Script/Engine.EDrawDebugSceneDepthPriorityGroup'"`, // R33 copy-back: DrawDebugArrow.DepthPriority
   ECollisionResponse: `"/Script/CoreUObject.Enum'/Script/Engine.ECollisionResponse'"`, // round29-pre
@@ -218,9 +254,9 @@ const ENUMS_SHORT = {
   EAnimationMode: `Enum'"/Script/Engine.EAnimationMode"'`,
   ECameraProjectionMode: `Enum'"/Script/Engine.ECameraProjectionMode"'`,
   EAttachLocation: `Enum'"/Script/Engine.EAttachLocation"'`,
-  ERadialImpulseFalloff: `Enum'"/Script/Engine.ERadialImpulseFalloff"'`,
-  ELinearConstraintMotion: `Enum'"/Script/Engine.ELinearConstraintMotion"'`,
-  EAngularConstraintMotion: `Enum'"/Script/Engine.EAngularConstraintMotion"'`,
+  ERadialImpulseFalloff: `Enum'"/Script/PhysicsCore.ERadialImpulseFalloff"'`,
+  ELinearConstraintMotion: `Enum'"/Script/PhysicsCore.ELinearConstraintMotion"'`,
+  EAngularConstraintMotion: `Enum'"/Script/PhysicsCore.EAngularConstraintMotion"'`,
   ESearchCase: `Enum'"/Script/CoreUObject.ESearchCase"'`,
   ESearchDir: `Enum'"/Script/CoreUObject.ESearchDir"'`,
   ECheckBoxState: `Enum'"/Script/SlateCore.ECheckBoxState"'`,
