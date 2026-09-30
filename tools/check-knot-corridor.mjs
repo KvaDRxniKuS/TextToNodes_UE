@@ -10,8 +10,7 @@
  *   · K1 сидит на пине-выходе, выход K4 — на пине-входа (провода по нулевой длине),
  *   · вертикаль переноса идёт по СВОБОДНОЙ КОЛОНКЕ: не перечёркивает прямоугольники нод,
  *     а внутри ряда knot'ы не вылезают за щель между соседями.
- * С 2026-10-01 соседние knot'ы ближе MIN_KNOT_GAP сливаются → переносы из 1–3 knot'ов тоже законны;
- * проверяется: K1 на пине-выходе, последний knot на строке входа, соседи не ближе порога.
+ * С 2026-10-01: knot'ы только при переносе назад, ровно 4 (K1 выход, K2 под ним в щели, K3 щель над колонкой, K4 вход).
  *
  * Использование:
  *   node tools/check-knot-corridor.mjs [tests/three-stage-01.stage2-arranger.txt]
@@ -21,7 +20,6 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseToGraphs } from '../src/parser.js';
 import { estNodeWidth, estNodeHeight, pinCenterY } from '../src/generator.js';
-import { MIN_KNOT_GAP } from '../src/arranger.js';
 import { isKnot, flatLinks, buildLevels, pinCenterX, KNOT_W } from '../src/decorator.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -46,8 +44,8 @@ for (const l of flatLinks(nodes).filter(x => x.via.length)) {
   const xOut = pinCenterX(l.source, l.out), xIn = pinCenterX(l.target, l.input);
   const problems = [];
   let vx = null;
-  // стадиум K1..K4 после слияния близких knot'ов (правило 2026-10-01, MIN_KNOT_GAP): 1–4 knot'а
-  if (!v.length || v.length > 4) problems.push(`перенос из ${v.length} knot'ов`);
+  // перенос назад: ровно 4 knot'а (K1 выход, K2 щель под K1, K3 щель над колонкой, K4 строка входа)
+  if (v.length !== 4) problems.push(`перенос из ${v.length} knot'ов`);
   else {
     const first = v[0], last = v[v.length - 1];
     const srcBottom = l.source.pos.y + estNodeHeight(l.source);
@@ -60,10 +58,6 @@ for (const l of flatLinks(nodes).filter(x => x.via.length)) {
     }
     if (first.pos.x !== xOut) problems.push(`K1 не на пине-выходе: x=${first.pos.x} / ${xOut}`);
     if (v.length > 1 && knotPinY(last) !== tgtPinY) problems.push(`последний knot не на строке пина-входа: Y ${knotPinY(last)} / ${tgtPinY}`);
-    for (let q = 1; q < v.length; q++) {
-      const d = Math.max(Math.abs(v[q].pos.x - v[q - 1].pos.x), Math.abs(v[q].pos.y - v[q - 1].pos.y));
-      if (d < MIN_KNOT_GAP) problems.push(`соседние knot'ы ближе ${MIN_KNOT_GAP}px (${d})`);
-    }
     vx = last.pos.x;
   }
 

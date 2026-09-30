@@ -302,8 +302,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   const {arrangeRows}=await import('../src/arranger.js');
   const routed=arrangeRows([[backTarget],[backSource]],{rowGap:400});
   ok(routed.knots.length===4 && routed.nodes.length===6 && backSource.pins.find(p=>p.name==='then').linkedTo[0].nodeName===routed.knots[0].id, 'arranger: backward exec flow builds a 4-knot route');
-  { const {mergeCloseKnots}=await import('../src/arranger.js'); const mm=mergeCloseKnots([{x:0,y:0},{x:900,y:0},{x:916,y:16},{x:932,y:16}]); ok(mm.length===2 && mm[1].x===900 && mm[1].y===16, 'arranger: close knots (<48px) merge into one');
-  { const ar=await import('../src/arranger.js'); const g=await import('../src/generator.js'); ok(g.GRID===16 && ar.MIN_KNOT_GAP_STEPS===7 && ar.MIN_KNOT_GAP===112, 'grid: шаг 16px, минимум между knot-ами = 7 шагов (112px)'); } }
+  { const g=await import('../src/generator.js'); ok(g.GRID===16, 'grid: шаг сетки 16px'); }
   { const {estNodeHeight:eh, pinCenterY:pcy}=await import('../src/generator.js'); const k=routed.knots, bh=backSource.pos.y+eh(backSource);
     ok(k.length===4 && k[0].pos.x===k[1].pos.x && k[0].pos.x===backSource.pos.x+estNodeWidth(backSource) && k[0].pos.y+8===pcy(backSource,backSource.pins.find(p=>p.name==='then'))
        && k[1].pos.y+8>=bh && k[1].pos.y===k[2].pos.y && k[2].pos.x===k[3].pos.x && k[3].pos.y+8===pcy(backTarget,backTarget.pins.find(p=>p.name==='execute')),

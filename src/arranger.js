@@ -186,7 +186,7 @@ function createExecReroutes(nodes, { levels = [] } = {}) {
   for (const [source,out,target,input] of jobs) {
     out.linkedTo = out.linkedTo.filter(l => l.pinId !== input.id);
     input.linkedTo = input.linkedTo.filter(l => l.pinId !== out.id);
-    const points = mergeCloseKnots(transferRoute(source, out, target, input, { levels }));
+    const points = transferRoute(source, out, target, input, { levels });
     let previousNode = source, previousPin = out;
     for (const { x, y } of points) {
       const knot = createKnot({ x, y }, 'exec');
@@ -202,25 +202,8 @@ function createExecReroutes(nodes, { levels = [] } = {}) {
   return knots;
 }
 
-/**
- * Правило пользователя (2026-10-01): связанные knot'ы одного переноса не ставятся ближе MIN_KNOT_GAP
- * друг к другу — соседние точки ближе порога (по max(|dx|,|dy|)) сливаются в одну: X ранней точки (вертикаль
- * не сдвигается), Y поздней (дальше к цели провод идёт по строке пина-входа). K3+K4 (одна строка, 16px) → один
- * knot; стадиум с ΔY=16 (K2,K3,K4 в клетке 3×2) → K1 + один knot.
- */
-// Шаг сетки UE = GRID = 16px (зафиксировано пользователем 2026-10-01). Минимум между связанными knot'ами — 7 шагов (было 3).
-export const MIN_KNOT_GAP_STEPS = 7;
-export const MIN_KNOT_GAP = MIN_KNOT_GAP_STEPS * GRID; // = 112px
-export function mergeCloseKnots(points, minGap = MIN_KNOT_GAP) {
-  const outPts = [];
-  for (const p of points) {
-    const last = outPts[outPts.length - 1];
-    // K1 (у пина-выхода) и K2 (линия щели) не сливаются: спуск из пина в щель — обязательная часть формы
-    if (last && outPts.length > 1 && Math.max(Math.abs(p.x - last.x), Math.abs(p.y - last.y)) < minGap) outPts[outPts.length - 1] = { ...last, y: p.y };
-    else outPts.push(p);
-  }
-  return outPts;
-}
+// Шаг сетки UE = GRID = 16px (зафиксировано пользователем 2026-10-01). Слияние близких knot'ов снято:
+// knot'ы строятся только для переноса назад, всегда ровно 4.
 
 /**
  * Lay out explicit left-to-right rows. Each later row starts below the prior
