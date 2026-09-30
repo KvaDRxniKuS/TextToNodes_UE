@@ -11,6 +11,8 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_AddDelegate Name="K2Node_AddDel
    DelegateReference=(MemberName="NewEventDispatcher_Probe",MemberGuid=073EE614EED927BA45E99D9984BCAF70,bSelfContext=True)
    NodePosX=438
    NodePosY=0
+   bCommentBubbleVisible=True
+   NodeComment="Создайте в BP диспетчер NewEventDispatcher_Probe (без параметров), иначе нода с ошибкой"
    NodeGuid=BA4E7277CD8B205645A48772E3515390
    CustomProperties Pin (PinId=50CACEB177708F85D5D7EAFF76C93C7F,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_Knot_103 4C77FE287568B41AC80BF2DEF133CA12,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
    CustomProperties Pin (PinId=FF0E52916A29E578A624692ED9C5CDA5,PinName="then",Direction="EGPD_Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_CallDelegate_3001 61CAED7F86B9658AD63C362791FFAB5F,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -22,6 +24,8 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_CallDelegate Name="K2Node_CallD
    DelegateReference=(MemberName="NewEventDispatcher_Probe",MemberGuid=073EE614EED927BA45E99D9984BCAF70,bSelfContext=True)
    NodePosX=838
    NodePosY=0
+   bCommentBubbleVisible=True
+   NodeComment="Создайте в BP диспетчер NewEventDispatcher_Probe (без параметров), иначе нода с ошибкой"
    NodeGuid=59049106224F2D2C464ED84582385853
    CustomProperties Pin (PinId=61CAED7F86B9658AD63C362791FFAB5F,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_AddDelegate_3002 FF0E52916A29E578A624692ED9C5CDA5,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
    CustomProperties Pin (PinId=9AA6411135601DD07051CE34917402F2,PinName="then",Direction="EGPD_Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_RemoveDelegate_3003 085A97F7347E313FDD011E5828E93C75,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -32,6 +36,8 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_RemoveDelegate Name="K2Node_Rem
    DelegateReference=(MemberName="NewEventDispatcher_Probe",MemberGuid=073EE614EED927BA45E99D9984BCAF70,bSelfContext=True)
    NodePosX=1238
    NodePosY=0
+   bCommentBubbleVisible=True
+   NodeComment="Создайте в BP диспетчер NewEventDispatcher_Probe (без параметров), иначе нода с ошибкой"
    NodeGuid=C8A525E8B3E67C2258EA5CE8322E8C23
    CustomProperties Pin (PinId=085A97F7347E313FDD011E5828E93C75,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_CallDelegate_3001 9AA6411135601DD07051CE34917402F2,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
    CustomProperties Pin (PinId=41B0739E0E5D13E1CCD32BFD7C45FB37,PinName="then",Direction="EGPD_Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_ClearDelegate_3004 4AFBFB76DEBAAE26223D6D54124C7771,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -43,6 +49,8 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_ClearDelegate Name="K2Node_Clea
    DelegateReference=(MemberName="NewEventDispatcher_Probe",MemberGuid=073EE614EED927BA45E99D9984BCAF70,bSelfContext=True)
    NodePosX=1638
    NodePosY=0
+   bCommentBubbleVisible=True
+   NodeComment="Создайте в BP диспетчер NewEventDispatcher_Probe (без параметров), иначе нода с ошибкой"
    NodeGuid=3C88135D96FF34348BD6B441CB37FC61
    CustomProperties Pin (PinId=4AFBFB76DEBAAE26223D6D54124C7771,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_RemoveDelegate_3003 41B0739E0E5D13E1CCD32BFD7C45FB37,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
    CustomProperties Pin (PinId=E3F5BEFE61D00966FD267326161E0DB7,PinName="then",Direction="EGPD_Output",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)

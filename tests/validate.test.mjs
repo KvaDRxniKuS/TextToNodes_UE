@@ -1186,6 +1186,11 @@ regThrow.forEach(t => console.log('THROW:', t));
   const setf = sp[6].rawBlock, pass = setf.match(/PinName="StructRef"[^\n]*ReferencePassThroughConnection=(\S+) ([0-9A-F]{32})/);
   ok(spv.valid && !/ExportPath|LinkedTo|ErrorMsg/.test(spt) && sp.every(n => n.pins.length) && pass && setf.includes(`PinId=${pass[2]},PinName="StructOut"`)
     && /PersistentGuid=EBEA736F4F5353411DE64DA77B073688/.test(sp[4].rawBlock) && /PinName="A",PinType.PinCategory="bool"/.test(sp[1].rawBlock), 'R40: спец-ноды из шаблонов — STRICT, свежие GUID, без связей, pass-through согласован');
+  const M = await import('../src/modules.js');
+  const bn = M.createDelegateNode('bind', '/Game/BP_X.BP_X.OnHit', { sig: 'OnHit__DelegateSignature', params: ['Damage:float', 'Who:object:Actor'] });
+  const db = fs.readFileSync(new URL('../sweep/chapters/dispatcher-bound.txt', import.meta.url), 'utf8');
+  ok(/диспетчер OnHit \(Damage: float, Who: Actor\)/.test(bn.bubble) && (db.match(/NodeComment="Создайте в BP диспетчер NewEventDispatcher_Probe/g) || []).length === 4,
+    'диспетчеры: текстом не создаются → пузырь «создайте диспетчер … (выходы)» на ссылающихся нодах');
 }
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);

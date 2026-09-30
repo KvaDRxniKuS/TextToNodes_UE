@@ -42,6 +42,9 @@ link(handler,'OutputDelegate',add,'Delegate'); link(handler,'OutputDelegate',rem
 // на несуществующие узлы (E06). Ступень 3 (декоратор) с 2026-09-28 в разработке и не применяется.
 const arranged=arrangeRows([[start,add,call,remove,clear]],{x:0,y:0,gap:160,rowGap:160});
 handler.pos={x:add.pos.x,y:add.pos.y+160};
+// Диспетчер текстом не создаётся → пузырь-требование на каждой ноде, которая на него ссылается.
+const need=`Создайте в BP диспетчер ${dispatcher} (без параметров), иначе нода с ошибкой`;
+for(const n of [add,call,remove,clear]) n.bubble=need;
 const positioned=[start,add,call,remove,clear,handler];
 const layoutResult={nodes:[...positioned,...arranged.knots]};
 const text=generateUEText(layoutResult.nodes,{syncLinks:true})+'\n';

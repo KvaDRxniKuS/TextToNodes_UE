@@ -111,6 +111,15 @@ export function createCallCustomEvent(event, values = {}, pos) {
   return n;
 }
 
+/** Диспетчеры BP нельзя создать вставкой текста (подтверждено пользователем 2026-09-30):
+ *  ноды, ссылающиеся на диспетчер BP, несут пузырь с тем, что надо создать вручную.
+ *  params: [{name, type}] — входы диспетчера (они же выходы у привязанного события). */
+export function dispatcherBubble(name, params = []) {
+  const tn = (t) => typeof t === 'string' ? t : (t.classPath ? t.classPath.split('.').pop() : t.cat === 'real' ? 'float' : t.sub || (t.subObj ? t.subObj.replace(/['"]/g, '').split('.').pop() : t.cat)) + (t.container === 'Array' ? '[]' : '');
+  const sig = params.length ? params.map(p => `${p.name}: ${tn(p.type)}`).join(', ') : 'без параметров';
+  return `Создайте в BP диспетчер ${name} (${sig}), иначе нода с ошибкой`;
+}
+
 /** Bind / Unbind / Unbind all для мультикаст-делегата класса. key "Класс.Делегат" (Класс: Actor | /Script/Mod.Cls | /Game/BP). */
 export function createDelegateNode(kind, key, { sig, params } = {}, pos) {
   const short = { bind: 'K2Node_AddDelegate', unbind: 'K2Node_RemoveDelegate', clear: 'K2Node_ClearDelegate' }[kind];
@@ -124,6 +133,7 @@ export function createDelegateNode(kind, key, { sig, params } = {}, pos) {
   n.rawProps = [`DelegateReference=(MemberParent=${classRef(owner)},MemberName="${dname}")`];
   n.pins.push(mkPin('execute', 'Input', 'exec'), mkPin('then', 'Output', 'exec'), mkPin('self', 'Input', 'object', { subObj: classRef(owner) }));
   if (kind !== 'clear') n.pins.push(mkPin('Delegate', 'Input', 'delegate', { memberRef: d.memberRef }));
+  if (owner.startsWith('/Game/')) n.bubble = dispatcherBubble(dname, d.params || []);
   return n;
 }
 
