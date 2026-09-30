@@ -1199,6 +1199,22 @@ regThrow.forEach(t => console.log('THROW:', t));
   const db = fs.readFileSync(new URL('../sweep/chapters/dispatcher-bound.txt', import.meta.url), 'utf8');
   ok(/диспетчер OnHit \(Damage: float, Who: Actor\)/.test(bn.bubble) && (db.match(/NodeComment="Создайте в BP диспетчер NewEventDispatcher_Probe/g) || []).length === 4,
     'диспетчеры: текстом не создаются → пузырь «создайте диспетчер … (выходы)» на ссылающихся нодах');
+  // линтер раскладки (docs/LAYOUT_REFERENCES.md): L1 висящая exec-нода, L2 Sequence вверх, L3/L4 длинные провода; шина/подписки
+  const L = await import('../src/layout-lint.js'), SL = await import('../src/section-layout.js');
+  const lq = createSequence(2), la = createBranch(), lb = createBranch(), lc = createBranch();
+  lq.pos = { x: 0, y: 200 }; la.pos = { x: 300, y: 0 }; lb.pos = { x: 300, y: 400 }; lc.pos = { x: 2500, y: 400 };
+  linkPins(lq, 'then_0', la, 'execute'); linkPins(lq, 'then_1', lb, 'execute'); linkPins(lb, 'then', lc, 'execute');
+  const lw = createBranch(); lw.pos = { x: 900, y: 900 };
+  const codes = L.lintLayout([lq, la, lb, lc, lw]).map(l => l.code + ':' + l.node);
+  ok(codes.includes('L2:' + lq.id) && codes.includes('L1:' + lw.id) && codes.includes('L4:' + lb.id) && !codes.includes('L1:' + la.id) && codes.length === 4, 'линтер: L1/L2/L4 ловятся, подключённые ноды чисты');
+  const sb = SL.buildSections({ event: 'E', bp: '/Game/B', sections: [
+    { title: 'C', layout: 'chain', bus: 'Dt', steps: [{ set: 'A', expr: ['*', 'A', '$Dt'] }, { set: 'B', expr: '$Dt' }] },
+    { title: 'S', layout: 'bind', binds: [{ delegate: 'Actor.OnDestroyed', handler: 'OnGone', steps: [{ set: 'A', expr: 0 }] }] }] });
+  const sk = SL.arrangeSections(sb).knots, dts = sb.nodes.filter(n => n.varName === 'Dt');
+  const busK = sk.filter(k => k.pins[0].category !== 'exec');
+  const svt = generateUEText([...sb.nodes, ...sk]);
+  ok(dts.length === 1 && busK.length === 2 && dts[0].pins.find(p => p.name === 'Dt').linkedTo.length === 1 && busK.every(k => k.pos.y === busK[0].pos.y)
+    && validateStrict(svt).valid && L.lintLayout([...sb.nodes, ...sk]).length === 0, 'секции: шина — один Get и knot на потребителя в одной полосе; ряд подписок STRICT и без замечаний линтера');
 }
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);

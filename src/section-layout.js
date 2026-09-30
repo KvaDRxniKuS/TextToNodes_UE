@@ -8,7 +8,7 @@
 // Ступень 2 (arrangeSections) — координаты, knot'ы шины, боксы-комментарии. Код нод не трогает.
 import fs from 'fs';
 import { createSequence, createBranch, createKnot, createComment, createFromEntry, linkPins, estNodeWidth } from './generator.js';
-import { createSelfVar, createCustomEvent } from './modules.js';
+import { createSelfVar, createCustomEvent, createDelegateNode, createEventFor } from './modules.js';
 
 const REG = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8'));
 const byId = id => { const e = REG.find(x => x.id === id); if (!e) throw new Error(`нет в реестре: ${id}`); return e; };
@@ -27,8 +27,15 @@ export function buildSections(spec) {
   const all = [];
   const add = n => (all.push(n), n);
   const get = name => add(createSelfVar('get', name, 'float', '', { bp: spec.bp }));
+  let bus = null;                  // общая ссылка секции: '$Имя' → один Get + шина knot'ов (ступень 2)
   function expr(e) {               // → { node, out, kids:[subtree] } | { literal }
     if (typeof e === 'number') return { literal: e.toFixed(6) };
+    if (typeof e === 'string' && e[0] === '$') {
+      const name = e.slice(1);
+      if (!bus) throw new Error(`шина ${e}: только в секции layout:'chain' с bus:'${name}'`);
+      if (bus.name !== name) throw new Error(`шина ${e}: в секции объявлена ${bus.name}`);
+      return { node: bus.node, out: name, kids: [], bus: true };
+    }
     if (typeof e === 'string') { const n = get(e); return { node: n, out: e, kids: [] }; }
     const [op, ...args] = e; const [id, ins] = OPS[op] || [];
     if (!id) throw new Error(`оп ${op}`);
@@ -37,7 +44,8 @@ export function buildSections(spec) {
     args.forEach((a, i) => {
       const t = expr(a), pin = n.pins.find(p => p.name === ins[i] && p.direction === 'Input');
       if (t.literal) { pin.defaultValue = t.literal; return; }
-      linkPins(t.node, t.out, n, ins[i]); kids.push(t);
+      linkPins(t.node, t.out, n, ins[i]);
+      if (t.bus) bus.uses.push({ node: n, pin: ins[i] }); else kids.push(t);
     });
     return { node: n, out: 'ReturnValue', kids };
   }
@@ -45,11 +53,31 @@ export function buildSections(spec) {
     const n = add(createSelfVar('set', s.set, s.type || 'float', '', { bp: spec.bp }));
     const t = s.expr === undefined ? null : expr(s.expr);
     if (t && t.literal) n.pins.find(p => p.name === s.set).defaultValue = t.literal;
-    else if (t) linkPins(t.node, t.out, n, s.set);
-    return { kind: 'set', node: n, tree: t && !t.literal ? t : null };
+    else if (t) { linkPins(t.node, t.out, n, s.set); if (t.bus) bus.uses.push({ node: n, pin: s.set }); }
+    return { kind: 'set', node: n, tree: t && !t.literal && !t.bus ? t : null };
   }
   const entry = add(createCustomEvent(spec.event, []));
   const sections = spec.sections.map(sec => {
+    if (sec.layout === 'bind') {        // ряд подписок: then_0 → Bind1 → Bind2 → …; под каждым Bind — своё событие и его ряд
+      const binds = sec.binds.map(b => {
+        const bind = add(createDelegateNode('bind', b.delegate));
+        const ev = add(createEventFor(b.delegate, b.handler));
+        linkPins(ev, 'OutputDelegate', bind, 'Delegate');
+        const steps = b.steps.map(setStep);
+        if (steps[0]) linkPins(ev, 'then', steps[0].node, 'execute');
+        steps.slice(1).forEach((st, i) => linkPins(steps[i].node, 'then', st.node, 'execute'));
+        return { node: bind, ev, steps };
+      });
+      const seq = add(createSequence(2));
+      linkPins(seq, 'then_0', binds[0].node, 'execute');
+      binds.slice(1).forEach((b, i) => linkPins(binds[i].node, 'then', b.node, 'execute'));
+      return { title: sec.title, seq, steps: [], binds, bind: true, lastOut: 'then_1' };
+    }
+    bus = null;
+    if (sec.bus) {
+      if (sec.layout !== 'chain') throw new Error(`bus:'${sec.bus}' — только в layout:'chain'`);
+      bus = { name: sec.bus, node: add(createSelfVar('get', sec.bus, sec.busType || 'float', '', { bp: spec.bp })), uses: [] };
+    }
     const steps = sec.steps.map(s => {
       if (!s.branch) return setStep(s);
       const b = add(createBranch());
@@ -64,7 +92,7 @@ export function buildSections(spec) {
       const seq = add(createSequence(2));
       linkPins(seq, 'then_0', steps[0].node, 'execute');
       steps.slice(1).forEach((st, i) => linkPins(steps[i].node, 'then', st.node, 'execute'));
-      return { title: sec.title, seq, steps, chain: true, lastOut: 'then_1' };
+      return { title: sec.title, seq, steps, chain: true, bus, lastOut: 'then_1' };
     }
     const seq = add(createSequence(steps.length + 1));
     steps.forEach((st, i) => linkPins(seq, `then_${i}`, st.node, 'execute'));
@@ -117,16 +145,55 @@ export function arrangeSections(built, origin = { x: 0, y: 0 }) {
     sec.seq.pos = { x: snap(left), y: snap(top) };
     const setX = snap(left + Math.max(SEQ_W, treesW) + 96);
     let treeY = top + 32 + 24 * (sec.steps.length + 1);
-    let setY = top, maxX = sec.chain ? left : setX, bottom = treeY;
+    let setY = top, maxX = sec.chain || sec.bind ? left : setX, bottom = treeY;
+    if (sec.bind) {                       // Bind'ы в ряд; под каждым — событие и его цепочка Set'ов, деревья ниже цепочки
+      let cur = left + SEQ_W + 64; bottom = top + 112;
+      const evY = top + 192;
+      for (const b of sec.binds) {
+        const bx = snap(cur);
+        b.node.pos = { x: bx, y: snap(top) };
+        b.ev.pos = { x: bx, y: snap(evY) };
+        let rx = bx + Math.max(w(b.ev), 256) + 64;
+        for (const st of b.steps) {
+          const cwi = st.tree ? colWidths([st.tree]) : [];
+          const tw = cwi.reduce((a, c) => a + c + COL_GAP, 0);
+          const sx = snap(Math.max(rx, st.tree ? rx + tw - 128 : rx) + 32);
+          st.node.pos = { x: sx, y: snap(evY) };
+          if (st.tree) { placeTree(st.tree, sx - 32, evY + 144, cwi); bottom = Math.max(bottom, evY + 144 + treeH(st.tree)); }
+          rx = sx + w(st.node) + 32;
+        }
+        bottom = Math.max(bottom, evY + 160);
+        const colR = Math.max(bx + w(b.node), rx);
+        maxX = Math.max(maxX, colR);
+        cur = colR + 96;
+      }
+    }
     if (sec.chain) {                      // Set'ы в ряд; дерево каждого — в промежутке перед ним, ниже ряда
       let cur = left + SEQ_W + 64; bottom = top + 112;
+      const busLane = sec.bus ? top + 144 : 0, treeTop = top + (sec.bus ? 208 : 144);
+      if (sec.bus) { sec.bus.node.pos = { x: snap(left), y: snap(busLane) }; cur = Math.max(cur, left + w(sec.bus.node) + 64); }
       for (const st of sec.steps) {
         const cwi = st.tree ? colWidths([st.tree]) : [];
         const tw = cwi.reduce((a, b) => a + b + COL_GAP, 0);
         const sx = snap(cur + tw + 32);
         st.node.pos = { x: sx, y: snap(top) };
-        if (st.tree) { placeTree(st.tree, sx - 32, top + 144, cwi); bottom = Math.max(bottom, top + 144 + treeH(st.tree)); }
+        if (st.tree) { placeTree(st.tree, sx - 32, treeTop, cwi); bottom = Math.max(bottom, treeTop + treeH(st.tree)); }
         cur = sx + w(st.node) + 32; maxX = Math.max(maxX, sx + w(st.node));
+      }
+      if (sec.bus) {                      // шина: Get → knot → knot → … по полосе между рядом и деревьями; от knot'а — вниз к потребителю
+        const b = sec.bus, uses = [...b.uses].sort((a, c) => a.node.pos.x - c.node.pos.x);
+        const laneY = snap(busLane + 16);
+        let prev = b.node, prevPin = b.name, lastX = -Infinity;
+        for (const u of uses) {
+          unlink(b.node, b.name, u.node, u.pin);
+          let kx = snap(u.node.pos.x - 48);
+          if (kx <= lastX + 32) kx = lastX + 32;   // knot'ы не касаются
+          const src = b.node.pins.find(p => p.name === b.name);
+          const k = createKnot({ x: kx, y: laneY }, src.category);
+          k.pins.forEach(p => { p.subCategory = src.subCategory; p.subCategoryObject = src.subCategoryObject; });
+          linkPins(prev, prevPin, k, 'InputPin'); linkPins(k, 'OutputPin', u.node, u.pin);
+          knots.push(k); prev = k; prevPin = 'OutputPin'; lastX = kx;
+        }
       }
     }
     for (const st of (sec.chain ? [] : sec.steps)) {
