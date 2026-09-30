@@ -35,6 +35,7 @@ const RECIPES = [
   ['32 — компоненты: lifecycle/запросы', ['bash', 'tools/recipes/r32-components-lifecycle.sh'], ['sweep/chapters/r32-components-lifecycle.txt']],
   ['36 — пробы новых нод (пузыри-комментарии)', ['node', 'tools/gen-probe.mjs', '--batch', '36'], ['sweep/probes/r36-probe.txt']],
   ['38 — пробы новых нод R38', ['node', 'tools/gen-probe.mjs', '--batch', '38'], ['sweep/probes/r38-probe.txt']],
+  ['39 — пробы новых нод R39', ['node', 'tools/gen-probe.mjs', '--batch', '39'], ['sweep/probes/r39-probe.txt']],
   ['enum-select — Enum Select по копии из UE', ['node', 'tools/gen-enum-select.mjs'], ['sweep/chapters/enum-select.txt']],
   ['collapsed-knot 4×5 (2 уровня)', ['node', 'tools/gen-collapsed-knot.mjs'], ['sweep/layout/collapsed-knot-4x5.txt']],
   ['collapsed-knot 1×3 (3 уровня)', ['node', 'tools/gen-collapsed-knot.mjs', '--inputs', '1', '--outputs', '3', '--levels', '3'], ['sweep/layout/collapsed-knot-1x3-3levels.txt']],

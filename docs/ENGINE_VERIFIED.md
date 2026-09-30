@@ -1056,3 +1056,11 @@ CameraComponent, LightComponent, AudioComponent.
 - Seed-строки сохранены со старых имён → переименованные файлы побайтово те же.
 - Удалены `tools/gen-{k,l,m,n,o}-series.mjs` — разовые пробы раундов K–O (печатали в stdout, ничем не проверялись); всё
   подтверждённое из них уже в реестре, их copy-back лежат в `sweep/copyback/` (k1, m1, n1, …). Функцию проб теперь выполняет `gen-probe`.
+
+## R39 · пробы (2026-09-30, ждут вердикта)
+
+`sweep/probes/r39-probe.txt` — 47 нод, 11 тем (Actor/сокеты, Input/PlayerController, UI-виджеты, Materials/Decal, Niagara,
+Movement, Camera shake, Animation-монтажи, Gameplay Tags, Random streams, System). By-ref пины (TagContainer у Add/Remove
+Gameplay Tag, Stream у SeedRandomStream) помечены `ref()`. Пины enum (PlayMode, TransformSpace, LocationType…) не задаём —
+движок достраивает. После вердикта: `gen-probe --batch 39 --register` (+ UE_LIBS: UserWidget/Widget уже есть; нужны Image,
+MovementComponent) → `gen-sweep`.
