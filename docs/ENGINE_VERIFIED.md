@@ -1258,3 +1258,8 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 ## R51 — проба: траектории / звук / экран / UMG
 
 - `sweep/probes/r51-probe.txt`, 50 нод. Ряды: Traj 4, Audio 9, Screen 6, UILib 16, Widget 15. Сигнатуры взяты по заголовкам UE 5.x и ждут вердикта.
+- **Вердикт R51 (2026-10-01):** всё встало, кроме трёх нод, которые пользователь заменил правильными (copy-back):
+  - Predict Projectile Path — это `GameplayStatics.Blueprint_PredictProjectilePath_ByTraceChannel/_ByObjectType`. TraceChannel по умолчанию `ECC_WorldDynamic`, bTracePath `TRUE`, у ActorsToIgnore/ObjectTypes флаги by-ref, const и ignored.
+  - Is Drag and Dropping — это `WidgetBlueprintLibrary.IsDragDropping`.
+  - Create Drag Drop Operation — не функция, а `/Script/UMGEditor.K2Node_CreateDragDropOperation`. Шаблон лежит в `sweep/copyback/r51-dragdrop.txt` (сохранён только этот блок), фабрика — `createDragDropOperation({class})` в `src/special-nodes.js`.
+  - В реестр добавлены 49 записей с исправленными именами. Проба и её recipe удалены.

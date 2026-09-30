@@ -19,9 +19,10 @@ function templates() {
 
 // R49 copy-back (спец-ноды: enum/class/async/asset/RPC/parent/bind) — отдельная карта, имена блоков пересекаются с r40.
 const R49_SRC = fileURLToPath(new URL('../sweep/copyback/r49-special-nodes.txt', import.meta.url));
+const R51_SRC = fileURLToPath(new URL('../sweep/copyback/r51-dragdrop.txt', import.meta.url));
 let TPL49 = null;
 function tpl49(k) {
-  if (!TPL49) { TPL49 = {}; for (const n of parseToGraphs(fs.readFileSync(R49_SRC, 'utf8')).EventGraph.nodes) TPL49[n.rawName] = n.rawBlock; }
+  if (!TPL49) { TPL49 = {}; for (const f of [R49_SRC, R51_SRC]) for (const n of parseToGraphs(fs.readFileSync(f, 'utf8')).EventGraph.nodes) TPL49[n.rawName] = n.rawBlock; }
   if (!TPL49[k]) throw new Error(`r49: нет шаблона ${k}`);
   return TPL49[k];
 }
@@ -193,6 +194,10 @@ export const createAssignDelegate = (o = {}) => r49('K2Node_AssignDelegate_0', '
     .replace("'/Script/Engine'", `'${pkg}'`).replace('ComponentBeginOverlapSignature__DelegateSignature', signature);
 });
 
-export const SPECIAL_KINDS = ['Timeline', 'InterfaceMessage', 'AIMoveTo', 'GetDataTableRow', 'MakeUserStruct', 'BreakUserStruct', 'SetFieldsInUserStruct', 'VariableSetRef',
+// R51: Create Drag Drop Operation (UMGEditor). class — свой DragDropOperation-класс (по умолчанию базовый).
+export const createDragDropOperation = (o = {}) => r49('K2Node_CreateDragDropOperation_0', 'K2Node_CreateDragDropOperation', o,
+  (b) => o.class ? b.replace('DefaultObject="/Script/UMG.DragDropOperation"', `DefaultObject="${o.class}"`) : b);
+
+export const SPECIAL_KINDS = ['DragDropOperation', 'Timeline', 'InterfaceMessage', 'AIMoveTo', 'GetDataTableRow', 'MakeUserStruct', 'BreakUserStruct', 'SetFieldsInUserStruct', 'VariableSetRef',
   'EnumLiteral', 'GetEnumeratorName', 'GetEnumeratorNameAsString', 'CastByteToEnum', 'EnumEquality', 'ForEachEnum', 'SpawnActorFromClass', 'GetClassDefaults',
   'GetSubsystem', 'LoadAsset', 'LoadAssets', 'LoadAssetClass', 'AsyncLoadPrimaryAsset', 'ConvertAsset', 'PlayMontage', 'Self', 'MultiGate', 'CallParentFunction', 'AssignDelegate'];

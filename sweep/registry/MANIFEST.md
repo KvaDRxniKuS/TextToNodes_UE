@@ -1,6 +1,6 @@
 # Sweep manifest — полный прогон реестра по категориям
 
-Записей в реестре: 1080; построено узлов: 1080; упало: 0.
+Записей в реестре: 1129; построено узлов: 1129; упало: 0.
 MANIFEST и NN-*.txt побайтово воспроизводимы (дата не пишется): сверка — `node tools/gen-sweep.mjs --check`.
 Генератор: tools/gen-sweep.mjs (сетка по 5 в ряд, внутри ряда layoutRow, накрыто fitComment).
 
@@ -39,11 +39,11 @@ MANIFEST и NN-*.txt побайтово воспроизводимы (дата �
 | 20 | 20-text.txt | 15/15 | 15 | 1 | — | — |
 | 21 | 21-enhanced-input.txt | 6/6 | 5 | 6 | — | 2xW09 |
 | 22 | 22-casting.txt | 12/12 | 12 | 11 | — | 8xW09 |
-| 23 | 23-actor.txt | 68/68 | 68 | 32 | — | 32xW09 |
+| 23 | 23-actor.txt | 69/69 | 69 | 32 | — | 32xW09 |
 | 24 | 24-pawn-character.txt | 51/51 | 51 | 18 | — | 17xW09 |
 | 25 | 25-events-delegates.txt | 8/8 | 8 | 8 | — | 1xW09 |
 | 26 | 26-timers-latent.txt | 15/15 | 15 | 14 | — | 14xW09 |
-| 27 | 27-widgets-ui.txt | 69/69 | 69 | 8 | — | 8xW09 |
+| 27 | 27-widgets-ui.txt | 99/99 | 99 | 8 | — | 8xW09 |
 | 28 | 28-enhanced-input-full.txt | 15/15 | 15 | 15 | — | 15xW09 |
 | 29 | 29-components-physics.txt | 66/66 | 66 | 23 | — | 21xW09 |
 | 30 | 30-debug.txt | 9/9 | 9 | 0 | — | — |
@@ -57,10 +57,10 @@ MANIFEST и NN-*.txt побайтово воспроизводимы (дата �
 | 38 | 38-gameplay-tags.txt | 9/9 | 9 | 0 | — | — |
 | 39 | 39-networking.txt | 12/12 | 12 | 0 | — | — |
 | 40 | 40-damage.txt | 4/4 | 4 | 0 | — | — |
-| 41 | 41-game-framework.txt | 42/42 | 42 | 0 | — | — |
+| 41 | 41-game-framework.txt | 55/55 | 55 | 0 | — | — |
 | 42 | 42-components-scene.txt | 42/42 | 42 | 0 | — | — |
 | 43 | 43-lights.txt | 7/7 | 7 | 0 | — | — |
-| 44 | 44-audio.txt | 18/18 | 18 | 0 | — | — |
+| 44 | 44-audio.txt | 23/23 | 23 | 0 | — | — |
 | 45 | 45-containers.txt | 16/16 | 16 | 0 | — | — |
 | 46 | 46-math-vector2d.txt | 7/7 | 7 | 0 | — | — |
 | 47 | 47-math-color.txt | 6/6 | 6 | 0 | — | — |
@@ -194,80 +194,80 @@ MANIFEST и NN-*.txt побайтово воспроизводимы (дата �
 - 23-actor.txt :: W09: K2Node_CallFunction_557: K2_SetRelativeLocation: round23b-pre: член SceneComponent (как R23). | R23b VERIFIED (движок, 2026-09-25)
 - 23-actor.txt :: W09: K2Node_CallFunction_558: K2_SetRelativeRotation: round23b-pre: член SceneComponent (как R23). | R23b VERIFIED (движок, 2026-09-25)
 - 23-actor.txt :: W09: K2Node_CallFunction_559: K2_AddLocalRotation: round23b-pre: член SceneComponent (как R23). | R23b VERIFIED (движок, 2026-09-25)
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_597: Jump: round24-pre: член Character, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_598: StopJumping: round24-pre: член Character, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_599: CanJump: round24-pre: член Character, self=Target (по образцу AActor-членов R23). CanJump() const BlueprintCallable → pure | R24 VERIFIED (движок, 2026-09-25)
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_600: LaunchCharacter: round24-pre: член Character, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_601: Crouch: round24-pre: член Character, self=Target (по образцу AActor-членов R23). bClientSimulation скрыт (HidePin) | R24 VERIFIED (движок, 2026-09-25)
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_602: UnCrouch: round24-pre: член Character, self=Target (по образцу AActor-членов R23). bClientSimulation скрыт (HidePin) | R24 VERIFIED (движок, 2026-09-25)
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_603: AddMovementInput: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_604: AddControllerYawInput: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_605: AddControllerPitchInput: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_607: GetController: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). альтернатива Get Player Controller (self) — подсказка пользователя R21b | R24 VERIFIED (движок, 2026-09-25)
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_608: IsLocallyControlled: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_609: IsPlayerControlled: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_610: Possess: round24-pre: член Controller, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_611: UnPossess: round24-pre: член Controller, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_612: K2_GetPawn: round24-pre: член Controller, self=Target (по образцу AActor-членов R23). K2_GetPawn const → pure, DisplayName Get Controlled Pawn | R24 VERIFIED (движок, 2026-09-25)
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_613: SetControlRotation: round24-pre: член Controller, self=Target (по образцу AActor-членов R23). NewRotation const FRotator& → const+ref | R24 VERIFIED (движок, 2026-09-25)
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_614: GetVelocity: round24-pre: член Actor, self=Target (по образцу AActor-членов R23). член AActor | R24 VERIFIED (движок, 2026-09-25)
-- 25-events-delegates.txt :: W09: K2Node_CallFunction_652: OnDamaged: round25-pre: CallFunction без MemberParent, bSelfContext=True; MemberGuid = NodeGuid события; до компиляции может показать «не найдена функция» | R25 VERIFIED (движок, 2026-09-25): всё вставилось и работает; Create Event предложил «создать соответствующую функцию»
-- 26-timers-latent.txt :: W09: K2Node_CallFunction_658: K2_SetTimerDelegate: round26-pre: K2_SetTimerDelegate(FTimerDynamicDelegate Delegate «Event», float Time, bLooping, bMaxOncePerFrame, InitialStartDelay/Variance advanced) → FTimerHandle | R26 VERIFIED (движок, 2026-09-26)
-- 26-timers-latent.txt :: W09: K2Node_CallFunction_659: K2_SetTimer: round26-pre: K2_SetTimer(UObject* Object DefaultToSelf, FString FunctionName, ...) → FTimerHandle | R26 VERIFIED (движок, 2026-09-26)
-- 26-timers-latent.txt :: W09: K2Node_CallFunction_660: K2_ClearTimer: round26-pre: K2_ClearTimer(Object, FunctionName) | R26 VERIFIED (движок, 2026-09-26)
-- 26-timers-latent.txt :: W09: K2Node_CallFunction_661: K2_ClearAndInvalidateTimerHandle: round26-pre: WCO опущен (как Delay); Handle UPARAM(ref) → ref, нужна переменная | R26 VERIFIED (движок, 2026-09-26)
-- 26-timers-latent.txt :: W09: K2Node_CallFunction_662: K2_PauseTimerHandle: round26-pre: WCO опущен | R26 VERIFIED (движок, 2026-09-26)
-- 26-timers-latent.txt :: W09: K2Node_CallFunction_663: K2_UnPauseTimerHandle: round26-pre: WCO опущен | R26 VERIFIED (движок, 2026-09-26)
-- 26-timers-latent.txt :: W09: K2Node_CallFunction_664: K2_InvalidateTimerHandle: round26-pre: Handle ref, BlueprintCallable → exec | R26 VERIFIED (движок, 2026-09-26)
-- 26-timers-latent.txt :: W09: K2Node_CallFunction_665: K2_IsTimerActiveHandle: round26-pre: BlueprintPure | R26 VERIFIED (движок, 2026-09-26)
-- 26-timers-latent.txt :: W09: K2Node_CallFunction_666: K2_IsTimerPausedHandle: round26-pre: BlueprintPure | R26 VERIFIED (движок, 2026-09-26)
-- 26-timers-latent.txt :: W09: K2Node_CallFunction_667: K2_TimerExistsHandle: round26-pre: BlueprintPure | R26 VERIFIED (движок, 2026-09-26)
-- 26-timers-latent.txt :: W09: K2Node_CallFunction_668: K2_IsValidTimerHandle: round26-pre: BlueprintPure, без WCO | R26 VERIFIED (движок, 2026-09-26)
-- 26-timers-latent.txt :: W09: K2Node_CallFunction_669: K2_GetTimerElapsedTimeHandle: round26-pre: BlueprintPure → float | R26 VERIFIED (движок, 2026-09-26)
-- 26-timers-latent.txt :: W09: K2Node_CallFunction_670: K2_GetTimerRemainingTimeHandle: round26-pre: BlueprintPure → float | R26 VERIFIED (движок, 2026-09-26)
-- 26-timers-latent.txt :: W09: K2Node_CallFunction_671: DelayUntilNextTick: round26-pre: как Delay: WCO/LatentInfo движок восстановит (UE 5.2+) | R26 VERIFIED (движок, 2026-09-26)
-- 27-widgets-ui.txt :: W09: K2Node_CallFunction_674: AddToViewport: round27-pre: член UUserWidget | R27 VERIFIED (движок, 2026-09-26; Construct NONE — класс виджета выбирается локально)
-- 27-widgets-ui.txt :: W09: K2Node_CallFunction_675: AddToPlayerScreen: round27-pre: член UUserWidget → bool | R27 VERIFIED (движок, 2026-09-26; Construct NONE — класс виджета выбирается локально)
-- 27-widgets-ui.txt :: W09: K2Node_CallFunction_676: IsInViewport: round27-pre: BlueprintPure const | R27 VERIFIED (движок, 2026-09-26; Construct NONE — класс виджета выбирается локально)
-- 27-widgets-ui.txt :: W09: K2Node_CallFunction_677: RemoveFromParent: round27-pre: член UWidget (UE 5.1+) | R27 VERIFIED (движок, 2026-09-26; Construct NONE — класс виджета выбирается локально)
-- 27-widgets-ui.txt :: W09: K2Node_CallFunction_678: SetVisibility: R29 VERIFIED
-- 27-widgets-ui.txt :: W09: K2Node_CallFunction_679: SetInputMode_UIOnlyEx: round27-pre: UWidgetBlueprintLibrary::SetInputMode_UIOnlyEx | R27 VERIFIED (движок, 2026-09-26; Construct NONE — класс виджета выбирается локально)
-- 27-widgets-ui.txt :: W09: K2Node_CallFunction_680: SetInputMode_GameAndUIEx: round27-pre: UWidgetBlueprintLibrary::SetInputMode_GameAndUIEx | R27 VERIFIED (движок, 2026-09-26; Construct NONE — класс виджета выбирается локально)
-- 27-widgets-ui.txt :: W09: K2Node_CallFunction_681: SetInputMode_GameOnly: round27-pre: UWidgetBlueprintLibrary::SetInputMode_GameOnly | R27 VERIFIED (движок, 2026-09-26; Construct NONE — класс виджета выбирается локально)
-- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_744: RemoveMappingContext: R28 VERIFIED (движок, 2026-09-26): член IEnhancedInputSubsystemInterface; Options опущен (как в AddMappingContext R21b)
-- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_745: ClearAllMappings: R28 VERIFIED (движок, 2026-09-26): член IEnhancedInputSubsystemInterface
-- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_746: HasMappingContext: R28 VERIFIED (движок, 2026-09-26): const-член → pure в BP
-- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_747: QueryKeysMappedToAction: R28 VERIFIED (движок, 2026-09-26): const-член → pure, RV TArray<FKey>
-- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_748: InjectInputForAction: R28 VERIFIED (движок, 2026-09-26): Modifiers/Triggers AutoCreateRefTerm — можно не подключать
-- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_749: InjectInputVectorForAction: R28 VERIFIED (движок, 2026-09-26): Modifiers/Triggers AutoCreateRefTerm
-- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_750: RequestRebuildControlMappingsUsingContext: R28 VERIFIED (движок, 2026-09-26): статик UEnhancedInputLibrary, self скрыт
-- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_751: FlushPlayerInput: R28 VERIFIED (движок, 2026-09-26): статик UEnhancedInputLibrary
-- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_752: MakeInputActionValue: R28 VERIFIED (движок, 2026-09-26): pure; MatchValueType задаёт тип (без подключения — Boolean)
-- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_753: BreakInputActionValue: R28 VERIFIED (движок, 2026-09-26): pure; выход Type = EInputActionValueType
-- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_754: Conv_InputActionValueToBool: R28 VERIFIED (движок, 2026-09-26): pure autocast
-- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_755: Conv_InputActionValueToAxis1D: R28 VERIFIED (движок, 2026-09-26): pure autocast
-- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_756: Conv_InputActionValueToAxis2D: R28 VERIFIED (движок, 2026-09-26): pure autocast
-- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_757: Conv_InputActionValueToAxis3D: R28 VERIFIED (движок, 2026-09-26): pure autocast
-- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_758: Conv_InputActionValueToString: R28 VERIFIED (движок, 2026-09-26): pure autocast
-- 29-components-physics.txt :: W09: K2Node_CallFunction_760: SetSimulatePhysics: R29 VERIFIED
-- 29-components-physics.txt :: W09: K2Node_CallFunction_761: SetEnableGravity: R29 VERIFIED
-- 29-components-physics.txt :: W09: K2Node_CallFunction_764: AddTorqueInRadians: R29 VERIFIED
-- 29-components-physics.txt :: W09: K2Node_CallFunction_765: SetPhysicsLinearVelocity: R29 VERIFIED
-- 29-components-physics.txt :: W09: K2Node_CallFunction_766: GetPhysicsLinearVelocity: R29 VERIFIED
-- 29-components-physics.txt :: W09: K2Node_CallFunction_767: GetMass: R29 VERIFIED
-- 29-components-physics.txt :: W09: K2Node_CallFunction_768: SetMassOverrideInKg: R29 VERIFIED
-- 29-components-physics.txt :: W09: K2Node_CallFunction_769: SetCollisionEnabled: R29 VERIFIED
-- 29-components-physics.txt :: W09: K2Node_CallFunction_770: SetCollisionResponseToChannel: R29 VERIFIED
-- 29-components-physics.txt :: W09: K2Node_CallFunction_771: SetCollisionProfileName: R29 VERIFIED
-- 29-components-physics.txt :: W09: K2Node_CallFunction_772: SetGenerateOverlapEvents: R29 VERIFIED
-- 29-components-physics.txt :: W09: K2Node_CallFunction_773: SetMaterial: R29 VERIFIED
-- 29-components-physics.txt :: W09: K2Node_CallFunction_774: SetVisibility: R29 VERIFIED
-- 29-components-physics.txt :: W09: K2Node_CallFunction_775: SetHiddenInGame: R29 VERIFIED
-- 29-components-physics.txt :: W09: K2Node_CallFunction_776: SetWorldScale3D: R29 VERIFIED
-- 29-components-physics.txt :: W09: K2Node_CallFunction_777: K2_AddWorldOffset: R29 VERIFIED
-- 29-components-physics.txt :: W09: K2Node_CallFunction_778: GetComponentVelocity: R29 VERIFIED
-- 29-components-physics.txt :: W09: K2Node_CallFunction_779: GetOwner: R29 VERIFIED
-- 29-components-physics.txt :: W09: K2Node_CallFunction_780: SetActive: R29 VERIFIED
-- 29-components-physics.txt :: W09: K2Node_CallFunction_781: IsActive: R29 VERIFIED
-- 29-components-physics.txt :: W09: K2Node_CallFunction_782: ComponentHasTag: R29 VERIFIED
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_598: Jump: round24-pre: член Character, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_599: StopJumping: round24-pre: член Character, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_600: CanJump: round24-pre: член Character, self=Target (по образцу AActor-членов R23). CanJump() const BlueprintCallable → pure | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_601: LaunchCharacter: round24-pre: член Character, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_602: Crouch: round24-pre: член Character, self=Target (по образцу AActor-членов R23). bClientSimulation скрыт (HidePin) | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_603: UnCrouch: round24-pre: член Character, self=Target (по образцу AActor-членов R23). bClientSimulation скрыт (HidePin) | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_604: AddMovementInput: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_605: AddControllerYawInput: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_606: AddControllerPitchInput: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_608: GetController: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). альтернатива Get Player Controller (self) — подсказка пользователя R21b | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_609: IsLocallyControlled: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_610: IsPlayerControlled: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_611: Possess: round24-pre: член Controller, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_612: UnPossess: round24-pre: член Controller, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_613: K2_GetPawn: round24-pre: член Controller, self=Target (по образцу AActor-членов R23). K2_GetPawn const → pure, DisplayName Get Controlled Pawn | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_614: SetControlRotation: round24-pre: член Controller, self=Target (по образцу AActor-членов R23). NewRotation const FRotator& → const+ref | R24 VERIFIED (движок, 2026-09-25)
+- 24-pawn-character.txt :: W09: K2Node_CallFunction_615: GetVelocity: round24-pre: член Actor, self=Target (по образцу AActor-членов R23). член AActor | R24 VERIFIED (движок, 2026-09-25)
+- 25-events-delegates.txt :: W09: K2Node_CallFunction_653: OnDamaged: round25-pre: CallFunction без MemberParent, bSelfContext=True; MemberGuid = NodeGuid события; до компиляции может показать «не найдена функция» | R25 VERIFIED (движок, 2026-09-25): всё вставилось и работает; Create Event предложил «создать соответствующую функцию»
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_659: K2_SetTimerDelegate: round26-pre: K2_SetTimerDelegate(FTimerDynamicDelegate Delegate «Event», float Time, bLooping, bMaxOncePerFrame, InitialStartDelay/Variance advanced) → FTimerHandle | R26 VERIFIED (движок, 2026-09-26)
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_660: K2_SetTimer: round26-pre: K2_SetTimer(UObject* Object DefaultToSelf, FString FunctionName, ...) → FTimerHandle | R26 VERIFIED (движок, 2026-09-26)
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_661: K2_ClearTimer: round26-pre: K2_ClearTimer(Object, FunctionName) | R26 VERIFIED (движок, 2026-09-26)
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_662: K2_ClearAndInvalidateTimerHandle: round26-pre: WCO опущен (как Delay); Handle UPARAM(ref) → ref, нужна переменная | R26 VERIFIED (движок, 2026-09-26)
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_663: K2_PauseTimerHandle: round26-pre: WCO опущен | R26 VERIFIED (движок, 2026-09-26)
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_664: K2_UnPauseTimerHandle: round26-pre: WCO опущен | R26 VERIFIED (движок, 2026-09-26)
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_665: K2_InvalidateTimerHandle: round26-pre: Handle ref, BlueprintCallable → exec | R26 VERIFIED (движок, 2026-09-26)
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_666: K2_IsTimerActiveHandle: round26-pre: BlueprintPure | R26 VERIFIED (движок, 2026-09-26)
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_667: K2_IsTimerPausedHandle: round26-pre: BlueprintPure | R26 VERIFIED (движок, 2026-09-26)
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_668: K2_TimerExistsHandle: round26-pre: BlueprintPure | R26 VERIFIED (движок, 2026-09-26)
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_669: K2_IsValidTimerHandle: round26-pre: BlueprintPure, без WCO | R26 VERIFIED (движок, 2026-09-26)
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_670: K2_GetTimerElapsedTimeHandle: round26-pre: BlueprintPure → float | R26 VERIFIED (движок, 2026-09-26)
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_671: K2_GetTimerRemainingTimeHandle: round26-pre: BlueprintPure → float | R26 VERIFIED (движок, 2026-09-26)
+- 26-timers-latent.txt :: W09: K2Node_CallFunction_672: DelayUntilNextTick: round26-pre: как Delay: WCO/LatentInfo движок восстановит (UE 5.2+) | R26 VERIFIED (движок, 2026-09-26)
+- 27-widgets-ui.txt :: W09: K2Node_CallFunction_675: AddToViewport: round27-pre: член UUserWidget | R27 VERIFIED (движок, 2026-09-26; Construct NONE — класс виджета выбирается локально)
+- 27-widgets-ui.txt :: W09: K2Node_CallFunction_676: AddToPlayerScreen: round27-pre: член UUserWidget → bool | R27 VERIFIED (движок, 2026-09-26; Construct NONE — класс виджета выбирается локально)
+- 27-widgets-ui.txt :: W09: K2Node_CallFunction_677: IsInViewport: round27-pre: BlueprintPure const | R27 VERIFIED (движок, 2026-09-26; Construct NONE — класс виджета выбирается локально)
+- 27-widgets-ui.txt :: W09: K2Node_CallFunction_678: RemoveFromParent: round27-pre: член UWidget (UE 5.1+) | R27 VERIFIED (движок, 2026-09-26; Construct NONE — класс виджета выбирается локально)
+- 27-widgets-ui.txt :: W09: K2Node_CallFunction_679: SetVisibility: R29 VERIFIED
+- 27-widgets-ui.txt :: W09: K2Node_CallFunction_680: SetInputMode_UIOnlyEx: round27-pre: UWidgetBlueprintLibrary::SetInputMode_UIOnlyEx | R27 VERIFIED (движок, 2026-09-26; Construct NONE — класс виджета выбирается локально)
+- 27-widgets-ui.txt :: W09: K2Node_CallFunction_681: SetInputMode_GameAndUIEx: round27-pre: UWidgetBlueprintLibrary::SetInputMode_GameAndUIEx | R27 VERIFIED (движок, 2026-09-26; Construct NONE — класс виджета выбирается локально)
+- 27-widgets-ui.txt :: W09: K2Node_CallFunction_682: SetInputMode_GameOnly: round27-pre: UWidgetBlueprintLibrary::SetInputMode_GameOnly | R27 VERIFIED (движок, 2026-09-26; Construct NONE — класс виджета выбирается локально)
+- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_775: RemoveMappingContext: R28 VERIFIED (движок, 2026-09-26): член IEnhancedInputSubsystemInterface; Options опущен (как в AddMappingContext R21b)
+- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_776: ClearAllMappings: R28 VERIFIED (движок, 2026-09-26): член IEnhancedInputSubsystemInterface
+- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_777: HasMappingContext: R28 VERIFIED (движок, 2026-09-26): const-член → pure в BP
+- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_778: QueryKeysMappedToAction: R28 VERIFIED (движок, 2026-09-26): const-член → pure, RV TArray<FKey>
+- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_779: InjectInputForAction: R28 VERIFIED (движок, 2026-09-26): Modifiers/Triggers AutoCreateRefTerm — можно не подключать
+- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_780: InjectInputVectorForAction: R28 VERIFIED (движок, 2026-09-26): Modifiers/Triggers AutoCreateRefTerm
+- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_781: RequestRebuildControlMappingsUsingContext: R28 VERIFIED (движок, 2026-09-26): статик UEnhancedInputLibrary, self скрыт
+- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_782: FlushPlayerInput: R28 VERIFIED (движок, 2026-09-26): статик UEnhancedInputLibrary
+- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_783: MakeInputActionValue: R28 VERIFIED (движок, 2026-09-26): pure; MatchValueType задаёт тип (без подключения — Boolean)
+- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_784: BreakInputActionValue: R28 VERIFIED (движок, 2026-09-26): pure; выход Type = EInputActionValueType
+- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_785: Conv_InputActionValueToBool: R28 VERIFIED (движок, 2026-09-26): pure autocast
+- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_786: Conv_InputActionValueToAxis1D: R28 VERIFIED (движок, 2026-09-26): pure autocast
+- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_787: Conv_InputActionValueToAxis2D: R28 VERIFIED (движок, 2026-09-26): pure autocast
+- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_788: Conv_InputActionValueToAxis3D: R28 VERIFIED (движок, 2026-09-26): pure autocast
+- 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_789: Conv_InputActionValueToString: R28 VERIFIED (движок, 2026-09-26): pure autocast
+- 29-components-physics.txt :: W09: K2Node_CallFunction_791: SetSimulatePhysics: R29 VERIFIED
+- 29-components-physics.txt :: W09: K2Node_CallFunction_792: SetEnableGravity: R29 VERIFIED
+- 29-components-physics.txt :: W09: K2Node_CallFunction_795: AddTorqueInRadians: R29 VERIFIED
+- 29-components-physics.txt :: W09: K2Node_CallFunction_796: SetPhysicsLinearVelocity: R29 VERIFIED
+- 29-components-physics.txt :: W09: K2Node_CallFunction_797: GetPhysicsLinearVelocity: R29 VERIFIED
+- 29-components-physics.txt :: W09: K2Node_CallFunction_798: GetMass: R29 VERIFIED
+- 29-components-physics.txt :: W09: K2Node_CallFunction_799: SetMassOverrideInKg: R29 VERIFIED
+- 29-components-physics.txt :: W09: K2Node_CallFunction_800: SetCollisionEnabled: R29 VERIFIED
+- 29-components-physics.txt :: W09: K2Node_CallFunction_801: SetCollisionResponseToChannel: R29 VERIFIED
+- 29-components-physics.txt :: W09: K2Node_CallFunction_802: SetCollisionProfileName: R29 VERIFIED
+- 29-components-physics.txt :: W09: K2Node_CallFunction_803: SetGenerateOverlapEvents: R29 VERIFIED
+- 29-components-physics.txt :: W09: K2Node_CallFunction_804: SetMaterial: R29 VERIFIED
+- 29-components-physics.txt :: W09: K2Node_CallFunction_805: SetVisibility: R29 VERIFIED
+- 29-components-physics.txt :: W09: K2Node_CallFunction_806: SetHiddenInGame: R29 VERIFIED
+- 29-components-physics.txt :: W09: K2Node_CallFunction_807: SetWorldScale3D: R29 VERIFIED
+- 29-components-physics.txt :: W09: K2Node_CallFunction_808: K2_AddWorldOffset: R29 VERIFIED
+- 29-components-physics.txt :: W09: K2Node_CallFunction_809: GetComponentVelocity: R29 VERIFIED
+- 29-components-physics.txt :: W09: K2Node_CallFunction_810: GetOwner: R29 VERIFIED
+- 29-components-physics.txt :: W09: K2Node_CallFunction_811: SetActive: R29 VERIFIED
+- 29-components-physics.txt :: W09: K2Node_CallFunction_812: IsActive: R29 VERIFIED
+- 29-components-physics.txt :: W09: K2Node_CallFunction_813: ComponentHasTag: R29 VERIFIED
 

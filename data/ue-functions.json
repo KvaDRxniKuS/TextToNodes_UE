@@ -40621,5 +40621,1991 @@
   "verified": true,
   "desc": "Announce Accessible String",
   "probe": "R50 проба (Statics) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Announce Accessible String (GameplayStatics)"
+ },
+ {
+  "id": "BlueprintSuggestProjectileVelocity",
+  "title": "Blueprint Suggest Projectile Velocity",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "BlueprintSuggestProjectileVelocity",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "StartLocation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "EndLocation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "LaunchSpeed",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "OverrideGravityZ",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "CollisionRadius",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "bFavorHighArc",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "bDrawDebug",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "bAcceptClosestOnNoSolutions",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "TossVelocity",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Blueprint Suggest Projectile Velocity",
+  "probe": "R51 проба (Traj) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Blueprint Suggest Projectile Velocity (GameplayStatics)"
+ },
+ {
+  "id": "SuggestProjectileVelocity_MovingTarget",
+  "title": "Suggest Projectile Velocity Moving Target",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SuggestProjectileVelocity_MovingTarget",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "ProjectileStartLocation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "TargetActor",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "TargetLocationOffset",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "GravityZOverride",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "TimeToTarget",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "1.000000",
+    "autoDv": ""
+   },
+   {
+    "name": "DrawDebugType",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EDrawDebugTrace"
+   },
+   {
+    "name": "DrawDebugTime",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "3.000000",
+    "autoDv": ""
+   },
+   {
+    "name": "DrawDebugColor",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "const": true
+   },
+   {
+    "name": "OutLaunchVelocity",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Suggest Projectile Velocity Moving Target",
+  "probe": "R51 проба (Traj) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Suggest Projectile Velocity Moving Target (GameplayStatics)"
+ },
+ {
+  "id": "Blueprint_PredictProjectilePath_ByTraceChannel",
+  "title": "Blueprint Predict Projectile Path By Trace Channel",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Blueprint_PredictProjectilePath_ByTraceChannel",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "StartPos",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "LaunchVelocity",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "bTracePath",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "TRUE",
+    "autoDv": ""
+   },
+   {
+    "name": "ProjectileRadius",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "TraceChannel",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ECollisionChannel",
+    "dv": "ECC_WorldDynamic",
+    "autoDv": ""
+   },
+   {
+    "name": "bTraceComplex",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "ActorsToIgnore",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor",
+    "const": true,
+    "ref": true,
+    "container": "Array",
+    "ignored": true
+   },
+   {
+    "name": "DrawDebugType",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EDrawDebugTrace"
+   },
+   {
+    "name": "DrawDebugTime",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "SimFrequency",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "15.000000",
+    "autoDv": ""
+   },
+   {
+    "name": "MaxSimTime",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "2.000000",
+    "autoDv": ""
+   },
+   {
+    "name": "OverrideGravityZ",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "OutHit",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "HitResult"
+   },
+   {
+    "name": "OutPathPositions",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector",
+    "container": "Array"
+   },
+   {
+    "name": "OutLastTraceDestination",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Predict Projectile Path By TraceChannel",
+  "probe": "R51 проба (Traj) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Predict Projectile Path By TraceChannel (GameplayStatics; имя по copy-back R51)"
+ },
+ {
+  "id": "Blueprint_PredictProjectilePath_ByObjectType",
+  "title": "Blueprint Predict Projectile Path By Object Type",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Blueprint_PredictProjectilePath_ByObjectType",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "StartPos",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "LaunchVelocity",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "bTracePath",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "TRUE",
+    "autoDv": ""
+   },
+   {
+    "name": "ProjectileRadius",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "ObjectTypes",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EObjectTypeQuery",
+    "const": true,
+    "ref": true,
+    "container": "Array",
+    "ignored": true
+   },
+   {
+    "name": "bTraceComplex",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "ActorsToIgnore",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor",
+    "const": true,
+    "ref": true,
+    "container": "Array",
+    "ignored": true
+   },
+   {
+    "name": "DrawDebugType",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EDrawDebugTrace"
+   },
+   {
+    "name": "DrawDebugTime",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "SimFrequency",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "15.000000",
+    "autoDv": ""
+   },
+   {
+    "name": "MaxSimTime",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "2.000000",
+    "autoDv": ""
+   },
+   {
+    "name": "OverrideGravityZ",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "OutHit",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "HitResult"
+   },
+   {
+    "name": "OutPathPositions",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector",
+    "container": "Array"
+   },
+   {
+    "name": "OutLastTraceDestination",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Predict Projectile Path By ObjectType",
+  "probe": "R51 проба (Traj) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Predict Projectile Path By ObjectType (GameplayStatics; имя по copy-back R51)"
+ },
+ {
+  "id": "SetBaseSoundMix",
+  "title": "Set Base Sound Mix",
+  "from": "probe",
+  "category": "Audio",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetBaseSoundMix",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "InSoundMix",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SoundMix"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Base Sound Mix",
+  "probe": "R51 проба (Audio) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Base Sound Mix (GameplayStatics)"
+ },
+ {
+  "id": "SetSoundMixClassOverride",
+  "title": "Set Sound Mix Class Override",
+  "from": "probe",
+  "category": "Audio",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetSoundMixClassOverride",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "InSoundMixModifier",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SoundMix"
+   },
+   {
+    "name": "InSoundClass",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SoundClass"
+   },
+   {
+    "name": "Volume",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "1.000000",
+    "autoDv": ""
+   },
+   {
+    "name": "Pitch",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "1.000000",
+    "autoDv": ""
+   },
+   {
+    "name": "FadeInTime",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "1.000000",
+    "autoDv": ""
+   },
+   {
+    "name": "bApplyToChildren",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Set Sound Mix Class Override",
+  "probe": "R51 проба (Audio) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Sound Mix Class Override (GameplayStatics)"
+ },
+ {
+  "id": "ClearSoundMixClassOverride",
+  "title": "Clear Sound Mix Class Override",
+  "from": "probe",
+  "category": "Audio",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ClearSoundMixClassOverride",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "InSoundMixModifier",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SoundMix"
+   },
+   {
+    "name": "InSoundClass",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SoundClass"
+   },
+   {
+    "name": "FadeOutTime",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "1.000000",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Clear Sound Mix Class Override",
+  "probe": "R51 проба (Audio) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Clear Sound Mix Class Override (GameplayStatics)"
+ },
+ {
+  "id": "ActivateReverbEffect",
+  "title": "Activate Reverb Effect",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ActivateReverbEffect",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "ReverbEffect",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.ReverbEffect"
+   },
+   {
+    "name": "TagName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "Priority",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "Volume",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.500000",
+    "autoDv": ""
+   },
+   {
+    "name": "FadeTime",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "2.000000",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Activate Reverb Effect",
+  "probe": "R51 проба (Audio) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Activate Reverb Effect (GameplayStatics)"
+ },
+ {
+  "id": "DeactivateReverbEffect",
+  "title": "Deactivate Reverb Effect",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "DeactivateReverbEffect",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "TagName",
+    "dir": "Input",
+    "cat": "name"
+   }
+  ],
+  "verified": true,
+  "desc": "Deactivate Reverb Effect",
+  "probe": "R51 проба (Audio) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Deactivate Reverb Effect (GameplayStatics)"
+ },
+ {
+  "id": "PrimeSound",
+  "title": "Prime Sound",
+  "from": "probe",
+  "category": "Audio",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "PrimeSound",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "InSound",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SoundBase"
+   }
+  ],
+  "verified": true,
+  "desc": "Prime Sound",
+  "probe": "R51 проба (Audio) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Prime Sound (GameplayStatics)"
+ },
+ {
+  "id": "GetMaxAudioChannelCount",
+  "title": "Get Max Audio Channel Count",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetMaxAudioChannelCount",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Max Audio Channel Count",
+  "probe": "R51 проба (Audio) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Max Audio Channel Count (GameplayStatics, pure)"
+ },
+ {
+  "id": "SetMaxAudioChannelsScaled",
+  "title": "Set Max Audio Channels Scaled",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetMaxAudioChannelsScaled",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "MaxChannelCountScale",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Max Audio Channels Scaled",
+  "probe": "R51 проба (Audio) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Max Audio Channels Scaled (GameplayStatics)"
+ },
+ {
+  "id": "SetSoundClassDistanceScale",
+  "title": "Set Sound Class Distance Scale",
+  "from": "probe",
+  "category": "Audio",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetSoundClassDistanceScale",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "SoundClass",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SoundClass"
+   },
+   {
+    "name": "DistanceAttenuationScale",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "TimeSeconds",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Sound Class Distance Scale",
+  "probe": "R51 проба (Audio) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Sound Class Distance Scale (GameplayStatics)"
+ },
+ {
+  "id": "ProjectWorldToScreen",
+  "title": "Project World To Screen",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ProjectWorldToScreen",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Player",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   },
+   {
+    "name": "WorldPosition",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "bPlayerViewportRelative",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "ScreenPosition",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector2D"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Project World to Screen",
+  "probe": "R51 проба (Screen) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Project World to Screen (GameplayStatics)"
+ },
+ {
+  "id": "DeprojectScreenToWorld",
+  "title": "Deproject Screen To World",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "DeprojectScreenToWorld",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Player",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   },
+   {
+    "name": "ScreenPosition",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector2D",
+    "const": true
+   },
+   {
+    "name": "WorldPosition",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   },
+   {
+    "name": "WorldDirection",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Deproject Screen to World",
+  "probe": "R51 проба (Screen) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Deproject Screen to World (GameplayStatics)"
+ },
+ {
+  "id": "GetActorArrayBounds",
+  "title": "Get Actor Array Bounds",
+  "from": "probe",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetActorArrayBounds",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Actors",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor",
+    "container": "Array"
+   },
+   {
+    "name": "bOnlyCollidingComponents",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "Center",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   },
+   {
+    "name": "BoxExtent",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "verified": true,
+  "desc": "Get Actor Array Bounds",
+  "probe": "R51 проба (Screen) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Actor Array Bounds (GameplayStatics)"
+ },
+ {
+  "id": "GetAccurateRealTime",
+  "title": "Get Accurate Real Time",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetAccurateRealTime",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "Seconds",
+    "dir": "Output",
+    "cat": "int"
+   },
+   {
+    "name": "PartialSeconds",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Accurate Real Time",
+  "probe": "R51 проба (Screen) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Accurate Real Time (GameplayStatics, pure)"
+ },
+ {
+  "id": "SetForceDisableSplitscreen",
+  "title": "Set Force Disable Splitscreen",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetForceDisableSplitscreen",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "bDisable",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Force Disable Splitscreen",
+  "probe": "R51 проба (Screen) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Force Disable Splitscreen (GameplayStatics)"
+ },
+ {
+  "id": "IsSplitscreenForceDisabled",
+  "title": "Is Splitscreen Force Disabled",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsSplitscreenForceDisabled",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Splitscreen Force Disabled",
+  "probe": "R51 проба (Screen) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Splitscreen Force Disabled (GameplayStatics, pure)"
+ },
+ {
+  "id": "GetAllWidgetsOfClass",
+  "title": "Get All Widgets Of Class",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetAllWidgetsOfClass",
+  "lib": "WidgetBlueprintLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "WidgetClass",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/UMG.UserWidget"
+   },
+   {
+    "name": "TopLevelOnly",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   },
+   {
+    "name": "FoundWidgets",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/UMG.UserWidget",
+    "container": "Array"
+   }
+  ],
+  "verified": true,
+  "desc": "Get All Widgets of Class",
+  "probe": "R51 проба (UILib) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get All Widgets of Class (WidgetBlueprintLibrary)"
+ },
+ {
+  "id": "IsDragDropping",
+  "title": "Is Drag Dropping",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsDragDropping",
+  "lib": "WidgetBlueprintLibrary",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Drag Dropping",
+  "probe": "R51 проба (UILib) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Drag Dropping (WidgetBlueprintLibrary, pure; имя по copy-back R51)"
+ },
+ {
+  "id": "CancelDragDrop",
+  "title": "Cancel Drag Drop",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "CancelDragDrop",
+  "lib": "WidgetBlueprintLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   }
+  ],
+  "verified": true,
+  "desc": "Cancel Drag Drop",
+  "probe": "R51 проба (UILib) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Cancel Drag Drop (WidgetBlueprintLibrary)"
+ },
+ {
+  "id": "GetDragDroppingContent",
+  "title": "Get Drag Dropping Content",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetDragDroppingContent",
+  "lib": "WidgetBlueprintLibrary",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/UMG.DragDropOperation"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Drag Dropping Content",
+  "probe": "R51 проба (UILib) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Drag Dropping Content (WidgetBlueprintLibrary, pure)"
+ },
+ {
+  "id": "Handled",
+  "title": "Handled",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Handled",
+  "lib": "WidgetBlueprintLibrary",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "EventReply"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Handled",
+  "probe": "R51 проба (UILib) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Handled (WidgetBlueprintLibrary, pure)"
+ },
+ {
+  "id": "Unhandled",
+  "title": "Unhandled",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Unhandled",
+  "lib": "WidgetBlueprintLibrary",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "EventReply"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Unhandled",
+  "probe": "R51 проба (UILib) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Unhandled (WidgetBlueprintLibrary, pure)"
+ },
+ {
+  "id": "GetViewportSize_WidgetLayoutLibrary",
+  "title": "Get Viewport Size",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetViewportSize",
+  "lib": "WidgetLayoutLibrary",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector2D"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Viewport Size",
+  "probe": "R51 проба (UILib) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Viewport Size (WidgetLayoutLibrary, pure)"
+ },
+ {
+  "id": "GetViewportScale",
+  "title": "Get Viewport Scale",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetViewportScale",
+  "lib": "WidgetLayoutLibrary",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Viewport Scale",
+  "probe": "R51 проба (UILib) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Viewport Scale (WidgetLayoutLibrary, pure)"
+ },
+ {
+  "id": "GetMousePositionOnViewport",
+  "title": "Get Mouse Position On Viewport",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetMousePositionOnViewport",
+  "lib": "WidgetLayoutLibrary",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector2D"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Mouse Position on Viewport",
+  "probe": "R51 проба (UILib) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Mouse Position on Viewport (WidgetLayoutLibrary, pure)"
+ },
+ {
+  "id": "RemoveAllWidgets",
+  "title": "Remove All Widgets",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "RemoveAllWidgets",
+  "lib": "WidgetLayoutLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   }
+  ],
+  "verified": true,
+  "desc": "Remove All Widgets",
+  "probe": "R51 проба (UILib) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Remove All Widgets (WidgetLayoutLibrary)"
+ },
+ {
+  "id": "ProjectWorldLocationToWidgetPosition",
+  "title": "Project World Location To Widget Position",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ProjectWorldLocationToWidgetPosition",
+  "lib": "WidgetLayoutLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "PlayerController",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   },
+   {
+    "name": "WorldLocation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "bPlayerViewportRelative",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "ScreenPosition",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector2D"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Project World Location to Widget Position",
+  "probe": "R51 проба (UILib) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Project World Location to Widget Position (WidgetLayoutLibrary)"
+ },
+ {
+  "id": "SlotAsHorizontalBoxSlot",
+  "title": "Slot As Horizontal Box Slot",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SlotAsHorizontalBoxSlot",
+  "lib": "WidgetLayoutLibrary",
+  "pins": [
+   {
+    "name": "Widget",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Widget"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/UMG.HorizontalBoxSlot"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Slot as Horizontal Box Slot",
+  "probe": "R51 проба (UILib) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Slot as Horizontal Box Slot (WidgetLayoutLibrary, pure)"
+ },
+ {
+  "id": "SlotAsVerticalBoxSlot",
+  "title": "Slot As Vertical Box Slot",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SlotAsVerticalBoxSlot",
+  "lib": "WidgetLayoutLibrary",
+  "pins": [
+   {
+    "name": "Widget",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Widget"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/UMG.VerticalBoxSlot"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Slot as Vertical Box Slot",
+  "probe": "R51 проба (UILib) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Slot as Vertical Box Slot (WidgetLayoutLibrary, pure)"
+ },
+ {
+  "id": "SlotAsOverlaySlot",
+  "title": "Slot As Overlay Slot",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SlotAsOverlaySlot",
+  "lib": "WidgetLayoutLibrary",
+  "pins": [
+   {
+    "name": "Widget",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Widget"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/UMG.OverlaySlot"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Slot as Overlay Slot",
+  "probe": "R51 проба (UILib) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Slot as Overlay Slot (WidgetLayoutLibrary, pure)"
+ },
+ {
+  "id": "GetMousePositionScaledByDPI",
+  "title": "Get Mouse Position Scaled By DPI",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetMousePositionScaledByDPI",
+  "lib": "WidgetLayoutLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Player",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   },
+   {
+    "name": "LocationX",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "LocationY",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Get Mouse Position Scaled by DPI",
+  "probe": "R51 проба (UILib) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Mouse Position Scaled by DPI (WidgetLayoutLibrary)"
+ },
+ {
+  "id": "SetPositionInViewport",
+  "title": "Set Position In Viewport",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetPositionInViewport",
+  "lib": "UserWidget",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.UserWidget"
+   },
+   {
+    "name": "Position",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector2D",
+    "const": true
+   },
+   {
+    "name": "bRemoveDPIScale",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Set Position in Viewport",
+  "probe": "R51 проба (Widget) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Position in Viewport (член UserWidget)"
+ },
+ {
+  "id": "SetDesiredSizeInViewport",
+  "title": "Set Desired Size In Viewport",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetDesiredSizeInViewport",
+  "lib": "UserWidget",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.UserWidget"
+   },
+   {
+    "name": "Size",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector2D",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "Set Desired Size in Viewport",
+  "probe": "R51 проба (Widget) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Desired Size in Viewport (член UserWidget)"
+ },
+ {
+  "id": "SetAlignmentInViewport",
+  "title": "Set Alignment In Viewport",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetAlignmentInViewport",
+  "lib": "UserWidget",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.UserWidget"
+   },
+   {
+    "name": "Alignment",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector2D",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "Set Alignment in Viewport",
+  "probe": "R51 проба (Widget) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Alignment in Viewport (член UserWidget)"
+ },
+ {
+  "id": "PlayAnimationForward",
+  "title": "Play Animation Forward",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "PlayAnimationForward",
+  "lib": "UserWidget",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.UserWidget"
+   },
+   {
+    "name": "InAnimation",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.WidgetAnimation"
+   },
+   {
+    "name": "PlaybackSpeed",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "1.000000",
+    "autoDv": ""
+   },
+   {
+    "name": "bRestoreState",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/UMG.UMGSequencePlayer"
+   }
+  ],
+  "verified": true,
+  "desc": "Play Animation Forward",
+  "probe": "R51 проба (Widget) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Play Animation Forward (член UserWidget)"
+ },
+ {
+  "id": "PlayAnimationReverse",
+  "title": "Play Animation Reverse",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "PlayAnimationReverse",
+  "lib": "UserWidget",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.UserWidget"
+   },
+   {
+    "name": "InAnimation",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.WidgetAnimation"
+   },
+   {
+    "name": "PlaybackSpeed",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "1.000000",
+    "autoDv": ""
+   },
+   {
+    "name": "bRestoreState",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/UMG.UMGSequencePlayer"
+   }
+  ],
+  "verified": true,
+  "desc": "Play Animation Reverse",
+  "probe": "R51 проба (Widget) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Play Animation Reverse (член UserWidget)"
+ },
+ {
+  "id": "StopAllAnimations",
+  "title": "Stop All Animations",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "StopAllAnimations",
+  "lib": "UserWidget",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.UserWidget"
+   }
+  ],
+  "verified": true,
+  "desc": "Stop All Animations",
+  "probe": "R51 проба (Widget) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Stop All Animations (член UserWidget)"
+ },
+ {
+  "id": "SetAnimationCurrentTime",
+  "title": "Set Animation Current Time",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetAnimationCurrentTime",
+  "lib": "UserWidget",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.UserWidget"
+   },
+   {
+    "name": "InAnimation",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.WidgetAnimation"
+   },
+   {
+    "name": "InTime",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Animation Current Time",
+  "probe": "R51 проба (Widget) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Animation Current Time (член UserWidget)"
+ },
+ {
+  "id": "GetAnimationCurrentTime",
+  "title": "Get Animation Current Time",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetAnimationCurrentTime",
+  "lib": "UserWidget",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.UserWidget"
+   },
+   {
+    "name": "InAnimation",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.WidgetAnimation"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Animation Current Time",
+  "probe": "R51 проба (Widget) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Animation Current Time (член UserWidget, pure)"
+ },
+ {
+  "id": "SetRenderScale",
+  "title": "Set Render Scale",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetRenderScale",
+  "lib": "Widget",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Widget"
+   },
+   {
+    "name": "Scale",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector2D",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "Set Render Scale",
+  "probe": "R51 проба (Widget) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Render Scale (член Widget)"
+ },
+ {
+  "id": "SetRenderTranslation",
+  "title": "Set Render Translation",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetRenderTranslation",
+  "lib": "Widget",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Widget"
+   },
+   {
+    "name": "Translation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector2D",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "Set Render Translation",
+  "probe": "R51 проба (Widget) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Render Translation (член Widget)"
+ },
+ {
+  "id": "ForceLayoutPrepass",
+  "title": "Force Layout Prepass",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ForceLayoutPrepass",
+  "lib": "Widget",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Widget"
+   }
+  ],
+  "verified": true,
+  "desc": "Force Layout Prepass",
+  "probe": "R51 проба (Widget) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Force Layout Prepass (член Widget)"
+ },
+ {
+  "id": "GetDesiredSize",
+  "title": "Get Desired Size",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetDesiredSize",
+  "lib": "Widget",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Widget"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector2D"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Desired Size",
+  "probe": "R51 проба (Widget) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Desired Size (член Widget, pure)"
+ },
+ {
+  "id": "SetFocus_Widget",
+  "title": "Set Focus",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetFocus",
+  "lib": "Widget",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Widget"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Focus",
+  "probe": "R51 проба (Widget) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Focus (член Widget)"
+ },
+ {
+  "id": "IsVisible_Widget",
+  "title": "Is Visible",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsVisible",
+  "lib": "Widget",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Widget"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Visible",
+  "probe": "R51 проба (Widget) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Visible (член Widget, pure)"
+ },
+ {
+  "id": "InvalidateLayoutAndVolatility",
+  "title": "Invalidate Layout And Volatility",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "InvalidateLayoutAndVolatility",
+  "lib": "Widget",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Widget"
+   }
+  ],
+  "verified": true,
+  "desc": "Invalidate Layout and Volatility",
+  "probe": "R51 проба (Widget) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Invalidate Layout and Volatility (член Widget)"
  }
 ]
