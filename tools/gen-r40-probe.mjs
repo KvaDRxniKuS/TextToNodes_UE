@@ -27,4 +27,4 @@ const items = [
 const nodes = items.map((f, i) => f({ x: (i % 4) * 400, y: Math.floor(i / 4) * 400 }));
 const text = generateUEText(nodes, { root: 'BP_AISupportTester' }) + '\n';
 if (process.argv.includes('--stdout')) process.stdout.write(text);
-else { fs.writeFileSync(new URL('../sweep/probes/r40-probe.txt', import.meta.url), text); console.log('sweep/probes/r40-probe.txt · узлов', nodes.length); }
+else { fs.mkdirSync(new URL('../sweep/probes/', import.meta.url), { recursive: true }); fs.writeFileSync(new URL('../sweep/probes/r40-probe.txt', import.meta.url), text); console.log('sweep/probes/r40-probe.txt · узлов', nodes.length); }

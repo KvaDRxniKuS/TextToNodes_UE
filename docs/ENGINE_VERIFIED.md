@@ -1103,3 +1103,20 @@ UE_LIBS: Image, MovementComponent.
 - Пузырь собирает `dispatcherBubble(name, params)` в `src/modules.js`.
 - `createDelegateNode` ставит пузырь автоматически для владельцев из `/Game/…`.
 - В `sweep/chapters/dispatcher-bound.txt` пузырь стоит на 4 нодах.
+
+## R41 — широкая проба (2026-09-30, ждёт вердикта)
+
+`sweep/probes/r41-probe.txt` (`node tools/gen-probe.mjs --batch 41`), 17 нод, STRICT без ошибок.
+
+Состав по темам:
+- **Movement:** CharacterMovementComponent — `IsFalling`, `IsMovingOnGround`, `DisableMovement`, `SetMovementMode`.
+- **Audio:** `PlaySound2D`.
+- **World:** `GetGlobalTimeDilation`, `IsGamePaused`, `GetActorOfClass`.
+- **Text:** KismetTextLibrary — `Conv_TextToString`, `Conv_StringToText`, `TextIsEmpty`.
+- **Input:** `PlayerController.GetHitResultUnderCursorByChannel`.
+- **Math:** `RandomPointInBoundingBox`.
+- **Nav:** `NavigationSystemV1.K2_GetRandomReachablePointInRadius`.
+- **Actor:** `Actor.K2_GetComponentsByClass`.
+- **UI:** `Slider.SetValue` / `GetValue`.
+
+Добавлен энам `EMovementMode` (pre, не подтверждён). Сетевые функции вынесены в отдельный следующий шаг (Networking).

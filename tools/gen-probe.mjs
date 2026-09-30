@@ -189,6 +189,25 @@ const BATCHES = {
     ['System', 'Is Packaged for Distribution (KismetSystemLibrary, pure)', lib('KismetSystemLibrary.IsPackagedForDistribution', ['->', 'ReturnValue:bool'], true)],
     ['System', 'Get Class Display Name (KismetSystemLibrary, pure)', lib('KismetSystemLibrary.GetClassDisplayName', ['Class:class:/Script/CoreUObject.Object', '->', 'ReturnValue:string'], true)],
   ],
+  '41': [
+    ['Movement', 'Is Falling (член CharacterMovementComponent — NavMovementComponent, pure)', mem('/Script/Engine.CharacterMovementComponent.IsFalling', ['->', 'ReturnValue:bool'], true)],
+    ['Movement', 'Is Moving On Ground (член CharacterMovementComponent, pure)', mem('/Script/Engine.CharacterMovementComponent.IsMovingOnGround', ['->', 'ReturnValue:bool'], true)],
+    ['Movement', 'Disable Movement (член CharacterMovementComponent)', mem('/Script/Engine.CharacterMovementComponent.DisableMovement', [])],
+    ['Movement', 'Set Movement Mode (член CharacterMovementComponent). Ждём: NewMovementMode enum, NewCustomMode byte', mem('/Script/Engine.CharacterMovementComponent.SetMovementMode', ['NewMovementMode:enum:EMovementMode', 'NewCustomMode:byte'])],
+    ['Audio', 'Play Sound 2D (GameplayStatics). Пины Concurrency/Owning движок достроит', lib('GameplayStatics.PlaySound2D', ['Sound:object:/Script/Engine.SoundBase', 'VolumeMultiplier:single=1.000000', 'PitchMultiplier:single=1.000000', 'StartTime:single'])],
+    ['World', 'Get Global Time Dilation (GameplayStatics, pure)', lib('GameplayStatics.GetGlobalTimeDilation', ['->', 'ReturnValue:single'], true)],
+    ['World', 'Is Game Paused (GameplayStatics, pure)', lib('GameplayStatics.IsGamePaused', ['->', 'ReturnValue:bool'], true)],
+    ['World', 'Get Actor Of Class (GameplayStatics). Выход по классу', lib('GameplayStatics.GetActorOfClass', ['ActorClass:class:Actor', '->', 'ReturnValue:object:Actor'])],
+    ['Text', 'To String (Text) — Conv_TextToString (KismetTextLibrary, pure)', lib('KismetTextLibrary.Conv_TextToString', ['InText:text', '->', 'ReturnValue:string'], true)],
+    ['Text', 'To Text (String) — Conv_StringToText (KismetTextLibrary, pure)', lib('KismetTextLibrary.Conv_StringToText', ['InString:string', '->', 'ReturnValue:text'], true)],
+    ['Text', 'Text Is Empty (KismetTextLibrary, pure)', lib('KismetTextLibrary.TextIsEmpty', ['InText:text', '->', 'ReturnValue:bool'], true)],
+    ['Input', 'Get Hit Result Under Cursor by Channel (член PlayerController)', mem('PlayerController.GetHitResultUnderCursorByChannel', ['TraceChannel:enum:ETraceTypeQuery', 'bTraceComplex:bool', '->', 'HitResult:hitresult', 'ReturnValue:bool'], true)],
+    ['Math', 'Random Point in Bounding Box (KismetMathLibrary)', lib('KismetMathLibrary.RandomPointInBoundingBox', ['Center:vector', 'HalfSize:vector', '->', 'ReturnValue:vector'])],
+    ['Nav', 'Get Random Reachable Point in Radius (NavigationSystemV1)', lib('/Script/NavigationSystem.NavigationSystemV1.K2_GetRandomReachablePointInRadius', ['Origin:vector', 'Radius:single', 'NavData:object:/Script/NavigationSystem.NavigationData', 'FilterClass:class:/Script/NavigationSystem.NavigationQueryFilter', '->', 'RandomLocation:vector', 'ReturnValue:bool'])],
+    ['Actor', 'Get Components by Class (член Actor, pure). Выход — массив по классу', mem('Actor.K2_GetComponentsByClass', ['ComponentClass:class:ActorComponent', '->', 'ReturnValue:object:ActorComponent[]'], true)],
+    ['UI', 'Set Value (член Slider)', mem('/Script/UMG.Slider.SetValue', ['InValue:single'])],
+    ['UI', 'Get Value (член Slider, pure)', mem('/Script/UMG.Slider.GetValue', ['->', 'ReturnValue:single'], true)],
+  ],
 };
 
 const list = BATCHES[batch];
@@ -227,7 +246,7 @@ if (STDOUT) {
   if (disk !== text) { console.log(`✗ sweep/probes/r${batch}-probe.txt расходится с генератором`); process.exit(1); }
   console.log(`✓ sweep/probes/r${batch}-probe.txt совпадает с генератором`);
 } else {
-  fs.writeFileSync(out, text);
+  fs.mkdirSync('sweep/probes', { recursive: true }); fs.writeFileSync(out, text);
   console.log(`→ sweep/probes/r${batch}-probe.txt`);
 }
 
