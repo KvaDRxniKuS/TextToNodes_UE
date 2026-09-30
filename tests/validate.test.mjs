@@ -1173,6 +1173,19 @@ regThrow.forEach(t => console.log('THROW:', t));
     && /PinName="Reply",[^\n]*bIsReference=True/.test(generateUEText([createCallFunction(r38.find(e => e.id === 'ClearUserFocus'))])), 'R38: 41 запись реестра (без несуществующего K2_ClearTimerHandle; ClearUserFocus.Reply by-ref)');
   const r39 = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8')).filter(e => /^R39 проба/.test(e.probe || ''));
   ok(r39.length === 47 && validateStrict(r39.map(e => generateUEText([createCallFunction(e)])).join('\n')).warnings.length === 0, 'R39: 47 записей реестра строятся без предупреждений');
+  // R40: copy-back спец-нод → стрим-уровни в реестре (soft-ссылка = bIsUObjectWrapper) + шаблонные спец-ноды
+  const r40 = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8')).filter(e => /^R40 copy-back/.test(e.probe || ''));
+  const soft = generateUEText([createCallFunction(r40.find(e => e.id === 'LoadStreamLevelBySoftObjectPtr'))]);
+  ok(r40.length === 4 && /PinName="Level",[^\n]*PinCategory="softobject"[^\n]*bIsConst=True[^\n]*bIsUObjectWrapper=True/.test(soft) && /Linkage=-1/.test(soft)
+    && validateStrict(r40.map(e => generateUEText([createCallFunction(e)])).join('\n')).warnings.length === 0, 'R40: 4 latent-функции стрим-уровней (Level softobject+wrapper, LatentInfo как у движка)');
+  const S = await import('../src/special-nodes.js');
+  const MM = { path: '/Game/S_MinMax.S_MinMax', name: 'S_MinMax', fields: [{ prop: 'Min_2_EBEA736F4F5353411DE64DA77B073688', friendly: 'Min', category: 'real', sub: 'double', def: '0.000000' }] };
+  const sp = [S.createTimeline({ bubble: 'x' }), S.createInterfaceMessage({ bpiPath: '/Game/B.B_C', memberName: 'F', params: [{ name: 'A', category: 'bool', def: 'false' }] }), S.createAIMoveTo(), S.createGetDataTableRow(),
+    S.createMakeUserStruct({ struct: MM }), S.createBreakUserStruct({ struct: MM }), S.createSetFieldsInUserStruct({ struct: MM }), S.createVariableSetRef()];
+  const spt = generateUEText(sp), spv = validateStrict(spt);
+  const setf = sp[6].rawBlock, pass = setf.match(/PinName="StructRef"[^\n]*ReferencePassThroughConnection=(\S+) ([0-9A-F]{32})/);
+  ok(spv.valid && !/ExportPath|LinkedTo|ErrorMsg/.test(spt) && sp.every(n => n.pins.length) && pass && setf.includes(`PinId=${pass[2]},PinName="StructOut"`)
+    && /PersistentGuid=EBEA736F4F5353411DE64DA77B073688/.test(sp[4].rawBlock) && /PinName="A",PinType.PinCategory="bool"/.test(sp[1].rawBlock), 'R40: спец-ноды из шаблонов — STRICT, свежие GUID, без связей, pass-through согласован');
 }
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);

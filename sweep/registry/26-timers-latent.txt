@@ -3,7 +3,7 @@ Begin Object Class=/Script/UnrealEd.EdGraphNode_Comment Name="EdGraphNode_Commen
    NodePosY=-110
    NodeWidth=2144
    NodeHeight=1302
-   NodeComment="SWEEP 26/31: Timers / Latent (14/14 узлов, 14 verified)"
+   NodeComment="SWEEP 26/32: Timers / Latent (14/14 узлов, 14 verified)"
    NodeGuid=57F810B7B0347D2BCA180C97439604A4
 End Object
 

@@ -10,7 +10,7 @@ export function mkPin(name, direction, category, opts = {}) {
   return {
     id: guid32(), name, friendly: opts.friendly || name, direction, category,
     subCategory: opts.sub || '', subCategoryObject: opts.subObj || '', isConst: !!opts.const,
-    isRef: !!opts.ref, container: opts.container || 'None', ignored: !!opts.ignored, advanced: !!opts.advanced,
+    isRef: !!opts.ref, ...(opts.wrapper ? { wrapper: true } : {}), container: opts.container || 'None', ignored: !!opts.ignored, advanced: !!opts.advanced,
     defaultValue: opts.dv || '', hidden: !!opts.hidden, linkedTo: [],
     memberRef: opts.memberRef || '', defaultObject: opts.defObj || '',
     autoDefault: opts.auto || '',
@@ -52,10 +52,11 @@ export function createCallFunction(regEntry, pos = { x: 0, y: 0 }) {
       if (!UE_STRUCTS[p.sub]) throw new Error(`Unknown struct in registry: ${p.sub} (${regEntry.id}.${p.name})`);
       o.subObj = UE_STRUCTS[p.sub];
     }
-    if ((p.cat === 'object' || p.cat === 'class') && p.object) o.subObj = classRef(p.object);
+    if ((p.cat === 'object' || p.cat === 'class' || p.cat === 'softobject' || p.cat === 'softclass') && p.object) o.subObj = classRef(p.object);
     if (p.enum) o.subObj = UE_ENUMS[p.enum] || p.enum;
     if (p.const) o.const = true;
     if (p.ref) o.ref = true;
+    if (p.wrapper) o.wrapper = true; // R40: TSoftObjectPtr<UWorld> → bIsUObjectWrapper=True
     if (p.container) o.container = p.container;
     if (p.ignored) o.ignored = true;
     if (p.advanced) o.advanced = true;

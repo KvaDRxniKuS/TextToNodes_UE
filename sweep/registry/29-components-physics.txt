@@ -3,7 +3,7 @@ Begin Object Class=/Script/UnrealEd.EdGraphNode_Comment Name="EdGraphNode_Commen
    NodePosY=-110
    NodeWidth=2044
    NodeHeight=2178
-   NodeComment="SWEEP 29/31: Components / Physics (23/23 узлов, 23 verified)"
+   NodeComment="SWEEP 29/32: Components / Physics (23/23 узлов, 23 verified)"
    NodeGuid=E0E16DE8DAFDBCBE2489E6DD411F2ADF
 End Object
 

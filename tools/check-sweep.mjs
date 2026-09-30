@@ -39,6 +39,7 @@ const RECIPES = [
   ['collapsed-knot 1×3 (3 уровня)', ['node', 'tools/gen-collapsed-knot.mjs', '--inputs', '1', '--outputs', '3', '--levels', '3'], ['sweep/layout/collapsed-knot-1x3-3levels.txt']],
   ['current-pipeline smoke', ['node', 'tools/gen-pipeline-smoke.mjs'], ['sweep/layout/pipeline-smoke.txt']],
   ['dispatcher bound probe', ['node', 'tools/gen-dispatcher-bound.mjs'], ['sweep/chapters/dispatcher-bound.txt']],
+  ['R40 — спец-ноды K2 (проба, ждёт вердикта)', ['node', 'tools/gen-r40-probe.mjs'], ['sweep/probes/r40-probe.txt']],
 ];
 
 // Сверяются с движком вручную и не имеют генератора — только читать, не пересобирать.

@@ -20812,5 +20812,231 @@
   "verified": true,
   "desc": "Get Class Display Name",
   "probe": "R39 проба (System) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Class Display Name (KismetSystemLibrary, pure)"
+ },
+ {
+  "id": "LoadStreamLevel",
+  "title": "Load Stream Level",
+  "category": "Level Streaming",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "LoadStreamLevel",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec",
+    "friendly": "Completed"
+   },
+   {
+    "name": "WorldContextObject",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object",
+    "const": true,
+    "hidden": true
+   },
+   {
+    "name": "LevelName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "bMakeVisibleAfterLoad",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "bShouldBlockOnLoad",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "LatentInfo",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LatentActionInfo",
+    "dv": "(Linkage=-1,UUID=-1,ExecutionFunction=\\\"\\\",CallbackTarget=None)",
+    "hidden": true,
+    "autoDv": "LatentInfo"
+   }
+  ],
+  "verified": true,
+  "desc": "Подгрузить стрим-уровень по имени (latent)",
+  "probe": "R40 copy-back (2026-09-30, BP_AISupportTester): latent, then=Completed, скрытые WorldContextObject(const)+LatentInfo"
+ },
+ {
+  "id": "LoadStreamLevelBySoftObjectPtr",
+  "title": "Load Stream Level (by Object Reference)",
+  "category": "Level Streaming",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "LoadStreamLevelBySoftObjectPtr",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec",
+    "friendly": "Completed"
+   },
+   {
+    "name": "WorldContextObject",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object",
+    "const": true,
+    "hidden": true
+   },
+   {
+    "name": "Level",
+    "dir": "Input",
+    "cat": "softobject",
+    "object": "/Script/Engine.World",
+    "const": true,
+    "wrapper": true
+   },
+   {
+    "name": "bMakeVisibleAfterLoad",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "bShouldBlockOnLoad",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "LatentInfo",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LatentActionInfo",
+    "dv": "(Linkage=-1,UUID=-1,ExecutionFunction=\\\"\\\",CallbackTarget=None)",
+    "hidden": true,
+    "autoDv": "LatentInfo"
+   }
+  ],
+  "verified": true,
+  "desc": "Подгрузить стрим-уровень по soft-ссылке (latent)",
+  "probe": "R40 copy-back (2026-09-30, BP_AISupportTester): latent, then=Completed, скрытые WorldContextObject(const)+LatentInfo"
+ },
+ {
+  "id": "UnloadStreamLevel",
+  "title": "Unload Stream Level",
+  "category": "Level Streaming",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "UnloadStreamLevel",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec",
+    "friendly": "Completed"
+   },
+   {
+    "name": "WorldContextObject",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object",
+    "const": true,
+    "hidden": true
+   },
+   {
+    "name": "LevelName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "LatentInfo",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LatentActionInfo",
+    "dv": "(Linkage=-1,UUID=-1,ExecutionFunction=\\\"\\\",CallbackTarget=None)",
+    "hidden": true,
+    "autoDv": "LatentInfo"
+   },
+   {
+    "name": "bShouldBlockOnUnload",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": true,
+  "desc": "Выгрузить стрим-уровень по имени (latent)",
+  "probe": "R40 copy-back (2026-09-30, BP_AISupportTester): latent, then=Completed, скрытые WorldContextObject(const)+LatentInfo"
+ },
+ {
+  "id": "UnloadStreamLevelBySoftObjectPtr",
+  "title": "Unload Stream Level (by Object Reference)",
+  "category": "Level Streaming",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "UnloadStreamLevelBySoftObjectPtr",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec",
+    "friendly": "Completed"
+   },
+   {
+    "name": "WorldContextObject",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object",
+    "const": true,
+    "hidden": true
+   },
+   {
+    "name": "Level",
+    "dir": "Input",
+    "cat": "softobject",
+    "object": "/Script/Engine.World",
+    "const": true,
+    "wrapper": true
+   },
+   {
+    "name": "LatentInfo",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LatentActionInfo",
+    "dv": "(Linkage=-1,UUID=-1,ExecutionFunction=\\\"\\\",CallbackTarget=None)",
+    "hidden": true,
+    "autoDv": "LatentInfo"
+   },
+   {
+    "name": "bShouldBlockOnUnload",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": true,
+  "desc": "Выгрузить стрим-уровень по soft-ссылке (latent)",
+  "probe": "R40 copy-back (2026-09-30, BP_AISupportTester): latent, then=Completed, скрытые WorldContextObject(const)+LatentInfo"
  }
 ]

@@ -158,6 +158,8 @@ const ENUMS_FULL = {
   EMouseLockMode: `"/Script/CoreUObject.Enum'/Script/Engine.EMouseLockMode'"`, // round27-pre
   EInputActionValueType: `"/Script/CoreUObject.Enum'/Script/EnhancedInput.EInputActionValueType'"`, // round28-pre
   ECollisionEnabled: `"/Script/CoreUObject.Enum'/Script/Engine.ECollisionEnabled'"`, // round29-pre
+  ETimelineDirection: `"/Script/CoreUObject.Enum'/Script/Engine.ETimelineDirection'"`, // confirmed R40 copy-back (Timeline.Direction)
+  EPathFollowingResult: `"/Script/CoreUObject.Enum'/Script/AIModule.EPathFollowingResult'"`, // confirmed R40 copy-back (AIMoveTo.MovementResult)
   ECollisionChannel: `"/Script/CoreUObject.Enum'/Script/Engine.ECollisionChannel'"`, // round29-pre
   EMoveComponentAction: `"/Script/CoreUObject.Enum'/Script/Engine.EMoveComponentAction'"`, // R34 copy-back: MoveComponentTo
   EDrawDebugSceneDepthPriorityGroup: `"/Script/CoreUObject.Enum'/Script/Engine.EDrawDebugSceneDepthPriorityGroup'"`, // R33 copy-back: DrawDebugArrow.DepthPriority
