@@ -322,13 +322,8 @@ regThrow.forEach(t => console.log('THROW:', t));
   linkPins(rowSrc,'then',rowDst,'execute');
   const dyRow=pinCenterY(rowDst,rowDst.pins.find(p=>p.name==='execute'))-pinCenterY(rowSrc,rowSrc.pins.find(p=>p.name==='then'));
   ok(dyRow===-32, 'arranger: PrintString.then и Branch.execute в модели на разных строках (тест опирается на это)');
-  const rowRes=arrangeRows([[rowSrc,rowDst]],{gap:400});
-  ok(rowRes.knots.length===2, 'arranger: короткий несоосный exec-провод в ряду (ΔY=32): K2·K3·K4 ближе 48px слиты → 2 knot-а');
-  const rks=rowRes.knots;
-  { const a1=createCallFunction(byId('PrintString')), b1=createBranch({x:0,y:0}); linkPins(a1,'then',b1,'execute');
-    const near=arrangeRows([[a1,b1]],{gap:160}); ok(near.knots.length===0, 'arranger: выход→вход ближе 20 шагов (320px) — knot-ов нет, провод прямой'); }
-  ok(rks[0].pos.y+8===pinCenterY(rowSrc,rowSrc.pins.find(p=>p.name==='then')) && rks[1].pos.y+8===pinCenterY(rowDst,rowDst.pins.find(p=>p.name==='execute')), 'arranger: слитый перенос — K1 на строке выхода, второй knot на строке входа');
-  ok(rks.every((k,i)=>i===0||k.pos.x>rks[i-1].pos.x) && new Set(rks.map(k=>k.pos.x+':'+k.pos.y)).size===rks.length && rks.length>=2, 'arranger: knot-ы переноса не занимают одну клетку 16px');
+  const rowRes=arrangeRows([[rowSrc,rowDst]],{gap:160});
+  ok(rowRes.knots.length===0, 'arranger: несоосный провод вперёд в ряду — прямой, knot-ов нет (knot-ы только для переноса назад)');
   // декоратор (ступень 3, отложен) рассчитан на 4-knot стадиум; его проверки на слитых переносах сняты до возврата к ступени 3
 }
 

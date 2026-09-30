@@ -167,16 +167,10 @@ function createExecReroutes(nodes, { levels = [] } = {}) {
         const target = byId.get(l.nodeName);
         const input = target?.pins.find(p => p.id === l.pinId);
         if (!target || isKnot(target) || input?.category !== 'exec' || input.direction !== 'Input') continue;
-        // Стадиум кладём на каждый провод, где пины не соосны или цель левее источника:
-        // тогда излом ΔY происходит на knot'ах, а не наискосок через ряд.
-        const coAxis = pinCenterY(source, out) === pinCenterY(target, input);
+        // Правило пользователя 2026-10-01 (как в референсах): knot'ы — ТОЛЬКО для переноса назад (вход цели левее
+        // выхода источника). Все остальные exec-провода — прямое соединение, даже при разном Y.
         const toTheRight = target.pos.x >= source.pos.x + estNodeWidth(source);
-        // Правило 2026-10-01: выход и вход ближе NO_KNOT_DIST_STEPS шагов сетки (max |dx|,|dy| между пинами) —
-        // провод идёт напрямую, knot'ы не создаются вовсе.
-        const dx = target.pos.x - (source.pos.x + estNodeWidth(source));
-        const dy = pinCenterY(target, input) - pinCenterY(source, out);
-        if (Math.max(Math.abs(dx), Math.abs(dy)) < NO_KNOT_DIST) continue;
-        if (!(coAxis && toTheRight)) jobs.push([source, out, target, input]);
+        if (!toTheRight) jobs.push([source, out, target, input]);
       }
     }
   }
@@ -210,9 +204,6 @@ function createExecReroutes(nodes, { levels = [] } = {}) {
 // Шаг сетки UE = GRID = 16px (зафиксировано пользователем 2026-10-01). Минимум между связанными knot'ами — 7 шагов (было 3).
 export const MIN_KNOT_GAP_STEPS = 7;
 export const MIN_KNOT_GAP = MIN_KNOT_GAP_STEPS * GRID; // = 112px
-// Выход→вход ближе 20 шагов сетки — перенос не строится, провод прямой.
-export const NO_KNOT_DIST_STEPS = 20;
-export const NO_KNOT_DIST = NO_KNOT_DIST_STEPS * GRID; // = 320px
 export function mergeCloseKnots(points, minGap = MIN_KNOT_GAP) {
   const outPts = [];
   for (const p of points) {
