@@ -1271,3 +1271,8 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
   - `createFormatText(format, types)` в `src/modules.js`: аргументы `{X}` записываются как `PinNames(i)="X"` плюс входной пин с типом источника.
   - `UserWidget.GetWidgetFromName`, взят как impure.
 - K2Node_Event (BeginPlay) не используется, потому что вставкой он ломается (E08). Вместо него Custom Event InitHUD с пузырём «вызовите из Event BeginPlay».
+
+## 2026-10-01 — HUD-демо v2 + правило слияния knot'ов
+- Вставка v1: `UserWidget.GetWidgetFromName` не вставился (в BP не выставлен). v2: переменная `HUD` типа `WBP_HUD_C`, виджеты — поля `HealthText`/`HealthBar` (Get члена WBP_HUD), каст и GetWidgetFromName убраны; пузырь «сначала создайте WBP_HUD, Is Variable у обоих». В copy-back выход каста TextBlock назывался `AsText` (не `AsText Block`).
+- Расстановщик: соседние knot'ы одного переноса ближе `MIN_KNOT_GAP`=48px (max |dx|,|dy|) сливаются (X ранней точки, Y поздней). K3+K4 → один knot всегда; короткие стадиумы → K1 + 1 knot. Геометрия `tests/three-stage-01` изменилась, асерты «ровно 4 knot'а» → «1–4, соседи ≥48px»; проверки декоратора на слитых переносах сняты (ступень 3 отложена).
+- Комменты: поля шире (fitComment в демо 96/128/96, section-layout PAD 64→96).

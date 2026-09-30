@@ -110,7 +110,7 @@ export function buildSections(spec) {
 
 // ── ступень 2 ────────────────────────────────────────────────────────────────
 const G = 16, snap = v => Math.round(v / G) * G;
-const LEAF_H = 48, COL_GAP = 32, SET_STEP = 112, PAD = 64, TITLE = 64, SEC_GAP = 48, SEQ_W = 160;
+const LEAF_H = 48, COL_GAP = 32, SET_STEP = 112, PAD = 96, TITLE = 64, SEC_GAP = 48, SEQ_W = 160;
 const w = n => Math.max(estNodeWidth(n), n.varName ? 80 + 7 * n.varName.length : 0);
 // высота поддерева: сумма детей, но не меньше собственной ноды (чистый оп ≈ 40 + 24·входов)
 const ownH = n => n.varName ? LEAF_H : 48 + 24 * n.pins.filter(p => p.direction === 'Input' && !p.hidden).length;

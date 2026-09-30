@@ -1,44 +1,44 @@
 Begin Object Class=/Script/UnrealEd.EdGraphNode_Comment Name="EdGraphNode_Comment_139"
    NodePosX=256
    NodePosY=0
-   NodeWidth=1040
-   NodeHeight=608
+   NodeWidth=1104
+   NodeHeight=640
    NodeComment="A - базовые переменные"
    NodeGuid=652BBF8C10127C4F6245E9DE666ED5ED
 End Object
 
 Begin Object Class=/Script/UnrealEd.EdGraphNode_Comment Name="EdGraphNode_Comment_142"
-   NodePosX=1344
+   NodePosX=1408
    NodePosY=0
-   NodeWidth=1296
-   NodeHeight=784
+   NodeWidth=1360
+   NodeHeight=816
    NodeComment="B - сопротивление"
    NodeGuid=03210008880901CB02648C60E8A6F069
 End Object
 
 Begin Object Class=/Script/UnrealEd.EdGraphNode_Comment Name="EdGraphNode_Comment_149"
-   NodePosX=2688
+   NodePosX=2816
    NodePosY=0
-   NodeWidth=3472
-   NodeHeight=496
+   NodeWidth=3536
+   NodeHeight=528
    NodeComment="C - интегрирование (цепочка, шина Dt·TimeScale)"
    NodeGuid=E916CF4CF25E14EEFD423702E4D948EE
 End Object
 
 Begin Object Class=/Script/UnrealEd.EdGraphNode_Comment Name="EdGraphNode_Comment_152"
-   NodePosX=6208
+   NodePosX=6400
    NodePosY=0
-   NodeWidth=1952
-   NodeHeight=704
+   NodeWidth=2016
+   NodeHeight=736
    NodeComment="D - земля"
    NodeGuid=4BC00A7C3C66591C17E9E30D21726ACB
 End Object
 
 Begin Object Class=/Script/UnrealEd.EdGraphNode_Comment Name="EdGraphNode_Comment_153"
-   NodePosX=8208
+   NodePosX=8464
    NodePosY=0
-   NodeWidth=2208
-   NodeHeight=576
+   NodeWidth=2272
+   NodeHeight=608
    NodeComment="E - подписки"
    NodeGuid=F6625387044D9C8333C7F517FFDCD338
 End Object
@@ -54,7 +54,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableSet Name="K2Node_VariableSet_5001"
    VariableReference=(MemberName="Speed",MemberGuid=A50355E0DF9C6FA006D3B9344C99E576,bSelfContext=True)
-   NodePosX=1120
+   NodePosX=1152
    NodePosY=64
    NodeGuid=78C28542CEB81E4A809811BC50CCD466
    CustomProperties Pin (PinId=29F6FE666BBE68412AC434FCA603CD01,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_ExecutionSequence_105 21FF2D37014FBDE02CF40549107AE406,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -66,7 +66,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_CommutativeAssociativeBinaryOperator Name="K2Node_CommutativeAssociativeBinaryOperator_100"
    FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="FMax")
-   NodePosX=800
+   NodePosX=832
    NodePosY=192
    NodeGuid=829AAC7B443104577210057A0A623DFA
    CustomProperties Pin (PinId=B310BD631E15E01DA7B1175412A672BD,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultObject="/Script/Engine.Default__KismetMathLibrary",PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -77,7 +77,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_CallFunction Name="K2Node_CallFunction_101"
    FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Abs")
-   NodePosX=512
+   NodePosX=544
    NodePosY=192
    NodeGuid=F21233A6109C8585081B68B1508DB6CB
    CustomProperties Pin (PinId=4FEA5183DFCC1638482750A86B6798B8,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultObject="/Script/Engine.Default__KismetMathLibrary",PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -87,7 +87,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_5002"
    VariableReference=(MemberName="VelX",MemberGuid=063F550EF07EF3D2C241303C09BC4354,bSelfContext=True)
-   NodePosX=352
+   NodePosX=384
    NodePosY=192
    NodeGuid=AFA9FEDE375CB8EF72F8EC1F0783256C
    CustomProperties Pin (PinId=68440B82A23420AE8C7AAC923804A814,PinName="VelX",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_CallFunction_101 47B22D8B34046C3AD0438DC375E21EF8,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -96,7 +96,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableSet Name="K2Node_VariableSet_5003"
    VariableReference=(MemberName="Rho",MemberGuid=B41A29C86F90165236204500493F14DB,bSelfContext=True)
-   NodePosX=1120
+   NodePosX=1152
    NodePosY=176
    NodeGuid=CF5C4F5D76BAA1767DE043EC3665AE58
    CustomProperties Pin (PinId=AF75474AE3502F4EC057A4D1C1336E6E,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_ExecutionSequence_105 CA2F938B81548B02D743765AB581D3EC,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -110,7 +110,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node
    OperationName="Multiply"
    bDefaultsToPureFunc=True
    FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Multiply_DoubleDouble")
-   NodePosX=800
+   NodePosX=832
    NodePosY=304
    NodeGuid=256910D76306805D392E986A71372BE4
    CustomProperties Pin (PinId=07F3FD1AA2F70F037BF6318D0D398E2A,PinName="A",PinToolTip="A\nFloat (double-precision)",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node_VariableGet_5004 AC3C47D345EDE4544CF409CA5281B8D0,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -120,7 +120,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_5004"
    VariableReference=(MemberName="AirDensity",MemberGuid=A73576F85FB15046CC7FE3329700CF9A,bSelfContext=True)
-   NodePosX=512
+   NodePosX=544
    NodePosY=304
    NodeGuid=773516DFF0095D8475982AEACB9D1C71
    CustomProperties Pin (PinId=AC3C47D345EDE4544CF409CA5281B8D0,PinName="AirDensity",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_PromotableOperator_102 07F3FD1AA2F70F037BF6318D0D398E2A,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -129,7 +129,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_5005"
    VariableReference=(MemberName="DragScale",MemberGuid=18418DD68F654EDE388E592C53B302E4,bSelfContext=True)
-   NodePosX=512
+   NodePosX=544
    NodePosY=352
    NodeGuid=652188933E7C2481D4097297225F682F
    CustomProperties Pin (PinId=0860E92D7CFB7E7B2ADC1A5C6B0D7FA0,PinName="DragScale",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_PromotableOperator_102 05F2F4A45D4F72A993491569AD053325,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -138,7 +138,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableSet Name="K2Node_VariableSet_5006"
    VariableReference=(MemberName="Area",MemberGuid=2DED7D9EA46AAAE5C919B1009FBCB9F1,bSelfContext=True)
-   NodePosX=1120
+   NodePosX=1152
    NodePosY=288
    NodeGuid=CC99EB72CCD3A13C61D525B4632D8A6A
    CustomProperties Pin (PinId=6DCD5489F489017CF30054BE841C71BE,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_ExecutionSequence_105 68907AE42F83C482357F81B1BD28D99E,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -152,7 +152,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node
    OperationName="Multiply"
    bDefaultsToPureFunc=True
    FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Multiply_DoubleDouble")
-   NodePosX=800
+   NodePosX=832
    NodePosY=416
    NodeGuid=859ECD5F5B650CD7C1060B2743A6A108
    CustomProperties Pin (PinId=08CE9B5788EE683AD143065E85DB031B,PinName="A",PinToolTip="A\nFloat (double-precision)",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node_CallFunction_104 E2AEB81D54C2B00AF340DEF3C6E4B81E,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -162,7 +162,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_CallFunction Name="K2Node_CallFunction_104"
    FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Square")
-   NodePosX=512
+   NodePosX=544
    NodePosY=416
    NodeGuid=F71468259E5B157309CEFB6F780AA5BA
    CustomProperties Pin (PinId=FE8846D3735FB37E13105158776072D2,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultObject="/Script/Engine.Default__KismetMathLibrary",PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -172,7 +172,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_5007"
    VariableReference=(MemberName="Radius",MemberGuid=E7BCF024ADEC9C363BAF70EA14F8FE8D,bSelfContext=True)
-   NodePosX=352
+   NodePosX=384
    NodePosY=416
    NodeGuid=5EE5BF085D1D7A3A8AE4F42279F172DA
    CustomProperties Pin (PinId=A6B70B4BEA06AA16547DE4DDFA7FDCB1,PinName="Radius",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_CallFunction_104 849493E237034939CDF4CF9CD7CB1CE6,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -180,7 +180,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_Variab
 End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_ExecutionSequence Name="K2Node_ExecutionSequence_105"
-   NodePosX=320
+   NodePosX=352
    NodePosY=64
    NodeGuid=6B9283BCE1998194B600E07C840110F4
    CustomProperties Pin (PinId=98607A8DEE563A93040D7917E6C6A36D,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_CustomEvent_5000 BBF2BB77FCE57B5AE163847E9720F40D,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -192,7 +192,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableSet Name="K2Node_VariableSet_5008"
    VariableReference=(MemberName="Drag",MemberGuid=D49B992844B26F93AEB773DD358376B9,bSelfContext=True)
-   NodePosX=2448
+   NodePosX=2544
    NodePosY=64
    NodeGuid=E14811FE46ECE31EA29DBE7BEF1458DA
    CustomProperties Pin (PinId=B30CB65FC16AB7247D0FF1B1B4B64C4F,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_ExecutionSequence_116 CE3BAEBA1F1AC57C936D1B0468FC2F69,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -206,7 +206,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node
    OperationName="Multiply"
    bDefaultsToPureFunc=True
    FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Multiply_DoubleDouble")
-   NodePosX=2176
+   NodePosX=2272
    NodePosY=176
    NodeGuid=DB0EB5B7B9744CD0810A8F796568D400
    CustomProperties Pin (PinId=E95D85CBB17966AA69EFA8887469AB76,PinName="A",PinToolTip="A\nFloat (double-precision)",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node_PromotableOperator_107 B43B10E80ACEF68664C34A8516C35821,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -218,7 +218,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node
    OperationName="Multiply"
    bDefaultsToPureFunc=True
    FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Multiply_DoubleDouble")
-   NodePosX=1888
+   NodePosX=1984
    NodePosY=176
    NodeGuid=6958957FF808EE95CB8A4F1A894029EF
    CustomProperties Pin (PinId=77F5048406D7599FCBD1D301D2DABA2D,PinName="A",PinToolTip="A\nFloat (double-precision)",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node_PromotableOperator_108 1692BB635228061517731F8068E9934B,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -230,7 +230,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node
    OperationName="Multiply"
    bDefaultsToPureFunc=True
    FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Multiply_DoubleDouble")
-   NodePosX=1584
+   NodePosX=1680
    NodePosY=176
    NodeGuid=49F44747543E0A35A473EA46AEFF294E
    CustomProperties Pin (PinId=66FF5E7F5502E5ED79E0E3ECC2C69E80,PinName="A",PinToolTip="A\nFloat (double-precision)",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultValue="0.500000",PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -240,7 +240,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_5009"
    VariableReference=(MemberName="Rho",MemberGuid=7B8B4C39C302D7450DE831F32D24A322,bSelfContext=True)
-   NodePosX=1440
+   NodePosX=1536
    NodePosY=176
    NodeGuid=C1702843EF21E8B32787541FE7CB0DA1
    CustomProperties Pin (PinId=6E5F4B921538B3F84FEEA2227C6CAA76,PinName="Rho",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_PromotableOperator_108 DE901C1DF309C61F91629C2B6B075AD1,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -251,7 +251,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node
    OperationName="Multiply"
    bDefaultsToPureFunc=True
    FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Multiply_DoubleDouble")
-   NodePosX=1584
+   NodePosX=1680
    NodePosY=272
    NodeGuid=BCCC9397D608C5B202B43D0958486A98
    CustomProperties Pin (PinId=E88DA7185AC6B060909B91E56238CDBE,PinName="A",PinToolTip="A\nFloat (double-precision)",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node_VariableGet_5010 973844FF819011FA6B3724669BE29231,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -261,7 +261,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_5010"
    VariableReference=(MemberName="Cd",MemberGuid=FCDA7033B4A540B4E262AF383A64BEE0,bSelfContext=True)
-   NodePosX=1440
+   NodePosX=1536
    NodePosY=272
    NodeGuid=4879C5B52CE6101B772489FAD13AEFB8
    CustomProperties Pin (PinId=973844FF819011FA6B3724669BE29231,PinName="Cd",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_PromotableOperator_109 E88DA7185AC6B060909B91E56238CDBE,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -270,7 +270,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_5011"
    VariableReference=(MemberName="Area",MemberGuid=4D334251440E6A552B9B461D2B377096,bSelfContext=True)
-   NodePosX=1440
+   NodePosX=1536
    NodePosY=320
    NodeGuid=3FB001AA8F528166041826469852D038
    CustomProperties Pin (PinId=FFBD8902AE803214F740ECEF0B78870A,PinName="Area",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_PromotableOperator_109 91A0A98D0163867980980A6C378CA12F,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -279,7 +279,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_CallFunction Name="K2Node_CallFunction_110"
    FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Square")
-   NodePosX=1888
+   NodePosX=1984
    NodePosY=368
    NodeGuid=3E289B806EBE6FFF4FBC6D751BB987FA
    CustomProperties Pin (PinId=EA5FF044EDFF6E398C89E48249CA246E,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultObject="/Script/Engine.Default__KismetMathLibrary",PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -289,7 +289,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_5012"
    VariableReference=(MemberName="Speed",MemberGuid=A394C0872C7C9F333F89A6A8F56B3957,bSelfContext=True)
-   NodePosX=1584
+   NodePosX=1680
    NodePosY=368
    NodeGuid=7C7A866AE99F05786E0540EE947AA543
    CustomProperties Pin (PinId=8EF0C54D105690853E5B4F1906CA3BA8,PinName="Speed",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_CallFunction_110 654CF3712CAB372FCE669A7C41D06D85,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -298,7 +298,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableSet Name="K2Node_VariableSet_5013"
    VariableReference=(MemberName="DragAx",MemberGuid=C4C7B213E24E92FE89822E21FD50503F,bSelfContext=True)
-   NodePosX=2448
+   NodePosX=2544
    NodePosY=176
    NodeGuid=091AA2DECD21BD3514E569334F95048F
    CustomProperties Pin (PinId=663DC18FC1B03A36FC89E48DE1365C67,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_ExecutionSequence_116 11154A827F5C282852D4D76B74F65CCD,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -312,7 +312,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node
    OperationName="Multiply"
    bDefaultsToPureFunc=True
    FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Multiply_DoubleDouble")
-   NodePosX=2176
+   NodePosX=2272
    NodePosY=448
    NodeGuid=DAF0000B80A740CF8D6EC690BA551D79
    CustomProperties Pin (PinId=1787C40C69AA13CD57D8C6A6CF5BDFFF,PinName="A",PinToolTip="A\nFloat (double-precision)",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node_PromotableOperator_112 0F6B4015679421B34B6B217CC19FB502,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -324,7 +324,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node
    OperationName="Divide"
    bDefaultsToPureFunc=True
    FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Divide_DoubleDouble")
-   NodePosX=1888
+   NodePosX=1984
    NodePosY=448
    NodeGuid=CFBD0CC294FF5CF5484F62CDF40A7826
    CustomProperties Pin (PinId=90BA0F42E0E7C45A60B0867CA1D57FF3,PinName="A",PinToolTip="A\nFloat (double-precision)",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node_VariableGet_5014 9284E26B1B75124E5BBC207887141C8A,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -334,7 +334,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_5014"
    VariableReference=(MemberName="Drag",MemberGuid=110D87C769556BB98DE999F225C2EBA5,bSelfContext=True)
-   NodePosX=1584
+   NodePosX=1680
    NodePosY=448
    NodeGuid=BD8769464A822504D39D4B3944A8F594
    CustomProperties Pin (PinId=9284E26B1B75124E5BBC207887141C8A,PinName="Drag",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_PromotableOperator_112 90BA0F42E0E7C45A60B0867CA1D57FF3,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -343,7 +343,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_CommutativeAssociativeBinaryOperator Name="K2Node_CommutativeAssociativeBinaryOperator_113"
    FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="FMax")
-   NodePosX=1584
+   NodePosX=1680
    NodePosY=496
    NodeGuid=861A2D6E7DEC851733A6B7B2CFB70D95
    CustomProperties Pin (PinId=CA2E2F853FBEDAAB6369C7562CAE8CBF,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultObject="/Script/Engine.Default__KismetMathLibrary",PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -354,7 +354,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_5015"
    VariableReference=(MemberName="Mass",MemberGuid=D8B369995D4A5A6243343B24D3D6D99C,bSelfContext=True)
-   NodePosX=1440
+   NodePosX=1536
    NodePosY=496
    NodeGuid=B5672E447BD744FF0E922B2A9346F418
    CustomProperties Pin (PinId=83B7904E46162436E1916B7568C6D01A,PinName="Mass",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_CommutativeAssociativeBinaryOperator_113 699F8C8B26E77599036C07C7283CAF8E,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -365,7 +365,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node
    OperationName="Multiply"
    bDefaultsToPureFunc=True
    FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Multiply_DoubleDouble")
-   NodePosX=1888
+   NodePosX=1984
    NodePosY=592
    NodeGuid=39C68C040A534B1D6D8487E35106591B
    CustomProperties Pin (PinId=BE2A4B77A23ABF0EAEB9A597589D04E9,PinName="A",PinToolTip="A\nFloat (double-precision)",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node_CallFunction_115 FEF893214BA54DEA2BAC4E7736AF9D77,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -375,7 +375,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_CallFunction Name="K2Node_CallFunction_115"
    FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="SignOfFloat")
-   NodePosX=1584
+   NodePosX=1680
    NodePosY=592
    NodeGuid=29746D5208FB52D46B659E3B49A234E4
    CustomProperties Pin (PinId=1E98C776A3D454764A5D95E9059E1D2D,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultObject="/Script/Engine.Default__KismetMathLibrary",PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -385,7 +385,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_5016"
    VariableReference=(MemberName="VelX",MemberGuid=ADFAAB3EE0C27F449AA906D145D478A3,bSelfContext=True)
-   NodePosX=1440
+   NodePosX=1536
    NodePosY=592
    NodeGuid=561F3F1E69A7B233779120980F178685
    CustomProperties Pin (PinId=0520D7A34B7FAF57198663AE27650B2C,PinName="VelX",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_CallFunction_115 91BF38DD84EE3C0B85C67CEC0CA6A138,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -393,7 +393,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_Variab
 End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_ExecutionSequence Name="K2Node_ExecutionSequence_116"
-   NodePosX=1408
+   NodePosX=1504
    NodePosY=64
    NodeGuid=37785D31843CD9BB459DD75F01AF6B1D
    CustomProperties Pin (PinId=F1FD7B4C5051F55D38158BFA61ED0E24,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_Knot_138 1DA91D634D6F539B4BC6D27275870880,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -406,7 +406,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node
    OperationName="Multiply"
    bDefaultsToPureFunc=True
    FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Multiply_DoubleDouble")
-   NodePosX=2928
+   NodePosX=3088
    NodePosY=208
    NodeGuid=E176F233852D8E37D659DC5659DBB9BE
    CustomProperties Pin (PinId=722FCA183B62E0C8DEE7F821485F023E,PinName="A",PinToolTip="A\nFloat (double-precision)",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node_VariableGet_5017 E218AD886233BD86C3BF84AAF2707CD7,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -416,7 +416,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_5017"
    VariableReference=(MemberName="Dt",MemberGuid=6A3314FCF7F0FE59793BAE7CEDDD3A9F,bSelfContext=True)
-   NodePosX=2752
+   NodePosX=2912
    NodePosY=208
    NodeGuid=8105FCDC0F5A4B66BF8388C0D9ED7E4A
    CustomProperties Pin (PinId=E218AD886233BD86C3BF84AAF2707CD7,PinName="Dt",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_PromotableOperator_117 722FCA183B62E0C8DEE7F821485F023E,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -425,7 +425,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_5018"
    VariableReference=(MemberName="TimeScale",MemberGuid=7C60E52CCF2B5789AFE63B69171BACD7,bSelfContext=True)
-   NodePosX=2752
+   NodePosX=2912
    NodePosY=256
    NodeGuid=367629C940438DFA78B6F681290CB575
    CustomProperties Pin (PinId=6A9F2E1117E7230441AA48400DDC7548,PinName="TimeScale",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_PromotableOperator_117 953A4679230818B441F785E3E49FF3EC,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -434,7 +434,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableSet Name="K2Node_VariableSet_5019"
    VariableReference=(MemberName="VelX",MemberGuid=475D1B3AF1F9FA884595A93E0BA29C66,bSelfContext=True)
-   NodePosX=3760
+   NodePosX=3920
    NodePosY=64
    NodeGuid=9E0961F196B5D9393DFC73788EF19C2A
    CustomProperties Pin (PinId=0E53DAFED9E359B9DEDBD54DD8563A17,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_ExecutionSequence_126 32B3496F6E6CCE4AAA077DC6D0F3D43E,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -448,7 +448,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node
    OperationName="Add"
    bDefaultsToPureFunc=True
    FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Add_DoubleDouble")
-   NodePosX=3552
+   NodePosX=3712
    NodePosY=272
    NodeGuid=0E5FB29422DF5E6BB0C76D9B4875451B
    CustomProperties Pin (PinId=6ED9039FD83B1EDA9F90007E26E1D749,PinName="A",PinToolTip="A\nFloat (double-precision)",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node_VariableGet_5020 A747FCF2196CDD31903E291C44387930,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -458,7 +458,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_5020"
    VariableReference=(MemberName="VelX",MemberGuid=C29179A4952E509A8745FB68693E944E,bSelfContext=True)
-   NodePosX=3344
+   NodePosX=3504
    NodePosY=272
    NodeGuid=4423A271CCB62798BA5E8D426F8438B5
    CustomProperties Pin (PinId=A747FCF2196CDD31903E291C44387930,PinName="VelX",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_PromotableOperator_118 6ED9039FD83B1EDA9F90007E26E1D749,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -469,7 +469,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node
    OperationName="Multiply"
    bDefaultsToPureFunc=True
    FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Multiply_DoubleDouble")
-   NodePosX=3344
+   NodePosX=3504
    NodePosY=320
    NodeGuid=054BD2DB486EE06B27185CC6AEC21E39
    CustomProperties Pin (PinId=FD0205D20CF4BF300130334389EB2F71,PinName="A",PinToolTip="A\nFloat (double-precision)",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node_VariableGet_5021 8069DF8E27F6AC0894CC89C1328D76D1,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -479,7 +479,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_5021"
    VariableReference=(MemberName="DragAx",MemberGuid=25EEE6BA0199E7AE03C7E82CE0A01DF3,bSelfContext=True)
-   NodePosX=3200
+   NodePosX=3360
    NodePosY=320
    NodeGuid=7FC743D81FF36C9E9260D37A024FE2D5
    CustomProperties Pin (PinId=8069DF8E27F6AC0894CC89C1328D76D1,PinName="DragAx",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_PromotableOperator_119 FD0205D20CF4BF300130334389EB2F71,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -488,7 +488,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableSet Name="K2Node_VariableSet_5022"
    VariableReference=(MemberName="VelZ",MemberGuid=27B83652180C411FF7D9222103E8738A,bSelfContext=True)
-   NodePosX=4512
+   NodePosX=4672
    NodePosY=64
    NodeGuid=8FDD0D886A8260936CF302B01FA9072A
    CustomProperties Pin (PinId=2F9A3A2A3156ADA8F618EF361B3B694A,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_VariableSet_5019 40205D0E36466339DF47681F34D3567E,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -502,7 +502,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node
    OperationName="Subtract"
    bDefaultsToPureFunc=True
    FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Subtract_DoubleDouble")
-   NodePosX=4304
+   NodePosX=4464
    NodePosY=272
    NodeGuid=F199B09B9840AC169F576457240E8720
    CustomProperties Pin (PinId=6413148F0DF629F491ACDF3CC7E0E1D1,PinName="A",PinToolTip="A\nFloat (double-precision)",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node_VariableGet_5023 CB8349B081227EBC9565DC18CAF1F2DF,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -512,7 +512,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_5023"
    VariableReference=(MemberName="VelZ",MemberGuid=234D4EAE51B0D24AC9718046A648F54C,bSelfContext=True)
-   NodePosX=4096
+   NodePosX=4256
    NodePosY=272
    NodeGuid=6036E9C07071CF708292A27A715AB239
    CustomProperties Pin (PinId=CB8349B081227EBC9565DC18CAF1F2DF,PinName="VelZ",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_PromotableOperator_120 6413148F0DF629F491ACDF3CC7E0E1D1,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -523,7 +523,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node
    OperationName="Multiply"
    bDefaultsToPureFunc=True
    FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Multiply_DoubleDouble")
-   NodePosX=4096
+   NodePosX=4256
    NodePosY=320
    NodeGuid=5D6D6CA69D519D0502475D91B27CEF28
    CustomProperties Pin (PinId=E9B419D3BEC69757F86401B248254ACD,PinName="A",PinToolTip="A\nFloat (double-precision)",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node_VariableGet_5024 80473912334CCAD9CFD16635A181E790,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -533,7 +533,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_5024"
    VariableReference=(MemberName="Gravity",MemberGuid=0AFF593BA2011D6E084306913F615D7B,bSelfContext=True)
-   NodePosX=3936
+   NodePosX=4096
    NodePosY=320
    NodeGuid=5632B1E9460ABC88B8CAD61AC39B6B84
    CustomProperties Pin (PinId=80473912334CCAD9CFD16635A181E790,PinName="Gravity",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_PromotableOperator_121 E9B419D3BEC69757F86401B248254ACD,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -542,7 +542,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableSet Name="K2Node_VariableSet_5025"
    VariableReference=(MemberName="PosX",MemberGuid=071DDF07C2A429F73A9613213423DE79,bSelfContext=True)
-   NodePosX=5248
+   NodePosX=5408
    NodePosY=64
    NodeGuid=DD636DA24BC3E826B1C82D9AFF25AA12
    CustomProperties Pin (PinId=2CF88708C29CF41EA175C6D169E472D9,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_VariableSet_5022 DC932C506C2AADC2152DDC33FD43C787,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -556,7 +556,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node
    OperationName="Add"
    bDefaultsToPureFunc=True
    FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Add_DoubleDouble")
-   NodePosX=5040
+   NodePosX=5200
    NodePosY=272
    NodeGuid=71BE57456DE2F65447D98C02F185D184
    CustomProperties Pin (PinId=8A3F95A5608CCA993B99162A0E3BD53D,PinName="A",PinToolTip="A\nFloat (double-precision)",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node_VariableGet_5026 F4EC1ADE3534F741DA9E9D7E3B197854,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -566,7 +566,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_5026"
    VariableReference=(MemberName="PosX",MemberGuid=D17C6507CB69562F25D13BAA5F35C91C,bSelfContext=True)
-   NodePosX=4832
+   NodePosX=4992
    NodePosY=272
    NodeGuid=AE1497CC553402315A1A0F51D4DA1937
    CustomProperties Pin (PinId=F4EC1ADE3534F741DA9E9D7E3B197854,PinName="PosX",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_PromotableOperator_122 8A3F95A5608CCA993B99162A0E3BD53D,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -577,7 +577,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node
    OperationName="Multiply"
    bDefaultsToPureFunc=True
    FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Multiply_DoubleDouble")
-   NodePosX=4832
+   NodePosX=4992
    NodePosY=320
    NodeGuid=64DD7137282DD427545AA83D8E1D3A25
    CustomProperties Pin (PinId=1D5DE7C41883DDD5310FFDA2CDF5DF01,PinName="A",PinToolTip="A\nFloat (double-precision)",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node_VariableGet_5027 D37E3EB20F74C041ACA473F30ED61CDE,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -587,7 +587,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_5027"
    VariableReference=(MemberName="VelX",MemberGuid=A3C7B54274218C00CBB224602D83DF2E,bSelfContext=True)
-   NodePosX=4704
+   NodePosX=4864
    NodePosY=320
    NodeGuid=135B1E6A5BC4269CBA072BF33BCD889B
    CustomProperties Pin (PinId=D37E3EB20F74C041ACA473F30ED61CDE,PinName="VelX",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_PromotableOperator_123 1D5DE7C41883DDD5310FFDA2CDF5DF01,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -596,7 +596,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableSet Name="K2Node_VariableSet_5028"
    VariableReference=(MemberName="PosZ",MemberGuid=E6F915E9E6ED7D04FF869C36E24DDEAF,bSelfContext=True)
-   NodePosX=5984
+   NodePosX=6144
    NodePosY=64
    NodeGuid=20C8AAB81E02E25B37DB147E6C5CC1F3
    CustomProperties Pin (PinId=D4C891652BF1A793C8DAA3286EFE67E7,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_VariableSet_5025 6C732EFF6EC186EDE60A2A59A3FBEC19,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -610,7 +610,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node
    OperationName="Add"
    bDefaultsToPureFunc=True
    FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Add_DoubleDouble")
-   NodePosX=5776
+   NodePosX=5936
    NodePosY=272
    NodeGuid=70B5FA52BE9CA55A2D758BD22E1D821A
    CustomProperties Pin (PinId=FFA59C4B44E83906F5787A72BDF2D3A9,PinName="A",PinToolTip="A\nFloat (double-precision)",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node_VariableGet_5029 670032E2085B2B9F544B425D435773DD,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -620,7 +620,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_5029"
    VariableReference=(MemberName="PosZ",MemberGuid=62A19ABCC20D53C417A9BAD980EBD888,bSelfContext=True)
-   NodePosX=5568
+   NodePosX=5728
    NodePosY=272
    NodeGuid=CFC2129E7582441A818EA00448F47747
    CustomProperties Pin (PinId=670032E2085B2B9F544B425D435773DD,PinName="PosZ",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_PromotableOperator_124 FFA59C4B44E83906F5787A72BDF2D3A9,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -631,7 +631,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node
    OperationName="Multiply"
    bDefaultsToPureFunc=True
    FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Multiply_DoubleDouble")
-   NodePosX=5568
+   NodePosX=5728
    NodePosY=320
    NodeGuid=86EE6A23B4076214C9F3954482C751C5
    CustomProperties Pin (PinId=298E7098E0F64D0EBE3DD7CDC9FA2CF0,PinName="A",PinToolTip="A\nFloat (double-precision)",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node_VariableGet_5030 8D338C9D62AD9C24C7F8DE5CDA66AE9D,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -641,7 +641,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_5030"
    VariableReference=(MemberName="VelZ",MemberGuid=2416FBF935E8E628B6B01E599F620B83,bSelfContext=True)
-   NodePosX=5440
+   NodePosX=5600
    NodePosY=320
    NodeGuid=44BFA7174020693524894A495A743218
    CustomProperties Pin (PinId=8D338C9D62AD9C24C7F8DE5CDA66AE9D,PinName="VelZ",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_PromotableOperator_125 298E7098E0F64D0EBE3DD7CDC9FA2CF0,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -649,7 +649,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_Variab
 End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_ExecutionSequence Name="K2Node_ExecutionSequence_126"
-   NodePosX=2752
+   NodePosX=2912
    NodePosY=64
    NodeGuid=20A7F732A0B5A82861D8C9AEDA001F87
    CustomProperties Pin (PinId=ADBD37D9903998896DACF12B757B5F7B,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_Knot_141 8FAB334B92D3B7DF936FCA321A4B0B44,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -658,7 +658,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_ExecutionSequence Name="K2Node_
 End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_IfThenElse Name="K2Node_IfThenElse_127"
-   NodePosX=7056
+   NodePosX=7280
    NodePosY=64
    NodeGuid=D9F6B250F31B2C34EA570E7469246914
    CustomProperties Pin (PinId=A9536304589A0D97F1607EAACEF6E619,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_ExecutionSequence_133 837946C10E5DD8E1B1A632FF9562D78E,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -671,7 +671,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node
    OperationName="Less"
    bDefaultsToPureFunc=True
    FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Less_DoubleDouble")
-   NodePosX=6784
+   NodePosX=7008
    NodePosY=144
    NodeGuid=9C2BBBADE5A344A6BBF01B079EAF1379
    CustomProperties Pin (PinId=432A197A1255F18E8C1A7392C8AA9730,PinName="A",PinToolTip="A\nFloat (double-precision)",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node_VariableGet_5031 C4F21F2A87E9D19214A4E2D85C513A1A,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -681,7 +681,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_5031"
    VariableReference=(MemberName="PosZ",MemberGuid=014A8CDDB116EFDB1DF54D20757DA114,bSelfContext=True)
-   NodePosX=6496
+   NodePosX=6720
    NodePosY=144
    NodeGuid=7C6D7E4526BCAA050579BCA6A3ABBAF0
    CustomProperties Pin (PinId=C4F21F2A87E9D19214A4E2D85C513A1A,PinName="PosZ",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_PromotableOperator_128 432A197A1255F18E8C1A7392C8AA9730,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -690,7 +690,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_5032"
    VariableReference=(MemberName="GroundZ",MemberGuid=46BB119ED247034253BDB7E15D5C0FF4,bSelfContext=True)
-   NodePosX=6496
+   NodePosX=6720
    NodePosY=192
    NodeGuid=5EFEB7C004C27247B797573E118E884F
    CustomProperties Pin (PinId=519D16639757860C0EDDCFC7A1BE13A4,PinName="GroundZ",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_PromotableOperator_128 4C792C448E451D516486E3DF0BC0804E,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -699,7 +699,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableSet Name="K2Node_VariableSet_5033"
    VariableReference=(MemberName="PosZ",MemberGuid=0F970670E6C3E141ACB960B64A392A5B,bSelfContext=True)
-   NodePosX=7968
+   NodePosX=8192
    NodePosY=64
    NodeGuid=9C77795D805729242D2D67AAC737A184
    CustomProperties Pin (PinId=96B78F7EF7161B2DE5FC672416646D13,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_IfThenElse_127 9FB6DBDBEC3F25C1C73B13669947F9F3,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -711,7 +711,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_5034"
    VariableReference=(MemberName="GroundZ",MemberGuid=C707CEC639EA0DBA772D698CC64E4879,bSelfContext=True)
-   NodePosX=7760
+   NodePosX=7984
    NodePosY=112
    NodeGuid=ACA2C5889DAD845457AA957A1CD1EBF8
    CustomProperties Pin (PinId=547A73343EB5677F472BB721CC3A8889,PinName="GroundZ",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_VariableSet_5033 6C4679B2E80EF4A999CDC6622D5DA5FE,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -720,7 +720,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableSet Name="K2Node_VariableSet_5035"
    VariableReference=(MemberName="VelZ",MemberGuid=FAFC7E59B024262176C40E8FF2F17951,bSelfContext=True)
-   NodePosX=7968
+   NodePosX=8192
    NodePosY=176
    NodeGuid=555A44B2FBD0E49444322FBB148845B3
    CustomProperties Pin (PinId=0D5460277CF321EE910E0FA9137A4A1D,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_VariableSet_5033 1A2D76BD189DFCC4C0B2BE67305FE69A,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -734,7 +734,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node
    OperationName="Multiply"
    bDefaultsToPureFunc=True
    FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Multiply_DoubleDouble")
-   NodePosX=7760
+   NodePosX=7984
    NodePosY=224
    NodeGuid=C8FDC91D5A715E18CC7B566E195614CF
    CustomProperties Pin (PinId=DFB3F2A5F08F2EA2AA3AE88566F09B11,PinName="A",PinToolTip="A\nFloat (double-precision)",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node_PromotableOperator_130 1F4DD30711C766F21CF2B72CB580039E,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -746,7 +746,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node
    OperationName="Multiply"
    bDefaultsToPureFunc=True
    FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Multiply_DoubleDouble")
-   NodePosX=7472
+   NodePosX=7696
    NodePosY=224
    NodeGuid=BAE9556578A5A809200108C06D6CF2E9
    CustomProperties Pin (PinId=5BB990C51E41348E4DD208C26151A7D2,PinName="A",PinToolTip="A\nFloat (double-precision)",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node_VariableGet_5036 6F71CC4EBA226110462416CA0D817570,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -756,7 +756,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_5036"
    VariableReference=(MemberName="VelZ",MemberGuid=99C2F94AA87C34CD8286DCB89FC663E3,bSelfContext=True)
-   NodePosX=7280
+   NodePosX=7504
    NodePosY=224
    NodeGuid=04F0DA2329596AE2DC68FCF6EBA8E562
    CustomProperties Pin (PinId=6F71CC4EBA226110462416CA0D817570,PinName="VelZ",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_PromotableOperator_130 5BB990C51E41348E4DD208C26151A7D2,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -765,7 +765,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_CallFunction Name="K2Node_CallFunction_131"
    FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="FClamp")
-   NodePosX=7472
+   NodePosX=7696
    NodePosY=320
    NodeGuid=39B6F58E95E5D452DF7E043211507EA3
    CustomProperties Pin (PinId=9548BBFB7D11FCFE8F7DB8F3884E3BEA,PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target"),PinType.PinCategory="object",PinType.PinSubCategory="",PinType.PinSubCategoryObject="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultObject="/Script/Engine.Default__KismetMathLibrary",PersistentGuid=00000000000000000000000000000000,bHidden=True,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -777,7 +777,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_5037"
    VariableReference=(MemberName="Restitution",MemberGuid=CF758B41136963425B19A4905B5ABC6B,bSelfContext=True)
-   NodePosX=7280
+   NodePosX=7504
    NodePosY=320
    NodeGuid=5FBCB34651D2721A7CFB1D6B9415EF0F
    CustomProperties Pin (PinId=F7D1DB7F437B9E187B417C55E7D2FA41,PinName="Restitution",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_CallFunction_131 B8E29F42F5D5FA254E714411DE1F98D3,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -786,7 +786,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableSet Name="K2Node_VariableSet_5038"
    VariableReference=(MemberName="Airtime",MemberGuid=00F867F04B4CD058CC8C32FE2BEF6F1A,bSelfContext=True)
-   NodePosX=7968
+   NodePosX=8192
    NodePosY=464
    NodeGuid=E7608AE1E27C37F9D6E3F40095418DA7
    CustomProperties Pin (PinId=437BDD6E26C8B095AB20B9191F08BC49,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_IfThenElse_127 8687069B9B96AAFC0E0E55AF60C0968C,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -800,7 +800,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node
    OperationName="Add"
    bDefaultsToPureFunc=True
    FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Add_DoubleDouble")
-   NodePosX=7760
+   NodePosX=7984
    NodePosY=512
    NodeGuid=25D8928999CF00BDD625FBBB935D9BF6
    CustomProperties Pin (PinId=0818338FD18BBAA9DF1C014FAE803B47,PinName="A",PinToolTip="A\nFloat (double-precision)",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node_VariableGet_5039 7DB87CD2B5C8BDA42CA7780F61838153,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -810,7 +810,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_5039"
    VariableReference=(MemberName="Airtime",MemberGuid=0AB8C7DFFE04802313E65B2694AFDB3F,bSelfContext=True)
-   NodePosX=7472
+   NodePosX=7696
    NodePosY=512
    NodeGuid=62B61D05AAEFC075F544D1252C9A6D17
    CustomProperties Pin (PinId=7DB87CD2B5C8BDA42CA7780F61838153,PinName="Airtime",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_PromotableOperator_132 0818338FD18BBAA9DF1C014FAE803B47,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -819,7 +819,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_5040"
    VariableReference=(MemberName="Dt",MemberGuid=73E06162DCF1B02518FCEBA94D142635,bSelfContext=True)
-   NodePosX=7472
+   NodePosX=7696
    NodePosY=560
    NodeGuid=C37EC42C276488391FFB86D68D83A865
    CustomProperties Pin (PinId=661CE65A10B1157A12FDD4B19BB8C0DC,PinName="Dt",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_PromotableOperator_132 933C2982D8601BFA3ACDA2AE36738EC5,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -827,7 +827,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_Variab
 End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_ExecutionSequence Name="K2Node_ExecutionSequence_133"
-   NodePosX=6272
+   NodePosX=6496
    NodePosY=64
    NodeGuid=6C177C99567912A4BFA9A3DBEFC3A2D4
    CustomProperties Pin (PinId=2AF4570AE76C4140373FB98BBBEF9DFB,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_Knot_148 A107FDB1661E574F80DCEDD325317313,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -837,7 +837,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_AddDelegate Name="K2Node_AddDelegate_5041"
    DelegateReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.Actor'",MemberName="OnActorHit")
-   NodePosX=8496
+   NodePosX=8784
    NodePosY=64
    NodeGuid=E1EEE724E12164C162F21265188C40D8
    CustomProperties Pin (PinId=C875DBEBB62FEE2411098172A85ADC65,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_ExecutionSequence_136 FF04E5F7E68D39BA3EFB2A17D2927964,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -848,7 +848,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_CustomEvent Name="K2Node_CustomEvent_5042"
    CustomFunctionName="OnProjectileHit"
-   NodePosX=8496
+   NodePosX=8784
    NodePosY=256
    NodeGuid=2A99FAB879E2EAC07FF00BA58AAA2E4D
    CustomProperties Pin (PinId=75022394D34FF38B801C625C011D2F0B,PinName="OutputDelegate",Direction="EGPD_Output",PinType.PinCategory="delegate",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(MemberName="OnProjectileHit"),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_AddDelegate_5041 76D69EC8186A815576F8997109573B01,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -865,7 +865,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableSet Name="K2Node_VariableSet_5043"
    VariableReference=(MemberName="Hits",MemberGuid=4612BB8C89DD85555AB84D0115652D0E,bSelfContext=True)
-   NodePosX=9104
+   NodePosX=9392
    NodePosY=256
    NodeGuid=3A6D5D6BB28183F95385E2B75C45BDCC
    CustomProperties Pin (PinId=3FF949470A212061603C1DFFEF05F15B,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_CustomEvent_5042 7AB22787C4A8980015981248295B091C,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -879,7 +879,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node
    OperationName="Add"
    bDefaultsToPureFunc=True
    FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Add_DoubleDouble")
-   NodePosX=8848
+   NodePosX=9136
    NodePosY=400
    NodeGuid=576B1DA5DBF8338FB302B5A832619EC7
    CustomProperties Pin (PinId=CF5F916D63A47E2B52D66AA1FE4B3766,PinName="A",PinToolTip="A\nFloat (double-precision)",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node_VariableGet_5044 8A627796F228087712E8AF47CF2FEB2E,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -889,7 +889,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_5044"
    VariableReference=(MemberName="Hits",MemberGuid=5DBB8CA4FB046794786C91C9C7404ACF,bSelfContext=True)
-   NodePosX=8720
+   NodePosX=9008
    NodePosY=400
    NodeGuid=EE13A72C459E4242E7A9B8D3035BE596
    CustomProperties Pin (PinId=8A627796F228087712E8AF47CF2FEB2E,PinName="Hits",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_PromotableOperator_134 CF5F916D63A47E2B52D66AA1FE4B3766,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -898,7 +898,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableSet Name="K2Node_VariableSet_5045"
    VariableReference=(MemberName="VelX",MemberGuid=34E9AE626AD8B9858C436B8ADD5E1B03,bSelfContext=True)
-   NodePosX=9552
+   NodePosX=9840
    NodePosY=256
    NodeGuid=09B3E5CACF41884D5B982922ECA9636F
    CustomProperties Pin (PinId=B7B3821B97E9D3A37417573DB92F1EDD,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_VariableSet_5043 9180520827C6E7D362F879B468DB2C15,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -912,7 +912,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_PromotableOperator Name="K2Node
    OperationName="Multiply"
    bDefaultsToPureFunc=True
    FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Multiply_DoubleDouble")
-   NodePosX=9296
+   NodePosX=9584
    NodePosY=400
    NodeGuid=2EDF658FF2A911B31393094E591384E6
    CustomProperties Pin (PinId=0E908334A336128A8BD3119776FC4C69,PinName="A",PinToolTip="A\nFloat (double-precision)",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,DefaultValue="0.0",AutogeneratedDefaultValue="0.0",LinkedTo=(K2Node_VariableGet_5046 7A2D24FE6E0AF61AD9386CC66610DF61,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -922,7 +922,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_5046"
    VariableReference=(MemberName="VelX",MemberGuid=44820C4ACD177672C67D19BDD01EA593,bSelfContext=True)
-   NodePosX=9168
+   NodePosX=9456
    NodePosY=400
    NodeGuid=8461D5F8C3441AAB5DBAB53363B9846D
    CustomProperties Pin (PinId=7A2D24FE6E0AF61AD9386CC66610DF61,PinName="VelX",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_PromotableOperator_135 0E908334A336128A8BD3119776FC4C69,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -931,7 +931,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_AddDelegate Name="K2Node_AddDelegate_5047"
    DelegateReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.Actor'",MemberName="OnDestroyed")
-   NodePosX=9792
+   NodePosX=10080
    NodePosY=64
    NodeGuid=D9B6B46EA4F1FBE39DECCE38329243BF
    CustomProperties Pin (PinId=F11498AFC5A7D99492127C2F0F55F054,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_AddDelegate_5041 336AE522B20AF20795191056A556DB4C,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -942,7 +942,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_CustomEvent Name="K2Node_CustomEvent_5048"
    CustomFunctionName="OnProjectileDestroyed"
-   NodePosX=9792
+   NodePosX=10080
    NodePosY=256
    NodeGuid=6ECD674C4D9AAABAC035C127F6339A7B
    CustomProperties Pin (PinId=543EE079F859F94B3E0219CB06FED727,PinName="OutputDelegate",Direction="EGPD_Output",PinType.PinCategory="delegate",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(MemberName="OnProjectileDestroyed"),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_AddDelegate_5047 53469F08C3DEFD529879CDCFA5A26DDF,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -953,7 +953,7 @@ End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_VariableSet Name="K2Node_VariableSet_5049"
    VariableReference=(MemberName="Airtime",MemberGuid=C8AAFA6AB168D03106379B9128A10B2A,bSelfContext=True)
-   NodePosX=10144
+   NodePosX=10432
    NodePosY=256
    NodeGuid=1644263721AA4A3A13BEACCDC23B6435
    CustomProperties Pin (PinId=AF72470CB84CC139044609B3113B1C9D,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_CustomEvent_5048 1658807CF1312395FE2613E4DD404476,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -964,7 +964,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_VariableSet Name="K2Node_Variab
 End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_ExecutionSequence Name="K2Node_ExecutionSequence_136"
-   NodePosX=8272
+   NodePosX=8560
    NodePosY=64
    NodeGuid=C2043E7786C892AFC131651F2A8EA06B
    CustomProperties Pin (PinId=8A16C539BD026877E8820B4359C52F66,PinName="execute",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_Knot_151 C5FF977BDF9BE575C904C3E53AB32B15,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -973,7 +973,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_ExecutionSequence Name="K2Node_
 End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_Knot Name="K2Node_Knot_137"
-   NodePosX=496
+   NodePosX=528
    NodePosY=544
    NodeGuid=753CEA35F8FA57C7F7C08C6F8A44608E
    CustomProperties Pin (PinId=893FDB831A6327EB683AB4588BBA7EF1,PinName="InputPin",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_ExecutionSequence_105 9F29E848679B866B081ED356A5B463DA,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=True,bAdvancedView=False,bOrphanedPin=False,)
@@ -981,7 +981,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_Knot Name="K2Node_Knot_137"
 End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_Knot Name="K2Node_Knot_138"
-   NodePosX=1280
+   NodePosX=1344
    NodePosY=544
    NodeGuid=0A9B1EE2D49699992EBF9E165B6E5C26
    CustomProperties Pin (PinId=78162895769636169BF91231F5200C2B,PinName="InputPin",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_Knot_137 1276F24695467F7B83B532688F2A8104,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=True,bAdvancedView=False,bOrphanedPin=False,)
@@ -989,7 +989,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_Knot Name="K2Node_Knot_138"
 End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_Knot Name="K2Node_Knot_140"
-   NodePosX=1584
+   NodePosX=1680
    NodePosY=720
    NodeGuid=1A48D7172D74FB61213EF2CFEB7220F4
    CustomProperties Pin (PinId=B51885D2A654ED7DFFBB798FF35A0EB6,PinName="InputPin",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_ExecutionSequence_116 DEE79C91EA9DF5AB435676A09C7D0313,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=True,bAdvancedView=False,bOrphanedPin=False,)
@@ -997,7 +997,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_Knot Name="K2Node_Knot_140"
 End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_Knot Name="K2Node_Knot_141"
-   NodePosX=2624
+   NodePosX=2752
    NodePosY=720
    NodeGuid=571BECBE575464EAE0A4FEB5DE2A447F
    CustomProperties Pin (PinId=2C52228E30ED8621857298E1D61F82CB,PinName="InputPin",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_Knot_140 B6D224C27A42D95E6D9C4F144AC966F3,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=True,bAdvancedView=False,bOrphanedPin=False,)
@@ -1005,7 +1005,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_Knot Name="K2Node_Knot_141"
 End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_Knot Name="K2Node_Knot_143"
-   NodePosX=3296
+   NodePosX=3456
    NodePosY=224
    NodeGuid=B071F356BE4A29FDB5B0101401610BC3
    CustomProperties Pin (PinId=DFC7D5939CB088BE83D9D378E4C94E3E,PinName="InputPin",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_PromotableOperator_117 67B8640DB184D926A08425493F9DB41C,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=True,bAdvancedView=False,bOrphanedPin=False,)
@@ -1013,7 +1013,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_Knot Name="K2Node_Knot_143"
 End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_Knot Name="K2Node_Knot_144"
-   NodePosX=4048
+   NodePosX=4208
    NodePosY=224
    NodeGuid=834F3A496939B83A4EB5DF871ACF4ADD
    CustomProperties Pin (PinId=E394D08E3E8CBAAE5E79D7B92C27C946,PinName="InputPin",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_Knot_143 4C62C36C55E5886E10532354587BBBA3,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=True,bAdvancedView=False,bOrphanedPin=False,)
@@ -1021,7 +1021,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_Knot Name="K2Node_Knot_144"
 End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_Knot Name="K2Node_Knot_145"
-   NodePosX=4784
+   NodePosX=4944
    NodePosY=224
    NodeGuid=A32E997A8B851FF3DD8FD52F63E89BB7
    CustomProperties Pin (PinId=82524715069E70596695ABBCD17C0483,PinName="InputPin",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_Knot_144 61C2AC5A98A02A4598E4A86623EEC22C,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=True,bAdvancedView=False,bOrphanedPin=False,)
@@ -1029,7 +1029,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_Knot Name="K2Node_Knot_145"
 End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_Knot Name="K2Node_Knot_146"
-   NodePosX=5520
+   NodePosX=5680
    NodePosY=224
    NodeGuid=DFF2968489B5B06A56192FCE7ABE2BAD
    CustomProperties Pin (PinId=367FAA28CDAD9C34A786BFD1E59DE0AC,PinName="InputPin",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_Knot_145 87871F54A053EE4212FE27E85678A1DC,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=True,bAdvancedView=False,bOrphanedPin=False,)
@@ -1037,7 +1037,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_Knot Name="K2Node_Knot_146"
 End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_Knot Name="K2Node_Knot_147"
-   NodePosX=2928
+   NodePosX=3088
    NodePosY=432
    NodeGuid=F58E86BCD2CE396E95F3A733DBC2D0AF
    CustomProperties Pin (PinId=A0950D0D64A4A0B85EFA8FD2A9C0FCB9,PinName="InputPin",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_ExecutionSequence_126 2A6619D67918C8A49A320E6FBE73E560,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=True,bAdvancedView=False,bOrphanedPin=False,)
@@ -1045,7 +1045,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_Knot Name="K2Node_Knot_147"
 End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_Knot Name="K2Node_Knot_148"
-   NodePosX=6144
+   NodePosX=6336
    NodePosY=432
    NodeGuid=05507AFCFB1297E68493C65E23AA52E7
    CustomProperties Pin (PinId=836C7954A1F56AD80E95DCCF97991ABC,PinName="InputPin",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_Knot_147 1528C08AAF77CC58067F508E97ACABB1,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=True,bAdvancedView=False,bOrphanedPin=False,)
@@ -1053,7 +1053,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_Knot Name="K2Node_Knot_148"
 End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_Knot Name="K2Node_Knot_150"
-   NodePosX=6448
+   NodePosX=6672
    NodePosY=640
    NodeGuid=73644B3A2272A9B355536EAAE975DA65
    CustomProperties Pin (PinId=5CDA57DA037E3FB4C083F10655672B6E,PinName="InputPin",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_ExecutionSequence_133 9F79BA6A45A969E6763FBD59B0993DD1,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=True,bAdvancedView=False,bOrphanedPin=False,)
@@ -1061,7 +1061,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_Knot Name="K2Node_Knot_150"
 End Object
 
 Begin Object Class=/Script/BlueprintGraph.K2Node_Knot Name="K2Node_Knot_151"
-   NodePosX=8144
+   NodePosX=8400
    NodePosY=640
    NodeGuid=2F707B4753B10DE0002BF66C29A81EA8
    CustomProperties Pin (PinId=B5B0FB8258EB4EFA7286C2160D8CA1C0,PinName="InputPin",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,LinkedTo=(K2Node_Knot_150 1C4F1E3B02E2583A98FBDA6A46CB47E3,),PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=True,bAdvancedView=False,bOrphanedPin=False,)

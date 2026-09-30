@@ -180,7 +180,7 @@ function createExecReroutes(nodes, { levels = [] } = {}) {
   for (const [source,out,target,input] of jobs) {
     out.linkedTo = out.linkedTo.filter(l => l.pinId !== input.id);
     input.linkedTo = input.linkedTo.filter(l => l.pinId !== out.id);
-    const points = transferRoute(source, out, target, input, { levels });
+    const points = mergeCloseKnots(transferRoute(source, out, target, input, { levels }));
     let previousNode = source, previousPin = out;
     for (const { x, y } of points) {
       const knot = createKnot({ x, y }, 'exec');
@@ -194,6 +194,23 @@ function createExecReroutes(nodes, { levels = [] } = {}) {
     input.linkedTo.push({ nodeName: previousNode.id, pinId: previousPin.id });
   }
   return knots;
+}
+
+/**
+ * Правило пользователя (2026-10-01): связанные knot'ы одного переноса не ставятся ближе MIN_KNOT_GAP
+ * друг к другу — соседние точки ближе порога (по max(|dx|,|dy|)) сливаются в одну: X ранней точки (вертикаль
+ * не сдвигается), Y поздней (дальше к цели провод идёт по строке пина-входа). K3+K4 (одна строка, 16px) → один
+ * knot; стадиум с ΔY=16 (K2,K3,K4 в клетке 3×2) → K1 + один knot.
+ */
+export const MIN_KNOT_GAP = 48;
+export function mergeCloseKnots(points, minGap = MIN_KNOT_GAP) {
+  const outPts = [];
+  for (const p of points) {
+    const last = outPts[outPts.length - 1];
+    if (last && Math.max(Math.abs(p.x - last.x), Math.abs(p.y - last.y)) < minGap) outPts[outPts.length - 1] = { ...last, y: p.y };
+    else outPts.push(p);
+  }
+  return outPts;
 }
 
 /**

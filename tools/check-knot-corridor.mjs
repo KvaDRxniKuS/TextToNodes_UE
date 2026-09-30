@@ -10,7 +10,8 @@
  *   · K1 сидит на пине-выходе, выход K4 — на пине-входа (провода по нулевой длине),
  *   · вертикаль переноса идёт по СВОБОДНОЙ КОЛОНКЕ: не перечёркивает прямоугольники нод,
  *     а внутри ряда knot'ы не вылезают за щель между соседями.
- * Для совместимости принимается и старая «пара» (2 knot'а с общим Y коридора).
+ * С 2026-10-01 соседние knot'ы ближе MIN_KNOT_GAP сливаются → переносы из 1–3 knot'ов тоже законны;
+ * проверяется: K1 на пине-выходе, последний knot на строке входа, соседи не ближе порога.
  *
  * Использование:
  *   node tools/check-knot-corridor.mjs [tests/three-stage-01.stage2-arranger.txt]
@@ -20,6 +21,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseToGraphs } from '../src/parser.js';
 import { estNodeWidth, estNodeHeight, pinCenterY } from '../src/generator.js';
+import { MIN_KNOT_GAP } from '../src/arranger.js';
 import { isKnot, flatLinks, buildLevels, pinCenterX, KNOT_W } from '../src/decorator.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -44,21 +46,18 @@ for (const l of flatLinks(nodes).filter(x => x.via.length)) {
   const xOut = pinCenterX(l.source, l.out), xIn = pinCenterX(l.target, l.input);
   const problems = [];
   let vx = null;
-  if (v.length === 4) {
-    const [k1, k2, k3, k4] = v;
-    if (!(knotPinY(k1) === srcPinY && knotPinY(k2) === srcPinY))
-      problems.push(`первые два knot'а не на строке пина-выхода: Y ${knotPinY(k1)}, ${knotPinY(k2)} при пине ${srcPinY}`);
-    if (!(knotPinY(k3) === tgtPinY && knotPinY(k4) === tgtPinY))
-      problems.push(`последние два knot'а не на строке пина-входа: Y ${knotPinY(k3)}, ${knotPinY(k4)} при пине ${tgtPinY}`);
-    if (k1.pos.x !== xOut) problems.push(`K1 не на пине-выходе: x=${k1.pos.x} / ${xOut}`);
-    if (k2.pos.x + KNOT_W !== k3.pos.x) problems.push(`вертикаль не соосна: x K2+${KNOT_W}=${k2.pos.x + KNOT_W} ≠ x K3=${k3.pos.x}`);
-    if (k4.pos.x + KNOT_W !== xIn) problems.push(`выход K4 не на пине-входе: x=${k4.pos.x + KNOT_W} / ${xIn}`);
-    vx = k3.pos.x;
-  } else if (v.length === 2) {
-    if (v[0].pos.y !== v[1].pos.y) problems.push(`пара knot'ов без общего Y: ${v[0].pos.y} / ${v[1].pos.y}`);
-    vx = v[1].pos.x;
-  } else {
-    problems.push(`перенос из ${v.length} knot'ов — не стадиум (4) и не пара (2)`);
+  // стадиум K1..K4 после слияния близких knot'ов (правило 2026-10-01, MIN_KNOT_GAP): 1–4 knot'а
+  if (!v.length || v.length > 4) problems.push(`перенос из ${v.length} knot'ов`);
+  else {
+    const first = v[0], last = v[v.length - 1];
+    if (knotPinY(first) !== srcPinY) problems.push(`K1 не на строке пина-выхода: Y ${knotPinY(first)} / ${srcPinY}`);
+    if (first.pos.x !== xOut) problems.push(`K1 не на пине-выходе: x=${first.pos.x} / ${xOut}`);
+    if (v.length > 1 && knotPinY(last) !== tgtPinY) problems.push(`последний knot не на строке пина-входа: Y ${knotPinY(last)} / ${tgtPinY}`);
+    for (let q = 1; q < v.length; q++) {
+      const d = Math.max(Math.abs(v[q].pos.x - v[q - 1].pos.x), Math.abs(v[q].pos.y - v[q - 1].pos.y));
+      if (d < MIN_KNOT_GAP) problems.push(`соседние knot'ы ближе ${MIN_KNOT_GAP}px (${d})`);
+    }
+    vx = v.length >= 3 ? v[2].pos.x : last.pos.x;
   }
 
   const ls = levelOf.get(l.source.id), lt = levelOf.get(l.target.id);
