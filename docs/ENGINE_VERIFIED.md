@@ -1224,3 +1224,7 @@ Actor.SetCanBeDamaged → переменная `bCanBeDamaged` (Set, self Actor)
 161 нода: Text 11, String 13, MathVec 12, MathMisc 15, Vec2Color 12, Time 8, CharMove 16, Actor 13, Scene 15,
 Prim 15, Debug 14, DataAnim 17. Новое: структуры DateTime/Timespan, энамы ERoundingMode, ERelativeTransformSpace,
 EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
+
+## R48 — вердикт (2026-10-01)
+Компиляция без ошибок; 160 из 161 в реестре. Не встала: Character.SetAnimRootMotionTranslationScale
+(в UE 5.8 не BlueprintCallable). DateTime/Timespan и 3 энама R48 подтверждены.

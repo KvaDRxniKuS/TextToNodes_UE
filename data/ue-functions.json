@@ -32956,5 +32956,5442 @@
   "verified": true,
   "desc": "Get Child At",
   "probe": "R47 проба (UI) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Child At (член PanelWidget, pure)"
+ },
+ {
+  "id": "Conv_IntToText",
+  "title": "Conv Int To Text",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Conv_IntToText",
+  "lib": "KismetTextLibrary",
+  "pins": [
+   {
+    "name": "Value",
+    "dir": "Input",
+    "cat": "int"
+   },
+   {
+    "name": "bAlwaysSign",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "bUseGrouping",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   },
+   {
+    "name": "MinimumIntegralDigits",
+    "dir": "Input",
+    "cat": "int",
+    "dv": "1",
+    "autoDv": ""
+   },
+   {
+    "name": "MaximumIntegralDigits",
+    "dir": "Input",
+    "cat": "int",
+    "dv": "324",
+    "autoDv": ""
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "text"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Conv_IntToText",
+  "probe": "R48 проба (Text) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Conv_IntToText (KismetTextLibrary, pure)"
+ },
+ {
+  "id": "Conv_DoubleToText",
+  "title": "Conv Double To Text",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Conv_DoubleToText",
+  "lib": "KismetTextLibrary",
+  "pins": [
+   {
+    "name": "Value",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "RoundingMode",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ERoundingMode"
+   },
+   {
+    "name": "bAlwaysSign",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "bUseGrouping",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   },
+   {
+    "name": "MinimumIntegralDigits",
+    "dir": "Input",
+    "cat": "int",
+    "dv": "1",
+    "autoDv": ""
+   },
+   {
+    "name": "MaximumIntegralDigits",
+    "dir": "Input",
+    "cat": "int",
+    "dv": "324",
+    "autoDv": ""
+   },
+   {
+    "name": "MinimumFractionalDigits",
+    "dir": "Input",
+    "cat": "int",
+    "dv": "0",
+    "autoDv": ""
+   },
+   {
+    "name": "MaximumFractionalDigits",
+    "dir": "Input",
+    "cat": "int",
+    "dv": "3",
+    "autoDv": ""
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "text"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Conv_DoubleToText",
+  "probe": "R48 проба (Text) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Conv_DoubleToText (KismetTextLibrary, pure)"
+ },
+ {
+  "id": "Conv_BoolToText",
+  "title": "Conv Bool To Text",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Conv_BoolToText",
+  "lib": "KismetTextLibrary",
+  "pins": [
+   {
+    "name": "InBool",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "text"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Conv_BoolToText",
+  "probe": "R48 проба (Text) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Conv_BoolToText (KismetTextLibrary, pure)"
+ },
+ {
+  "id": "Conv_NameToText",
+  "title": "Conv Name To Text",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Conv_NameToText",
+  "lib": "KismetTextLibrary",
+  "pins": [
+   {
+    "name": "InName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "text"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Conv_NameToText",
+  "probe": "R48 проба (Text) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Conv_NameToText (KismetTextLibrary, pure)"
+ },
+ {
+  "id": "EqualEqual_TextText",
+  "title": "Equal Equal Text Text",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "EqualEqual_TextText",
+  "lib": "KismetTextLibrary",
+  "pins": [
+   {
+    "name": "A",
+    "dir": "Input",
+    "cat": "text"
+   },
+   {
+    "name": "B",
+    "dir": "Input",
+    "cat": "text"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "EqualEqual_TextText",
+  "probe": "R48 проба (Text) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). EqualEqual_TextText (KismetTextLibrary, pure)"
+ },
+ {
+  "id": "NotEqual_TextText",
+  "title": "Not Equal Text Text",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "NotEqual_TextText",
+  "lib": "KismetTextLibrary",
+  "pins": [
+   {
+    "name": "A",
+    "dir": "Input",
+    "cat": "text"
+   },
+   {
+    "name": "B",
+    "dir": "Input",
+    "cat": "text"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "NotEqual_TextText",
+  "probe": "R48 проба (Text) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). NotEqual_TextText (KismetTextLibrary, pure)"
+ },
+ {
+  "id": "TextToUpper",
+  "title": "Text To Upper",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "TextToUpper",
+  "lib": "KismetTextLibrary",
+  "pins": [
+   {
+    "name": "InText",
+    "dir": "Input",
+    "cat": "text"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "text"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "TextToUpper",
+  "probe": "R48 проба (Text) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). TextToUpper (KismetTextLibrary, pure)"
+ },
+ {
+  "id": "TextToLower",
+  "title": "Text To Lower",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "TextToLower",
+  "lib": "KismetTextLibrary",
+  "pins": [
+   {
+    "name": "InText",
+    "dir": "Input",
+    "cat": "text"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "text"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "TextToLower",
+  "probe": "R48 проба (Text) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). TextToLower (KismetTextLibrary, pure)"
+ },
+ {
+  "id": "TextTrimPrecedingAndTrailing",
+  "title": "Text Trim Preceding And Trailing",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "TextTrimPrecedingAndTrailing",
+  "lib": "KismetTextLibrary",
+  "pins": [
+   {
+    "name": "InText",
+    "dir": "Input",
+    "cat": "text"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "text"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "TextTrimPrecedingAndTrailing",
+  "probe": "R48 проба (Text) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). TextTrimPrecedingAndTrailing (KismetTextLibrary, pure)"
+ },
+ {
+  "id": "AsDateTime_DateTime",
+  "title": "As Date Time Date Time",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AsDateTime_DateTime",
+  "lib": "KismetTextLibrary",
+  "pins": [
+   {
+    "name": "InDateTime",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "DateTime",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "text"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "AsDateTime_DateTime",
+  "probe": "R48 проба (Text) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). AsDateTime_DateTime (KismetTextLibrary, pure)"
+ },
+ {
+  "id": "AsTimespan_Timespan",
+  "title": "As Timespan Timespan",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AsTimespan_Timespan",
+  "lib": "KismetTextLibrary",
+  "pins": [
+   {
+    "name": "InTimespan",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Timespan",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "text"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "AsTimespan_Timespan",
+  "probe": "R48 проба (Text) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). AsTimespan_Timespan (KismetTextLibrary, pure)"
+ },
+ {
+  "id": "Conv_NameToString",
+  "title": "Conv Name To String",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Conv_NameToString",
+  "lib": "KismetStringLibrary",
+  "pins": [
+   {
+    "name": "InName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "string"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Conv_NameToString",
+  "probe": "R48 проба (String) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Conv_NameToString (KismetStringLibrary, pure)"
+ },
+ {
+  "id": "Conv_StringToName",
+  "title": "Conv String To Name",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Conv_StringToName",
+  "lib": "KismetStringLibrary",
+  "pins": [
+   {
+    "name": "InString",
+    "dir": "Input",
+    "cat": "string"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "name"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Conv_StringToName",
+  "probe": "R48 проба (String) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Conv_StringToName (KismetStringLibrary, pure)"
+ },
+ {
+  "id": "Conv_RotatorToString",
+  "title": "Conv Rotator To String",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Conv_RotatorToString",
+  "lib": "KismetStringLibrary",
+  "pins": [
+   {
+    "name": "InRot",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Rotator",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "string"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Conv_RotatorToString",
+  "probe": "R48 проба (String) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Conv_RotatorToString (KismetStringLibrary, pure)"
+ },
+ {
+  "id": "Conv_ColorToString",
+  "title": "Conv Color To String",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Conv_ColorToString",
+  "lib": "KismetStringLibrary",
+  "pins": [
+   {
+    "name": "InColor",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "string"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Conv_ColorToString",
+  "probe": "R48 проба (String) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Conv_ColorToString (KismetStringLibrary, pure)"
+ },
+ {
+  "id": "Conv_Vector2dToString",
+  "title": "Conv Vector2d To String",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Conv_Vector2dToString",
+  "lib": "KismetStringLibrary",
+  "pins": [
+   {
+    "name": "InVec",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector2D",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "string"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Conv_Vector2dToString",
+  "probe": "R48 проба (String) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Conv_Vector2dToString (KismetStringLibrary, pure)"
+ },
+ {
+  "id": "Conv_TransformToString",
+  "title": "Conv Transform To String",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Conv_TransformToString",
+  "lib": "KismetStringLibrary",
+  "pins": [
+   {
+    "name": "InTrans",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Transform",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "string"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Conv_TransformToString",
+  "probe": "R48 проба (String) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Conv_TransformToString (KismetStringLibrary, pure)"
+ },
+ {
+  "id": "GetSubstring",
+  "title": "Get Substring",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetSubstring",
+  "lib": "KismetStringLibrary",
+  "pins": [
+   {
+    "name": "SourceString",
+    "dir": "Input",
+    "cat": "string"
+   },
+   {
+    "name": "StartIndex",
+    "dir": "Input",
+    "cat": "int",
+    "dv": "0",
+    "autoDv": ""
+   },
+   {
+    "name": "Length",
+    "dir": "Input",
+    "cat": "int",
+    "dv": "1",
+    "autoDv": ""
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "string"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetSubstring",
+  "probe": "R48 проба (String) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetSubstring (KismetStringLibrary, pure)"
+ },
+ {
+  "id": "TimeSecondsToString",
+  "title": "Time Seconds To String",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "TimeSecondsToString",
+  "lib": "KismetStringLibrary",
+  "pins": [
+   {
+    "name": "InSeconds",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "string"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "TimeSecondsToString",
+  "probe": "R48 проба (String) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). TimeSecondsToString (KismetStringLibrary, pure)"
+ },
+ {
+  "id": "EqualEqual_StriStri",
+  "title": "Equal Equal Stri Stri",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "EqualEqual_StriStri",
+  "lib": "KismetStringLibrary",
+  "pins": [
+   {
+    "name": "A",
+    "dir": "Input",
+    "cat": "string"
+   },
+   {
+    "name": "B",
+    "dir": "Input",
+    "cat": "string"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "EqualEqual_StriStri",
+  "probe": "R48 проба (String) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). EqualEqual_StriStri (KismetStringLibrary, pure)"
+ },
+ {
+  "id": "Conv_StringToVector",
+  "title": "Conv String To Vector",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Conv_StringToVector",
+  "lib": "KismetStringLibrary",
+  "pins": [
+   {
+    "name": "InString",
+    "dir": "Input",
+    "cat": "string"
+   },
+   {
+    "name": "OutConvertedVector",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   },
+   {
+    "name": "OutIsValid",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Conv_StringToVector",
+  "probe": "R48 проба (String) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Conv_StringToVector (KismetStringLibrary, pure)"
+ },
+ {
+  "id": "Conv_StringToRotator",
+  "title": "Conv String To Rotator",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Conv_StringToRotator",
+  "lib": "KismetStringLibrary",
+  "pins": [
+   {
+    "name": "InString",
+    "dir": "Input",
+    "cat": "string"
+   },
+   {
+    "name": "OutConvertedRotator",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Rotator"
+   },
+   {
+    "name": "OutIsValid",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Conv_StringToRotator",
+  "probe": "R48 проба (String) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Conv_StringToRotator (KismetStringLibrary, pure)"
+ },
+ {
+  "id": "MatchesWildcard",
+  "title": "Matches Wildcard",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "MatchesWildcard",
+  "lib": "KismetStringLibrary",
+  "pins": [
+   {
+    "name": "SourceString",
+    "dir": "Input",
+    "cat": "string"
+   },
+   {
+    "name": "Wildcard",
+    "dir": "Input",
+    "cat": "string"
+   },
+   {
+    "name": "SearchCase",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ESearchCase"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "MatchesWildcard",
+  "probe": "R48 проба (String) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). MatchesWildcard (KismetStringLibrary, pure)"
+ },
+ {
+  "id": "GetCharacterArrayFromString",
+  "title": "Get Character Array From String",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetCharacterArrayFromString",
+  "lib": "KismetStringLibrary",
+  "pins": [
+   {
+    "name": "SourceString",
+    "dir": "Input",
+    "cat": "string"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "string",
+    "container": "Array"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetCharacterArrayFromString",
+  "probe": "R48 проба (String) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetCharacterArrayFromString (KismetStringLibrary, pure)"
+ },
+ {
+  "id": "NegateVector",
+  "title": "Negate Vector",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "NegateVector",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "A",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "NegateVector",
+  "probe": "R48 проба (MathVec) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). NegateVector (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "Vector_GetAbs",
+  "title": "Vector Get Abs",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Vector_GetAbs",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "A",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Vector_GetAbs",
+  "probe": "R48 проба (MathVec) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Vector_GetAbs (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "ClampVectorSize",
+  "title": "Clamp Vector Size",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ClampVectorSize",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "A",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "Min",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "Max",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "ClampVectorSize",
+  "probe": "R48 проба (MathVec) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). ClampVectorSize (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "RotateAngleAxis",
+  "title": "Rotate Angle Axis",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "RotateAngleAxis",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "InVect",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "AngleDeg",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "Axis",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "RotateAngleAxis",
+  "probe": "R48 проба (MathVec) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). RotateAngleAxis (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "LessLess_VectorRotator",
+  "title": "Less Less Vector Rotator",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "LessLess_VectorRotator",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "A",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "B",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Rotator",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "LessLess_VectorRotator",
+  "probe": "R48 проба (MathVec) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). LessLess_VectorRotator (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "Conv_VectorToRotator",
+  "title": "Conv Vector To Rotator",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Conv_VectorToRotator",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "InVec",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Rotator"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Conv_VectorToRotator",
+  "probe": "R48 проба (MathVec) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Conv_VectorToRotator (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "Conv_RotatorToVector",
+  "title": "Conv Rotator To Vector",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Conv_RotatorToVector",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "InRot",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Rotator",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Conv_RotatorToVector",
+  "probe": "R48 проба (MathVec) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Conv_RotatorToVector (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "GetReflectionVector",
+  "title": "Get Reflection Vector",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetReflectionVector",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "Direction",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "SurfaceNormal",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetReflectionVector",
+  "probe": "R48 проба (MathVec) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetReflectionVector (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "RandomUnitVector",
+  "title": "Random Unit Vector",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "RandomUnitVector",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "RandomUnitVector",
+  "probe": "R48 проба (MathVec) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). RandomUnitVector (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "RandomRotator",
+  "title": "Random Rotator",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "RandomRotator",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "bRoll",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Rotator"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "RandomRotator",
+  "probe": "R48 проба (MathVec) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). RandomRotator (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "EqualEqual_VectorVector",
+  "title": "Equal Equal Vector Vector",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "EqualEqual_VectorVector",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "A",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "B",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "ErrorTolerance",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.000100",
+    "autoDv": ""
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "EqualEqual_VectorVector",
+  "probe": "R48 проба (MathVec) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). EqualEqual_VectorVector (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "Vector_Normal2D",
+  "title": "Vector Normal2 D",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Vector_Normal2D",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "A",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "Tolerance",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.000100",
+    "autoDv": ""
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Vector_Normal2D",
+  "probe": "R48 проба (MathVec) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Vector_Normal2D (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "FInterpEaseInOut",
+  "title": "FInterp Ease In Out",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "FInterpEaseInOut",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "A",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "B",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "Alpha",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "Exponent",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "FInterpEaseInOut",
+  "probe": "R48 проба (MathMisc) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). FInterpEaseInOut (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "SafeDivide",
+  "title": "Safe Divide",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SafeDivide",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "A",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "B",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "SafeDivide",
+  "probe": "R48 проба (MathMisc) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). SafeDivide (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "FWrap",
+  "title": "FWrap",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "FWrap",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "Value",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "Min",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "Max",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "FWrap",
+  "probe": "R48 проба (MathMisc) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). FWrap (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "Hypotenuse",
+  "title": "Hypotenuse",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Hypotenuse",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "Width",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "Height",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Hypotenuse",
+  "probe": "R48 проба (MathMisc) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Hypotenuse (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "Log",
+  "title": "Log",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Log",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "A",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "Base",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "1.000000",
+    "autoDv": ""
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Log",
+  "probe": "R48 проба (MathMisc) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Log (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "MultiplyByPi",
+  "title": "Multiply By Pi",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "MultiplyByPi",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "Value",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "MultiplyByPi",
+  "probe": "R48 проба (MathMisc) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). MultiplyByPi (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "Abs_Int",
+  "title": "Abs Int",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Abs_Int",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "A",
+    "dir": "Input",
+    "cat": "int"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Abs_Int",
+  "probe": "R48 проба (MathMisc) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Abs_Int (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "SignOfInteger",
+  "title": "Sign Of Integer",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SignOfInteger",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "A",
+    "dir": "Input",
+    "cat": "int"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "SignOfInteger",
+  "probe": "R48 проба (MathMisc) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). SignOfInteger (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "MaxOfIntArray",
+  "title": "Max Of Int Array",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "MaxOfIntArray",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "IntArray",
+    "dir": "Input",
+    "cat": "int",
+    "container": "Array"
+   },
+   {
+    "name": "IndexOfMaxValue",
+    "dir": "Output",
+    "cat": "int"
+   },
+   {
+    "name": "MaxValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "MaxOfIntArray",
+  "probe": "R48 проба (MathMisc) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). MaxOfIntArray (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "MinOfFloatArray",
+  "title": "Min Of Float Array",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "MinOfFloatArray",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "FloatArray",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "container": "Array"
+   },
+   {
+    "name": "IndexOfMinValue",
+    "dir": "Output",
+    "cat": "int"
+   },
+   {
+    "name": "MinValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "MinOfFloatArray",
+  "probe": "R48 проба (MathMisc) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). MinOfFloatArray (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "NormalizeAxis",
+  "title": "Normalize Axis",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "NormalizeAxis",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "Angle",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "NormalizeAxis",
+  "probe": "R48 проба (MathMisc) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). NormalizeAxis (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "Multiply_RotatorFloat",
+  "title": "Multiply Rotator Float",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Multiply_RotatorFloat",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "A",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Rotator",
+    "const": true
+   },
+   {
+    "name": "B",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Rotator"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Multiply_RotatorFloat",
+  "probe": "R48 проба (MathMisc) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Multiply_RotatorFloat (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "EqualEqual_RotatorRotator",
+  "title": "Equal Equal Rotator Rotator",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "EqualEqual_RotatorRotator",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "A",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Rotator",
+    "const": true
+   },
+   {
+    "name": "B",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Rotator",
+    "const": true
+   },
+   {
+    "name": "ErrorTolerance",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.000100",
+    "autoDv": ""
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "EqualEqual_RotatorRotator",
+  "probe": "R48 проба (MathMisc) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). EqualEqual_RotatorRotator (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "GetAxes",
+  "title": "Get Axes",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetAxes",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "A",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Rotator",
+    "const": true
+   },
+   {
+    "name": "X",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   },
+   {
+    "name": "Y",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   },
+   {
+    "name": "Z",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetAxes",
+  "probe": "R48 проба (MathMisc) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetAxes (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "RotatorFromAxisAndAngle",
+  "title": "Rotator From Axis And Angle",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "RotatorFromAxisAndAngle",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "Axis",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "Angle",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Rotator"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "RotatorFromAxisAndAngle",
+  "probe": "R48 проба (MathMisc) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). RotatorFromAxisAndAngle (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "Add_Vector2DVector2D",
+  "title": "Add Vector2 DVector2 D",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Add_Vector2DVector2D",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "A",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector2D",
+    "const": true
+   },
+   {
+    "name": "B",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector2D",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector2D"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Add_Vector2DVector2D",
+  "probe": "R48 проба (Vec2Color) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Add_Vector2DVector2D (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "Subtract_Vector2DVector2D",
+  "title": "Subtract Vector2 DVector2 D",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Subtract_Vector2DVector2D",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "A",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector2D",
+    "const": true
+   },
+   {
+    "name": "B",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector2D",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector2D"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Subtract_Vector2DVector2D",
+  "probe": "R48 проба (Vec2Color) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Subtract_Vector2DVector2D (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "Multiply_Vector2DFloat",
+  "title": "Multiply Vector2 DFloat",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Multiply_Vector2DFloat",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "A",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector2D",
+    "const": true
+   },
+   {
+    "name": "B",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector2D"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Multiply_Vector2DFloat",
+  "probe": "R48 проба (Vec2Color) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Multiply_Vector2DFloat (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "Normal2D",
+  "title": "Normal2 D",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Normal2D",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "A",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector2D",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector2D"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Normal2D",
+  "probe": "R48 проба (Vec2Color) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Normal2D (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "Vector2DInterpTo",
+  "title": "Vector2 DInterp To",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Vector2DInterpTo",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "Current",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector2D",
+    "const": true
+   },
+   {
+    "name": "Target",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector2D",
+    "const": true
+   },
+   {
+    "name": "DeltaTime",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "InterpSpeed",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector2D"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Vector2DInterpTo",
+  "probe": "R48 проба (Vec2Color) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Vector2DInterpTo (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "BreakVector2D_KismetMathLibrary",
+  "title": "Break Vector2 D",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "BreakVector2D",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "InVec",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector2D",
+    "const": true
+   },
+   {
+    "name": "X",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "Y",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "BreakVector2D",
+  "probe": "R48 проба (Vec2Color) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). BreakVector2D (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "LinearColorLerp",
+  "title": "Linear Color Lerp",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "LinearColorLerp",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "A",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "const": true
+   },
+   {
+    "name": "B",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "const": true
+   },
+   {
+    "name": "Alpha",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "LinearColor"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "LinearColorLerp",
+  "probe": "R48 проба (Vec2Color) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). LinearColorLerp (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "MakeColor",
+  "title": "Make Color",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "MakeColor",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "R",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "G",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "B",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "A",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "1.000000",
+    "autoDv": ""
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "LinearColor"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "MakeColor",
+  "probe": "R48 проба (Vec2Color) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). MakeColor (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "BreakColor",
+  "title": "Break Color",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "BreakColor",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "InColor",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "const": true
+   },
+   {
+    "name": "R",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "G",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "B",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "A",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "BreakColor",
+  "probe": "R48 проба (Vec2Color) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). BreakColor (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "HSVToRGB",
+  "title": "HSVTo RGB",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "HSVToRGB",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "H",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "S",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "V",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "A",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "1.000000",
+    "autoDv": ""
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "LinearColor"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "HSVToRGB",
+  "probe": "R48 проба (Vec2Color) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). HSVToRGB (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "RGBToHSV",
+  "title": "RGBTo HSV",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "RGBToHSV",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "InColor",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "const": true
+   },
+   {
+    "name": "H",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "S",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "V",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "A",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "RGBToHSV",
+  "probe": "R48 проба (Vec2Color) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). RGBToHSV (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "CInterpTo",
+  "title": "CInterp To",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "CInterpTo",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "Current",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "const": true
+   },
+   {
+    "name": "Target",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "const": true
+   },
+   {
+    "name": "DeltaTime",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "InterpSpeed",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "LinearColor"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "CInterpTo",
+  "probe": "R48 проба (Vec2Color) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). CInterpTo (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "Now",
+  "title": "Now",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Now",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "DateTime"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Now",
+  "probe": "R48 проба (Time) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Now (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "UtcNow",
+  "title": "Utc Now",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "UtcNow",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "DateTime"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "UtcNow",
+  "probe": "R48 проба (Time) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). UtcNow (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "Today",
+  "title": "Today",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Today",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "DateTime"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Today",
+  "probe": "R48 проба (Time) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Today (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "BreakDateTime",
+  "title": "Break Date Time",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "BreakDateTime",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "InDateTime",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "DateTime",
+    "const": true
+   },
+   {
+    "name": "Year",
+    "dir": "Output",
+    "cat": "int"
+   },
+   {
+    "name": "Month",
+    "dir": "Output",
+    "cat": "int"
+   },
+   {
+    "name": "Day",
+    "dir": "Output",
+    "cat": "int"
+   },
+   {
+    "name": "Hour",
+    "dir": "Output",
+    "cat": "int"
+   },
+   {
+    "name": "Minute",
+    "dir": "Output",
+    "cat": "int"
+   },
+   {
+    "name": "Second",
+    "dir": "Output",
+    "cat": "int"
+   },
+   {
+    "name": "Millisecond",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "BreakDateTime",
+  "probe": "R48 проба (Time) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). BreakDateTime (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "MakeDateTime",
+  "title": "Make Date Time",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "MakeDateTime",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "Year",
+    "dir": "Input",
+    "cat": "int"
+   },
+   {
+    "name": "Month",
+    "dir": "Input",
+    "cat": "int"
+   },
+   {
+    "name": "Day",
+    "dir": "Input",
+    "cat": "int"
+   },
+   {
+    "name": "Hour",
+    "dir": "Input",
+    "cat": "int"
+   },
+   {
+    "name": "Minute",
+    "dir": "Input",
+    "cat": "int"
+   },
+   {
+    "name": "Second",
+    "dir": "Input",
+    "cat": "int"
+   },
+   {
+    "name": "Millisecond",
+    "dir": "Input",
+    "cat": "int"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "DateTime"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "MakeDateTime",
+  "probe": "R48 проба (Time) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). MakeDateTime (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "Subtract_DateTimeDateTime",
+  "title": "Subtract Date Time Date Time",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Subtract_DateTimeDateTime",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "A",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "DateTime",
+    "const": true
+   },
+   {
+    "name": "B",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "DateTime",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Timespan"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Subtract_DateTimeDateTime",
+  "probe": "R48 проба (Time) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Subtract_DateTimeDateTime (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "GetTotalSeconds",
+  "title": "Get Total Seconds",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetTotalSeconds",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "A",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Timespan",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetTotalSeconds",
+  "probe": "R48 проба (Time) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetTotalSeconds (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "FromSeconds",
+  "title": "From Seconds",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "FromSeconds",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "Seconds",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Timespan"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "FromSeconds",
+  "probe": "R48 проба (Time) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). FromSeconds (KismetMathLibrary, pure)"
+ },
+ {
+  "id": "IsWalking",
+  "title": "Is Walking",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsWalking",
+  "lib": "CharacterMovementComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.CharacterMovementComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "IsWalking",
+  "probe": "R48 проба (CharMove) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). IsWalking (член CharacterMovementComponent, pure)"
+ },
+ {
+  "id": "IsSwimming",
+  "title": "Is Swimming",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsSwimming",
+  "lib": "CharacterMovementComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.CharacterMovementComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "IsSwimming",
+  "probe": "R48 проба (CharMove) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). IsSwimming (член CharacterMovementComponent, pure)"
+ },
+ {
+  "id": "IsFlying",
+  "title": "Is Flying",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsFlying",
+  "lib": "CharacterMovementComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.CharacterMovementComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "IsFlying",
+  "probe": "R48 проба (CharMove) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). IsFlying (член CharacterMovementComponent, pure)"
+ },
+ {
+  "id": "IsCrouching",
+  "title": "Is Crouching",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsCrouching",
+  "lib": "CharacterMovementComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.CharacterMovementComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "IsCrouching",
+  "probe": "R48 проба (CharMove) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). IsCrouching (член CharacterMovementComponent, pure)"
+ },
+ {
+  "id": "SetWalkableFloorAngle",
+  "title": "Set Walkable Floor Angle",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetWalkableFloorAngle",
+  "lib": "CharacterMovementComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.CharacterMovementComponent"
+   },
+   {
+    "name": "InWalkableFloorAngle",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "verified": true,
+  "desc": "SetWalkableFloorAngle",
+  "probe": "R48 проба (CharMove) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). SetWalkableFloorAngle (член CharacterMovementComponent)"
+ },
+ {
+  "id": "K2_GetWalkableFloorAngle",
+  "title": "K2 Get Walkable Floor Angle",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_GetWalkableFloorAngle",
+  "lib": "CharacterMovementComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.CharacterMovementComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "K2_GetWalkableFloorAngle",
+  "probe": "R48 проба (CharMove) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). K2_GetWalkableFloorAngle (член CharacterMovementComponent, pure)"
+ },
+ {
+  "id": "AddImpulse_CharacterMovementComponent",
+  "title": "Add Impulse",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AddImpulse",
+  "lib": "CharacterMovementComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.CharacterMovementComponent"
+   },
+   {
+    "name": "Impulse",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "bVelocityChange",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "AddImpulse",
+  "probe": "R48 проба (CharMove) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). AddImpulse (член CharacterMovementComponent)"
+ },
+ {
+  "id": "AddForce_CharacterMovementComponent",
+  "title": "Add Force",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AddForce",
+  "lib": "CharacterMovementComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.CharacterMovementComponent"
+   },
+   {
+    "name": "Force",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "AddForce",
+  "probe": "R48 проба (CharMove) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). AddForce (член CharacterMovementComponent)"
+ },
+ {
+  "id": "GetMaxAcceleration",
+  "title": "Get Max Acceleration",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetMaxAcceleration",
+  "lib": "CharacterMovementComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.CharacterMovementComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetMaxAcceleration",
+  "probe": "R48 проба (CharMove) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetMaxAcceleration (член CharacterMovementComponent, pure)"
+ },
+ {
+  "id": "GetCurrentAcceleration",
+  "title": "Get Current Acceleration",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetCurrentAcceleration",
+  "lib": "CharacterMovementComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.CharacterMovementComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetCurrentAcceleration",
+  "probe": "R48 проба (CharMove) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetCurrentAcceleration (член CharacterMovementComponent, pure)"
+ },
+ {
+  "id": "SetAvoidanceEnabled",
+  "title": "Set Avoidance Enabled",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetAvoidanceEnabled",
+  "lib": "CharacterMovementComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.CharacterMovementComponent"
+   },
+   {
+    "name": "bEnable",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "SetAvoidanceEnabled",
+  "probe": "R48 проба (CharMove) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). SetAvoidanceEnabled (член CharacterMovementComponent)"
+ },
+ {
+  "id": "ClearAccumulatedForces",
+  "title": "Clear Accumulated Forces",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ClearAccumulatedForces",
+  "lib": "CharacterMovementComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.CharacterMovementComponent"
+   }
+  ],
+  "verified": true,
+  "desc": "ClearAccumulatedForces",
+  "probe": "R48 проба (CharMove) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). ClearAccumulatedForces (член CharacterMovementComponent)"
+ },
+ {
+  "id": "IsJumpProvidingForce",
+  "title": "Is Jump Providing Force",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsJumpProvidingForce",
+  "lib": "Character",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Character"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "IsJumpProvidingForce",
+  "probe": "R48 проба (CharMove) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). IsJumpProvidingForce (член Character, pure)"
+ },
+ {
+  "id": "CanCrouch",
+  "title": "Can Crouch",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "CanCrouch",
+  "lib": "Character",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Character"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "CanCrouch",
+  "probe": "R48 проба (CharMove) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). CanCrouch (член Character, pure)"
+ },
+ {
+  "id": "IsPlayingRootMotion",
+  "title": "Is Playing Root Motion",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsPlayingRootMotion",
+  "lib": "Character",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Character"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "IsPlayingRootMotion",
+  "probe": "R48 проба (CharMove) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). IsPlayingRootMotion (член Character, pure)"
+ },
+ {
+  "id": "GetActorEyesViewPoint",
+  "title": "Get Actor Eyes View Point",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetActorEyesViewPoint",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "OutLocation",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   },
+   {
+    "name": "OutRotation",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Rotator"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetActorEyesViewPoint",
+  "probe": "R48 проба (Actor) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetActorEyesViewPoint (член Actor, pure)"
+ },
+ {
+  "id": "K2_GetRootComponent",
+  "title": "K2 Get Root Component",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_GetRootComponent",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "K2_GetRootComponent",
+  "probe": "R48 проба (Actor) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). K2_GetRootComponent (член Actor, pure)"
+ },
+ {
+  "id": "GetSquaredDistanceTo",
+  "title": "Get Squared Distance To",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetSquaredDistanceTo",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "OtherActor",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetSquaredDistanceTo",
+  "probe": "R48 проба (Actor) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetSquaredDistanceTo (член Actor, pure)"
+ },
+ {
+  "id": "GetVerticalDistanceTo",
+  "title": "Get Vertical Distance To",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetVerticalDistanceTo",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "OtherActor",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetVerticalDistanceTo",
+  "probe": "R48 проба (Actor) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetVerticalDistanceTo (член Actor, pure)"
+ },
+ {
+  "id": "GetActorTickInterval",
+  "title": "Get Actor Tick Interval",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetActorTickInterval",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetActorTickInterval",
+  "probe": "R48 проба (Actor) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetActorTickInterval (член Actor, pure)"
+ },
+ {
+  "id": "IsActorTickEnabled",
+  "title": "Is Actor Tick Enabled",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsActorTickEnabled",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "IsActorTickEnabled",
+  "probe": "R48 проба (Actor) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). IsActorTickEnabled (член Actor, pure)"
+ },
+ {
+  "id": "GetParentActor",
+  "title": "Get Parent Actor",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetParentActor",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetParentActor",
+  "probe": "R48 проба (Actor) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetParentActor (член Actor, pure)"
+ },
+ {
+  "id": "GetAttachedActors",
+  "title": "Get Attached Actors",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetAttachedActors",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "bResetArray",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   },
+   {
+    "name": "bRecursivelyIncludeAttachedActors",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "OutActors",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.Actor",
+    "container": "Array"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetAttachedActors",
+  "probe": "R48 проба (Actor) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetAttachedActors (член Actor, pure)"
+ },
+ {
+  "id": "AddTickPrerequisiteActor",
+  "title": "Add Tick Prerequisite Actor",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AddTickPrerequisiteActor",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "PrerequisiteActor",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   }
+  ],
+  "verified": true,
+  "desc": "AddTickPrerequisiteActor",
+  "probe": "R48 проба (Actor) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). AddTickPrerequisiteActor (член Actor)"
+ },
+ {
+  "id": "GetComponentsByTag",
+  "title": "Get Components By Tag",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetComponentsByTag",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "ComponentClass",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/Engine.ActorComponent"
+   },
+   {
+    "name": "Tag",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.ActorComponent",
+    "container": "Array"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetComponentsByTag",
+  "probe": "R48 проба (Actor) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetComponentsByTag (член Actor, pure)"
+ },
+ {
+  "id": "GetActorEnableCollision",
+  "title": "Get Actor Enable Collision",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetActorEnableCollision",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetActorEnableCollision",
+  "probe": "R48 проба (Actor) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetActorEnableCollision (член Actor, pure)"
+ },
+ {
+  "id": "GetActorRelativeScale3D",
+  "title": "Get Actor Relative Scale3 D",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetActorRelativeScale3D",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetActorRelativeScale3D",
+  "probe": "R48 проба (Actor) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetActorRelativeScale3D (член Actor, pure)"
+ },
+ {
+  "id": "K2_DestroyComponent",
+  "title": "K2 Destroy Component",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_DestroyComponent",
+  "lib": "ActorComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.ActorComponent"
+   },
+   {
+    "name": "Object",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object"
+   }
+  ],
+  "verified": true,
+  "desc": "K2_DestroyComponent",
+  "probe": "R48 проба (Actor) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). K2_DestroyComponent (член ActorComponent)"
+ },
+ {
+  "id": "K2_GetComponentToWorld",
+  "title": "K2 Get Component To World",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_GetComponentToWorld",
+  "lib": "SceneComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Transform"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "K2_GetComponentToWorld",
+  "probe": "R48 проба (Scene) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). K2_GetComponentToWorld (член SceneComponent, pure)"
+ },
+ {
+  "id": "GetForwardVector_SceneComponent",
+  "title": "Get Forward Vector",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetForwardVector",
+  "lib": "SceneComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetForwardVector",
+  "probe": "R48 проба (Scene) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetForwardVector (член SceneComponent, pure)"
+ },
+ {
+  "id": "GetRightVector_SceneComponent",
+  "title": "Get Right Vector",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetRightVector",
+  "lib": "SceneComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetRightVector",
+  "probe": "R48 проба (Scene) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetRightVector (член SceneComponent, pure)"
+ },
+ {
+  "id": "GetUpVector_SceneComponent",
+  "title": "Get Up Vector",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetUpVector",
+  "lib": "SceneComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetUpVector",
+  "probe": "R48 проба (Scene) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetUpVector (член SceneComponent, pure)"
+ },
+ {
+  "id": "K2_SetWorldRotation",
+  "title": "K2 Set World Rotation",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_SetWorldRotation",
+  "lib": "SceneComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   },
+   {
+    "name": "NewRotation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Rotator",
+    "const": true
+   },
+   {
+    "name": "bSweep",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "bTeleport",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "SweepHitResult",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "HitResult"
+   }
+  ],
+  "verified": true,
+  "desc": "K2_SetWorldRotation",
+  "probe": "R48 проба (Scene) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). K2_SetWorldRotation (член SceneComponent)"
+ },
+ {
+  "id": "K2_SetWorldTransform",
+  "title": "K2 Set World Transform",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_SetWorldTransform",
+  "lib": "SceneComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   },
+   {
+    "name": "NewTransform",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Transform",
+    "const": true
+   },
+   {
+    "name": "bSweep",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "bTeleport",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "SweepHitResult",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "HitResult"
+   }
+  ],
+  "verified": true,
+  "desc": "K2_SetWorldTransform",
+  "probe": "R48 проба (Scene) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). K2_SetWorldTransform (член SceneComponent)"
+ },
+ {
+  "id": "K2_AddRelativeLocation",
+  "title": "K2 Add Relative Location",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_AddRelativeLocation",
+  "lib": "SceneComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   },
+   {
+    "name": "DeltaLocation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "bSweep",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "bTeleport",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "SweepHitResult",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "HitResult"
+   }
+  ],
+  "verified": true,
+  "desc": "K2_AddRelativeLocation",
+  "probe": "R48 проба (Scene) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). K2_AddRelativeLocation (член SceneComponent)"
+ },
+ {
+  "id": "K2_GetComponentScale",
+  "title": "K2 Get Component Scale",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_GetComponentScale",
+  "lib": "SceneComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "K2_GetComponentScale",
+  "probe": "R48 проба (Scene) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). K2_GetComponentScale (член SceneComponent, pure)"
+ },
+ {
+  "id": "GetAttachParent",
+  "title": "Get Attach Parent",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetAttachParent",
+  "lib": "SceneComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetAttachParent",
+  "probe": "R48 проба (Scene) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetAttachParent (член SceneComponent, pure)"
+ },
+ {
+  "id": "GetChildrenComponents",
+  "title": "Get Children Components",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetChildrenComponents",
+  "lib": "SceneComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   },
+   {
+    "name": "bIncludeAllDescendants",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "Children",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent",
+    "container": "Array"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetChildrenComponents",
+  "probe": "R48 проба (Scene) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetChildrenComponents (член SceneComponent, pure)"
+ },
+ {
+  "id": "GetNumChildrenComponents",
+  "title": "Get Num Children Components",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetNumChildrenComponents",
+  "lib": "SceneComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetNumChildrenComponents",
+  "probe": "R48 проба (Scene) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetNumChildrenComponents (член SceneComponent, pure)"
+ },
+ {
+  "id": "GetSocketTransform",
+  "title": "Get Socket Transform",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetSocketTransform",
+  "lib": "SceneComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   },
+   {
+    "name": "InSocketName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "TransformSpace",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ERelativeTransformSpace"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Transform"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetSocketTransform",
+  "probe": "R48 проба (Scene) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetSocketTransform (член SceneComponent, pure)"
+ },
+ {
+  "id": "IsVisible",
+  "title": "Is Visible",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsVisible",
+  "lib": "SceneComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "IsVisible",
+  "probe": "R48 проба (Scene) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). IsVisible (член SceneComponent, pure)"
+ },
+ {
+  "id": "ToggleVisibility",
+  "title": "Toggle Visibility",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ToggleVisibility",
+  "lib": "SceneComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   },
+   {
+    "name": "bPropagateToChildren",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "ToggleVisibility",
+  "probe": "R48 проба (Scene) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). ToggleVisibility (член SceneComponent)"
+ },
+ {
+  "id": "SetMobility",
+  "title": "Set Mobility",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetMobility",
+  "lib": "SceneComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   },
+   {
+    "name": "NewMobility",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EComponentMobility"
+   }
+  ],
+  "verified": true,
+  "desc": "SetMobility",
+  "probe": "R48 проба (Scene) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). SetMobility (член SceneComponent)"
+ },
+ {
+  "id": "GetPhysicsAngularVelocityInDegrees",
+  "title": "Get Physics Angular Velocity In Degrees",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetPhysicsAngularVelocityInDegrees",
+  "lib": "PrimitiveComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent"
+   },
+   {
+    "name": "BoneName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetPhysicsAngularVelocityInDegrees",
+  "probe": "R48 проба (Prim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetPhysicsAngularVelocityInDegrees (член PrimitiveComponent, pure)"
+ },
+ {
+  "id": "SetCollisionObjectType",
+  "title": "Set Collision Object Type",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetCollisionObjectType",
+  "lib": "PrimitiveComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent"
+   },
+   {
+    "name": "Channel",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ECollisionChannel"
+   }
+  ],
+  "verified": true,
+  "desc": "SetCollisionObjectType",
+  "probe": "R48 проба (Prim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). SetCollisionObjectType (член PrimitiveComponent)"
+ },
+ {
+  "id": "SetCollisionResponseToAllChannels",
+  "title": "Set Collision Response To All Channels",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetCollisionResponseToAllChannels",
+  "lib": "PrimitiveComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent"
+   },
+   {
+    "name": "NewResponse",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ECollisionResponse"
+   }
+  ],
+  "verified": true,
+  "desc": "SetCollisionResponseToAllChannels",
+  "probe": "R48 проба (Prim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). SetCollisionResponseToAllChannels (член PrimitiveComponent)"
+ },
+ {
+  "id": "K2_IsCollisionEnabled",
+  "title": "K2 Is Collision Enabled",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_IsCollisionEnabled",
+  "lib": "PrimitiveComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "K2_IsCollisionEnabled",
+  "probe": "R48 проба (Prim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). K2_IsCollisionEnabled (член PrimitiveComponent, pure)"
+ },
+ {
+  "id": "IsSimulatingPhysics",
+  "title": "Is Simulating Physics",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsSimulatingPhysics",
+  "lib": "PrimitiveComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent"
+   },
+   {
+    "name": "BoneName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "IsSimulatingPhysics",
+  "probe": "R48 проба (Prim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). IsSimulatingPhysics (член PrimitiveComponent, pure)"
+ },
+ {
+  "id": "SetNotifyRigidBodyCollision",
+  "title": "Set Notify Rigid Body Collision",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetNotifyRigidBodyCollision",
+  "lib": "PrimitiveComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent"
+   },
+   {
+    "name": "bNewNotifyRigidBodyCollision",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "SetNotifyRigidBodyCollision",
+  "probe": "R48 проба (Prim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). SetNotifyRigidBodyCollision (член PrimitiveComponent)"
+ },
+ {
+  "id": "IgnoreActorWhenMoving",
+  "title": "Ignore Actor When Moving",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IgnoreActorWhenMoving",
+  "lib": "PrimitiveComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent"
+   },
+   {
+    "name": "Actor",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "bShouldIgnore",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "IgnoreActorWhenMoving",
+  "probe": "R48 проба (Prim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). IgnoreActorWhenMoving (член PrimitiveComponent)"
+ },
+ {
+  "id": "GetOverlappingComponents",
+  "title": "Get Overlapping Components",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetOverlappingComponents",
+  "lib": "PrimitiveComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent"
+   },
+   {
+    "name": "OutOverlappingComponents",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent",
+    "container": "Array"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetOverlappingComponents",
+  "probe": "R48 проба (Prim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetOverlappingComponents (член PrimitiveComponent, pure)"
+ },
+ {
+  "id": "SetCastShadow",
+  "title": "Set Cast Shadow",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetCastShadow",
+  "lib": "PrimitiveComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent"
+   },
+   {
+    "name": "NewCastShadow",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "SetCastShadow",
+  "probe": "R48 проба (Prim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). SetCastShadow (член PrimitiveComponent)"
+ },
+ {
+  "id": "SetMaterialByName",
+  "title": "Set Material By Name",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetMaterialByName",
+  "lib": "PrimitiveComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent"
+   },
+   {
+    "name": "MaterialSlotName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "Material",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.MaterialInterface"
+   }
+  ],
+  "verified": true,
+  "desc": "SetMaterialByName",
+  "probe": "R48 проба (Prim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). SetMaterialByName (член PrimitiveComponent)"
+ },
+ {
+  "id": "GetNumMaterials",
+  "title": "Get Num Materials",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetNumMaterials",
+  "lib": "PrimitiveComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetNumMaterials",
+  "probe": "R48 проба (Prim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetNumMaterials (член PrimitiveComponent, pure)"
+ },
+ {
+  "id": "SetPhysMaterialOverride",
+  "title": "Set Phys Material Override",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetPhysMaterialOverride",
+  "lib": "PrimitiveComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent"
+   },
+   {
+    "name": "NewPhysMaterial",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/PhysicsCore.PhysicalMaterial"
+   }
+  ],
+  "verified": true,
+  "desc": "SetPhysMaterialOverride",
+  "probe": "R48 проба (Prim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). SetPhysMaterialOverride (член PrimitiveComponent)"
+ },
+ {
+  "id": "AddAngularImpulseInDegrees",
+  "title": "Add Angular Impulse In Degrees",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AddAngularImpulseInDegrees",
+  "lib": "PrimitiveComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent"
+   },
+   {
+    "name": "Impulse",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "BoneName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "bVelChange",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "AddAngularImpulseInDegrees",
+  "probe": "R48 проба (Prim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). AddAngularImpulseInDegrees (член PrimitiveComponent)"
+ },
+ {
+  "id": "AddForceAtLocation",
+  "title": "Add Force At Location",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AddForceAtLocation",
+  "lib": "PrimitiveComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent"
+   },
+   {
+    "name": "Force",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "Location",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "BoneName",
+    "dir": "Input",
+    "cat": "name"
+   }
+  ],
+  "verified": true,
+  "desc": "AddForceAtLocation",
+  "probe": "R48 проба (Prim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). AddForceAtLocation (член PrimitiveComponent)"
+ },
+ {
+  "id": "AddImpulseAtLocation",
+  "title": "Add Impulse At Location",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AddImpulseAtLocation",
+  "lib": "PrimitiveComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent"
+   },
+   {
+    "name": "Impulse",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "Location",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "BoneName",
+    "dir": "Input",
+    "cat": "name"
+   }
+  ],
+  "verified": true,
+  "desc": "AddImpulseAtLocation",
+  "probe": "R48 проба (Prim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). AddImpulseAtLocation (член PrimitiveComponent)"
+ },
+ {
+  "id": "SphereOverlapActors",
+  "title": "Sphere Overlap Actors",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SphereOverlapActors",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "SpherePos",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "SphereRadius",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "ObjectTypes",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EObjectTypeQuery",
+    "container": "Array"
+   },
+   {
+    "name": "ActorClassFilter",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "ActorsToIgnore",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor",
+    "container": "Array"
+   },
+   {
+    "name": "OutActors",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.Actor",
+    "container": "Array"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "SphereOverlapActors",
+  "probe": "R48 проба (Debug) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). SphereOverlapActors (KismetSystemLibrary)"
+ },
+ {
+  "id": "BoxOverlapActors",
+  "title": "Box Overlap Actors",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "BoxOverlapActors",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "BoxPos",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "BoxExtent",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "ObjectTypes",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EObjectTypeQuery",
+    "container": "Array"
+   },
+   {
+    "name": "ActorClassFilter",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "ActorsToIgnore",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor",
+    "container": "Array"
+   },
+   {
+    "name": "OutActors",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.Actor",
+    "container": "Array"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "BoxOverlapActors",
+  "probe": "R48 проба (Debug) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). BoxOverlapActors (KismetSystemLibrary)"
+ },
+ {
+  "id": "SphereOverlapComponents",
+  "title": "Sphere Overlap Components",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SphereOverlapComponents",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "SpherePos",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "SphereRadius",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "ObjectTypes",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EObjectTypeQuery",
+    "container": "Array"
+   },
+   {
+    "name": "ComponentClassFilter",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/Engine.ActorComponent"
+   },
+   {
+    "name": "ActorsToIgnore",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor",
+    "container": "Array"
+   },
+   {
+    "name": "OutComponents",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent",
+    "container": "Array"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "SphereOverlapComponents",
+  "probe": "R48 проба (Debug) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). SphereOverlapComponents (KismetSystemLibrary)"
+ },
+ {
+  "id": "DrawDebugBox",
+  "title": "Draw Debug Box",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "DrawDebugBox",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Center",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "Extent",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "LineColor",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "const": true
+   },
+   {
+    "name": "Rotation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Rotator",
+    "const": true
+   },
+   {
+    "name": "Duration",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "Thickness",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "verified": true,
+  "desc": "DrawDebugBox",
+  "probe": "R48 проба (Debug) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). DrawDebugBox (KismetSystemLibrary)"
+ },
+ {
+  "id": "DrawDebugPoint",
+  "title": "Draw Debug Point",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "DrawDebugPoint",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Position",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "Size",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "PointColor",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "const": true
+   },
+   {
+    "name": "Duration",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "verified": true,
+  "desc": "DrawDebugPoint",
+  "probe": "R48 проба (Debug) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). DrawDebugPoint (KismetSystemLibrary)"
+ },
+ {
+  "id": "DrawDebugString",
+  "title": "Draw Debug String",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "DrawDebugString",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "TextLocation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "Text",
+    "dir": "Input",
+    "cat": "string"
+   },
+   {
+    "name": "TestBaseActor",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "TextColor",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "const": true
+   },
+   {
+    "name": "Duration",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "verified": true,
+  "desc": "DrawDebugString",
+  "probe": "R48 проба (Debug) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). DrawDebugString (KismetSystemLibrary)"
+ },
+ {
+  "id": "DrawDebugCapsule",
+  "title": "Draw Debug Capsule",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "DrawDebugCapsule",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Center",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "HalfHeight",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "Radius",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "Rotation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Rotator",
+    "const": true
+   },
+   {
+    "name": "LineColor",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "const": true
+   },
+   {
+    "name": "Duration",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "Thickness",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "verified": true,
+  "desc": "DrawDebugCapsule",
+  "probe": "R48 проба (Debug) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). DrawDebugCapsule (KismetSystemLibrary)"
+ },
+ {
+  "id": "DrawDebugCylinder",
+  "title": "Draw Debug Cylinder",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "DrawDebugCylinder",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Start",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "End",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "Radius",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "Segments",
+    "dir": "Input",
+    "cat": "int",
+    "dv": "12",
+    "autoDv": ""
+   },
+   {
+    "name": "LineColor",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "const": true
+   },
+   {
+    "name": "Duration",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "Thickness",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "verified": true,
+  "desc": "DrawDebugCylinder",
+  "probe": "R48 проба (Debug) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). DrawDebugCylinder (KismetSystemLibrary)"
+ },
+ {
+  "id": "FlushPersistentDebugLines",
+  "title": "Flush Persistent Debug Lines",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "FlushPersistentDebugLines",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   }
+  ],
+  "verified": true,
+  "desc": "FlushPersistentDebugLines",
+  "probe": "R48 проба (Debug) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). FlushPersistentDebugLines (KismetSystemLibrary)"
+ },
+ {
+  "id": "GetPathName",
+  "title": "Get Path Name",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetPathName",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "Object",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "string"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetPathName",
+  "probe": "R48 проба (Debug) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetPathName (KismetSystemLibrary, pure)"
+ },
+ {
+  "id": "GetPlatformUserName",
+  "title": "Get Platform User Name",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetPlatformUserName",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "string"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetPlatformUserName",
+  "probe": "R48 проба (Debug) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetPlatformUserName (KismetSystemLibrary, pure)"
+ },
+ {
+  "id": "GetFrameCount",
+  "title": "Get Frame Count",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetFrameCount",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int64"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetFrameCount",
+  "probe": "R48 проба (Debug) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetFrameCount (KismetSystemLibrary, pure)"
+ },
+ {
+  "id": "LaunchURL",
+  "title": "Launch URL",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "LaunchURL",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "URL",
+    "dir": "Input",
+    "cat": "string"
+   }
+  ],
+  "verified": true,
+  "desc": "LaunchURL",
+  "probe": "R48 проба (Debug) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). LaunchURL (KismetSystemLibrary)"
+ },
+ {
+  "id": "GetProjectDirectory",
+  "title": "Get Project Directory",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetProjectDirectory",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "string"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetProjectDirectory",
+  "probe": "R48 проба (Debug) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetProjectDirectory (KismetSystemLibrary, pure)"
+ },
+ {
+  "id": "GetDataTableColumnAsString",
+  "title": "Get Data Table Column As String",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetDataTableColumnAsString",
+  "lib": "DataTableFunctionLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "DataTable",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.DataTable"
+   },
+   {
+    "name": "PropertyName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "string",
+    "container": "Array"
+   }
+  ],
+  "verified": true,
+  "desc": "GetDataTableColumnAsString",
+  "probe": "R48 проба (DataAnim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetDataTableColumnAsString (DataTableFunctionLibrary)"
+ },
+ {
+  "id": "GetFloatValue",
+  "title": "Get Float Value",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetFloatValue",
+  "lib": "CurveFloat",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.CurveFloat"
+   },
+   {
+    "name": "InTime",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetFloatValue",
+  "probe": "R48 проба (DataAnim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetFloatValue (член CurveFloat, pure)"
+ },
+ {
+  "id": "GetVectorValue",
+  "title": "Get Vector Value",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetVectorValue",
+  "lib": "CurveVector",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.CurveVector"
+   },
+   {
+    "name": "InTime",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetVectorValue",
+  "probe": "R48 проба (DataAnim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetVectorValue (член CurveVector, pure)"
+ },
+ {
+  "id": "GetLinearColorValue",
+  "title": "Get Linear Color Value",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetLinearColorValue",
+  "lib": "CurveLinearColor",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.CurveLinearColor"
+   },
+   {
+    "name": "InTime",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "LinearColor"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetLinearColorValue",
+  "probe": "R48 проба (DataAnim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetLinearColorValue (член CurveLinearColor, pure)"
+ },
+ {
+  "id": "Montage_GetCurrentSection",
+  "title": "Montage Get Current Section",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Montage_GetCurrentSection",
+  "lib": "AnimInstance",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AnimInstance"
+   },
+   {
+    "name": "Montage",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AnimMontage"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "name"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Montage_GetCurrentSection",
+  "probe": "R48 проба (DataAnim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Montage_GetCurrentSection (член AnimInstance, pure)"
+ },
+ {
+  "id": "Montage_GetPlayRate",
+  "title": "Montage Get Play Rate",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Montage_GetPlayRate",
+  "lib": "AnimInstance",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AnimInstance"
+   },
+   {
+    "name": "Montage",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AnimMontage"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Montage_GetPlayRate",
+  "probe": "R48 проба (DataAnim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Montage_GetPlayRate (член AnimInstance, pure)"
+ },
+ {
+  "id": "PlaySlotAnimationAsDynamicMontage",
+  "title": "Play Slot Animation As Dynamic Montage",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "PlaySlotAnimationAsDynamicMontage",
+  "lib": "AnimInstance",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AnimInstance"
+   },
+   {
+    "name": "Asset",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AnimSequenceBase"
+   },
+   {
+    "name": "SlotNodeName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "BlendInTime",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.250000",
+    "autoDv": ""
+   },
+   {
+    "name": "BlendOutTime",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.250000",
+    "autoDv": ""
+   },
+   {
+    "name": "InPlayRate",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "1.000000",
+    "autoDv": ""
+   },
+   {
+    "name": "LoopCount",
+    "dir": "Input",
+    "cat": "int",
+    "dv": "1",
+    "autoDv": ""
+   },
+   {
+    "name": "BlendOutTriggerTime",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "-1.000000",
+    "autoDv": ""
+   },
+   {
+    "name": "InTimeToStartMontageAt",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.000000",
+    "autoDv": ""
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.AnimMontage"
+   }
+  ],
+  "verified": true,
+  "desc": "PlaySlotAnimationAsDynamicMontage",
+  "probe": "R48 проба (DataAnim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). PlaySlotAnimationAsDynamicMontage (член AnimInstance)"
+ },
+ {
+  "id": "StopSlotAnimation",
+  "title": "Stop Slot Animation",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "StopSlotAnimation",
+  "lib": "AnimInstance",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AnimInstance"
+   },
+   {
+    "name": "InBlendOutTime",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.250000",
+    "autoDv": ""
+   },
+   {
+    "name": "SlotNodeName",
+    "dir": "Input",
+    "cat": "name"
+   }
+  ],
+  "verified": true,
+  "desc": "StopSlotAnimation",
+  "probe": "R48 проба (DataAnim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). StopSlotAnimation (член AnimInstance)"
+ },
+ {
+  "id": "IsPlayingSlotAnimation",
+  "title": "Is Playing Slot Animation",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsPlayingSlotAnimation",
+  "lib": "AnimInstance",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AnimInstance"
+   },
+   {
+    "name": "Asset",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AnimSequenceBase"
+   },
+   {
+    "name": "SlotNodeName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "IsPlayingSlotAnimation",
+  "probe": "R48 проба (DataAnim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). IsPlayingSlotAnimation (член AnimInstance, pure)"
+ },
+ {
+  "id": "GetOwningActor",
+  "title": "Get Owning Actor",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetOwningActor",
+  "lib": "AnimInstance",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AnimInstance"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetOwningActor",
+  "probe": "R48 проба (DataAnim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetOwningActor (член AnimInstance, pure)"
+ },
+ {
+  "id": "GetOwningComponent",
+  "title": "Get Owning Component",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetOwningComponent",
+  "lib": "AnimInstance",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AnimInstance"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.SkeletalMeshComponent"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetOwningComponent",
+  "probe": "R48 проба (DataAnim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetOwningComponent (член AnimInstance, pure)"
+ },
+ {
+  "id": "PlayAnimation_SkeletalMeshComponent",
+  "title": "Play Animation",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "PlayAnimation",
+  "lib": "SkeletalMeshComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SkeletalMeshComponent"
+   },
+   {
+    "name": "NewAnimToPlay",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AnimationAsset"
+   },
+   {
+    "name": "bLooping",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "PlayAnimation",
+  "probe": "R48 проба (DataAnim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). PlayAnimation (член SkeletalMeshComponent)"
+ },
+ {
+  "id": "SetAnimation",
+  "title": "Set Animation",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetAnimation",
+  "lib": "SkeletalMeshComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SkeletalMeshComponent"
+   },
+   {
+    "name": "NewAnimToPlay",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AnimationAsset"
+   }
+  ],
+  "verified": true,
+  "desc": "SetAnimation",
+  "probe": "R48 проба (DataAnim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). SetAnimation (член SkeletalMeshComponent)"
+ },
+ {
+  "id": "GetPosition",
+  "title": "Get Position",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetPosition",
+  "lib": "SkeletalMeshComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SkeletalMeshComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetPosition",
+  "probe": "R48 проба (DataAnim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetPosition (член SkeletalMeshComponent, pure)"
+ },
+ {
+  "id": "GetBoneIndex",
+  "title": "Get Bone Index",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetBoneIndex",
+  "lib": "SkinnedMeshComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SkinnedMeshComponent"
+   },
+   {
+    "name": "BoneName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "GetBoneIndex",
+  "probe": "R48 проба (DataAnim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). GetBoneIndex (член SkinnedMeshComponent, pure)"
+ },
+ {
+  "id": "UnHideBoneByName",
+  "title": "Un Hide Bone By Name",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "UnHideBoneByName",
+  "lib": "SkinnedMeshComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SkinnedMeshComponent"
+   },
+   {
+    "name": "BoneName",
+    "dir": "Input",
+    "cat": "name"
+   }
+  ],
+  "verified": true,
+  "desc": "UnHideBoneByName",
+  "probe": "R48 проба (DataAnim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). UnHideBoneByName (член SkinnedMeshComponent)"
+ },
+ {
+  "id": "IsBoneHiddenByName",
+  "title": "Is Bone Hidden By Name",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsBoneHiddenByName",
+  "lib": "SkinnedMeshComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SkinnedMeshComponent"
+   },
+   {
+    "name": "BoneName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "IsBoneHiddenByName",
+  "probe": "R48 проба (DataAnim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). IsBoneHiddenByName (член SkinnedMeshComponent)"
  }
 ]

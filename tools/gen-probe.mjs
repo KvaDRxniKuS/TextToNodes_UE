@@ -663,7 +663,6 @@ const BATCHES = {
     ['CharMove', 'ClearAccumulatedForces (член CharacterMovementComponent)', mem('/Script/Engine.CharacterMovementComponent.ClearAccumulatedForces', [])],
     ['CharMove', 'IsJumpProvidingForce (член Character, pure)', mem('/Script/Engine.Character.IsJumpProvidingForce', ['->', 'ReturnValue:bool'], true)],
     ['CharMove', 'CanCrouch (член Character, pure)', mem('/Script/Engine.Character.CanCrouch', ['->', 'ReturnValue:bool'], true)],
-    ['CharMove', 'SetAnimRootMotionTranslationScale (член Character)', mem('/Script/Engine.Character.SetAnimRootMotionTranslationScale', ['InAnimRootMotionTranslationScale:single=1.000000'])],
     ['CharMove', 'IsPlayingRootMotion (член Character, pure)', mem('/Script/Engine.Character.IsPlayingRootMotion', ['->', 'ReturnValue:bool'], true)],
     ['Actor', 'GetActorEyesViewPoint (член Actor, pure)', mem('/Script/Engine.Actor.GetActorEyesViewPoint', ['->', 'OutLocation:vector', 'OutRotation:rotator'], true)],
     ['Actor', 'K2_GetRootComponent (член Actor, pure)', mem('/Script/Engine.Actor.K2_GetRootComponent', ['->', 'ReturnValue:object:SceneComponent'], true)],

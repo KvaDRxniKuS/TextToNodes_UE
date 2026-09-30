@@ -1,6 +1,6 @@
 # Sweep manifest — полный прогон реестра по категориям
 
-Записей в реестре: 863; построено узлов: 863; упало: 0.
+Записей в реестре: 1023; построено узлов: 1023; упало: 0.
 MANIFEST и NN-*.txt побайтово воспроизводимы (дата не пишется): сверка — `node tools/gen-sweep.mjs --check`.
 Генератор: tools/gen-sweep.mjs (сетка по 5 в ряд, внутри ряда layoutRow, накрыто fitComment).
 
@@ -28,7 +28,7 @@ MANIFEST и NN-*.txt побайтово воспроизводимы (дата �
 | 09 | 09-math-random.txt | 6/6 | 6 | 0 | — | — |
 | 10 | 10-math-vector.txt | 31/31 | 30 | 0 | — | — |
 | 11 | 11-collision.txt | 26/26 | 25 | 2 | — | 1xW09 |
-| 12 | 12-math-rotator.txt | 15/15 | 15 | 8 | — | 8xW09 |
+| 12 | 12-math-rotator.txt | 15/15 | 15 | 8 | — | 5xW09 |
 | 13 | 13-math-transform.txt | 10/10 | 10 | 8 | — | 8xW09 |
 | 14 | 14-string.txt | 28/28 | 28 | 13 | — | 13xW09 |
 | 15 | 15-array.txt | 18/18 | 18 | 18 | — | 17xW09 |
@@ -45,9 +45,9 @@ MANIFEST и NN-*.txt побайтово воспроизводимы (дата �
 | 26 | 26-timers-latent.txt | 14/14 | 14 | 14 | — | 14xW09 |
 | 27 | 27-widgets-ui.txt | 8/8 | 8 | 8 | — | 8xW09 |
 | 28 | 28-enhanced-input-full.txt | 15/15 | 15 | 15 | — | 15xW09 |
-| 29 | 29-components-physics.txt | 23/23 | 23 | 23 | — | 23xW09 |
+| 29 | 29-components-physics.txt | 23/23 | 23 | 23 | — | 21xW09 |
 | 30 | 30-debug.txt | 1/1 | 1 | 0 | — | — |
-| 31 | 31-gameplay-systems.txt | 448/448 | 448 | 0 | — | — |
+| 31 | 31-gameplay-systems.txt | 608/608 | 608 | 0 | — | — |
 | 32 | 32-level-streaming.txt | 4/4 | 4 | 0 | — | — |
 
 Остальные папки sweep/ (chapters, probes, layout, copyback) и команды их пересборки — в `sweep/README.md`; сверка всего — `node tools/check-sweep.mjs`.
@@ -71,9 +71,6 @@ MANIFEST и NN-*.txt побайтово воспроизводимы (дата �
 - 12-math-rotator.txt :: W09: K2Node_CallFunction_280: NormalizedDeltaRotator: round12-pre: FindLookAtRotation2D в KismetMathLibrary нет — заменена на NormalizedDeltaRotator
 - 12-math-rotator.txt :: W09: K2Node_CallFunction_282: NegateRotator: round12-pre: InverseTransformRotation — это Transform-функция; канон инверсии NegateRotator (Invert Rotator)
 - 12-math-rotator.txt :: W09: K2Node_CallFunction_283: RLerp: round12-pre: добавлен пин bShortestPath, Alpha float
-- 12-math-rotator.txt :: W09: K2Node_CallFunction_285: GetForwardVector: round12-pre: новая запись, не проверена движком
-- 12-math-rotator.txt :: W09: K2Node_CallFunction_286: GetRightVector: round12-pre: новая запись, не проверена движком
-- 12-math-rotator.txt :: W09: K2Node_CallFunction_287: GetUpVector: round12-pre: новая запись, не проверена движком
 - 13-math-transform.txt :: W09: K2Node_CallFunction_289: MakeTransform: round13-pre: FTransform HasNativeMake — по аналогии с Vector канон pure KML MakeTransform
 - 13-math-transform.txt :: W09: K2Node_CallFunction_290: BreakTransform: round13-pre: канон pure KML BreakTransform InTransform→Location/Rotation/Scale
 - 13-math-transform.txt :: W09: K2Node_CallFunction_293: TransformLocation: round13-pre: новая запись, не проверена движком
@@ -239,8 +236,6 @@ MANIFEST и NN-*.txt побайтово воспроизводимы (дата �
 - 28-enhanced-input-full.txt :: W09: K2Node_CallFunction_513: Conv_InputActionValueToString: R28 VERIFIED (движок, 2026-09-26): pure autocast
 - 29-components-physics.txt :: W09: K2Node_CallFunction_515: SetSimulatePhysics: R29 VERIFIED
 - 29-components-physics.txt :: W09: K2Node_CallFunction_516: SetEnableGravity: R29 VERIFIED
-- 29-components-physics.txt :: W09: K2Node_CallFunction_517: AddImpulse: R29 VERIFIED
-- 29-components-physics.txt :: W09: K2Node_CallFunction_518: AddForce: R29 VERIFIED
 - 29-components-physics.txt :: W09: K2Node_CallFunction_519: AddTorqueInRadians: R29 VERIFIED
 - 29-components-physics.txt :: W09: K2Node_CallFunction_520: SetPhysicsLinearVelocity: R29 VERIFIED
 - 29-components-physics.txt :: W09: K2Node_CallFunction_521: GetPhysicsLinearVelocity: R29 VERIFIED
