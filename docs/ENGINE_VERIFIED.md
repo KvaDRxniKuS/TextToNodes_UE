@@ -1013,3 +1013,14 @@ Regression: 10 asserts R34; assert «Utilities 19/19» стал «20/20». sweep
 - факты copy-back для будущих записей реестра: float-пины — `real/float`; Montage_Play имеет ещё `ReturnValueType`,
   `InTimeToStartMontageAt`, `bStopAllMontages`; HasAuthority эмитится с `bSelfContext=True`.
 - 2 новых assert'а (шапка накрывает ноды; GraphGuid макросов). Записи реестра по пробам R36 пока не заведены (W05 в пробе ожидаемы).
+
+## R37 · пробы R36 → реестр (2026-09-30)
+
+`node tools/gen-probe.mjs --batch 36 --register`: +33 записи (`verified: true`, поле `probe` — происхождение; `note` не
+используется, т.к. всплывает предупреждением W09). 31 функция — новая категория **Gameplay Systems** (`sweep/31-gameplay-systems.txt`),
+макросы ForEachLoopWithBreak/ReverseForEachLoop — Flow Control. Каждая запись сверена: createCallFunction/createMacroInstance
+даёт тот же текст ноды, что вставленная проба. Новые ключи `UE_LIBS`: DataTableFunctionLibrary, AIBlueprintHelperLibrary,
+AIController, BlackboardComponent, SkeletalMeshComponent, AnimInstance, MaterialInstanceDynamic, KismetMaterialLibrary,
+NiagaraFunctionLibrary, NiagaraComponent, PlayerCameraManager, BlueprintGameplayTagLibrary. MPC-версия —
+`SetScalarParameterValue_KismetMaterialLibrary`. Пины — как в пробе (движок достраивает остальные, напр. Montage_Play).
+Реестр 409 → 442; sweep перегенерирован (сдвиг счётчиков имён — ожидаем). W05 в пробе: 31 → 0.

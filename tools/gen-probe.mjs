@@ -11,7 +11,8 @@
 // Запуск: node tools/gen-probe.mjs [--batch 36] [--check]
 
 import fs from 'node:fs';
-import { fitComment, estNodeWidth, estNodeHeight, createMacroInstance } from '../src/generator.js';
+import { fitComment, estNodeWidth, estNodeHeight, createMacroInstance, createCallFunction } from '../src/generator.js';
+import { UE_LIBS, UE_STRUCTS } from '../src/ue-types.js';
 import { generateUEText, seedGuids } from '../src/parser.js';
 import { validateStrict } from '../src/validate.js';
 import { createCall, createAddComponentByClass } from '../src/modules.js';
@@ -19,6 +20,7 @@ import { createCall, createAddComponentByClass } from '../src/modules.js';
 const args = process.argv.slice(2);
 const batch = (args[args.indexOf('--batch') + 1] && args.includes('--batch')) ? args[args.indexOf('--batch') + 1] : '36';
 const CHECK = args.includes('--check');
+const REGISTER = args.includes('--register'); // после вердикта «встали»: завести подтверждённые пробы в реестр
 
 // Шорткаты: статическая функция библиотеки / член класса. Слова пинов — как в createCall: «Имя:тип[=значение]», «->».
 const lib = (key, words, pure = false) => () => createCall(key, words, { pure, isStatic: true });
@@ -96,6 +98,7 @@ for (const topic of topics) {
   for (const [, bubble, make] of list.filter(p => p[0] === topic)) {
     const n = make();
     n.pos = { x, y };
+    n.probeTopic = topic;
     n.bubble = `R${batch} · ${topic}: ${bubble}`;
     nodes.push(n);
     x += Math.max(estNodeWidth(n), 320) + GAPX;
@@ -118,4 +121,51 @@ if (CHECK) {
 } else {
   fs.writeFileSync(out, text);
   console.log(`→ sweep/${batch}-probe.txt`);
+}
+
+// ── --register: пробы, подтверждённые движком, → записи data/ue-functions.json ──────────────────────────
+// Запись строится из самой ноды пробы и сверяется: createCallFunction/createMacroInstance(запись) обязаны дать
+// тот же текст ноды (без GUID/имён), что проба, которую пользователь уже вставил в UE.
+if (REGISTER) {
+  const regPath = new URL('../data/ue-functions.json', import.meta.url);
+  const reg = JSON.parse(fs.readFileSync(regPath, 'utf8'));
+  const have = new Set(reg.map(e => e.id));
+  const libByRef = Object.fromEntries(Object.entries(UE_LIBS).map(([k, v]) => [v, k]));
+  const structByRef = Object.fromEntries(Object.entries(UE_STRUCTS).map(([k, v]) => [v, k]));
+  const objPath = ref => (ref.match(/'([^'"]+)'"?$/) || ref.match(/"([^"]+)"'$/) || [])[1] || ref;
+  const title = f => f.replace(/_/g, ' ').replace(/([a-z0-9])([A-Z])/g, '$1 $2').replace(/\s+/g, ' ').trim();
+  const strip = t => t.replace(/[0-9A-F]{32}/g, 'G').replace(/Name="[^"]*"/, '').replace(/\n\s*NodePos[XY]=-?\d+/g, '').replace(/\n\s*bCommentBubbleVisible=True\n\s*NodeComment="[^"]*"/, '');
+  const topicCat = 'Gameplay Systems';
+  const added = [];
+  for (const n of nodes) {
+    if (!n.funcName && !n.macroGraph) continue;               // AddComponentByClass — модульная нода, не запись реестра
+    const bubble = n.bubble.replace(/^R\d+ · [^:]+: /, '');
+    const pins = n.pins.map(p => {
+      const o = { name: p.name, dir: p.direction, cat: p.category };
+      if (p.category === 'real') o.sub = p.subCategory;
+      if (p.category === 'struct') o.sub = structByRef[p.subCategoryObject];
+      if ((p.category === 'object' || p.category === 'class') && p.subCategoryObject) o.object = objPath(p.subCategoryObject);
+      if (p.isConst) o.const = true;
+      if (p.container !== 'None') o.container = p.container;
+      if (p.defaultValue) o.dv = p.defaultValue;
+      if ((p.autoDefault || '') !== (p.defaultValue || '')) o.autoDv = p.autoDefault || '';
+      return o;
+    });
+    const e = n.macroGraph
+      ? { id: n.macroGraph, title: n.macroGraph, category: 'Flow Control', className: '/Script/BlueprintGraph.K2Node_MacroInstance', pins }
+      : { id: n.funcName, title: title(n.funcName), category: topicCat, className: '/Script/BlueprintGraph.K2Node_CallFunction', func: n.funcName, lib: libByRef[n.memberParent], pins };
+    if (!n.macroGraph && !e.lib) throw new Error(`${n.funcName}: нет UE_LIBS-ключа для ${n.memberParent}`);
+    if (n.pure) e.pure = true;
+    if (have.has(e.id)) e.id = `${e.id}_${e.lib}`;           // SetScalarParameterValue: MID-член и MPC-версия KismetMaterialLibrary
+    if (have.has(e.id)) { console.log(`  = ${e.id} уже в реестре`); continue; }
+    e.verified = true;
+    e.desc = bubble.split(/[.(]/)[0].trim();
+    e.probe = `R36 проба (${n.probeTopic}) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). ${bubble}`;
+    const back = n.macroGraph ? createMacroInstance(e) : createCallFunction(e);
+    const a = strip(generateUEText([n])), b = strip(generateUEText([back]));
+    if (a !== b) { console.log(`✗ ${e.id}: запись не воспроизводит пробу\n--- проба\n${a}\n--- запись\n${b}`); process.exit(1); }
+    reg.push(e); have.add(e.id); added.push(e.id);
+  }
+  fs.writeFileSync(regPath, JSON.stringify(reg, null, 1) + '\n');
+  console.log(`реестр: +${added.length} (${added.join(', ')}) → всего ${reg.length}`);
 }

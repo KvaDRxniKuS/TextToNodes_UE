@@ -40,6 +40,18 @@ const LIBS_FULL = {
   EnhancedInputLibrary: `"/Script/CoreUObject.Class'/Script/EnhancedInput.EnhancedInputLibrary'"`, // round28-pre: Conv_/Break/Make InputActionValue
   PrimitiveComponent: `"/Script/CoreUObject.Class'/Script/Engine.PrimitiveComponent'"`, // round29-pre
   ActorComponent: `"/Script/CoreUObject.Class'/Script/Engine.ActorComponent'"`, // round29-pre
+  DataTableFunctionLibrary: `"/Script/CoreUObject.Class'/Script/Engine.DataTableFunctionLibrary'"`, // R37 (R36 VERIFIED)
+  AIBlueprintHelperLibrary: `"/Script/CoreUObject.Class'/Script/AIModule.AIBlueprintHelperLibrary'"`, // R37 (R36 VERIFIED)
+  AIController: `"/Script/CoreUObject.Class'/Script/AIModule.AIController'"`, // R37 (R36 VERIFIED)
+  BlackboardComponent: `"/Script/CoreUObject.Class'/Script/AIModule.BlackboardComponent'"`, // R37 (R36 VERIFIED)
+  SkeletalMeshComponent: `"/Script/CoreUObject.Class'/Script/Engine.SkeletalMeshComponent'"`, // R37 (R36 VERIFIED)
+  AnimInstance: `"/Script/CoreUObject.Class'/Script/Engine.AnimInstance'"`, // R37 (R36 VERIFIED)
+  MaterialInstanceDynamic: `"/Script/CoreUObject.Class'/Script/Engine.MaterialInstanceDynamic'"`, // R37 (R36 VERIFIED)
+  KismetMaterialLibrary: `"/Script/CoreUObject.Class'/Script/Engine.KismetMaterialLibrary'"`, // R37 (R36 VERIFIED)
+  NiagaraFunctionLibrary: `"/Script/CoreUObject.Class'/Script/Niagara.NiagaraFunctionLibrary'"`, // R37 (R36 VERIFIED)
+  NiagaraComponent: `"/Script/CoreUObject.Class'/Script/Niagara.NiagaraComponent'"`, // R37 (R36 VERIFIED)
+  PlayerCameraManager: `"/Script/CoreUObject.Class'/Script/Engine.PlayerCameraManager'"`, // R37 (R36 VERIFIED)
+  BlueprintGameplayTagLibrary: `"/Script/CoreUObject.Class'/Script/GameplayTags.BlueprintGameplayTagLibrary'"`, // R37 (R36 VERIFIED)
 };
 const LIBS_SHORT = {
   KismetMathLibrary:   `Class'"/Script/Engine.KismetMathLibrary"'`,
@@ -62,6 +74,18 @@ const LIBS_SHORT = {
   EnhancedInputLibrary: `Class'"/Script/EnhancedInput.EnhancedInputLibrary"'`,
   PrimitiveComponent: `Class'"/Script/Engine.PrimitiveComponent"'`,
   ActorComponent: `Class'"/Script/Engine.ActorComponent"'`,
+  DataTableFunctionLibrary: `Class'"/Script/Engine.DataTableFunctionLibrary"'`,
+  AIBlueprintHelperLibrary: `Class'"/Script/AIModule.AIBlueprintHelperLibrary"'`,
+  AIController: `Class'"/Script/AIModule.AIController"'`,
+  BlackboardComponent: `Class'"/Script/AIModule.BlackboardComponent"'`,
+  SkeletalMeshComponent: `Class'"/Script/Engine.SkeletalMeshComponent"'`,
+  AnimInstance: `Class'"/Script/Engine.AnimInstance"'`,
+  MaterialInstanceDynamic: `Class'"/Script/Engine.MaterialInstanceDynamic"'`,
+  KismetMaterialLibrary: `Class'"/Script/Engine.KismetMaterialLibrary"'`,
+  NiagaraFunctionLibrary: `Class'"/Script/Niagara.NiagaraFunctionLibrary"'`,
+  NiagaraComponent: `Class'"/Script/Niagara.NiagaraComponent"'`,
+  PlayerCameraManager: `Class'"/Script/Engine.PlayerCameraManager"'`,
+  BlueprintGameplayTagLibrary: `Class'"/Script/GameplayTags.BlueprintGameplayTagLibrary"'`,
 };
 export const UE_LIBS = UE_VERSION === 'SHORT' ? LIBS_SHORT : LIBS_FULL;
 

@@ -1163,6 +1163,10 @@ regThrow.forEach(t => console.log('THROW:', t));
   const cx = num(cmb, 'NodePosX'), cy = num(cmb, 'NodePosY'), cw = num(cmb, 'NodeWidth'), ch = num(cmb, 'NodeHeight');
   ok(blocks.every(bk => { const x = num(bk, 'NodePosX'), y = num(bk, 'NodePosY'); return x >= cx && y >= cy && x < cx + cw && y < cy + ch; }) && cw > 1000 && ch > 1000, 'R37: шапка-коммент пробы накрывает все ноды');
   ok(/StandardMacros:ForEachLoopWithBreak'",GraphBlueprint=[^)]*GraphGuid=F07560274C5742E391E84B8F394CFB36/.test(probe) && /StandardMacros:ReverseForEachLoop'",GraphBlueprint=[^)]*GraphGuid=6DB5FE084A27CDF3569C7980D75D7E14/.test(probe), 'R37: макросы пробы с GraphGuid из copy-back');
+  // R37: 33 подтверждённые пробы R36 заведены в реестр (gen-probe --register сверяет запись с нодой пробы побайтно)
+  const r36 = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8')).filter(e => /^R36 проба/.test(e.probe || ''));
+  const built = r36.map(e => { try { return generateUEText([e.macro || e.className.endsWith('MacroInstance') ? createMacroInstance(e) : createCallFunction(e)]); } catch (err) { return null; } });
+  ok(r36.length === 33 && r36.every(e => e.verified && !e.note) && built.every(Boolean) && validateStrict(built.join('\n')).warnings.length === 0, 'R37: 33 записи реестра из проб R36 строятся без предупреждений');
 }
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);

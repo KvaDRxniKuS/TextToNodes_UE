@@ -1,13 +1,13 @@
-Begin Object Class=/Script/UnrealEd.EdGraphNode_Comment Name="EdGraphNode_Comment_119"
+Begin Object Class=/Script/UnrealEd.EdGraphNode_Comment Name="EdGraphNode_Comment_121"
    NodePosX=-60
    NodePosY=-110
    NodeWidth=933
    NodeHeight=426
-   NodeComment="SWEEP 02/30: Variables (4/4 узлов, 4 verified)"
+   NodeComment="SWEEP 02/31: Variables (4/4 узлов, 4 verified)"
    NodeGuid=FEB90ACFB8B701CCC864FEB1EBBB7971
 End Object
 
-Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_115"
+Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_117"
    VariableReference=(MemberName="Var",MemberGuid=02CA9E5504585A9F97C1106FD841AF8E,bSelfContext=True)
    NodePosX=0
    NodePosY=0
@@ -15,7 +15,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_Variab
    CustomProperties Pin (PinId=F13EAC1AC3D90442412D3F78AA6A7E93,PinName="Var",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
 End Object
 
-Begin Object Class=/Script/BlueprintGraph.K2Node_VariableSet Name="K2Node_VariableSet_116"
+Begin Object Class=/Script/BlueprintGraph.K2Node_VariableSet Name="K2Node_VariableSet_118"
    VariableReference=(MemberName="Var",MemberGuid=CE35771AFDAD718699CA28D8C9AE633B,bSelfContext=True)
    NodePosX=220
    NodePosY=0
@@ -25,7 +25,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_VariableSet Name="K2Node_Variab
    CustomProperties Pin (PinId=588C3C4B90C634FC9E6126F48F16AEB2,PinName="Var",PinType.PinCategory="real",PinType.PinSubCategory="double",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
 End Object
 
-Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_117"
+Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_119"
    VariableReference=(MemberName="Var",MemberGuid=B049203031F379A6A7D370CAFDBA61AF,bSelfContext=True)
    NodePosX=493
    NodePosY=0
@@ -33,7 +33,7 @@ Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_Variab
    CustomProperties Pin (PinId=571CA326A8FDF3AB601049B59CE8849B,PinName="Var",Direction="EGPD_Output",PinType.PinCategory="bool",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
 End Object
 
-Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_118"
+Begin Object Class=/Script/BlueprintGraph.K2Node_VariableGet Name="K2Node_VariableGet_120"
    VariableReference=(MemberName="Var",MemberGuid=B6BBE2CA33CC2921424C9F3CD9F139A2,bSelfContext=True)
    NodePosX=713
    NodePosY=0
