@@ -183,6 +183,8 @@ const STRUCTS_FULL = {
   LinearColor: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.LinearColor'"`, // confirmed (copy-back H1/J5)
   MaterialParameterInfo: `"/Script/CoreUObject.ScriptStruct'/Script/Engine.MaterialParameterInfo'"`, // copy-back R45b
   WidgetTransform: `"/Script/CoreUObject.ScriptStruct'/Script/UMG.WidgetTransform'"`, // copy-back R45b
+  DateTime: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.DateTime'"`, // pre R48
+  Timespan: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Timespan'"`, // pre R48
   HitResult:   `"/Script/CoreUObject.ScriptStruct'/Script/Engine.HitResult'"`,        // confirmed (copy-back LineTraceSingle)
   Key:         `"/Script/CoreUObject.ScriptStruct'/Script/InputCore.Key'"`,
   LatentActionInfo: `"/Script/CoreUObject.ScriptStruct'/Script/Engine.LatentActionInfo'"`, // confirmed (copy-back Delay L1/L2)
@@ -203,6 +205,8 @@ const STRUCTS_SHORT = {
   LinearColor:      `ScriptStruct'"/Script/CoreUObject.LinearColor"'`,
   MaterialParameterInfo: `ScriptStruct'"/Script/Engine.MaterialParameterInfo"'`,
   WidgetTransform: `ScriptStruct'"/Script/UMG.WidgetTransform"'`,
+  DateTime: `ScriptStruct'"/Script/CoreUObject.DateTime"'`,
+  Timespan: `ScriptStruct'"/Script/CoreUObject.Timespan"'`,
   HitResult:        `ScriptStruct'"/Script/Engine.HitResult"'`,
   Key:              `ScriptStruct'"/Script/InputCore.Key"'`,
   LatentActionInfo: `ScriptStruct'"/Script/Engine.LatentActionInfo"'`,
@@ -253,6 +257,9 @@ const ENUMS_FULL = {
   EPathFollowingStatus: `"/Script/CoreUObject.Enum'/Script/AIModule.EPathFollowingStatus'"`, // confirmed R47
   EUMGSequencePlayMode: `"/Script/CoreUObject.Enum'/Script/UMG.EUMGSequencePlayMode'"`, // confirmed R47
   ECameraShakePlaySpace: `"/Script/CoreUObject.Enum'/Script/Engine.ECameraShakePlaySpace'"`, // confirmed R47
+  ERoundingMode: `"/Script/CoreUObject.Enum'/Script/CoreUObject.ERoundingMode'"`, // pre R48
+  ERelativeTransformSpace: `"/Script/CoreUObject.Enum'/Script/Engine.ERelativeTransformSpace'"`, // pre R48
+  EComponentMobility: `"/Script/CoreUObject.Enum'/Script/Engine.EComponentMobility'"`, // pre R48
   EMoveComponentAction: `"/Script/CoreUObject.Enum'/Script/Engine.EMoveComponentAction'"`, // R34 copy-back: MoveComponentTo
   EDrawDebugSceneDepthPriorityGroup: `"/Script/CoreUObject.Enum'/Script/Engine.EDrawDebugSceneDepthPriorityGroup'"`, // R33 copy-back: DrawDebugArrow.DepthPriority
   ECollisionResponse: `"/Script/CoreUObject.Enum'/Script/Engine.ECollisionResponse'"`, // round29-pre
@@ -295,6 +302,9 @@ const ENUMS_SHORT = {
   EPathFollowingStatus: `Enum'"/Script/AIModule.EPathFollowingStatus"'`,
   EUMGSequencePlayMode: `Enum'"/Script/UMG.EUMGSequencePlayMode"'`,
   ECameraShakePlaySpace: `Enum'"/Script/Engine.ECameraShakePlaySpace"'`,
+  ERoundingMode: `Enum'"/Script/CoreUObject.ERoundingMode"'`,
+  ERelativeTransformSpace: `Enum'"/Script/Engine.ERelativeTransformSpace"'`,
+  EComponentMobility: `Enum'"/Script/Engine.EComponentMobility"'`,
   EMoveComponentAction: `Enum'"/Script/Engine.EMoveComponentAction"'`,
   EDrawDebugSceneDepthPriorityGroup: `Enum'"/Script/Engine.EDrawDebugSceneDepthPriorityGroup"'`,
   ECollisionResponse: `Enum'"/Script/Engine.ECollisionResponse"'`,

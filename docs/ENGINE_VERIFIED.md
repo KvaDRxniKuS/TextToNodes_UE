@@ -1219,3 +1219,8 @@ EUMGSequencePlayMode, ECameraShakePlaySpace. Файл: `sweep/probes/r47-probe.t
 Actor.SetCanBeDamaged → переменная `bCanBeDamaged` (Set, self Actor); HUD.ShowHUD → переменная
 `HUD.bShowHUD` (Get/Set, NotSelfContext). 6 энамов R47 подтверждены.
 Внимание: TextBlock.SetColorAndOpacity заведён с LinearColor-пином, в движке — FSlateColor (встал, движок переконвертировал).
+
+## R48 — большая проба (2026-10-01)
+161 нода: Text 11, String 13, MathVec 12, MathMisc 15, Vec2Color 12, Time 8, CharMove 16, Actor 13, Scene 15,
+Prim 15, Debug 14, DataAnim 17. Новое: структуры DateTime/Timespan, энамы ERoundingMode, ERelativeTransformSpace,
+EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
