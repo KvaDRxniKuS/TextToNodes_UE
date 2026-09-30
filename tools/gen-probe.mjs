@@ -911,6 +911,30 @@ const BATCHES = {
     ['Niagara', 'Set Force Solo (NiagaraComponent)', mem('/Script/Niagara.NiagaraComponent.SetForceSolo', ['bInForceSolo:bool'])],
     ['Niagara', 'Set Niagara Variable (Position) (NiagaraComponent)', mem('/Script/Niagara.NiagaraComponent.SetVariablePosition', ['InVariableName:name', 'InValue:vector'])],
   ],
+  '53': [
+    // R53: ИИ / навигация / восприятие — только отсутствующее в реестре. Классы AIModule/NavigationSystem — полными путями.
+    ['AI', 'Get Blackboard Component (член AIController, pure)', mem('AIController.GetBlackboardComponent', ['->', 'ReturnValue:object:/Script/AIModule.BlackboardComponent'], true)],
+    ['AI', 'Send AI Message (AIBlueprintHelperLibrary)', lib('AIBlueprintHelperLibrary.SendAIMessage', ['Target:object:Pawn', 'Message:name', 'MessageSource:object:/Script/CoreUObject.Object', 'bSuccess:bool=true'])],
+    ['AI', 'Get Current Path (AIBlueprintHelperLibrary, pure)', lib('AIBlueprintHelperLibrary.GetCurrentPath', ['Controller:object:Controller', '->', 'ReturnValue:object:/Script/NavigationSystem.NavigationPath'], true)],
+    ['AI', 'Get Current Path Points (AIBlueprintHelperLibrary, pure)', lib('AIBlueprintHelperLibrary.GetCurrentPathPoints', ['Controller:object:Controller', '->', 'ReturnValue:vector[]'], true)],
+    ['Nav', 'Is Navigation Being Built (NavigationSystemV1, pure)', lib('NavigationSystemV1.IsNavigationBeingBuilt', ['->', 'ReturnValue:bool'], true)],
+    ['Nav', 'Is Navigation Being Built Or Locked (NavigationSystemV1, pure)', lib('NavigationSystemV1.IsNavigationBeingBuiltOrLocked', ['->', 'ReturnValue:bool'], true)],
+    ['Nav', 'Navigation Raycast (NavigationSystemV1)', lib('NavigationSystemV1.NavigationRaycast', ['RayStart:vector', 'RayEnd:vector', 'FilterClass:class:/Script/NavigationSystem.NavigationQueryFilter', 'Querier:object:Controller', '->', 'HitLocation:vector', 'ReturnValue:bool'])],
+    ['Nav', 'Enable Debug Drawing (член NavigationPath)', mem('NavigationPath.EnableDebugDrawing', ['bShouldDrawDebugData:bool', 'PathColor:linearcolor'])],
+    ['Perception', 'Get Currently Perceived Actors (член AIPerceptionComponent)', mem('AIPerceptionComponent.GetCurrentlyPerceivedActors', ['SenseToUse:class:/Script/AIModule.AISense', '->', 'OutActors:object:Actor[]'])],
+    ['Perception', 'Get Known Perceived Actors (член AIPerceptionComponent)', mem('AIPerceptionComponent.GetKnownPerceivedActors', ['SenseToUse:class:/Script/AIModule.AISense', '->', 'OutActors:object:Actor[]'])],
+    ['Perception', 'Get Perceived Hostile Actors (член AIPerceptionComponent)', mem('AIPerceptionComponent.GetPerceivedHostileActors', ['->', 'OutActors:object:Actor[]'])],
+    ['Perception', 'Request Stimuli Listener Update (член AIPerceptionComponent)', mem('AIPerceptionComponent.RequestStimuliListenerUpdate', [])],
+    ['Perception', 'Set Sense Enabled (член AIPerceptionComponent)', mem('AIPerceptionComponent.SetSenseEnabled', ['SenseClass:class:/Script/AIModule.AISense', 'bEnable:bool'])],
+    ['Perception', 'Register for Sense (член AIPerceptionStimuliSourceComponent)', mem('AIPerceptionStimuliSourceComponent.RegisterForSense', ['SenseClass:class:/Script/AIModule.AISense'])],
+    ['Perception', 'Unregister from Sense (член AIPerceptionStimuliSourceComponent)', mem('AIPerceptionStimuliSourceComponent.UnregisterFromSense', ['SenseClass:class:/Script/AIModule.AISense'])],
+    ['Perception', 'Register with Perception System (член AIPerceptionStimuliSourceComponent)', mem('AIPerceptionStimuliSourceComponent.RegisterWithPerceptionSystem', [])],
+    ['Stimuli', 'Report Noise Event (AISense_Hearing)', lib('AISense_Hearing.ReportNoiseEvent', ['NoiseLocation:vector', 'Loudness:float=1.0', 'Instigator:object:Actor', 'MaxRange:float=0.0', 'Tag:name'])],
+    ['Stimuli', 'Report Damage Event (AISense_Damage)', lib('AISense_Damage.ReportDamageEvent', ['DamagedActor:object:Actor', 'Instigator:object:Actor', 'DamageAmount:float', 'EventLocation:vector', 'HitLocation:vector', 'Tag:name'])],
+    ['Stimuli', 'Register Perception Stimuli Source (AIPerceptionSystem)', lib('AIPerceptionSystem.RegisterPerceptionStimuliSource', ['Sense:class:/Script/AIModule.AISense', 'Target:object:Actor', '->', 'ReturnValue:bool'])],
+    ['Stimuli', 'Make Noise (член Actor)', mem('Actor.MakeNoise', ['Loudness:float=1.0', 'NoiseInstigator:object:Pawn', 'NoiseLocation:vector', 'MaxRange:float=0.0', 'Tag:name'])],
+    ['Stimuli', 'Pawn Make Noise (член Pawn)', mem('Pawn.PawnMakeNoise', ['Loudness:float', 'NoiseLocation:vector', 'bUseNoiseMakerLocation:bool=true', 'NoiseMaker:object:Actor'])],
+  ],
 };
 
 const list = BATCHES[batch];

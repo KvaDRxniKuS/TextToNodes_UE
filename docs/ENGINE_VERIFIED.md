@@ -1288,3 +1288,7 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 ## 2026-10-01 — R52 проба: звук / эффекты / фидбэк (ждёт вердикта)
 `node tools/gen-probe.mjs --batch 52` → `sweep/probes/r52-probe.txt`, 22 ноды. Ряды: Sound 5, AudioComp 7, Niagara 7, Feedback 3. Дубли с реестром отфильтрованы по func (большая часть звука/Niagara/урона уже VERIFIED).
 - R52 вердикт: Sound 5, AudioComp 7, Feedback 3 встали → `--register` +15 (реестр 1144). Niagara 7 не встали: баг генератора — `mem('NiagaraComponent.X')` давал `/Script/Engine.NiagaraComponent`. Niagara не устарела (устарел Cascade). Исправлено в корне: `normalizeClassPath` берёт модуль короткого имени из UE_LIBS (Niagara, AIModule, UMG…), иначе Engine. Повтор — R52b (7 нод, ряд Niagara).
+- R52b вердикт: Niagara 7/7 встали → `--register` +7 (реестр 1151); проба удалена.
+
+## 2026-10-01 — R53 проба: ИИ / навигация / восприятие (ждёт вердикта)
+`gen-probe --batch 53` → `sweep/probes/r53-probe.txt`, 21 нода. Ряды: AI 4, Nav 4, Perception 8, Stimuli 5. В UE_LIBS добавлены AIPerceptionComponent, AIPerceptionStimuliSourceComponent, AISense_Hearing, AISense_Damage, AIPerceptionSystem (AIModule).

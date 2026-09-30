@@ -43324,5 +43324,255 @@
   "verified": true,
   "desc": "Spawn Force Feedback at Location",
   "probe": "R52 проба (Feedback) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Spawn Force Feedback at Location (GameplayStatics)"
+ },
+ {
+  "id": "SetAutoDestroy",
+  "title": "Set Auto Destroy",
+  "from": "probe",
+  "category": "Materials / FX",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetAutoDestroy",
+  "lib": "NiagaraComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Niagara.NiagaraComponent"
+   },
+   {
+    "name": "bInAutoDestroy",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "R52b · Niagara: Set Auto Destroy",
+  "probe": "R52b проба (Niagara) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R52b · Niagara: Set Auto Destroy (NiagaraComponent)"
+ },
+ {
+  "id": "IsPaused",
+  "title": "Is Paused",
+  "from": "probe",
+  "category": "Materials / FX",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsPaused",
+  "lib": "NiagaraComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Niagara.NiagaraComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "R52b · Niagara: Is Paused",
+  "probe": "R52b проба (Niagara) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R52b · Niagara: Is Paused (NiagaraComponent, pure)"
+ },
+ {
+  "id": "SetDesiredAge",
+  "title": "Set Desired Age",
+  "from": "probe",
+  "category": "Materials / FX",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetDesiredAge",
+  "lib": "NiagaraComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Niagara.NiagaraComponent"
+   },
+   {
+    "name": "InDesiredAge",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "R52b · Niagara: Set Desired Age",
+  "probe": "R52b проба (Niagara) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R52b · Niagara: Set Desired Age (NiagaraComponent)"
+ },
+ {
+  "id": "AdvanceSimulation",
+  "title": "Advance Simulation",
+  "from": "probe",
+  "category": "Materials / FX",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AdvanceSimulation",
+  "lib": "NiagaraComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Niagara.NiagaraComponent"
+   },
+   {
+    "name": "TickCount",
+    "dir": "Input",
+    "cat": "int"
+   },
+   {
+    "name": "TickDeltaSeconds",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "R52b · Niagara: Advance Simulation",
+  "probe": "R52b проба (Niagara) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R52b · Niagara: Advance Simulation (NiagaraComponent)"
+ },
+ {
+  "id": "SetRenderingEnabled",
+  "title": "Set Rendering Enabled",
+  "from": "probe",
+  "category": "Materials / FX",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetRenderingEnabled",
+  "lib": "NiagaraComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Niagara.NiagaraComponent"
+   },
+   {
+    "name": "bInRenderingEnabled",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "R52b · Niagara: Set Rendering Enabled",
+  "probe": "R52b проба (Niagara) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R52b · Niagara: Set Rendering Enabled (NiagaraComponent)"
+ },
+ {
+  "id": "SetForceSolo",
+  "title": "Set Force Solo",
+  "from": "probe",
+  "category": "Materials / FX",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetForceSolo",
+  "lib": "NiagaraComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Niagara.NiagaraComponent"
+   },
+   {
+    "name": "bInForceSolo",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "R52b · Niagara: Set Force Solo",
+  "probe": "R52b проба (Niagara) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R52b · Niagara: Set Force Solo (NiagaraComponent)"
+ },
+ {
+  "id": "SetVariablePosition",
+  "title": "Set Variable Position",
+  "from": "probe",
+  "category": "Materials / FX",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetVariablePosition",
+  "lib": "NiagaraComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Niagara.NiagaraComponent"
+   },
+   {
+    "name": "InVariableName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "InValue",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "R52b · Niagara: Set Niagara Variable",
+  "probe": "R52b проба (Niagara) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R52b · Niagara: Set Niagara Variable (Position) (NiagaraComponent)"
  }
 ]

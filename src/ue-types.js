@@ -40,7 +40,12 @@ const LIBS_FULL = {
   PrimitiveComponent: `"/Script/CoreUObject.Class'/Script/Engine.PrimitiveComponent'"`, // round29-pre
   ActorComponent: `"/Script/CoreUObject.Class'/Script/Engine.ActorComponent'"`, // round29-pre
   DataTableFunctionLibrary: `"/Script/CoreUObject.Class'/Script/Engine.DataTableFunctionLibrary'"`, // R37 (R36 VERIFIED)
-  AIBlueprintHelperLibrary: `"/Script/CoreUObject.Class'/Script/AIModule.AIBlueprintHelperLibrary'"`, // R37 (R36 VERIFIED)
+  AIBlueprintHelperLibrary: `"/Script/CoreUObject.Class'/Script/AIModule.AIBlueprintHelperLibrary'"`,
+  AIPerceptionComponent: `"/Script/CoreUObject.Class'/Script/AIModule.AIPerceptionComponent'"`, // R53 проба
+  AIPerceptionStimuliSourceComponent: `"/Script/CoreUObject.Class'/Script/AIModule.AIPerceptionStimuliSourceComponent'"`, // R53 проба
+  AISense_Hearing: `"/Script/CoreUObject.Class'/Script/AIModule.AISense_Hearing'"`, // R53 проба
+  AISense_Damage: `"/Script/CoreUObject.Class'/Script/AIModule.AISense_Damage'"`, // R53 проба
+  AIPerceptionSystem: `"/Script/CoreUObject.Class'/Script/AIModule.AIPerceptionSystem'"`, // R53 проба // R37 (R36 VERIFIED)
   AIController: `"/Script/CoreUObject.Class'/Script/AIModule.AIController'"`, // R37 (R36 VERIFIED)
   BlackboardComponent: `"/Script/CoreUObject.Class'/Script/AIModule.BlackboardComponent'"`, // R37 (R36 VERIFIED)
   SkeletalMeshComponent: `"/Script/CoreUObject.Class'/Script/Engine.SkeletalMeshComponent'"`, // R37 (R36 VERIFIED)
@@ -120,6 +125,11 @@ const LIBS_SHORT = {
   ActorComponent: `Class'"/Script/Engine.ActorComponent"'`,
   DataTableFunctionLibrary: `Class'"/Script/Engine.DataTableFunctionLibrary"'`,
   AIBlueprintHelperLibrary: `Class'"/Script/AIModule.AIBlueprintHelperLibrary"'`,
+  AIPerceptionComponent: `Class'"/Script/AIModule.AIPerceptionComponent"'`,
+  AIPerceptionStimuliSourceComponent: `Class'"/Script/AIModule.AIPerceptionStimuliSourceComponent"'`,
+  AISense_Hearing: `Class'"/Script/AIModule.AISense_Hearing"'`,
+  AISense_Damage: `Class'"/Script/AIModule.AISense_Damage"'`,
+  AIPerceptionSystem: `Class'"/Script/AIModule.AIPerceptionSystem"'`,
   AIController: `Class'"/Script/AIModule.AIController"'`,
   BlackboardComponent: `Class'"/Script/AIModule.BlackboardComponent"'`,
   SkeletalMeshComponent: `Class'"/Script/Engine.SkeletalMeshComponent"'`,
