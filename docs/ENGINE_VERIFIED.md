@@ -1248,3 +1248,8 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 - Copy-back сохранён в `sweep/copyback/r50-repnotify.txt`: вход функции OnRep_health, Set health (RepNotify), Set healthNonotify, Get health.
 - Вывод: **в тексте Set у RepNotify-переменной и у обычной ничем не отличаются.** Подпись «w/ Notify» движок берёт из флагов самой переменной. Функцию `OnRep_<name>` он создаёт сам, её вход (`K2Node_FunctionEntry`) — часть графа функции, как отдельную ноду её не вставить.
 - Саму переменную текстом не вставить, как и диспетчер. Поэтому `createReplicatedVarSet(name, type, value, {rep:'notify'|'replicated', bp})` в `src/modules.js` даёт обычный Set своей переменной (порядок пинов и дефолты как в copy-back) и пузырь «Создайте переменную X, Replication = RepNotify». Проверено тестом по copy-back. Разница только в PinToolTip у Output_Get, а тултипы движок пересобирает сам.
+
+## R50 — проба: мультиплеер / Game Framework / система
+
+- `sweep/probes/r50-probe.txt`, 61 нода. Ряды: Net 10, State 16, PC 5, Sys 11, Statics 19. Сигнатуры взяты по заголовкам UE 5.x и ждут вердикта.
+- Добавлен тип `IntVector` (UE_STRUCTS), нужен для GetWorldOriginLocation.

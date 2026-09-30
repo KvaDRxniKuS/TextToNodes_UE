@@ -191,6 +191,7 @@ const STRUCTS_FULL = {
   WidgetTransform: `"/Script/CoreUObject.ScriptStruct'/Script/UMG.WidgetTransform'"`, // copy-back R45b
   DateTime: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.DateTime'"`, // confirmed R48
   Timespan: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Timespan'"`, // confirmed R48
+  IntVector: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.IntVector'"`, // R50 probe
   HitResult:   `"/Script/CoreUObject.ScriptStruct'/Script/Engine.HitResult'"`,        // confirmed (copy-back LineTraceSingle)
   Key:         `"/Script/CoreUObject.ScriptStruct'/Script/InputCore.Key'"`,
   LatentActionInfo: `"/Script/CoreUObject.ScriptStruct'/Script/Engine.LatentActionInfo'"`, // confirmed (copy-back Delay L1/L2)
@@ -213,6 +214,7 @@ const STRUCTS_SHORT = {
   WidgetTransform: `ScriptStruct'"/Script/UMG.WidgetTransform"'`,
   DateTime: `ScriptStruct'"/Script/CoreUObject.DateTime"'`,
   Timespan: `ScriptStruct'"/Script/CoreUObject.Timespan"'`,
+  IntVector: `ScriptStruct'"/Script/CoreUObject.IntVector"'`,
   HitResult:        `ScriptStruct'"/Script/Engine.HitResult"'`,
   Key:              `ScriptStruct'"/Script/InputCore.Key"'`,
   LatentActionInfo: `ScriptStruct'"/Script/Engine.LatentActionInfo"'`,
