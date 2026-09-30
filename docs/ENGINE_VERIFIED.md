@@ -1234,4 +1234,4 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 - Copy-back пользователя сохранён в `sweep/copyback/r49-special-nodes.txt`. Сохранены только блоки, нужные как шаблоны. У GetClassDefaults оставлена одна строка ShowPinForProperties: фабрика их всё равно не пишет.
 - RPC Custom Event: FunctionFlags из copy-back (Server Reliable 203555008, Client 218234944, Multicast 201474112) побитно совпали с `rpcFunctionFlags` / `repEvent`. **VERIFIED**.
 - Новые фабрики в `src/special-nodes.js`: EnumLiteral, GetEnumeratorName(+AsString), CastByteToEnum, EnumEquality, ForEachEnum, SpawnActorFromClass, GetClassDefaults, GetSubsystem, LoadAsset(s)/LoadAssetClass, AsyncLoadPrimaryAsset, ConvertAsset, PlayMontage, Self, MultiGate, CallParentFunction, AssignDelegate.
-- Проба `sweep/probes/r49-probe.txt` (20 нод): Enum 6, Class 4, Asset 5, Flow 5. Ждёт вердикта.
+- Проба R49 (20 нод: Enum 6, Class 4, Asset 5, Flow 5): **VERIFIED** (2026-10-01), все ноды встали. Enum to Name и Enum to String без входа дают ошибку компиляции «Must have non-default Enum input». Это норма движка: вход нужно подключить (например, к Literal enum). Проба и её recipe удалены.

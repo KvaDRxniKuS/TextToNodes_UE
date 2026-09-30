@@ -137,6 +137,7 @@ export function createVariableSetRef(o = {}) {
 }
 
 // ── R49 ──────────────────────────────────────────────────────────────────────
+// Enum to Name/String: вход ОБЯЗАН быть подключён (иначе движок: «Must have non-default Enum input», R49).
 // enum: '/Script/Engine.ECollisionChannel' (нативный) | '/Game/.../E_Foo.E_Foo' (UserDefinedEnum) | готовая ссылка с кавычками.
 export function enumObj(e) {
   if (e.includes("'")) return e;
