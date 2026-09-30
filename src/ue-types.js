@@ -207,11 +207,11 @@ const STRUCTS_FULL = {
   Quat:        `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Quat'"`, // R33 copy-back: Quat_IsNormalized
   Transform:   `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Transform'"`,
   LinearColor: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.LinearColor'"`, // confirmed (copy-back H1/J5)
-  Margin: `"/Script/CoreUObject.ScriptStruct'/Script/SlateCore.Margin'"`, // R55 проба
-  SlateColor: `"/Script/CoreUObject.ScriptStruct'/Script/SlateCore.SlateColor'"`, // R55 проба
-  SlateFontInfo: `"/Script/CoreUObject.ScriptStruct'/Script/SlateCore.SlateFontInfo'"`, // R55 проба
-  SlateBrush: `"/Script/CoreUObject.ScriptStruct'/Script/SlateCore.SlateBrush'"`, // R55 проба
-  IntPoint: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.IntPoint'"`, // R55 проба
+  Margin: `"/Script/CoreUObject.ScriptStruct'/Script/SlateCore.Margin'"`, // R55 VERIFIED
+  SlateColor: `"/Script/CoreUObject.ScriptStruct'/Script/SlateCore.SlateColor'"`, // R55 VERIFIED
+  SlateFontInfo: `"/Script/CoreUObject.ScriptStruct'/Script/SlateCore.SlateFontInfo'"`, // R55 VERIFIED
+  SlateBrush: `"/Script/CoreUObject.ScriptStruct'/Script/SlateCore.SlateBrush'"`, // R55 VERIFIED
+  IntPoint: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.IntPoint'"`, // R55 VERIFIED
   MaterialParameterInfo: `"/Script/CoreUObject.ScriptStruct'/Script/Engine.MaterialParameterInfo'"`, // copy-back R45b
   WidgetTransform: `"/Script/CoreUObject.ScriptStruct'/Script/UMG.WidgetTransform'"`, // copy-back R45b
   DateTime: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.DateTime'"`, // confirmed R48
@@ -267,12 +267,12 @@ const ENUMS_FULL = {
   EAttachmentRule: `"/Script/CoreUObject.Enum'/Script/Engine.EAttachmentRule'"`, // round23-pre
   EDetachmentRule: `"/Script/CoreUObject.Enum'/Script/Engine.EDetachmentRule'"`, // round23b-pre
   ESlateVisibility: `"/Script/CoreUObject.Enum'/Script/UMG.ESlateVisibility'"`, // round27-pre
-  EMouseCursor: `"/Script/CoreUObject.Enum'/Script/CoreUObject.EMouseCursor'"`, // R55 проба
-  EHorizontalAlignment: `"/Script/CoreUObject.Enum'/Script/SlateCore.EHorizontalAlignment'"`, // R55 проба
-  EVerticalAlignment: `"/Script/CoreUObject.Enum'/Script/SlateCore.EVerticalAlignment'"`, // R55 проба
-  EWindowMode: `"/Script/CoreUObject.Enum'/Script/Engine.EWindowMode'"`, // R55 проба
-  EBlendMode: `"/Script/CoreUObject.Enum'/Script/Engine.EBlendMode'"`, // R55 проба
-  EControllerHand: `"/Script/CoreUObject.Enum'/Script/InputCore.EControllerHand'"`, // R55 проба
+  EMouseCursor: `"/Script/CoreUObject.Enum'/Script/CoreUObject.EMouseCursor'"`, // R55 VERIFIED
+  EHorizontalAlignment: `"/Script/CoreUObject.Enum'/Script/SlateCore.EHorizontalAlignment'"`, // R55 VERIFIED
+  EVerticalAlignment: `"/Script/CoreUObject.Enum'/Script/SlateCore.EVerticalAlignment'"`, // R55 VERIFIED
+  EWindowMode: `"/Script/CoreUObject.Enum'/Script/Engine.EWindowMode'"`, // R55 VERIFIED
+  EBlendMode: `"/Script/CoreUObject.Enum'/Script/Engine.EBlendMode'"`, // R55 VERIFIED
+  EControllerHand: `"/Script/CoreUObject.Enum'/Script/InputCore.EControllerHand'"`, // R55 VERIFIED
   EMouseLockMode: `"/Script/CoreUObject.Enum'/Script/Engine.EMouseLockMode'"`, // round27-pre
   EInputActionValueType: `"/Script/CoreUObject.Enum'/Script/EnhancedInput.EInputActionValueType'"`, // round28-pre
   ECollisionEnabled: `"/Script/CoreUObject.Enum'/Script/Engine.ECollisionEnabled'"`, // round29-pre

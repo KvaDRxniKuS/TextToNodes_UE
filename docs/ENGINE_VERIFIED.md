@@ -1301,3 +1301,4 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 
 ## 2026-10-01 — R55 проба: недостающие типы (ждёт вердикта)
 Типы: STRUCTS += Margin, SlateColor, SlateFontInfo, SlateBrush (SlateCore), IntPoint (CoreUObject); ENUMS += EMouseCursor (CoreUObject), EHorizontalAlignment/EVerticalAlignment (SlateCore), EWindowMode, EBlendMode (Engine), EControllerHand (InputCore); `parseType` понимает `softobject:X` / `softclass:X`. Проба `gen-probe --batch 55` → `sweep/probes/r55-probe.txt`, 17 нод: Widget 8, Screen 5, Other 4. Пути типов — гипотеза, ждут вставки.
+- R55 вердикт: 17/17 встали, типы подтверждены (Margin, SlateColor, SlateFontInfo, SlateBrush, IntPoint, 6 энамов, softobject) → `--register` +17. Проба удалена.

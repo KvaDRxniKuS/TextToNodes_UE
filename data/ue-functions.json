@@ -45555,5 +45555,717 @@
   "verified": true,
   "desc": "Get Actors In Selection Rectangle",
   "probe": "R54 проба (HUD) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Actors In Selection Rectangle (член HUD)"
+ },
+ {
+  "id": "SetCursor",
+  "title": "Set Cursor",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetCursor",
+  "lib": "Widget",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Widget"
+   },
+   {
+    "name": "InCursor",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EMouseCursor"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Cursor",
+  "probe": "R55 проба (Widget) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Cursor (член Widget) — enum EMouseCursor"
+ },
+ {
+  "id": "SetPadding",
+  "title": "Set Padding",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetPadding",
+  "lib": "Border",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Border"
+   },
+   {
+    "name": "InPadding",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Margin",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "Set Padding",
+  "probe": "R55 проба (Widget) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Padding (член Border) — struct Margin"
+ },
+ {
+  "id": "SetHorizontalAlignment",
+  "title": "Set Horizontal Alignment",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetHorizontalAlignment",
+  "lib": "Border",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Border"
+   },
+   {
+    "name": "InHorizontalAlignment",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EHorizontalAlignment"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Horizontal Alignment",
+  "probe": "R55 проба (Widget) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Horizontal Alignment (член Border) — enum"
+ },
+ {
+  "id": "SetVerticalAlignment",
+  "title": "Set Vertical Alignment",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetVerticalAlignment",
+  "lib": "Border",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Border"
+   },
+   {
+    "name": "InVerticalAlignment",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EVerticalAlignment"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Vertical Alignment",
+  "probe": "R55 проба (Widget) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Vertical Alignment (член Border) — enum"
+ },
+ {
+  "id": "SetBrushTintColor",
+  "title": "Set Brush Tint Color",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetBrushTintColor",
+  "lib": "Image",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Image"
+   },
+   {
+    "name": "TintColor",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "SlateColor",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "Set Brush Tint Color",
+  "probe": "R55 проба (Widget) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Brush Tint Color (член Image) — struct SlateColor"
+ },
+ {
+  "id": "SetBrush",
+  "title": "Set Brush",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetBrush",
+  "lib": "Image",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Image"
+   },
+   {
+    "name": "InBrush",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "SlateBrush",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "Set Brush",
+  "probe": "R55 проба (Widget) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Brush (член Image) — struct SlateBrush"
+ },
+ {
+  "id": "SetFont",
+  "title": "Set Font",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetFont",
+  "lib": "TextBlock",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.TextBlock"
+   },
+   {
+    "name": "InFontInfo",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "SlateFontInfo",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "Set Font",
+  "probe": "R55 проба (Widget) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Font (член TextBlock) — struct SlateFontInfo"
+ },
+ {
+  "id": "SetCheckedState",
+  "title": "Set Checked State",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetCheckedState",
+  "lib": "CheckBox",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.CheckBox"
+   },
+   {
+    "name": "InCheckedState",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ECheckBoxState"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Checked State",
+  "probe": "R55 проба (Widget) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Checked State (член CheckBox) — enum ECheckBoxState"
+ },
+ {
+  "id": "SetScreenResolution",
+  "title": "Set Screen Resolution",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetScreenResolution",
+  "lib": "GameUserSettings",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameUserSettings"
+   },
+   {
+    "name": "Resolution",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "IntPoint",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "Set Screen Resolution",
+  "probe": "R55 проба (Screen) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Screen Resolution (член GameUserSettings) — struct IntPoint"
+ },
+ {
+  "id": "GetScreenResolution",
+  "title": "Get Screen Resolution",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetScreenResolution",
+  "lib": "GameUserSettings",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameUserSettings"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "IntPoint"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Screen Resolution",
+  "probe": "R55 проба (Screen) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Screen Resolution (член GameUserSettings, pure)"
+ },
+ {
+  "id": "GetDesktopResolution",
+  "title": "Get Desktop Resolution",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetDesktopResolution",
+  "lib": "GameUserSettings",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameUserSettings"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "IntPoint"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Desktop Resolution",
+  "probe": "R55 проба (Screen) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Desktop Resolution (член GameUserSettings, pure)"
+ },
+ {
+  "id": "SetFullscreenMode",
+  "title": "Set Fullscreen Mode",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetFullscreenMode",
+  "lib": "GameUserSettings",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameUserSettings"
+   },
+   {
+    "name": "InFullscreenMode",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EWindowMode"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Fullscreen Mode",
+  "probe": "R55 проба (Screen) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Fullscreen Mode (член GameUserSettings) — enum EWindowMode"
+ },
+ {
+  "id": "GetFullscreenMode",
+  "title": "Get Fullscreen Mode",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetFullscreenMode",
+  "lib": "GameUserSettings",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.GameUserSettings"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "byte",
+    "enum": "EWindowMode"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Fullscreen Mode",
+  "probe": "R55 проба (Screen) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Fullscreen Mode (член GameUserSettings, pure)"
+ },
+ {
+  "id": "OpenLevelBySoftObjectPtr",
+  "title": "Open Level By Soft Object Ptr",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "OpenLevelBySoftObjectPtr",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Level",
+    "dir": "Input",
+    "cat": "softobject",
+    "object": "/Script/Engine.World"
+   },
+   {
+    "name": "bAbsolute",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   },
+   {
+    "name": "Options",
+    "dir": "Input",
+    "cat": "string"
+   }
+  ],
+  "verified": true,
+  "desc": "Open Level",
+  "probe": "R55 проба (Other) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Open Level (by Object Reference) (GameplayStatics) — softobject World"
+ },
+ {
+  "id": "PlayHapticEffect",
+  "title": "Play Haptic Effect",
+  "from": "probe",
+  "category": "Player / Controller",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "PlayHapticEffect",
+  "lib": "PlayerController",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   },
+   {
+    "name": "HapticEffect",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.HapticFeedbackEffect_Base"
+   },
+   {
+    "name": "Hand",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EControllerHand"
+   },
+   {
+    "name": "Scale",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "1.0",
+    "autoDv": ""
+   },
+   {
+    "name": "bLoop",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Play Haptic Effect",
+  "probe": "R55 проба (Other) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Play Haptic Effect (член PlayerController) — enum EControllerHand"
+ },
+ {
+  "id": "StopHapticEffect",
+  "title": "Stop Haptic Effect",
+  "from": "probe",
+  "category": "Player / Controller",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "StopHapticEffect",
+  "lib": "PlayerController",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   },
+   {
+    "name": "Hand",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EControllerHand"
+   }
+  ],
+  "verified": true,
+  "desc": "Stop Haptic Effect",
+  "probe": "R55 проба (Other) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Stop Haptic Effect (член PlayerController)"
+ },
+ {
+  "id": "DrawTexture",
+  "title": "Draw Texture",
+  "from": "probe",
+  "category": "Game Framework",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "DrawTexture",
+  "lib": "HUD",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.HUD"
+   },
+   {
+    "name": "Texture",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Texture"
+   },
+   {
+    "name": "ScreenX",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "ScreenY",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "ScreenW",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "ScreenH",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "TextureU",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "TextureV",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "TextureUWidth",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "1.0",
+    "autoDv": ""
+   },
+   {
+    "name": "TextureVHeight",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "1.0",
+    "autoDv": ""
+   },
+   {
+    "name": "TintColor",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "const": true
+   },
+   {
+    "name": "BlendMode",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EBlendMode"
+   },
+   {
+    "name": "Scale",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "1.0",
+    "autoDv": ""
+   },
+   {
+    "name": "bScalePosition",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false",
+    "autoDv": ""
+   },
+   {
+    "name": "Rotation",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "0.0",
+    "autoDv": ""
+   },
+   {
+    "name": "RotPivot",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector2D",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "Draw Texture",
+  "probe": "R55 проба (Other) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Draw Texture (член HUD) — enum EBlendMode"
  }
 ]
