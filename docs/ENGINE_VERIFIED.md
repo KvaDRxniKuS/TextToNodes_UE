@@ -1151,3 +1151,12 @@ R41 зарегистрирован: реестр +17, всего 551. В UE_LIBS
 
 - 2026-09-30 — тестер: секция C (chain) структурного демо собрана в ряд корректно. Добавлены шина knot'ов (`bus`), ряд подписок (`layout:'bind'`), линтер раскладки L1–L4 (`src/layout-lint.js`); демо 97 нод, STRICT OK, линтер 0. Ряд подписок и шина в движке ещё не проверены.
 - 2026-09-30 — тестер: шина Dt в C «выполнена идеально», но от переменной не нужна (проще Get по месту); шина — от выхода ноды. Ряд подписок E — норма, 2 ряда. Шина переделана: `bus:{name, expr}`, от переменной — отказ; демо C: шина от `Dt·TimeScale`.
+
+## R43 — широкая проба (2026-09-30) — ждёт вердикта
+`sweep/probes/r43-probe.txt` (`node tools/gen-probe.mjs --batch 43`), 30 нод, 7 тем, STRICT без ошибок (W05 — ожидаемо, функций ещё нет в реестре).
+- **Actor:** GetAttachParentActor, GetDotProductTo, GetHorizontalDistanceTo, GetActorBounds, IsActorBeingDestroyed, K2_TeleportTo, WasRecentlyRendered; ActorComponent.SetComponentTickEnabled.
+- **Math:** GetDirectionUnitVector, GreaterGreater_VectorRotator (Rotate Vector), Vector_Distance2D, RInterpTo_Constant, Ease (EEasingFunc), RandomUnitVectorInConeInDegrees, MirrorVectorByNormal, Vector_ClampSize2D.
+- **Damage:** ApplyPointDamage (HitInfo by-ref), ApplyRadialDamage (IgnoreActors by-ref, ECollisionChannel).
+- **World:** GetAllActorsOfClassWithTag, SuggestProjectileVelocity_CustomArc, K2_SetTimerForNextTick.
+- **Movement/Capsule/Mesh:** MovementComponent.K2_GetMaxSpeed; CapsuleComponent.SetCapsuleSize / GetScaledCapsuleHalfHeight; SceneComponent.GetSocketRotation; SkinnedMeshComponent.GetBoneName / GetNumBones; SkeletalMeshComponent.SetSkeletalMeshAsset / SetAnimInstanceClass / SetPlayRate.
+- Новые UE_LIBS при регистрации: CapsuleComponent, SkinnedMeshComponent.
