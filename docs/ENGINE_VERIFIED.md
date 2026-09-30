@@ -1263,3 +1263,11 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
   - Is Drag and Dropping — это `WidgetBlueprintLibrary.IsDragDropping`.
   - Create Drag Drop Operation — не функция, а `/Script/UMGEditor.K2Node_CreateDragDropOperation`. Шаблон лежит в `sweep/copyback/r51-dragdrop.txt` (сохранён только этот блок), фабрика — `createDragDropOperation({class})` в `src/special-nodes.js`.
   - В реестр добавлены 49 записей с исправленными именами. Проба и её recipe удалены.
+
+## Демо «HUD здоровья» (Create Widget + Format Text + RepNotify), ждёт вставки
+
+- Генератор `tools/gen-hud-demo.mjs`, результат `sweep/chapters/hud-health-demo.txt`: 29 нод, 4 комментария-секции, knot-переносы расстановщика. STRICT OK.
+- Новое и пока не проверенное:
+  - `createFormatText(format, types)` в `src/modules.js`: аргументы `{X}` записываются как `PinNames(i)="X"` плюс входной пин с типом источника.
+  - `UserWidget.GetWidgetFromName`, взят как impure.
+- K2Node_Event (BeginPlay) не используется, потому что вставкой он ломается (E08). Вместо него Custom Event InitHUD с пузырём «вызовите из Event BeginPlay».

@@ -177,6 +177,19 @@ export function createFn(entry, values = {}, pos) {
 
 export { createCast };
 
+/** Format Text с аргументами: createFormatText('HP: {Health} / {Max}', { Health: 'double', Max: 'double' }).
+ *  Пины аргументов пишутся сразу с типом источника (без типа — wildcard, движок уточнит при подключении).
+ *  PinNames(i) — список аргументов K2Node_FormatText. ⚠ аргументы ждут подтверждения вставкой. */
+export function createFormatText(format, types = {}, pos) {
+  const n = node('K2Node_FormatText', pos);
+  n.title = 'Format Text';
+  const args = [...new Set([...format.matchAll(/\{([A-Za-z0-9_]+)\}/g)].map(m => m[1]))];
+  n.rawProps = args.map((a, i) => `PinNames(${i})="${a}"`);
+  n.pins.push(mkPin('Format', 'Input', 'text', { dv: format }), mkPin('Result', 'Output', 'text'));
+  for (const a of args) n.pins.push(types[a] ? pin(a, 'Input', parseType(types[a])) : mkPin(a, 'Input', 'wildcard'));
+  return n;
+}
+
 /** Create Widget (UMGEditor.K2Node_CreateWidget). wbp: /Game/UI/WBP_X или null (класс выбрать в движке). */
 export function createWidget(wbp, pos) {
   const n = node('K2Node_CreateWidget', pos);
