@@ -202,7 +202,9 @@ function createExecReroutes(nodes, { levels = [] } = {}) {
  * не сдвигается), Y поздней (дальше к цели провод идёт по строке пина-входа). K3+K4 (одна строка, 16px) → один
  * knot; стадиум с ΔY=16 (K2,K3,K4 в клетке 3×2) → K1 + один knot.
  */
-export const MIN_KNOT_GAP = 48;
+// Шаг сетки UE = GRID = 16px (зафиксировано пользователем 2026-10-01). Минимум между связанными knot'ами — 3 шага.
+export const MIN_KNOT_GAP_STEPS = 3;
+export const MIN_KNOT_GAP = MIN_KNOT_GAP_STEPS * GRID; // = 48px
 export function mergeCloseKnots(points, minGap = MIN_KNOT_GAP) {
   const outPts = [];
   for (const p of points) {
