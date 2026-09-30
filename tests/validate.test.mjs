@@ -598,12 +598,12 @@ regThrow.forEach(t => console.log('THROW:', t));
 }
 // R12 вердикт: Math/Rotator 15/15 белые
 {
-  const rot = reg.filter(e => e.category === 'Math / Rotator');
+  const rot = reg.filter(e => !e.from && e.category === 'Math / Rotator');
   ok(rot.length === 15 && rot.every(e => e.verified), 'R12: Math/Rotator 15/15 verified');
 }
 // R15 pre-fix: Array — CallArrayFunction wildcard + GetArrayItem (copy)
 {
-  const arr = reg.filter(e => e.category === 'Array');
+  const arr = reg.filter(e => !e.from && e.category === 'Array');
   ok(arr.length === 18, 'R15: Array 18 записей');
   const calls = arr.filter(e => e.className.endsWith('K2Node_CallArrayFunction'));
   ok(calls.every(e => e.lib === 'KismetArrayLibrary' && e.func.startsWith('Array_')), 'R15: все CallArrayFunction — KismetArrayLibrary.Array_*');
@@ -616,7 +616,7 @@ regThrow.forEach(t => console.log('THROW:', t));
 }
 // R14 вердикт: String 28/28 белые
 {
-  const st = reg.filter(e => e.category === 'String');
+  const st = reg.filter(e => !e.from && e.category === 'String');
   ok(st.length === 28 && st.every(e => e.verified), 'R14: String 28/28 verified');
 }
 // R16 pre-fix: Utilities
@@ -626,12 +626,12 @@ regThrow.forEach(t => console.log('THROW:', t));
   const cls = createFromEntry(byId('CreateSaveGame')).pins.find(p => p.name === 'SaveGameClass');
   ok(cls.category === 'class' && /Engine\.SaveGame/.test(cls.subCategoryObject), 'R16: class-пин несёт SubCategoryObject');
   ok(byId('RetriggerableDelay').pins.map(p => p.name).join() === 'execute,then,Duration', 'R16: RetriggerableDelay как белый Delay');
-  const v = validateStrict(generateUEText(reg.filter(e => e.category === 'Utilities').map(e => createFromEntry(e))));
+  const v = validateStrict(generateUEText(reg.filter(e => !e.from && e.category === 'Utilities').map(e => createFromEntry(e))));
   ok(v.errors.length === 0, 'R16: Utilities 0 ошибок');
 }
 // R13 вердикт: Math/Transform 10/10 белые
 {
-  const tr = reg.filter(e => e.category === 'Math / Transform');
+  const tr = reg.filter(e => !e.from && e.category === 'Math / Transform');
   ok(tr.length === 10 && tr.every(e => e.verified), 'R13: Math/Transform 10/10 verified');
 }
 // R17 pre-fix: Gameplay
@@ -642,7 +642,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(oa.container === 'Array' && /Engine\.Actor/.test(oa.subCategoryObject), 'R17: OutActors — Actor Array');
   ok(byId('GetWorld').func === 'GetCurrentLevelName', 'R17: GetWorld → GetCurrentLevelName');
   ok(['GetPlayerController', 'GetPlayerPawn', 'GetPlayerCharacter', 'GetGameMode', 'GetGameState', 'GetGameInstance'].every(i => byId(i).pure), 'R17: геттеры pure');
-  const v = validateStrict(generateUEText(reg.filter(e => e.category === 'Gameplay').map(e => createFromEntry(e))));
+  const v = validateStrict(generateUEText(reg.filter(e => !e.from && e.category === 'Gameplay').map(e => createFromEntry(e))));
   ok(v.errors.length === 0, 'R17: Gameplay 0 ошибок');
 }
 // R18 pre-fix: Input
@@ -652,12 +652,12 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(k.pins.map(p => p.name).join() === 'Pressed,Released,Key', 'R18: InputKey пины Pressed/Released/Key');
   const d = createFromEntry(byId('IsInputKeyDown'));
   ok(/Engine\.PlayerController/.test(d.memberParent) && d.pure && d.pins[0].name === 'self', 'R18: IsInputKeyDown — член PlayerController, pure, self');
-  const v = validateStrict(generateUEText(reg.filter(e => e.category === 'Input').map(e => createFromEntry(e))));
+  const v = validateStrict(generateUEText(reg.filter(e => !e.from && e.category === 'Input').map(e => createFromEntry(e))));
   ok(v.errors.length === 0, 'R18: Input 0 ошибок');
 }
 // R15/R16 вердикт: Array 18/18, Utilities 19/19 белые
 {
-  const a = reg.filter(e => e.category === 'Array'), u = reg.filter(e => e.category === 'Utilities');
+  const a = reg.filter(e => !e.from && e.category === 'Array'), u = reg.filter(e => !e.from && e.category === 'Utilities');
   ok(a.length === 18 && a.every(e => e.verified), 'R15: Array 18/18 verified');
   ok(u.length === 20 && u.every(e => e.verified), 'R16+R34: Utilities 20/20 verified (R34 добавил MoveComponentTo)');
 }
@@ -670,12 +670,12 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(createFromEntry(byId('MakeMap')).pins.map(p => p.name).join() === 'Key 0,Value 0,Map', 'R19: MakeMap Key 0/Value 0/Map');
   const se = createFromEntry(byId('Select'));
   ok(se.selectIndex && se.selectIndex.cat === 'int', 'R19: Select IndexPinType int');
-  const v = validateStrict(generateUEText(reg.filter(e => e.category === 'Organization').map(e => createFromEntry(e))));
+  const v = validateStrict(generateUEText(reg.filter(e => !e.from && e.category === 'Organization').map(e => createFromEntry(e))));
   ok(v.errors.length === 0 && !v.warnings.some(w => w.startsWith('W03')), 'R19: Organization 0 ошибок, без W03');
 }
 // R17 вердикт: Gameplay 12/12; R20 pre-fix: FormatText
 {
-  const g = reg.filter(e => e.category === 'Gameplay');
+  const g = reg.filter(e => !e.from && e.category === 'Gameplay');
   ok(g.length === 12 && g.every(e => e.verified), 'R17: Gameplay 12/12 verified');
   const f = createFromEntry(byId('FormatText'));
   ok(f.className.endsWith('K2Node_FormatText') && f.pins.map(p => p.name).join() === 'Format,Result', 'R20: FormatText → K2Node_FormatText Format/Result');
@@ -691,12 +691,12 @@ regThrow.forEach(t => console.log('THROW:', t));
 }
 // R19 вердикт: Organization 6/6
 {
-  const o = reg.filter(e => e.category === 'Organization');
+  const o = reg.filter(e => !e.from && e.category === 'Organization');
   ok(o.length === 7 && o.every(e => e.verified), 'R19: Organization 7/7 verified');
 }
 // R20 вердикт: Text 1/1; DefaultTextValue (copy-back FormatText)
 {
-  ok(reg.filter(e => e.category === 'Text').every(e => e.verified), 'R20: Text verified');
+  ok(reg.filter(e => !e.from && e.category === 'Text').every(e => e.verified), 'R20: Text verified');
   const cb = fs.readFileSync(new URL('../sweep/copyback/formattext.txt', import.meta.url), 'utf8');
   const g = parseToGraphs(cb);
   const nodes = (Array.isArray(g) ? g : Object.values(g)).flatMap(x => x.nodes || x);
@@ -719,11 +719,11 @@ regThrow.forEach(t => console.log('THROW:', t));
 }
 // R18 вердикт: Input 2/2 (copy-back); R22 pre-fix: Casting
 {
-  const inp = reg.filter(e => e.category === 'Input');
+  const inp = reg.filter(e => !e.from && e.category === 'Input');
   ok(inp.length === 2 && inp.every(e => e.verified), 'R18: Input 2/2 verified');
   const cb = fs.readFileSync(new URL('../sweep/copyback/input-r18.txt', import.meta.url), 'utf8');
   ok(cb.includes('InputKey=SpaceBar') && cb.includes('NSLOCTEXT("K2Node", "Target", "Target")'), 'R18: copy-back — InputKey принят, self → Target');
-  const cs = reg.filter(e => e.category === 'Casting');
+  const cs = reg.filter(e => !e.from && e.category === 'Casting');
   ok(cs.length === 11, 'R22: Casting 11 записей (+ClassCastToPawn)');
   ok(createFromEntry(byId('CastToCharacter')).pins.some(p => p.name === 'AsCharacter'), 'R22: CastToCharacter выход AsCharacter');
   const v = validateStrict(generateUEText(cs.map(e => createFromEntry(e))));
@@ -731,7 +731,7 @@ regThrow.forEach(t => console.log('THROW:', t));
 }
 // R23 pre-fix: Actor (члены AActor)
 {
-  const ac = reg.filter(e => e.category === 'Actor');
+  const ac = reg.filter(e => !e.from && e.category === 'Actor');
   ok(ac.length === 32 && ac.every(e => ['Actor','SceneComponent'].includes(e.lib) && e.pins.some(p => p.name === 'self')), 'R23+23b: Actor 32 записи (13 + 19), все члены Actor/SceneComponent с self');
   const at = createFromEntry(byId('AttachActorToActor')).pins.find(p => p.name === 'LocationRule');
   ok(/EAttachmentRule/.test(at.subCategoryObject) && at.defaultValue === 'KeepRelative', 'R23: EAttachmentRule KeepRelative');
@@ -758,7 +758,7 @@ regThrow.forEach(t => console.log('THROW:', t));
 // R22 VERIFIED + каст к любому классу (createCast)
 {
   const { createCast } = await import('../src/generator.js');
-  ok(reg.filter(e => e.category === 'Casting').every(e => e.verified), 'R22: Casting verified');
+  ok(reg.filter(e => !e.from && e.category === 'Casting').every(e => e.verified), 'R22: Casting verified');
   const ref = fs.readFileSync(new URL('../sweep/copyback/classcast-r22.txt', import.meta.url), 'utf8');
   const t = generateUEText([createCast('Pawn', { kind: 'class' })]);
   const sig = s => s.split('\n').filter(l => /TargetType|PureState|PinName=/.test(l)).map(l => l.replace(/PinId=\w+,/, '').replace(/PersistentGuid=0+,/, '').trim());
@@ -771,7 +771,7 @@ regThrow.forEach(t => console.log('THROW:', t));
 }
 // R23 VERIFIED + R23b pre: досылка Actor/SceneComponent
 {
-  ok(reg.filter(e => e.category === 'Actor' && !/round23b/.test(e.note)).every(e => e.verified), 'R23: 13 записей verified');
+  ok(reg.filter(e => !e.from && e.category === 'Actor' && !/round23b/.test(e.note)).every(e => e.verified), 'R23: 13 записей verified');
   const t = generateUEText([createFromEntry(byId('AttachComponentToComponent'))]);
   ok(t.includes("MemberParent=\"/Script/CoreUObject.Class'/Script/Engine.SceneComponent'\",MemberName=\"K2_AttachToComponent\"") && t.includes('DefaultValue="KeepRelative"'), 'R23b: Attach Component To Component — член SceneComponent, правила KeepRelative');
   ok(generateUEText([createFromEntry(byId('DetachFromActor'))]).includes("Engine.EDetachmentRule"), 'R23b: EDetachmentRule');
@@ -780,8 +780,8 @@ regThrow.forEach(t => console.log('THROW:', t));
 // R21c + R23b VERIFIED, R25 pre: Events / Delegates
 {
   ok(['EnhancedInputActionEvent','GetInputActionValue'].every(id => byId(id).verified), 'R21c: 2 записи verified');
-  ok(reg.filter(e => e.category === 'Actor').every(e => e.verified), 'R23b: все 32 записи Actor verified');
-  const ev = reg.filter(e => e.category === 'Events / Delegates');
+  ok(reg.filter(e => !e.from && e.category === 'Actor').every(e => e.verified), 'R23b: все 32 записи Actor verified');
+  const ev = reg.filter(e => !e.from && e.category === 'Events / Delegates');
   ok(ev.length === 8 && !ev.some(e => e.className.endsWith('K2Node_Event')), 'R25: 8 записей, без K2Node_Event');
   const t = generateUEText([createFromEntry(byId('CustomEventParam')), createFromEntry(byId('BindEventActorBeginOverlap'))]);
   ok(t.includes('CustomFunctionName="OnDamaged"') && t.includes('UserDefinedPin (PinName="Amount",PinType=(PinCategory="real",PinSubCategory="double"),DesiredPinDirection=EGPD_Output)'), 'R25: Custom Event с UserDefinedPin');
@@ -792,8 +792,8 @@ regThrow.forEach(t => console.log('THROW:', t));
 }
 // R24 VERIFIED, R26 pre: Timers / Latent
 {
-  ok(reg.filter(e => e.category === 'Pawn / Character').every(e => e.verified), 'R24: 18 записей verified');
-  const tl = reg.filter(e => e.category === 'Timers / Latent');
+  ok(reg.filter(e => !e.from && e.category === 'Pawn / Character').every(e => e.verified), 'R24: 18 записей verified');
+  const tl = reg.filter(e => !e.from && e.category === 'Timers / Latent');
   ok(tl.length === 14 && tl.every(e => e.lib === 'KismetSystemLibrary'), 'R26: 14 записей KSL');
   const t = generateUEText([createFromEntry(byId('SetTimerByEvent')), createFromEntry(byId('ClearAndInvalidateTimerHandle'))]);
   ok(t.includes('MemberName="TimerDynamicDelegate__DelegateSignature"') && t.includes("Engine.TimerHandle'"), 'R26: Set Timer by Event — сигнатура делегата + FTimerHandle');
@@ -855,7 +855,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(w.includes('Class=/Script/UMGEditor.K2Node_CreateWidget') && w.includes('DefaultObject="/Game/UI/WBP_Menu.WBP_Menu_C"') && w.includes("UMG.WidgetBlueprintGeneratedClass'/Game/UI/WBP_Menu.WBP_Menu_C'"), 'R27: Create Widget — класс WBP в DefaultObject, выход типизирован');
   const s = generateUEText([M.createMemberVar('set', 'PlayerController.bShowMouseCursor', 'bool', 'true')]);
   ok(s.includes(`VariableReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.PlayerController'",MemberName="bShowMouseCursor")`) && s.includes('PinName="Output_Get"'), 'R27: Set свойства чужого класса');
-  ok(reg.filter(e => e.category === 'Widgets / UI').length === 8, 'R27: 8 записей Widgets / UI');
+  ok(reg.filter(e => !e.from && e.category === 'Widgets / UI').length === 8, 'R27: 8 записей Widgets / UI');
   const v = validateStrict(fs.readFileSync(new URL('../sweep/chapters/r27-widgets-ui.txt', import.meta.url), 'utf8'));
   ok(v.errors.length === 0, 'R27: sweep 0 ошибок');
 }
@@ -869,21 +869,21 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(gv.includes('K2Node_GetInputActionValue') && gv.includes('IA_Look.IA_Look'), 'R28: Get IA_X для любого IA');
   const add = generateUEText([M.createFn(byId('AddMappingContext'), { MappingContext: 'IMC_Default' })]);
   ok(add.includes('DefaultObject="/Game/Input/IMC_Default.IMC_Default"'), 'R28: объектный пин получает ассет через DefaultObject');
-  ok(reg.filter(e => e.category === 'Enhanced Input (full)').length === 15, 'R28: 15 записей Enhanced Input (full)');
+  ok(reg.filter(e => !e.from && e.category === 'Enhanced Input (full)').length === 15, 'R28: 15 записей Enhanced Input (full)');
   const v = validateStrict(fs.readFileSync(new URL('../sweep/chapters/r28-enhanced-input-full.txt', import.meta.url), 'utf8'));
   ok(v.errors.length === 0, 'R28: sweep 0 ошибок');
 }
 // R25 VERIFIED + R29 pre: Components / Physics + call (любая UFUNCTION)
 {
   const M = await import('../src/modules.js');
-  ok(reg.filter(e => e.category === 'Events / Delegates').every(e => e.verified), 'R25: Events / Delegates подтверждены движком');
+  ok(reg.filter(e => !e.from && e.category === 'Events / Delegates').every(e => e.verified), 'R25: Events / Delegates подтверждены движком');
   const m = generateUEText([M.createCall('PrimitiveComponent.SetAngularDamping', ['InDamping:float=0.5'])]);
   ok(m.includes(`MemberParent="/Script/CoreUObject.Class'/Script/Engine.PrimitiveComponent'",MemberName="SetAngularDamping"`) && m.includes('PinName="self"') && m.includes('PinName="execute"') && m.includes('DefaultValue="0.5"'), 'R29: call — член класса с видимым self и exec');
   const st = generateUEText([M.createCall('KismetMathLibrary.Abs', ['A:float', '->', 'ReturnValue:float'], { pure: true, isStatic: true })]);
   ok(st.includes('Default__KismetMathLibrary') && !st.includes('PinName="execute"'), 'R29: call static pure — скрытый self библиотеки, без exec');
   const gc = generateUEText([M.createFn(byId('GetComponentByClass'), { ComponentClass: 'StaticMeshComponent' })]);
   ok(gc.includes('DefaultObject="/Script/Engine.StaticMeshComponent"'), 'R29: class-пин получает нативный класс');
-  ok(reg.filter(e => e.category === 'Components / Physics').length === 23, 'R29: 23 записи Components / Physics');
+  ok(reg.filter(e => !e.from && e.category === 'Components / Physics').length === 23, 'R29: 23 записи Components / Physics');
   const v = validateStrict(fs.readFileSync(new URL('../sweep/chapters/r29-components-physics.txt', import.meta.url), 'utf8'));
   ok(v.errors.length === 0, 'R29: sweep 0 ошибок');
 }
@@ -1081,7 +1081,7 @@ regThrow.forEach(t => console.log('THROW:', t));
 }
 // R29 VERIFIED + sweep 32 (компоненты: жизненный цикл/запросы, новый формат пинов)
 {
-  const c29 = reg.filter(e => e.category === 'Components / Physics');
+  const c29 = reg.filter(e => !e.from && e.category === 'Components / Physics');
   ok(c29.length >= 23 && c29.every(e => e.verified), 'R29: Components / Physics verified');
   const t = fs.readFileSync(new URL('../sweep/chapters/r32-components-lifecycle.txt', import.meta.url), 'utf8');
   ok(validateStrict(t).valid, '32: 0 ошибок (строго)');

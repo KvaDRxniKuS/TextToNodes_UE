@@ -1235,3 +1235,10 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 - RPC Custom Event: FunctionFlags из copy-back (Server Reliable 203555008, Client 218234944, Multicast 201474112) побитно совпали с `rpcFunctionFlags` / `repEvent`. **VERIFIED**.
 - Новые фабрики в `src/special-nodes.js`: EnumLiteral, GetEnumeratorName(+AsString), CastByteToEnum, EnumEquality, ForEachEnum, SpawnActorFromClass, GetClassDefaults, GetSubsystem, LoadAsset(s)/LoadAssetClass, AsyncLoadPrimaryAsset, ConvertAsset, PlayMontage, Self, MultiGate, CallParentFunction, AssignDelegate.
 - Проба R49 (20 нод: Enum 6, Class 4, Asset 5, Flow 5): **VERIFIED** (2026-10-01), все ноды встали. Enum to Name и Enum to String без входа дают ошибку компиляции «Must have non-default Enum input». Это норма движка: вход нужно подключить (например, к Literal enum). Проба и её recipe удалены.
+
+## Чистка категории «Gameplay Systems» (2026-10-01)
+
+- 609 записей из R36+ в «Gameplay Systems» разложены по 30 тематическим категориям. Правило описано в `src/categories.js` (`categoryFor`): по классу, а для KismetMath, KismetSystem, GameplayStatics и Actor — ещё и по имени функции. Добавлены категории AI / Navigation, Animation, Materials / FX, Camera, Player / Controller, Networking, Damage, Game Framework, Audio, Lights, Containers, Data / Save, Gameplay Tags, Components / Scene, Math / Vector2D, Math / Color, Math / Time.
+- Раскладку делает `tools/recategorize.mjs`, его можно запускать повторно без вреда. `gen-probe --register` теперь сам проставляет категорию.
+- У перенесённых и будущих записей из проб стоит поле `from: "probe"`. Счётчики старых глав R12–R29 в тестах считают только записи без него.
+- `sweep/registry/` пересобран: 48 файлов категорий, 1024 ноды, 0 ошибок. Имена файлов с 30-го сдвинулись, `31-gameplay-systems.txt` больше нет. Ссылки на него в записях выше — это история.

@@ -17,6 +17,7 @@ import { generateUEText, seedGuids } from '../src/parser.js';
 import { validateStrict } from '../src/validate.js';
 import { createCall, createAddComponentByClass, createCustomEvent } from '../src/modules.js';
 import * as SP from '../src/special-nodes.js';
+import { categoryFor } from '../src/categories.js';
 
 const args = process.argv.slice(2);
 const batch = (args[args.indexOf('--batch') + 1] && args.includes('--batch')) ? args[args.indexOf('--batch') + 1] : '36';
@@ -823,7 +824,6 @@ if (REGISTER) {
   const objPath = ref => (ref.match(/'([^'"]+)'"?$/) || ref.match(/"([^"]+)"'$/) || [])[1] || ref;
   const title = f => f.replace(/_/g, ' ').replace(/([a-z0-9])([A-Z])/g, '$1 $2').replace(/\s+/g, ' ').trim();
   const strip = t => t.replace(/[0-9A-F]{32}/g, 'G').replace(/Name="[^"]*"/, '').replace(/\n\s*NodePos[XY]=-?\d+/g, '').replace(/\n\s*bCommentBubbleVisible=True\n\s*NodeComment="[^"]*"/, '');
-  const topicCat = 'Gameplay Systems'; // одна категория для всех проб (R36+)
   const added = [];
   for (const n of nodes) {
     if (!n.funcName && !n.macroGraph) continue;               // AddComponentByClass — модульная нода, не запись реестра
@@ -845,7 +845,7 @@ if (REGISTER) {
     });
     const e = n.macroGraph
       ? { id: n.macroGraph, title: n.macroGraph, category: 'Flow Control', className: '/Script/BlueprintGraph.K2Node_MacroInstance', pins }
-      : { id: n.funcName, title: title(n.funcName), category: topicCat, className: '/Script/BlueprintGraph.K2Node_CallFunction', func: n.funcName, lib: libByRef[n.memberParent], pins };
+      : { id: n.funcName, title: title(n.funcName), from: 'probe', category: categoryFor({ func: n.funcName, lib: libByRef[n.memberParent] }), className: '/Script/BlueprintGraph.K2Node_CallFunction', func: n.funcName, lib: libByRef[n.memberParent], pins };
     if (!n.macroGraph && !e.lib) throw new Error(`${n.funcName}: нет UE_LIBS-ключа для ${n.memberParent}`);
     if (n.pure) e.pure = true;
     if (!n.macroGraph && reg.some(x => x.func === e.func && x.lib === e.lib)) { console.log(`  = ${e.func} (${e.lib}) уже в реестре`); continue; } // R42: FlushPlayerInput уже был
