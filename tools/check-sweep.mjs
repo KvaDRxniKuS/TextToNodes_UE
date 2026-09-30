@@ -41,6 +41,7 @@ const RECIPES = [
   ['dispatcher bound probe', ['node', 'tools/gen-dispatcher-bound.mjs'], ['sweep/chapters/dispatcher-bound.txt']],
   ['R45 probe (78 встали, в реестре)', ['node', 'tools/gen-probe.mjs', '--batch', '45'], ['sweep/probes/r45-probe.txt']],
   ['R45b probe (6 + 5 бонус, в реестре)', ['node', 'tools/gen-probe.mjs', '--batch', '45b'], ['sweep/probes/r45b-probe.txt']],
+  ['R46 probe (ждёт вердикта)', ['node', 'tools/gen-probe.mjs', '--batch', '46'], ['sweep/probes/r46-probe.txt']],
   ['structured section demo', ['node', 'tools/gen-structured-demo.mjs'], ['sweep/layout/structured-demo.txt']],
 ];
 

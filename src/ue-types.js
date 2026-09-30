@@ -230,6 +230,7 @@ const ENUMS_FULL = {
   ESearchDir: `"/Script/CoreUObject.Enum'/Script/CoreUObject.ESearchDir'"`, // confirmed R45
   ECheckBoxState: `"/Script/CoreUObject.Enum'/Script/SlateCore.ECheckBoxState'"`, // confirmed R45
   ETextJustify: `"/Script/CoreUObject.Enum'/Script/Slate.ETextJustify'"`, // confirmed R45
+  EViewTargetBlendFunction: `"/Script/CoreUObject.Enum'/Script/Engine.EViewTargetBlendFunction'"`, // pre R46
   EMoveComponentAction: `"/Script/CoreUObject.Enum'/Script/Engine.EMoveComponentAction'"`, // R34 copy-back: MoveComponentTo
   EDrawDebugSceneDepthPriorityGroup: `"/Script/CoreUObject.Enum'/Script/Engine.EDrawDebugSceneDepthPriorityGroup'"`, // R33 copy-back: DrawDebugArrow.DepthPriority
   ECollisionResponse: `"/Script/CoreUObject.Enum'/Script/Engine.ECollisionResponse'"`, // round29-pre
@@ -265,6 +266,7 @@ const ENUMS_SHORT = {
   ESearchDir: `Enum'"/Script/CoreUObject.ESearchDir"'`,
   ECheckBoxState: `Enum'"/Script/SlateCore.ECheckBoxState"'`,
   ETextJustify: `Enum'"/Script/Slate.ETextJustify"'`,
+  EViewTargetBlendFunction: `Enum'"/Script/Engine.EViewTargetBlendFunction"'`,
   EMoveComponentAction: `Enum'"/Script/Engine.EMoveComponentAction"'`,
   EDrawDebugSceneDepthPriorityGroup: `Enum'"/Script/Engine.EDrawDebugSceneDepthPriorityGroup"'`,
   ECollisionResponse: `Enum'"/Script/Engine.ECollisionResponse"'`,

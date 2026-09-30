@@ -1198,3 +1198,7 @@ SetToolTipText.InToolTipText — const ref, bDefaultValueIsIgnored. Из тог�
 (ParameterInfo: FMaterialParameterInfo const ref, ignored), Widget SetRenderTransform (FWidgetTransform),
 SetRenderTransformPivot, SetToolTip(Widget). Реестр 732. Не заведены: MPC Set*ParameterValue —
 отдельный класс K2Node_CallMaterialParameterCollectionFunction; ToolMenuEntryExtensions.SetToolTip — редакторный.
+
+## R46 — проба Networking/Input (2026-10-01)
+41 нода, ряды: Net 9, Player 8, Controller 8, Screen 6, MoveInput 4, Keys 6. Только функции, которых нет в реестре.
+Новый энам EViewTargetBlendFunction (pre R46). Файл: `sweep/probes/r46-probe.txt`.
