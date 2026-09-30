@@ -1190,3 +1190,11 @@ K2_GetVectorParameterValue, Map_Keys, Map_Values, Set_ToArray, Set_Union — с 
 SetOverlayMaterial +bSetMaterialSlot:bool, SlotIndex:int; SetAngularVelocityTarget.InVelTarget — const ref.
 Не встали 6 → R45b: *OnMaterials — член MeshComponent (не PrimitiveComponent);
 Widget.* — короткий ключ `mem('Widget.X')` дал `/Script/Engine.Widget`, нужен полный `/Script/UMG.Widget.`.
+
+## R45b — вердикт (2026-09-30)
+Все 6 встали. Copy-back: *OnMaterials — ParameterName/ParameterValue const (не ref);
+SetToolTipText.InToolTipText — const ref, bDefaultValueIsIgnored. Из того же copy-back (ноды,
+поставленные в UE вручную) заведены ещё 5: MID SetScalar/SetVectorParameterValueByInfo
+(ParameterInfo: FMaterialParameterInfo const ref, ignored), Widget SetRenderTransform (FWidgetTransform),
+SetRenderTransformPivot, SetToolTip(Widget). Реестр 732. Не заведены: MPC Set*ParameterValue —
+отдельный класс K2Node_CallMaterialParameterCollectionFunction; ToolMenuEntryExtensions.SetToolTip — редакторный.

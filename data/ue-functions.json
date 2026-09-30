@@ -27661,5 +27661,411 @@
   "verified": true,
   "desc": "Set Justification",
   "probe": "R45 проба (UILayout) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Justification (член TextLayoutWidget). ETextJustify"
+ },
+ {
+  "id": "SetScalarParameterValueOnMaterials",
+  "title": "Set Scalar Parameter Value On Materials",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetScalarParameterValueOnMaterials",
+  "lib": "MeshComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.MeshComponent"
+   },
+   {
+    "name": "ParameterName",
+    "dir": "Input",
+    "cat": "name",
+    "const": true
+   },
+   {
+    "name": "ParameterValue",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "R45b · Render: Set Scalar Parameter Value on Materials",
+  "probe": "R45b проба (Render) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R45b · Render: Set Scalar Parameter Value on Materials (член MeshComponent)"
+ },
+ {
+  "id": "SetVectorParameterValueOnMaterials",
+  "title": "Set Vector Parameter Value On Materials",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetVectorParameterValueOnMaterials",
+  "lib": "MeshComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.MeshComponent"
+   },
+   {
+    "name": "ParameterName",
+    "dir": "Input",
+    "cat": "name",
+    "const": true
+   },
+   {
+    "name": "ParameterValue",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "R45b · Render: Set Vector Parameter Value on Materials",
+  "probe": "R45b проба (Render) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R45b · Render: Set Vector Parameter Value on Materials (член MeshComponent)"
+ },
+ {
+  "id": "SetScalarParameterValueByInfo",
+  "title": "Set Scalar Parameter Value By Info",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetScalarParameterValueByInfo",
+  "lib": "MaterialInstanceDynamic",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.MaterialInstanceDynamic"
+   },
+   {
+    "name": "ParameterInfo",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "MaterialParameterInfo",
+    "const": true,
+    "ref": true,
+    "ignored": true
+   },
+   {
+    "name": "Value",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "verified": true,
+  "desc": "R45b · Render: Set Scalar Parameter Value By Info",
+  "probe": "R45b проба (Render) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R45b · Render: Set Scalar Parameter Value By Info (член MID)"
+ },
+ {
+  "id": "SetVectorParameterValueByInfo",
+  "title": "Set Vector Parameter Value By Info",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetVectorParameterValueByInfo",
+  "lib": "MaterialInstanceDynamic",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.MaterialInstanceDynamic"
+   },
+   {
+    "name": "ParameterInfo",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "MaterialParameterInfo",
+    "const": true,
+    "ref": true,
+    "ignored": true
+   },
+   {
+    "name": "Value",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "R45b · Render: Set Vector Parameter Value By Info",
+  "probe": "R45b проба (Render) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R45b · Render: Set Vector Parameter Value By Info (член MID)"
+ },
+ {
+  "id": "SetRenderTransformAngle",
+  "title": "Set Render Transform Angle",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetRenderTransformAngle",
+  "lib": "Widget",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Widget"
+   },
+   {
+    "name": "Angle",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "verified": true,
+  "desc": "R45b · UILayout: Set Render Transform Angle",
+  "probe": "R45b проба (UILayout) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R45b · UILayout: Set Render Transform Angle (член Widget)"
+ },
+ {
+  "id": "SetToolTipText",
+  "title": "Set Tool Tip Text",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetToolTipText",
+  "lib": "Widget",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Widget"
+   },
+   {
+    "name": "InToolTipText",
+    "dir": "Input",
+    "cat": "text",
+    "const": true,
+    "ref": true,
+    "ignored": true
+   }
+  ],
+  "verified": true,
+  "desc": "R45b · UILayout: Set Tool Tip Text",
+  "probe": "R45b проба (UILayout) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R45b · UILayout: Set Tool Tip Text (член Widget)"
+ },
+ {
+  "id": "SetKeyboardFocus",
+  "title": "Set Keyboard Focus",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetKeyboardFocus",
+  "lib": "Widget",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Widget"
+   }
+  ],
+  "verified": true,
+  "desc": "R45b · UILayout: Set Keyboard Focus",
+  "probe": "R45b проба (UILayout) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R45b · UILayout: Set Keyboard Focus (член Widget)"
+ },
+ {
+  "id": "HasKeyboardFocus",
+  "title": "Has Keyboard Focus",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "HasKeyboardFocus",
+  "lib": "Widget",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Widget"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "R45b · UILayout: Has Keyboard Focus",
+  "probe": "R45b проба (UILayout) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R45b · UILayout: Has Keyboard Focus (член Widget, pure)"
+ },
+ {
+  "id": "SetRenderTransform",
+  "title": "Set Render Transform",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetRenderTransform",
+  "lib": "Widget",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Widget"
+   },
+   {
+    "name": "InTransform",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "WidgetTransform",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "R45b · UILayout: Set Render Transform",
+  "probe": "R45b проба (UILayout) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R45b · UILayout: Set Render Transform (член Widget)"
+ },
+ {
+  "id": "SetRenderTransformPivot",
+  "title": "Set Render Transform Pivot",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetRenderTransformPivot",
+  "lib": "Widget",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Widget"
+   },
+   {
+    "name": "Pivot",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector2D",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "R45b · UILayout: Set Render Transform Pivot",
+  "probe": "R45b проба (UILayout) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R45b · UILayout: Set Render Transform Pivot (член Widget)"
+ },
+ {
+  "id": "SetToolTip",
+  "title": "Set Tool Tip",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetToolTip",
+  "lib": "Widget",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Widget"
+   },
+   {
+    "name": "Widget",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Widget"
+   }
+  ],
+  "verified": true,
+  "desc": "R45b · UILayout: Set Tool Tip",
+  "probe": "R45b проба (UILayout) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R45b · UILayout: Set Tool Tip (член Widget)"
  }
 ]

@@ -165,6 +165,8 @@ const STRUCTS_FULL = {
   Quat:        `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Quat'"`, // R33 copy-back: Quat_IsNormalized
   Transform:   `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Transform'"`,
   LinearColor: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.LinearColor'"`, // confirmed (copy-back H1/J5)
+  MaterialParameterInfo: `"/Script/CoreUObject.ScriptStruct'/Script/Engine.MaterialParameterInfo'"`, // copy-back R45b
+  WidgetTransform: `"/Script/CoreUObject.ScriptStruct'/Script/UMG.WidgetTransform'"`, // copy-back R45b
   HitResult:   `"/Script/CoreUObject.ScriptStruct'/Script/Engine.HitResult'"`,        // confirmed (copy-back LineTraceSingle)
   Key:         `"/Script/CoreUObject.ScriptStruct'/Script/InputCore.Key'"`,
   LatentActionInfo: `"/Script/CoreUObject.ScriptStruct'/Script/Engine.LatentActionInfo'"`, // confirmed (copy-back Delay L1/L2)
@@ -183,6 +185,8 @@ const STRUCTS_SHORT = {
   Quat:             `ScriptStruct'"/Script/CoreUObject.Quat"'`,
   Transform:        `ScriptStruct'"/Script/CoreUObject.Transform"'`,
   LinearColor:      `ScriptStruct'"/Script/CoreUObject.LinearColor"'`,
+  MaterialParameterInfo: `ScriptStruct'"/Script/Engine.MaterialParameterInfo"'`,
+  WidgetTransform: `ScriptStruct'"/Script/UMG.WidgetTransform"'`,
   HitResult:        `ScriptStruct'"/Script/Engine.HitResult"'`,
   Key:              `ScriptStruct'"/Script/InputCore.Key"'`,
   LatentActionInfo: `ScriptStruct'"/Script/Engine.LatentActionInfo"'`,

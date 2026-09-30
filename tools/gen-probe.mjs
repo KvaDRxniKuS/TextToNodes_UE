@@ -27,6 +27,8 @@ const REGISTER = args.includes('--register'); // после вердикта «�
 const lib = (key, words, pure = false) => () => createCall(key, words, { pure, isStatic: true });
 const mem = (key, words, pure = false) => () => createCall(key, words, { pure });
 // ref(фабрика, пины…): пометить пины by-ref (bIsReference=True), как в copy-back
+// R45b: флаги пинов по copy-back: '&' by-ref, '!' const, '~' bDefaultValueIsIgnored
+const pf = (make, spec) => () => { const n = make(); for (const [nm, v] of Object.entries(spec)) { const q = n.pins.find(x => x.name === nm); if (v.includes('&')) q.isRef = true; if (v.includes('!')) q.isConst = true; if (v.includes('~')) q.ignored = true; } return n; };
 const ref = (make, ...names) => () => { const n = make(); n.pins.forEach(p => { if (names.includes(p.name)) p.isRef = true; }); return n; };
 const macro = (graph, pins) => () => createMacroInstance({ id: graph, title: graph, pins });
 
@@ -408,12 +410,18 @@ const BATCHES = {
   ],
   '45b': [
     // R45 досылка: OnMaterials живут в MeshComponent (не PrimitiveComponent); Widget.* ушли в /Script/Engine.Widget по короткому ключу — теперь полный путь UMG
-    ['Render', 'Set Scalar Parameter Value on Materials (член MeshComponent)', mem('/Script/Engine.MeshComponent.SetScalarParameterValueOnMaterials', ['ParameterName:name', 'ParameterValue:single'])],
-    ['Render', 'Set Vector Parameter Value on Materials (член MeshComponent)', mem('/Script/Engine.MeshComponent.SetVectorParameterValueOnMaterials', ['ParameterName:name', 'ParameterValue:vector'])],
+    ['Render', 'Set Scalar Parameter Value on Materials (член MeshComponent)', pf(mem('/Script/Engine.MeshComponent.SetScalarParameterValueOnMaterials', ['ParameterName:name', 'ParameterValue:single']), { ParameterName: '!', ParameterValue: '!' })],
+    ['Render', 'Set Vector Parameter Value on Materials (член MeshComponent)', pf(mem('/Script/Engine.MeshComponent.SetVectorParameterValueOnMaterials', ['ParameterName:name', 'ParameterValue:vector']), { ParameterName: '!', ParameterValue: '!' })],
     ['UILayout', 'Set Render Transform Angle (член Widget)', mem('/Script/UMG.Widget.SetRenderTransformAngle', ['Angle:single'])],
-    ['UILayout', 'Set Tool Tip Text (член Widget)', mem('/Script/UMG.Widget.SetToolTipText', ['InToolTipText:text'])],
+    ['UILayout', 'Set Tool Tip Text (член Widget)', pf(mem('/Script/UMG.Widget.SetToolTipText', ['InToolTipText:text']), { InToolTipText: '&!~' })],
     ['UILayout', 'Set Keyboard Focus (член Widget)', mem('/Script/UMG.Widget.SetKeyboardFocus', [])],
     ['UILayout', 'Has Keyboard Focus (член Widget, pure)', mem('/Script/UMG.Widget.HasKeyboardFocus', ['->', 'ReturnValue:bool'], true)],
+    // бонус из copy-back движка (ноды поставлены пользователем в UE — подтверждены)
+    ['Render', 'Set Scalar Parameter Value By Info (член MID)', pf(mem('/Script/Engine.MaterialInstanceDynamic.SetScalarParameterValueByInfo', ['ParameterInfo:materialparameterinfo', 'Value:single']), { ParameterInfo: '&!~' })],
+    ['Render', 'Set Vector Parameter Value By Info (член MID)', pf(mem('/Script/Engine.MaterialInstanceDynamic.SetVectorParameterValueByInfo', ['ParameterInfo:materialparameterinfo', 'Value:linearcolor']), { ParameterInfo: '&!~' })],
+    ['UILayout', 'Set Render Transform (член Widget)', mem('/Script/UMG.Widget.SetRenderTransform', ['InTransform:widgettransform'])],
+    ['UILayout', 'Set Render Transform Pivot (член Widget)', mem('/Script/UMG.Widget.SetRenderTransformPivot', ['Pivot:vector2d'])],
+    ['UILayout', 'Set Tool Tip (член Widget)', mem('/Script/UMG.Widget.SetToolTip', ['Widget:object:/Script/UMG.Widget'])],
   ],
 };
 
