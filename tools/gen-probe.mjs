@@ -317,7 +317,7 @@ if (REGISTER) {
       : { id: n.funcName, title: title(n.funcName), category: topicCat, className: '/Script/BlueprintGraph.K2Node_CallFunction', func: n.funcName, lib: libByRef[n.memberParent], pins };
     if (!n.macroGraph && !e.lib) throw new Error(`${n.funcName}: нет UE_LIBS-ключа для ${n.memberParent}`);
     if (n.pure) e.pure = true;
-    if (reg.some(x => x.func === e.func && x.lib === e.lib)) { console.log(`  = ${e.func} (${e.lib}) уже в реестре`); continue; } // R42: FlushPlayerInput уже был
+    if (!n.macroGraph && reg.some(x => x.func === e.func && x.lib === e.lib)) { console.log(`  = ${e.func} (${e.lib}) уже в реестре`); continue; } // R42: FlushPlayerInput уже был
     if (have.has(e.id)) e.id = `${e.id}_${e.lib}`;           // SetScalarParameterValue: MID-член и MPC-версия KismetMaterialLibrary
     if (have.has(e.id)) { console.log(`  = ${e.id} уже в реестре`); continue; }
     e.verified = true;
