@@ -395,3 +395,19 @@ export function createCall(key, words = [], { pure = false, isStatic = false } =
   for (const w of outs) { const pr = parseParam(w); n.pins.push(pin(pr.name, 'Output', pr.type)); }
   return n;
 }
+
+/** Отложенные async-ноды (K2Node_AsyncAction, UBlueprintAsyncActionBase). Форма — по copy-back R49 (AsyncLoadPrimaryAsset):
+ *  ProxyFactoryFunctionName/ProxyFactoryClass/ProxyClass + execute/then + exec-выходы делегатов + их параметры + входы фабрики.
+ *  createAsyncAction({ proxy: '/Script/Engine.AsyncActionHandleSaveGame', factory: 'AsyncSaveGameToSlot',
+ *    inputs: ['SaveGameObject:object:SaveGame', 'SlotName:string', 'UserIndex:int'], events: ['Completed'], outputs: ['SaveGame:object:SaveGame', 'bSuccess:bool'] }) */
+export function createAsyncAction({ proxy, factory, factoryClass = proxy, inputs = [], events = ['Completed'], outputs = [] }, pos) {
+  const n = node('K2Node_AsyncAction', pos);
+  n.title = factory;
+  n.rawProps = [`ProxyFactoryFunctionName="${factory}"`, `ProxyFactoryClass="/Script/CoreUObject.Class'${factoryClass}'"`, `ProxyClass="/Script/CoreUObject.Class'${proxy}'"`];
+  n.pins.push(mkPin('execute', 'Input', 'exec'), mkPin('then', 'Output', 'exec'));
+  for (const e of events) n.pins.push(mkPin(e, 'Output', 'exec'));
+  for (const w of outputs) { const pr = parseParam(w); n.pins.push(pin(pr.name, 'Output', pr.type)); }
+  n.pins.push(mkPin('WorldContextObject', 'Input', 'object', { subObj: classRef('/Script/CoreUObject.Object') }));
+  for (const w of inputs) { const pr = parseParam(w); n.pins.push(pin(pr.name, 'Input', pr.type, { dv: pr.dv })); }
+  return n;
+}

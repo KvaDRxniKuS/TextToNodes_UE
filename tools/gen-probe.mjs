@@ -15,7 +15,7 @@ import { fitComment, estNodeWidth, estNodeHeight, createMacroInstance, createCal
 import { UE_LIBS, UE_STRUCTS, UE_ENUMS } from '../src/ue-types.js';
 import { generateUEText, seedGuids } from '../src/parser.js';
 import { validateStrict } from '../src/validate.js';
-import { createCall, createAddComponentByClass, createCustomEvent } from '../src/modules.js';
+import { createCall, createAddComponentByClass, createCustomEvent, createAsyncAction } from '../src/modules.js';
 import * as SP from '../src/special-nodes.js';
 import { categoryFor } from '../src/categories.js';
 
@@ -994,6 +994,14 @@ const BATCHES = {
     ['Other', 'Play Haptic Effect (член PlayerController) — enum EControllerHand', mem('PlayerController.PlayHapticEffect', ['HapticEffect:object:HapticFeedbackEffect_Base', 'Hand:enum:EControllerHand', 'Scale:float=1.0', 'bLoop:bool=false'])],
     ['Other', 'Stop Haptic Effect (член PlayerController)', mem('PlayerController.StopHapticEffect', ['Hand:enum:EControllerHand'])],
     ['Other', 'Draw Texture (член HUD) — enum EBlendMode', mem('HUD.DrawTexture', ['Texture:object:Texture', 'ScreenX:float', 'ScreenY:float', 'ScreenW:float', 'ScreenH:float', 'TextureU:float', 'TextureV:float', 'TextureUWidth:float=1.0', 'TextureVHeight:float=1.0', 'TintColor:linearcolor', 'BlendMode:enum:EBlendMode', 'Scale:float=1.0', 'bScalePosition:bool=false', 'Rotation:float=0.0', 'RotPivot:vector2d'])],
+  ],
+  '56': [
+    // R56: async-ноды сохранения (K2Node_AsyncAction, UAsyncActionHandleSaveGame). Форма — по copy-back R49 AsyncLoadPrimaryAsset.
+    // Не функции реестра — модульная фабрика createAsyncAction; --register их пропускает.
+    ['Async', 'Async Save Game to Slot (K2Node_AsyncAction) — выход Completed(SaveGame, bSuccess)', () => createAsyncAction({ proxy: '/Script/Engine.AsyncActionHandleSaveGame', factory: 'AsyncSaveGameToSlot',
+      inputs: ['SaveGameObject:object:SaveGame', 'SlotName:string', 'UserIndex:int=0'], events: ['Completed'], outputs: ['SaveGame:object:SaveGame', 'bSuccess:bool'] })],
+    ['Async', 'Async Load Game from Slot (K2Node_AsyncAction) — выход Completed(SaveGame, bSuccess)', () => createAsyncAction({ proxy: '/Script/Engine.AsyncActionHandleSaveGame', factory: 'AsyncLoadGameFromSlot',
+      inputs: ['SlotName:string', 'UserIndex:int=0'], events: ['Completed'], outputs: ['SaveGame:object:SaveGame', 'bSuccess:bool'] })],
   ],
 };
 
