@@ -1202,3 +1202,9 @@ SetRenderTransformPivot, SetToolTip(Widget). Реестр 732. Не заведе
 ## R46 — проба Networking/Input (2026-10-01)
 41 нода, ряды: Net 9, Player 8, Controller 8, Screen 6, MoveInput 4, Keys 6. Только функции, которых нет в реестре.
 Новый энам EViewTargetBlendFunction (pre R46). Файл: `sweep/probes/r46-probe.txt`.
+
+## R46 — вердикт (2026-10-01)
+Встали 39 из 41 → в реестре. Не существуют в UE 5.8: Actor.GetIsReplicated и Actor.SetAutonomousProxy.
+Вместо GetIsReplicated — Get переменной `bReplicates` (self, Actor; copy-back пользователя).
+Там же подтверждено: ActorComponent.SetIsReplicated(ShouldReplicate); переменная
+PrimitiveComponent.bReplicatePhysicsToAutonomousProxy (Get/Set, NotSelfContext).

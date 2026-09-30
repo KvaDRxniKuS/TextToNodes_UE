@@ -1,6 +1,6 @@
 # Sweep manifest — полный прогон реестра по категориям
 
-Записей в реестре: 732; построено узлов: 732; упало: 0.
+Записей в реестре: 759; построено узлов: 759; упало: 0.
 MANIFEST и NN-*.txt побайтово воспроизводимы (дата не пишется): сверка — `node tools/gen-sweep.mjs --check`.
 Генератор: tools/gen-sweep.mjs (сетка по 5 в ряд, внутри ряда layoutRow, накрыто fitComment).
 
@@ -40,14 +40,14 @@ MANIFEST и NN-*.txt побайтово воспроизводимы (дата �
 | 21 | 21-enhanced-input.txt | 6/6 | 5 | 6 | — | 2xW09 |
 | 22 | 22-casting.txt | 11/11 | 11 | 11 | — | 8xW09 |
 | 23 | 23-actor.txt | 32/32 | 32 | 32 | — | 32xW09 |
-| 24 | 24-pawn-character.txt | 18/18 | 18 | 18 | — | 18xW09 |
+| 24 | 24-pawn-character.txt | 18/18 | 18 | 18 | — | 17xW09 |
 | 25 | 25-events-delegates.txt | 8/8 | 8 | 8 | — | 1xW09 |
 | 26 | 26-timers-latent.txt | 14/14 | 14 | 14 | — | 14xW09 |
 | 27 | 27-widgets-ui.txt | 8/8 | 8 | 8 | — | 8xW09 |
 | 28 | 28-enhanced-input-full.txt | 15/15 | 15 | 15 | — | 15xW09 |
 | 29 | 29-components-physics.txt | 23/23 | 23 | 23 | — | 23xW09 |
 | 30 | 30-debug.txt | 1/1 | 1 | 0 | — | — |
-| 31 | 31-gameplay-systems.txt | 317/317 | 317 | 0 | — | — |
+| 31 | 31-gameplay-systems.txt | 344/344 | 344 | 0 | — | — |
 | 32 | 32-level-streaming.txt | 4/4 | 4 | 0 | — | — |
 
 Остальные папки sweep/ (chapters, probes, layout, copyback) и команды их пересборки — в `sweep/README.md`; сверка всего — `node tools/check-sweep.mjs`.
@@ -192,7 +192,6 @@ MANIFEST и NN-*.txt побайтово воспроизводимы (дата �
 - 24-pawn-character.txt :: W09: K2Node_CallFunction_453: AddMovementInput: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
 - 24-pawn-character.txt :: W09: K2Node_CallFunction_454: AddControllerYawInput: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
 - 24-pawn-character.txt :: W09: K2Node_CallFunction_455: AddControllerPitchInput: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
-- 24-pawn-character.txt :: W09: K2Node_CallFunction_456: GetControlRotation: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
 - 24-pawn-character.txt :: W09: K2Node_CallFunction_457: GetController: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23). альтернатива Get Player Controller (self) — подсказка пользователя R21b | R24 VERIFIED (движок, 2026-09-25)
 - 24-pawn-character.txt :: W09: K2Node_CallFunction_458: IsLocallyControlled: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)
 - 24-pawn-character.txt :: W09: K2Node_CallFunction_459: IsPlayerControlled: round24-pre: член Pawn, self=Target (по образцу AActor-членов R23).  | R24 VERIFIED (движок, 2026-09-25)

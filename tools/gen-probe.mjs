@@ -425,8 +425,6 @@ const BATCHES = {
   ],
   '46': [
     // R46: Networking/Input (новые, без дублей реестра)
-    ['Net', 'Get Is Replicated (член Actor, pure)', mem('/Script/Engine.Actor.GetIsReplicated', ['->', 'ReturnValue:bool'], true)],
-    ['Net', 'Set Autonomous Proxy (член Actor)', mem('/Script/Engine.Actor.SetAutonomousProxy', ['bInAutonomousProxy:bool', 'bAllowForcedNetUpdate:bool=true'])],
     ['Net', 'Is Standalone (KismetSystemLibrary, pure)', lib('KismetSystemLibrary.IsStandalone', ['->', 'ReturnValue:bool'], true)],
     ['Net', 'Is Packaged For Distribution (KismetSystemLibrary, pure)', lib('KismetSystemLibrary.IsPackagedForDistribution', ['->', 'ReturnValue:bool'], true)],
     ['Net', 'Get Num Player States (GameplayStatics, pure)', lib('GameplayStatics.GetNumPlayerStates', ['->', 'ReturnValue:int'], true)],

@@ -65,6 +65,8 @@ const LIBS_FULL = {
   SkinnedMeshComponent: `"/Script/CoreUObject.Class'/Script/Engine.SkinnedMeshComponent'"`, // R43 VERIFIED
   SpringArmComponent: `"/Script/CoreUObject.Class'/Script/Engine.SpringArmComponent'"`, // R44 VERIFIED
   SplineComponent: `"/Script/CoreUObject.Class'/Script/Engine.SplineComponent'"`, // R44 VERIFIED
+  KismetInputLibrary: `"/Script/CoreUObject.Class'/Script/Engine.KismetInputLibrary'"`, // R46 VERIFIED
+  PlayerState: `"/Script/CoreUObject.Class'/Script/Engine.PlayerState'"`, // R46 VERIFIED
   TextLayoutWidget: `"/Script/CoreUObject.Class'/Script/UMG.TextLayoutWidget'"`, // R45 VERIFIED
   CanvasPanelSlot: `"/Script/CoreUObject.Class'/Script/UMG.CanvasPanelSlot'"`, // R45 VERIFIED
   WidgetLayoutLibrary: `"/Script/CoreUObject.Class'/Script/UMG.WidgetLayoutLibrary'"`, // R45 VERIFIED
@@ -133,6 +135,8 @@ const LIBS_SHORT = {
   SkinnedMeshComponent: `Class'"/Script/Engine.SkinnedMeshComponent"'`,
   SpringArmComponent: `Class'"/Script/Engine.SpringArmComponent"'`,
   SplineComponent: `Class'"/Script/Engine.SplineComponent"'`,
+  KismetInputLibrary: `Class'"/Script/Engine.KismetInputLibrary"'`,
+  PlayerState: `Class'"/Script/Engine.PlayerState"'`,
   MeshComponent: `Class'"/Script/Engine.MeshComponent"'`,
   DecalComponent: `Class'"/Script/Engine.DecalComponent"'`,
   LocalLightComponent: `Class'"/Script/Engine.LocalLightComponent"'`,
