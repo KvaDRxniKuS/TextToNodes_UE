@@ -274,6 +274,47 @@ export function createInputActionValue(ia, type = 'vector2d', pos) {
   return n;
 }
 
+/* ---------------- добавление компонентов (R35 copy-back, 2026-09-30) ----------------
+ * createAddComponentByClass() — K2Node_AddComponentByClass: класс выбирается пином Class (или проводом).
+ *   Подтверждён вариант БЕЗ выбранного класса: bManualAttachment и RelativeTransform скрыты, ReturnValue = ActorComponent.
+ *   Если класс задан — пишем его дефолтом пина Class и типом ReturnValue, оба пина раскрываем (движок перестроит
+ *   при вставке; этот вариант copy-back'ом ещё не сверен).
+ * createAddComponent(cls, bp) — K2Node_AddComponent («Add Static Mesh Component» и т.п.): тип зашит в узел
+ *   (TemplateType), шаблон компонента живёт в самом BP (TemplateBlueprint + TemplateName «NODE_Add<Класс>-<n>»).
+ *   Вне того BP ссылка на шаблон не существует — для переносимых сниппетов предпочтительнее AddComponentByClass. */
+export function createAddComponentByClass(cls = '', pos) {
+  const n = node('K2Node_AddComponentByClass', pos);
+  n.title = 'Add Component by Class';
+  const actor = classRef('Actor'), base = classRef('ActorComponent');
+  const c = cls ? normalizeClassPath(cls) : '';
+  n.pins.push(mkPin('execute', 'Input', 'exec'),
+    mkPin('self', 'Input', 'object', { subObj: actor }),
+    mkPin('then', 'Output', 'exec'),
+    mkPin('Class', 'Input', 'class', { subObj: base, ...(c ? { defObj: c } : {}) }),
+    mkPin('ReturnValue', 'Output', 'object', { subObj: c ? classRef(c) : base }),
+    mkPin('bManualAttachment', 'Input', 'bool', { hidden: !c, ...(c ? { dv: 'false', auto: 'false' } : {}) }),
+    mkPin('RelativeTransform', 'Input', 'struct', { subObj: UE_STRUCTS.Transform, hidden: !c }));
+  return n;
+}
+
+export function createAddComponent(cls, bp, index = 0, pos) {
+  const n = node('K2Node_AddComponent', pos);
+  const c = normalizeClassPath(cls), short = c.split('.').pop().replace(/_C$/, '');
+  const bpPath = assetPath(bp);
+  n.title = `Add ${short}`;
+  n.rawProps = [`TemplateBlueprint="${bpPath}"`, `TemplateType=${classRef(c)}`, 'FunctionReference=(MemberName="AddComponent",bSelfContext=True)'];
+  n.pins.push(mkPin('execute', 'Input', 'exec'),
+    mkPin('then', 'Output', 'exec'),
+    mkPin('self', 'Input', 'object', { subObj: classRef('Actor') }),
+    mkPin('TemplateName', 'Input', 'name', { dv: `NODE_Add${short}-${index}`, autoFixed: 'None', hidden: true, notConnectable: true, readOnly: true }),
+    mkPin('bManualAttachment', 'Input', 'bool', { dv: 'false', auto: 'false' }),
+    mkPin('RelativeTransform', 'Input', 'struct', { subObj: UE_STRUCTS.Transform, const: true, ignored: true }),
+    mkPin('ComponentTemplateContext', 'Input', 'object', { subObj: classRef('/Script/CoreUObject.Object'), const: true, hidden: true, notConnectable: true }),
+    mkPin('bDeferredFinish', 'Input', 'bool', { dv: 'false', auto: 'false', hidden: true, notConnectable: true }),
+    mkPin('ReturnValue', 'Output', 'object', { subObj: classRef(c) }));
+  return n;
+}
+
 /* ---------------- любой вызов функции (round29) ----------------
  * createCall('PrimitiveComponent.SetSimulatePhysics', ['bSimulate:bool=true'])
  * createCall('KismetMathLibrary.Abs', ['A:float', '->', 'ReturnValue:float'], { pure: true, isStatic: true })

@@ -15,6 +15,9 @@ export function mkPin(name, direction, category, opts = {}) {
     memberRef: opts.memberRef || '', defaultObject: opts.defObj || '',
     autoDefault: opts.auto || '',
     ...(opts.friendlyPlain ? { friendlyPlain: opts.friendlyPlain } : {}),
+    ...(opts.notConnectable ? { notConnectable: true } : {}),
+    ...(opts.readOnly ? { readOnly: true } : {}),
+    ...(opts.autoFixed !== undefined ? { autoFixed: opts.autoFixed } : {}),
   };
 }
 
