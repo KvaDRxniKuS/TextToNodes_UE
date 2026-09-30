@@ -43574,5 +43574,827 @@
   "verified": true,
   "desc": "R52b · Niagara: Set Niagara Variable",
   "probe": "R52b проба (Niagara) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R52b · Niagara: Set Niagara Variable (Position) (NiagaraComponent)"
+ },
+ {
+  "id": "SendAIMessage",
+  "title": "Send AIMessage",
+  "from": "probe",
+  "category": "AI / Navigation",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SendAIMessage",
+  "lib": "AIBlueprintHelperLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Target",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Pawn"
+   },
+   {
+    "name": "Message",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "MessageSource",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object"
+   },
+   {
+    "name": "bSuccess",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Send AI Message",
+  "probe": "R53 проба (AI) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Send AI Message (AIBlueprintHelperLibrary)"
+ },
+ {
+  "id": "GetCurrentPath",
+  "title": "Get Current Path",
+  "from": "probe",
+  "category": "AI / Navigation",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetCurrentPath",
+  "lib": "AIBlueprintHelperLibrary",
+  "pins": [
+   {
+    "name": "Controller",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Controller"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/NavigationSystem.NavigationPath"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Current Path",
+  "probe": "R53 проба (AI) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Current Path (AIBlueprintHelperLibrary, pure)"
+ },
+ {
+  "id": "GetCurrentPathPoints",
+  "title": "Get Current Path Points",
+  "from": "probe",
+  "category": "AI / Navigation",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetCurrentPathPoints",
+  "lib": "AIBlueprintHelperLibrary",
+  "pins": [
+   {
+    "name": "Controller",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Controller"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector",
+    "container": "Array"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Current Path Points",
+  "probe": "R53 проба (AI) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Current Path Points (AIBlueprintHelperLibrary, pure)"
+ },
+ {
+  "id": "IsNavigationBeingBuilt",
+  "title": "Is Navigation Being Built",
+  "from": "probe",
+  "category": "AI / Navigation",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsNavigationBeingBuilt",
+  "lib": "NavigationSystemV1",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Navigation Being Built",
+  "probe": "R53 проба (Nav) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Navigation Being Built (NavigationSystemV1, pure)"
+ },
+ {
+  "id": "IsNavigationBeingBuiltOrLocked",
+  "title": "Is Navigation Being Built Or Locked",
+  "from": "probe",
+  "category": "AI / Navigation",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsNavigationBeingBuiltOrLocked",
+  "lib": "NavigationSystemV1",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Navigation Being Built Or Locked",
+  "probe": "R53 проба (Nav) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Navigation Being Built Or Locked (NavigationSystemV1, pure)"
+ },
+ {
+  "id": "NavigationRaycast",
+  "title": "Navigation Raycast",
+  "from": "probe",
+  "category": "AI / Navigation",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "NavigationRaycast",
+  "lib": "NavigationSystemV1",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "RayStart",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "RayEnd",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "FilterClass",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/NavigationSystem.NavigationQueryFilter"
+   },
+   {
+    "name": "Querier",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Controller"
+   },
+   {
+    "name": "HitLocation",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Navigation Raycast",
+  "probe": "R53 проба (Nav) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Navigation Raycast (NavigationSystemV1)"
+ },
+ {
+  "id": "EnableDebugDrawing",
+  "title": "Enable Debug Drawing",
+  "from": "probe",
+  "category": "AI / Navigation",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "EnableDebugDrawing",
+  "lib": "NavigationPath",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/NavigationSystem.NavigationPath"
+   },
+   {
+    "name": "bShouldDrawDebugData",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "PathColor",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "Enable Debug Drawing",
+  "probe": "R53 проба (Nav) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Enable Debug Drawing (член NavigationPath)"
+ },
+ {
+  "id": "GetCurrentlyPerceivedActors",
+  "title": "Get Currently Perceived Actors",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetCurrentlyPerceivedActors",
+  "lib": "AIPerceptionComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/AIModule.AIPerceptionComponent"
+   },
+   {
+    "name": "SenseToUse",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/AIModule.AISense"
+   },
+   {
+    "name": "OutActors",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.Actor",
+    "container": "Array"
+   }
+  ],
+  "verified": true,
+  "desc": "Get Currently Perceived Actors",
+  "probe": "R53 проба (Perception) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Currently Perceived Actors (член AIPerceptionComponent)"
+ },
+ {
+  "id": "GetKnownPerceivedActors",
+  "title": "Get Known Perceived Actors",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetKnownPerceivedActors",
+  "lib": "AIPerceptionComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/AIModule.AIPerceptionComponent"
+   },
+   {
+    "name": "SenseToUse",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/AIModule.AISense"
+   },
+   {
+    "name": "OutActors",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.Actor",
+    "container": "Array"
+   }
+  ],
+  "verified": true,
+  "desc": "Get Known Perceived Actors",
+  "probe": "R53 проба (Perception) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Known Perceived Actors (член AIPerceptionComponent)"
+ },
+ {
+  "id": "GetPerceivedHostileActors",
+  "title": "Get Perceived Hostile Actors",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetPerceivedHostileActors",
+  "lib": "AIPerceptionComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/AIModule.AIPerceptionComponent"
+   },
+   {
+    "name": "OutActors",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.Actor",
+    "container": "Array"
+   }
+  ],
+  "verified": true,
+  "desc": "Get Perceived Hostile Actors",
+  "probe": "R53 проба (Perception) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Perceived Hostile Actors (член AIPerceptionComponent)"
+ },
+ {
+  "id": "RequestStimuliListenerUpdate",
+  "title": "Request Stimuli Listener Update",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "RequestStimuliListenerUpdate",
+  "lib": "AIPerceptionComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/AIModule.AIPerceptionComponent"
+   }
+  ],
+  "verified": true,
+  "desc": "Request Stimuli Listener Update",
+  "probe": "R53 проба (Perception) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Request Stimuli Listener Update (член AIPerceptionComponent)"
+ },
+ {
+  "id": "SetSenseEnabled",
+  "title": "Set Sense Enabled",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetSenseEnabled",
+  "lib": "AIPerceptionComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/AIModule.AIPerceptionComponent"
+   },
+   {
+    "name": "SenseClass",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/AIModule.AISense"
+   },
+   {
+    "name": "bEnable",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Sense Enabled",
+  "probe": "R53 проба (Perception) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Sense Enabled (член AIPerceptionComponent)"
+ },
+ {
+  "id": "RegisterForSense",
+  "title": "Register For Sense",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "RegisterForSense",
+  "lib": "AIPerceptionStimuliSourceComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/AIModule.AIPerceptionStimuliSourceComponent"
+   },
+   {
+    "name": "SenseClass",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/AIModule.AISense"
+   }
+  ],
+  "verified": true,
+  "desc": "Register for Sense",
+  "probe": "R53 проба (Perception) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Register for Sense (член AIPerceptionStimuliSourceComponent)"
+ },
+ {
+  "id": "UnregisterFromSense",
+  "title": "Unregister From Sense",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "UnregisterFromSense",
+  "lib": "AIPerceptionStimuliSourceComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/AIModule.AIPerceptionStimuliSourceComponent"
+   },
+   {
+    "name": "SenseClass",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/AIModule.AISense"
+   }
+  ],
+  "verified": true,
+  "desc": "Unregister from Sense",
+  "probe": "R53 проба (Perception) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Unregister from Sense (член AIPerceptionStimuliSourceComponent)"
+ },
+ {
+  "id": "RegisterWithPerceptionSystem",
+  "title": "Register With Perception System",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "RegisterWithPerceptionSystem",
+  "lib": "AIPerceptionStimuliSourceComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/AIModule.AIPerceptionStimuliSourceComponent"
+   }
+  ],
+  "verified": true,
+  "desc": "Register with Perception System",
+  "probe": "R53 проба (Perception) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Register with Perception System (член AIPerceptionStimuliSourceComponent)"
+ },
+ {
+  "id": "ReportNoiseEvent",
+  "title": "Report Noise Event",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ReportNoiseEvent",
+  "lib": "AISense_Hearing",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "NoiseLocation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "Loudness",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "1.0",
+    "autoDv": ""
+   },
+   {
+    "name": "Instigator",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "MaxRange",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "0.0",
+    "autoDv": ""
+   },
+   {
+    "name": "Tag",
+    "dir": "Input",
+    "cat": "name"
+   }
+  ],
+  "verified": true,
+  "desc": "Report Noise Event",
+  "probe": "R53 проба (Stimuli) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Report Noise Event (AISense_Hearing)"
+ },
+ {
+  "id": "ReportDamageEvent",
+  "title": "Report Damage Event",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ReportDamageEvent",
+  "lib": "AISense_Damage",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "DamagedActor",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "Instigator",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "DamageAmount",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "EventLocation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "HitLocation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "Tag",
+    "dir": "Input",
+    "cat": "name"
+   }
+  ],
+  "verified": true,
+  "desc": "Report Damage Event",
+  "probe": "R53 проба (Stimuli) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Report Damage Event (AISense_Damage)"
+ },
+ {
+  "id": "RegisterPerceptionStimuliSource",
+  "title": "Register Perception Stimuli Source",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "RegisterPerceptionStimuliSource",
+  "lib": "AIPerceptionSystem",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Sense",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/AIModule.AISense"
+   },
+   {
+    "name": "Target",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Register Perception Stimuli Source",
+  "probe": "R53 проба (Stimuli) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Register Perception Stimuli Source (AIPerceptionSystem)"
+ },
+ {
+  "id": "MakeNoise",
+  "title": "Make Noise",
+  "from": "probe",
+  "category": "Actor",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "MakeNoise",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "Loudness",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "1.0",
+    "autoDv": ""
+   },
+   {
+    "name": "NoiseInstigator",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Pawn"
+   },
+   {
+    "name": "NoiseLocation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "MaxRange",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "0.0",
+    "autoDv": ""
+   },
+   {
+    "name": "Tag",
+    "dir": "Input",
+    "cat": "name"
+   }
+  ],
+  "verified": true,
+  "desc": "Make Noise",
+  "probe": "R53 проба (Stimuli) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Make Noise (член Actor)"
+ },
+ {
+  "id": "PawnMakeNoise",
+  "title": "Pawn Make Noise",
+  "from": "probe",
+  "category": "Pawn / Character",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "PawnMakeNoise",
+  "lib": "Pawn",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Pawn"
+   },
+   {
+    "name": "Loudness",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "NoiseLocation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "bUseNoiseMakerLocation",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   },
+   {
+    "name": "NoiseMaker",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   }
+  ],
+  "verified": true,
+  "desc": "Pawn Make Noise",
+  "probe": "R53 проба (Stimuli) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Pawn Make Noise (член Pawn)"
  }
 ]

@@ -913,7 +913,7 @@ const BATCHES = {
   ],
   '53': [
     // R53: ИИ / навигация / восприятие — только отсутствующее в реестре. Классы AIModule/NavigationSystem — полными путями.
-    ['AI', 'Get Blackboard Component (член AIController, pure)', mem('AIController.GetBlackboardComponent', ['->', 'ReturnValue:object:/Script/AIModule.BlackboardComponent'], true)],
+    // R53 вердикт: AIController.GetBlackboardComponent в BP не выставлен (не встал). Замена — AIBlueprintHelperLibrary.GetBlackboard(Target) — уже в реестре (copy-back sweep/copyback/r53-getblackboard.txt).
     ['AI', 'Send AI Message (AIBlueprintHelperLibrary)', lib('AIBlueprintHelperLibrary.SendAIMessage', ['Target:object:Pawn', 'Message:name', 'MessageSource:object:/Script/CoreUObject.Object', 'bSuccess:bool=true'])],
     ['AI', 'Get Current Path (AIBlueprintHelperLibrary, pure)', lib('AIBlueprintHelperLibrary.GetCurrentPath', ['Controller:object:Controller', '->', 'ReturnValue:object:/Script/NavigationSystem.NavigationPath'], true)],
     ['AI', 'Get Current Path Points (AIBlueprintHelperLibrary, pure)', lib('AIBlueprintHelperLibrary.GetCurrentPathPoints', ['Controller:object:Controller', '->', 'ReturnValue:vector[]'], true)],
