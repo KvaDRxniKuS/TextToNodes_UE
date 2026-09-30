@@ -1157,6 +1157,12 @@ regThrow.forEach(t => console.log('THROW:', t));
   const probe = fs.readFileSync(new URL('../sweep/36-probe.txt', import.meta.url), 'utf8');
   const blocks = probe.split('Begin Object').slice(1).filter(bk => !bk.includes('EdGraphNode_Comment'));
   ok(blocks.length > 0 && blocks.every(bk => bk.includes('bCommentBubbleVisible=True')) && validateStrict(probe).valid, 'R36: проба — у каждой ноды пузырь, STRICT');
+  // R37: шапка-коммент накрывает все ноды пробы (в R36 была минимальной)
+  const num = (s, k) => +(s.match(new RegExp(`\\n\\s*${k}=(-?\\d+)`)) || [])[1] || 0;
+  const cmb = probe.split('Begin Object').slice(1).find(bk => bk.includes('EdGraphNode_Comment'));
+  const cx = num(cmb, 'NodePosX'), cy = num(cmb, 'NodePosY'), cw = num(cmb, 'NodeWidth'), ch = num(cmb, 'NodeHeight');
+  ok(blocks.every(bk => { const x = num(bk, 'NodePosX'), y = num(bk, 'NodePosY'); return x >= cx && y >= cy && x < cx + cw && y < cy + ch; }) && cw > 1000 && ch > 1000, 'R37: шапка-коммент пробы накрывает все ноды');
+  ok(/StandardMacros:ForEachLoopWithBreak'",GraphBlueprint=[^)]*GraphGuid=F07560274C5742E391E84B8F394CFB36/.test(probe) && /StandardMacros:ReverseForEachLoop'",GraphBlueprint=[^)]*GraphGuid=6DB5FE084A27CDF3569C7980D75D7E14/.test(probe), 'R37: макросы пробы с GraphGuid из copy-back');
 }
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);

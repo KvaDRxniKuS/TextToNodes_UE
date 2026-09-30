@@ -157,6 +157,8 @@ export const UE_MACROS = {
   WhileLoop:        { graph: 'WhileLoop',        guid: 'FA93B260444755CD702C21A123E9A987' }, // round1 (copy-back 01)
   Gate:             { graph: 'Gate',             guid: '5FD0ADDB41B99E726A411F8E87B5F37C' }, // round1 (copy-back 01)
   DoOnce:           { graph: 'DoOnce',           guid: '1281F54248A2ECB5B8B2C5B24AE6FDF4' }, // round1 (copy-back 01)
+  ForEachLoopWithBreak: { graph: 'ForEachLoopWithBreak', guid: 'F07560274C5742E391E84B8F394CFB36' }, // R36 copy-back
+  ReverseForEachLoop:   { graph: 'ReverseForEachLoop',   guid: '6DB5FE084A27CDF3569C7980D75D7E14' }, // R36 copy-back (выходы ArrayIndex, ArrayElement)
   DoN:              { graph: 'Do N',             guid: 'E8C56B2F4535DC8B7DB8469140DCA455' }, // round1b (live-реф: имя с пробелом!)
 };
 

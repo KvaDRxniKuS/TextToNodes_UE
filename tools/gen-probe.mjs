@@ -11,7 +11,7 @@
 // Запуск: node tools/gen-probe.mjs [--batch 36] [--check]
 
 import fs from 'node:fs';
-import { createFromEntry, createComment, fitComment, estNodeWidth, estNodeHeight, createMacroInstance } from '../src/generator.js';
+import { fitComment, estNodeWidth, estNodeHeight, createMacroInstance } from '../src/generator.js';
 import { generateUEText, seedGuids } from '../src/parser.js';
 import { validateStrict } from '../src/validate.js';
 import { createCall, createAddComponentByClass } from '../src/modules.js';
@@ -23,20 +23,20 @@ const CHECK = args.includes('--check');
 // Шорткаты: статическая функция библиотеки / член класса. Слова пинов — как в createCall: «Имя:тип[=значение]», «->».
 const lib = (key, words, pure = false) => () => createCall(key, words, { pure, isStatic: true });
 const mem = (key, words, pure = false) => () => createCall(key, words, { pure });
-const macro = (graph, pins) => () => createMacroInstance({ id: graph, title: graph, macro: { graph }, pins });
+const macro = (graph, pins) => () => createMacroInstance({ id: graph, title: graph, pins });
 
 /* Пакеты проб. Каждая проба: [тема, текст пузыря, фабрика]. Текст пузыря — что за нода и чего ждём. */
 const BATCHES = {
   '36': [
     // 4 — Blueprint Interfaces (Message-ноды требуют ассет интерфейса — только Does Implement)
     ['Interfaces', 'Does Implement Interface (KismetSystemLibrary, pure). Ждём: bool-выход, пин Interface', lib('KismetSystemLibrary.DoesImplementInterface', ['TestObject:object:/Script/CoreUObject.Object', 'Interface:class:/Script/CoreUObject.Interface', '->', 'ReturnValue:bool'], true)],
-    // 5 — циклы (макросы StandardMacros; GUID графа неизвестен — проверяем, резолвит ли UE по имени)
-    ['Loops', 'ForEachLoopWithBreak (макрос, GUID графа не известен — узнаём, найдёт ли UE по имени)', macro('ForEachLoopWithBreak', [
+    // 5 — циклы (макросы StandardMacros; GUID графов — из copy-back R36, см. UE_MACROS)
+    ['Loops', 'ForEachLoopWithBreak (макрос StandardMacros)', macro('ForEachLoopWithBreak', [
       { name: 'Exec', dir: 'Input', cat: 'exec' }, { name: 'Array', dir: 'Input', cat: 'wildcard', container: 'Array' }, { name: 'Break', dir: 'Input', cat: 'exec' },
       { name: 'LoopBody', dir: 'Output', cat: 'exec' }, { name: 'Array Element', dir: 'Output', cat: 'wildcard' }, { name: 'Array Index', dir: 'Output', cat: 'int' }, { name: 'Completed', dir: 'Output', cat: 'exec' }])],
-    ['Loops', 'ReverseForEachLoop (макрос, GUID графа не известен)', macro('ReverseForEachLoop', [
+    ['Loops', 'ReverseForEachLoop (макрос StandardMacros; выходы ArrayIndex/ArrayElement без пробела)', macro('ReverseForEachLoop', [
       { name: 'Exec', dir: 'Input', cat: 'exec' }, { name: 'Array', dir: 'Input', cat: 'wildcard', container: 'Array' },
-      { name: 'LoopBody', dir: 'Output', cat: 'exec' }, { name: 'Array Element', dir: 'Output', cat: 'wildcard' }, { name: 'Array Index', dir: 'Output', cat: 'int' }, { name: 'Completed', dir: 'Output', cat: 'exec' }])],
+      { name: 'LoopBody', dir: 'Output', cat: 'exec' }, { name: 'ArrayIndex', dir: 'Output', cat: 'int' }, { name: 'ArrayElement', dir: 'Output', cat: 'wildcard' }, { name: 'Completed', dir: 'Output', cat: 'exec' }])],
     // 7 — Save Game (Create/Save/Load/DoesExist уже VERIFIED в реестре — не повторяем)
     ['SaveGame', 'Delete Game in Slot (GameplayStatics)', lib('GameplayStatics.DeleteGameInSlot', ['SlotName:string', 'UserIndex:int', '->', 'ReturnValue:bool'])],
     // 8 — Data Table (Get Data Table Row — особая K2-нода, отдельно)
@@ -103,8 +103,9 @@ for (const topic of topics) {
   }
   y += rowH + GAPY + 48; // +48 — место под пузырь над нодой следующего ряда
 }
-const cm = createComment(`R${batch}: пробы новых нод (${list.length}). Над каждой нодой — пузырь с её названием. Пришлите copy-back тех, что не встали или встали неправильно.`, { x: -64, y: -112 });
-fitComment(cm, nodes);
+// fitComment(текст, ноды) возвращает НОВЫЙ коммент по габаритам нод (R36-фикс: раньше коммент создавался минимальным,
+// а результат fitComment терялся). Верхний отступ больше — над каждой нодой висит пузырь.
+const cm = fitComment(`R${batch}: пробы новых нод (${list.length}). Над каждой нодой — пузырь с её названием. Пришлите copy-back тех, что не встали или встали неправильно.`, nodes, 64, 176, 96);
 const text = generateUEText([cm, ...nodes]);
 const v = validateStrict(text);
 console.log(`R${batch}: нод=${nodes.length} тем=${topics.length} STRICT errors=${v.errors.length} warnings=${v.warnings.length}`);
