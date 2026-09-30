@@ -41,6 +41,10 @@ const LIBS_FULL = {
   ActorComponent: `"/Script/CoreUObject.Class'/Script/Engine.ActorComponent'"`, // round29-pre
   DataTableFunctionLibrary: `"/Script/CoreUObject.Class'/Script/Engine.DataTableFunctionLibrary'"`, // R37 (R36 VERIFIED)
   AIBlueprintHelperLibrary: `"/Script/CoreUObject.Class'/Script/AIModule.AIBlueprintHelperLibrary'"`,
+  WidgetSwitcher: `"/Script/CoreUObject.Class'/Script/UMG.WidgetSwitcher'"`, // R54 проба
+  ListView: `"/Script/CoreUObject.Class'/Script/UMG.ListView'"`, // R54 проба
+  Border: `"/Script/CoreUObject.Class'/Script/UMG.Border'"`, // R54 проба
+  GameUserSettings: `"/Script/CoreUObject.Class'/Script/Engine.GameUserSettings'"`, // R54 проба
   AIPerceptionComponent: `"/Script/CoreUObject.Class'/Script/AIModule.AIPerceptionComponent'"`, // R53 проба
   AIPerceptionStimuliSourceComponent: `"/Script/CoreUObject.Class'/Script/AIModule.AIPerceptionStimuliSourceComponent'"`, // R53 проба
   AISense_Hearing: `"/Script/CoreUObject.Class'/Script/AIModule.AISense_Hearing'"`, // R53 проба
@@ -125,6 +129,10 @@ const LIBS_SHORT = {
   ActorComponent: `Class'"/Script/Engine.ActorComponent"'`,
   DataTableFunctionLibrary: `Class'"/Script/Engine.DataTableFunctionLibrary"'`,
   AIBlueprintHelperLibrary: `Class'"/Script/AIModule.AIBlueprintHelperLibrary"'`,
+  WidgetSwitcher: `Class'"/Script/UMG.WidgetSwitcher"'`,
+  ListView: `Class'"/Script/UMG.ListView"'`,
+  Border: `Class'"/Script/UMG.Border"'`,
+  GameUserSettings: `Class'"/Script/Engine.GameUserSettings"'`,
   AIPerceptionComponent: `Class'"/Script/AIModule.AIPerceptionComponent"'`,
   AIPerceptionStimuliSourceComponent: `Class'"/Script/AIModule.AIPerceptionStimuliSourceComponent"'`,
   AISense_Hearing: `Class'"/Script/AIModule.AISense_Hearing"'`,

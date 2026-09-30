@@ -1293,3 +1293,6 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 ## 2026-10-01 — R53 проба: ИИ / навигация / восприятие (ждёт вердикта)
 `gen-probe --batch 53` → `sweep/probes/r53-probe.txt`, 21 нода. Ряды: AI 4, Nav 4, Perception 8, Stimuli 5. В UE_LIBS добавлены AIPerceptionComponent, AIPerceptionStimuliSourceComponent, AISense_Hearing, AISense_Damage, AIPerceptionSystem (AIModule).
 - R53 вердикт: 20/21 встали → `--register` +20. `AIController.GetBlackboardComponent` не выставлен в BP (не встал); замена — `AIBlueprintHelperLibrary.GetBlackboard(Target: Actor)`, уже в реестре (copy-back `sweep/copyback/r53-getblackboard.txt`; в чате путь `Engine.Actor` пришёл с markdown-ссылкой — в файле восстановлен). Проба удалена.
+
+## 2026-10-01 — R54 проба: GameMode / настройки / UI / HUD (ждёт вердикта)
+`gen-probe --batch 54` → `sweep/probes/r54-probe.txt`, 35 нод. Ряды: GameMode 3, Settings 15, UI 6, UIList 7, HUD 4. UE_LIBS += WidgetSwitcher, ListView, Border (UMG), GameUserSettings (Engine).
