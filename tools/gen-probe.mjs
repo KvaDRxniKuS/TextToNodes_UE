@@ -83,6 +83,58 @@ const BATCHES = {
     // досылка R35: вариант с выбранным классом ещё не сверен
     ['R35', 'Add Component by Class с выбранным классом StaticMeshComponent (вариант не сверен copy-back)', () => createAddComponentByClass('StaticMeshComponent')],
   ],
+  '38': [
+    // Actor
+    ['Actor', 'Set Life Span (член Actor)', mem('Actor.SetLifeSpan', ['InLifespan:single'])],
+    ['Actor', 'Get Distance To (член Actor, pure)', mem('Actor.GetDistanceTo', ['OtherActor:object:Actor', '->', 'ReturnValue:single'], true)],
+    ['Actor', 'Get Overlapping Actors (член Actor). Ждём: ClassFilter → массив Actor', mem('Actor.GetOverlappingActors', ['ClassFilter:class:Actor', '->', 'OverlappingActors:object:Actor[]'])],
+    ['Actor', 'Is Overlapping Actor (член Actor, pure)', mem('Actor.IsOverlappingActor', ['Other:object:Actor', '->', 'ReturnValue:bool'], true)],
+    // Damage / Game
+    ['Game', 'Apply Damage (GameplayStatics)', lib('GameplayStatics.ApplyDamage', ['DamagedActor:object:Actor', 'BaseDamage:single', 'EventInstigator:object:Controller', 'DamageCauser:object:Actor', 'DamageTypeClass:class:DamageType', '->', 'ReturnValue:single'])],
+    ['Game', 'Set Game Paused (GameplayStatics)', lib('GameplayStatics.SetGamePaused', ['bPaused:bool', '->', 'ReturnValue:bool'])],
+    ['Game', 'Set Global Time Dilation (GameplayStatics)', lib('GameplayStatics.SetGlobalTimeDilation', ['TimeDilation:single'])],
+    ['Game', 'Get Time Seconds (GameplayStatics, pure)', lib('GameplayStatics.GetTimeSeconds', ['->', 'ReturnValue:double'], true)],
+    ['Game', 'Get Player State (GameplayStatics, pure)', lib('GameplayStatics.GetPlayerState', ['PlayerStateIndex:int', '->', 'ReturnValue:object:PlayerState'], true)],
+    // Timers
+    ['Timers', 'Clear Timer by Handle (KismetSystemLibrary: K2_ClearTimerHandle)', lib('KismetSystemLibrary.K2_ClearTimerHandle', ['Handle:timerhandle'])],
+    // Debug
+    ['Debug', 'Draw Debug Line (KismetSystemLibrary). Ждём: остальные пины движок достроит', lib('KismetSystemLibrary.DrawDebugLine', ['LineStart:vector', 'LineEnd:vector', 'LineColor:linearcolor', 'Duration:single', 'Thickness:single'])],
+    ['Debug', 'Draw Debug Sphere (KismetSystemLibrary)', lib('KismetSystemLibrary.DrawDebugSphere', ['Center:vector', 'Radius:single=100.000000', 'Segments:int=12', 'LineColor:linearcolor', 'Duration:single', 'Thickness:single'])],
+    // UI
+    ['UI', 'Set Text (член TextBlock)', mem('/Script/UMG.TextBlock.SetText', ['InText:text'])],
+    ['UI', 'Set Percent (член ProgressBar)', mem('/Script/UMG.ProgressBar.SetPercent', ['InPercent:single'])],
+    ['UI', 'Project World Location to Screen (член PlayerController). Ждём: ScreenLocation Vector2D + bool', mem('PlayerController.ProjectWorldLocationToScreen', ['WorldLocation:vector', 'bPlayerViewportRelative:bool', '->', 'ScreenLocation:vector2d', 'ReturnValue:bool'])],
+    // Components
+    ['Components', 'Activate (член ActorComponent)', mem('ActorComponent.Activate', ['bReset:bool'])],
+    ['Components', 'Deactivate (член ActorComponent)', mem('ActorComponent.Deactivate', [])],
+    ['Components', 'Set Static Mesh (член StaticMeshComponent)', mem('/Script/Engine.StaticMeshComponent.SetStaticMesh', ['NewMesh:object:StaticMesh', '->', 'ReturnValue:bool'])],
+    ['Components', 'Set Field of View (член CameraComponent)', mem('/Script/Engine.CameraComponent.SetFieldOfView', ['InFieldOfView:single'])],
+    ['Components', 'Set Intensity (член LightComponent)', mem('/Script/Engine.LightComponent.SetIntensity', ['NewIntensity:single'])],
+    ['Components', 'Set Light Color (член LightComponent)', mem('/Script/Engine.LightComponent.SetLightColor', ['NewLightColor:linearcolor', 'bSRGB:bool=true'])],
+    // Audio
+    ['Audio', 'Spawn Sound at Location (GameplayStatics). Ждём: → AudioComponent', lib('GameplayStatics.SpawnSoundAtLocation', ['Sound:object:SoundBase', 'Location:vector', '->', 'ReturnValue:object:AudioComponent'])],
+    ['Audio', 'Fade In (член AudioComponent)', mem('/Script/Engine.AudioComponent.FadeIn', ['FadeInDuration:single', 'FadeVolumeLevel:single=1.000000', 'StartTime:single'])],
+    ['Audio', 'Fade Out (член AudioComponent)', mem('/Script/Engine.AudioComponent.FadeOut', ['FadeOutDuration:single', 'FadeVolumeLevel:single'])],
+    ['Audio', 'Set Volume Multiplier (член AudioComponent)', mem('/Script/Engine.AudioComponent.SetVolumeMultiplier', ['NewVolumeMultiplier:single'])],
+    // AI
+    ['AI', 'Stop Movement (член Controller)', mem('Controller.StopMovement', [])],
+    ['AI', 'Set Focus (член AIController). Пин InPriority движок достроит', mem('/Script/AIModule.AIController.SetFocus', ['NewFocus:object:Actor'])],
+    ['AI', 'Clear Focus (член AIController)', mem('/Script/AIModule.AIController.ClearFocus', [])],
+    ['AI', 'Set Value as Object (член BlackboardComponent)', mem('/Script/AIModule.BlackboardComponent.SetValueAsObject', ['KeyName:name', 'ObjectValue:object:/Script/CoreUObject.Object'])],
+    ['AI', 'Get Value as Object (член BlackboardComponent, pure)', mem('/Script/AIModule.BlackboardComponent.GetValueAsObject', ['KeyName:name', '->', 'ReturnValue:object:/Script/CoreUObject.Object'], true)],
+    ['AI', 'Set Value as Bool (член BlackboardComponent)', mem('/Script/AIModule.BlackboardComponent.SetValueAsBool', ['KeyName:name', 'BoolValue:bool'])],
+    ['AI', 'Get Value as Bool (член BlackboardComponent, pure)', mem('/Script/AIModule.BlackboardComponent.GetValueAsBool', ['KeyName:name', '->', 'ReturnValue:bool'], true)],
+    ['AI', 'Set Value as Float (член BlackboardComponent)', mem('/Script/AIModule.BlackboardComponent.SetValueAsFloat', ['KeyName:name', 'FloatValue:single'])],
+    ['AI', 'Get Value as Float (член BlackboardComponent, pure)', mem('/Script/AIModule.BlackboardComponent.GetValueAsFloat', ['KeyName:name', '->', 'ReturnValue:single'], true)],
+    ['AI', 'Clear Value (член BlackboardComponent)', mem('/Script/AIModule.BlackboardComponent.ClearValue', ['KeyName:name'])],
+    // Animation
+    ['Animation', 'Montage Is Playing (член AnimInstance, pure)', mem('AnimInstance.Montage_IsPlaying', ['Montage:object:AnimMontage', '->', 'ReturnValue:bool'], true)],
+    ['Animation', 'Montage Jump to Section (член AnimInstance)', mem('AnimInstance.Montage_JumpToSection', ['SectionName:name', 'Montage:object:AnimMontage'])],
+    ['Animation', 'Get Curve Value (член AnimInstance, pure)', mem('AnimInstance.GetCurveValue', ['CurveName:name', '->', 'ReturnValue:single'], true)],
+    // Tags
+    ['Tags', 'Has Any Tags (BlueprintGameplayTagLibrary, pure)', lib('/Script/GameplayTags.BlueprintGameplayTagLibrary.HasAnyTags', ['TagContainer:gameplaytagcontainer', 'OtherContainer:gameplaytagcontainer', 'bExactMatch:bool', '->', 'ReturnValue:bool'], true)],
+    ['Tags', 'Make Gameplay Tag Container from Tag (BlueprintGameplayTagLibrary, pure)', lib('/Script/GameplayTags.BlueprintGameplayTagLibrary.MakeGameplayTagContainerFromTag', ['SingleTag:gameplaytag', '->', 'ReturnValue:gameplaytagcontainer'], true)],
+  ],
 };
 
 const list = BATCHES[batch];
@@ -135,7 +187,7 @@ if (REGISTER) {
   const objPath = ref => (ref.match(/'([^'"]+)'"?$/) || ref.match(/"([^"]+)"'$/) || [])[1] || ref;
   const title = f => f.replace(/_/g, ' ').replace(/([a-z0-9])([A-Z])/g, '$1 $2').replace(/\s+/g, ' ').trim();
   const strip = t => t.replace(/[0-9A-F]{32}/g, 'G').replace(/Name="[^"]*"/, '').replace(/\n\s*NodePos[XY]=-?\d+/g, '').replace(/\n\s*bCommentBubbleVisible=True\n\s*NodeComment="[^"]*"/, '');
-  const topicCat = 'Gameplay Systems';
+  const topicCat = 'Gameplay Systems'; // одна категория для всех проб (R36+)
   const added = [];
   for (const n of nodes) {
     if (!n.funcName && !n.macroGraph) continue;               // AddComponentByClass — модульная нода, не запись реестра
@@ -160,7 +212,7 @@ if (REGISTER) {
     if (have.has(e.id)) { console.log(`  = ${e.id} уже в реестре`); continue; }
     e.verified = true;
     e.desc = bubble.split(/[.(]/)[0].trim();
-    e.probe = `R36 проба (${n.probeTopic}) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). ${bubble}`;
+    e.probe = `R${batch} проба (${n.probeTopic}) → VERIFIED движком ${new Date().toISOString().slice(0,10)}; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). ${bubble}`;
     const back = n.macroGraph ? createMacroInstance(e) : createCallFunction(e);
     const a = strip(generateUEText([n])), b = strip(generateUEText([back]));
     if (a !== b) { console.log(`✗ ${e.id}: запись не воспроизводит пробу\n--- проба\n${a}\n--- запись\n${b}`); process.exit(1); }

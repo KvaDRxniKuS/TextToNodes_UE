@@ -1024,3 +1024,10 @@ AIController, BlackboardComponent, SkeletalMeshComponent, AnimInstance, Material
 NiagaraFunctionLibrary, NiagaraComponent, PlayerCameraManager, BlueprintGameplayTagLibrary. MPC-версия —
 `SetScalarParameterValue_KismetMaterialLibrary`. Пины — как в пробе (движок достраивает остальные, напр. Montage_Play).
 Реестр 409 → 442; sweep перегенерирован (сдвиг счётчиков имён — ожидаем). W05 в пробе: 31 → 0.
+
+## R38 · пробы (2026-09-30, ждут вердикта)
+
+`sweep/38-probe.txt` — 40 нод, 10 тем (Actor, Game/Damage, Timers, Debug, UI, Components, Audio, AI/Blackboard, Animation,
+Tags), у каждой пузырь. Пины — ключевые; остальные (WorldContext, InPriority, DrawDebug-хвосты) движок достраивает.
+После вердикта: `node tools/gen-probe.mjs --batch 38 --register` (+ ключи UE_LIBS для новых владельцев: TextBlock,
+ProgressBar, StaticMeshComponent, CameraComponent, LightComponent, AudioComponent) → `node tools/gen-sweep.mjs`.
