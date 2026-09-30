@@ -28,7 +28,6 @@ UE copy → parser → JSON graph → inspect/modify → generator → Blueprint
 
 - Проект ориентирован на переносимый Blueprint Text для проверяемых форм UE; конкретные поля и PinId могут зависеть от типа ноды и контекста Blueprint.
 - Assets, custom project dispatchers/enums, variables и function-local names могут требовать настоящих путей/GUID из проекта.
-- `tools/openai-tools.json` содержит tool schemas, а не реализацию создания всех перечисленных Unreal asset types.
 - Поддержку конкретной UE версии следует сверять с engine fixtures и verdict пользователя; не считать автоматически каждый UE 5.x совместимым.
 
 ## Проверки разработчика

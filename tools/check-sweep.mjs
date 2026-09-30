@@ -9,7 +9,8 @@
 // Папки sweep/ (подробно — sweep/README.md):
 // • registry/  — сетка по категориям реестра + MANIFEST (tools/gen-sweep.mjs --check, в памяти);
 // • chapters/  — связные главы раундов (свои генераторы/recipes; часть заморожена, см. FROZEN);
-// • probes/    — пробы новых нод с пузырями (tools/gen-probe.mjs);
+// • probes/    — ТОЛЬКО пробы, ждущие вердикта (tools/gen-probe.mjs --batch NN); после --register файл удаляется:
+//                его ноды уже в registry/, а сама проба воспроизводится `gen-probe --batch NN --stdout`;
 // • layout/    — тесты раскладки (collapsed-knot, pipeline-smoke);
 // • copyback/  — ДОСЛОВНЫЕ копии из движка (эталоны). Не генерируются; tests/validate прогоняет их через STRICT.
 // Новый файл в sweep/ без recipe и вне FROZEN/registry/copyback — провал проверки.
@@ -33,9 +34,6 @@ const RECIPES = [
   ['27b — Widgets/UI, make-node --decorate', ['bash', 'tools/recipes/r27-widgets-ui-decorated.sh'], ['sweep/chapters/r27-widgets-ui-decorated.txt']],
   ['30 — декор переносов на узлах R26', ['bash', 'tools/recipes/r30-decorate.sh'], ['sweep/chapters/r30-decorate.txt']],
   ['32 — компоненты: lifecycle/запросы', ['bash', 'tools/recipes/r32-components-lifecycle.sh'], ['sweep/chapters/r32-components-lifecycle.txt']],
-  ['36 — пробы новых нод (пузыри-комментарии)', ['node', 'tools/gen-probe.mjs', '--batch', '36'], ['sweep/probes/r36-probe.txt']],
-  ['38 — пробы новых нод R38', ['node', 'tools/gen-probe.mjs', '--batch', '38'], ['sweep/probes/r38-probe.txt']],
-  ['39 — пробы новых нод R39', ['node', 'tools/gen-probe.mjs', '--batch', '39'], ['sweep/probes/r39-probe.txt']],
   ['enum-select — Enum Select по копии из UE', ['node', 'tools/gen-enum-select.mjs'], ['sweep/chapters/enum-select.txt']],
   ['collapsed-knot 4×5 (2 уровня)', ['node', 'tools/gen-collapsed-knot.mjs'], ['sweep/layout/collapsed-knot-4x5.txt']],
   ['collapsed-knot 1×3 (3 уровня)', ['node', 'tools/gen-collapsed-knot.mjs', '--inputs', '1', '--outputs', '3', '--levels', '3'], ['sweep/layout/collapsed-knot-1x3-3levels.txt']],

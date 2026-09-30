@@ -17,7 +17,7 @@
 
 ## Следующие темы — в заданном порядке
 
-> R36 (2026-09-30): пункты 4–17 собраны пробой `sweep/probes/r36-probe.txt` (`tools/gen-probe.mjs`) — ждём copy-back неудачных нод. Timeline, Interface Message, AI MoveTo, Get Data Table Row, Set Members in Struct и latent stream-level — особые узлы, в пробу не вошли.
+> R36 (2026-09-30): пункты 4–17 собраны пробой R36 (`tools/gen-probe.mjs --batch 36`), подтверждены и занесены в реестр (R37). Timeline, Interface Message, AI MoveTo, Get Data Table Row, Set Members in Struct и latent stream-level — особые узлы, в пробу не вошли.
 
 1. **Завершить UE-проверку текущего layout pipeline** на dispatcher fixture: последовательность слева направо, реальный зазор между exec-пинами, pin-center alignment и handler. Новые позиции/solver утверждать только после copy-back пользователя. Параллельно идёт калибровка ступеней по одному инструменту на `tests/three-stage-01.*`: ступень 2 принята (шаблон «делегат левее ниже» и дробные уровни — открытые пункты, стадиумы уже в ступени 2), ступень 3 приостановлена по решению пользователя и ждёт возврата отдельным решением.
 2. ~~**MoveComponentTo**~~ — VERIFIED (R34, 2026-09-30): входы Move/Stop/Return, выход Completed; см. `ENGINE_VERIFIED.md`.

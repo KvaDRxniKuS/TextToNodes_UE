@@ -20,6 +20,7 @@ import { createCall, createAddComponentByClass } from '../src/modules.js';
 const args = process.argv.slice(2);
 const batch = (args[args.indexOf('--batch') + 1] && args.includes('--batch')) ? args[args.indexOf('--batch') + 1] : '36';
 const CHECK = args.includes('--check');
+const STDOUT = args.includes('--stdout'); // текст пробы в stdout, без записи (тесты; пробы после вердикта в git не хранятся)
 const REGISTER = args.includes('--register'); // после вердикта «встали»: завести подтверждённые пробы в реестр
 
 // Шорткаты: статическая функция библиотеки / член класса. Слова пинов — как в createCall: «Имя:тип[=значение]», «->».
@@ -216,10 +217,12 @@ for (const topic of topics) {
 const cm = fitComment(`R${batch}: пробы новых нод (${list.length}). Над каждой нодой — пузырь с её названием. Пришлите copy-back тех, что не встали или встали неправильно.`, nodes, 64, 176, 96);
 const text = generateUEText([cm, ...nodes]);
 const v = validateStrict(text);
-console.log(`R${batch}: нод=${nodes.length} тем=${topics.length} STRICT errors=${v.errors.length} warnings=${v.warnings.length}`);
+if (!STDOUT) console.log(`R${batch}: нод=${nodes.length} тем=${topics.length} STRICT errors=${v.errors.length} warnings=${v.warnings.length}`);
 v.errors.forEach(e => console.log('  ERR ' + e));
 if (!v.valid) process.exit(1);
-if (CHECK) {
+if (STDOUT) {
+  process.stdout.write(text);
+} else if (CHECK) {
   const disk = fs.existsSync(out) ? fs.readFileSync(out, 'utf8') : '';
   if (disk !== text) { console.log(`✗ sweep/probes/r${batch}-probe.txt расходится с генератором`); process.exit(1); }
   console.log(`✓ sweep/probes/r${batch}-probe.txt совпадает с генератором`);

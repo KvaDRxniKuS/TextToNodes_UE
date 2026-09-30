@@ -1,8 +1,6 @@
 # Tools
 
-Каталог содержит CLI-скрипты генерации/проверки и `openai-tools.json` с JSON Schema для function/tool calling.
-
-`openai-tools.json` — только описания интерфейсов. Наличие schema не означает, что соответствующая операция или asset type реализованы в репозитории. Фактические возможности ищите в исходниках конкретного инструмента.
+Каталог содержит CLI-скрипты генерации и проверки. Интерфейс для нейросетей — `mcp/server.js` (MCP: generate/parse/validate/search) и `prompt/system-prompt.md`.
 
 ## Основные CLI
 

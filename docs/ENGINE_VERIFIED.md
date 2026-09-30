@@ -1064,3 +1064,15 @@ Movement, Camera shake, Animation-монтажи, Gameplay Tags, Random streams,
 Gameplay Tag, Stream у SeedRandomStream) помечены `ref()`. Пины enum (PlayMode, TransformSpace, LocationType…) не задаём —
 движок достраивает. После вердикта: `gen-probe --batch 39 --register` (+ UE_LIBS: UserWidget/Widget уже есть; нужны Image,
 MovementComponent) → `gen-sweep`.
+
+## R39 → VERIFIED · второй аудит репозитория (2026-09-30)
+
+Вердикт R39: норма, пропущенных нод и ошибок компиляции нет → `gen-probe --batch 39 --register`: **+47** (реестр 483 → 530),
+UE_LIBS: Image, MovementComponent.
+
+Аудит «зачем каждый файл» (итог — таблица в ответе пользователю / README):
+- удалены `tools/openai-tools.json` + `src/schema.json` — схемы 7 инструментов (create_material, create_behavior_tree, …), ни один
+  не реализован; для нейросети это ложное обещание. Рабочий интерфейс — `mcp/server.js` + `prompt/system-prompt.md`;
+- удалён `examples/wheel-mu.json` — нигде не читается (`index.html` грузит только `wheel-mu.txt`);
+- удалены `sweep/probes/r36|r38|r39-probe.txt` — после `--register` их ноды лежат в `registry/31-gameplay-systems.txt`, а сама проба
+  воспроизводится `gen-probe --batch NN --stdout` (тест R36/R37 читает её так). В `probes/` теперь лежат только пробы, ждущие вердикта.

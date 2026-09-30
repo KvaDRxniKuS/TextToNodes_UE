@@ -58,6 +58,8 @@ const LIBS_FULL = {
   CameraComponent: `"/Script/CoreUObject.Class'/Script/Engine.CameraComponent'"`, // R38 VERIFIED
   LightComponent: `"/Script/CoreUObject.Class'/Script/Engine.LightComponent'"`, // R38 VERIFIED
   AudioComponent: `"/Script/CoreUObject.Class'/Script/Engine.AudioComponent'"`, // R38 VERIFIED
+  Image: `"/Script/CoreUObject.Class'/Script/UMG.Image'"`, // R39 VERIFIED
+  MovementComponent: `"/Script/CoreUObject.Class'/Script/Engine.MovementComponent'"`, // R39 VERIFIED
 };
 const LIBS_SHORT = {
   KismetMathLibrary:   `Class'"/Script/Engine.KismetMathLibrary"'`,
@@ -98,6 +100,8 @@ const LIBS_SHORT = {
   CameraComponent: `Class'"/Script/Engine.CameraComponent"'`,
   LightComponent: `Class'"/Script/Engine.LightComponent"'`,
   AudioComponent: `Class'"/Script/Engine.AudioComponent"'`,
+  Image: `Class'"/Script/UMG.Image"'`,
+  MovementComponent: `Class'"/Script/Engine.MovementComponent"'`,
 };
 export const UE_LIBS = UE_VERSION === 'SHORT' ? LIBS_SHORT : LIBS_FULL;
 

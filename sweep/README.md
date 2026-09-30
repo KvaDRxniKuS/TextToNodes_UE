@@ -4,7 +4,7 @@
 |---|---|---|---|
 | `registry/NN-<категория>.txt` + `MANIFEST.md` | сетка ВСЕХ записей реестра `data/ue-functions.json` по категориям | `node tools/gen-sweep.mjs` | `gen-sweep --check` |
 | `chapters/rNN-<тема>.txt` | связные главы раундов (сцены с проводами, декор, make-node) | свои генераторы / `tools/recipes/*.sh`; 5 глав заморожены | `check-sweep` |
-| `probes/rNN-probe.txt` | пробы новых нод с пузырями; после вердикта → `gen-probe --register` в реестр | `node tools/gen-probe.mjs --batch NN` | `check-sweep` |
+| `probes/rNN-probe.txt` | только пробы, ждущие вердикта; после `gen-probe --batch NN --register` файл удаляется (ноды уже в `registry/`, проба воспроизводится `--stdout`) | `node tools/gen-probe.mjs --batch NN` | `check-sweep` (recipe на время ожидания) |
 | `layout/*.txt` | тесты раскладки (collapsed-knot, pipeline-smoke) | `tools/gen-collapsed-knot.mjs`, `tools/gen-pipeline-smoke.mjs` | `check-sweep` |
 | `copyback/*` | **эталоны**: дословные копии из движка | пользователь | `tests/validate.test.mjs` (STRICT + assert'ы) |
 
