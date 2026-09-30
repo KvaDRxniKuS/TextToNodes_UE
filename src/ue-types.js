@@ -63,6 +63,8 @@ const LIBS_FULL = {
   NavigationSystemV1: `"/Script/CoreUObject.Class'/Script/NavigationSystem.NavigationSystemV1'"`, // R41 VERIFIED
   CapsuleComponent: `"/Script/CoreUObject.Class'/Script/Engine.CapsuleComponent'"`, // R43 VERIFIED
   SkinnedMeshComponent: `"/Script/CoreUObject.Class'/Script/Engine.SkinnedMeshComponent'"`, // R43 VERIFIED
+  SpringArmComponent: `"/Script/CoreUObject.Class'/Script/Engine.SpringArmComponent'"`, // R44 VERIFIED
+  SplineComponent: `"/Script/CoreUObject.Class'/Script/Engine.SplineComponent'"`, // R44 VERIFIED
   Slider: `"/Script/CoreUObject.Class'/Script/UMG.Slider'"`, // R41 VERIFIED
 };
 const LIBS_SHORT = {
@@ -111,6 +113,8 @@ const LIBS_SHORT = {
   Slider: `Class'"/Script/UMG.Slider"'`,
   CapsuleComponent: `Class'"/Script/Engine.CapsuleComponent"'`,
   SkinnedMeshComponent: `Class'"/Script/Engine.SkinnedMeshComponent"'`,
+  SpringArmComponent: `Class'"/Script/Engine.SpringArmComponent"'`,
+  SplineComponent: `Class'"/Script/Engine.SplineComponent"'`,
 };
 export const UE_LIBS = UE_VERSION === 'SHORT' ? LIBS_SHORT : LIBS_FULL;
 
@@ -174,10 +178,10 @@ const ENUMS_FULL = {
   EMovementMode: `"/Script/CoreUObject.Enum'/Script/Engine.EMovementMode'"`, // confirmed R41 (SetMovementMode)
   ENetRole: `"/Script/CoreUObject.Enum'/Script/Engine.ENetRole'"`, // confirmed R42
   ENetDormancy: `"/Script/CoreUObject.Enum'/Script/Engine.ENetDormancy'"`, // confirmed R42
-  ESplineCoordinateSpace: `"/Script/CoreUObject.Enum'/Script/Engine.ESplineCoordinateSpace'"`, // pre R44
-  ESplinePointType: `"/Script/CoreUObject.Enum'/Script/Engine.ESplinePointType'"`, // pre R44
-  EAnimationMode: `"/Script/CoreUObject.Enum'/Script/Engine.EAnimationMode'"`, // pre R44
-  ECameraProjectionMode: `"/Script/CoreUObject.Enum'/Script/Engine.ECameraProjectionMode'"`, // pre R44
+  ESplineCoordinateSpace: `"/Script/CoreUObject.Enum'/Script/Engine.ESplineCoordinateSpace'"`, // confirmed R44
+  ESplinePointType: `"/Script/CoreUObject.Enum'/Script/Engine.ESplinePointType'"`, // confirmed R44
+  EAnimationMode: `"/Script/CoreUObject.Enum'/Script/Engine.EAnimationMode'"`, // confirmed R44
+  ECameraProjectionMode: `"/Script/CoreUObject.Enum'/Script/Engine.ECameraProjectionMode'"`, // confirmed R44
   EMoveComponentAction: `"/Script/CoreUObject.Enum'/Script/Engine.EMoveComponentAction'"`, // R34 copy-back: MoveComponentTo
   EDrawDebugSceneDepthPriorityGroup: `"/Script/CoreUObject.Enum'/Script/Engine.EDrawDebugSceneDepthPriorityGroup'"`, // R33 copy-back: DrawDebugArrow.DepthPriority
   ECollisionResponse: `"/Script/CoreUObject.Enum'/Script/Engine.ECollisionResponse'"`, // round29-pre

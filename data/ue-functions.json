@@ -23312,5 +23312,1534 @@
   "verified": true,
   "desc": "Get Max Speed",
   "probe": "R43 проба (Movement) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Max Speed (член MovementComponent, pure). Цель — Character Movement и т.п."
+ },
+ {
+  "id": "Montage_SetNextSection",
+  "title": "Montage Set Next Section",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Montage_SetNextSection",
+  "lib": "AnimInstance",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AnimInstance"
+   },
+   {
+    "name": "SectionNameToChange",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "NextSection",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "Montage",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AnimMontage"
+   }
+  ],
+  "verified": true,
+  "desc": "Montage Set Next Section",
+  "probe": "R44 проба (Anim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Montage Set Next Section (член AnimInstance)"
+ },
+ {
+  "id": "Montage_IsActive",
+  "title": "Montage Is Active",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Montage_IsActive",
+  "lib": "AnimInstance",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AnimInstance"
+   },
+   {
+    "name": "Montage",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AnimMontage"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Montage Is Active",
+  "probe": "R44 проба (Anim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Montage Is Active (член AnimInstance, pure)"
+ },
+ {
+  "id": "GetCurrentActiveMontage",
+  "title": "Get Current Active Montage",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetCurrentActiveMontage",
+  "lib": "AnimInstance",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AnimInstance"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.AnimMontage"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Current Active Montage",
+  "probe": "R44 проба (Anim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Current Active Montage (член AnimInstance, pure)"
+ },
+ {
+  "id": "TryGetPawnOwner",
+  "title": "Try Get Pawn Owner",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "TryGetPawnOwner",
+  "lib": "AnimInstance",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AnimInstance"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.Pawn"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Try Get Pawn Owner",
+  "probe": "R44 проба (Anim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Try Get Pawn Owner (член AnimInstance, pure)"
+ },
+ {
+  "id": "SetAnimationMode",
+  "title": "Set Animation Mode",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetAnimationMode",
+  "lib": "SkeletalMeshComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SkeletalMeshComponent"
+   },
+   {
+    "name": "InAnimationMode",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EAnimationMode"
+   },
+   {
+    "name": "bForceInitAnimScriptInstance",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Set Animation Mode",
+  "probe": "R44 проба (Anim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Animation Mode (член SkeletalMeshComponent). Ждём: EAnimationMode + bForceInitAnimScriptInstance"
+ },
+ {
+  "id": "GetPlayRate",
+  "title": "Get Play Rate",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetPlayRate",
+  "lib": "SkeletalMeshComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SkeletalMeshComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Play Rate",
+  "probe": "R44 проба (Anim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Play Rate (член SkeletalMeshComponent, pure)"
+ },
+ {
+  "id": "IsPlaying",
+  "title": "Is Playing",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsPlaying",
+  "lib": "SkeletalMeshComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SkeletalMeshComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Playing",
+  "probe": "R44 проба (Anim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Playing (член SkeletalMeshComponent, pure)"
+ },
+ {
+  "id": "Stop",
+  "title": "Stop",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Stop",
+  "lib": "SkeletalMeshComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SkeletalMeshComponent"
+   }
+  ],
+  "verified": true,
+  "desc": "Stop",
+  "probe": "R44 проба (Anim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Stop (член SkeletalMeshComponent — одиночная анимация)"
+ },
+ {
+  "id": "SetPosition",
+  "title": "Set Position",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetPosition",
+  "lib": "SkeletalMeshComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SkeletalMeshComponent"
+   },
+   {
+    "name": "InPos",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "bFireNotifies",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Set Position",
+  "probe": "R44 проба (Anim) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Position (член SkeletalMeshComponent)"
+ },
+ {
+  "id": "SetAspectRatio",
+  "title": "Set Aspect Ratio",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetAspectRatio",
+  "lib": "CameraComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.CameraComponent"
+   },
+   {
+    "name": "InAspectRatio",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Aspect Ratio",
+  "probe": "R44 проба (Camera) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Aspect Ratio (член CameraComponent)"
+ },
+ {
+  "id": "SetConstraintAspectRatio",
+  "title": "Set Constraint Aspect Ratio",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetConstraintAspectRatio",
+  "lib": "CameraComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.CameraComponent"
+   },
+   {
+    "name": "bInConstrainAspectRatio",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Constraint Aspect Ratio",
+  "probe": "R44 проба (Camera) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Constraint Aspect Ratio (член CameraComponent)"
+ },
+ {
+  "id": "SetPostProcessBlendWeight",
+  "title": "Set Post Process Blend Weight",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetPostProcessBlendWeight",
+  "lib": "CameraComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.CameraComponent"
+   },
+   {
+    "name": "InPostProcessBlendWeight",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Post Process Blend Weight",
+  "probe": "R44 проба (Camera) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Post Process Blend Weight (член CameraComponent)"
+ },
+ {
+  "id": "SetProjectionMode",
+  "title": "Set Projection Mode",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetProjectionMode",
+  "lib": "CameraComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.CameraComponent"
+   },
+   {
+    "name": "InProjectionMode",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ECameraProjectionMode"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Projection Mode",
+  "probe": "R44 проба (Camera) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Projection Mode (член CameraComponent). ECameraProjectionMode"
+ },
+ {
+  "id": "SetOrthoWidth",
+  "title": "Set Ortho Width",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetOrthoWidth",
+  "lib": "CameraComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.CameraComponent"
+   },
+   {
+    "name": "InOrthoWidth",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Ortho Width",
+  "probe": "R44 проба (Camera) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Ortho Width (член CameraComponent)"
+ },
+ {
+  "id": "GetViewTarget",
+  "title": "Get View Target",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetViewTarget",
+  "lib": "PlayerController",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get View Target",
+  "probe": "R44 проба (Camera) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get View Target (член PlayerController, pure)"
+ },
+ {
+  "id": "StopAllCameraShakes",
+  "title": "Stop All Camera Shakes",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "StopAllCameraShakes",
+  "lib": "PlayerCameraManager",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerCameraManager"
+   },
+   {
+    "name": "bImmediately",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Stop All Camera Shakes",
+  "probe": "R44 проба (CameraManager) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Stop All Camera Shakes (член PlayerCameraManager)"
+ },
+ {
+  "id": "StartCameraFade",
+  "title": "Start Camera Fade",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "StartCameraFade",
+  "lib": "PlayerCameraManager",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerCameraManager"
+   },
+   {
+    "name": "FromAlpha",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "ToAlpha",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "Duration",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "Color",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "const": true
+   },
+   {
+    "name": "bShouldFadeAudio",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "bHoldWhenFinished",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Start Camera Fade",
+  "probe": "R44 проба (CameraManager) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Start Camera Fade (член PlayerCameraManager)"
+ },
+ {
+  "id": "StopCameraFade",
+  "title": "Stop Camera Fade",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "StopCameraFade",
+  "lib": "PlayerCameraManager",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerCameraManager"
+   }
+  ],
+  "verified": true,
+  "desc": "Stop Camera Fade",
+  "probe": "R44 проба (CameraManager) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Stop Camera Fade (член PlayerCameraManager)"
+ },
+ {
+  "id": "SetManualCameraFade",
+  "title": "Set Manual Camera Fade",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetManualCameraFade",
+  "lib": "PlayerCameraManager",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerCameraManager"
+   },
+   {
+    "name": "InFadeAmount",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "Color",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "const": true
+   },
+   {
+    "name": "bInFadeAudio",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Manual Camera Fade",
+  "probe": "R44 проба (CameraManager) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Manual Camera Fade (член PlayerCameraManager)"
+ },
+ {
+  "id": "GetCameraLocation",
+  "title": "Get Camera Location",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetCameraLocation",
+  "lib": "PlayerCameraManager",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerCameraManager"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Camera Location",
+  "probe": "R44 проба (CameraManager) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Camera Location (член PlayerCameraManager, pure)"
+ },
+ {
+  "id": "GetCameraRotation",
+  "title": "Get Camera Rotation",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetCameraRotation",
+  "lib": "PlayerCameraManager",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerCameraManager"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Rotator"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Camera Rotation",
+  "probe": "R44 проба (CameraManager) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Camera Rotation (член PlayerCameraManager, pure)"
+ },
+ {
+  "id": "GetFOVAngle",
+  "title": "Get FOVAngle",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetFOVAngle",
+  "lib": "PlayerCameraManager",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerCameraManager"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get FOV Angle",
+  "probe": "R44 проба (CameraManager) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get FOV Angle (член PlayerCameraManager, pure)"
+ },
+ {
+  "id": "GetUnfixedCameraPosition",
+  "title": "Get Unfixed Camera Position",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetUnfixedCameraPosition",
+  "lib": "SpringArmComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SpringArmComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Unfixed Camera Position",
+  "probe": "R44 проба (SpringArm) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Unfixed Camera Position (член SpringArmComponent, pure)"
+ },
+ {
+  "id": "IsCollisionFixApplied",
+  "title": "Is Collision Fix Applied",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsCollisionFixApplied",
+  "lib": "SpringArmComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SpringArmComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Collision Fix Applied",
+  "probe": "R44 проба (SpringArm) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Collision Fix Applied (член SpringArmComponent, pure)"
+ },
+ {
+  "id": "GetTargetRotation",
+  "title": "Get Target Rotation",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetTargetRotation",
+  "lib": "SpringArmComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SpringArmComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Rotator"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Target Rotation",
+  "probe": "R44 проба (SpringArm) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Target Rotation (член SpringArmComponent, pure)"
+ },
+ {
+  "id": "GetLocationAtDistanceAlongSpline",
+  "title": "Get Location At Distance Along Spline",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetLocationAtDistanceAlongSpline",
+  "lib": "SplineComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SplineComponent"
+   },
+   {
+    "name": "Distance",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "CoordinateSpace",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ESplineCoordinateSpace"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Location at Distance Along Spline",
+  "probe": "R44 проба (Spline) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Location at Distance Along Spline (член SplineComponent, pure)"
+ },
+ {
+  "id": "GetRotationAtDistanceAlongSpline",
+  "title": "Get Rotation At Distance Along Spline",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetRotationAtDistanceAlongSpline",
+  "lib": "SplineComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SplineComponent"
+   },
+   {
+    "name": "Distance",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "CoordinateSpace",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ESplineCoordinateSpace"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Rotator"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Rotation at Distance Along Spline",
+  "probe": "R44 проба (Spline) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Rotation at Distance Along Spline (pure)"
+ },
+ {
+  "id": "GetDirectionAtDistanceAlongSpline",
+  "title": "Get Direction At Distance Along Spline",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetDirectionAtDistanceAlongSpline",
+  "lib": "SplineComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SplineComponent"
+   },
+   {
+    "name": "Distance",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "CoordinateSpace",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ESplineCoordinateSpace"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Direction at Distance Along Spline",
+  "probe": "R44 проба (Spline) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Direction at Distance Along Spline (pure)"
+ },
+ {
+  "id": "GetTangentAtDistanceAlongSpline",
+  "title": "Get Tangent At Distance Along Spline",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetTangentAtDistanceAlongSpline",
+  "lib": "SplineComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SplineComponent"
+   },
+   {
+    "name": "Distance",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "CoordinateSpace",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ESplineCoordinateSpace"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Tangent at Distance Along Spline",
+  "probe": "R44 проба (Spline) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Tangent at Distance Along Spline (pure)"
+ },
+ {
+  "id": "GetTransformAtDistanceAlongSpline",
+  "title": "Get Transform At Distance Along Spline",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetTransformAtDistanceAlongSpline",
+  "lib": "SplineComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SplineComponent"
+   },
+   {
+    "name": "Distance",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "CoordinateSpace",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ESplineCoordinateSpace"
+   },
+   {
+    "name": "bUseScale",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Transform"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Transform at Distance Along Spline",
+  "probe": "R44 проба (Spline) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Transform at Distance Along Spline (pure)"
+ },
+ {
+  "id": "GetSplineLength",
+  "title": "Get Spline Length",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetSplineLength",
+  "lib": "SplineComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SplineComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Spline Length",
+  "probe": "R44 проба (Spline) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Spline Length (pure)"
+ },
+ {
+  "id": "GetNumberOfSplinePoints",
+  "title": "Get Number Of Spline Points",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetNumberOfSplinePoints",
+  "lib": "SplineComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SplineComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Number of Spline Points",
+  "probe": "R44 проба (Spline) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Number of Spline Points (pure)"
+ },
+ {
+  "id": "GetLocationAtSplinePoint",
+  "title": "Get Location At Spline Point",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetLocationAtSplinePoint",
+  "lib": "SplineComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SplineComponent"
+   },
+   {
+    "name": "PointIndex",
+    "dir": "Input",
+    "cat": "int"
+   },
+   {
+    "name": "CoordinateSpace",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ESplineCoordinateSpace"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Location at Spline Point",
+  "probe": "R44 проба (Spline) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Location at Spline Point (pure)"
+ },
+ {
+  "id": "GetDistanceAlongSplineAtSplinePoint",
+  "title": "Get Distance Along Spline At Spline Point",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetDistanceAlongSplineAtSplinePoint",
+  "lib": "SplineComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SplineComponent"
+   },
+   {
+    "name": "PointIndex",
+    "dir": "Input",
+    "cat": "int"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Distance Along Spline at Spline Point",
+  "probe": "R44 проба (Spline) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Distance Along Spline at Spline Point (pure)"
+ },
+ {
+  "id": "FindLocationClosestToWorldLocation",
+  "title": "Find Location Closest To World Location",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "FindLocationClosestToWorldLocation",
+  "lib": "SplineComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SplineComponent"
+   },
+   {
+    "name": "WorldLocation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "CoordinateSpace",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ESplineCoordinateSpace"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Find Location Closest to World Location",
+  "probe": "R44 проба (Spline) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Find Location Closest to World Location (pure)"
+ },
+ {
+  "id": "FindRotationClosestToWorldLocation",
+  "title": "Find Rotation Closest To World Location",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "FindRotationClosestToWorldLocation",
+  "lib": "SplineComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SplineComponent"
+   },
+   {
+    "name": "WorldLocation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "CoordinateSpace",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ESplineCoordinateSpace"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Rotator"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Find Rotation Closest to World Location",
+  "probe": "R44 проба (Spline) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Find Rotation Closest to World Location (pure)"
+ },
+ {
+  "id": "FindInputKeyClosestToWorldLocation",
+  "title": "Find Input Key Closest To World Location",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "FindInputKeyClosestToWorldLocation",
+  "lib": "SplineComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SplineComponent"
+   },
+   {
+    "name": "WorldLocation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Find Input Key Closest to World Location",
+  "probe": "R44 проба (Spline) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Find Input Key Closest to World Location (pure)"
+ },
+ {
+  "id": "IsClosedLoop",
+  "title": "Is Closed Loop",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsClosedLoop",
+  "lib": "SplineComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SplineComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Closed Loop",
+  "probe": "R44 проба (Spline) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Closed Loop (pure)"
+ },
+ {
+  "id": "AddSplinePoint",
+  "title": "Add Spline Point",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AddSplinePoint",
+  "lib": "SplineComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SplineComponent"
+   },
+   {
+    "name": "Position",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "CoordinateSpace",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ESplineCoordinateSpace"
+   },
+   {
+    "name": "bUpdateSpline",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Add Spline Point",
+  "probe": "R44 проба (SplineEdit) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Add Spline Point (член SplineComponent)"
+ },
+ {
+  "id": "ClearSplinePoints",
+  "title": "Clear Spline Points",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ClearSplinePoints",
+  "lib": "SplineComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SplineComponent"
+   },
+   {
+    "name": "bUpdateSpline",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Clear Spline Points",
+  "probe": "R44 проба (SplineEdit) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Clear Spline Points"
+ },
+ {
+  "id": "SetLocationAtSplinePoint",
+  "title": "Set Location At Spline Point",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetLocationAtSplinePoint",
+  "lib": "SplineComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SplineComponent"
+   },
+   {
+    "name": "PointIndex",
+    "dir": "Input",
+    "cat": "int"
+   },
+   {
+    "name": "InLocation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "CoordinateSpace",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ESplineCoordinateSpace"
+   },
+   {
+    "name": "bUpdateSpline",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Set Location at Spline Point",
+  "probe": "R44 проба (SplineEdit) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Location at Spline Point"
+ },
+ {
+  "id": "SetClosedLoop",
+  "title": "Set Closed Loop",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetClosedLoop",
+  "lib": "SplineComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SplineComponent"
+   },
+   {
+    "name": "bInClosedLoop",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "bUpdateSpline",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Set Closed Loop",
+  "probe": "R44 проба (SplineEdit) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Closed Loop"
+ },
+ {
+  "id": "SetSplinePointType",
+  "title": "Set Spline Point Type",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetSplinePointType",
+  "lib": "SplineComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SplineComponent"
+   },
+   {
+    "name": "PointIndex",
+    "dir": "Input",
+    "cat": "int"
+   },
+   {
+    "name": "Type",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ESplinePointType"
+   },
+   {
+    "name": "bUpdateSpline",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Set Spline Point Type",
+  "probe": "R44 проба (SplineEdit) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Spline Point Type. ESplinePointType"
+ },
+ {
+  "id": "UpdateSpline",
+  "title": "Update Spline",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "UpdateSpline",
+  "lib": "SplineComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SplineComponent"
+   }
+  ],
+  "verified": true,
+  "desc": "Update Spline",
+  "probe": "R44 проба (SplineEdit) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Update Spline"
  }
 ]

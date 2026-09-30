@@ -1164,7 +1164,7 @@ R41 зарегистрирован: реестр +17, всего 551. В UE_LIBS
   - **Ease** — в движке это не вызов `KismetMathLibrary.Ease`, а отдельная нода `K2Node_EaseFunction` (copy-back `sweep/copyback/ease-r43.txt`): A/B/Result — wildcard, Function — EEasingFunc (по умолчанию Linear), BlendExp/Steps/ShortestPath скрыты. Шаблонный путь: `createEaseFunction({ easing })` в `src/special-nodes.js`.
   - **Get Max Speed** — copy-back: в `FunctionReference` движок пишет `MemberName="GetMaxSpeed"` (не `K2_GetMaxSpeed`, это C++-имя), `MemberParent=MovementComponent`, выход `real/float`; цель — `Character.CharacterMovement` (VariableGet, NotSelfContext). Зарегистрирован → реестр 600, R43 закрыт 29/30 + Ease шаблоном.
 
-## R44 — анимация/монтажи, камеры/SpringArm, сплайны (2026-09-30) — ждёт вердикта
+## R44 — анимация/монтажи, камеры/SpringArm, сплайны (2026-09-30) — VERIFIED: все 44 ноды
 `sweep/probes/r44-probe.txt` (`node tools/gen-probe.mjs --batch 44`), 44 ноды, 6 тем, STRICT без ошибок.
 - **Anim:** AnimInstance — Montage_SetNextSection, Montage_IsActive, GetCurrentActiveMontage, TryGetPawnOwner; SkeletalMeshComponent — SetAnimationMode (EAnimationMode), GetPlayRate, IsPlaying, Stop, SetPosition.
 - **Camera:** CameraComponent — SetAspectRatio, SetConstraintAspectRatio, SetPostProcessBlendWeight, SetProjectionMode (ECameraProjectionMode), SetOrthoWidth; PlayerController.GetViewTarget.
@@ -1172,3 +1172,4 @@ R41 зарегистрирован: реестр +17, всего 551. В UE_LIBS
 - **SpringArm:** GetUnfixedCameraPosition, IsCollisionFixApplied, GetTargetRotation (TargetArmLength/SocketOffset — свойства, не функции: Set-нода переменной компонента).
 - **Spline / SplineEdit:** 13 запросов (…AtDistanceAlongSpline, Length, NumberOfPoints, FindClosest…) и 6 правок (AddSplinePoint, ClearSplinePoints, SetLocationAtSplinePoint, SetClosedLoop, SetSplinePointType, UpdateSpline).
 - Энамы pre: ESplineCoordinateSpace, ESplinePointType, EAnimationMode, ECameraProjectionMode. При регистрации нужны UE_LIBS: SpringArmComponent, SplineComponent.
+- **Вердикт R44:** пользователь сверил число нод по рядам (9, 6, 7, 3, 13, 6 = 44), ошибок вставки и компиляции нет. Реестр +44; UE_LIBS + SpringArmComponent, SplineComponent; 4 энама подтверждены. Файл пробы удалён, воспроизвести: `gen-probe --batch 44 --stdout`.
