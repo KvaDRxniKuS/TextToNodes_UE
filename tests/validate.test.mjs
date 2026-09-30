@@ -1220,6 +1220,14 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(/от выхода ноды/.test(varBus) && dts.length === 1 && busK.length === 2 && bsrc.pins.find(p => p.name === 'ReturnValue' && p.direction === 'Output').linkedTo.length === 1 && busK.every(k => k.pos.y === busK[0].pos.y)
     && validateStrict(svt).valid && L.lintLayout([...sb.nodes, ...sk]).length === 0, 'секции: шина — от выхода ноды (от переменной — отказ), knot на потребителя в одной полосе; ряд подписок STRICT и без замечаний линтера');
 }
+{
+  // R50 copy-back: Set RepNotify-переменной = обычный Set своей переменной (флаги Notify живут в самой переменной)
+  const M = await import('../src/modules.js');
+  const back = parseToGraphs(fs.readFileSync('sweep/copyback/r50-repnotify.txt', 'utf8')).EventGraph.nodes.find(n => n.rawName === 'K2Node_VariableSet_1');
+  const n = M.createReplicatedVarSet('health', 'float', '', { bp: '/Game/Blueprints/BP_AISupportTester' });
+  const shape = t => t.split('\n').filter(l => /CustomProperties Pin/.test(l)).map(l => l.replace(/PinId=\w+,|PinToolTip="[^"]*",/g, ''));
+  ok(JSON.stringify(shape(generateUEText([n]))) === JSON.stringify(shape(back.rawBlock)) && /RepNotify/.test(n.bubble), 'R50: Set RepNotify-переменной совпал с copy-back по пинам (без тултипа), пузырь с инструкцией');
+}
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);

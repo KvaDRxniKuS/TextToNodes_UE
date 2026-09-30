@@ -221,6 +221,25 @@ export function createSelfVar(kind, name, type, value = '', { bp = '', guid = ''
   return n;
 }
 
+/** R50 copy-back: Set переменной с RepNotify в тексте ТАКОЙ ЖЕ, как обычный Set своей переменной. Подпись «w/ Notify»
+ *  движок берёт из флагов самой переменной, а функцию OnRep_<name> создаёт сам. Переменную нельзя вставить текстом,
+ *  как и диспетчер, поэтому на ноде висит пузырь с инструкцией. rep: 'notify' | 'replicated'. */
+export function createReplicatedVarSet(name, type, value = '', { rep = 'notify', ...o } = {}, pos) {
+  const n = createSelfVar('set', name, type, value, o, pos);
+  // порядок пинов как в copy-back: exec, exec, значение, self, Output_Get
+  const i = n.pins.findIndex(q => q.name === 'self'); const [self] = n.pins.splice(i, 1); n.pins.splice(3, 0, self);
+  const zero = { float: '0.0', double: '0.0', int: '0', bool: 'false' }[type];
+  if (zero != null) for (const q of n.pins.filter(q => q.name === name || q.name === 'Output_Get')) {
+    if (q.name === name && !q.defaultValue) q.defaultValue = zero;
+    if (q.name === 'Output_Get') q.defaultValue = zero;
+    q.autoFixed = zero;
+  }
+  n.bubble = rep === 'notify'
+    ? `Создайте переменную ${name} (${type}), Replication = RepNotify: движок сам добавит функцию OnRep_${name}`
+    : `Создайте переменную ${name} (${type}), Replication = Replicated`;
+  return n;
+}
+
 /** P1.9: локальная переменная (или параметр) функции: VariableReference=(MemberScope="<Функция>",MemberName,MemberGuid),
  *  без bSelfContext и БЕЗ self-пина (канон BP_WheelActor SlipVel: у локал-гета один пин).
  *  guid — MemberGuid локала из инвентаря (tools/inventory.mjs), если известен; иначе случайный (движок резолвит по имени).

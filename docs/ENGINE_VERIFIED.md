@@ -1242,3 +1242,9 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 - Раскладку делает `tools/recategorize.mjs`, его можно запускать повторно без вреда. `gen-probe --register` теперь сам проставляет категорию.
 - У перенесённых и будущих записей из проб стоит поле `from: "probe"`. Счётчики старых глав R12–R29 в тестах считают только записи без него.
 - `sweep/registry/` пересобран: 48 файлов категорий, 1024 ноды, 0 ошибок. Имена файлов с 30-го сдвинулись, `31-gameplay-systems.txt` больше нет. Ссылки на него в записях выше — это история.
+
+## R50 — RepNotify (copy-back 2026-10-01)
+
+- Copy-back сохранён в `sweep/copyback/r50-repnotify.txt`: вход функции OnRep_health, Set health (RepNotify), Set healthNonotify, Get health.
+- Вывод: **в тексте Set у RepNotify-переменной и у обычной ничем не отличаются.** Подпись «w/ Notify» движок берёт из флагов самой переменной. Функцию `OnRep_<name>` он создаёт сам, её вход (`K2Node_FunctionEntry`) — часть графа функции, как отдельную ноду её не вставить.
+- Саму переменную текстом не вставить, как и диспетчер. Поэтому `createReplicatedVarSet(name, type, value, {rep:'notify'|'replicated', bp})` в `src/modules.js` даёт обычный Set своей переменной (порядок пинов и дефолты как в copy-back) и пузырь «Создайте переменную X, Replication = RepNotify». Проверено тестом по copy-back. Разница только в PinToolTip у Output_Get, а тултипы движок пересобирает сам.
