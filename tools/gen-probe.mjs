@@ -15,7 +15,7 @@ import { fitComment, estNodeWidth, estNodeHeight, createMacroInstance, createCal
 import { UE_LIBS, UE_STRUCTS, UE_ENUMS } from '../src/ue-types.js';
 import { generateUEText, seedGuids } from '../src/parser.js';
 import { validateStrict } from '../src/validate.js';
-import { createCall, createAddComponentByClass } from '../src/modules.js';
+import { createCall, createAddComponentByClass, createCustomEvent } from '../src/modules.js';
 
 const args = process.argv.slice(2);
 const batch = (args[args.indexOf('--batch') + 1] && args.includes('--batch')) ? args[args.indexOf('--batch') + 1] : '36';
@@ -29,6 +29,10 @@ const mem = (key, words, pure = false) => () => createCall(key, words, { pure })
 // ref(фабрика, пины…): пометить пины by-ref (bIsReference=True), как в copy-back
 const ref = (make, ...names) => () => { const n = make(); n.pins.forEach(p => { if (names.includes(p.name)) p.isRef = true; }); return n; };
 const macro = (graph, pins) => () => createMacroInstance({ id: graph, title: graph, pins });
+
+// R42: реплицируемый Custom Event. FunctionFlags = база события (BlueprintCallable|BlueprintEvent|Public = 0x0C020000)
+// + FUNC_Net 0x40 [+ Reliable 0x80] + Server 0x200000 | Multicast 0x4000 | Client 0x1000000. Гипотеза — ждёт copy-back.
+const repEvent = (name, bits) => () => { const n = createCustomEvent(name, []); n.rawProps.push(`FunctionFlags=${(0x0C020000 | 0x40 | bits) >>> 0}`); return n; };
 
 /* Пакеты проб. Каждая проба: [тема, текст пузыря, фабрика]. Текст пузыря — что за нода и чего ждём. */
 const BATCHES = {
@@ -207,6 +211,32 @@ const BATCHES = {
     ['Actor', 'Get Components by Class (член Actor, pure). Выход — массив по классу', mem('Actor.K2_GetComponentsByClass', ['ComponentClass:class:ActorComponent', '->', 'ReturnValue:object:ActorComponent[]'], true)],
     ['UI', 'Set Value (член Slider)', mem('/Script/UMG.Slider.SetValue', ['InValue:single'])],
     ['UI', 'Get Value (член Slider, pure)', mem('/Script/UMG.Slider.GetValue', ['->', 'ReturnValue:single'], true)],
+  ],
+  '42': [
+    ['Net', 'Get Local Role (член Actor, pure). Ждём: выход ENetRole', mem('Actor.GetLocalRole', ['->', 'ReturnValue:enum:ENetRole'], true)],
+    ['Net', 'Get Remote Role (член Actor, pure)', mem('Actor.GetRemoteRole', ['->', 'ReturnValue:enum:ENetRole'], true)],
+    ['Net', 'Set Replicates (член Actor)', mem('Actor.SetReplicates', ['bInReplicates:bool'])],
+    ['Net', 'Set Replicate Movement (член Actor)', mem('Actor.SetReplicateMovement', ['bInReplicateMovement:bool'])],
+    ['Net', 'Set Owner (член Actor)', mem('Actor.SetOwner', ['NewOwner:object:Actor'])],
+    ['Net', 'Force Net Update (член Actor)', mem('Actor.ForceNetUpdate', [])],
+    ['Net', 'Set Net Dormancy (член Actor)', mem('Actor.SetNetDormancy', ['NewDormancy:enum:ENetDormancy'])],
+    ['Net', 'Flush Net Dormancy (член Actor)', mem('Actor.FlushNetDormancy', [])],
+    ['Net', 'Set Is Replicated (член ActorComponent)', mem('ActorComponent.SetIsReplicated', ['ShouldReplicate:bool'])],
+    ['NetWorld', 'Is Standalone (KismetSystemLibrary, pure)', lib('KismetSystemLibrary.IsStandalone', ['->', 'ReturnValue:bool'], true)],
+    ['NetWorld', 'Is Dedicated Server (KismetSystemLibrary, pure)', lib('KismetSystemLibrary.IsDedicatedServer', ['->', 'ReturnValue:bool'], true)],
+    ['NetWorld', 'Is Local Controller (член Controller, pure)', mem('Controller.IsLocalController', ['->', 'ReturnValue:bool'], true)],
+    ['NetWorld', 'Is Local Player Controller (член PlayerController, pure)', mem('PlayerController.IsLocalPlayerController', ['->', 'ReturnValue:bool'], true)],
+    ['NetWorld', 'Get Player Controller ID (GameplayStatics, pure)', lib('GameplayStatics.GetPlayerControllerID', ['Player:object:PlayerController', '->', 'ReturnValue:int'], true)],
+    ['RPC', 'Custom Event «Run on Server», Reliable. Проверьте в Details: Replicates = Run on Server, Reliable ✓', repEvent('R42_ServerReliable', 0x80 | 0x200000)],
+    ['RPC', 'Custom Event «Multicast», не Reliable. Details: Replicates = Multicast', repEvent('R42_Multicast', 0x4000)],
+    ['RPC', 'Custom Event «Run on owning Client», Reliable. Details: Run on owning Client, Reliable ✓', repEvent('R42_ClientReliable', 0x80 | 0x1000000)],
+    ['Input', 'Enable Input (член Actor)', mem('Actor.EnableInput', ['PlayerController:object:PlayerController'])],
+    ['Input', 'Disable Input (член Actor)', mem('Actor.DisableInput', ['PlayerController:object:PlayerController'])],
+    ['Input', 'Get Input Key Time Down (член PlayerController, pure)', mem('PlayerController.GetInputKeyTimeDown', ['Key:key', '->', 'ReturnValue:single'], true)],
+    ['Input', 'Was Input Key Just Released (член PlayerController, pure)', mem('PlayerController.WasInputKeyJustReleased', ['Key:key', '->', 'ReturnValue:bool'], true)],
+    ['Input', 'Get Input Analog Key State (член PlayerController, pure)', mem('PlayerController.GetInputAnalogKeyState', ['Key:key', '->', 'ReturnValue:single'], true)],
+    ['Input', 'Set Mouse Location (член PlayerController)', mem('PlayerController.SetMouseLocation', ['X:int', 'Y:int'])],
+    ['Input', 'Flush Pressed Keys (член PlayerController)', mem('PlayerController.FlushPressedKeys', [])],
   ],
 };
 

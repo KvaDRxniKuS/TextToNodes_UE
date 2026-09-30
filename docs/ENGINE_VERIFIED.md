@@ -1122,3 +1122,15 @@ UE_LIBS: Image, MovementComponent.
 Добавлен энам `EMovementMode` (pre, не подтверждён). Сетевые функции вынесены в отдельный следующий шаг (Networking).
 
 R41 зарегистрирован: реестр +17, всего 551. В UE_LIBS добавлены `CharacterMovementComponent`, `NavigationSystemV1` и `Slider`. Энам `EMovementMode` подтверждён. `gen-probe --register` теперь переносит в запись реестра энам-пины (`enum`). Файл пробы удалён. Воспроизвести: `node tools/gen-probe.mjs --batch 41 --stdout`.
+
+## R42 — Networking/Input (2026-09-30, ждёт вердикта)
+
+`sweep/probes/r42-probe.txt` (`node tools/gen-probe.mjs --batch 42`), 24 ноды, STRICT без ошибок.
+
+- **Net (члены Actor):** `GetLocalRole` / `GetRemoteRole` (выход ENetRole), `SetReplicates`, `SetReplicateMovement`, `SetOwner`, `ForceNetUpdate`, `SetNetDormancy` (ENetDormancy), `FlushNetDormancy`.
+- **Net (компонент):** `ActorComponent.SetIsReplicated`.
+- **NetWorld:** `KismetSystemLibrary.IsStandalone` / `IsDedicatedServer`, `Controller.IsLocalController`, `PlayerController.IsLocalPlayerController`, `GameplayStatics.GetPlayerControllerID`.
+- **RPC — гипотеза:** реплицируемые Custom Event с `FunctionFlags` = база `0x0C020000` + `FUNC_Net` + Reliable / Server / Multicast / Client (Server Reliable = 203555008). Проверяется в Details.
+- **Input:** `Actor.EnableInput` / `DisableInput`; члены PlayerController — `GetInputKeyTimeDown`, `WasInputKeyJustReleased`, `GetInputAnalogKeyState`, `SetMouseLocation`, `FlushPressedKeys`.
+
+Энамы `ENetRole` и `ENetDormancy` добавлены как pre.
