@@ -70,6 +70,7 @@ const STRUCTS_FULL = {
   Vector:      `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Vector'"`,      // confirmed (copy-back LineTraceSingle, UE 5.8)
   Rotator:     `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Rotator'"`,
   Vector2D:    `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Vector2D'"`,
+  Quat:        `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Quat'"`, // R33 copy-back: Quat_IsNormalized
   Transform:   `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Transform'"`,
   LinearColor: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.LinearColor'"`, // confirmed (copy-back H1/J5)
   HitResult:   `"/Script/CoreUObject.ScriptStruct'/Script/Engine.HitResult'"`,        // confirmed (copy-back LineTraceSingle)
@@ -83,6 +84,7 @@ const STRUCTS_SHORT = {
   Vector:           `ScriptStruct'"/Script/CoreUObject.Vector"'`,
   Rotator:          `ScriptStruct'"/Script/CoreUObject.Rotator"'`,
   Vector2D:         `ScriptStruct'"/Script/CoreUObject.Vector2D"'`,
+  Quat:             `ScriptStruct'"/Script/CoreUObject.Quat"'`,
   Transform:        `ScriptStruct'"/Script/CoreUObject.Transform"'`,
   LinearColor:      `ScriptStruct'"/Script/CoreUObject.LinearColor"'`,
   HitResult:        `ScriptStruct'"/Script/Engine.HitResult"'`,
@@ -110,6 +112,7 @@ const ENUMS_FULL = {
   EInputActionValueType: `"/Script/CoreUObject.Enum'/Script/EnhancedInput.EInputActionValueType'"`, // round28-pre
   ECollisionEnabled: `"/Script/CoreUObject.Enum'/Script/Engine.ECollisionEnabled'"`, // round29-pre
   ECollisionChannel: `"/Script/CoreUObject.Enum'/Script/Engine.ECollisionChannel'"`, // round29-pre
+  EDrawDebugSceneDepthPriorityGroup: `"/Script/CoreUObject.Enum'/Script/Engine.EDrawDebugSceneDepthPriorityGroup'"`, // R33 copy-back: DrawDebugArrow.DepthPriority
   ECollisionResponse: `"/Script/CoreUObject.Enum'/Script/Engine.ECollisionResponse'"`, // round29-pre
 };
 const ENUMS_SHORT = {
@@ -128,6 +131,7 @@ const ENUMS_SHORT = {
   EInputActionValueType: `Enum'"/Script/EnhancedInput.EInputActionValueType"'`,
   ECollisionEnabled: `Enum'"/Script/Engine.ECollisionEnabled"'`,
   ECollisionChannel: `Enum'"/Script/Engine.ECollisionChannel"'`,
+  EDrawDebugSceneDepthPriorityGroup: `Enum'"/Script/Engine.EDrawDebugSceneDepthPriorityGroup"'`,
   ECollisionResponse: `Enum'"/Script/Engine.ECollisionResponse"'`,
 };
 export const UE_ENUMS = UE_VERSION === 'SHORT' ? ENUMS_SHORT : ENUMS_FULL;

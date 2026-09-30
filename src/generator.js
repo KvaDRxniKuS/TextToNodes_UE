@@ -33,6 +33,8 @@ export function createCallFunction(regEntry, pos = { x: 0, y: 0 }) {
   n.funcName = regEntry.func;
   n.title = regEntry.title || regEntry.func;
   if (regEntry.pure) n.pure = true;
+  // R33 copy-back (DrawDebugArrow): UE пишет EnabledState между NodePosY и NodeGuid.
+  if (regEntry.enabledState) n.postPosProps = [`EnabledState=${regEntry.enabledState}`];
   if (regEntry.lib) {
     if (!UE_LIBS[regEntry.lib]) throw new Error(`Unknown lib in registry: ${regEntry.lib} (${regEntry.id})`);
     n.memberParent = UE_LIBS[regEntry.lib];

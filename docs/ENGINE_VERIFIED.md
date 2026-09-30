@@ -925,3 +925,23 @@ AND/OR/NOT/XOR (может быть CommutativeAssociative, не PromotableOpera
   редакторе: два колена провода идут по строкам пинов, а не по середине щели; верхняя горизонталь
   внутриврядного переноса может проходить ПОД телом ноды (провод под нодой — нормально для UE),
   прямоугольники нод и knot'ов при этом не пересекаются (критерий E соблюдён).
+
+## Round33 — copy-back пользователя (2026-09-30): Enhanced Input, DrawDebugArrow, Quat_IsNormalized
+
+Источник: дословный copy-back из `BP_AISupportTester` (UE 5.8).
+
+- **Событие IA (`K2Node_EnhancedInputAction`, IA_Look)** — VERIFIED форма: `AdvancedPinDisplay=Hidden`; видимы только
+  `Triggered` и `ActionValue`, advanced — `Started/Ongoing/Canceled/Completed/ElapsedSeconds/TriggeredSeconds/InputAction`;
+  `ElapsedSeconds/TriggeredSeconds` — `real/double` (было `float`); добавлен последний выход `InputAction` (object
+  `EnhancedInput.InputAction`, `DefaultValue="IA_Look"`, `DefaultObject` = путь ассета). Исправлено в `createInputActionEvent`.
+- **«Get IA_X» (`K2Node_GetInputActionValue`)** — выход называется `ReturnValue`, а не `ActionValue`. Исправлено в
+  `createInputActionValue`. Это закрывает замену для `Enhanced_GetActionValue` (R21 FAIL): значение действия брать этой нодой.
+- **DrawDebugArrow** — VERIFIED: float-пины single (`real/float`), добавлен `DepthPriority` (enum
+  `EDrawDebugSceneDepthPriorityGroup`, `World`), `EnabledState=DevelopmentOnly` пишется между `NodePosY` и `NodeGuid`
+  (генератор теперь выводит `enabledState` из реестра).
+- **Quat_IsNormalized** — новая запись реестра, VERIFIED (pure, `Q` = const ref Quat без дефолта, `ReturnValue` bool).
+- **IsPowerOfTwo** — в BP не существует (подтверждено повторно). **IsNormalized для вектора** — не существует; у вектора
+  только `Vector_IsNormal`. Обе записи остаются `verified:false` с пометкой.
+
+Реестр: 408 записей. sweep 10–24 пересобраны: изменились только счётчики имён нод из-за новой записи в Math / Vector.
+Регрессия: 13 asserts R33 в `tests/validate.test.mjs`.

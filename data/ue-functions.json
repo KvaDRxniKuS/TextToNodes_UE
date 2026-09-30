@@ -1447,7 +1447,7 @@
   ],
   "verified": false,
   "desc": "Степень двойки",
-  "notes": "round5: не существует в BP (только кастомная UBlueprintMath из вики + FMath C++) — пропущено"
+  "notes": "round5: не существует в BP (только кастомная UBlueprintMath из вики + FMath C++) — пропущено; R33 (2026-09-30): повторно подтверждено — в BP не существует"
  },
  {
   "id": "SelectFloat",
@@ -3200,6 +3200,35 @@
   "notes": "round10-fix: белая по факту пользователя"
  },
  {
+  "id": "Quat_IsNormalized",
+  "title": "Is Normalized (Quat)",
+  "category": "Math / Vector",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Quat_IsNormalized",
+  "lib": "KismetMathLibrary",
+  "pins": [
+   {
+    "name": "Q",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Quat",
+    "ref": true,
+    "const": true,
+    "ignored": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool",
+    "dv": "false"
+   }
+  ],
+  "verified": true,
+  "desc": "Кватернион нормализован? (bool)",
+  "pure": true,
+  "notes": "R33 copy-back (2026-09-30): у Q нет DefaultValue"
+ },
+ {
   "id": "GetSafeNormal_Vector",
   "title": "Safe Normal",
   "category": "Math / Vector",
@@ -3281,7 +3310,7 @@
   ],
   "verified": false,
   "desc": "Нормирован?",
-  "notes": "round10: IsNormalized не существует — дубликат Vector_IsNormal; пропущено"
+  "notes": "round10: IsNormalized не существует — дубликат Vector_IsNormal; пропущено; R33 (2026-09-30): подтверждено пользователем — у вектора есть только Is Normal (Vector_IsNormal); Is Normalized существует лишь для Quat (Quat_IsNormalized)"
  },
  {
   "id": "Vector_IsZero",
@@ -16288,7 +16317,7 @@
     "name": "ArrowSize",
     "dir": "Input",
     "cat": "real",
-    "sub": "double",
+    "sub": "float",
     "dv": "0.0"
    },
    {
@@ -16301,18 +16330,26 @@
     "name": "Duration",
     "dir": "Input",
     "cat": "real",
-    "sub": "double",
-    "dv": "0.0"
+    "sub": "float",
+    "dv": "0.000000"
    },
    {
     "name": "Thickness",
     "dir": "Input",
     "cat": "real",
-    "sub": "double",
-    "dv": "0.0"
+    "sub": "float",
+    "dv": "0.000000"
+   },
+   {
+    "name": "DepthPriority",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EDrawDebugSceneDepthPriorityGroup",
+    "dv": "World"
    }
   ],
-  "verified": false,
-  "desc": "Рисует отладочную стрелку"
+  "verified": true,
+  "desc": "Рисует отладочную стрелку",
+  "notes": "R33 copy-back (2026-09-30): float-пины single (real/float), добавлен DepthPriority (enum, World), EnabledState=DevelopmentOnly"
  }
 ]

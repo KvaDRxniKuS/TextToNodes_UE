@@ -248,11 +248,18 @@ export function createInputActionEvent(ia, type = 'bool', pos) {
   const n = node('K2Node_EnhancedInputAction', pos);
   n.rawClass = '/Script/InputBlueprintNodes.K2Node_EnhancedInputAction'; n.className = 'InputBlueprintNodes.K2Node_EnhancedInputAction';
   n.title = `EnhancedInputAction ${assetPath(ia).split('.').pop()}`;
-  n.rawProps = [iaProp(ia)];
-  for (const e of ['Triggered', 'Started', 'Ongoing', 'Canceled', 'Completed']) n.pins.push(mkPin(e, 'Output', 'exec'));
+  // R33 copy-back (IA_Look, 2026-09-30): AdvancedPinDisplay=Hidden; видим только Triggered и ActionValue,
+  // Started/Ongoing/Canceled/Completed/ElapsedSeconds/TriggeredSeconds/InputAction — advanced;
+  // секунды — real/double; последний выход InputAction (object) с дефолтом = сам ассет.
+  n.rawProps = [iaProp(ia), 'AdvancedPinDisplay=Hidden'];
+  for (const e of ['Triggered', 'Started', 'Ongoing', 'Canceled', 'Completed'])
+    n.pins.push(mkPin(e, 'Output', 'exec', { advanced: e !== 'Triggered' }));
+  const path = assetPath(ia, 'InputAction');
   n.pins.push(pin('ActionValue', 'Output', iaType(type)),
-    mkPin('ElapsedSeconds', 'Output', 'real', { sub: 'float', advanced: true }),
-    mkPin('TriggeredSeconds', 'Output', 'real', { sub: 'float', advanced: true }));
+    mkPin('ElapsedSeconds', 'Output', 'real', { sub: 'double', advanced: true }),
+    mkPin('TriggeredSeconds', 'Output', 'real', { sub: 'double', advanced: true }),
+    mkPin('InputAction', 'Output', 'object', { subObj: `"/Script/CoreUObject.Class'/Script/EnhancedInput.InputAction'"`,
+      advanced: true, dv: path.split('.').pop(), defObj: path }));
   return n;
 }
 
@@ -262,7 +269,8 @@ export function createInputActionValue(ia, type = 'vector2d', pos) {
   n.rawClass = '/Script/InputBlueprintNodes.K2Node_GetInputActionValue'; n.className = 'InputBlueprintNodes.K2Node_GetInputActionValue';
   n.title = `Get ${assetPath(ia).split('.').pop()}`;
   n.rawProps = [iaProp(ia)];
-  n.pins.push(pin('ActionValue', 'Output', iaType(type)));
+  // R33 copy-back: выход называется ReturnValue (не ActionValue)
+  n.pins.push(pin('ReturnValue', 'Output', iaType(type)));
   return n;
 }
 

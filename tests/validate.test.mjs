@@ -1088,6 +1088,28 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(['Deactivate', 'Activate', 'SetComponentTickEnabled', 'IsComponentTickEnabled', 'K2_GetComponentsByClass', 'GetComponentsByTag', 'GetAllWidgetsOfClass', 'K2_DestroyComponent'].every(f => t.includes(`MemberName="${f}"`)), '32: все 8 функций');
   ok(!/Engine\.(UserWidget|WidgetBlueprintLibrary)'/.test(t) && t.includes('DefaultObject="/Script/UMG.Default__WidgetBlueprintLibrary"'), '32: UMG-классы с модулем UMG, не Engine');
 }
+// R33 copy-back (2026-09-30): Enhanced Input событие/значение, DrawDebugArrow, Quat_IsNormalized
+{
+  const { createInputActionEvent, createInputActionValue } = await import('../src/modules.js');
+  const ev = createInputActionEvent('IA_Look', 'vector2d'), gv = createInputActionValue('IA_Look', 'vector2d');
+  const t = generateUEText([ev, gv]);
+  ok(validateStrict(t).valid, 'R33: IA событие + Get IA → STRICT');
+  ok(gv.pins.some(p => p.name === 'ReturnValue') && !gv.pins.some(p => p.name === 'ActionValue'), 'R33: Get IA_X — выход ReturnValue');
+  ok(t.includes('AdvancedPinDisplay=Hidden'), 'R33: событие IA — AdvancedPinDisplay=Hidden');
+  const adv = Object.fromEntries(ev.pins.map(p => [p.name, p.advanced]));
+  ok(!adv.Triggered && !adv.ActionValue && ['Started', 'Ongoing', 'Canceled', 'Completed', 'ElapsedSeconds', 'TriggeredSeconds', 'InputAction'].every(n => adv[n]), 'R33: advanced-флаги как в UE');
+  ok(ev.pins.filter(p => /Seconds$/.test(p.name)).every(p => p.subCategory === 'double'), 'R33: секунды — real/double');
+  ok(/PinName="InputAction".*DefaultValue="IA_Look",DefaultObject="\/Game\/Input\/Actions\/IA_Look\.IA_Look"/.test(t), 'R33: выход InputAction с дефолтом-ассетом');
+  const arrow = reg.find(e => e.id === 'DrawDebugArrow'), quat = reg.find(e => e.id === 'Quat_IsNormalized');
+  ok(arrow.verified && quat && quat.verified, 'R33: DrawDebugArrow и Quat_IsNormalized verified');
+  const ta = generateUEText([createFromEntry(arrow), createFromEntry(quat)]);
+  ok(validateStrict(ta).valid, 'R33: стрелка + Quat → STRICT');
+  ok(/NodePosY=-?\d+\n   EnabledState=DevelopmentOnly\n   NodeGuid=/.test(ta), 'R33: EnabledState между NodePosY и NodeGuid');
+  ok(['ArrowSize', 'Duration', 'Thickness'].every(n => new RegExp(`PinName="${n}".*PinSubCategory="float"`).test(ta)), 'R33: float-пины стрелки single');
+  ok(/PinName="DepthPriority".*EDrawDebugSceneDepthPriorityGroup'",.*DefaultValue="World"/.test(ta), 'R33: DepthPriority enum = World');
+  ok(/PinName="Q".*CoreUObject\.Quat'",.*bIsReference=True,PinType\.bIsConst=True/.test(ta), 'R33: Quat_IsNormalized.Q — const ref Quat');
+  ok(!reg.find(e => e.id === 'IsPowerOfTwo').verified && !reg.find(e => e.id === 'IsNormalized_Vector').verified, 'R33: несуществующие IsPowerOfTwo / IsNormalized(Vector) не verified');
+}
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);
