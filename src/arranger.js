@@ -92,20 +92,22 @@ export function transferRoute(source, out, target, input, { levels = [], corrido
   const tgtX = target.pos.x;                        // X пина-входа
   // центр пина knot'а на 8px ниже его NodePosY — так пин knot'а встаёт ровно на Y пина ноды
   const tgtY = pinY(target, input) - KNOT_W / 2;
-  // Правило пользователя 2026-10-01: первый knot после выхода — НЕ ВЫШЕ низа ноды-источника; в идеале
-  // по центру щели между низом источника и верхом цели. K1·K2 лежат на этой линии щели. Если цель выше
-  // (щели снизу нет) — на 2 шага сетки ниже низа источника.
+  // Правило пользователя 2026-10-01: K1 — на строке пина-выхода (у самого пина), K2 — прямо под ним на линии
+  // щели (центр между низом источника и верхом цели, не выше низа источника), K3 — на той же линии щели над
+  // колонкой вертикали, K4 — в колонке на строке пина-входа цели. Цель выше (щели снизу нет) — линия на 2 шага
+  // ниже низа источника.
   const srcBottom = source.pos.y + estNodeHeight(source);
   const gapMid = target.pos.y > srcBottom ? (srcBottom + target.pos.y) / 2 : srcBottom + 2 * GRID;
-  const srcY = Math.max(srcBottom, Math.round(gapMid / GRID) * GRID) - KNOT_W / 2;
+  const gapY = Math.max(srcBottom, Math.round(gapMid / GRID) * GRID) - KNOT_W / 2;
+  const srcY = pinY(source, out) - KNOT_W / 2;
   // `corridorY` принят и игнорируется: парное выравнивание не знает отдельной Y-линии коридора
   void corridorY;
-  const vx = transferColumnX({ source, target, levels, srcX, srcY, tgtX, tgtY });
+  const vx = transferColumnX({ source, target, levels, srcX, srcY: gapY, tgtX, tgtY });
   return [
-    { x: srcX, y: srcY, role: 'out' },
-    { x: vx - KNOT_W, y: srcY, role: 'line-out' },   // пара 1: общий Y = линия щели под источником
-    { x: vx, y: tgtY, role: 'line-in' },             // пара 2: общий Y = строка пина-входа
-    { x: tgtX - KNOT_W, y: tgtY, role: 'in' },
+    { x: srcX, y: srcY, role: 'out' },        // K1: строка пина-выхода
+    { x: srcX, y: gapY, role: 'gap-out' },    // K2: под K1, линия щели
+    { x: vx, y: gapY, role: 'gap-in' },       // K3: линия щели, над колонкой
+    { x: vx, y: tgtY, role: 'in' },           // K4: колонка, строка пина-входа
   ];
 }
 
@@ -136,8 +138,8 @@ export function transferColumnX({ source, target, levels = [], srcX, srcY, tgtX,
   const others = all.filter(n => n !== source && n !== target).map(rectOf);
   const lineFree = (vx) => !others.some(r => vx > r.x1 && vx < r.x2 && y1 > r.y1 && y0 < r.y2);
   // knot'ы не должны слипаться: K1·K2 на строке выхода, K3·K4 на строке входа
-  const noClash = (vx) => Math.abs((vx - W) - srcX) >= W && Math.abs((tgtX - W) - vx) >= W;
-  const ok = (vx) => knotFree(vx - W, srcY) && knotFree(vx, tgtY) && lineFree(vx) && noClash(vx);
+  const noClash = (vx) => Math.abs(vx - srcX) >= W && tgtX - vx >= W;
+  const ok = (vx) => knotFree(vx, srcY) && knotFree(vx, tgtY) && lineFree(vx) && noClash(vx);
   const xs = rects.flatMap(r => [r.x1, r.x2]).concat([srcX, tgtX]);
   const lo = Math.min(...xs) - 4 * W, hi = Math.max(...xs) + 4 * W;
   // Засевки по порядку предпочтения: у пина-входа цели (обычно свободно: щель ряда ≥ 4·W), у
@@ -213,7 +215,8 @@ export function mergeCloseKnots(points, minGap = MIN_KNOT_GAP) {
   const outPts = [];
   for (const p of points) {
     const last = outPts[outPts.length - 1];
-    if (last && Math.max(Math.abs(p.x - last.x), Math.abs(p.y - last.y)) < minGap) outPts[outPts.length - 1] = { ...last, y: p.y };
+    // K1 (у пина-выхода) и K2 (линия щели) не сливаются: спуск из пина в щель — обязательная часть формы
+    if (last && outPts.length > 1 && Math.max(Math.abs(p.x - last.x), Math.abs(p.y - last.y)) < minGap) outPts[outPts.length - 1] = { ...last, y: p.y };
     else outPts.push(p);
   }
   return outPts;

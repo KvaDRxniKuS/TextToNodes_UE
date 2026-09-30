@@ -51,15 +51,20 @@ for (const l of flatLinks(nodes).filter(x => x.via.length)) {
   else {
     const first = v[0], last = v[v.length - 1];
     const srcBottom = l.source.pos.y + estNodeHeight(l.source);
-    if (knotPinY(first) < srcBottom) problems.push(`K1 выше низа ноды-источника: Y ${knotPinY(first)} < ${srcBottom}`);
-    if (v.length > 1 && v[1].pos.y !== first.pos.y && v.length > 2) problems.push(`K1·K2 не на одной линии щели`);
+    if (knotPinY(first) !== srcPinY) problems.push(`K1 не на строке пина-выхода: Y ${knotPinY(first)} / ${srcPinY}`);
+    if (v.length === 4) {
+      if (v[1].pos.x !== first.pos.x) problems.push(`K2 не под K1`);
+      if (knotPinY(v[1]) < srcBottom) problems.push(`линия щели выше низа источника: ${knotPinY(v[1])} < ${srcBottom}`);
+      if (v[1].pos.y !== v[2].pos.y) problems.push(`K2·K3 не на одной линии щели`);
+      if (v[2].pos.x !== v[3].pos.x) problems.push(`K3·K4 не в одной колонке`);
+    }
     if (first.pos.x !== xOut) problems.push(`K1 не на пине-выходе: x=${first.pos.x} / ${xOut}`);
     if (v.length > 1 && knotPinY(last) !== tgtPinY) problems.push(`последний knot не на строке пина-входа: Y ${knotPinY(last)} / ${tgtPinY}`);
     for (let q = 1; q < v.length; q++) {
       const d = Math.max(Math.abs(v[q].pos.x - v[q - 1].pos.x), Math.abs(v[q].pos.y - v[q - 1].pos.y));
       if (d < MIN_KNOT_GAP) problems.push(`соседние knot'ы ближе ${MIN_KNOT_GAP}px (${d})`);
     }
-    vx = v.length >= 3 ? v[2].pos.x : last.pos.x;
+    vx = last.pos.x;
   }
 
   const ls = levelOf.get(l.source.id), lt = levelOf.get(l.target.id);
@@ -84,7 +89,7 @@ for (const l of flatLinks(nodes).filter(x => x.via.length)) {
     continue;
   }
   console.log(`  ✓ ${tag} ${l.source.id}.${l.out.name} → ${l.target.id}.${l.input.name}: `
-    + `пары по Y (${knotPinY(v[0])} = линия щели под источником, ${knotPinY(v[v.length - 1])} = строка входа)`
+    + `пары по Y (${knotPinY(v[0])} = строка выхода, ${knotPinY(v[v.length - 1])} = строка входа)`
     + (crossLevel ? `, вертикаль в свободной колонке x=${vx}` : `, knot'ы в щели ${xOut}…${xIn}`));
 }
 
