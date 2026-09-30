@@ -1123,7 +1123,7 @@ UE_LIBS: Image, MovementComponent.
 
 R41 зарегистрирован: реестр +17, всего 551. В UE_LIBS добавлены `CharacterMovementComponent`, `NavigationSystemV1` и `Slider`. Энам `EMovementMode` подтверждён. `gen-probe --register` теперь переносит в запись реестра энам-пины (`enum`). Файл пробы удалён. Воспроизвести: `node tools/gen-probe.mjs --batch 41 --stdout`.
 
-## R42 — Networking/Input (2026-09-30, ждёт вердикта)
+## R42 — Networking/Input (2026-09-30) — VERIFIED
 
 `sweep/probes/r42-probe.txt` (`node tools/gen-probe.mjs --batch 42`), 24 ноды, STRICT без ошибок.
 
@@ -1134,3 +1134,12 @@ R41 зарегистрирован: реестр +17, всего 551. В UE_LIBS
 - **Input:** `Actor.EnableInput` / `DisableInput`; члены PlayerController — `GetInputKeyTimeDown`, `WasInputKeyJustReleased`, `GetInputAnalogKeyState`, `SetMouseLocation`, `FlushPressedKeys`.
 
 Энамы `ENetRole` и `ENetDormancy` добавлены как pre.
+
+Вердикт R42:
+- Вставились 23 ноды из 24.
+- `PlayerController.FlushPressedKeys` не является BP-функцией. В движке эту роль играет `EnhancedInputLibrary.FlushPlayerInput(PlayerController)` (copy-back). Эта функция уже была в реестре, поэтому дубль не заводится: `--register` теперь пропускает пары func+lib, которые уже есть в реестре.
+- RPC: значения Replicates и Reliable в Details совпали с пузырями, значит формула FunctionFlags подтверждена.
+  - В `createCustomEvent(name, params, pos, {rpc, reliable})` добавлены `rpcFunctionFlags` и `modules.js`.
+  - Значения: Server Reliable = 203555008, Multicast = 201474112, Client Reliable = 218235072.
+- Реестр +20, всего 571. Энамы `ENetRole` и `ENetDormancy` подтверждены.
+- Файл пробы удалён. Воспроизвести: `gen-probe --batch 42 --stdout`.

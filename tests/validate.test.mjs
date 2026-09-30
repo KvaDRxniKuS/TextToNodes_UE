@@ -1176,6 +1176,11 @@ regThrow.forEach(t => console.log('THROW:', t));
   const r41 = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8')).filter(e => /^R41 проба/.test(e.probe || ''));
   ok(r41.length === 17 && validateStrict(r41.map(e => generateUEText([createCallFunction(e)])).join('\n')).warnings.length === 0
     && /EMovementMode/.test(generateUEText([createCallFunction(r41.find(e => e.id === 'SetMovementMode'))])), 'R41: 17 записей реестра без предупреждений (SetMovementMode с энамом EMovementMode)');
+  const r42 = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8')).filter(e => /^R42 проба/.test(e.probe || ''));
+  const Mr = await import('../src/modules.js');
+  ok(r42.length === 20 && !r42.some(e => /FlushPressedKeys|FlushPlayerInput/.test(e.func)) && validateStrict(r42.map(e => generateUEText([createCallFunction(e)])).join('\n')).warnings.length === 0
+    && Mr.rpcFunctionFlags('server', true) === 203555008 && /FunctionFlags=203555008/.test(generateUEText([Mr.createCustomEvent('S', [], { x: 0, y: 0 }, { rpc: 'server', reliable: true })])),
+    'R42: 20 записей (Net/Input) + RPC Custom Event (Server Reliable = 203555008)');
   // R40: copy-back спец-нод → стрим-уровни в реестре (soft-ссылка = bIsUObjectWrapper) + шаблонные спец-ноды
   const r40 = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8')).filter(e => /^R40 copy-back/.test(e.probe || ''));
   const soft = generateUEText([createCallFunction(r40.find(e => e.id === 'LoadStreamLevelBySoftObjectPtr'))]);

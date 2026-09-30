@@ -32,7 +32,7 @@ const macro = (graph, pins) => () => createMacroInstance({ id: graph, title: gra
 
 // R42: реплицируемый Custom Event. FunctionFlags = база события (BlueprintCallable|BlueprintEvent|Public = 0x0C020000)
 // + FUNC_Net 0x40 [+ Reliable 0x80] + Server 0x200000 | Multicast 0x4000 | Client 0x1000000. Гипотеза — ждёт copy-back.
-const repEvent = (name, bits) => () => { const n = createCustomEvent(name, []); n.rawProps.push(`FunctionFlags=${(0x0C020000 | 0x40 | bits) >>> 0}`); return n; };
+const repEvent = (name, bits) => () => { const n = createCustomEvent(name, []); n.rawProps.push(`FunctionFlags=${(0x0C020000 | 0x40 | bits) >>> 0}`); return n; }; // R42 VERIFIED (Details совпали)
 
 /* Пакеты проб. Каждая проба: [тема, текст пузыря, фабрика]. Текст пузыря — что за нода и чего ждём. */
 const BATCHES = {
@@ -236,7 +236,8 @@ const BATCHES = {
     ['Input', 'Was Input Key Just Released (член PlayerController, pure)', mem('PlayerController.WasInputKeyJustReleased', ['Key:key', '->', 'ReturnValue:bool'], true)],
     ['Input', 'Get Input Analog Key State (член PlayerController, pure)', mem('PlayerController.GetInputAnalogKeyState', ['Key:key', '->', 'ReturnValue:single'], true)],
     ['Input', 'Set Mouse Location (член PlayerController)', mem('PlayerController.SetMouseLocation', ['X:int', 'Y:int'])],
-    ['Input', 'Flush Pressed Keys (член PlayerController)', mem('PlayerController.FlushPressedKeys', [])],
+    // copy-back R42: FlushPressedKeys не BP-функция; в движке — EnhancedInputLibrary.FlushPlayerInput(PlayerController)
+    ['Input', 'Flush Player Input (EnhancedInputLibrary)', lib('/Script/EnhancedInput.EnhancedInputLibrary.FlushPlayerInput', ['PlayerController:object:PlayerController'])],
   ],
 };
 
@@ -316,6 +317,7 @@ if (REGISTER) {
       : { id: n.funcName, title: title(n.funcName), category: topicCat, className: '/Script/BlueprintGraph.K2Node_CallFunction', func: n.funcName, lib: libByRef[n.memberParent], pins };
     if (!n.macroGraph && !e.lib) throw new Error(`${n.funcName}: нет UE_LIBS-ключа для ${n.memberParent}`);
     if (n.pure) e.pure = true;
+    if (reg.some(x => x.func === e.func && x.lib === e.lib)) { console.log(`  = ${e.func} (${e.lib}) уже в реестре`); continue; } // R42: FlushPlayerInput уже был
     if (have.has(e.id)) e.id = `${e.id}_${e.lib}`;           // SetScalarParameterValue: MID-член и MPC-версия KismetMaterialLibrary
     if (have.has(e.id)) { console.log(`  = ${e.id} уже в реестре`); continue; }
     e.verified = true;

@@ -21592,5 +21592,607 @@
   "verified": true,
   "desc": "Get Value",
   "probe": "R41 проба (UI) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Value (член Slider, pure)"
+ },
+ {
+  "id": "GetLocalRole",
+  "title": "Get Local Role",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetLocalRole",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "byte",
+    "enum": "ENetRole"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Local Role",
+  "probe": "R42 проба (Net) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Local Role (член Actor, pure). Ждём: выход ENetRole"
+ },
+ {
+  "id": "GetRemoteRole",
+  "title": "Get Remote Role",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetRemoteRole",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "byte",
+    "enum": "ENetRole"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Remote Role",
+  "probe": "R42 проба (Net) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Remote Role (член Actor, pure)"
+ },
+ {
+  "id": "SetReplicates",
+  "title": "Set Replicates",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetReplicates",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "bInReplicates",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Replicates",
+  "probe": "R42 проба (Net) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Replicates (член Actor)"
+ },
+ {
+  "id": "SetReplicateMovement",
+  "title": "Set Replicate Movement",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetReplicateMovement",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "bInReplicateMovement",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Replicate Movement",
+  "probe": "R42 проба (Net) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Replicate Movement (член Actor)"
+ },
+ {
+  "id": "SetOwner",
+  "title": "Set Owner",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetOwner",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "NewOwner",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Owner",
+  "probe": "R42 проба (Net) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Owner (член Actor)"
+ },
+ {
+  "id": "ForceNetUpdate",
+  "title": "Force Net Update",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ForceNetUpdate",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   }
+  ],
+  "verified": true,
+  "desc": "Force Net Update",
+  "probe": "R42 проба (Net) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Force Net Update (член Actor)"
+ },
+ {
+  "id": "SetNetDormancy",
+  "title": "Set Net Dormancy",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetNetDormancy",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "NewDormancy",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ENetDormancy"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Net Dormancy",
+  "probe": "R42 проба (Net) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Net Dormancy (член Actor)"
+ },
+ {
+  "id": "FlushNetDormancy",
+  "title": "Flush Net Dormancy",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "FlushNetDormancy",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   }
+  ],
+  "verified": true,
+  "desc": "Flush Net Dormancy",
+  "probe": "R42 проба (Net) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Flush Net Dormancy (член Actor)"
+ },
+ {
+  "id": "SetIsReplicated",
+  "title": "Set Is Replicated",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetIsReplicated",
+  "lib": "ActorComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.ActorComponent"
+   },
+   {
+    "name": "ShouldReplicate",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Is Replicated",
+  "probe": "R42 проба (Net) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Is Replicated (член ActorComponent)"
+ },
+ {
+  "id": "IsStandalone",
+  "title": "Is Standalone",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsStandalone",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Standalone",
+  "probe": "R42 проба (NetWorld) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Standalone (KismetSystemLibrary, pure)"
+ },
+ {
+  "id": "IsDedicatedServer",
+  "title": "Is Dedicated Server",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsDedicatedServer",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Dedicated Server",
+  "probe": "R42 проба (NetWorld) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Dedicated Server (KismetSystemLibrary, pure)"
+ },
+ {
+  "id": "IsLocalController",
+  "title": "Is Local Controller",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsLocalController",
+  "lib": "Controller",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Controller"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Local Controller",
+  "probe": "R42 проба (NetWorld) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Local Controller (член Controller, pure)"
+ },
+ {
+  "id": "IsLocalPlayerController",
+  "title": "Is Local Player Controller",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsLocalPlayerController",
+  "lib": "PlayerController",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Local Player Controller",
+  "probe": "R42 проба (NetWorld) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Local Player Controller (член PlayerController, pure)"
+ },
+ {
+  "id": "GetPlayerControllerID",
+  "title": "Get Player Controller ID",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetPlayerControllerID",
+  "lib": "GameplayStatics",
+  "pins": [
+   {
+    "name": "Player",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Player Controller ID",
+  "probe": "R42 проба (NetWorld) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Player Controller ID (GameplayStatics, pure)"
+ },
+ {
+  "id": "EnableInput",
+  "title": "Enable Input",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "EnableInput",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "PlayerController",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   }
+  ],
+  "verified": true,
+  "desc": "Enable Input",
+  "probe": "R42 проба (Input) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Enable Input (член Actor)"
+ },
+ {
+  "id": "DisableInput",
+  "title": "Disable Input",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "DisableInput",
+  "lib": "Actor",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "PlayerController",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   }
+  ],
+  "verified": true,
+  "desc": "Disable Input",
+  "probe": "R42 проба (Input) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Disable Input (член Actor)"
+ },
+ {
+  "id": "GetInputKeyTimeDown",
+  "title": "Get Input Key Time Down",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetInputKeyTimeDown",
+  "lib": "PlayerController",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   },
+   {
+    "name": "Key",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Key",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Input Key Time Down",
+  "probe": "R42 проба (Input) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Input Key Time Down (член PlayerController, pure)"
+ },
+ {
+  "id": "WasInputKeyJustReleased",
+  "title": "Was Input Key Just Released",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "WasInputKeyJustReleased",
+  "lib": "PlayerController",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   },
+   {
+    "name": "Key",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Key",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Was Input Key Just Released",
+  "probe": "R42 проба (Input) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Was Input Key Just Released (член PlayerController, pure)"
+ },
+ {
+  "id": "GetInputAnalogKeyState",
+  "title": "Get Input Analog Key State",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetInputAnalogKeyState",
+  "lib": "PlayerController",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   },
+   {
+    "name": "Key",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Key",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Input Analog Key State",
+  "probe": "R42 проба (Input) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Input Analog Key State (член PlayerController, pure)"
+ },
+ {
+  "id": "SetMouseLocation",
+  "title": "Set Mouse Location",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetMouseLocation",
+  "lib": "PlayerController",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   },
+   {
+    "name": "X",
+    "dir": "Input",
+    "cat": "int"
+   },
+   {
+    "name": "Y",
+    "dir": "Input",
+    "cat": "int"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Mouse Location",
+  "probe": "R42 проба (Input) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Mouse Location (член PlayerController)"
  }
 ]

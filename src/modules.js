@@ -79,11 +79,19 @@ function resolveDelegate(key, sig, params) {
 /* ---------------- узлы ---------------- */
 
 /** Custom Event с любыми параметрами. params: ["Damage:float", "Who:object:Actor", ...] или parseParam-объекты. */
-export function createCustomEvent(name, params = [], pos) {
+/** RPC-флаги Custom Event (R42 VERIFIED: Details совпали): база 0x0C020000 | FUNC_Net 0x40 [| Reliable 0x80]
+ *  | Server 0x200000 | Multicast 0x4000 | Client 0x1000000. opts.rpc: 'server'|'multicast'|'client', opts.reliable. */
+export function rpcFunctionFlags(rpc, reliable = false) {
+  const k = { server: 0x200000, multicast: 0x4000, client: 0x1000000 }[rpc];
+  if (!k) throw new Error(`rpc ${rpc}: server | multicast | client`);
+  return (0x0C020000 | 0x40 | (reliable ? 0x80 : 0) | k) >>> 0;
+}
+export function createCustomEvent(name, params = [], pos, opts = {}) {
   const n = node('K2Node_CustomEvent', pos);
   n.title = `Custom Event ${name}`;
   n.eventName = name;
   n.rawProps = [`CustomFunctionName="${name}"`];
+  if (opts.rpc) n.rawProps.push(`FunctionFlags=${rpcFunctionFlags(opts.rpc, opts.reliable)}`);
   n.pins.push(mkPin('OutputDelegate', 'Output', 'delegate', { memberRef: `MemberName="${name}"` }), mkPin('then', 'Output', 'exec'));
   const ps = params.map(p => typeof p === 'string' ? parseParam(p) : p);
   for (const p of ps) n.pins.push(pin(p.name, 'Output', p.type));
