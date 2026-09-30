@@ -882,6 +882,31 @@ const BATCHES = {
     ['Widget', 'Is Visible (член Widget, pure)', mem('/Script/UMG.Widget.IsVisible', ['->', 'ReturnValue:bool'], true)],
     ['Widget', 'Invalidate Layout and Volatility (член Widget)', mem('/Script/UMG.Widget.InvalidateLayoutAndVolatility', [])],
   ],
+  '52': [
+    // R52: звук / эффекты / урон-фидбэк — только то, чего нет в реестре (дубли отфильтрованы по func).
+    ['Sound', 'Create Sound 2D (GameplayStatics) — компонент без автостарта', lib('GameplayStatics.CreateSound2D', ['Sound:object:SoundBase', 'VolumeMultiplier:float=1.0', 'PitchMultiplier:float=1.0', 'StartTime:float=0.0', 'ConcurrencySettings:object:SoundConcurrency', 'bPersistAcrossLevelTransition:bool=false', 'bAutoDestroy:bool=true', '->', 'ReturnValue:object:AudioComponent'])],
+    ['Sound', 'Get Current Reverb Effect (GameplayStatics)', lib('GameplayStatics.GetCurrentReverbEffect', ['->', 'ReturnValue:object:ReverbEffect'])],
+    ['Sound', 'Are Any Listeners Within Range (GameplayStatics)', lib('GameplayStatics.AreAnyListenersWithinRange', ['Location:vector', 'MaximumRange:float', '->', 'ReturnValue:bool'])],
+    ['Sound', 'Set Global Pitch Modulation (GameplayStatics)', lib('GameplayStatics.SetGlobalPitchModulation', ['PitchModulation:float', 'TimeSec:float'])],
+    ['Sound', 'Set Global Listener Focus Parameters (GameplayStatics)', lib('GameplayStatics.SetGlobalListenerFocusParameters', ['FocusAzimuthScale:float=1.0', 'NonFocusAzimuthScale:float=1.0', 'FocusDistanceScale:float=1.0', 'NonFocusDistanceScale:float=1.0', 'FocusVolumeScale:float=1.0', 'NonFocusVolumeScale:float=1.0', 'FocusPriorityScale:float=1.0', 'NonFocusPriorityScale:float=1.0'])],
+    ['AudioComp', 'Set Float Parameter (AudioComponent)', mem('AudioComponent.SetFloatParameter', ['InName:name', 'InFloat:float'])],
+    ['AudioComp', 'Set Bool Parameter (AudioComponent)', mem('AudioComponent.SetBoolParameter', ['InName:name', 'InBool:bool'])],
+    ['AudioComp', 'Set Integer Parameter (AudioComponent)', mem('AudioComponent.SetIntParameter', ['InName:name', 'InInt:int'])],
+    ['AudioComp', 'Set Wave Parameter (AudioComponent)', mem('AudioComponent.SetWaveParameter', ['InName:name', 'InWave:object:SoundWave'])],
+    ['AudioComp', 'Set Low Pass Filter Enabled (AudioComponent)', mem('AudioComponent.SetLowPassFilterEnabled', ['InLowPassFilterEnabled:bool'])],
+    ['AudioComp', 'Set Low Pass Filter Frequency (AudioComponent)', mem('AudioComponent.SetLowPassFilterFrequency', ['InLowPassFilterFrequency:float'])],
+    ['AudioComp', 'Stop Delayed (AudioComponent)', mem('AudioComponent.StopDelayed', ['DelayTime:float'])],
+    ['Niagara', 'Set Auto Destroy (NiagaraComponent)', mem('NiagaraComponent.SetAutoDestroy', ['bInAutoDestroy:bool'])],
+    ['Niagara', 'Is Paused (NiagaraComponent, pure)', mem('NiagaraComponent.IsPaused', ['->', 'ReturnValue:bool'], true)],
+    ['Niagara', 'Set Desired Age (NiagaraComponent)', mem('NiagaraComponent.SetDesiredAge', ['InDesiredAge:float'])],
+    ['Niagara', 'Advance Simulation (NiagaraComponent)', mem('NiagaraComponent.AdvanceSimulation', ['TickCount:int', 'TickDeltaSeconds:float'])],
+    ['Niagara', 'Set Rendering Enabled (NiagaraComponent)', mem('NiagaraComponent.SetRenderingEnabled', ['bInRenderingEnabled:bool'])],
+    ['Niagara', 'Set Force Solo (NiagaraComponent)', mem('NiagaraComponent.SetForceSolo', ['bInForceSolo:bool'])],
+    ['Niagara', 'Set Niagara Variable (Position) (NiagaraComponent)', mem('NiagaraComponent.SetVariablePosition', ['InVariableName:name', 'InValue:vector'])],
+    ['Feedback', 'Client Stop Camera Shake (PlayerController)', mem('PlayerController.ClientStopCameraShake', ['Shake:class:CameraShakeBase', 'bImmediately:bool=true'])],
+    ['Feedback', 'Stop All Instances of Camera Shake (PlayerCameraManager)', mem('PlayerCameraManager.StopAllInstancesOfCameraShake', ['Shake:class:CameraShakeBase', 'bImmediately:bool=true'])],
+    ['Feedback', 'Spawn Force Feedback at Location (GameplayStatics)', lib('GameplayStatics.SpawnForceFeedbackAtLocation', ['ForceFeedbackEffect:object:ForceFeedbackEffect', 'Location:vector', 'Rotation:rotator', 'bLooping:bool=false', 'IntensityMultiplier:float=1.0', 'StartTime:float=0.0', 'AttenuationSettings:object:ForceFeedbackAttenuation', 'bAutoDestroy:bool=true', '->', 'ReturnValue:object:ForceFeedbackComponent'])],
+  ],
 };
 
 const list = BATCHES[batch];
