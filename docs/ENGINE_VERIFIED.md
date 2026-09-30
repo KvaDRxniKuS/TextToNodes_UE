@@ -1092,4 +1092,4 @@ UE_LIBS: Image, MovementComponent.
   - `PersistentGuid` полей UserDefinedStruct сохраняется.
   - `ReferencePassThroughConnection` у SetFields переписывается согласованно.
 - **Validate:** `UserDefinedStruct'/Game/…'` принимается как форма движка. Для ассетов проекта остаётся W10. Энамы `ETimelineDirection` и `EPathFollowingResult` подтверждены.
-- **Проба:** `sweep/probes/r40-probe.txt` (`tools/gen-r40-probe.mjs`) — 12 нод, STRICT OK. Ждёт вердикта.
+- **Проба R40 — VERIFIED (2026-09-30):** все 12 нод вставились корректно. У GetDataTableRow ошибка компиляции «No DataTable in Get Data Table Row NONE», и это ожидаемо: таблица не выбрана, это не ошибка создания. Файл пробы удалён по правилу probes/. Воспроизвести: `node tools/gen-r40-probe.mjs --stdout`.
