@@ -23286,5 +23286,31 @@
   "verified": true,
   "desc": "Set Play Rate",
   "probe": "R43 проба (Mesh) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Play Rate (член SkeletalMeshComponent)"
+ },
+ {
+  "id": "GetMaxSpeed",
+  "title": "Get Max Speed",
+  "category": "Gameplay Systems",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetMaxSpeed",
+  "lib": "MovementComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.MovementComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Max Speed",
+  "probe": "R43 проба (Movement) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Max Speed (член MovementComponent, pure). Цель — Character Movement и т.п."
  }
 ]

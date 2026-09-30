@@ -1160,6 +1160,6 @@ R41 зарегистрирован: реестр +17, всего 551. В UE_LIBS
 - **World:** GetAllActorsOfClassWithTag, SuggestProjectileVelocity_CustomArc, K2_SetTimerForNextTick.
 - **Movement/Capsule/Mesh:** MovementComponent.K2_GetMaxSpeed; CapsuleComponent.SetCapsuleSize / GetScaledCapsuleHalfHeight; SceneComponent.GetSocketRotation; SkinnedMeshComponent.GetBoneName / GetNumBones; SkeletalMeshComponent.SetSkeletalMeshAsset / SetAnimInstanceClass / SetPlayRate.
 - Новые UE_LIBS при регистрации: CapsuleComponent, SkinnedMeshComponent.
-- **Вердикт R43 (2026-09-30):** встали 28 из 30. Реестр +28, всего 599; UE_LIBS + CapsuleComponent, SkinnedMeshComponent. Файл пробы удалён, воспроизвести: `gen-probe --batch 43 --stdout`.
+- **Вердикт R43 (2026-09-30):** встали 28 из 30 (+ GetMaxSpeed после copy-back). Реестр +29, всего 600; UE_LIBS + CapsuleComponent, SkinnedMeshComponent. Файл пробы удалён, воспроизвести: `gen-probe --batch 43 --stdout`.
   - **Ease** — в движке это не вызов `KismetMathLibrary.Ease`, а отдельная нода `K2Node_EaseFunction` (copy-back `sweep/copyback/ease-r43.txt`): A/B/Result — wildcard, Function — EEasingFunc (по умолчанию Linear), BlendExp/Steps/ShortestPath скрыты. Шаблонный путь: `createEaseFunction({ easing })` в `src/special-nodes.js`.
-  - **MovementComponent.K2_GetMaxSpeed** — не нашёлся без цели; ждёт copy-back (цель — компонент движения, напр. CharacterMovement персонажа).
+  - **Get Max Speed** — copy-back: в `FunctionReference` движок пишет `MemberName="GetMaxSpeed"` (не `K2_GetMaxSpeed`, это C++-имя), `MemberParent=MovementComponent`, выход `real/float`; цель — `Character.CharacterMovement` (VariableGet, NotSelfContext). Зарегистрирован → реестр 600, R43 закрыт 29/30 + Ease шаблоном.

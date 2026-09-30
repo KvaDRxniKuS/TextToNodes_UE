@@ -261,7 +261,8 @@ const BATCHES = {
     ['World', 'Get All Actors of Class with Tag (GameplayStatics)', lib('GameplayStatics.GetAllActorsOfClassWithTag', ['ActorClass:class:Actor', 'Tag:name', '->', 'OutActors:object:Actor[]'])],
     ['World', 'Suggest Projectile Velocity Custom Arc (GameplayStatics). Ждём: выход Out Launch Velocity + bool', lib('GameplayStatics.SuggestProjectileVelocity_CustomArc', ['StartPos:vector', 'EndPos:vector', 'OverrideGravityZ:single', 'ArcParam:single=0.500000', '->', 'OutLaunchVelocity:vector', 'ReturnValue:bool'])],
     ['World', 'Set Timer for Next Tick by Function Name (KismetSystemLibrary, K2_SetTimerForNextTick)', lib('KismetSystemLibrary.K2_SetTimerForNextTick', ['Object:object:/Script/CoreUObject.Object', 'FunctionName:string', '->', 'ReturnValue:timerhandle'])],
-    // R43: MovementComponent.K2_GetMaxSpeed — ждёт copy-back (пользователь ищет ноду в движке)
+    // copy-back R43: в FunctionReference движок пишет GetMaxSpeed (не K2_GetMaxSpeed), выход real/float
+    ['Movement', 'Get Max Speed (член MovementComponent, pure). Цель — Character Movement и т.п.', mem('MovementComponent.GetMaxSpeed', ['->', 'ReturnValue:single'], true)],
     ['Capsule', 'Set Capsule Size (член CapsuleComponent)', mem('/Script/Engine.CapsuleComponent.SetCapsuleSize', ['InRadius:single', 'InHalfHeight:single', 'bUpdateOverlaps:bool=true'])],
     ['Capsule', 'Get Scaled Capsule Half Height (член CapsuleComponent, pure)', mem('/Script/Engine.CapsuleComponent.GetScaledCapsuleHalfHeight', ['->', 'ReturnValue:single'], true)],
     ['Mesh', 'Get Socket Rotation (член SceneComponent, pure)', mem('SceneComponent.GetSocketRotation', ['InSocketName:name', '->', 'ReturnValue:rotator'], true)],
