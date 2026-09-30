@@ -61,6 +61,8 @@ const LIBS_FULL = {
   MovementComponent: `"/Script/CoreUObject.Class'/Script/Engine.MovementComponent'"`, // R39 VERIFIED
   CharacterMovementComponent: `"/Script/CoreUObject.Class'/Script/Engine.CharacterMovementComponent'"`, // R41 VERIFIED
   NavigationSystemV1: `"/Script/CoreUObject.Class'/Script/NavigationSystem.NavigationSystemV1'"`, // R41 VERIFIED
+  CapsuleComponent: `"/Script/CoreUObject.Class'/Script/Engine.CapsuleComponent'"`, // R43 VERIFIED
+  SkinnedMeshComponent: `"/Script/CoreUObject.Class'/Script/Engine.SkinnedMeshComponent'"`, // R43 VERIFIED
   Slider: `"/Script/CoreUObject.Class'/Script/UMG.Slider'"`, // R41 VERIFIED
 };
 const LIBS_SHORT = {
@@ -107,6 +109,8 @@ const LIBS_SHORT = {
   CharacterMovementComponent: `Class'"/Script/Engine.CharacterMovementComponent"'`,
   NavigationSystemV1: `Class'"/Script/NavigationSystem.NavigationSystemV1"'`,
   Slider: `Class'"/Script/UMG.Slider"'`,
+  CapsuleComponent: `Class'"/Script/Engine.CapsuleComponent"'`,
+  SkinnedMeshComponent: `Class'"/Script/Engine.SkinnedMeshComponent"'`,
 };
 export const UE_LIBS = UE_VERSION === 'SHORT' ? LIBS_SHORT : LIBS_FULL;
 

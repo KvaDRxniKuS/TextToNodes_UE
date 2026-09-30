@@ -1194,6 +1194,9 @@ regThrow.forEach(t => console.log('THROW:', t));
   const setf = sp[6].rawBlock, pass = setf.match(/PinName="StructRef"[^\n]*ReferencePassThroughConnection=(\S+) ([0-9A-F]{32})/);
   ok(spv.valid && !/ExportPath|LinkedTo|ErrorMsg/.test(spt) && sp.every(n => n.pins.length) && pass && setf.includes(`PinId=${pass[2]},PinName="StructOut"`)
     && /PersistentGuid=EBEA736F4F5353411DE64DA77B073688/.test(sp[4].rawBlock) && /PinName="A",PinType.PinCategory="bool"/.test(sp[1].rawBlock), 'R40: спец-ноды из шаблонов — STRICT, свежие GUID, без связей, pass-through согласован');
+  const ez = S.createEaseFunction({ easing: 'EaseInOut', bubble: 'Ease' }), ezt = generateUEText([ez]);
+  ok(validateStrict(ezt).valid && /Class=\/Script\/BlueprintGraph.K2Node_EaseFunction/.test(ezt) && /PinName="Function",[^\n]*DefaultValue="EaseInOut"/.test(ezt)
+    && /PinName="Result",[^\n]*Direction="EGPD_Output",PinType.PinCategory="wildcard"/.test(ezt) && !/70D36FF24D6E43F8C748DFA8C1DF4910/.test(ezt), 'R43: Ease — K2Node_EaseFunction из copy-back, wildcard A/B/Result, свой EEasingFunc, свежие GUID');
   const M = await import('../src/modules.js');
   const bn = M.createDelegateNode('bind', '/Game/BP_X.BP_X.OnHit', { sig: 'OnHit__DelegateSignature', params: ['Damage:float', 'Who:object:Actor'] });
   const db = fs.readFileSync(new URL('../sweep/chapters/dispatcher-bound.txt', import.meta.url), 'utf8');

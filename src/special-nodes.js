@@ -7,11 +7,13 @@ import { fileURLToPath } from 'url';
 import { parseToGraphs, guid32 } from './parser.js';
 
 const SRC = fileURLToPath(new URL('../sweep/copyback/r40-special-nodes.txt', import.meta.url));
+const EASE_SRC = fileURLToPath(new URL('../sweep/copyback/ease-r43.txt', import.meta.url)); // R43 copy-back
 let TPL = null;
 function templates() {
   if (TPL) return TPL;
   TPL = {};
-  for (const n of parseToGraphs(fs.readFileSync(SRC, 'utf8')).EventGraph.nodes) TPL[n.rawName] = n.rawBlock;
+  for (const f of [SRC, EASE_SRC])
+    for (const n of parseToGraphs(fs.readFileSync(f, 'utf8')).EventGraph.nodes) TPL[n.rawName] = n.rawBlock;
   return TPL;
 }
 
@@ -63,6 +65,15 @@ export function createInterfaceMessage(o) {
     return `   CustomProperties Pin (PinId=${guid32()},PinName="${p.name}",PinType.PinCategory="${p.category}",PinType.PinSubCategory="${p.sub ?? ''}",PinType.PinSubCategoryObject=${p.subObject ? `"${p.subObject}"` : 'None'},${PIN_TAIL}${d}PersistentGuid=00000000000000000000000000000000,${PIN_END}`;
   }).join('\n');
   if (extra) b = b.replace(/\nEnd Object$/, `\n${extra}\nEnd Object`);
+  return toNode(b);
+}
+
+// ── Ease (K2Node_EaseFunction, R43 copy-back) — НЕ вызов KismetMathLibrary.Ease, а своя K2-нода:
+//    A/B/Result — wildcard (тип по подключению), Function — EEasingFunc; BlendExp/Steps/ShortestPath
+//    скрыты движком, пока Function их не требует. easing — имя значения EEasingFunc (Linear, EaseIn, …).
+export function createEaseFunction(o = {}) {
+  let b = refresh(templates().K2Node_EaseFunction_0, { name: nextName('K2Node_EaseFunction'), ...P(o) });
+  if (o.easing) b = b.replace(/(PinName="Function",[^\n]*?)DefaultValue="Linear"/, `$1DefaultValue="${o.easing}"`);
   return toNode(b);
 }
 

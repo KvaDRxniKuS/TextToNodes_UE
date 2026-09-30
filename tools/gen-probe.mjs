@@ -252,7 +252,7 @@ const BATCHES = {
     ['Math', 'Rotate Vector — GreaterGreater_VectorRotator (KismetMathLibrary, pure)', lib('KismetMathLibrary.GreaterGreater_VectorRotator', ['A:vector', 'B:rotator', '->', 'ReturnValue:vector'], true)],
     ['Math', 'Distance 2D (Vector) — Vector_Distance2D (KismetMathLibrary, pure)', lib('KismetMathLibrary.Vector_Distance2D', ['v1:vector', 'v2:vector', '->', 'ReturnValue:double'], true)],
     ['Math', 'RInterp To Constant (KismetMathLibrary, pure)', lib('KismetMathLibrary.RInterpTo_Constant', ['Current:rotator', 'Target:rotator', 'DeltaTime:single', 'InterpSpeed:single', '->', 'ReturnValue:rotator'], true)],
-    ['Math', 'Ease (KismetMathLibrary, pure). Ждём: EasingFunc enum, BlendExp, Steps', lib('KismetMathLibrary.Ease', ['A:double', 'B:double', 'Alpha:double', 'EasingFunc:enum:EEasingFunc', 'BlendExp:double=2.000000', 'Steps:int=2', '->', 'ReturnValue:double'], true)],
+    // copy-back R43: Ease — не KismetMathLibrary-вызов, а K2Node_EaseFunction → src/special-nodes.js createEaseFunction
     ['Math', 'Random Unit Vector in Cone in Degrees (KismetMathLibrary, pure)', lib('KismetMathLibrary.RandomUnitVectorInConeInDegrees', ['ConeDir:vector', 'ConeHalfAngleInDegrees:single', '->', 'ReturnValue:vector'], true)],
     ['Math', 'Mirror Vector by Normal (KismetMathLibrary, pure)', lib('KismetMathLibrary.MirrorVectorByNormal', ['InVect:vector', 'InNormal:vector', '->', 'ReturnValue:vector'], true)],
     ['Math', 'Clamp Vector Size 2D — Vector_ClampSize2D (KismetMathLibrary, pure)', lib('KismetMathLibrary.Vector_ClampSize2D', ['A:vector', 'Min:double', 'Max:double', '->', 'ReturnValue:vector'], true)],
@@ -261,7 +261,7 @@ const BATCHES = {
     ['World', 'Get All Actors of Class with Tag (GameplayStatics)', lib('GameplayStatics.GetAllActorsOfClassWithTag', ['ActorClass:class:Actor', 'Tag:name', '->', 'OutActors:object:Actor[]'])],
     ['World', 'Suggest Projectile Velocity Custom Arc (GameplayStatics). Ждём: выход Out Launch Velocity + bool', lib('GameplayStatics.SuggestProjectileVelocity_CustomArc', ['StartPos:vector', 'EndPos:vector', 'OverrideGravityZ:single', 'ArcParam:single=0.500000', '->', 'OutLaunchVelocity:vector', 'ReturnValue:bool'])],
     ['World', 'Set Timer for Next Tick by Function Name (KismetSystemLibrary, K2_SetTimerForNextTick)', lib('KismetSystemLibrary.K2_SetTimerForNextTick', ['Object:object:/Script/CoreUObject.Object', 'FunctionName:string', '->', 'ReturnValue:timerhandle'])],
-    ['Movement', 'Get Max Speed (член MovementComponent, K2_GetMaxSpeed, pure)', mem('MovementComponent.K2_GetMaxSpeed', ['->', 'ReturnValue:single'], true)],
+    // R43: MovementComponent.K2_GetMaxSpeed — ждёт copy-back (пользователь ищет ноду в движке)
     ['Capsule', 'Set Capsule Size (член CapsuleComponent)', mem('/Script/Engine.CapsuleComponent.SetCapsuleSize', ['InRadius:single', 'InHalfHeight:single', 'bUpdateOverlaps:bool=true'])],
     ['Capsule', 'Get Scaled Capsule Half Height (член CapsuleComponent, pure)', mem('/Script/Engine.CapsuleComponent.GetScaledCapsuleHalfHeight', ['->', 'ReturnValue:single'], true)],
     ['Mesh', 'Get Socket Rotation (член SceneComponent, pure)', mem('SceneComponent.GetSocketRotation', ['InSocketName:name', '->', 'ReturnValue:rotator'], true)],
