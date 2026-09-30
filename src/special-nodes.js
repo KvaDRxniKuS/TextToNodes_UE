@@ -17,6 +17,15 @@ function templates() {
   return TPL;
 }
 
+// R49 copy-back (спец-ноды: enum/class/async/asset/RPC/parent/bind) — отдельная карта, имена блоков пересекаются с r40.
+const R49_SRC = fileURLToPath(new URL('../sweep/copyback/r49-special-nodes.txt', import.meta.url));
+let TPL49 = null;
+function tpl49(k) {
+  if (!TPL49) { TPL49 = {}; for (const n of parseToGraphs(fs.readFileSync(R49_SRC, 'utf8')).EventGraph.nodes) TPL49[n.rawName] = n.rawBlock; }
+  if (!TPL49[k]) throw new Error(`r49: нет шаблона ${k}`);
+  return TPL49[k];
+}
+
 const PIN_TAIL = 'PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,';
 const PIN_END = 'bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)';
 
@@ -127,4 +136,62 @@ export function createVariableSetRef(o = {}) {
   return toNode(refresh(templates().K2Node_VariableSetRef_0, { name: nextName('K2Node_VariableSetRef'), ...P(o) }));
 }
 
-export const SPECIAL_KINDS = ['Timeline', 'InterfaceMessage', 'AIMoveTo', 'GetDataTableRow', 'MakeUserStruct', 'BreakUserStruct', 'SetFieldsInUserStruct', 'VariableSetRef'];
+// ── R49 ──────────────────────────────────────────────────────────────────────
+// enum: '/Script/Engine.ECollisionChannel' (нативный) | '/Game/.../E_Foo.E_Foo' (UserDefinedEnum) | готовая ссылка с кавычками.
+export function enumObj(e) {
+  if (e.includes("'")) return e;
+  return e.startsWith('/Script/') ? `/Script/CoreUObject.Enum'${e}'` : `/Script/Engine.UserDefinedEnum'${e}'`;
+}
+const TPL_ENUM_RE = /\/Script\/(?:Engine\.UserDefinedEnum|CoreUObject\.Enum)'[^']*'/g;
+function r49(tpl, cls, o, edit = (b) => b) {
+  return toNode(edit(refresh(tpl49(tpl), { name: nextName(cls), ...P(o) })));
+}
+function withEnum(o, value) {
+  return (b) => {
+    if (!o.enum) throw new Error('enum обязателен');
+    b = b.replace(TPL_ENUM_RE, enumObj(o.enum));
+    return value === undefined ? b.replace(/DefaultValue="NewEnumerator0",/g, '')
+      : b.replace(/DefaultValue="NewEnumerator0"/g, `DefaultValue="${value}"`);
+  };
+}
+export const createEnumLiteral = (o) => r49('K2Node_EnumLiteral_0', 'K2Node_EnumLiteral', o, withEnum(o, o.value ?? 'NewEnumerator0'));
+export const createGetEnumeratorName = (o) => r49('K2Node_GetEnumeratorName_1', 'K2Node_GetEnumeratorName', o, withEnum(o));
+export const createGetEnumeratorNameAsString = (o) => r49('K2Node_GetEnumeratorNameAsString_1', 'K2Node_GetEnumeratorNameAsString', o, withEnum(o));
+export const createCastByteToEnum = (o) => r49('K2Node_CastByteToEnum_3', 'K2Node_CastByteToEnum', o, withEnum(o));
+export const createEnumEquality = (o) => r49('K2Node_EnumEquality_0', 'K2Node_EnumEquality', o, withEnum(o, o.b));
+export const createForEachEnum = (o) => r49('K2Node_ForEachElementInEnum_0', 'K2Node_ForEachElementInEnum', o, withEnum(o));
+
+// class: '/Script/Engine.Character' | '/Game/BP/BP_X.BP_X_C'
+const classObj = (c) => `/Script/CoreUObject.Class'${c}'`;
+export const createSpawnActorFromClass = (o = {}) => r49('K2Node_SpawnActorFromClass_1', 'K2Node_SpawnActorFromClass', o,
+  (b) => o.actorClass ? b.replace('DefaultObject="/Script/Engine.Actor"', `DefaultObject="${o.actorClass}"`) : b);
+// GetClassDefaults: ShowPinForProperties зависят от класса — не пишем; выходы включаются в Details.
+export const createGetClassDefaults = (o = {}) => r49('K2Node_GetClassDefaults_0', 'K2Node_GetClassDefaults', o,
+  (b) => b.replace(/\n\s*ShowPinForProperties\(\d+\)=[^\n]*/g, '')
+    .replace(/DefaultObject="[^"]*"/, o.class ? `DefaultObject="${o.class}"` : '').replace(/,,/g, ','));
+export const createGetSubsystem = (o) => r49('K2Node_GetSubsystem_2', 'K2Node_GetSubsystem', o,
+  (b) => b.replace(/\/Script\/CoreUObject\.Class'\/Script\/Engine\.ReplaySubsystem'/g, classObj(o.subsystem)));
+export const createLoadAsset = (o = {}) => r49('K2Node_LoadAsset_0', 'K2Node_LoadAsset', o);
+export const createLoadAssets = (o = {}) => r49('K2Node_LoadAssets_0', 'K2Node_LoadAssets', o);
+export const createLoadAssetClass = (o = {}) => r49('K2Node_LoadAssetClass_0', 'K2Node_LoadAssetClass', o);
+export const createAsyncLoadPrimaryAsset = (o = {}) => r49('K2Node_AsyncAction_0', 'K2Node_AsyncAction', o);
+// Object → SoftObject; тип пинов уточняется движком по подключению.
+export const createConvertAsset = (o = {}) => r49('K2Node_ConvertAsset_1', 'K2Node_ConvertAsset', o,
+  (b) => b.replace(/\/Script\/VariantManagerContent\.PropertyValueSoftObject/g, o.class ?? '/Script/CoreUObject.Object'));
+export const createPlayMontage = (o = {}) => r49('K2Node_PlayMontage_0', 'K2Node_PlayMontage', o);
+export const createSelf = (o = {}) => r49('K2Node_Self_0', 'K2Node_Self', o);
+export const createMultiGate = (o = {}) => r49('K2Node_MultiGate_0', 'K2Node_MultiGate', o);
+// Parent: BeginPlay → {event:'ReceiveBeginPlay', parent:'/Script/Engine.Actor'}
+export const createCallParentFunction = (o = {}) => r49('K2Node_CallParentFunction_0', 'K2Node_CallParentFunction', o,
+  (b) => b.replace(/\/Script\/Engine\.Actor/g, o.parent ?? '/Script/Engine.Actor').replace('MemberName="ReceiveBeginPlay"', `MemberName="${o.event ?? 'ReceiveBeginPlay'}"`));
+// Bind Event to <delegate>: Event-пин подключается к CustomEvent с сигнатурой делегата.
+export const createAssignDelegate = (o = {}) => r49('K2Node_AssignDelegate_0', 'K2Node_AssignDelegate', o, (b) => {
+  if (!o.delegate) return b;
+  const { owner, name, signature, pkg = '/Script/Engine' } = o.delegate;
+  return b.replace(/\/Script\/Engine\.PrimitiveComponent/g, owner).replace('MemberName="OnComponentBeginOverlap"', `MemberName="${name}"`)
+    .replace("'/Script/Engine'", `'${pkg}'`).replace('ComponentBeginOverlapSignature__DelegateSignature', signature);
+});
+
+export const SPECIAL_KINDS = ['Timeline', 'InterfaceMessage', 'AIMoveTo', 'GetDataTableRow', 'MakeUserStruct', 'BreakUserStruct', 'SetFieldsInUserStruct', 'VariableSetRef',
+  'EnumLiteral', 'GetEnumeratorName', 'GetEnumeratorNameAsString', 'CastByteToEnum', 'EnumEquality', 'ForEachEnum', 'SpawnActorFromClass', 'GetClassDefaults',
+  'GetSubsystem', 'LoadAsset', 'LoadAssets', 'LoadAssetClass', 'AsyncLoadPrimaryAsset', 'ConvertAsset', 'PlayMontage', 'Self', 'MultiGate', 'CallParentFunction', 'AssignDelegate'];

@@ -16,6 +16,7 @@ import { UE_LIBS, UE_STRUCTS, UE_ENUMS } from '../src/ue-types.js';
 import { generateUEText, seedGuids } from '../src/parser.js';
 import { validateStrict } from '../src/validate.js';
 import { createCall, createAddComponentByClass, createCustomEvent } from '../src/modules.js';
+import * as SP from '../src/special-nodes.js';
 
 const args = process.argv.slice(2);
 const batch = (args[args.indexOf('--batch') + 1] && args.includes('--batch')) ? args[args.indexOf('--batch') + 1] : '36';
@@ -743,6 +744,29 @@ const BATCHES = {
     // R48 copy-back пользователя: у Character есть только геттер (сеттер SetAnimRootMotionTranslationScale не BP)
     ['CharMove', 'Get Anim Root Motion Translation Scale (член Character, pure)', mem('/Script/Engine.Character.GetAnimRootMotionTranslationScale', ['->', 'ReturnValue:single'], true)],
   ],
+  '49': [
+    // R49: спец-ноды по copy-back пользователя (sweep/copyback/r49-special-nodes.txt). Не функции — в реестр не идут.
+    ['Enum', 'Literal enum ECollisionChannel = ECC_Pawn', (bubble) => SP.createEnumLiteral({ bubble, enum: '/Script/Engine.ECollisionChannel', value: 'ECC_Pawn' })],
+    ['Enum', 'Enum to Name (ECollisionChannel)', (bubble) => SP.createGetEnumeratorName({ bubble, enum: '/Script/Engine.ECollisionChannel' })],
+    ['Enum', 'Enum to String (ECollisionChannel)', (bubble) => SP.createGetEnumeratorNameAsString({ bubble, enum: '/Script/Engine.ECollisionChannel' })],
+    ['Enum', 'Byte to Enum ECollisionChannel', (bubble) => SP.createCastByteToEnum({ bubble, enum: '/Script/Engine.ECollisionChannel' })],
+    ['Enum', 'Equal (Enum) ECollisionChannel, B = ECC_Visibility', (bubble) => SP.createEnumEquality({ bubble, enum: '/Script/Engine.ECollisionChannel', b: 'ECC_Visibility' })],
+    ['Enum', 'For Each ECollisionChannel', (bubble) => SP.createForEachEnum({ bubble, enum: '/Script/Engine.ECollisionChannel' })],
+    ['Class', 'Spawn Actor from Class (Character)', (bubble) => SP.createSpawnActorFromClass({ bubble, actorClass: '/Script/Engine.Character' })],
+    ['Class', 'Get Class Defaults (Character)', (bubble) => SP.createGetClassDefaults({ bubble, class: '/Script/Engine.Character' })],
+    ['Class', 'Get Subsystem (WorldPartitionSubsystem)', (bubble) => SP.createGetSubsystem({ bubble, subsystem: '/Script/Engine.WorldPartitionSubsystem' })],
+    ['Class', 'Self', (bubble) => SP.createSelf({ bubble })],
+    ['Asset', 'Async Load Asset', (bubble) => SP.createLoadAsset({ bubble })],
+    ['Asset', 'Async Load Assets', (bubble) => SP.createLoadAssets({ bubble })],
+    ['Asset', 'Async Load Class Asset', (bubble) => SP.createLoadAssetClass({ bubble })],
+    ['Asset', 'Async Load Primary Asset', (bubble) => SP.createAsyncLoadPrimaryAsset({ bubble })],
+    ['Asset', 'To Soft Object Reference (ConvertAsset)', (bubble) => SP.createConvertAsset({ bubble })],
+    ['Flow', 'Play Montage', (bubble) => SP.createPlayMontage({ bubble })],
+    ['Flow', 'MultiGate', (bubble) => SP.createMultiGate({ bubble })],
+    ['Flow', 'Parent: BeginPlay', (bubble) => SP.createCallParentFunction({ bubble, event: 'ReceiveBeginPlay', parent: '/Script/Engine.Actor' })],
+    ['Flow', 'Bind Event to On Component Hit (PrimitiveComponent)', (bubble) => SP.createAssignDelegate({ bubble, delegate: { owner: '/Script/Engine.PrimitiveComponent', name: 'OnComponentHit', signature: 'ComponentHitSignature__DelegateSignature' } })],
+    ['Flow', 'Get Game Instance (член Widget)', mem('/Script/UMG.Widget.GetGameInstance', ['->', 'ReturnValue:object:/Script/Engine.GameInstance'], true)],
+  ],
 };
 
 const list = BATCHES[batch];
@@ -756,7 +780,7 @@ const topics = [...new Set(list.map(p => p[0]))];
 for (const topic of topics) {
   let x = 0, rowH = 0;
   for (const [, bubble, make] of list.filter(p => p[0] === topic)) {
-    const n = make();
+    const n = make(`R${batch} · ${topic}: ${bubble}`); // спец-ноды (шаблоны) пишут пузырь сами
     n.pos = { x, y };
     n.probeTopic = topic;
     n.bubble = `R${batch} · ${topic}: ${bubble}`;
