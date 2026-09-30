@@ -174,6 +174,10 @@ const ENUMS_FULL = {
   EMovementMode: `"/Script/CoreUObject.Enum'/Script/Engine.EMovementMode'"`, // confirmed R41 (SetMovementMode)
   ENetRole: `"/Script/CoreUObject.Enum'/Script/Engine.ENetRole'"`, // confirmed R42
   ENetDormancy: `"/Script/CoreUObject.Enum'/Script/Engine.ENetDormancy'"`, // confirmed R42
+  ESplineCoordinateSpace: `"/Script/CoreUObject.Enum'/Script/Engine.ESplineCoordinateSpace'"`, // pre R44
+  ESplinePointType: `"/Script/CoreUObject.Enum'/Script/Engine.ESplinePointType'"`, // pre R44
+  EAnimationMode: `"/Script/CoreUObject.Enum'/Script/Engine.EAnimationMode'"`, // pre R44
+  ECameraProjectionMode: `"/Script/CoreUObject.Enum'/Script/Engine.ECameraProjectionMode'"`, // pre R44
   EMoveComponentAction: `"/Script/CoreUObject.Enum'/Script/Engine.EMoveComponentAction'"`, // R34 copy-back: MoveComponentTo
   EDrawDebugSceneDepthPriorityGroup: `"/Script/CoreUObject.Enum'/Script/Engine.EDrawDebugSceneDepthPriorityGroup'"`, // R33 copy-back: DrawDebugArrow.DepthPriority
   ECollisionResponse: `"/Script/CoreUObject.Enum'/Script/Engine.ECollisionResponse'"`, // round29-pre
@@ -197,6 +201,10 @@ const ENUMS_SHORT = {
   EMovementMode: `Enum'"/Script/Engine.EMovementMode"'`,
   ENetRole: `Enum'"/Script/Engine.ENetRole"'`,
   ENetDormancy: `Enum'"/Script/Engine.ENetDormancy"'`,
+  ESplineCoordinateSpace: `Enum'"/Script/Engine.ESplineCoordinateSpace"'`,
+  ESplinePointType: `Enum'"/Script/Engine.ESplinePointType"'`,
+  EAnimationMode: `Enum'"/Script/Engine.EAnimationMode"'`,
+  ECameraProjectionMode: `Enum'"/Script/Engine.ECameraProjectionMode"'`,
   EMoveComponentAction: `Enum'"/Script/Engine.EMoveComponentAction"'`,
   EDrawDebugSceneDepthPriorityGroup: `Enum'"/Script/Engine.EDrawDebugSceneDepthPriorityGroup"'`,
   ECollisionResponse: `Enum'"/Script/Engine.ECollisionResponse"'`,
