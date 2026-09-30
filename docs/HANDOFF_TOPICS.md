@@ -18,7 +18,7 @@
 ## Следующие темы — в заданном порядке
 
 1. **Завершить UE-проверку текущего layout pipeline** на dispatcher fixture: последовательность слева направо, реальный зазор между exec-пинами, pin-center alignment и handler. Новые позиции/solver утверждать только после copy-back пользователя. Параллельно идёт калибровка ступеней по одному инструменту на `tests/three-stage-01.*`: ступень 2 принята (шаблон «делегат левее ниже» и дробные уровни — открытые пункты, стадиумы уже в ступени 2), ступень 3 приостановлена по решению пользователя и ждёт возврата отдельным решением.
-2. **MoveComponentTo** — latent узел, `ExpandEnumAsExecs`, несколько exec-выходов; расширить creator/arranger для таких форм после получения канонического UE reference.
+2. ~~**MoveComponentTo**~~ — VERIFIED (R34, 2026-09-30): входы Move/Stop/Return, выход Completed; см. `ENGINE_VERIFIED.md`.
 3. **AddComponentByClass / Add Static Mesh Component** — специальная K2-нода, нужен copy-back и проверка формы пинов.
 4. **Timeline** — K2Node_Timeline и референс с curve asset.
 5. **Blueprint Interfaces** — Message nodes и Does Implement Interface.

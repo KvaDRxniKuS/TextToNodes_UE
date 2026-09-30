@@ -6660,6 +6660,105 @@
   "desc": "Задержка"
  },
  {
+  "id": "MoveComponentTo",
+  "title": "Move Component To",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "MoveComponentTo",
+  "lib": "KismetSystemLibrary",
+  "preProps": {
+   "bWantsEnumToExecExpansion": "True"
+  },
+  "pins": [
+   {
+    "name": "Move",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "Stop",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "Return",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec",
+    "friendly": "Completed"
+   },
+   {
+    "name": "Component",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   },
+   {
+    "name": "TargetRelativeLocation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "TargetRelativeRotation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Rotator",
+    "dv": "0, 0, 0"
+   },
+   {
+    "name": "bEaseOut",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "bEaseIn",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "OverTime",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float",
+    "dv": "0.2"
+   },
+   {
+    "name": "bForceShortestRotationPath",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false"
+   },
+   {
+    "name": "MoveAction",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EMoveComponentAction",
+    "dv": "Move",
+    "autoDv": "",
+    "hidden": true
+   },
+   {
+    "name": "LatentInfo",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LatentActionInfo",
+    "dv": "LatentInfo",
+    "hidden": true
+   }
+  ],
+  "verified": true,
+  "desc": "Плавно двигает компонент (latent; входы Move/Stop/Return, выход Completed)",
+  "notes": "R34 copy-back (2026-09-30): ExpandEnumAsExecs=MoveAction → 3 exec-входа Move/Stop/Return вместо execute, скрытый MoveAction; then с PinFriendlyName=\"Completed\"; bWantsEnumToExecExpansion=True до FunctionReference"
+ },
+ {
   "id": "RetriggerableDelay",
   "title": "Retriggerable Delay",
   "category": "Utilities",

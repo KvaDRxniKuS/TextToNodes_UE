@@ -112,6 +112,7 @@ const ENUMS_FULL = {
   EInputActionValueType: `"/Script/CoreUObject.Enum'/Script/EnhancedInput.EInputActionValueType'"`, // round28-pre
   ECollisionEnabled: `"/Script/CoreUObject.Enum'/Script/Engine.ECollisionEnabled'"`, // round29-pre
   ECollisionChannel: `"/Script/CoreUObject.Enum'/Script/Engine.ECollisionChannel'"`, // round29-pre
+  EMoveComponentAction: `"/Script/CoreUObject.Enum'/Script/Engine.EMoveComponentAction'"`, // R34 copy-back: MoveComponentTo
   EDrawDebugSceneDepthPriorityGroup: `"/Script/CoreUObject.Enum'/Script/Engine.EDrawDebugSceneDepthPriorityGroup'"`, // R33 copy-back: DrawDebugArrow.DepthPriority
   ECollisionResponse: `"/Script/CoreUObject.Enum'/Script/Engine.ECollisionResponse'"`, // round29-pre
 };
@@ -131,6 +132,7 @@ const ENUMS_SHORT = {
   EInputActionValueType: `Enum'"/Script/EnhancedInput.EInputActionValueType"'`,
   ECollisionEnabled: `Enum'"/Script/Engine.ECollisionEnabled"'`,
   ECollisionChannel: `Enum'"/Script/Engine.ECollisionChannel"'`,
+  EMoveComponentAction: `Enum'"/Script/Engine.EMoveComponentAction"'`,
   EDrawDebugSceneDepthPriorityGroup: `Enum'"/Script/Engine.EDrawDebugSceneDepthPriorityGroup"'`,
   ECollisionResponse: `Enum'"/Script/Engine.ECollisionResponse"'`,
 };

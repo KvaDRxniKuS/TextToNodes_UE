@@ -14,6 +14,7 @@ export function mkPin(name, direction, category, opts = {}) {
     defaultValue: opts.dv || '', hidden: !!opts.hidden, linkedTo: [],
     memberRef: opts.memberRef || '', defaultObject: opts.defObj || '',
     autoDefault: opts.auto || '',
+    ...(opts.friendlyPlain ? { friendlyPlain: opts.friendlyPlain } : {}),
   };
 }
 
@@ -34,6 +35,7 @@ export function createCallFunction(regEntry, pos = { x: 0, y: 0 }) {
   n.title = regEntry.title || regEntry.func;
   if (regEntry.pure) n.pure = true;
   // R33 copy-back (DrawDebugArrow): UE пишет EnabledState между NodePosY и NodeGuid.
+  if (regEntry.preProps) n.preProps = Object.entries(regEntry.preProps).map(([k, v]) => `${k}=${v}`);
   if (regEntry.enabledState) n.postPosProps = [`EnabledState=${regEntry.enabledState}`];
   if (regEntry.lib) {
     if (!UE_LIBS[regEntry.lib]) throw new Error(`Unknown lib in registry: ${regEntry.lib} (${regEntry.id})`);
@@ -58,6 +60,7 @@ export function createCallFunction(regEntry, pos = { x: 0, y: 0 }) {
     if (p.hidden) o.hidden = true;
     if (p.memberRef) o.memberRef = p.memberRef;
     if (p.defObj) o.defObj = p.defObj;
+    if (p.friendly) o.friendlyPlain = p.friendly;
     n.pins.push(mkPin(p.name, p.dir, p.cat, o));
   }
   return n;
@@ -242,6 +245,7 @@ export function createGeneric(regEntry, pos = { x: 0, y: 0 }) {
     if (p.hidden) o.hidden = true;
     if (p.memberRef) o.memberRef = p.memberRef;
     if (p.defObj) o.defObj = p.defObj;
+    if (p.friendly) o.friendlyPlain = p.friendly;
     n.pins.push(mkPin(p.name, p.dir, p.cat, o));
   }
   // Enum-indexed Select expands from enum metadata, not the generic Option 0/1 pin template.

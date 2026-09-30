@@ -70,7 +70,7 @@ export function parseToGraphs(text){
         const cat=(pinStr.match(/PinCategory="([^"]*)"/)||[])[1]||'';
         const sub=(pinStr.match(/PinSubCategory="([^"]*)"/)||[])[1]||'';
         const hidden=/bHidden=True/.test(pinStr);
-                                const friendly=(pinStr.match(/PinFriendlyName=Text\("([^"]*)"\)/)||[])[1]||(pinStr.match(/PinFriendlyName=NSLOCTEXT\("[^"]*", *\"[^"]*", *\"([^"]*)"\)/)||[])[1]||pinName;
+                                const friendly=(pinStr.match(/PinFriendlyName=Text\("([^"]*)"\)/)||[])[1]||(pinStr.match(/PinFriendlyName=NSLOCTEXT\("[^"]*", *\"[^"]*", *\"([^"]*)"\)/)||[])[1]||(pinStr.match(/PinFriendlyName="([^"]*)"/)||[])[1]||pinName;
         const defaultValue=(pinStr.match(/DefaultValue="([^"]*)"/)||[])[1]||(pinStr.match(/DefaultTextValue=NSLOCTEXT\("[^"]*", *"[^"]*", *"([^"]*)"\)/)||[])[1]||(pinStr.match(/DefaultTextValue=INVTEXT\("([^"]*)"\)/)||[])[1]||'';
         const subObj=(pinStr.match(/PinSubCategoryObject=([^,\)]+)/)||[])[1]||'';
         const linkedMatch=pinStr.match(/LinkedTo=\(([^)]*)\)/);
@@ -245,7 +245,8 @@ function generateBlock(n,opts={}){
     const dtv=p.category==='text'&&p.defaultValue?`DefaultTextValue=NSLOCTEXT("", "${guid32()}", "${p.defaultValue}"),`:'';
     // PinName опускаем при пустом имени (FlipFlop, round1: каноника движка — поля нет вообще).
     const nm=p.name?`PinName="${p.name}",`:'';
-    const pfn=p.pinFriendlyName?`PinFriendlyName=NSLOCTEXT("${p.pinFriendlyName.namespace}", "${p.pinFriendlyName.key}", "${p.pinFriendlyName.text}"),`:'';
+    // R34 copy-back (MoveComponentTo.then → «Completed»): простая строка PinFriendlyName="…".
+    const pfn=p.friendlyPlain?`PinFriendlyName="${p.friendlyPlain}",`:p.pinFriendlyName?`PinFriendlyName=NSLOCTEXT("${p.pinFriendlyName.namespace}", "${p.pinFriendlyName.key}", "${p.pinFriendlyName.text}"),`:'';
     const fn=p.name==='self'?(isMulticastDelegateNode?MULTICAST_TARGET_FN:TARGET_FN):'';
     const tt=isOp&&p.category!=='exec'?opTooltip(p):'';
     let subObj=p.subCategoryObject||'None';
@@ -283,6 +284,8 @@ function generateBlock(n,opts={}){
   // P1.9: локал функции — MemberScope, без bSelfContext (и без self-пина — его не создаёт конструктор).
   if(n.varName&&n.varScope) extra+=`   VariableReference=(MemberScope="${n.varScope}",MemberName="${n.varName}",MemberGuid=${n.varGuid||guid32()})\n`;
   else if(n.varName) extra+=`   VariableReference=(MemberName="${n.varName}",MemberGuid=${n.varGuid||guid32()},bSelfContext=True)\n`;
+  // R34 copy-back: флаги узла, которые UE пишет ДО FunctionReference (bWantsEnumToExecExpansion).
+  if(n.preProps) n.preProps.forEach(l=>{ extra+=`   ${l}\n`; });
   if(n.funcName && !n.operationName){
     if(n.pure) extra+=`   bDefaultsToPureFunc=True\n`;
     if(n.memberParent) extra+=`   FunctionReference=(MemberParent=${n.memberParent},MemberName="${n.funcName}")\n`;
