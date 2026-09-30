@@ -1081,7 +1081,7 @@ UE_LIBS: Image, MovementComponent.
 
 ## R40 — спец-ноды K2 по copy-back (2026-09-30)
 
-Источник: copy-back пользователя из `BP_AISupportTester`. Выборка по одной ноде каждого вида лежит в `sweep/copyback/r40-special-nodes.txt` и служит шаблоном: настроенный вариант GetDataTableRow в неё не вошёл. Пользователь сообщил: «3 ноды спавнятся, но выдают ошибку из-за отсутствия соответствующего диспетчера ивентов». Какие именно три — уточняется. Предположительно это Timeline и Interface Message: им нужен ассет в самом BP (TimelineTemplate / BPI).
+Источник: copy-back пользователя из `BP_AISupportTester`. Выборка по одной ноде каждого вида лежит в `sweep/copyback/r40-special-nodes.txt` и служит шаблоном: настроенный вариант GetDataTableRow в неё не вошёл. Пользователь сообщил: «3 ноды спавнятся, но выдают ошибку из-за отсутствия соответствующего диспетчера ивентов». Это ноды из теста диспетчера ивентов: в BP нет самого диспетчера, поэтому ошибка ожидаема. Это не дефект формата. Спец-ноды R40 вставились без ошибок.
 
 - **Реестр +4 (534):** `LoadStreamLevel`, `LoadStreamLevelBySoftObjectPtr`, `UnloadStreamLevel`, `UnloadStreamLevelBySoftObjectPtr` (GameplayStatics, latent).
   - `then` = «Completed».
