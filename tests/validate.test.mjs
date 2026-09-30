@@ -1208,13 +1208,14 @@ regThrow.forEach(t => console.log('THROW:', t));
   const codes = L.lintLayout([lq, la, lb, lc, lw]).map(l => l.code + ':' + l.node);
   ok(codes.includes('L2:' + lq.id) && codes.includes('L1:' + lw.id) && codes.includes('L4:' + lb.id) && !codes.includes('L1:' + la.id) && codes.length === 4, 'линтер: L1/L2/L4 ловятся, подключённые ноды чисты');
   const sb = SL.buildSections({ event: 'E', bp: '/Game/B', sections: [
-    { title: 'C', layout: 'chain', bus: 'Dt', steps: [{ set: 'A', expr: ['*', 'A', '$Dt'] }, { set: 'B', expr: '$Dt' }] },
+    { title: 'C', layout: 'chain', bus: { name: 'Dt', expr: ['*', 'Dt', 'K'] }, steps: [{ set: 'A', expr: ['*', 'A', '$Dt'] }, { set: 'B', expr: '$Dt' }] },
     { title: 'S', layout: 'bind', binds: [{ delegate: 'Actor.OnDestroyed', handler: 'OnGone', steps: [{ set: 'A', expr: 0 }] }] }] });
-  const sk = SL.arrangeSections(sb).knots, dts = sb.nodes.filter(n => n.varName === 'Dt');
+  const sk = SL.arrangeSections(sb).knots, dts = sb.nodes.filter(n => n.varName === 'Dt'), bsrc = sb.sections[0].bus.node;
   const busK = sk.filter(k => k.pins[0].category !== 'exec');
   const svt = generateUEText([...sb.nodes, ...sk]);
-  ok(dts.length === 1 && busK.length === 2 && dts[0].pins.find(p => p.name === 'Dt').linkedTo.length === 1 && busK.every(k => k.pos.y === busK[0].pos.y)
-    && validateStrict(svt).valid && L.lintLayout([...sb.nodes, ...sk]).length === 0, 'секции: шина — один Get и knot на потребителя в одной полосе; ряд подписок STRICT и без замечаний линтера');
+  let varBus = ''; try { SL.buildSections({ event: 'E', sections: [{ title: 'x', layout: 'chain', bus: 'Dt', steps: [{ set: 'A', expr: 1 }] }] }); } catch (e) { varBus = e.message; }
+  ok(/от выхода ноды/.test(varBus) && dts.length === 1 && busK.length === 2 && bsrc.pins.find(p => p.name === 'ReturnValue' && p.direction === 'Output').linkedTo.length === 1 && busK.every(k => k.pos.y === busK[0].pos.y)
+    && validateStrict(svt).valid && L.lintLayout([...sb.nodes, ...sk]).length === 0, 'секции: шина — от выхода ноды (от переменной — отказ), knot на потребителя в одной полосе; ряд подписок STRICT и без замечаний линтера');
 }
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);

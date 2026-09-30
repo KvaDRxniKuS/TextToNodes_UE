@@ -27,14 +27,14 @@ export function buildSections(spec) {
   const all = [];
   const add = n => (all.push(n), n);
   const get = name => add(createSelfVar('get', name, 'float', '', { bp: spec.bp }));
-  let bus = null;                  // общая ссылка секции: '$Имя' → один Get + шина knot'ов (ступень 2)
+  let bus = null;                  // шина секции: '$Имя' → один выход ноды-вычисления + полоса knot'ов (ступень 2)
   function expr(e) {               // → { node, out, kids:[subtree] } | { literal }
     if (typeof e === 'number') return { literal: e.toFixed(6) };
     if (typeof e === 'string' && e[0] === '$') {
       const name = e.slice(1);
       if (!bus) throw new Error(`шина ${e}: только в секции layout:'chain' с bus:'${name}'`);
       if (bus.name !== name) throw new Error(`шина ${e}: в секции объявлена ${bus.name}`);
-      return { node: bus.node, out: name, kids: [], bus: true };
+      return { node: bus.node, out: bus.out, kids: [], bus: true };
     }
     if (typeof e === 'string') { const n = get(e); return { node: n, out: e, kids: [] }; }
     const [op, ...args] = e; const [id, ins] = OPS[op] || [];
@@ -75,8 +75,13 @@ export function buildSections(spec) {
     }
     bus = null;
     if (sec.bus) {
-      if (sec.layout !== 'chain') throw new Error(`bus:'${sec.bus}' — только в layout:'chain'`);
-      bus = { name: sec.bus, node: add(createSelfVar('get', sec.bus, sec.busType || 'float', '', { bp: spec.bp })), uses: [] };
+      // Правило пользователя (2026-09-30): шина — от ВЫХОДА НОДЫ, не от переменной. Переменную проще поставить
+      // Get'ом у каждого потребителя; у несохранённого результата точка выхода одна — от неё и тянется шина.
+      if (sec.layout !== 'chain') throw new Error(`bus '${sec.bus.name || sec.bus}' — только в layout:'chain'`);
+      if (typeof sec.bus !== 'object' || !Array.isArray(sec.bus.expr))
+        throw new Error(`bus: нужен { name, expr:[оп, …] } — шина тянется от выхода ноды; переменную ставьте Get'ом у каждого потребителя`);
+      const t = expr(sec.bus.expr);
+      bus = { name: sec.bus.name, node: t.node, out: t.out, tree: t, uses: [] };
     }
     const steps = sec.steps.map(s => {
       if (!s.branch) return setStep(s);
@@ -171,7 +176,12 @@ export function arrangeSections(built, origin = { x: 0, y: 0 }) {
     if (sec.chain) {                      // Set'ы в ряд; дерево каждого — в промежутке перед ним, ниже ряда
       let cur = left + SEQ_W + 64; bottom = top + 112;
       const busLane = sec.bus ? top + 144 : 0, treeTop = top + (sec.bus ? 208 : 144);
-      if (sec.bus) { sec.bus.node.pos = { x: snap(left), y: snap(busLane) }; cur = Math.max(cur, left + w(sec.bus.node) + 64); }
+      if (sec.bus) {                      // дерево-источник шины — под Sequence, корень справа, листья левее
+        const bcw = colWidths([sec.bus.tree]), bw = bcw.reduce((a, c) => a + c + COL_GAP, 0) - COL_GAP;
+        placeTree(sec.bus.tree, left + bw, busLane, bcw);
+        bottom = Math.max(bottom, busLane + treeH(sec.bus.tree));
+        cur = Math.max(cur, left + bw + 64);
+      }
       for (const st of sec.steps) {
         const cwi = st.tree ? colWidths([st.tree]) : [];
         const tw = cwi.reduce((a, b) => a + b + COL_GAP, 0);
@@ -180,15 +190,15 @@ export function arrangeSections(built, origin = { x: 0, y: 0 }) {
         if (st.tree) { placeTree(st.tree, sx - 32, treeTop, cwi); bottom = Math.max(bottom, treeTop + treeH(st.tree)); }
         cur = sx + w(st.node) + 32; maxX = Math.max(maxX, sx + w(st.node));
       }
-      if (sec.bus) {                      // шина: Get → knot → knot → … по полосе между рядом и деревьями; от knot'а — вниз к потребителю
+      if (sec.bus) {                      // шина: выход ноды → knot → knot → … по полосе между рядом и деревьями; от knot'а — вниз к потребителю
         const b = sec.bus, uses = [...b.uses].sort((a, c) => a.node.pos.x - c.node.pos.x);
         const laneY = snap(busLane + 16);
-        let prev = b.node, prevPin = b.name, lastX = -Infinity;
+        let prev = b.node, prevPin = b.out, lastX = -Infinity;
         for (const u of uses) {
-          unlink(b.node, b.name, u.node, u.pin);
+          unlink(b.node, b.out, u.node, u.pin);
           let kx = snap(u.node.pos.x - 48);
           if (kx <= lastX + 32) kx = lastX + 32;   // knot'ы не касаются
-          const src = b.node.pins.find(p => p.name === b.name);
+          const src = b.node.pins.find(p => p.name === b.out && p.direction === 'Output');
           const k = createKnot({ x: kx, y: laneY }, src.category);
           k.pins.forEach(p => { p.subCategory = src.subCategory; p.subCategoryObject = src.subCategoryObject; });
           linkPins(prev, prevPin, k, 'InputPin'); linkPins(k, 'OutputPin', u.node, u.pin);

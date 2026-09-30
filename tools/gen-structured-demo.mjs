@@ -22,12 +22,12 @@ const spec = {
       { set: 'Drag', expr: ['*', ['*', ['*', 0.5, 'Rho'], ['*', 'Cd', 'Area']], ['sq', 'Speed']] },
       { set: 'DragAx', expr: ['*', ['/', 'Drag', ['max', 'Mass', 0.001]], ['*', ['sign', 'VelX'], -1]] },
     ] },
-    // Dt — общая ссылка секции: один Get + шина knot'ов вместо четырёх копий
-    { title: 'C - интегрирование (цепочка, шина Dt)', layout: 'chain', bus: 'Dt', steps: [
-      { set: 'VelX', expr: ['+', 'VelX', ['*', 'DragAx', '$Dt']] },
-      { set: 'VelZ', expr: ['-', 'VelZ', ['*', 'Gravity', '$Dt']] },
-      { set: 'PosX', expr: ['+', 'PosX', ['*', 'VelX', '$Dt']] },
-      { set: 'PosZ', expr: ['+', 'PosZ', ['*', 'VelZ', '$Dt']] },
+    // шина — от выхода ноды (Dt·TimeScale не сохранён в переменную → одна точка выхода); переменные — Get'ом по месту
+    { title: 'C - интегрирование (цепочка, шина Dt·TimeScale)', layout: 'chain', bus: { name: 'StepDt', expr: ['*', 'Dt', 'TimeScale'] }, steps: [
+      { set: 'VelX', expr: ['+', 'VelX', ['*', 'DragAx', '$StepDt']] },
+      { set: 'VelZ', expr: ['-', 'VelZ', ['*', 'Gravity', '$StepDt']] },
+      { set: 'PosX', expr: ['+', 'PosX', ['*', 'VelX', '$StepDt']] },
+      { set: 'PosZ', expr: ['+', 'PosZ', ['*', 'VelZ', '$StepDt']] },
     ] },
     { title: 'D - земля', steps: [
       { branch: ['<', 'PosZ', 'GroundZ'],
