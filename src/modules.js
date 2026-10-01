@@ -123,6 +123,8 @@ export function createCustomEvent(name, params = [], pos, opts = {}) {
     if (t.sub) parts.push(`PinSubCategory="${t.sub}"`);
     if (t.subObj) parts.push(`PinSubCategoryObject=${t.subObj}`);
     if (t.container !== 'None') parts.push(`ContainerType=${t.container}`);
+    // R62 вердикт: контейнер-параметр события без const требует переменную (by-ref); с const принимает и временные значения (Make Array и т.п.).
+    if (t.container !== 'None') parts.push('bIsReference=True', 'bIsConst=True');
     // R62: Map-параметр события — тип значения в PinValueType (формат FEdGraphTerminalType).
     if (t.valueType) parts.push(`PinValueType=(TerminalCategory="${t.valueType.cat}"${t.valueType.sub ? `,TerminalSubCategory="${t.valueType.sub}"` : ''}${t.valueType.subObj ? `,TerminalSubCategoryObject=${t.valueType.subObj}` : ''})`);
     return `CustomProperties UserDefinedPin (PinName="${p.name}",PinType=(${parts.join(',')}),DesiredPinDirection=EGPD_Output)`;
@@ -139,7 +141,7 @@ export function createCallCustomEvent(event, values = {}, pos) {
   n.title = name; n.funcName = name;
   if (typeof event !== 'string') n.memberGuid = event.guid;
   n.pins.push(mkPin('execute', 'Input', 'exec'), mkPin('then', 'Output', 'exec'), mkPin('self', 'Input', 'object', { sub: 'self' }));
-  for (const p of params) n.pins.push(pin(p.name, 'Input', p.type, { dv: values[p.name] ?? p.dv ?? '' }));
+  for (const p of params) n.pins.push(pin(p.name, 'Input', p.type, { dv: values[p.name] ?? p.dv ?? '', ...(p.type.container !== 'None' ? { ref: true, const: true } : {}) }));
   return n;
 }
 

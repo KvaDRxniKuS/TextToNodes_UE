@@ -1350,3 +1350,6 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 - createCustomEvent: UserDefinedPin для Map пишет `PinValueType=(TerminalCategory=…,TerminalSubCategoryObject=…)`; Set/Array — ContainerType.
 - Вызовы событий с входами map<>/set<>/[] (createCallCustomEvent; MemberGuid чужой — резолв по имени, как у K2Node_Message в R57b).
 - parseType `interface:Путь` → category interface, bIsUObjectWrapper=True. Проба: BlueprintGameplayTagLibrary.GetOwnedGameplayTags.
+- **R62 вердикт:** Map/Set-параметры событий и вызовов — VERIFIED (после Refresh Nodes вызовы находят события по имени). GetOwnedGameplayTags (interface-пин) → реестр.
+  Массив-параметр без const требует переменную (pass-by-ref) → теперь контейнер-параметры событий пишутся `bIsReference=True,bIsConst=True`, входы вызова — ref+const.
+  Не создавать дубли событий: функция/событие с тем же именем уже существует → ошибка.

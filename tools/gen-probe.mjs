@@ -1139,10 +1139,6 @@ const BATCHES = {
   ],
   '62': [
     // R62: Map/Set/Array-пины в событиях и вызовах (parseType set<>/map<>, UserDefinedPin с PinValueType) + interface-пин.
-    ['Event', 'Custom Event R62_Containers (Scores: map<name,int>, Tags: set<name>, Points: vector[], Colors: map<string,linearcolor>)', (bubble) => createCustomEvent('R62_Containers', ['Scores:map<name,int>', 'Tags:set<name>', 'Points:vector[]', 'Colors:map<string,linearcolor>'], undefined)],
-    ['Event', 'Custom Event R62_Actors (Lookup: map<int,object:Actor>, Classes: set<class:Actor>)', () => createCustomEvent('R62_Actors', ['Lookup:map<int,object:Actor>', 'Classes:set<class:Actor>'], undefined)],
-    ['Call', 'Вызов R62_Containers (входы Map/Set/Array) — встанет после события выше', () => createCallCustomEvent(createCustomEvent('R62_Containers', ['Scores:map<name,int>', 'Tags:set<name>', 'Points:vector[]', 'Colors:map<string,linearcolor>']))],
-    ['Call', 'Вызов R62_Actors', () => createCallCustomEvent(createCustomEvent('R62_Actors', ['Lookup:map<int,object:Actor>', 'Classes:set<class:Actor>']))],
     ['Tags', 'Get Owned Gameplay Tags (BlueprintGameplayTagLibrary, interface-пин, pure)', lib('BlueprintGameplayTagLibrary.GetOwnedGameplayTags', ['TagContainerInterface:interface:/Script/GameplayTags.GameplayTagAssetInterface', '->', 'ReturnValue:gameplaytagcontainer'], true)],
   ],
 };
