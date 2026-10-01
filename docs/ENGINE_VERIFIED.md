@@ -1391,4 +1391,4 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 
 ## R72 — Media Player / Cine Camera / State Tree / Sound Mix (VERIFIED: Media 9, CineCam 4)
 - StateTreeComponent живёт в /Script/GameplayStateTreeModule (не StateTreeModule). SetStartLogicAutomatically(bInStartLogicAutomatically, const bool) — VERIFIED по copy-back.
-- R72b (ждёт вердикта): Start/Stop/Restart Logic, IsRunning, IsPaused — на /Script/AIModule.BrainComponent.
+- R72b VERIFIED 5/5: Start/Stop/Restart Logic, IsRunning, IsPaused — на /Script/AIModule.BrainComponent.

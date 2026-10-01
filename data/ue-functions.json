@@ -57394,5 +57394,152 @@
   "verified": true,
   "desc": "Set Start Logic Automatically",
   "probe": "R72 проба (StateTree) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Start Logic Automatically"
+ },
+ {
+  "id": "StartLogic",
+  "title": "Start Logic",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "StartLogic",
+  "lib": "BrainComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/AIModule.BrainComponent"
+   }
+  ],
+  "verified": true,
+  "desc": "R72b · Brain: Start Logic",
+  "probe": "R72b проба (Brain) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R72b · Brain: Start Logic"
+ },
+ {
+  "id": "RestartLogic",
+  "title": "Restart Logic",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "RestartLogic",
+  "lib": "BrainComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/AIModule.BrainComponent"
+   }
+  ],
+  "verified": true,
+  "desc": "R72b · Brain: Restart Logic",
+  "probe": "R72b проба (Brain) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R72b · Brain: Restart Logic"
+ },
+ {
+  "id": "StopLogic",
+  "title": "Stop Logic",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "StopLogic",
+  "lib": "BrainComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/AIModule.BrainComponent"
+   },
+   {
+    "name": "Reason",
+    "dir": "Input",
+    "cat": "string"
+   }
+  ],
+  "verified": true,
+  "desc": "R72b · Brain: Stop Logic",
+  "probe": "R72b проба (Brain) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R72b · Brain: Stop Logic"
+ },
+ {
+  "id": "IsRunning",
+  "title": "Is Running",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsRunning",
+  "lib": "BrainComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/AIModule.BrainComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "R72b · Brain: Is Running",
+  "probe": "R72b проба (Brain) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R72b · Brain: Is Running (pure)"
+ },
+ {
+  "id": "IsPaused_BrainComponent",
+  "title": "Is Paused",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsPaused",
+  "lib": "BrainComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/AIModule.BrainComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "R72b · Brain: Is Paused",
+  "probe": "R72b проба (Brain) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R72b · Brain: Is Paused (pure)"
  }
 ]
