@@ -55871,5 +55871,1043 @@
   "verified": true,
   "desc": "Remove All Warp Targets",
   "probe": "R70 проба (Warp) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Remove All Warp Targets"
+ },
+ {
+  "id": "AssignSetByCallerMagnitude",
+  "title": "Assign Set By Caller Magnitude",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AssignSetByCallerMagnitude",
+  "lib": "AbilitySystemBlueprintLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "SpecHandle",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayEffectSpecHandle",
+    "const": true
+   },
+   {
+    "name": "DataName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "Magnitude",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "GameplayEffectSpecHandle"
+   }
+  ],
+  "verified": true,
+  "desc": "Assign Set by Caller Magnitude",
+  "probe": "R71 проба (GE Spec) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Assign Set by Caller Magnitude"
+ },
+ {
+  "id": "SetDuration",
+  "title": "Set Duration",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetDuration",
+  "lib": "AbilitySystemBlueprintLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "SpecHandle",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayEffectSpecHandle",
+    "const": true
+   },
+   {
+    "name": "Duration",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "GameplayEffectSpecHandle"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Duration",
+  "probe": "R71 проба (GE Spec) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Duration"
+ },
+ {
+  "id": "AddGrantedTag",
+  "title": "Add Granted Tag",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AddGrantedTag",
+  "lib": "AbilitySystemBlueprintLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "SpecHandle",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayEffectSpecHandle",
+    "const": true
+   },
+   {
+    "name": "NewGameplayTag",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayTag",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "GameplayEffectSpecHandle"
+   }
+  ],
+  "verified": true,
+  "desc": "Add Granted Tag",
+  "probe": "R71 проба (GE Spec) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Add Granted Tag"
+ },
+ {
+  "id": "AddGrantedTags",
+  "title": "Add Granted Tags",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AddGrantedTags",
+  "lib": "AbilitySystemBlueprintLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "SpecHandle",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayEffectSpecHandle",
+    "const": true
+   },
+   {
+    "name": "NewGameplayTags",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayTagContainer",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "GameplayEffectSpecHandle"
+   }
+  ],
+  "verified": true,
+  "desc": "Add Granted Tags",
+  "probe": "R71 проба (GE Spec) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Add Granted Tags"
+ },
+ {
+  "id": "AddAssetTag",
+  "title": "Add Asset Tag",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AddAssetTag",
+  "lib": "AbilitySystemBlueprintLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "SpecHandle",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayEffectSpecHandle",
+    "const": true
+   },
+   {
+    "name": "NewGameplayTag",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayTag",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "GameplayEffectSpecHandle"
+   }
+  ],
+  "verified": true,
+  "desc": "Add Asset Tag",
+  "probe": "R71 проба (GE Spec) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Add Asset Tag"
+ },
+ {
+  "id": "SetStackCount",
+  "title": "Set Stack Count",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetStackCount",
+  "lib": "AbilitySystemBlueprintLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "SpecHandle",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayEffectSpecHandle",
+    "const": true
+   },
+   {
+    "name": "StackCount",
+    "dir": "Input",
+    "cat": "int"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "GameplayEffectSpecHandle"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Stack Count",
+  "probe": "R71 проба (GE Spec) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Stack Count"
+ },
+ {
+  "id": "GetEffectContext",
+  "title": "Get Effect Context",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetEffectContext",
+  "lib": "AbilitySystemBlueprintLibrary",
+  "pins": [
+   {
+    "name": "SpecHandle",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayEffectSpecHandle",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "GameplayEffectContextHandle"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Effect Context",
+  "probe": "R71 проба (GE Spec) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Effect Context (pure)"
+ },
+ {
+  "id": "GetModifiedAttributeMagnitude",
+  "title": "Get Modified Attribute Magnitude",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetModifiedAttributeMagnitude",
+  "lib": "AbilitySystemBlueprintLibrary",
+  "pins": [
+   {
+    "name": "SpecHandle",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayEffectSpecHandle",
+    "const": true
+   },
+   {
+    "name": "Attribute",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayAttribute",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Modified Attribute Magnitude",
+  "probe": "R71 проба (GE Spec) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Modified Attribute Magnitude (pure)"
+ },
+ {
+  "id": "BP_ApplyGameplayEffectToTarget",
+  "title": "BP Apply Gameplay Effect To Target",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "BP_ApplyGameplayEffectToTarget",
+  "lib": "AbilitySystemComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.AbilitySystemComponent"
+   },
+   {
+    "name": "GameplayEffectClass",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/GameplayAbilities.GameplayEffect"
+   },
+   {
+    "name": "Target",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.AbilitySystemComponent"
+   },
+   {
+    "name": "Level",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "Context",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayEffectContextHandle",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "ActiveGameplayEffectHandle"
+   }
+  ],
+  "verified": true,
+  "desc": "Apply Gameplay Effect to Target",
+  "probe": "R71 проба (GE Active) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Apply Gameplay Effect to Target"
+ },
+ {
+  "id": "BP_ApplyGameplayEffectSpecToTarget",
+  "title": "BP Apply Gameplay Effect Spec To Target",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "BP_ApplyGameplayEffectSpecToTarget",
+  "lib": "AbilitySystemComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.AbilitySystemComponent"
+   },
+   {
+    "name": "SpecHandle",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayEffectSpecHandle",
+    "const": true,
+    "ref": true
+   },
+   {
+    "name": "Target",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.AbilitySystemComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "ActiveGameplayEffectHandle"
+   }
+  ],
+  "verified": true,
+  "desc": "Apply Gameplay Effect Spec to Target",
+  "probe": "R71 проба (GE Active) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Apply Gameplay Effect Spec to Target"
+ },
+ {
+  "id": "RemoveActiveEffectsWithTags",
+  "title": "Remove Active Effects With Tags",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "RemoveActiveEffectsWithTags",
+  "lib": "AbilitySystemComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.AbilitySystemComponent"
+   },
+   {
+    "name": "Tags",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayTagContainer",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "verified": true,
+  "desc": "Remove Active Effects with Tags",
+  "probe": "R71 проба (GE Active) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Remove Active Effects with Tags"
+ },
+ {
+  "id": "SetActiveGameplayEffectLevel",
+  "title": "Set Active Gameplay Effect Level",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetActiveGameplayEffectLevel",
+  "lib": "AbilitySystemComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.AbilitySystemComponent"
+   },
+   {
+    "name": "ActiveHandle",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "ActiveGameplayEffectHandle",
+    "const": true
+   },
+   {
+    "name": "NewLevel",
+    "dir": "Input",
+    "cat": "int"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Active Gameplay Effect Level",
+  "probe": "R71 проба (GE Active) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Active Gameplay Effect Level"
+ },
+ {
+  "id": "GetActiveGameplayEffectStackCount",
+  "title": "Get Active Gameplay Effect Stack Count",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetActiveGameplayEffectStackCount",
+  "lib": "AbilitySystemBlueprintLibrary",
+  "pins": [
+   {
+    "name": "ActiveHandle",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "ActiveGameplayEffectHandle",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Active Gameplay Effect Stack Count",
+  "probe": "R71 проба (GE Active) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Active Gameplay Effect Stack Count (pure)"
+ },
+ {
+  "id": "GetActiveGameplayEffectRemainingDuration",
+  "title": "Get Active Gameplay Effect Remaining Duration",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetActiveGameplayEffectRemainingDuration",
+  "lib": "AbilitySystemBlueprintLibrary",
+  "pins": [
+   {
+    "name": "ActiveHandle",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "ActiveGameplayEffectHandle",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Active Gameplay Effect Remaining Duration",
+  "probe": "R71 проба (GE Active) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Active Gameplay Effect Remaining Duration (pure)"
+ },
+ {
+  "id": "GetActiveGameplayEffectTotalDuration",
+  "title": "Get Active Gameplay Effect Total Duration",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetActiveGameplayEffectTotalDuration",
+  "lib": "AbilitySystemBlueprintLibrary",
+  "pins": [
+   {
+    "name": "ActiveHandle",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "ActiveGameplayEffectHandle",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Active Gameplay Effect Total Duration",
+  "probe": "R71 проба (GE Active) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Active Gameplay Effect Total Duration (pure)"
+ },
+ {
+  "id": "EffectContextGetInstigatorActor",
+  "title": "Effect Context Get Instigator Actor",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "EffectContextGetInstigatorActor",
+  "lib": "AbilitySystemBlueprintLibrary",
+  "pins": [
+   {
+    "name": "EffectContext",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayEffectContextHandle",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Effect Context Get Instigator Actor",
+  "probe": "R71 проба (GE Context) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Effect Context Get Instigator Actor (pure)"
+ },
+ {
+  "id": "EffectContextGetEffectCauser",
+  "title": "Effect Context Get Effect Causer",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "EffectContextGetEffectCauser",
+  "lib": "AbilitySystemBlueprintLibrary",
+  "pins": [
+   {
+    "name": "EffectContext",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayEffectContextHandle",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Effect Context Get Effect Causer",
+  "probe": "R71 проба (GE Context) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Effect Context Get Effect Causer (pure)"
+ },
+ {
+  "id": "EffectContextGetHitResult",
+  "title": "Effect Context Get Hit Result",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "EffectContextGetHitResult",
+  "lib": "AbilitySystemBlueprintLibrary",
+  "pins": [
+   {
+    "name": "EffectContext",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayEffectContextHandle",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "HitResult"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Effect Context Get Hit Result",
+  "probe": "R71 проба (GE Context) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Effect Context Get Hit Result (pure)"
+ },
+ {
+  "id": "EffectContextIsValid",
+  "title": "Effect Context Is Valid",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "EffectContextIsValid",
+  "lib": "AbilitySystemBlueprintLibrary",
+  "pins": [
+   {
+    "name": "EffectContext",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayEffectContextHandle",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Effect Context Is Valid",
+  "probe": "R71 проба (GE Context) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Effect Context Is Valid (pure)"
+ },
+ {
+  "id": "EffectContextAddHitResult",
+  "title": "Effect Context Add Hit Result",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "EffectContextAddHitResult",
+  "lib": "AbilitySystemBlueprintLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "EffectContext",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayEffectContextHandle",
+    "const": true
+   },
+   {
+    "name": "HitResult",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "HitResult",
+    "const": true
+   },
+   {
+    "name": "bReset",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Effect Context Add Hit Result",
+  "probe": "R71 проба (GE Context) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Effect Context Add Hit Result"
+ },
+ {
+  "id": "GetFloatAttributeBase",
+  "title": "Get Float Attribute Base",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetFloatAttributeBase",
+  "lib": "AbilitySystemBlueprintLibrary",
+  "pins": [
+   {
+    "name": "Actor",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "Attribute",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayAttribute",
+    "const": true
+   },
+   {
+    "name": "bSuccessfullyFoundAttribute",
+    "dir": "Output",
+    "cat": "bool"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Float Attribute Base",
+  "probe": "R71 проба (GE Context) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Float Attribute Base (pure)"
+ },
+ {
+  "id": "GetUserSettings",
+  "title": "Get User Settings",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetUserSettings",
+  "lib": "EnhancedInputLocalPlayerSubsystem",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.EnhancedInputLocalPlayerSubsystem"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.EnhancedInputUserSettings"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get User Settings",
+  "probe": "R71 проба (InputSettings) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get User Settings (pure)"
+ },
+ {
+  "id": "SaveSettings_EnhancedInputUserSettings",
+  "title": "Save Settings",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SaveSettings",
+  "lib": "EnhancedInputUserSettings",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.EnhancedInputUserSettings"
+   }
+  ],
+  "verified": true,
+  "desc": "Save Settings",
+  "probe": "R71 проба (InputSettings) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Save Settings"
+ },
+ {
+  "id": "ApplySettings_EnhancedInputUserSettings",
+  "title": "Apply Settings",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ApplySettings",
+  "lib": "EnhancedInputUserSettings",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.EnhancedInputUserSettings"
+   }
+  ],
+  "verified": true,
+  "desc": "Apply Settings",
+  "probe": "R71 проба (InputSettings) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Apply Settings"
+ },
+ {
+  "id": "RegisterInputMappingContext",
+  "title": "Register Input Mapping Context",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "RegisterInputMappingContext",
+  "lib": "EnhancedInputUserSettings",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.EnhancedInputUserSettings"
+   },
+   {
+    "name": "IMC",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.InputMappingContext"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Register Input Mapping Context",
+  "probe": "R71 проба (InputSettings) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Register Input Mapping Context"
+ },
+ {
+  "id": "IsMappingContextRegistered",
+  "title": "Is Mapping Context Registered",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsMappingContextRegistered",
+  "lib": "EnhancedInputUserSettings",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.EnhancedInputUserSettings"
+   },
+   {
+    "name": "IMC",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.InputMappingContext"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Mapping Context Registered",
+  "probe": "R71 проба (InputSettings) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Mapping Context Registered (pure)"
+ },
+ {
+  "id": "GetWaterBodyComponent",
+  "title": "Get Water Body Component",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetWaterBodyComponent",
+  "lib": "WaterBody",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Water.WaterBody"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Water.WaterBodyComponent"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Water Body Component",
+  "probe": "R71 проба (Water) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Water Body Component (pure)"
+ },
+ {
+  "id": "IsInWaterBody",
+  "title": "Is In Water Body",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsInWaterBody",
+  "lib": "BuoyancyComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Water.BuoyancyComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is In Water Body",
+  "probe": "R71 проба (Water) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is In Water Body (Buoyancy, pure)"
+ },
+ {
+  "id": "IsOverlappingWaterBody",
+  "title": "Is Overlapping Water Body",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsOverlappingWaterBody",
+  "lib": "BuoyancyComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Water.BuoyancyComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Overlapping Water Body",
+  "probe": "R71 проба (Water) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Overlapping Water Body (Buoyancy, pure)"
  }
 ]

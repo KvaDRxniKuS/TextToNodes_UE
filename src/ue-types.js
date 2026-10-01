@@ -134,6 +134,9 @@ const LIBS_FULL = {
   EnhancedInputUserSettings: `"/Script/CoreUObject.Class'/Script/EnhancedInput.EnhancedInputUserSettings'"`, // R71
   WaterBody: `"/Script/CoreUObject.Class'/Script/Water.WaterBody'"`, // R71
   BuoyancyComponent: `"/Script/CoreUObject.Class'/Script/Water.BuoyancyComponent'"`, // R71
+  MediaPlayer: `"/Script/CoreUObject.Class'/Script/MediaAssets.MediaPlayer'"`, // R72
+  CineCameraComponent: `"/Script/CoreUObject.Class'/Script/CinematicCamera.CineCameraComponent'"`, // R72
+  StateTreeComponent: `"/Script/CoreUObject.Class'/Script/StateTreeModule.StateTreeComponent'"`, // R72
   LightComponentBase: `"/Script/CoreUObject.Class'/Script/Engine.LightComponentBase'"`, // R45 VERIFIED
   SpotLightComponent: `"/Script/CoreUObject.Class'/Script/Engine.SpotLightComponent'"`, // R45 VERIFIED
   PointLightComponent: `"/Script/CoreUObject.Class'/Script/Engine.PointLightComponent'"`, // R45 VERIFIED
@@ -254,6 +257,9 @@ const LIBS_SHORT = {
   EnhancedInputUserSettings: `Class'"/Script/EnhancedInput.EnhancedInputUserSettings"'`,
   WaterBody: `Class'"/Script/Water.WaterBody"'`,
   BuoyancyComponent: `Class'"/Script/Water.BuoyancyComponent"'`,
+  MediaPlayer: `Class'"/Script/MediaAssets.MediaPlayer"'`,
+  CineCameraComponent: `Class'"/Script/CinematicCamera.CineCameraComponent"'`,
+  StateTreeComponent: `Class'"/Script/StateTreeModule.StateTreeComponent"'`,
   PhysicsConstraintComponent: `Class'"/Script/Engine.PhysicsConstraintComponent"'`,
   PhysicsHandleComponent: `Class'"/Script/Engine.PhysicsHandleComponent"'`,
   BlueprintMapLibrary: `Class'"/Script/Engine.BlueprintMapLibrary"'`,

@@ -1386,4 +1386,7 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 ## R70 — GAS (ASC/эффекты/GameplayAbility) + Motion Warping (VERIFIED 22/23)
 - AbilitySystemComponent.SetNumericAttributeBase НЕ создаётся как нода в 5.8 (менять атрибуты — через Gameplay Effect).
 
-## R71 — Gameplay Effect / Enhanced Input User Settings / Water (ждёт вердикта)
+## R71 — Gameplay Effect / Enhanced Input User Settings / Water (VERIFIED, reg +29)
+- BuoyancyComponent.IsInWater НЕ существует → IsInWaterBody / IsOverlappingWaterBody (copy-back пользователя).
+
+## R72 — Media Player / Cine Camera / State Tree / Sound Mix (ждёт вердикта)
