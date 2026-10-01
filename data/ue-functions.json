@@ -47961,5 +47961,539 @@
   "verified": true,
   "desc": "Make Literal Text",
   "probe": "R61 проба (Literal) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Make Literal Text"
+ },
+ {
+  "id": "GetAbilitySystemComponent",
+  "title": "Get Ability System Component",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetAbilitySystemComponent",
+  "lib": "AbilitySystemBlueprintLibrary",
+  "pins": [
+   {
+    "name": "Actor",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.AbilitySystemComponent"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "R61g · GAS: Get Ability System Component",
+  "probe": "R61g проба (GAS) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R61g · GAS: Get Ability System Component (pure)"
+ },
+ {
+  "id": "SendGameplayEventToActor",
+  "title": "Send Gameplay Event To Actor",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SendGameplayEventToActor",
+  "lib": "AbilitySystemBlueprintLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Actor",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "EventTag",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayTag",
+    "const": true
+   },
+   {
+    "name": "Payload",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayEventData",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "R61g · GAS: Send Gameplay Event to Actor",
+  "probe": "R61g проба (GAS) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R61g · GAS: Send Gameplay Event to Actor"
+ },
+ {
+  "id": "AddLooseGameplayTags",
+  "title": "Add Loose Gameplay Tags",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AddLooseGameplayTags",
+  "lib": "AbilitySystemBlueprintLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Actor",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "GameplayTags",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayTagContainer",
+    "const": true,
+    "ref": true
+   },
+   {
+    "name": "bShouldReplicate",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false",
+    "autoDv": ""
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "R61g · GAS: Add Loose Gameplay Tags",
+  "probe": "R61g проба (GAS) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R61g · GAS: Add Loose Gameplay Tags"
+ },
+ {
+  "id": "RemoveLooseGameplayTags",
+  "title": "Remove Loose Gameplay Tags",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "RemoveLooseGameplayTags",
+  "lib": "AbilitySystemBlueprintLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Actor",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "GameplayTags",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayTagContainer",
+    "const": true,
+    "ref": true
+   },
+   {
+    "name": "bShouldReplicate",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false",
+    "autoDv": ""
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "R61g · GAS: Remove Loose Gameplay Tags",
+  "probe": "R61g проба (GAS) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R61g · GAS: Remove Loose Gameplay Tags"
+ },
+ {
+  "id": "GetFloatAttribute",
+  "title": "Get Float Attribute",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetFloatAttribute",
+  "lib": "AbilitySystemBlueprintLibrary",
+  "pins": [
+   {
+    "name": "Actor",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   },
+   {
+    "name": "Attribute",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayAttribute",
+    "const": true
+   },
+   {
+    "name": "bSuccessfullyFoundAttribute",
+    "dir": "Output",
+    "cat": "bool"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "R61g · GAS: Get Float Attribute",
+  "probe": "R61g проба (GAS) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R61g · GAS: Get Float Attribute (pure)"
+ },
+ {
+  "id": "TryActivateAbilitiesByTag",
+  "title": "Try Activate Abilities By Tag",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "TryActivateAbilitiesByTag",
+  "lib": "AbilitySystemComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.AbilitySystemComponent"
+   },
+   {
+    "name": "GameplayTagContainer",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayTagContainer",
+    "const": true,
+    "ref": true
+   },
+   {
+    "name": "bAllowRemoteActivation",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "R61g · ASC: Try Activate Abilities by Tag",
+  "probe": "R61g проба (ASC) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R61g · ASC: Try Activate Abilities by Tag"
+ },
+ {
+  "id": "TryActivateAbilityByClass",
+  "title": "Try Activate Ability By Class",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "TryActivateAbilityByClass",
+  "lib": "AbilitySystemComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.AbilitySystemComponent"
+   },
+   {
+    "name": "InAbilityToActivate",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/GameplayAbilities.GameplayAbility"
+   },
+   {
+    "name": "bAllowRemoteActivation",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "R61g · ASC: Try Activate Ability by Class",
+  "probe": "R61g проба (ASC) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R61g · ASC: Try Activate Ability by Class"
+ },
+ {
+  "id": "K2_GiveAbility",
+  "title": "K2 Give Ability",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_GiveAbility",
+  "lib": "AbilitySystemComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.AbilitySystemComponent"
+   },
+   {
+    "name": "AbilityClass",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/GameplayAbilities.GameplayAbility"
+   },
+   {
+    "name": "Level",
+    "dir": "Input",
+    "cat": "int",
+    "dv": "0",
+    "autoDv": ""
+   },
+   {
+    "name": "InputID",
+    "dir": "Input",
+    "cat": "int",
+    "dv": "-1",
+    "autoDv": ""
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "GameplayAbilitySpecHandle"
+   }
+  ],
+  "verified": true,
+  "desc": "R61g · ASC: Give Ability",
+  "probe": "R61g проба (ASC) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R61g · ASC: Give Ability (K2_GiveAbility)"
+ },
+ {
+  "id": "MakeEffectContext",
+  "title": "Make Effect Context",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "MakeEffectContext",
+  "lib": "AbilitySystemComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.AbilitySystemComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "GameplayEffectContextHandle"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "R61g · ASC: Make Effect Context",
+  "probe": "R61g проба (ASC) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R61g · ASC: Make Effect Context (pure)"
+ },
+ {
+  "id": "BP_ApplyGameplayEffectToSelf",
+  "title": "BP Apply Gameplay Effect To Self",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "BP_ApplyGameplayEffectToSelf",
+  "lib": "AbilitySystemComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.AbilitySystemComponent"
+   },
+   {
+    "name": "GameplayEffectClass",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/GameplayAbilities.GameplayEffect"
+   },
+   {
+    "name": "Level",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "EffectContext",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayEffectContextHandle",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "ActiveGameplayEffectHandle"
+   }
+  ],
+  "verified": true,
+  "desc": "R61g · ASC: Apply Gameplay Effect to Self",
+  "probe": "R61g проба (ASC) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R61g · ASC: Apply Gameplay Effect to Self"
+ },
+ {
+  "id": "RemoveActiveGameplayEffect",
+  "title": "Remove Active Gameplay Effect",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "RemoveActiveGameplayEffect",
+  "lib": "AbilitySystemComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.AbilitySystemComponent"
+   },
+   {
+    "name": "Handle",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "ActiveGameplayEffectHandle",
+    "const": true
+   },
+   {
+    "name": "StacksToRemove",
+    "dir": "Input",
+    "cat": "int",
+    "dv": "-1",
+    "autoDv": ""
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "R61g · ASC: Remove Active Gameplay Effect",
+  "probe": "R61g проба (ASC) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R61g · ASC: Remove Active Gameplay Effect"
+ },
+ {
+  "id": "GetGameplayAttributeValue",
+  "title": "Get Gameplay Attribute Value",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetGameplayAttributeValue",
+  "lib": "AbilitySystemComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.AbilitySystemComponent"
+   },
+   {
+    "name": "Attribute",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayAttribute",
+    "const": true
+   },
+   {
+    "name": "bFound",
+    "dir": "Output",
+    "cat": "bool"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "R61g · ASC: Get Gameplay Attribute Value",
+  "probe": "R61g проба (ASC) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R61g · ASC: Get Gameplay Attribute Value (pure)"
  }
 ]

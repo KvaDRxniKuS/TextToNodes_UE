@@ -1136,7 +1136,6 @@ const BATCHES = {
     ['ASC', 'Apply Gameplay Effect to Self', mem('AbilitySystemComponent.BP_ApplyGameplayEffectToSelf', ['GameplayEffectClass:class:/Script/GameplayAbilities.GameplayEffect', 'Level:float', 'EffectContext:gameplayeffectcontexthandle', '->', 'ReturnValue:activegameplayeffecthandle'])],
     ['ASC', 'Remove Active Gameplay Effect', mem('AbilitySystemComponent.RemoveActiveGameplayEffect', ['Handle:activegameplayeffecthandle', 'StacksToRemove:int=-1', '->', 'ReturnValue:bool'])],
     ['ASC', 'Get Gameplay Attribute Value (pure)', mem('AbilitySystemComponent.GetGameplayAttributeValue', ['Attribute:gameplayattribute', '->', 'bFound:bool', 'ReturnValue:float'], true)],
-    ['ASC', 'Get Owned Gameplay Tags (pure)', mem('AbilitySystemComponent.GetOwnedGameplayTags', ['->', 'ReturnValue:gameplaytagcontainer'], true)],
   ],
 };
 
