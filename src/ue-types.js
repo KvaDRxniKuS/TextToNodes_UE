@@ -44,6 +44,9 @@ const LIBS_FULL = {
   LevelSequencePlayer: `"/Script/CoreUObject.Class'/Script/LevelSequence.LevelSequencePlayer'"`, // R58 VERIFIED
   LevelSequenceActor: `"/Script/CoreUObject.Class'/Script/LevelSequence.LevelSequenceActor'"`, // R58 VERIFIED
   MovieSceneSequencePlayer: `"/Script/CoreUObject.Class'/Script/MovieScene.MovieSceneSequencePlayer'"`, // R58 VERIFIED
+  FindSessionsCallbackProxy: `"/Script/CoreUObject.Class'/Script/OnlineSubsystemUtils.FindSessionsCallbackProxy'"`, // R61
+  AbilitySystemBlueprintLibrary: `"/Script/CoreUObject.Class'/Script/GameplayAbilities.AbilitySystemBlueprintLibrary'"`, // R61
+  AbilitySystemComponent: `"/Script/CoreUObject.Class'/Script/GameplayAbilities.AbilitySystemComponent'"`, // R61
   CancellableAsyncAction: `"/Script/CoreUObject.Class'/Script/Engine.CancellableAsyncAction'"`, // R56 copy-back
   WidgetSwitcher: `"/Script/CoreUObject.Class'/Script/UMG.WidgetSwitcher'"`, // R54 проба
   ListView: `"/Script/CoreUObject.Class'/Script/UMG.ListView'"`, // R54 проба
@@ -136,6 +139,9 @@ const LIBS_SHORT = {
   LevelSequencePlayer: `Class'"/Script/LevelSequence.LevelSequencePlayer"'`,
   LevelSequenceActor: `Class'"/Script/LevelSequence.LevelSequenceActor"'`,
   MovieSceneSequencePlayer: `Class'"/Script/MovieScene.MovieSceneSequencePlayer"'`,
+  FindSessionsCallbackProxy: `Class'"/Script/OnlineSubsystemUtils.FindSessionsCallbackProxy"'`,
+  AbilitySystemBlueprintLibrary: `Class'"/Script/GameplayAbilities.AbilitySystemBlueprintLibrary"'`,
+  AbilitySystemComponent: `Class'"/Script/GameplayAbilities.AbilitySystemComponent"'`,
   CancellableAsyncAction: `Class'"/Script/Engine.CancellableAsyncAction"'`,
   WidgetSwitcher: `Class'"/Script/UMG.WidgetSwitcher"'`,
   ListView: `Class'"/Script/UMG.ListView"'`,
@@ -216,6 +222,12 @@ const STRUCTS_FULL = {
   Transform:   `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Transform'"`,
   LinearColor: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.LinearColor'"`, // confirmed (copy-back H1/J5)
   MovieSceneSequencePlaybackSettings: `"/Script/CoreUObject.ScriptStruct'/Script/MovieScene.MovieSceneSequencePlaybackSettings'"`, // R58 VERIFIED
+  BlueprintSessionResult: `"/Script/CoreUObject.ScriptStruct'/Script/OnlineSubsystemUtils.BlueprintSessionResult'"`, // R61
+  GameplayEventData: `"/Script/CoreUObject.ScriptStruct'/Script/GameplayAbilities.GameplayEventData'"`, // R61
+  GameplayEffectContextHandle: `"/Script/CoreUObject.ScriptStruct'/Script/GameplayAbilities.GameplayEffectContextHandle'"`, // R61
+  ActiveGameplayEffectHandle: `"/Script/CoreUObject.ScriptStruct'/Script/GameplayAbilities.ActiveGameplayEffectHandle'"`, // R61
+  GameplayAbilitySpecHandle: `"/Script/CoreUObject.ScriptStruct'/Script/GameplayAbilities.GameplayAbilitySpecHandle'"`, // R61
+  GameplayAttribute: `"/Script/CoreUObject.ScriptStruct'/Script/GameplayAbilities.GameplayAttribute'"`, // R61
   Margin: `"/Script/CoreUObject.ScriptStruct'/Script/SlateCore.Margin'"`, // R55 VERIFIED
   SlateColor: `"/Script/CoreUObject.ScriptStruct'/Script/SlateCore.SlateColor'"`, // R55 VERIFIED
   SlateFontInfo: `"/Script/CoreUObject.ScriptStruct'/Script/SlateCore.SlateFontInfo'"`, // R55 VERIFIED
@@ -245,6 +257,12 @@ const STRUCTS_SHORT = {
   Transform:        `ScriptStruct'"/Script/CoreUObject.Transform"'`,
   LinearColor:      `ScriptStruct'"/Script/CoreUObject.LinearColor"'`,
   MovieSceneSequencePlaybackSettings: `ScriptStruct'"/Script/MovieScene.MovieSceneSequencePlaybackSettings"'`,
+  BlueprintSessionResult: `ScriptStruct'"/Script/OnlineSubsystemUtils.BlueprintSessionResult"'`,
+  GameplayEventData: `ScriptStruct'"/Script/GameplayAbilities.GameplayEventData"'`,
+  GameplayEffectContextHandle: `ScriptStruct'"/Script/GameplayAbilities.GameplayEffectContextHandle"'`,
+  ActiveGameplayEffectHandle: `ScriptStruct'"/Script/GameplayAbilities.ActiveGameplayEffectHandle"'`,
+  GameplayAbilitySpecHandle: `ScriptStruct'"/Script/GameplayAbilities.GameplayAbilitySpecHandle"'`,
+  GameplayAttribute: `ScriptStruct'"/Script/GameplayAbilities.GameplayAttribute"'`,
   Margin: `ScriptStruct'"/Script/SlateCore.Margin"'`,
   SlateColor: `ScriptStruct'"/Script/SlateCore.SlateColor"'`,
   SlateFontInfo: `ScriptStruct'"/Script/SlateCore.SlateFontInfo"'`,

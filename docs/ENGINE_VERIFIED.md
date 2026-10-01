@@ -1338,3 +1338,8 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
   (родитель bHidden + SubPins, дети `[0]_Location/_Rotation/_Scale` с ParentPin и LOCGEN-подписью; глубже — `_X`, `_Roll/_Pitch/_Yaw` с sub float).
   Генератор: `splitTransformPin` (modules.js), parser — поля pin.subPins / parentPin / friendlyRaw. Проверка — R60b.
 - **R60b VERIFIED**: Transform разбитым пином сохраняет значения (1 и 2 элемента).
+
+## R61 — Online-сессии, GAS, Literal (ждёт вердикта)
+- Online: `createAsyncAction({online:true,...})` → K2Node_LatentOnlineCall (OnlineBlueprintSupport); Create/Find/Join/DestroySession (OnSuccess/OnFailure) + FindSessionsCallbackProxy GetPingInMs/GetServerName/GetCurrentPlayers/GetMaxPlayers.
+- GAS (плагин Gameplay Abilities): AbilitySystemBlueprintLibrary ×5, AbilitySystemComponent ×8. STRUCTS += BlueprintSessionResult, GameplayEventData, GameplayEffectContextHandle, ActiveGameplayEffectHandle, GameplayAbilitySpecHandle, GameplayAttribute.
+- Literal: KismetSystemLibrary.MakeLiteral* ×7. K2Node_Literal (ссылка на актор уровня) — только в Level Blueprint, текстом не генерируем.

@@ -20,6 +20,7 @@ import * as SP from '../src/special-nodes.js';
 import { categoryFor } from '../src/categories.js';
 
 const args = process.argv.slice(2);
+const PC_ = 'PlayerController:object:PlayerController';
 const BPI = '/Game/Interaction/BPI_Interaction.BPI_Interaction_C';
 const HIT = "/Script/CoreUObject.ScriptStruct'/Script/Engine.HitResult'";
 const TAG = "/Script/CoreUObject.ScriptStruct'/Script/GameplayTags.GameplayTag'";
@@ -1097,6 +1098,42 @@ const BATCHES = {
     // R60 вердикт: всё встало, кроме значения Transform — целый Transform-пин значение теряет. Теперь — разбитый пин (Split Struct Pin).
     ['Transform', 'Make Array transform — разбитый пин: loc 0,0,100 rot 0,90,0 scale 2', () => createMakeContainer('array', 'transform', [{ loc: [0, 0, 100], rot: [0, 90, 0], scale: [2, 2, 2] }])],
     ['Transform', 'Make Array transform ×2 — loc 100,0,0 / scale 0.5', () => createMakeContainer('array', 'transform', [{ loc: [100, 0, 0] }, { scale: [0.5, 0.5, 0.5] }])],
+  ],
+  '61': [
+    // R61: пропуски покрытия. Online — K2Node_LatentOnlineCall (нужен плагин Online Subsystem, в UE включён по умолчанию).
+    // GAS — нужен плагин Gameplay Abilities (Edit → Plugins). Literal — MakeLiteral* KismetSystemLibrary.
+    ['Online', 'Create Session (OnSuccess/OnFailure)', () => createAsyncAction({ online: true, proxy: '/Script/OnlineSubsystemUtils.CreateSessionCallbackProxy', factory: 'CreateSession',
+      events: ['OnSuccess', 'OnFailure'], inputs: [PC_, 'PublicConnections:int=0', 'bUseLAN:bool=false', 'bUseLobbiesIfAvailable:bool=true'] })],
+    ['Online', 'Find Sessions (Results[])', () => createAsyncAction({ online: true, proxy: '/Script/OnlineSubsystemUtils.FindSessionsCallbackProxy', factory: 'FindSessions',
+      events: ['OnSuccess', 'OnFailure'], outputs: ['Results:blueprintsessionresult[]'], inputs: [PC_, 'MaxResults:int=0', 'bUseLAN:bool=false'] })],
+    ['Online', 'Join Session', () => createAsyncAction({ online: true, proxy: '/Script/OnlineSubsystemUtils.JoinSessionCallbackProxy', factory: 'JoinSession',
+      events: ['OnSuccess', 'OnFailure'], inputs: [PC_, 'SearchResult:blueprintsessionresult'] })],
+    ['Online', 'Destroy Session', () => createAsyncAction({ online: true, proxy: '/Script/OnlineSubsystemUtils.DestroySessionCallbackProxy', factory: 'DestroySession',
+      events: ['OnSuccess', 'OnFailure'], inputs: [PC_] })],
+    ['Session', 'Get Ping in Ms (pure)', pf(lib('FindSessionsCallbackProxy.GetPingInMs', ['Result:blueprintsessionresult', '->', 'ReturnValue:int'], true), { Result: '&!' })],
+    ['Session', 'Get Server Name (pure)', pf(lib('FindSessionsCallbackProxy.GetServerName', ['Result:blueprintsessionresult', '->', 'ReturnValue:string'], true), { Result: '&!' })],
+    ['Session', 'Get Current Players (pure)', pf(lib('FindSessionsCallbackProxy.GetCurrentPlayers', ['Result:blueprintsessionresult', '->', 'ReturnValue:int'], true), { Result: '&!' })],
+    ['Session', 'Get Max Players (pure)', pf(lib('FindSessionsCallbackProxy.GetMaxPlayers', ['Result:blueprintsessionresult', '->', 'ReturnValue:int'], true), { Result: '&!' })],
+    ['GAS', 'Get Ability System Component (pure)', lib('AbilitySystemBlueprintLibrary.GetAbilitySystemComponent', ['Actor:object:Actor', '->', 'ReturnValue:object:/Script/GameplayAbilities.AbilitySystemComponent'], true)],
+    ['GAS', 'Send Gameplay Event to Actor', lib('AbilitySystemBlueprintLibrary.SendGameplayEventToActor', ['Actor:object:Actor', 'EventTag:gameplaytag', 'Payload:gameplayeventdata'])],
+    ['GAS', 'Add Loose Gameplay Tags', pf(lib('AbilitySystemBlueprintLibrary.AddLooseGameplayTags', ['Actor:object:Actor', 'GameplayTags:gameplaytagcontainer', 'bShouldReplicate:bool=false', '->', 'ReturnValue:bool']), { GameplayTags: '&!' })],
+    ['GAS', 'Remove Loose Gameplay Tags', pf(lib('AbilitySystemBlueprintLibrary.RemoveLooseGameplayTags', ['Actor:object:Actor', 'GameplayTags:gameplaytagcontainer', 'bShouldReplicate:bool=false', '->', 'ReturnValue:bool']), { GameplayTags: '&!' })],
+    ['GAS', 'Get Float Attribute (pure)', lib('AbilitySystemBlueprintLibrary.GetFloatAttribute', ['Actor:object:Actor', 'Attribute:gameplayattribute', '->', 'bSuccessfullyFoundAttribute:bool', 'ReturnValue:float'], true)],
+    ['ASC', 'Try Activate Abilities by Tag', pf(mem('AbilitySystemComponent.TryActivateAbilitiesByTag', ['GameplayTagContainer:gameplaytagcontainer', 'bAllowRemoteActivation:bool=true', '->', 'ReturnValue:bool']), { GameplayTagContainer: '&!' })],
+    ['ASC', 'Try Activate Ability by Class', mem('AbilitySystemComponent.TryActivateAbilityByClass', ['InAbilityToActivate:class:/Script/GameplayAbilities.GameplayAbility', 'bAllowRemoteActivation:bool=true', '->', 'ReturnValue:bool'])],
+    ['ASC', 'Give Ability (K2_GiveAbility)', mem('AbilitySystemComponent.K2_GiveAbility', ['AbilityClass:class:/Script/GameplayAbilities.GameplayAbility', 'Level:int=0', 'InputID:int=-1', '->', 'ReturnValue:gameplayabilityspechandle'])],
+    ['ASC', 'Make Effect Context (pure)', mem('AbilitySystemComponent.MakeEffectContext', ['->', 'ReturnValue:gameplayeffectcontexthandle'], true)],
+    ['ASC', 'Apply Gameplay Effect to Self', mem('AbilitySystemComponent.BP_ApplyGameplayEffectToSelf', ['GameplayEffectClass:class:/Script/GameplayAbilities.GameplayEffect', 'Level:float', 'EffectContext:gameplayeffectcontexthandle', '->', 'ReturnValue:activegameplayeffecthandle'])],
+    ['ASC', 'Remove Active Gameplay Effect', mem('AbilitySystemComponent.RemoveActiveGameplayEffect', ['Handle:activegameplayeffecthandle', 'StacksToRemove:int=-1', '->', 'ReturnValue:bool'])],
+    ['ASC', 'Get Gameplay Attribute Value (pure)', mem('AbilitySystemComponent.GetGameplayAttributeValue', ['Attribute:gameplayattribute', '->', 'bFound:bool', 'ReturnValue:float'], true)],
+    ['ASC', 'Get Owned Gameplay Tags (pure)', mem('AbilitySystemComponent.GetOwnedGameplayTags', ['->', 'ReturnValue:gameplaytagcontainer'], true)],
+    ['Literal', 'Make Literal Bool', lib('KismetSystemLibrary.MakeLiteralBool', ['Value:bool', '->', 'ReturnValue:bool'], true)],
+    ['Literal', 'Make Literal Float (double)', lib('KismetSystemLibrary.MakeLiteralDouble', ['Value:float', '->', 'ReturnValue:float'], true)],
+    ['Literal', 'Make Literal Byte', lib('KismetSystemLibrary.MakeLiteralByte', ['Value:byte', '->', 'ReturnValue:byte'], true)],
+    ['Literal', 'Make Literal Int64', lib('KismetSystemLibrary.MakeLiteralInt64', ['Value:int64', '->', 'ReturnValue:int64'], true)],
+    ['Literal', 'Make Literal String', lib('KismetSystemLibrary.MakeLiteralString', ['Value:string', '->', 'ReturnValue:string'], true)],
+    ['Literal', 'Make Literal Name', lib('KismetSystemLibrary.MakeLiteralName', ['Value:name', '->', 'ReturnValue:name'], true)],
+    ['Literal', 'Make Literal Text', lib('KismetSystemLibrary.MakeLiteralText', ['Value:text', '->', 'ReturnValue:text'], true)],
   ],
 };
 

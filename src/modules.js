@@ -412,8 +412,10 @@ export function createCall(key, words = [], { pure = false, isStatic = false } =
  *  ProxyFactoryFunctionName/ProxyFactoryClass/ProxyClass + execute/then + exec-выходы делегатов + их параметры + входы фабрики.
  *  createAsyncAction({ proxy: '/Script/Engine.AsyncActionHandleSaveGame', factory: 'AsyncSaveGameToSlot',
  *    inputs: ['SaveGameObject:object:SaveGame', 'SlotName:string', 'UserIndex:int'], events: ['Completed'], outputs: ['SaveGame:object:SaveGame', 'bSuccess:bool'] }) */
-export function createAsyncAction({ proxy, factory, factoryClass = proxy, inputs = [], events = ['Completed'], outputs = [] }, pos) {
+// R61: online = true → K2Node_LatentOnlineCall (OnlineBlueprintSupport): Create/Find/Join/DestroySession и пр. CallbackProxy онлайн-подсистемы.
+export function createAsyncAction({ proxy, factory, factoryClass = proxy, inputs = [], events = ['Completed'], outputs = [], online = false }, pos) {
   const n = node('K2Node_AsyncAction', pos);
+  if (online) { n.rawClass = '/Script/OnlineBlueprintSupport.K2Node_LatentOnlineCall'; n.className = 'OnlineBlueprintSupport.K2Node_LatentOnlineCall'; n.id = n.id.replace('K2Node_AsyncAction', 'K2Node_LatentOnlineCall'); }
   n.title = factory;
   n.rawProps = [`ProxyFactoryFunctionName="${factory}"`, `ProxyFactoryClass="/Script/CoreUObject.Class'${factoryClass}'"`, `ProxyClass="/Script/CoreUObject.Class'${proxy}'"`];
   n.pins.push(mkPin('execute', 'Input', 'exec'), mkPin('then', 'Output', 'exec'));

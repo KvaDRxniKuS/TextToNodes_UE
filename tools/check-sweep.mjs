@@ -39,6 +39,7 @@ const RECIPES = [
   ['collapsed-knot 1×3 (3 уровня)', ['node', 'tools/gen-collapsed-knot.mjs', '--inputs', '1', '--outputs', '3', '--levels', '3'], ['sweep/layout/collapsed-knot-1x3-3levels.txt']],
   ['current-pipeline smoke', ['node', 'tools/gen-pipeline-smoke.mjs'], ['sweep/layout/pipeline-smoke.txt']],
   ['dispatcher bound probe', ['node', 'tools/gen-dispatcher-bound.mjs'], ['sweep/chapters/dispatcher-bound.txt']],
+  ['R61 probe: Online / GAS / Literal (ждёт вердикта)', ['node', 'tools/gen-probe.mjs', '--batch', '61'], ['sweep/probes/r61-probe.txt']],
   ['structured section demo', ['node', 'tools/gen-structured-demo.mjs'], ['sweep/layout/structured-demo.txt']],
   ['HUD health demo (VERIFIED)', ['node', 'tools/gen-hud-demo.mjs'], ['sweep/chapters/hud-health-demo.txt']],
 ];
