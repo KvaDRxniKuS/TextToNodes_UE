@@ -1313,3 +1313,4 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 
 ## 2026-10-01 — R58 проба: Level Sequence + Physics Constraint (ждёт вердикта)
 `gen-probe --batch 58` → `sweep/probes/r58-probe.txt`, 38 нод: Sequence 3, Player 15, Constraint 20. UE_LIBS += LevelSequencePlayer, LevelSequenceActor (LevelSequence), MovieSceneSequencePlayer (MovieScene); STRUCTS += MovieSceneSequencePlaybackSettings.
+- R58 вердикт: 38/38 встали → `--register`. Проба удалена.

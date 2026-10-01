@@ -41,9 +41,9 @@ const LIBS_FULL = {
   ActorComponent: `"/Script/CoreUObject.Class'/Script/Engine.ActorComponent'"`, // round29-pre
   DataTableFunctionLibrary: `"/Script/CoreUObject.Class'/Script/Engine.DataTableFunctionLibrary'"`, // R37 (R36 VERIFIED)
   AIBlueprintHelperLibrary: `"/Script/CoreUObject.Class'/Script/AIModule.AIBlueprintHelperLibrary'"`,
-  LevelSequencePlayer: `"/Script/CoreUObject.Class'/Script/LevelSequence.LevelSequencePlayer'"`, // R58 проба
-  LevelSequenceActor: `"/Script/CoreUObject.Class'/Script/LevelSequence.LevelSequenceActor'"`, // R58 проба
-  MovieSceneSequencePlayer: `"/Script/CoreUObject.Class'/Script/MovieScene.MovieSceneSequencePlayer'"`, // R58 проба
+  LevelSequencePlayer: `"/Script/CoreUObject.Class'/Script/LevelSequence.LevelSequencePlayer'"`, // R58 VERIFIED
+  LevelSequenceActor: `"/Script/CoreUObject.Class'/Script/LevelSequence.LevelSequenceActor'"`, // R58 VERIFIED
+  MovieSceneSequencePlayer: `"/Script/CoreUObject.Class'/Script/MovieScene.MovieSceneSequencePlayer'"`, // R58 VERIFIED
   CancellableAsyncAction: `"/Script/CoreUObject.Class'/Script/Engine.CancellableAsyncAction'"`, // R56 copy-back
   WidgetSwitcher: `"/Script/CoreUObject.Class'/Script/UMG.WidgetSwitcher'"`, // R54 проба
   ListView: `"/Script/CoreUObject.Class'/Script/UMG.ListView'"`, // R54 проба
@@ -215,7 +215,7 @@ const STRUCTS_FULL = {
   Quat:        `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Quat'"`, // R33 copy-back: Quat_IsNormalized
   Transform:   `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Transform'"`,
   LinearColor: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.LinearColor'"`, // confirmed (copy-back H1/J5)
-  MovieSceneSequencePlaybackSettings: `"/Script/CoreUObject.ScriptStruct'/Script/MovieScene.MovieSceneSequencePlaybackSettings'"`, // R58 проба
+  MovieSceneSequencePlaybackSettings: `"/Script/CoreUObject.ScriptStruct'/Script/MovieScene.MovieSceneSequencePlaybackSettings'"`, // R58 VERIFIED
   Margin: `"/Script/CoreUObject.ScriptStruct'/Script/SlateCore.Margin'"`, // R55 VERIFIED
   SlateColor: `"/Script/CoreUObject.ScriptStruct'/Script/SlateCore.SlateColor'"`, // R55 VERIFIED
   SlateFontInfo: `"/Script/CoreUObject.ScriptStruct'/Script/SlateCore.SlateFontInfo'"`, // R55 VERIFIED

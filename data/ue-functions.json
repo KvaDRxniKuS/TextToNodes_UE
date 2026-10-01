@@ -46323,5 +46323,1354 @@
   "verified": true,
   "desc": "R56b · Async: Cancel",
   "probe": "R56b проба (Async) → VERIFIED движком 2026-09-30; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R56b · Async: Cancel (член CancellableAsyncAction)"
+ },
+ {
+  "id": "CreateLevelSequencePlayer",
+  "title": "Create Level Sequence Player",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "CreateLevelSequencePlayer",
+  "lib": "LevelSequencePlayer",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "LevelSequence",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/LevelSequence.LevelSequence"
+   },
+   {
+    "name": "Settings",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "MovieSceneSequencePlaybackSettings",
+    "const": true
+   },
+   {
+    "name": "OutActor",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/LevelSequence.LevelSequenceActor"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/LevelSequence.LevelSequencePlayer"
+   }
+  ],
+  "verified": true,
+  "desc": "Create Level Sequence Player",
+  "probe": "R58 проба (Sequence) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Create Level Sequence Player (LevelSequencePlayer, static)"
+ },
+ {
+  "id": "GetSequencePlayer",
+  "title": "Get Sequence Player",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetSequencePlayer",
+  "lib": "LevelSequenceActor",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/LevelSequence.LevelSequenceActor"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/LevelSequence.LevelSequencePlayer"
+   }
+  ],
+  "verified": true,
+  "desc": "Get Sequence Player",
+  "probe": "R58 проба (Sequence) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Sequence Player (член LevelSequenceActor)"
+ },
+ {
+  "id": "SetSequence",
+  "title": "Set Sequence",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetSequence",
+  "lib": "LevelSequenceActor",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/LevelSequence.LevelSequenceActor"
+   },
+   {
+    "name": "InSequence",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/LevelSequence.LevelSequence"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Sequence",
+  "probe": "R58 проба (Sequence) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Sequence (член LevelSequenceActor)"
+ },
+ {
+  "id": "Play_MovieSceneSequencePlayer",
+  "title": "Play",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Play",
+  "lib": "MovieSceneSequencePlayer",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/MovieScene.MovieSceneSequencePlayer"
+   }
+  ],
+  "verified": true,
+  "desc": "Play",
+  "probe": "R58 проба (Player) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Play (член MovieSceneSequencePlayer)"
+ },
+ {
+  "id": "PlayReverse",
+  "title": "Play Reverse",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "PlayReverse",
+  "lib": "MovieSceneSequencePlayer",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/MovieScene.MovieSceneSequencePlayer"
+   }
+  ],
+  "verified": true,
+  "desc": "Play Reverse",
+  "probe": "R58 проба (Player) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Play Reverse (член MovieSceneSequencePlayer)"
+ },
+ {
+  "id": "Pause",
+  "title": "Pause",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Pause",
+  "lib": "MovieSceneSequencePlayer",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/MovieScene.MovieSceneSequencePlayer"
+   }
+  ],
+  "verified": true,
+  "desc": "Pause",
+  "probe": "R58 проба (Player) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Pause (член MovieSceneSequencePlayer)"
+ },
+ {
+  "id": "Stop_MovieSceneSequencePlayer",
+  "title": "Stop",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Stop",
+  "lib": "MovieSceneSequencePlayer",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/MovieScene.MovieSceneSequencePlayer"
+   }
+  ],
+  "verified": true,
+  "desc": "Stop",
+  "probe": "R58 проба (Player) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Stop (член MovieSceneSequencePlayer)"
+ },
+ {
+  "id": "StopAtCurrentTime",
+  "title": "Stop At Current Time",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "StopAtCurrentTime",
+  "lib": "MovieSceneSequencePlayer",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/MovieScene.MovieSceneSequencePlayer"
+   }
+  ],
+  "verified": true,
+  "desc": "Stop At Current Time",
+  "probe": "R58 проба (Player) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Stop At Current Time (член MovieSceneSequencePlayer)"
+ },
+ {
+  "id": "GoToEndAndStop",
+  "title": "Go To End And Stop",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GoToEndAndStop",
+  "lib": "MovieSceneSequencePlayer",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/MovieScene.MovieSceneSequencePlayer"
+   }
+  ],
+  "verified": true,
+  "desc": "Go To End And Stop",
+  "probe": "R58 проба (Player) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Go To End And Stop (член MovieSceneSequencePlayer)"
+ },
+ {
+  "id": "ChangePlaybackDirection",
+  "title": "Change Playback Direction",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ChangePlaybackDirection",
+  "lib": "MovieSceneSequencePlayer",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/MovieScene.MovieSceneSequencePlayer"
+   }
+  ],
+  "verified": true,
+  "desc": "Change Playback Direction",
+  "probe": "R58 проба (Player) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Change Playback Direction (член MovieSceneSequencePlayer)"
+ },
+ {
+  "id": "Scrub",
+  "title": "Scrub",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Scrub",
+  "lib": "MovieSceneSequencePlayer",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/MovieScene.MovieSceneSequencePlayer"
+   }
+  ],
+  "verified": true,
+  "desc": "Scrub",
+  "probe": "R58 проба (Player) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Scrub (член MovieSceneSequencePlayer)"
+ },
+ {
+  "id": "PlayLooping",
+  "title": "Play Looping",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "PlayLooping",
+  "lib": "MovieSceneSequencePlayer",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/MovieScene.MovieSceneSequencePlayer"
+   },
+   {
+    "name": "NumLoops",
+    "dir": "Input",
+    "cat": "int",
+    "dv": "-1",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Play Looping",
+  "probe": "R58 проба (Player) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Play Looping (член MovieSceneSequencePlayer)"
+ },
+ {
+  "id": "SetPlayRate_MovieSceneSequencePlayer",
+  "title": "Set Play Rate",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetPlayRate",
+  "lib": "MovieSceneSequencePlayer",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/MovieScene.MovieSceneSequencePlayer"
+   },
+   {
+    "name": "PlayRate",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Play Rate",
+  "probe": "R58 проба (Player) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Play Rate (член MovieSceneSequencePlayer)"
+ },
+ {
+  "id": "GetPlayRate_MovieSceneSequencePlayer",
+  "title": "Get Play Rate",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetPlayRate",
+  "lib": "MovieSceneSequencePlayer",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/MovieScene.MovieSceneSequencePlayer"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Play Rate",
+  "probe": "R58 проба (Player) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Play Rate (член MovieSceneSequencePlayer, pure)"
+ },
+ {
+  "id": "IsPlaying_MovieSceneSequencePlayer",
+  "title": "Is Playing",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsPlaying",
+  "lib": "MovieSceneSequencePlayer",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/MovieScene.MovieSceneSequencePlayer"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Playing",
+  "probe": "R58 проба (Player) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Playing (член MovieSceneSequencePlayer, pure)"
+ },
+ {
+  "id": "IsPaused_MovieSceneSequencePlayer",
+  "title": "Is Paused",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsPaused",
+  "lib": "MovieSceneSequencePlayer",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/MovieScene.MovieSceneSequencePlayer"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Paused",
+  "probe": "R58 проба (Player) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Paused (член MovieSceneSequencePlayer, pure)"
+ },
+ {
+  "id": "IsReversed",
+  "title": "Is Reversed",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsReversed",
+  "lib": "MovieSceneSequencePlayer",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/MovieScene.MovieSceneSequencePlayer"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Reversed",
+  "probe": "R58 проба (Player) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Reversed (член MovieSceneSequencePlayer, pure)"
+ },
+ {
+  "id": "SetDisableCameraCuts",
+  "title": "Set Disable Camera Cuts",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetDisableCameraCuts",
+  "lib": "MovieSceneSequencePlayer",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/MovieScene.MovieSceneSequencePlayer"
+   },
+   {
+    "name": "bInDisableCameraCuts",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Disable Camera Cuts",
+  "probe": "R58 проба (Player) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Disable Camera Cuts (член MovieSceneSequencePlayer)"
+ },
+ {
+  "id": "SetLinearYLimit",
+  "title": "Set Linear YLimit",
+  "from": "probe",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetLinearYLimit",
+  "lib": "PhysicsConstraintComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PhysicsConstraintComponent"
+   },
+   {
+    "name": "ConstraintType",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ELinearConstraintMotion"
+   },
+   {
+    "name": "LimitSize",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Linear Y Limit",
+  "probe": "R58 проба (Constraint) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Linear Y Limit (член PhysicsConstraintComponent)"
+ },
+ {
+  "id": "SetLinearZLimit",
+  "title": "Set Linear ZLimit",
+  "from": "probe",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetLinearZLimit",
+  "lib": "PhysicsConstraintComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PhysicsConstraintComponent"
+   },
+   {
+    "name": "ConstraintType",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ELinearConstraintMotion"
+   },
+   {
+    "name": "LimitSize",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Linear Z Limit",
+  "probe": "R58 проба (Constraint) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Linear Z Limit (член PhysicsConstraintComponent)"
+ },
+ {
+  "id": "SetAngularSwing2Limit",
+  "title": "Set Angular Swing2 Limit",
+  "from": "probe",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetAngularSwing2Limit",
+  "lib": "PhysicsConstraintComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PhysicsConstraintComponent"
+   },
+   {
+    "name": "MotionType",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EAngularConstraintMotion"
+   },
+   {
+    "name": "Swing2LimitAngle",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Angular Swing 2 Limit",
+  "probe": "R58 проба (Constraint) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Angular Swing 2 Limit (член PhysicsConstraintComponent)"
+ },
+ {
+  "id": "SetAngularTwistLimit",
+  "title": "Set Angular Twist Limit",
+  "from": "probe",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetAngularTwistLimit",
+  "lib": "PhysicsConstraintComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PhysicsConstraintComponent"
+   },
+   {
+    "name": "ConstraintType",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EAngularConstraintMotion"
+   },
+   {
+    "name": "TwistLimitAngle",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Angular Twist Limit",
+  "probe": "R58 проба (Constraint) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Angular Twist Limit (член PhysicsConstraintComponent)"
+ },
+ {
+  "id": "SetLinearVelocityDrive",
+  "title": "Set Linear Velocity Drive",
+  "from": "probe",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetLinearVelocityDrive",
+  "lib": "PhysicsConstraintComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PhysicsConstraintComponent"
+   },
+   {
+    "name": "bEnableDriveX",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "bEnableDriveY",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "bEnableDriveZ",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Linear Velocity Drive",
+  "probe": "R58 проба (Constraint) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Linear Velocity Drive (член PhysicsConstraintComponent)"
+ },
+ {
+  "id": "SetLinearPositionTarget",
+  "title": "Set Linear Position Target",
+  "from": "probe",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetLinearPositionTarget",
+  "lib": "PhysicsConstraintComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PhysicsConstraintComponent"
+   },
+   {
+    "name": "InPosTarget",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "Set Linear Position Target",
+  "probe": "R58 проба (Constraint) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Linear Position Target (член PhysicsConstraintComponent)"
+ },
+ {
+  "id": "SetLinearVelocityTarget",
+  "title": "Set Linear Velocity Target",
+  "from": "probe",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetLinearVelocityTarget",
+  "lib": "PhysicsConstraintComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PhysicsConstraintComponent"
+   },
+   {
+    "name": "InVelTarget",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "Set Linear Velocity Target",
+  "probe": "R58 проба (Constraint) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Linear Velocity Target (член PhysicsConstraintComponent)"
+ },
+ {
+  "id": "SetLinearDriveParams",
+  "title": "Set Linear Drive Params",
+  "from": "probe",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetLinearDriveParams",
+  "lib": "PhysicsConstraintComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PhysicsConstraintComponent"
+   },
+   {
+    "name": "PositionStrength",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "VelocityStrength",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "InForceLimit",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Linear Drive Params",
+  "probe": "R58 проба (Constraint) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Linear Drive Params (член PhysicsConstraintComponent)"
+ },
+ {
+  "id": "SetAngularDriveParams",
+  "title": "Set Angular Drive Params",
+  "from": "probe",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetAngularDriveParams",
+  "lib": "PhysicsConstraintComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PhysicsConstraintComponent"
+   },
+   {
+    "name": "PositionStrength",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "VelocityStrength",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "InForceLimit",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Angular Drive Params",
+  "probe": "R58 проба (Constraint) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Angular Drive Params (член PhysicsConstraintComponent)"
+ },
+ {
+  "id": "SetAngularOrientationTarget",
+  "title": "Set Angular Orientation Target",
+  "from": "probe",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetAngularOrientationTarget",
+  "lib": "PhysicsConstraintComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PhysicsConstraintComponent"
+   },
+   {
+    "name": "InPosTarget",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Rotator",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "Set Angular Orientation Target",
+  "probe": "R58 проба (Constraint) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Angular Orientation Target (член PhysicsConstraintComponent)"
+ },
+ {
+  "id": "SetOrientationDriveTwistAndSwing",
+  "title": "Set Orientation Drive Twist And Swing",
+  "from": "probe",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetOrientationDriveTwistAndSwing",
+  "lib": "PhysicsConstraintComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PhysicsConstraintComponent"
+   },
+   {
+    "name": "bEnableTwistDrive",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "bEnableSwingDrive",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Orientation Drive Twist And Swing",
+  "probe": "R58 проба (Constraint) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Orientation Drive Twist And Swing (член PhysicsConstraintComponent)"
+ },
+ {
+  "id": "SetAngularVelocityDriveTwistAndSwing",
+  "title": "Set Angular Velocity Drive Twist And Swing",
+  "from": "probe",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetAngularVelocityDriveTwistAndSwing",
+  "lib": "PhysicsConstraintComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PhysicsConstraintComponent"
+   },
+   {
+    "name": "bEnableTwistDrive",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "bEnableSwingDrive",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Angular Velocity Drive Twist And Swing",
+  "probe": "R58 проба (Constraint) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Angular Velocity Drive Twist And Swing (член PhysicsConstraintComponent)"
+ },
+ {
+  "id": "SetDisableCollision",
+  "title": "Set Disable Collision",
+  "from": "probe",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetDisableCollision",
+  "lib": "PhysicsConstraintComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PhysicsConstraintComponent"
+   },
+   {
+    "name": "bDisableCollision",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Disable Collision",
+  "probe": "R58 проба (Constraint) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Disable Collision (член PhysicsConstraintComponent)"
+ },
+ {
+  "id": "SetLinearBreakable",
+  "title": "Set Linear Breakable",
+  "from": "probe",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetLinearBreakable",
+  "lib": "PhysicsConstraintComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PhysicsConstraintComponent"
+   },
+   {
+    "name": "bLinearBreakable",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "LinearBreakThreshold",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Linear Breakable",
+  "probe": "R58 проба (Constraint) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Linear Breakable (член PhysicsConstraintComponent)"
+ },
+ {
+  "id": "SetAngularBreakable",
+  "title": "Set Angular Breakable",
+  "from": "probe",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetAngularBreakable",
+  "lib": "PhysicsConstraintComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PhysicsConstraintComponent"
+   },
+   {
+    "name": "bAngularBreakable",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "AngularBreakThreshold",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Angular Breakable",
+  "probe": "R58 проба (Constraint) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Angular Breakable (член PhysicsConstraintComponent)"
+ },
+ {
+  "id": "IsBroken",
+  "title": "Is Broken",
+  "from": "probe",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsBroken",
+  "lib": "PhysicsConstraintComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PhysicsConstraintComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Is Broken",
+  "probe": "R58 проба (Constraint) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Broken (член PhysicsConstraintComponent)"
+ },
+ {
+  "id": "GetConstraintForce",
+  "title": "Get Constraint Force",
+  "from": "probe",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetConstraintForce",
+  "lib": "PhysicsConstraintComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PhysicsConstraintComponent"
+   },
+   {
+    "name": "OutLinearForce",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   },
+   {
+    "name": "OutAngularForce",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "verified": true,
+  "desc": "Get Constraint Force",
+  "probe": "R58 проба (Constraint) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Constraint Force (член PhysicsConstraintComponent)"
+ },
+ {
+  "id": "GetCurrentTwist",
+  "title": "Get Current Twist",
+  "from": "probe",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetCurrentTwist",
+  "lib": "PhysicsConstraintComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PhysicsConstraintComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Current Twist",
+  "probe": "R58 проба (Constraint) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Current Twist (член PhysicsConstraintComponent, pure)"
+ },
+ {
+  "id": "GetCurrentSwing1",
+  "title": "Get Current Swing1",
+  "from": "probe",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetCurrentSwing1",
+  "lib": "PhysicsConstraintComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PhysicsConstraintComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Current Swing 1",
+  "probe": "R58 проба (Constraint) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Current Swing 1 (член PhysicsConstraintComponent, pure)"
+ },
+ {
+  "id": "GetCurrentSwing2",
+  "title": "Get Current Swing2",
+  "from": "probe",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetCurrentSwing2",
+  "lib": "PhysicsConstraintComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PhysicsConstraintComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Current Swing 2",
+  "probe": "R58 проба (Constraint) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Current Swing 2 (член PhysicsConstraintComponent, pure)"
  }
 ]
