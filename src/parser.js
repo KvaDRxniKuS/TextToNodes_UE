@@ -270,7 +270,7 @@ function generateBlock(n,opts={}){
   }
   // v7.1: NotEqual-автопин свитчей (copy-back round1: движок достраивает сам —
   // пишем сразу для copy-back 1-в-1). Позиция — сразу после Selection.
-  const SWNEQ={K2Node_SwitchInteger:['NotEqual_IntInt','KismetMathLibrary'],K2Node_SwitchString:['NotEqual_StriStri','KismetStringLibrary'],K2Node_SwitchEnum:['NotEqual_ByteByte','KismetMathLibrary']};
+  const SWNEQ={K2Node_SwitchInteger:['NotEqual_IntInt','KismetMathLibrary'],K2Node_SwitchString:['NotEqual_StriStri','KismetStringLibrary'],K2Node_SwitchEnum:['NotEqual_ByteByte','KismetMathLibrary'],K2Node_SwitchName:['NotEqual_NameName','KismetMathLibrary']};
   const swm=n.className&&SWNEQ[n.className.split('.').pop()];
   if(swm&&!n.pins.some(p=>p.name===swm[0])){
     const libC=`"/Script/CoreUObject.Class'/Script/Engine.${swm[1]}'"`;

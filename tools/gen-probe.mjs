@@ -11,7 +11,7 @@
 // Запуск: node tools/gen-probe.mjs [--batch 36] [--check]
 
 import fs from 'node:fs';
-import { fitComment, estNodeWidth, estNodeHeight, createMacroInstance, createCallFunction } from '../src/generator.js';
+import { fitComment, estNodeWidth, estNodeHeight, createMacroInstance, createCallFunction, createSwitch } from '../src/generator.js';
 import { UE_LIBS, UE_STRUCTS, UE_ENUMS } from '../src/ue-types.js';
 import { generateUEText, seedGuids } from '../src/parser.js';
 import { validateStrict } from '../src/validate.js';
@@ -1059,6 +1059,15 @@ const BATCHES = {
     ['Constraint', 'Get Current Twist (член PhysicsConstraintComponent, pure)', mem('PhysicsConstraintComponent.GetCurrentTwist', ['->', 'ReturnValue:float'], true)],
     ['Constraint', 'Get Current Swing 1 (член PhysicsConstraintComponent, pure)', mem('PhysicsConstraintComponent.GetCurrentSwing1', ['->', 'ReturnValue:float'], true)],
     ['Constraint', 'Get Current Swing 2 (член PhysicsConstraintComponent, pure)', mem('PhysicsConstraintComponent.GetCurrentSwing2', ['->', 'ReturnValue:float'], true)],
+  ],
+  '59': [
+    // R59: спец-ноды из copy-back пользователя (sweep/copyback/r59-reconstructed.txt). Switch on Name/String: case-пины + PinNames(i) —
+    // проверяем, сохраняет ли движок case-пины (без PinNames он их пересобирает из пустого списка). Construct Object: Outer подключить к Self.
+    ['Switch', 'Switch on Name — case-пины Idle, Run (PinNames)', () => createSwitch('name', ['Idle', 'Run'])],
+    ['Switch', 'Switch on Name — без case-пинов', () => createSwitch('name', [])],
+    ['Switch', 'Switch on String — case-пины A, B (как сейчас, без PinNames)', () => createSwitch('string', ['A', 'B'])],
+    ['Object', 'Construct Object from Class (SaveGame) — подключи Outer к Self', (bubble) => SP.createConstructObject({ bubble, class: '/Script/Engine.SaveGame' })],
+    ['Object', 'Construct Object from Class (без класса)', (bubble) => SP.createConstructObject({ bubble })],
   ],
 };
 

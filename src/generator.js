@@ -153,6 +153,8 @@ export function createSwitch(kind, cases = [], pos = { x: 0, y: 0 }) {
     int: { cls: 'K2Node_SwitchInteger', sel: 'int', selSub: '' },
     string: { cls: 'K2Node_SwitchString', sel: 'string', selSub: '' },
     enum: { cls: 'K2Node_SwitchEnum', sel: 'byte', selSub: '' },
+    // R59 copy-back: Selection name, dv/auto None. Case-пины — по PinNames(i) (как у SwitchString в движке), ⚠ проба R59.
+    name: { cls: 'K2Node_SwitchName', sel: 'name', selSub: '' },
   };
   const k = map[kind];
   if (!k) throw new Error(`Unknown switch kind: ${kind}`);
@@ -161,7 +163,8 @@ export function createSwitch(kind, cases = [], pos = { x: 0, y: 0 }) {
   // round1: порядок движка — Default первый; Selection dv "0" только у int.
   n.pins.push(mkPin('Default', 'Output', 'exec'));
   n.pins.push(mkPin('execute', 'Input', 'exec'));
-  n.pins.push(mkPin('Selection', 'Input', k.sel, { sub: k.selSub, ...(kind === 'int' ? { dv: '0' } : {}) }));
+  n.pins.push(mkPin('Selection', 'Input', k.sel, { sub: k.selSub, ...(kind === 'int' ? { dv: '0' } : kind === 'name' ? { dv: 'None', auto: 'None' } : {}) }));
+  if (kind === 'name' && cases.length) n.rawProps = cases.map((c, i) => `PinNames(${i})="${c}"`);
   for (const c of cases) n.pins.push(mkPin(String(c), 'Output', 'exec'));
   return n;
 }

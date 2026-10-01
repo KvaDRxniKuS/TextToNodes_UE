@@ -40,6 +40,7 @@ const RECIPES = [
   ['current-pipeline smoke', ['node', 'tools/gen-pipeline-smoke.mjs'], ['sweep/layout/pipeline-smoke.txt']],
   ['dispatcher bound probe', ['node', 'tools/gen-dispatcher-bound.mjs'], ['sweep/chapters/dispatcher-bound.txt']],
   ['R57 probe: Blueprint Interface (ждёт вердикта)', ['node', 'tools/gen-probe.mjs', '--batch', '57'], ['sweep/probes/r57-probe.txt']],
+  ['R59 probe: Switch on Name / Construct Object (ждёт вердикта)', ['node', 'tools/gen-probe.mjs', '--batch', '59'], ['sweep/probes/r59-probe.txt']],
   ['structured section demo', ['node', 'tools/gen-structured-demo.mjs'], ['sweep/layout/structured-demo.txt']],
   ['HUD health demo (VERIFIED)', ['node', 'tools/gen-hud-demo.mjs'], ['sweep/chapters/hud-health-demo.txt']],
 ];

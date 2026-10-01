@@ -1314,3 +1314,10 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 ## 2026-10-01 — R58 проба: Level Sequence + Physics Constraint (ждёт вердикта)
 `gen-probe --batch 58` → `sweep/probes/r58-probe.txt`, 38 нод: Sequence 3, Player 15, Constraint 20. UE_LIBS += LevelSequencePlayer, LevelSequenceActor (LevelSequence), MovieSceneSequencePlayer (MovieScene); STRUCTS += MovieSceneSequencePlaybackSettings.
 - R58 вердикт: 38/38 встали → `--register`. Проба удалена.
+
+## R59 — Switch on Name, Construct Object (ждёт вердикта)
+- Источник шаблонов: `sweep/copyback/r59-reconstructed.txt` — **реконструкция** двух блоков copy-back пользователя — GenericCreateObject и SwitchName (оригинал из чата не был сохранён дословно; структура пинов та же, GUID условные — `refresh` их всё равно перегенерирует). При повторной присылке — заменить дословным.
+- `createSwitch('name', cases)`: K2Node_SwitchName, Selection `name` dv/auto `None`, автопин NotEqual_NameName; case-пины + `PinNames(i)`.
+- `SP.createConstructObject({class})`: K2Node_GenericCreateObject; Outer (self) подключать.
+- Проба проверяет и Switch on String без PinNames — сохраняет ли движок case-пины.
+- Привязка событий компонентов (OnComponentHit и др.) уже есть: `createDelegateNode('bind','PrimitiveComponent.OnComponentHit')` + `createEventFor` (таблица DELEGATES в modules.js).
