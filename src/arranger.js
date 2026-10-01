@@ -210,20 +210,24 @@ function createExecReroutes(nodes, { levels = [] } = {}) {
  * row's estimated bottom. `gap` is free horizontal space after estimated width.
  * Returns positioned graph nodes, plus any reroute knots created at this stage.
  */
-/** Сдвиг exec-пина от верха ноды для выравнивания ряда (эталоны sphere-flow №1, samples-2 №2):
- *  база (Branch/Sequence/макрос/Tunnel/BP-функция) = 0;  «Target is…» (видимый self) и Event/CustomEvent = +16 (нода выше);
- *  контейнерные библиотеки Map/Set/Array = −16 (нода ниже). null — у ноды нет exec-пинов (чистая).
- *  Отдельно от pinCenterY (та — для knot'ов). Таблица эмпирическая, уточняется по copy-back. */
-export const EXEC_HEADER_SHIFT = { target: 16, container: -16 };
-export function execPinOffset(node) {
+/** Число строк заголовка (модель пользователя 2026-10-02): exec-пин = верх + 16·строк, поэтому для соосности
+ *  нода с N строками стоит на 16·(N−1) выше однострочной. Проверено движком (exec-align):
+ *  1 строка — Branch/Sequence/макрос/Tunnel/статические библиотеки; 2 — Event/CustomEvent, «Target is…»;
+ *  Map/Set/Array-функции ведут себя как 0 строк (на 16 ниже однострочных).
+ *  Гипотеза (проба exec-align-3): replicated CustomEvent — 3 строки (+«Replicated To …»). */
+export function headerLines(node) {
+  const cls = node.className || '';
   const pins = node.pins || [];
-  if (!pins.some(p => !p.hidden && p.category === 'exec')) return null;
   const parent = String(node.memberParent || node.lib || '');
-  if (/BlueprintMapLibrary|BlueprintSetLibrary|KismetArrayLibrary/.test(parent) || (node.className || '').includes('CallArrayFunction')) return EXEC_HEADER_SHIFT.container;
-  // Event/CustomEvent: подзаголовок «Custom Event» → как Target, +16 (проба exec-align, движок 2026-10-02).
-  if (/K2Node_(Custom)?Event\b/.test(node.className || '')) return EXEC_HEADER_SHIFT.target;
-  if (pins.some(p => p.name === 'self' && p.direction === 'Input' && !p.hidden)) return EXEC_HEADER_SHIFT.target;
-  return 0;
+  if (/BlueprintMapLibrary|BlueprintSetLibrary|KismetArrayLibrary/.test(parent) || cls.includes('CallArrayFunction')) return 0;
+  if (/K2Node_(Custom)?Event\b/.test(cls)) return (node.rawProps || []).some(l => l.startsWith('FunctionFlags=')) ? 3 : 2;
+  if (pins.some(p => p.name === 'self' && p.direction === 'Input' && !p.hidden)) return 2;
+  return 1;
+}
+/** Сдвиг exec-пина от верха ноды (в px, относительно однострочной). null — нет exec-пинов (чистая). */
+export function execPinOffset(node) {
+  if (!(node.pins || []).some(p => !p.hidden && p.category === 'exec')) return null;
+  return (headerLines(node) - 1) * GRID;
 }
 
 export function arrangeRows(rows, { x = 0, y = 0, gap = 160, rowGap = 160, createRerouteKnots = true, continueX = false, alignExec = false } = {}) {
@@ -252,6 +256,7 @@ export function arrangeRows(rows, { x = 0, y = 0, gap = 160, rowGap = 160, creat
     if (continueX) nextRowX = cursorX;
     levels.push({ top: rowY, bottom: rowBottom, nodes: row.slice() });
     rowY = rowBottom + rowGap;
+    if (alignExec) rowY = Math.ceil(rowY / GRID) * GRID;
   }
   const knots = createRerouteKnots ? createExecReroutes(placed, { levels }) : [];
   return { nodes: [...placed, ...knots], placed, knots, levels, bottom: rowY };

@@ -39,6 +39,7 @@ const RECIPES = [
   ['collapsed-knot 1×3 (3 уровня)', ['node', 'tools/gen-collapsed-knot.mjs', '--inputs', '1', '--outputs', '3', '--levels', '3'], ['sweep/layout/collapsed-knot-1x3-3levels.txt']],
   ['current-pipeline smoke', ['node', 'tools/gen-pipeline-smoke.mjs'], ['sweep/layout/pipeline-smoke.txt']],
   ['exec-align probe (правило 1/7)', ['node', 'tools/gen-exec-align.mjs'], ['sweep/chapters/exec-align.txt']],
+  ['exec-align-3 probe (3 строки заголовка)', ['node', 'tools/gen-exec-align-3.mjs'], ['sweep/chapters/exec-align-3.txt']],
   ['dispatcher bound probe', ['node', 'tools/gen-dispatcher-bound.mjs'], ['sweep/chapters/dispatcher-bound.txt']],
   ['structured section demo', ['node', 'tools/gen-structured-demo.mjs'], ['sweep/layout/structured-demo.txt']],
   ['HUD health demo (VERIFIED)', ['node', 'tools/gen-hud-demo.mjs'], ['sweep/chapters/hud-health-demo.txt']],
