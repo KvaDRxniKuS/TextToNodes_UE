@@ -1013,10 +1013,14 @@ const BATCHES = {
     // R57: Blueprint Interface. Ассет BPI текстом не вставить (как переменные/диспетчеры) — пользователь создаёт
     // /Game/Blueprints/BPI_Test с функцией Interact (вход Instigator: Actor). Проверяем: резолвит ли движок K2Node_Message
     // по ИМЕНИ при чужом MemberGuid (генератор GUID функции BPI знать не может), и class-пин Interface с DefaultObject=BPI.
-    ['Interface', 'Interact (Message, BPI_Test) — MemberGuid случайный: встанет ли по имени?', (b) => SP.createInterfaceMessage({ bubble: b, bpiPath: '/Game/Blueprints/BPI_Test.BPI_Test_C', memberName: 'Interact',
-      params: [{ name: 'Instigator', category: 'object', subObject: "/Script/CoreUObject.Class'/Script/Engine.Actor'" }] })],
     ['Interface', 'Does Implement Interface — Interface = BPI_Test', lib('KismetSystemLibrary.DoesImplementInterface', ['TestObject:object:/Script/CoreUObject.Object', 'Interface:class:/Script/CoreUObject.Interface=/Game/Blueprints/BPI_Test.BPI_Test_C', '->', 'ReturnValue:bool'], true)],
     ['Interface', 'Get All Actors With Interface — Interface = BPI_Test', lib('GameplayStatics.GetAllActorsWithInterface', ['Interface:class:/Script/CoreUObject.Interface=/Game/Blueprints/BPI_Test.BPI_Test_C', '->', 'OutActors:object:Actor[]'])],
+  ],
+  '57b': [
+    // R57 вердикт: DoesImplementInterface/GetAllActorsWithInterface встали; Message сломан — BPI_Test у пользователя не было.
+    // Повтор на реальном интерфейсе пользователя: BPI_Interaction, событие I_select (вход Selected: bool).
+    ['Interface', 'I_select (Message, BPI_Interaction) — путь /Game/Blueprints/BPI_Interaction', (b) => SP.createInterfaceMessage({ bubble: b, bpiPath: '/Game/Blueprints/BPI_Interaction.BPI_Interaction_C', memberName: 'I_select',
+      params: [{ name: 'Selected', category: 'bool', def: 'false' }] })],
   ],
   '58': [
     // R58: Level Sequence (катсцены) + Physics Constraint — отсутствующее в реестре. UE_LIBS += LevelSequencePlayer/LevelSequenceActor (LevelSequence),
