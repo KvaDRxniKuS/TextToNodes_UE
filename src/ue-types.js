@@ -121,6 +121,7 @@ const LIBS_FULL = {
   PhysicsHandleComponent: `"/Script/CoreUObject.Class'/Script/Engine.PhysicsHandleComponent'"`, // R45 VERIFIED
   PhysicsConstraintComponent: `"/Script/CoreUObject.Class'/Script/Engine.PhysicsConstraintComponent'"`, // R45 VERIFIED
   RadialForceComponent: `"/Script/CoreUObject.Class'/Script/Engine.RadialForceComponent'"`, // R45 VERIFIED
+  LevelStreaming: `"/Script/CoreUObject.Class'/Script/Engine.LevelStreaming'"`, // R67
   LightComponentBase: `"/Script/CoreUObject.Class'/Script/Engine.LightComponentBase'"`, // R45 VERIFIED
   SpotLightComponent: `"/Script/CoreUObject.Class'/Script/Engine.SpotLightComponent'"`, // R45 VERIFIED
   PointLightComponent: `"/Script/CoreUObject.Class'/Script/Engine.PointLightComponent'"`, // R45 VERIFIED
@@ -228,6 +229,7 @@ const LIBS_SHORT = {
   SpotLightComponent: `Class'"/Script/Engine.SpotLightComponent"'`,
   LightComponentBase: `Class'"/Script/Engine.LightComponentBase"'`,
   RadialForceComponent: `Class'"/Script/Engine.RadialForceComponent"'`,
+  LevelStreaming: `Class'"/Script/Engine.LevelStreaming"'`,
   PhysicsConstraintComponent: `Class'"/Script/Engine.PhysicsConstraintComponent"'`,
   PhysicsHandleComponent: `Class'"/Script/Engine.PhysicsHandleComponent"'`,
   BlueprintMapLibrary: `Class'"/Script/Engine.BlueprintMapLibrary"'`,
@@ -255,6 +257,9 @@ const STRUCTS_FULL = {
   LinearColor: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.LinearColor'"`, // confirmed (copy-back H1/J5)
   MovieSceneSequencePlaybackSettings: `"/Script/CoreUObject.ScriptStruct'/Script/MovieScene.MovieSceneSequencePlaybackSettings'"`, // R58 VERIFIED
   Color: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Color'"`, // R65
+  PrimaryAssetType: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.PrimaryAssetType'"`, // R67
+  PrimaryAssetId: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.PrimaryAssetId'"`, // R67
+  GameplayTagQuery: `"/Script/CoreUObject.ScriptStruct'/Script/GameplayTags.GameplayTagQuery'"`, // R67
   ModifyContextOptions: `"/Script/CoreUObject.ScriptStruct'/Script/EnhancedInput.ModifyContextOptions'"`, // R64
   Anchors: `"/Script/CoreUObject.ScriptStruct'/Script/Slate.Anchors'"`, // R64
   Geometry: `"/Script/CoreUObject.ScriptStruct'/Script/SlateCore.Geometry'"`, // R64
@@ -294,6 +299,9 @@ const STRUCTS_SHORT = {
   LinearColor:      `ScriptStruct'"/Script/CoreUObject.LinearColor"'`,
   MovieSceneSequencePlaybackSettings: `ScriptStruct'"/Script/MovieScene.MovieSceneSequencePlaybackSettings"'`,
   Color: `ScriptStruct'"/Script/CoreUObject.Color"'`,
+  PrimaryAssetType: `ScriptStruct'"/Script/CoreUObject.PrimaryAssetType"'`,
+  PrimaryAssetId: `ScriptStruct'"/Script/CoreUObject.PrimaryAssetId"'`,
+  GameplayTagQuery: `ScriptStruct'"/Script/GameplayTags.GameplayTagQuery"'`,
   ModifyContextOptions: `ScriptStruct'"/Script/EnhancedInput.ModifyContextOptions"'`,
   Anchors: `ScriptStruct'"/Script/Slate.Anchors"'`,
   Geometry: `ScriptStruct'"/Script/SlateCore.Geometry"'`,

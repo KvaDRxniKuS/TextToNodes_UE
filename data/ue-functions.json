@@ -52259,5 +52259,822 @@
   "verified": true,
   "desc": "Read Render Target Pixel",
   "probe": "R65 проба (Render) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Read Render Target Pixel"
+ },
+ {
+  "id": "Play_TimelineComponent",
+  "title": "Play",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Play",
+  "lib": "TimelineComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.TimelineComponent"
+   }
+  ],
+  "verified": true,
+  "desc": "Play",
+  "probe": "R66 проба (Timeline) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Play"
+ },
+ {
+  "id": "PlayFromStart",
+  "title": "Play From Start",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "PlayFromStart",
+  "lib": "TimelineComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.TimelineComponent"
+   }
+  ],
+  "verified": true,
+  "desc": "Play from Start",
+  "probe": "R66 проба (Timeline) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Play from Start"
+ },
+ {
+  "id": "Reverse_TimelineComponent",
+  "title": "Reverse",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Reverse",
+  "lib": "TimelineComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.TimelineComponent"
+   }
+  ],
+  "verified": true,
+  "desc": "Reverse",
+  "probe": "R66 проба (Timeline) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Reverse"
+ },
+ {
+  "id": "Stop_TimelineComponent",
+  "title": "Stop",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Stop",
+  "lib": "TimelineComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.TimelineComponent"
+   }
+  ],
+  "verified": true,
+  "desc": "Stop",
+  "probe": "R66 проба (Timeline) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Stop"
+ },
+ {
+  "id": "SetPlayRate_TimelineComponent",
+  "title": "Set Play Rate",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetPlayRate",
+  "lib": "TimelineComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.TimelineComponent"
+   },
+   {
+    "name": "NewRate",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Play Rate",
+  "probe": "R66 проба (Timeline) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Play Rate"
+ },
+ {
+  "id": "SetNewTime",
+  "title": "Set New Time",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetNewTime",
+  "lib": "TimelineComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.TimelineComponent"
+   },
+   {
+    "name": "NewTime",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "Set New Time",
+  "probe": "R66 проба (Timeline) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set New Time"
+ },
+ {
+  "id": "GetPlaybackPosition",
+  "title": "Get Playback Position",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetPlaybackPosition",
+  "lib": "TimelineComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.TimelineComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Playback Position",
+  "probe": "R66 проба (Timeline) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Playback Position (pure)"
+ },
+ {
+  "id": "IsPlaying_TimelineComponent",
+  "title": "Is Playing",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsPlaying",
+  "lib": "TimelineComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.TimelineComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Playing",
+  "probe": "R66 проба (Timeline) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Playing (pure)"
+ },
+ {
+  "id": "SetTimelineLength",
+  "title": "Set Timeline Length",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetTimelineLength",
+  "lib": "TimelineComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.TimelineComponent"
+   },
+   {
+    "name": "NewLength",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Timeline Length",
+  "probe": "R66 проба (Timeline) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Timeline Length"
+ },
+ {
+  "id": "SetStartAndEnd",
+  "title": "Set Start And End",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetStartAndEnd",
+  "lib": "SplineMeshComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SplineMeshComponent"
+   },
+   {
+    "name": "StartPos",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "StartTangent",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "EndPos",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "EndTangent",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "bUpdateMesh",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Set Start and End",
+  "probe": "R66 проба (SplineMesh) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Start and End"
+ },
+ {
+  "id": "SetStartScale",
+  "title": "Set Start Scale",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetStartScale",
+  "lib": "SplineMeshComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SplineMeshComponent"
+   },
+   {
+    "name": "StartScale",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector2D",
+    "const": true
+   },
+   {
+    "name": "bUpdateMesh",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Set Start Scale",
+  "probe": "R66 проба (SplineMesh) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Start Scale"
+ },
+ {
+  "id": "SetEndScale",
+  "title": "Set End Scale",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetEndScale",
+  "lib": "SplineMeshComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SplineMeshComponent"
+   },
+   {
+    "name": "EndScale",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector2D",
+    "const": true
+   },
+   {
+    "name": "bUpdateMesh",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Set End Scale",
+  "probe": "R66 проба (SplineMesh) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set End Scale"
+ },
+ {
+  "id": "SetStartRoll",
+  "title": "Set Start Roll",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetStartRoll",
+  "lib": "SplineMeshComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SplineMeshComponent"
+   },
+   {
+    "name": "StartRoll",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "bUpdateMesh",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Set Start Roll",
+  "probe": "R66 проба (SplineMesh) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Start Roll"
+ },
+ {
+  "id": "SetEndRoll",
+  "title": "Set End Roll",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetEndRoll",
+  "lib": "SplineMeshComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SplineMeshComponent"
+   },
+   {
+    "name": "EndRoll",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "bUpdateMesh",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Set End Roll",
+  "probe": "R66 проба (SplineMesh) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set End Roll"
+ },
+ {
+  "id": "GetStartPosition",
+  "title": "Get Start Position",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetStartPosition",
+  "lib": "SplineMeshComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SplineMeshComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Start Position",
+  "probe": "R66 проба (SplineMesh) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Start Position (pure)"
+ },
+ {
+  "id": "GetEndPosition",
+  "title": "Get End Position",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetEndPosition",
+  "lib": "SplineMeshComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SplineMeshComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get End Position",
+  "probe": "R66 проба (SplineMesh) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get End Position (pure)"
+ },
+ {
+  "id": "UpdateMesh",
+  "title": "Update Mesh",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "UpdateMesh",
+  "lib": "SplineMeshComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SplineMeshComponent"
+   }
+  ],
+  "verified": true,
+  "desc": "Update Mesh",
+  "probe": "R66 проба (SplineMesh) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Update Mesh"
+ },
+ {
+  "id": "AddTorqueInDegrees",
+  "title": "Add Torque In Degrees",
+  "from": "probe",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AddTorqueInDegrees",
+  "lib": "PrimitiveComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent"
+   },
+   {
+    "name": "Torque",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "BoneName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "bAccelChange",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Add Torque in Degrees",
+  "probe": "R66 проба (Force) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Add Torque in Degrees"
+ },
+ {
+  "id": "WakeAllRigidBodies",
+  "title": "Wake All Rigid Bodies",
+  "from": "probe",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "WakeAllRigidBodies",
+  "lib": "PrimitiveComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent"
+   }
+  ],
+  "verified": true,
+  "desc": "Wake All Rigid Bodies",
+  "probe": "R66 проба (Body) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Wake All Rigid Bodies"
+ },
+ {
+  "id": "SetCenterOfMass",
+  "title": "Set Center Of Mass",
+  "from": "probe",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetCenterOfMass",
+  "lib": "PrimitiveComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PrimitiveComponent"
+   },
+   {
+    "name": "CenterOfMassOffset",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "BoneName",
+    "dir": "Input",
+    "cat": "name"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Center of Mass",
+  "probe": "R66 проба (Body) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Center of Mass"
+ },
+ {
+  "id": "SetComponentTickInterval",
+  "title": "Set Component Tick Interval",
+  "from": "probe",
+  "category": "Components / Scene",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetComponentTickInterval",
+  "lib": "ActorComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.ActorComponent"
+   },
+   {
+    "name": "TickInterval",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Component Tick Interval",
+  "probe": "R66 проба (Tick) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Component Tick Interval"
+ },
+ {
+  "id": "IsComponentTickEnabled",
+  "title": "Is Component Tick Enabled",
+  "from": "probe",
+  "category": "Components / Scene",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsComponentTickEnabled",
+  "lib": "ActorComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.ActorComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Component Tick Enabled",
+  "probe": "R66 проба (Tick) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Component Tick Enabled (pure)"
+ },
+ {
+  "id": "ToggleActive",
+  "title": "Toggle Active",
+  "from": "probe",
+  "category": "Components / Scene",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ToggleActive",
+  "lib": "ActorComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.ActorComponent"
+   }
+  ],
+  "verified": true,
+  "desc": "Toggle Active",
+  "probe": "R66 проба (Active) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Toggle Active"
  }
 ]
