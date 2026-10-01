@@ -1220,6 +1220,16 @@ regThrow.forEach(t => console.log('THROW:', t));
   const shape = t => t.split('\n').filter(l => /CustomProperties Pin/.test(l)).map(l => l.replace(/PinId=\w+,|PinToolTip="[^"]*",/g, ''));
   ok(JSON.stringify(shape(generateUEText([n]))) === JSON.stringify(shape(back.rawBlock)) && /RepNotify/.test(n.bubble), 'R50: Set RepNotify-переменной совпал с copy-back по пинам (без тултипа), пузырь с инструкцией');
 }
+{
+  // Правило 1/7 (эталоны sphere-flow, samples-2): exec-пины ряда соосны, X на сетке 16.
+  const {arrangeRows,execPinOffset}=await import('../src/arranger.js');
+  const L=JSON.parse(fs.readFileSync('data/ue-functions.json','utf8')); const F=Array.isArray(L)?L:(L.entries||L.functions||Object.values(L));
+  const fn=id=>F.find(x=>x.func===id);
+  const row=[createBranch(),createCallFunction(fn('PrintString')),createCallFunction(fn('K2_SetActorLocation')),createCallFunction(fn('Array_Clear'))];
+  arrangeRows([row],{gap:64,alignExec:true});
+  const line=new Set(row.map(n=>n.pos.y+execPinOffset(n)));
+  ok(line.size===1 && row[2].pos.y===row[0].pos.y-16 && row[3].pos.y===row[0].pos.y+16 && row.every(n=>n.pos.x%16===0), 'alignExec: exec-пины ряда соосны (Target −16, Array +16), X на сетке 16');
+}
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);

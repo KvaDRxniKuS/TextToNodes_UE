@@ -210,7 +210,21 @@ function createExecReroutes(nodes, { levels = [] } = {}) {
  * row's estimated bottom. `gap` is free horizontal space after estimated width.
  * Returns positioned graph nodes, plus any reroute knots created at this stage.
  */
-export function arrangeRows(rows, { x = 0, y = 0, gap = 160, rowGap = 160, createRerouteKnots = true, continueX = false } = {}) {
+/** Сдвиг exec-пина от верха ноды для выравнивания ряда (эталоны sphere-flow №1, samples-2 №2):
+ *  база (Event/Branch/Sequence/макрос/Tunnel/BP-функция) = 0; «Target is…» (видимый self) = +16 (нода выше);
+ *  контейнерные библиотеки Map/Set/Array = −16 (нода ниже). null — у ноды нет exec-пинов (чистая).
+ *  Отдельно от pinCenterY (та — для knot'ов). Таблица эмпирическая, уточняется по copy-back. */
+export const EXEC_HEADER_SHIFT = { target: 16, container: -16 };
+export function execPinOffset(node) {
+  const pins = node.pins || [];
+  if (!pins.some(p => !p.hidden && p.category === 'exec')) return null;
+  const parent = String(node.memberParent || node.lib || '');
+  if (/BlueprintMapLibrary|BlueprintSetLibrary|KismetArrayLibrary/.test(parent) || (node.className || '').includes('CallArrayFunction')) return EXEC_HEADER_SHIFT.container;
+  if (pins.some(p => p.name === 'self' && p.direction === 'Input' && !p.hidden)) return EXEC_HEADER_SHIFT.target;
+  return 0;
+}
+
+export function arrangeRows(rows, { x = 0, y = 0, gap = 160, rowGap = 160, createRerouteKnots = true, continueX = false, alignExec = false } = {}) {
   let rowY = y;
   let nextRowX = x;
   const placed = [];
@@ -222,7 +236,14 @@ export function arrangeRows(rows, { x = 0, y = 0, gap = 160, rowGap = 160, creat
       node.pos ||= { x: 0, y: 0 };
       node.pos.x = cursorX;
       node.pos.y = rowY;
+      if (alignExec) {
+        // Правило 1/7: exec-пины ряда соосны — верх ноды сдвигается на разницу высоты шапки.
+        const ref = Math.max(0, ...row.map(execPinOffset).filter(v => v != null));
+        const off = execPinOffset(node);
+        if (off != null) node.pos.y = rowY + ref - off;
+      }
       cursorX += estNodeWidth(node) + gap;
+      if (alignExec) cursorX = Math.ceil(cursorX / GRID) * GRID;
       rowBottom = Math.max(rowBottom, rowY + estNodeHeight(node));
       placed.push(node);
     }
