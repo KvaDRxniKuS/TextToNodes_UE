@@ -51,6 +51,8 @@ const LIBS_FULL = {
   SphereComponent: `"/Script/CoreUObject.Class'/Script/Engine.SphereComponent'"`, // R65
   BoxComponent: `"/Script/CoreUObject.Class'/Script/Engine.BoxComponent'"`, // R65
   KismetRenderingLibrary: `"/Script/CoreUObject.Class'/Script/Engine.KismetRenderingLibrary'"`, // R65
+  SplineMeshComponent: `"/Script/CoreUObject.Class'/Script/Engine.SplineMeshComponent'"`, // R66
+  TimelineComponent: `"/Script/CoreUObject.Class'/Script/Engine.TimelineComponent'"`, // R66
   KismetAnimationLibrary: `"/Script/CoreUObject.Class'/Script/AnimGraphRuntime.KismetAnimationLibrary'"`, // R64
   EnhancedInputLocalPlayerSubsystem: `"/Script/CoreUObject.Class'/Script/EnhancedInput.EnhancedInputLocalPlayerSubsystem'"`, // R64
   EditableText: `"/Script/CoreUObject.Class'/Script/UMG.EditableText'"`, // R64
@@ -160,6 +162,8 @@ const LIBS_SHORT = {
   SphereComponent: `Class'"/Script/Engine.SphereComponent"'`,
   BoxComponent: `Class'"/Script/Engine.BoxComponent"'`,
   KismetRenderingLibrary: `Class'"/Script/Engine.KismetRenderingLibrary"'`,
+  SplineMeshComponent: `Class'"/Script/Engine.SplineMeshComponent"'`,
+  TimelineComponent: `Class'"/Script/Engine.TimelineComponent"'`,
   KismetAnimationLibrary: `Class'"/Script/AnimGraphRuntime.KismetAnimationLibrary"'`,
   EnhancedInputLocalPlayerSubsystem: `Class'"/Script/EnhancedInput.EnhancedInputLocalPlayerSubsystem"'`,
   EditableText: `Class'"/Script/UMG.EditableText"'`,

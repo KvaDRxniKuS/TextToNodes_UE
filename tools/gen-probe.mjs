@@ -1251,6 +1251,33 @@ const BATCHES = {
     ['Render', 'Draw Material to Render Target', lib('KismetRenderingLibrary.DrawMaterialToRenderTarget', ['TextureRenderTarget:object:/Script/Engine.TextureRenderTarget2D', 'Material:object:/Script/Engine.MaterialInterface'])],
     ['Render', 'Read Render Target Pixel', lib('KismetRenderingLibrary.ReadRenderTargetPixel', ['TextureRenderTarget:object:/Script/Engine.TextureRenderTarget2D', 'X:int', 'Y:int', '->', 'ReturnValue:color'])],
   ],
+  '66': [
+    // R66: Timeline component, Spline Mesh, силы/импульсы, физика тела, Camera Shake.
+    ['Timeline', 'Play', mem('TimelineComponent.Play', [])],
+    ['Timeline', 'Play from Start', mem('TimelineComponent.PlayFromStart', [])],
+    ['Timeline', 'Reverse', mem('TimelineComponent.Reverse', [])],
+    ['Timeline', 'Stop', mem('TimelineComponent.Stop', [])],
+    ['Timeline', 'Set Play Rate', mem('TimelineComponent.SetPlayRate', ['NewRate:float'])],
+    ['Timeline', 'Set New Time', mem('TimelineComponent.SetNewTime', ['NewTime:float'])],
+    ['Timeline', 'Get Playback Position (pure)', mem('TimelineComponent.GetPlaybackPosition', ['->', 'ReturnValue:float'], true)],
+    ['Timeline', 'Is Playing (pure)', mem('TimelineComponent.IsPlaying', ['->', 'ReturnValue:bool'], true)],
+    ['Timeline', 'Set Timeline Length', mem('TimelineComponent.SetTimelineLength', ['NewLength:float'])],
+    ['SplineMesh', 'Set Start and End', mem('SplineMeshComponent.SetStartAndEnd', ['StartPos:vector', 'StartTangent:vector', 'EndPos:vector', 'EndTangent:vector', 'bUpdateMesh:bool=true'])],
+    ['SplineMesh', 'Set Start Scale', mem('SplineMeshComponent.SetStartScale', ['StartScale:vector2d', 'bUpdateMesh:bool=true'])],
+    ['SplineMesh', 'Set End Scale', mem('SplineMeshComponent.SetEndScale', ['EndScale:vector2d', 'bUpdateMesh:bool=true'])],
+    ['SplineMesh', 'Set Start Roll', mem('SplineMeshComponent.SetStartRoll', ['StartRoll:float', 'bUpdateMesh:bool=true'])],
+    ['SplineMesh', 'Set End Roll', mem('SplineMeshComponent.SetEndRoll', ['EndRoll:float', 'bUpdateMesh:bool=true'])],
+    ['SplineMesh', 'Get Start Position (pure)', mem('SplineMeshComponent.GetStartPosition', ['->', 'ReturnValue:vector'], true)],
+    ['SplineMesh', 'Get End Position (pure)', mem('SplineMeshComponent.GetEndPosition', ['->', 'ReturnValue:vector'], true)],
+    ['SplineMesh', 'Update Mesh', mem('SplineMeshComponent.UpdateMesh', [])],
+    ['Force', 'Add Torque in Degrees', mem('PrimitiveComponent.AddTorqueInDegrees', ['Torque:vector', 'BoneName:name', 'bAccelChange:bool=false'])],
+    ['Body', 'Wake All Rigid Bodies', mem('PrimitiveComponent.WakeAllRigidBodies', [])],
+    ['Body', 'Put All Rigid Bodies to Sleep', mem('PrimitiveComponent.PutAllRigidBodiesToSleep', [])],
+    ['Body', 'Set Center of Mass', mem('PrimitiveComponent.SetCenterOfMass', ['CenterOfMassOffset:vector', 'BoneName:name'])],
+    ['Tick', 'Set Component Tick Interval', mem('ActorComponent.SetComponentTickInterval', ['TickInterval:float'])],
+    ['Tick', 'Is Component Tick Enabled (pure)', mem('ActorComponent.IsComponentTickEnabled', ['->', 'ReturnValue:bool'], true)],
+    ['Active', 'Toggle Active', mem('ActorComponent.ToggleActive', [])],
+  ],
 };
 
 const list = BATCHES[batch];
