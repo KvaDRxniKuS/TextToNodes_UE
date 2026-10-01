@@ -1392,3 +1392,8 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 ## R72 — Media Player / Cine Camera / State Tree / Sound Mix (VERIFIED: Media 9, CineCam 4)
 - StateTreeComponent живёт в /Script/GameplayStateTreeModule (не StateTreeModule). SetStartLogicAutomatically(bInStartLogicAutomatically, const bool) — VERIFIED по copy-back.
 - R72b VERIFIED 5/5: Start/Stop/Restart Logic, IsRunning, IsPaused — на /Script/AIModule.BrainComponent.
+
+## exec-align (2026-10-02) — VERIFIED
+`arrangeRows({alignExec:true})`, проба `sweep/chapters/exec-align.txt` (7 нод в ряд): вставка без ошибок, все exec-провода прямые.
+Сдвиг верха ноды для соосных exec-пинов (`EXEC_HEADER_SHIFT`): Branch/Sequence/макрос/Tunnel/статические библиотеки = 0;
+Event/CustomEvent и «Target is…» = на 16 выше; Map/Set/Array-функции = на 16 ниже. Первая версия ставила Event на уровень Branch — движок показал −16.
