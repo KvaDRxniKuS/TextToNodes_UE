@@ -1232,6 +1232,20 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(ev.pos.y===row[0].pos.y-16, 'alignExec: Custom Event на 16 выше Branch (движок, проба exec-align)');
   ok(line.size===1 && row[2].pos.y===row[0].pos.y-16 && row[3].pos.y===row[0].pos.y+16 && row.every(n=>n.pos.x%16===0), 'alignExec: exec-пины ряда соосны (Target −16, Array +16), X на сетке 16');
 }
+{
+  // Потоковый расстановщик: правила 1/3/8/9 на flow-demo.
+  const {arrangeExecFlow,flowHeight,isPure}=await import('../src/flow-layout.js');
+  const {createCustomEvent}=await import('../src/modules.js');
+  const L=JSON.parse(fs.readFileSync('data/ue-functions.json','utf8')); const F=id=>createCallFunction((Array.isArray(L)?L:Object.values(L)).find(x=>x.func===id));
+  const ev=createCustomEvent('FlowT',[],{x:0,y:0}), br=createBranch(), rnd=F('RandomBool'), p1=F('PrintString'), p2=F('PrintString'), pe=F('PrintString');
+  linkPins(ev,'then',br,'execute'); linkPins(rnd,'ReturnValue',br,'Condition'); linkPins(br,'then',p1,'execute'); linkPins(p1,'then',p2,'execute'); linkPins(br,'else',pe,'execute');
+  const all=[ev,br,rnd,p1,p2,pe]; arrangeExecFlow(all);
+  const box=n=>[n.pos.x,n.pos.y,n.pos.x+estNodeWidth(n),n.pos.y+flowHeight(n)];
+  const hit=(a,b)=>{const A=box(a),B=box(b);return A[0]<B[2]&&B[0]<A[2]&&A[1]<B[3]&&B[1]<A[3];};
+  const overlaps=all.flatMap((a,i)=>all.slice(i+1).filter(b=>hit(a,b)));
+  ok(overlaps.length===0 && pe.pos.x===p1.pos.x && pe.pos.y>p1.pos.y && rnd.pos.y>br.pos.y && rnd.pos.x<=br.pos.x && ev.pos.y===br.pos.y-16 && all.every(n=>n.pos.x%16===0&&n.pos.y%16===0),
+    'flow: без пересечений, else под следующей нодой, чистый вход под-слева, Event −16, сетка 16');
+}
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);

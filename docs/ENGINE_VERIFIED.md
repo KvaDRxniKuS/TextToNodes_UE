@@ -1397,3 +1397,4 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 `arrangeRows({alignExec:true})`, проба `sweep/chapters/exec-align.txt` (7 нод в ряд): вставка без ошибок, все exec-провода прямые.
 Сдвиг верха ноды для соосных exec-пинов (`EXEC_HEADER_SHIFT`): Branch/Sequence/макрос/Tunnel/статические библиотеки = 0;
 Event/CustomEvent и «Target is…» = на 16 выше; Map/Set/Array-функции = на 16 ниже. Первая версия ставила Event на уровень Branch — движок показал −16.
+- exec-align-3 (2026-10-02) VERIFIED: replicated Custom Event (Multicast/Server/Client) = 3 строки заголовка; модель «exec-пин = верх + 16·строк» (`headerLines`).
