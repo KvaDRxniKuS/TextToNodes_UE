@@ -47672,5 +47672,294 @@
   "verified": true,
   "desc": "Get Current Swing 2",
   "probe": "R58 проба (Constraint) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Current Swing 2 (член PhysicsConstraintComponent, pure)"
+ },
+ {
+  "id": "GetPingInMs",
+  "title": "Get Ping In Ms",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetPingInMs",
+  "lib": "FindSessionsCallbackProxy",
+  "pins": [
+   {
+    "name": "Result",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "BlueprintSessionResult",
+    "const": true,
+    "ref": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Ping in Ms",
+  "probe": "R61 проба (Session) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Ping in Ms (pure)"
+ },
+ {
+  "id": "GetServerName",
+  "title": "Get Server Name",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetServerName",
+  "lib": "FindSessionsCallbackProxy",
+  "pins": [
+   {
+    "name": "Result",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "BlueprintSessionResult",
+    "const": true,
+    "ref": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "string"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Server Name",
+  "probe": "R61 проба (Session) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Server Name (pure)"
+ },
+ {
+  "id": "GetCurrentPlayers",
+  "title": "Get Current Players",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetCurrentPlayers",
+  "lib": "FindSessionsCallbackProxy",
+  "pins": [
+   {
+    "name": "Result",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "BlueprintSessionResult",
+    "const": true,
+    "ref": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Current Players",
+  "probe": "R61 проба (Session) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Current Players (pure)"
+ },
+ {
+  "id": "GetMaxPlayers",
+  "title": "Get Max Players",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetMaxPlayers",
+  "lib": "FindSessionsCallbackProxy",
+  "pins": [
+   {
+    "name": "Result",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "BlueprintSessionResult",
+    "const": true,
+    "ref": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Max Players",
+  "probe": "R61 проба (Session) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Max Players (pure)"
+ },
+ {
+  "id": "MakeLiteralBool",
+  "title": "Make Literal Bool",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "MakeLiteralBool",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "Value",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Make Literal Bool",
+  "probe": "R61 проба (Literal) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Make Literal Bool"
+ },
+ {
+  "id": "MakeLiteralDouble",
+  "title": "Make Literal Double",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "MakeLiteralDouble",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "Value",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Make Literal Float",
+  "probe": "R61 проба (Literal) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Make Literal Float (double)"
+ },
+ {
+  "id": "MakeLiteralByte",
+  "title": "Make Literal Byte",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "MakeLiteralByte",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "Value",
+    "dir": "Input",
+    "cat": "byte"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "byte"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Make Literal Byte",
+  "probe": "R61 проба (Literal) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Make Literal Byte"
+ },
+ {
+  "id": "MakeLiteralInt64",
+  "title": "Make Literal Int64",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "MakeLiteralInt64",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "Value",
+    "dir": "Input",
+    "cat": "int64"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int64"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Make Literal Int64",
+  "probe": "R61 проба (Literal) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Make Literal Int64"
+ },
+ {
+  "id": "MakeLiteralString",
+  "title": "Make Literal String",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "MakeLiteralString",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "Value",
+    "dir": "Input",
+    "cat": "string"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "string"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Make Literal String",
+  "probe": "R61 проба (Literal) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Make Literal String"
+ },
+ {
+  "id": "MakeLiteralName",
+  "title": "Make Literal Name",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "MakeLiteralName",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "Value",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "name"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Make Literal Name",
+  "probe": "R61 проба (Literal) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Make Literal Name"
+ },
+ {
+  "id": "MakeLiteralText",
+  "title": "Make Literal Text",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "MakeLiteralText",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "Value",
+    "dir": "Input",
+    "cat": "text"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "text"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Make Literal Text",
+  "probe": "R61 проба (Literal) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Make Literal Text"
  }
 ]

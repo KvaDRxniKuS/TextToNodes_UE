@@ -1114,6 +1114,16 @@ const BATCHES = {
     ['Session', 'Get Server Name (pure)', pf(lib('FindSessionsCallbackProxy.GetServerName', ['Result:blueprintsessionresult', '->', 'ReturnValue:string'], true), { Result: '&!' })],
     ['Session', 'Get Current Players (pure)', pf(lib('FindSessionsCallbackProxy.GetCurrentPlayers', ['Result:blueprintsessionresult', '->', 'ReturnValue:int'], true), { Result: '&!' })],
     ['Session', 'Get Max Players (pure)', pf(lib('FindSessionsCallbackProxy.GetMaxPlayers', ['Result:blueprintsessionresult', '->', 'ReturnValue:int'], true), { Result: '&!' })],
+    ['Literal', 'Make Literal Bool', lib('KismetSystemLibrary.MakeLiteralBool', ['Value:bool', '->', 'ReturnValue:bool'], true)],
+    ['Literal', 'Make Literal Float (double)', lib('KismetSystemLibrary.MakeLiteralDouble', ['Value:float', '->', 'ReturnValue:float'], true)],
+    ['Literal', 'Make Literal Byte', lib('KismetSystemLibrary.MakeLiteralByte', ['Value:byte', '->', 'ReturnValue:byte'], true)],
+    ['Literal', 'Make Literal Int64', lib('KismetSystemLibrary.MakeLiteralInt64', ['Value:int64', '->', 'ReturnValue:int64'], true)],
+    ['Literal', 'Make Literal String', lib('KismetSystemLibrary.MakeLiteralString', ['Value:string', '->', 'ReturnValue:string'], true)],
+    ['Literal', 'Make Literal Name', lib('KismetSystemLibrary.MakeLiteralName', ['Value:name', '->', 'ReturnValue:name'], true)],
+    ['Literal', 'Make Literal Text', lib('KismetSystemLibrary.MakeLiteralText', ['Value:text', '->', 'ReturnValue:text'], true)],
+  ],
+  '61g': [
+    // R61 вердикт: GAS/ASC «полностью отсутствуют» — вероятно, плагин Gameplay Abilities не включён. Отложено до включения плагина.
     ['GAS', 'Get Ability System Component (pure)', lib('AbilitySystemBlueprintLibrary.GetAbilitySystemComponent', ['Actor:object:Actor', '->', 'ReturnValue:object:/Script/GameplayAbilities.AbilitySystemComponent'], true)],
     ['GAS', 'Send Gameplay Event to Actor', lib('AbilitySystemBlueprintLibrary.SendGameplayEventToActor', ['Actor:object:Actor', 'EventTag:gameplaytag', 'Payload:gameplayeventdata'])],
     ['GAS', 'Add Loose Gameplay Tags', pf(lib('AbilitySystemBlueprintLibrary.AddLooseGameplayTags', ['Actor:object:Actor', 'GameplayTags:gameplaytagcontainer', 'bShouldReplicate:bool=false', '->', 'ReturnValue:bool']), { GameplayTags: '&!' })],
@@ -1127,13 +1137,6 @@ const BATCHES = {
     ['ASC', 'Remove Active Gameplay Effect', mem('AbilitySystemComponent.RemoveActiveGameplayEffect', ['Handle:activegameplayeffecthandle', 'StacksToRemove:int=-1', '->', 'ReturnValue:bool'])],
     ['ASC', 'Get Gameplay Attribute Value (pure)', mem('AbilitySystemComponent.GetGameplayAttributeValue', ['Attribute:gameplayattribute', '->', 'bFound:bool', 'ReturnValue:float'], true)],
     ['ASC', 'Get Owned Gameplay Tags (pure)', mem('AbilitySystemComponent.GetOwnedGameplayTags', ['->', 'ReturnValue:gameplaytagcontainer'], true)],
-    ['Literal', 'Make Literal Bool', lib('KismetSystemLibrary.MakeLiteralBool', ['Value:bool', '->', 'ReturnValue:bool'], true)],
-    ['Literal', 'Make Literal Float (double)', lib('KismetSystemLibrary.MakeLiteralDouble', ['Value:float', '->', 'ReturnValue:float'], true)],
-    ['Literal', 'Make Literal Byte', lib('KismetSystemLibrary.MakeLiteralByte', ['Value:byte', '->', 'ReturnValue:byte'], true)],
-    ['Literal', 'Make Literal Int64', lib('KismetSystemLibrary.MakeLiteralInt64', ['Value:int64', '->', 'ReturnValue:int64'], true)],
-    ['Literal', 'Make Literal String', lib('KismetSystemLibrary.MakeLiteralString', ['Value:string', '->', 'ReturnValue:string'], true)],
-    ['Literal', 'Make Literal Name', lib('KismetSystemLibrary.MakeLiteralName', ['Value:name', '->', 'ReturnValue:name'], true)],
-    ['Literal', 'Make Literal Text', lib('KismetSystemLibrary.MakeLiteralText', ['Value:text', '->', 'ReturnValue:text'], true)],
   ],
 };
 

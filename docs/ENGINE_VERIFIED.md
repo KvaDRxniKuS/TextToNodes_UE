@@ -1343,3 +1343,4 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 - Online: `createAsyncAction({online:true,...})` → K2Node_LatentOnlineCall (OnlineBlueprintSupport); Create/Find/Join/DestroySession (OnSuccess/OnFailure) + FindSessionsCallbackProxy GetPingInMs/GetServerName/GetCurrentPlayers/GetMaxPlayers.
 - GAS (плагин Gameplay Abilities): AbilitySystemBlueprintLibrary ×5, AbilitySystemComponent ×8. STRUCTS += BlueprintSessionResult, GameplayEventData, GameplayEffectContextHandle, ActiveGameplayEffectHandle, GameplayAbilitySpecHandle, GameplayAttribute.
 - Literal: KismetSystemLibrary.MakeLiteral* ×7. K2Node_Literal (ссылка на актор уровня) — только в Level Blueprint, текстом не генерируем.
+- **R61 вердикт:** Online (4, K2Node_LatentOnlineCall — VERIFIED), Session (4) и Literal (7) встали → +11 в реестр (1272). GAS/ASC (13) в движке отсутствуют — вероятно, плагин Gameplay Abilities не включён; вынесены в батч `61g`, повтор после включения плагина.
