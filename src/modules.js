@@ -439,6 +439,8 @@ export function createAsyncAction({ proxy, factory, factoryClass = proxy, inputs
  *  createMakeContainer('array', 'int', [1,2,3]) · ('set', 'name', ['A','B']) · ('map', ['name','vector'], [['Spawn',[0,0,100]], ...]).
  *  Значения — formatValue (src/values.js): числа, bool, [x,y,z] для Vector/Rotator, [r,g,b,a] LinearColor, {loc,rot,scale} Transform, готовые строки UE. */
 export function createMakeContainer(kind, type, values = [], pos) {
+  const P = (x) => typeof x === 'string' ? parseType(x) : x;
+  const tname = (x) => typeof x === 'string' ? x : (x.cat === 'struct' ? String(x.subObj).replace(/.*\.(\w+)'"?$/, '$1') : x.cat);
   const cls = { array: 'K2Node_MakeArray', set: 'K2Node_MakeSet', map: 'K2Node_MakeMap' }[kind];
   if (!cls) throw new Error(`createMakeContainer: array | set | map`);
   const n = node(cls, pos);
@@ -446,16 +448,16 @@ export function createMakeContainer(kind, type, values = [], pos) {
   n.rawProps = [`NumInputs=${N}`];
   const val = (ty, v) => { const f = formatValue(ty, v); return { ...(f.dv !== undefined ? { dv: f.dv } : {}), ...(f.defObj ? { defObj: f.defObj } : {}) }; };
   if (kind === 'map') {
-    const [kt, vt] = type.map(parseType);
-    n.title = `Make Map (${type.join(' → ')})`;
+    const [kt, vt] = type.map(P);
+    n.title = `Make Map (${type.map(tname).join(' → ')})`;
     for (let i = 0; i < N; i++) {
       const [k, v] = values[i] ?? [];
       n.pins.push(pin(`Key ${i}`, 'Input', kt, val(kt, k)), pin(`Value ${i}`, 'Input', vt, val(vt, v)));
     }
     n.pins.push(pin('Map', 'Output', { ...kt, container: 'Map', valueType: { cat: vt.cat, sub: vt.sub, subObj: vt.subObj ? (vt.subObj.startsWith('"') ? vt.subObj : `"${vt.subObj}"`) : '' } }));
   } else {
-    const t = parseType(type);
-    n.title = `Make ${kind === 'array' ? 'Array' : 'Set'} (${type})`;
+    const t = P(type);
+    n.title = `Make ${kind === 'array' ? 'Array' : 'Set'} (${tname(type)})`;
     for (let i = 0; i < N; i++) {
       // R60 вердикт: значение целого Transform-пина движок теряет (пин «контейнер контейнеров»). Значения держатся только
       // в разбитом виде (Split Struct Pin): родитель скрыт + SubPins, дети Location/Rotation/Scale с ParentPin (copy-back r60-transform-split).
@@ -479,4 +481,21 @@ export function splitTransformPin(name, display, v = {}) {
   });
   parent.subPins = kids.map(c => c.id);
   return [parent, ...kids];
+}
+
+/** R63: Make Array/Set/Map под вход-контейнер target.pinName — тип элементов (и значения словаря) берётся из самого пина.
+ *  Ноду НЕ подключает (генератор не соединяет): связь — linkPins(make, make.outPin, target, pinName) в сценарии.
+ *  values: как у createMakeContainer (для map — [[k,v],...]). */
+export function createContainerFor(target, pinName, values = [], pos) {
+  const p = target.pins.find(q => q.name === pinName && q.direction === 'Input');
+  if (!p) throw new Error(`createContainerFor: нет входа ${pinName} у ${target.id}`);
+  if (!p.container || p.container === 'None') throw new Error(`createContainerFor: ${pinName} не контейнер`);
+  const elem = { cat: p.category, sub: p.subCategory || '', subObj: p.subCategoryObject || '', container: 'None' };
+  let make;
+  if (p.container === 'Map') {
+    const v = typeof p.valueType === 'string' ? { cat: p.valueType, sub: '', subObj: '' } : p.valueType;
+    make = createMakeContainer('map', [elem, { cat: v.cat, sub: v.sub || '', subObj: v.subObj || '', container: 'None' }], values, pos);
+  } else make = createMakeContainer(p.container === 'Set' ? 'set' : 'array', elem, values, pos);
+  make.outPin = p.container === 'Map' ? 'Map' : p.container === 'Set' ? 'Set' : 'Array';
+  return make;
 }
