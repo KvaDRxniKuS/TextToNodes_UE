@@ -1354,6 +1354,7 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
   Массив-параметр без const требует переменную (pass-by-ref) → теперь контейнер-параметры событий пишутся `bIsReference=True,bIsConst=True`, входы вызова — ref+const.
   Не создавать дубли событий: функция/событие с тем же именем уже существует → ошибка.
 
-## R63 — Make-контейнеры, подключённые к входам (ждёт вердикта)
+## R63 — Make-контейнеры, подключённые к входам — VERIFIED
 - `createContainerFor(target, pin, values)` (modules.js): Make Array/Set/Map, тип элементов и значения словаря — из самого входа. Не соединяет; связь — `linkPins(make, make.outPin, target, pin)` в сценарии.
 - Проба `tools/gen-r63-feed.mjs`: событие R63_Feed (const-ref контейнеры, проверка R62-фикса) + 3 Make → вызов; Make Array string → JoinStringArray.
+- **R63 вердикт:** всё работает после Refresh Nodes на вызове события. Const-ref контейнер-параметры (R62-фикс) принимают временные Make-массивы. Проба и её скрипт удалены.
