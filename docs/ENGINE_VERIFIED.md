@@ -1383,4 +1383,5 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 ## R69 — плагины: MetaSound / Chaos Destruction / Control Rig / Common UI (VERIFIED 28/28)
 - MetaSound-параметры вызываются через /Script/AudioExtensions.AudioParameterControllerInterface — работает.
 
-## R70 — GAS (ASC/эффекты/GameplayAbility) + Motion Warping (ждёт вердикта)
+## R70 — GAS (ASC/эффекты/GameplayAbility) + Motion Warping (VERIFIED 22/23)
+- AbilitySystemComponent.SetNumericAttributeBase НЕ создаётся как нода в 5.8 (менять атрибуты — через Gameplay Effect).

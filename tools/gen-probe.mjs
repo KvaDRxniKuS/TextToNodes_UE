@@ -1349,7 +1349,6 @@ const BATCHES = {
     ['ASC', 'Give Ability and Activate Once', mem('AbilitySystemComponent.K2_GiveAbilityAndActivateOnce', ['AbilityClass:class:/Script/GameplayAbilities.GameplayAbility', 'Level:int=0', 'InputID:int=-1', '->', 'ReturnValue:gameplayabilityspechandle'])],
     ['ASC', 'Clear Ability', pf(mem('AbilitySystemComponent.ClearAbility', ['Handle:gameplayabilityspechandle']), { Handle: '&!' })],
     ['ASC', 'Clear All Abilities', mem('AbilitySystemComponent.ClearAllAbilities', [])],
-    ['ASC', 'Set Numeric Attribute Base', pf(mem('AbilitySystemComponent.SetNumericAttributeBase', ['Attribute:gameplayattribute', 'NewBaseValue:single']), { Attribute: '&!' })],
     ['Effects', 'Apply Gameplay Effect Spec to Self', pf(mem('AbilitySystemComponent.BP_ApplyGameplayEffectSpecToSelf', ['SpecHandle:gameplayeffectspechandle', '->', 'ReturnValue:activegameplayeffecthandle']), { SpecHandle: '&!' })],
     ['Effects', 'Make Outgoing Spec', mem('AbilitySystemComponent.MakeOutgoingSpec', ['GameplayEffectClass:class:/Script/GameplayAbilities.GameplayEffect', 'Level:single', 'Context:gameplayeffectcontexthandle', '->', 'ReturnValue:gameplayeffectspechandle'])],
     ['Effects', 'Remove Active Gameplay Effect by Source Effect', mem('AbilitySystemComponent.RemoveActiveGameplayEffectBySourceEffect', ['GameplayEffect:class:/Script/GameplayAbilities.GameplayEffect', 'InstigatorAbilitySystemComponent:object:/Script/GameplayAbilities.AbilitySystemComponent', 'StacksToRemove:int=-1'])],

@@ -54989,5 +54989,887 @@
   "verified": true,
   "desc": "Get Selected",
   "probe": "R69 проба (CommonUI) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Selected (pure)"
+ },
+ {
+  "id": "K2_GiveAbilityAndActivateOnce",
+  "title": "K2 Give Ability And Activate Once",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_GiveAbilityAndActivateOnce",
+  "lib": "AbilitySystemComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.AbilitySystemComponent"
+   },
+   {
+    "name": "AbilityClass",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/GameplayAbilities.GameplayAbility"
+   },
+   {
+    "name": "Level",
+    "dir": "Input",
+    "cat": "int",
+    "dv": "0",
+    "autoDv": ""
+   },
+   {
+    "name": "InputID",
+    "dir": "Input",
+    "cat": "int",
+    "dv": "-1",
+    "autoDv": ""
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "GameplayAbilitySpecHandle"
+   }
+  ],
+  "verified": true,
+  "desc": "Give Ability and Activate Once",
+  "probe": "R70 проба (ASC) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Give Ability and Activate Once"
+ },
+ {
+  "id": "ClearAbility",
+  "title": "Clear Ability",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ClearAbility",
+  "lib": "AbilitySystemComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.AbilitySystemComponent"
+   },
+   {
+    "name": "Handle",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayAbilitySpecHandle",
+    "const": true,
+    "ref": true
+   }
+  ],
+  "verified": true,
+  "desc": "Clear Ability",
+  "probe": "R70 проба (ASC) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Clear Ability"
+ },
+ {
+  "id": "ClearAllAbilities",
+  "title": "Clear All Abilities",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ClearAllAbilities",
+  "lib": "AbilitySystemComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.AbilitySystemComponent"
+   }
+  ],
+  "verified": true,
+  "desc": "Clear All Abilities",
+  "probe": "R70 проба (ASC) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Clear All Abilities"
+ },
+ {
+  "id": "BP_ApplyGameplayEffectSpecToSelf",
+  "title": "BP Apply Gameplay Effect Spec To Self",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "BP_ApplyGameplayEffectSpecToSelf",
+  "lib": "AbilitySystemComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.AbilitySystemComponent"
+   },
+   {
+    "name": "SpecHandle",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayEffectSpecHandle",
+    "const": true,
+    "ref": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "ActiveGameplayEffectHandle"
+   }
+  ],
+  "verified": true,
+  "desc": "Apply Gameplay Effect Spec to Self",
+  "probe": "R70 проба (Effects) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Apply Gameplay Effect Spec to Self"
+ },
+ {
+  "id": "MakeOutgoingSpec",
+  "title": "Make Outgoing Spec",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "MakeOutgoingSpec",
+  "lib": "AbilitySystemComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.AbilitySystemComponent"
+   },
+   {
+    "name": "GameplayEffectClass",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/GameplayAbilities.GameplayEffect"
+   },
+   {
+    "name": "Level",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "Context",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayEffectContextHandle",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "GameplayEffectSpecHandle"
+   }
+  ],
+  "verified": true,
+  "desc": "Make Outgoing Spec",
+  "probe": "R70 проба (Effects) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Make Outgoing Spec"
+ },
+ {
+  "id": "RemoveActiveGameplayEffectBySourceEffect",
+  "title": "Remove Active Gameplay Effect By Source Effect",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "RemoveActiveGameplayEffectBySourceEffect",
+  "lib": "AbilitySystemComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.AbilitySystemComponent"
+   },
+   {
+    "name": "GameplayEffect",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/GameplayAbilities.GameplayEffect"
+   },
+   {
+    "name": "InstigatorAbilitySystemComponent",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.AbilitySystemComponent"
+   },
+   {
+    "name": "StacksToRemove",
+    "dir": "Input",
+    "cat": "int",
+    "dv": "-1",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Remove Active Gameplay Effect by Source Effect",
+  "probe": "R70 проба (Effects) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Remove Active Gameplay Effect by Source Effect"
+ },
+ {
+  "id": "GetGameplayEffectCount",
+  "title": "Get Gameplay Effect Count",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetGameplayEffectCount",
+  "lib": "AbilitySystemComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.AbilitySystemComponent"
+   },
+   {
+    "name": "SourceGameplayEffect",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/GameplayAbilities.GameplayEffect"
+   },
+   {
+    "name": "OptionalInstigatorAbilitySystemComponent",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.AbilitySystemComponent"
+   },
+   {
+    "name": "bEnforceOnGoingCheck",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "verified": true,
+  "desc": "Get Gameplay Effect Count",
+  "probe": "R70 проба (Effects) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Gameplay Effect Count"
+ },
+ {
+  "id": "AssignTagSetByCallerMagnitude",
+  "title": "Assign Tag Set By Caller Magnitude",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AssignTagSetByCallerMagnitude",
+  "lib": "AbilitySystemBlueprintLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "SpecHandle",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayEffectSpecHandle",
+    "const": true
+   },
+   {
+    "name": "DataTag",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayTag",
+    "const": true
+   },
+   {
+    "name": "Magnitude",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "GameplayEffectSpecHandle"
+   }
+  ],
+  "verified": true,
+  "desc": "Assign Tag Set by Caller Magnitude",
+  "probe": "R70 проба (Effects) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Assign Tag Set by Caller Magnitude"
+ },
+ {
+  "id": "K2_EndAbility",
+  "title": "K2 End Ability",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_EndAbility",
+  "lib": "GameplayAbility",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.GameplayAbility"
+   }
+  ],
+  "verified": true,
+  "desc": "End Ability",
+  "probe": "R70 проба (Ability) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). End Ability"
+ },
+ {
+  "id": "K2_CommitAbility",
+  "title": "K2 Commit Ability",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_CommitAbility",
+  "lib": "GameplayAbility",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.GameplayAbility"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Commit Ability",
+  "probe": "R70 проба (Ability) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Commit Ability"
+ },
+ {
+  "id": "K2_CommitAbilityCooldown",
+  "title": "K2 Commit Ability Cooldown",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_CommitAbilityCooldown",
+  "lib": "GameplayAbility",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.GameplayAbility"
+   },
+   {
+    "name": "BroadcastCommitEvent",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false",
+    "autoDv": ""
+   },
+   {
+    "name": "ForceCooldown",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false",
+    "autoDv": ""
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Commit Ability Cooldown",
+  "probe": "R70 проба (Ability) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Commit Ability Cooldown"
+ },
+ {
+  "id": "K2_CommitAbilityCost",
+  "title": "K2 Commit Ability Cost",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_CommitAbilityCost",
+  "lib": "GameplayAbility",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.GameplayAbility"
+   },
+   {
+    "name": "BroadcastCommitEvent",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false",
+    "autoDv": ""
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Commit Ability Cost",
+  "probe": "R70 проба (Ability) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Commit Ability Cost"
+ },
+ {
+  "id": "K2_CheckAbilityCooldown",
+  "title": "K2 Check Ability Cooldown",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_CheckAbilityCooldown",
+  "lib": "GameplayAbility",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.GameplayAbility"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Check Ability Cooldown",
+  "probe": "R70 проба (Ability) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Check Ability Cooldown"
+ },
+ {
+  "id": "GetAvatarActorFromActorInfo",
+  "title": "Get Avatar Actor From Actor Info",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetAvatarActorFromActorInfo",
+  "lib": "GameplayAbility",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.GameplayAbility"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Avatar Actor from Actor Info",
+  "probe": "R70 проба (Ability) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Avatar Actor from Actor Info (pure)"
+ },
+ {
+  "id": "GetOwningActorFromActorInfo",
+  "title": "Get Owning Actor From Actor Info",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetOwningActorFromActorInfo",
+  "lib": "GameplayAbility",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.GameplayAbility"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.Actor"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Owning Actor from Actor Info",
+  "probe": "R70 проба (Ability) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Owning Actor from Actor Info (pure)"
+ },
+ {
+  "id": "GetAbilityLevel",
+  "title": "Get Ability Level",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetAbilityLevel",
+  "lib": "GameplayAbility",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.GameplayAbility"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Ability Level",
+  "probe": "R70 проба (Ability) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Ability Level (pure)"
+ },
+ {
+  "id": "GetAbilitySystemComponentFromActorInfo",
+  "title": "Get Ability System Component From Actor Info",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetAbilitySystemComponentFromActorInfo",
+  "lib": "GameplayAbility",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.GameplayAbility"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/GameplayAbilities.AbilitySystemComponent"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Ability System Component from Actor Info",
+  "probe": "R70 проба (Ability) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Ability System Component from Actor Info (pure)"
+ },
+ {
+  "id": "AddOrUpdateWarpTargetFromLocation",
+  "title": "Add Or Update Warp Target From Location",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AddOrUpdateWarpTargetFromLocation",
+  "lib": "MotionWarpingComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/MotionWarping.MotionWarpingComponent"
+   },
+   {
+    "name": "WarpTargetName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "TargetLocation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "Add or Update Warp Target from Location",
+  "probe": "R70 проба (Warp) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Add or Update Warp Target from Location"
+ },
+ {
+  "id": "AddOrUpdateWarpTargetFromLocationAndRotation",
+  "title": "Add Or Update Warp Target From Location And Rotation",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AddOrUpdateWarpTargetFromLocationAndRotation",
+  "lib": "MotionWarpingComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/MotionWarping.MotionWarpingComponent"
+   },
+   {
+    "name": "WarpTargetName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "TargetLocation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "TargetRotation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Rotator",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "Add or Update Warp Target from Location and Rotation",
+  "probe": "R70 проба (Warp) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Add or Update Warp Target from Location and Rotation"
+ },
+ {
+  "id": "AddOrUpdateWarpTargetFromTransform",
+  "title": "Add Or Update Warp Target From Transform",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AddOrUpdateWarpTargetFromTransform",
+  "lib": "MotionWarpingComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/MotionWarping.MotionWarpingComponent"
+   },
+   {
+    "name": "WarpTargetName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "TargetTransform",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Transform",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "Add or Update Warp Target from Transform",
+  "probe": "R70 проба (Warp) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Add or Update Warp Target from Transform"
+ },
+ {
+  "id": "RemoveWarpTarget",
+  "title": "Remove Warp Target",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "RemoveWarpTarget",
+  "lib": "MotionWarpingComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/MotionWarping.MotionWarpingComponent"
+   },
+   {
+    "name": "WarpTargetName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "verified": true,
+  "desc": "Remove Warp Target",
+  "probe": "R70 проба (Warp) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Remove Warp Target"
+ },
+ {
+  "id": "RemoveAllWarpTargets",
+  "title": "Remove All Warp Targets",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "RemoveAllWarpTargets",
+  "lib": "MotionWarpingComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/MotionWarping.MotionWarpingComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "verified": true,
+  "desc": "Remove All Warp Targets",
+  "probe": "R70 проба (Warp) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Remove All Warp Targets"
  }
 ]
