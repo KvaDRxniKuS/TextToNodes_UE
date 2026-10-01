@@ -1389,4 +1389,6 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 ## R71 — Gameplay Effect / Enhanced Input User Settings / Water (VERIFIED, reg +29)
 - BuoyancyComponent.IsInWater НЕ существует → IsInWaterBody / IsOverlappingWaterBody (copy-back пользователя).
 
-## R72 — Media Player / Cine Camera / State Tree / Sound Mix (ждёт вердикта)
+## R72 — Media Player / Cine Camera / State Tree / Sound Mix (VERIFIED: Media 9, CineCam 4)
+- StateTreeComponent живёт в /Script/GameplayStateTreeModule (не StateTreeModule). SetStartLogicAutomatically(bInStartLogicAutomatically, const bool) — VERIFIED по copy-back.
+- R72b (ждёт вердикта): Start/Stop/Restart Logic, IsRunning, IsPaused — на /Script/AIModule.BrainComponent.

@@ -1416,10 +1416,15 @@ const BATCHES = {
     ['CineCam', 'Set Current Aperture', mem('/Script/CinematicCamera.CineCameraComponent.SetCurrentAperture', ['NewCurrentAperture:single'])],
     ['CineCam', 'Get Horizontal Field of View (pure)', mem('/Script/CinematicCamera.CineCameraComponent.GetHorizontalFieldOfView', ['->', 'ReturnValue:single'], true)],
     ['CineCam', 'Get Vertical Field of View (pure)', mem('/Script/CinematicCamera.CineCameraComponent.GetVerticalFieldOfView', ['->', 'ReturnValue:single'], true)],
-    ['StateTree', 'Start Logic', mem('/Script/StateTreeModule.StateTreeComponent.StartLogic', [])],
-    ['StateTree', 'Restart Logic', mem('/Script/StateTreeModule.StateTreeComponent.RestartLogic', [])],
-    ['StateTree', 'Stop Logic', mem('/Script/StateTreeModule.StateTreeComponent.StopLogic', ['Reason:string'])],
-    ['StateTree', 'Is Running (pure)', mem('/Script/StateTreeModule.StateTreeComponent.IsRunning', ['->', 'ReturnValue:bool'], true)],
+    ['StateTree', 'Set Start Logic Automatically', pf(mem('/Script/GameplayStateTreeModule.StateTreeComponent.SetStartLogicAutomatically', ['bInStartLogicAutomatically:bool']), { bInStartLogicAutomatically: '!' })],
+  ],
+  '72b': [
+    // R72b: Start/Stop/Restart Logic живут на BrainComponent (база StateTreeComponent и BehaviorTreeComponent).
+    ['Brain', 'Start Logic', mem('/Script/AIModule.BrainComponent.StartLogic', [])],
+    ['Brain', 'Restart Logic', mem('/Script/AIModule.BrainComponent.RestartLogic', [])],
+    ['Brain', 'Stop Logic', mem('/Script/AIModule.BrainComponent.StopLogic', ['Reason:string'])],
+    ['Brain', 'Is Running (pure)', mem('/Script/AIModule.BrainComponent.IsRunning', ['->', 'ReturnValue:bool'], true)],
+    ['Brain', 'Is Paused (pure)', mem('/Script/AIModule.BrainComponent.IsPaused', ['->', 'ReturnValue:bool'], true)],
   ],
 };
 

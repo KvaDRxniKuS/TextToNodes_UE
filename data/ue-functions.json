@@ -56909,5 +56909,490 @@
   "verified": true,
   "desc": "Is Overlapping Water Body",
   "probe": "R71 проба (Water) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Overlapping Water Body (Buoyancy, pure)"
+ },
+ {
+  "id": "OpenSource",
+  "title": "Open Source",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "OpenSource",
+  "lib": "MediaPlayer",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/MediaAssets.MediaPlayer"
+   },
+   {
+    "name": "MediaSource",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/MediaAssets.MediaSource"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Open Source",
+  "probe": "R72 проба (Media) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Open Source"
+ },
+ {
+  "id": "OpenUrl",
+  "title": "Open Url",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "OpenUrl",
+  "lib": "MediaPlayer",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/MediaAssets.MediaPlayer"
+   },
+   {
+    "name": "Url",
+    "dir": "Input",
+    "cat": "string"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Open Url",
+  "probe": "R72 проба (Media) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Open Url"
+ },
+ {
+  "id": "Play_MediaPlayer",
+  "title": "Play",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Play",
+  "lib": "MediaPlayer",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/MediaAssets.MediaPlayer"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Play",
+  "probe": "R72 проба (Media) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Play (Media)"
+ },
+ {
+  "id": "Pause_MediaPlayer",
+  "title": "Pause",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Pause",
+  "lib": "MediaPlayer",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/MediaAssets.MediaPlayer"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Pause",
+  "probe": "R72 проба (Media) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Pause (Media)"
+ },
+ {
+  "id": "Rewind",
+  "title": "Rewind",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Rewind",
+  "lib": "MediaPlayer",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/MediaAssets.MediaPlayer"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Rewind",
+  "probe": "R72 проба (Media) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Rewind"
+ },
+ {
+  "id": "Close",
+  "title": "Close",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Close",
+  "lib": "MediaPlayer",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/MediaAssets.MediaPlayer"
+   }
+  ],
+  "verified": true,
+  "desc": "Close",
+  "probe": "R72 проба (Media) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Close"
+ },
+ {
+  "id": "SetLooping",
+  "title": "Set Looping",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetLooping",
+  "lib": "MediaPlayer",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/MediaAssets.MediaPlayer"
+   },
+   {
+    "name": "Looping",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Looping",
+  "probe": "R72 проба (Media) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Looping"
+ },
+ {
+  "id": "SetRate",
+  "title": "Set Rate",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetRate",
+  "lib": "MediaPlayer",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/MediaAssets.MediaPlayer"
+   },
+   {
+    "name": "Rate",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Rate",
+  "probe": "R72 проба (Media) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Rate"
+ },
+ {
+  "id": "IsPlaying_MediaPlayer",
+  "title": "Is Playing",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsPlaying",
+  "lib": "MediaPlayer",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/MediaAssets.MediaPlayer"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Playing",
+  "probe": "R72 проба (Media) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Playing (Media, pure)"
+ },
+ {
+  "id": "SetCurrentFocalLength",
+  "title": "Set Current Focal Length",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetCurrentFocalLength",
+  "lib": "CineCameraComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CinematicCamera.CineCameraComponent"
+   },
+   {
+    "name": "InFocalLength",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Current Focal Length",
+  "probe": "R72 проба (CineCam) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Current Focal Length"
+ },
+ {
+  "id": "SetCurrentAperture",
+  "title": "Set Current Aperture",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetCurrentAperture",
+  "lib": "CineCameraComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CinematicCamera.CineCameraComponent"
+   },
+   {
+    "name": "NewCurrentAperture",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Current Aperture",
+  "probe": "R72 проба (CineCam) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Current Aperture"
+ },
+ {
+  "id": "GetHorizontalFieldOfView",
+  "title": "Get Horizontal Field Of View",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetHorizontalFieldOfView",
+  "lib": "CineCameraComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CinematicCamera.CineCameraComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Horizontal Field of View",
+  "probe": "R72 проба (CineCam) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Horizontal Field of View (pure)"
+ },
+ {
+  "id": "GetVerticalFieldOfView",
+  "title": "Get Vertical Field Of View",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetVerticalFieldOfView",
+  "lib": "CineCameraComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CinematicCamera.CineCameraComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Vertical Field of View",
+  "probe": "R72 проба (CineCam) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Vertical Field of View (pure)"
+ },
+ {
+  "id": "SetStartLogicAutomatically",
+  "title": "Set Start Logic Automatically",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetStartLogicAutomatically",
+  "lib": "StateTreeComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GameplayStateTreeModule.StateTreeComponent"
+   },
+   {
+    "name": "bInStartLogicAutomatically",
+    "dir": "Input",
+    "cat": "bool",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "Set Start Logic Automatically",
+  "probe": "R72 проба (StateTree) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Start Logic Automatically"
  }
 ]
