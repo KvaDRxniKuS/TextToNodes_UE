@@ -1009,6 +1009,15 @@ const BATCHES = {
     ['Async', 'Is Active (член CancellableAsyncAction, pure)', mem('CancellableAsyncAction.IsActive', ['->', 'ReturnValue:bool'], true)],
     ['Async', 'Cancel (член CancellableAsyncAction)', mem('CancellableAsyncAction.Cancel', [])],
   ],
+  '57': [
+    // R57: Blueprint Interface. Ассет BPI текстом не вставить (как переменные/диспетчеры) — пользователь создаёт
+    // /Game/Blueprints/BPI_Test с функцией Interact (вход Instigator: Actor). Проверяем: резолвит ли движок K2Node_Message
+    // по ИМЕНИ при чужом MemberGuid (генератор GUID функции BPI знать не может), и class-пин Interface с DefaultObject=BPI.
+    ['Interface', 'Interact (Message, BPI_Test) — MemberGuid случайный: встанет ли по имени?', (b) => SP.createInterfaceMessage({ bubble: b, bpiPath: '/Game/Blueprints/BPI_Test.BPI_Test_C', memberName: 'Interact',
+      params: [{ name: 'Instigator', category: 'object', subObject: "/Script/CoreUObject.Class'/Script/Engine.Actor'" }] })],
+    ['Interface', 'Does Implement Interface — Interface = BPI_Test', lib('KismetSystemLibrary.DoesImplementInterface', ['TestObject:object:/Script/CoreUObject.Object', 'Interface:class:/Script/CoreUObject.Interface=/Game/Blueprints/BPI_Test.BPI_Test_C', '->', 'ReturnValue:bool'], true)],
+    ['Interface', 'Get All Actors With Interface — Interface = BPI_Test', lib('GameplayStatics.GetAllActorsWithInterface', ['Interface:class:/Script/CoreUObject.Interface=/Game/Blueprints/BPI_Test.BPI_Test_C', '->', 'OutActors:object:Actor[]'])],
+  ],
 };
 
 const list = BATCHES[batch];

@@ -1306,3 +1306,6 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 ## 2026-10-01 — R56 проба: async сохранение/загрузка (ждёт вердикта)
 Новая фабрика `createAsyncAction({proxy, factory, inputs, events, outputs})` в modules.js (K2Node_AsyncAction, форма по copy-back R49). Проба `gen-probe --batch 56` → `sweep/probes/r56-probe.txt`, 2 ноды: Async Save Game to Slot, Async Load Game from Slot (UAsyncActionHandleSaveGame).
 - R56 вердикт: обе async-ноды встали, компиляция без ошибок → `createAsyncAction` VERIFIED. Пользователь прислал также члены `CancellableAsyncAction` (`IsActive` pure, `Cancel`) — copy-back `sweep/copyback/r56-cancellable-async.txt`, внесены в реестр (1223), UE_LIBS += CancellableAsyncAction. Проба удалена.
+
+## 2026-10-01 — R57 проба: Blueprint Interface (ждёт вердикта)
+Состояние: `createInterfaceMessage` — шаблон из copy-back R40 (BPI пользователя), `DoesImplementInterface`/`GetAllActorsWithInterface` VERIFIED без выбранного интерфейса. Открытые вопросы: (1) встаёт ли Message по имени при случайном MemberGuid, (2) class-пин Interface с DefaultObject=BPI. Проба 3 ноды; ассет `/Game/Blueprints/BPI_Test` (функция Interact, вход Instigator: Actor) создаётся вручную.
