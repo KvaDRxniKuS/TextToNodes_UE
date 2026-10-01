@@ -1326,3 +1326,5 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 ## R57 вердикт
 - DoesImplementInterface, GetAllActorsWithInterface — встали (уже в реестре).
 - Interface Message сломан: ассета BPI_Test у пользователя нет. Повтор R57b на BPI_Interaction / I_select (Selected: bool), путь предположен `/Game/Blueprints/`.
+- R57b попытка 1 не встала: путь `/Game/Interaction/` (не `/Game/Blueprints/`) и имя `I_Select` (регистр). Структура ноды совпала с copy-back `sweep/copyback/r57b-interface-messages.txt`.
+- R57b попытка 2: 4 ноды — I_Select с настоящим/случайным MemberGuid, I_DoInteract (выход), I_GetInteractButtons (Array/Map). createInterfaceMessage: params dir/container/valueType.

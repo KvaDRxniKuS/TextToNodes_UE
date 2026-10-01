@@ -20,6 +20,10 @@ import * as SP from '../src/special-nodes.js';
 import { categoryFor } from '../src/categories.js';
 
 const args = process.argv.slice(2);
+const BPI = '/Game/Interaction/BPI_Interaction.BPI_Interaction_C';
+const HIT = "/Script/CoreUObject.ScriptStruct'/Script/Engine.HitResult'";
+const TAG = "/Script/CoreUObject.ScriptStruct'/Script/GameplayTags.GameplayTag'";
+const TAGC = "/Script/CoreUObject.ScriptStruct'/Script/GameplayTags.GameplayTagContainer'";
 const batch = (args[args.indexOf('--batch') + 1] && args.includes('--batch')) ? args[args.indexOf('--batch') + 1] : '36';
 const CHECK = args.includes('--check');
 const STDOUT = args.includes('--stdout'); // текст пробы в stdout, без записи (тесты; пробы после вердикта в git не хранятся)
@@ -1017,10 +1021,19 @@ const BATCHES = {
     ['Interface', 'Get All Actors With Interface — Interface = BPI_Test', lib('GameplayStatics.GetAllActorsWithInterface', ['Interface:class:/Script/CoreUObject.Interface=/Game/Blueprints/BPI_Test.BPI_Test_C', '->', 'OutActors:object:Actor[]'])],
   ],
   '57b': [
-    // R57 вердикт: DoesImplementInterface/GetAllActorsWithInterface встали; Message сломан — BPI_Test у пользователя не было.
-    // Повтор на реальном интерфейсе пользователя: BPI_Interaction, событие I_select (вход Selected: bool).
-    ['Interface', 'I_select (Message, BPI_Interaction) — путь /Game/Blueprints/BPI_Interaction', (b) => SP.createInterfaceMessage({ bubble: b, bpiPath: '/Game/Blueprints/BPI_Interaction.BPI_Interaction_C', memberName: 'I_select',
+    // R57b: первая попытка не встала — неверный путь (/Game/Blueprints) и регистр (I_select). copy-back: sweep/copyback/r57b-interface-messages.txt.
+    // Путь /Game/Interaction/BPI_Interaction. Проверяем: (1) с настоящим MemberGuid, (2) со случайным — резолвит ли по имени, (3) выходы/контейнеры.
+    ['Interface', 'I_Select (Message) — настоящий MemberGuid', (b) => SP.createInterfaceMessage({ bubble: b, bpiPath: BPI, memberName: 'I_Select', memberGuid: 'AC811A4F40E444AE3D78D6BB3E2D9584',
       params: [{ name: 'Selected', category: 'bool', def: 'false' }] })],
+    ['Interface', 'I_Select (Message) — случайный MemberGuid', (b) => SP.createInterfaceMessage({ bubble: b, bpiPath: BPI, memberName: 'I_Select',
+      params: [{ name: 'Selected', category: 'bool', def: 'false' }] })],
+    ['Interface', 'I_DoInteract (Message) — случайный MemberGuid, выход Sucess', (b) => SP.createInterfaceMessage({ bubble: b, bpiPath: BPI, memberName: 'I_DoInteract',
+      params: [{ name: 'Hitres', category: 'struct', subObject: HIT }, { name: 'Tag', category: 'struct', subObject: TAG }, { name: 'Sucess', category: 'bool', def: 'false', dir: 'out' }] })],
+    ['Interface', 'I_GetInteractButtons (Message) — случайный MemberGuid, Array/Map выходы', (b) => SP.createInterfaceMessage({ bubble: b, bpiPath: BPI, memberName: 'I_GetInteractButtons',
+      params: [{ name: 'Hitres', category: 'struct', subObject: HIT }, { name: 'Buttons', category: 'struct', subObject: TAG, container: 'Array', dir: 'out' },
+        { name: 'Checks', category: 'struct', subObject: TAG, container: 'Map', valueType: { cat: 'bool' }, dir: 'out' },
+        { name: 'Values', category: 'struct', subObject: TAG, container: 'Map', valueType: { cat: 'real', sub: 'double' }, dir: 'out' },
+        { name: 'EditableCheck', category: 'struct', subObject: TAGC, dir: 'out' }, { name: 'EditableValue', category: 'struct', subObject: TAGC, dir: 'out' }] })],
   ],
   '58': [
     // R58: Level Sequence (катсцены) + Physics Constraint — отсутствующее в реестре. UE_LIBS += LevelSequencePlayer/LevelSequenceActor (LevelSequence),
