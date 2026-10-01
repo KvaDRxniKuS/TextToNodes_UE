@@ -53953,5 +53953,1041 @@
   "verified": true,
   "desc": "Get Current Gear",
   "probe": "R68 проба (Vehicle) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Current Gear (pure)"
+ },
+ {
+  "id": "SetTriggerParameter",
+  "title": "Set Trigger Parameter",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetTriggerParameter",
+  "lib": "AudioParameterControllerInterface",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/AudioExtensions.AudioParameterControllerInterface"
+   },
+   {
+    "name": "InName",
+    "dir": "Input",
+    "cat": "name"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Trigger Parameter",
+  "probe": "R69 проба (MetaSound) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Trigger Parameter"
+ },
+ {
+  "id": "SetBoolParameter_AudioParameterControllerInterface",
+  "title": "Set Bool Parameter",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetBoolParameter",
+  "lib": "AudioParameterControllerInterface",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/AudioExtensions.AudioParameterControllerInterface"
+   },
+   {
+    "name": "InName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "InValue",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Bool Parameter",
+  "probe": "R69 проба (MetaSound) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Bool Parameter"
+ },
+ {
+  "id": "SetIntParameter_AudioParameterControllerInterface",
+  "title": "Set Int Parameter",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetIntParameter",
+  "lib": "AudioParameterControllerInterface",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/AudioExtensions.AudioParameterControllerInterface"
+   },
+   {
+    "name": "InName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "InValue",
+    "dir": "Input",
+    "cat": "int"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Int Parameter",
+  "probe": "R69 проба (MetaSound) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Int Parameter"
+ },
+ {
+  "id": "SetFloatParameter_AudioParameterControllerInterface",
+  "title": "Set Float Parameter",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetFloatParameter",
+  "lib": "AudioParameterControllerInterface",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/AudioExtensions.AudioParameterControllerInterface"
+   },
+   {
+    "name": "InName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "InValue",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Float Parameter",
+  "probe": "R69 проба (MetaSound) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Float Parameter"
+ },
+ {
+  "id": "SetStringParameter",
+  "title": "Set String Parameter",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetStringParameter",
+  "lib": "AudioParameterControllerInterface",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/AudioExtensions.AudioParameterControllerInterface"
+   },
+   {
+    "name": "InName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "InValue",
+    "dir": "Input",
+    "cat": "string"
+   }
+  ],
+  "verified": true,
+  "desc": "Set String Parameter",
+  "probe": "R69 проба (MetaSound) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set String Parameter"
+ },
+ {
+  "id": "SetObjectParameter",
+  "title": "Set Object Parameter",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetObjectParameter",
+  "lib": "AudioParameterControllerInterface",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/AudioExtensions.AudioParameterControllerInterface"
+   },
+   {
+    "name": "InName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "InValue",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Object Parameter",
+  "probe": "R69 проба (MetaSound) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Object Parameter"
+ },
+ {
+  "id": "ResetParameters",
+  "title": "Reset Parameters",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ResetParameters",
+  "lib": "AudioParameterControllerInterface",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/AudioExtensions.AudioParameterControllerInterface"
+   }
+  ],
+  "verified": true,
+  "desc": "Reset Parameters",
+  "probe": "R69 проба (MetaSound) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Reset Parameters"
+ },
+ {
+  "id": "ApplyExternalStrain",
+  "title": "Apply External Strain",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ApplyExternalStrain",
+  "lib": "GeometryCollectionComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GeometryCollectionEngine.GeometryCollectionComponent"
+   },
+   {
+    "name": "ItemIndex",
+    "dir": "Input",
+    "cat": "int"
+   },
+   {
+    "name": "Location",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "Radius",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "PropagationDepth",
+    "dir": "Input",
+    "cat": "int"
+   },
+   {
+    "name": "PropagationFactor",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "Strain",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "verified": true,
+  "desc": "Apply External Strain",
+  "probe": "R69 проба (Destruction) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Apply External Strain"
+ },
+ {
+  "id": "ApplyInternalStrain",
+  "title": "Apply Internal Strain",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ApplyInternalStrain",
+  "lib": "GeometryCollectionComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GeometryCollectionEngine.GeometryCollectionComponent"
+   },
+   {
+    "name": "ItemIndex",
+    "dir": "Input",
+    "cat": "int"
+   },
+   {
+    "name": "Location",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "Radius",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "PropagationDepth",
+    "dir": "Input",
+    "cat": "int"
+   },
+   {
+    "name": "PropagationFactor",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   },
+   {
+    "name": "Strain",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "verified": true,
+  "desc": "Apply Internal Strain",
+  "probe": "R69 проба (Destruction) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Apply Internal Strain"
+ },
+ {
+  "id": "CrumbleActiveClusters",
+  "title": "Crumble Active Clusters",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "CrumbleActiveClusters",
+  "lib": "GeometryCollectionComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GeometryCollectionEngine.GeometryCollectionComponent"
+   }
+  ],
+  "verified": true,
+  "desc": "Crumble Active Clusters",
+  "probe": "R69 проба (Destruction) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Crumble Active Clusters"
+ },
+ {
+  "id": "SetEnableDamageFromCollision",
+  "title": "Set Enable Damage From Collision",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetEnableDamageFromCollision",
+  "lib": "GeometryCollectionComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GeometryCollectionEngine.GeometryCollectionComponent"
+   },
+   {
+    "name": "bValue",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Enable Damage From Collision",
+  "probe": "R69 проба (Destruction) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Enable Damage From Collision"
+ },
+ {
+  "id": "SetAnchoredByIndex",
+  "title": "Set Anchored By Index",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetAnchoredByIndex",
+  "lib": "GeometryCollectionComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GeometryCollectionEngine.GeometryCollectionComponent"
+   },
+   {
+    "name": "Index",
+    "dir": "Input",
+    "cat": "int"
+   },
+   {
+    "name": "bAnchored",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Anchored By Index",
+  "probe": "R69 проба (Destruction) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Anchored By Index"
+ },
+ {
+  "id": "RemoveAllAnchors",
+  "title": "Remove All Anchors",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "RemoveAllAnchors",
+  "lib": "GeometryCollectionComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GeometryCollectionEngine.GeometryCollectionComponent"
+   }
+  ],
+  "verified": true,
+  "desc": "Remove All Anchors",
+  "probe": "R69 проба (Destruction) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Remove All Anchors"
+ },
+ {
+  "id": "SetNotifyBreaks",
+  "title": "Set Notify Breaks",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetNotifyBreaks",
+  "lib": "GeometryCollectionComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GeometryCollectionEngine.GeometryCollectionComponent"
+   },
+   {
+    "name": "bNewNotifyBreaks",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Notify Breaks",
+  "probe": "R69 проба (Destruction) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Notify Breaks"
+ },
+ {
+  "id": "SetNotifyRemovals",
+  "title": "Set Notify Removals",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetNotifyRemovals",
+  "lib": "GeometryCollectionComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/GeometryCollectionEngine.GeometryCollectionComponent"
+   },
+   {
+    "name": "bNewNotifyRemovals",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Notify Removals",
+  "probe": "R69 проба (Destruction) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Notify Removals"
+ },
+ {
+  "id": "SetControlFloat",
+  "title": "Set Control Float",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetControlFloat",
+  "lib": "ControlRigComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/ControlRig.ControlRigComponent"
+   },
+   {
+    "name": "ControlName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "Value",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Control Float",
+  "probe": "R69 проба (ControlRig) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Control Float"
+ },
+ {
+  "id": "SetControlBool",
+  "title": "Set Control Bool",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetControlBool",
+  "lib": "ControlRigComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/ControlRig.ControlRigComponent"
+   },
+   {
+    "name": "ControlName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "Value",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Control Bool",
+  "probe": "R69 проба (ControlRig) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Control Bool"
+ },
+ {
+  "id": "SetControlInt",
+  "title": "Set Control Int",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetControlInt",
+  "lib": "ControlRigComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/ControlRig.ControlRigComponent"
+   },
+   {
+    "name": "ControlName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "Value",
+    "dir": "Input",
+    "cat": "int"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Control Int",
+  "probe": "R69 проба (ControlRig) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Control Int"
+ },
+ {
+  "id": "GetControlFloat",
+  "title": "Get Control Float",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetControlFloat",
+  "lib": "ControlRigComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/ControlRig.ControlRigComponent"
+   },
+   {
+    "name": "ControlName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Control Float",
+  "probe": "R69 проба (ControlRig) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Control Float (pure)"
+ },
+ {
+  "id": "GetControlBool",
+  "title": "Get Control Bool",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetControlBool",
+  "lib": "ControlRigComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/ControlRig.ControlRigComponent"
+   },
+   {
+    "name": "ControlName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Control Bool",
+  "probe": "R69 проба (ControlRig) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Control Bool (pure)"
+ },
+ {
+  "id": "GetControlInt",
+  "title": "Get Control Int",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetControlInt",
+  "lib": "ControlRigComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/ControlRig.ControlRigComponent"
+   },
+   {
+    "name": "ControlName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Control Int",
+  "probe": "R69 проба (ControlRig) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Control Int (pure)"
+ },
+ {
+  "id": "Initialize",
+  "title": "Initialize",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Initialize",
+  "lib": "ControlRigComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/ControlRig.ControlRigComponent"
+   }
+  ],
+  "verified": true,
+  "desc": "Initialize",
+  "probe": "R69 проба (ControlRig) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Initialize (Control Rig)"
+ },
+ {
+  "id": "ActivateWidget",
+  "title": "Activate Widget",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ActivateWidget",
+  "lib": "CommonActivatableWidget",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CommonUI.CommonActivatableWidget"
+   }
+  ],
+  "verified": true,
+  "desc": "Activate Widget",
+  "probe": "R69 проба (CommonUI) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Activate Widget"
+ },
+ {
+  "id": "DeactivateWidget",
+  "title": "Deactivate Widget",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "DeactivateWidget",
+  "lib": "CommonActivatableWidget",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CommonUI.CommonActivatableWidget"
+   }
+  ],
+  "verified": true,
+  "desc": "Deactivate Widget",
+  "probe": "R69 проба (CommonUI) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Deactivate Widget"
+ },
+ {
+  "id": "IsActivated",
+  "title": "Is Activated",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsActivated",
+  "lib": "CommonActivatableWidget",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CommonUI.CommonActivatableWidget"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Activated",
+  "probe": "R69 проба (CommonUI) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Activated (pure)"
+ },
+ {
+  "id": "SetIsSelected",
+  "title": "Set Is Selected",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetIsSelected",
+  "lib": "CommonButtonBase",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CommonUI.CommonButtonBase"
+   },
+   {
+    "name": "InSelected",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "bGiveClickFeedback",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Set Is Selected",
+  "probe": "R69 проба (CommonUI) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Is Selected (Button)"
+ },
+ {
+  "id": "SetIsInteractionEnabled",
+  "title": "Set Is Interaction Enabled",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetIsInteractionEnabled",
+  "lib": "CommonButtonBase",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CommonUI.CommonButtonBase"
+   },
+   {
+    "name": "bInIsInteractionEnabled",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Is Interaction Enabled",
+  "probe": "R69 проба (CommonUI) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Is Interaction Enabled"
+ },
+ {
+  "id": "GetSelected",
+  "title": "Get Selected",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetSelected",
+  "lib": "CommonButtonBase",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CommonUI.CommonButtonBase"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Selected",
+  "probe": "R69 проба (CommonUI) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Selected (pure)"
  }
 ]

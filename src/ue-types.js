@@ -124,6 +124,11 @@ const LIBS_FULL = {
   LevelStreaming: `"/Script/CoreUObject.Class'/Script/Engine.LevelStreaming'"`, // R67
   ChaosVehicleMovementComponent: `"/Script/CoreUObject.Class'/Script/ChaosVehicles.ChaosVehicleMovementComponent'"`, // R68
   ChaosWheeledVehicleMovementComponent: `"/Script/CoreUObject.Class'/Script/ChaosVehicles.ChaosWheeledVehicleMovementComponent'"`, // R68b
+  AudioParameterControllerInterface: `"/Script/CoreUObject.Class'/Script/AudioExtensions.AudioParameterControllerInterface'"`, // R69
+  GeometryCollectionComponent: `"/Script/CoreUObject.Class'/Script/GeometryCollectionEngine.GeometryCollectionComponent'"`, // R69
+  ControlRigComponent: `"/Script/CoreUObject.Class'/Script/ControlRig.ControlRigComponent'"`, // R69
+  CommonActivatableWidget: `"/Script/CoreUObject.Class'/Script/CommonUI.CommonActivatableWidget'"`, // R69
+  CommonButtonBase: `"/Script/CoreUObject.Class'/Script/CommonUI.CommonButtonBase'"`, // R69
   LightComponentBase: `"/Script/CoreUObject.Class'/Script/Engine.LightComponentBase'"`, // R45 VERIFIED
   SpotLightComponent: `"/Script/CoreUObject.Class'/Script/Engine.SpotLightComponent'"`, // R45 VERIFIED
   PointLightComponent: `"/Script/CoreUObject.Class'/Script/Engine.PointLightComponent'"`, // R45 VERIFIED
@@ -234,6 +239,11 @@ const LIBS_SHORT = {
   LevelStreaming: `Class'"/Script/Engine.LevelStreaming"'`,
   ChaosVehicleMovementComponent: `Class'"/Script/ChaosVehicles.ChaosVehicleMovementComponent"'`,
   ChaosWheeledVehicleMovementComponent: `Class'"/Script/ChaosVehicles.ChaosWheeledVehicleMovementComponent"'`,
+  AudioParameterControllerInterface: `Class'"/Script/AudioExtensions.AudioParameterControllerInterface"'`,
+  GeometryCollectionComponent: `Class'"/Script/GeometryCollectionEngine.GeometryCollectionComponent"'`,
+  ControlRigComponent: `Class'"/Script/ControlRig.ControlRigComponent"'`,
+  CommonActivatableWidget: `Class'"/Script/CommonUI.CommonActivatableWidget"'`,
+  CommonButtonBase: `Class'"/Script/CommonUI.CommonButtonBase"'`,
   PhysicsConstraintComponent: `Class'"/Script/Engine.PhysicsConstraintComponent"'`,
   PhysicsHandleComponent: `Class'"/Script/Engine.PhysicsHandleComponent"'`,
   BlueprintMapLibrary: `Class'"/Script/Engine.BlueprintMapLibrary"'`,
