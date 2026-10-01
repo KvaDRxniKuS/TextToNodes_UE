@@ -50757,5 +50757,1507 @@
   "verified": true,
   "desc": "R64b · Input: Get Hit Result Under Finger for Objects",
   "probe": "R64b проба (Input) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R64b · Input: Get Hit Result Under Finger for Objects (pure)"
+ },
+ {
+  "id": "SetIndirectLightingIntensity",
+  "title": "Set Indirect Lighting Intensity",
+  "from": "probe",
+  "category": "Lights",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetIndirectLightingIntensity",
+  "lib": "LightComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.LightComponent"
+   },
+   {
+    "name": "NewIntensity",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Indirect Lighting Intensity",
+  "probe": "R65 проба (Light) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Indirect Lighting Intensity"
+ },
+ {
+  "id": "SetVolumetricScatteringIntensity",
+  "title": "Set Volumetric Scattering Intensity",
+  "from": "probe",
+  "category": "Lights",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetVolumetricScatteringIntensity",
+  "lib": "LightComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.LightComponent"
+   },
+   {
+    "name": "NewIntensity",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Volumetric Scattering Intensity",
+  "probe": "R65 проба (Light) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Volumetric Scattering Intensity"
+ },
+ {
+  "id": "SetTemperature",
+  "title": "Set Temperature",
+  "from": "probe",
+  "category": "Lights",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetTemperature",
+  "lib": "LightComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.LightComponent"
+   },
+   {
+    "name": "NewTemperature",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Temperature",
+  "probe": "R65 проба (Light) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Temperature"
+ },
+ {
+  "id": "SetUseTemperature",
+  "title": "Set Use Temperature",
+  "from": "probe",
+  "category": "Lights",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetUseTemperature",
+  "lib": "LightComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.LightComponent"
+   },
+   {
+    "name": "bNewValue",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Use Temperature",
+  "probe": "R65 проба (Light) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Use Temperature"
+ },
+ {
+  "id": "SetAttenuationRadius_PointLightComponent",
+  "title": "Set Attenuation Radius",
+  "from": "probe",
+  "category": "Lights",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetAttenuationRadius",
+  "lib": "PointLightComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PointLightComponent"
+   },
+   {
+    "name": "NewRadius",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Attenuation Radius",
+  "probe": "R65 проба (Light) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Attenuation Radius (Point Light)"
+ },
+ {
+  "id": "SetSoftSourceRadius",
+  "title": "Set Soft Source Radius",
+  "from": "probe",
+  "category": "Lights",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetSoftSourceRadius",
+  "lib": "PointLightComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PointLightComponent"
+   },
+   {
+    "name": "bNewValue",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Soft Source Radius",
+  "probe": "R65 проба (Light) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Soft Source Radius (Point Light)"
+ },
+ {
+  "id": "GetLocalBounds",
+  "title": "Get Local Bounds",
+  "from": "probe",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetLocalBounds",
+  "lib": "StaticMeshComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.StaticMeshComponent"
+   },
+   {
+    "name": "Min",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   },
+   {
+    "name": "Max",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "verified": true,
+  "desc": "Get Local Bounds",
+  "probe": "R65 проба (Mesh) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Local Bounds (Static Mesh)"
+ },
+ {
+  "id": "AddInstance",
+  "title": "Add Instance",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AddInstance",
+  "lib": "InstancedStaticMeshComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.InstancedStaticMeshComponent"
+   },
+   {
+    "name": "InstanceTransform",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Transform",
+    "const": true
+   },
+   {
+    "name": "bWorldSpace",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false",
+    "autoDv": ""
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "verified": true,
+  "desc": "Add Instance",
+  "probe": "R65 проба (ISM) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Add Instance"
+ },
+ {
+  "id": "AddInstances",
+  "title": "Add Instances",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AddInstances",
+  "lib": "InstancedStaticMeshComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.InstancedStaticMeshComponent"
+   },
+   {
+    "name": "InstanceTransforms",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Transform",
+    "const": true,
+    "ref": true,
+    "container": "Array"
+   },
+   {
+    "name": "bShouldReturnIndices",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "bWorldSpace",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false",
+    "autoDv": ""
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int",
+    "container": "Array"
+   }
+  ],
+  "verified": true,
+  "desc": "Add Instances",
+  "probe": "R65 проба (ISM) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Add Instances"
+ },
+ {
+  "id": "RemoveInstance",
+  "title": "Remove Instance",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "RemoveInstance",
+  "lib": "InstancedStaticMeshComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.InstancedStaticMeshComponent"
+   },
+   {
+    "name": "InstanceIndex",
+    "dir": "Input",
+    "cat": "int"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Remove Instance",
+  "probe": "R65 проба (ISM) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Remove Instance"
+ },
+ {
+  "id": "UpdateInstanceTransform",
+  "title": "Update Instance Transform",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "UpdateInstanceTransform",
+  "lib": "InstancedStaticMeshComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.InstancedStaticMeshComponent"
+   },
+   {
+    "name": "InstanceIndex",
+    "dir": "Input",
+    "cat": "int"
+   },
+   {
+    "name": "NewInstanceTransform",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Transform",
+    "const": true,
+    "ref": true
+   },
+   {
+    "name": "bWorldSpace",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false",
+    "autoDv": ""
+   },
+   {
+    "name": "bMarkRenderStateDirty",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false",
+    "autoDv": ""
+   },
+   {
+    "name": "bTeleport",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false",
+    "autoDv": ""
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Update Instance Transform",
+  "probe": "R65 проба (ISM) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Update Instance Transform"
+ },
+ {
+  "id": "GetInstanceCount",
+  "title": "Get Instance Count",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetInstanceCount",
+  "lib": "InstancedStaticMeshComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.InstancedStaticMeshComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Instance Count",
+  "probe": "R65 проба (ISM) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Instance Count (pure)"
+ },
+ {
+  "id": "ClearInstances",
+  "title": "Clear Instances",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ClearInstances",
+  "lib": "InstancedStaticMeshComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.InstancedStaticMeshComponent"
+   }
+  ],
+  "verified": true,
+  "desc": "Clear Instances",
+  "probe": "R65 проба (ISM) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Clear Instances"
+ },
+ {
+  "id": "GetInstanceTransform",
+  "title": "Get Instance Transform",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetInstanceTransform",
+  "lib": "InstancedStaticMeshComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.InstancedStaticMeshComponent"
+   },
+   {
+    "name": "InstanceIndex",
+    "dir": "Input",
+    "cat": "int"
+   },
+   {
+    "name": "bWorldSpace",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false",
+    "autoDv": ""
+   },
+   {
+    "name": "OutInstanceTransform",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Transform"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Get Instance Transform",
+  "probe": "R65 проба (ISM) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Instance Transform"
+ },
+ {
+  "id": "GetInstancesOverlappingSphere",
+  "title": "Get Instances Overlapping Sphere",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetInstancesOverlappingSphere",
+  "lib": "InstancedStaticMeshComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.InstancedStaticMeshComponent"
+   },
+   {
+    "name": "Center",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "Radius",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "bSphereInWorldSpace",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int",
+    "container": "Array"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Instances Overlapping Sphere",
+  "probe": "R65 проба (ISM) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Instances Overlapping Sphere (pure)"
+ },
+ {
+  "id": "SetVelocityInLocalSpace",
+  "title": "Set Velocity In Local Space",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetVelocityInLocalSpace",
+  "lib": "ProjectileMovementComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.ProjectileMovementComponent"
+   },
+   {
+    "name": "NewVelocity",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "Set Velocity in Local Space",
+  "probe": "R65 проба (Projectile) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Velocity in Local Space"
+ },
+ {
+  "id": "StopSimulating",
+  "title": "Stop Simulating",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "StopSimulating",
+  "lib": "ProjectileMovementComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.ProjectileMovementComponent"
+   },
+   {
+    "name": "HitResult",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "HitResult",
+    "const": true,
+    "ref": true
+   }
+  ],
+  "verified": true,
+  "desc": "Stop Simulating",
+  "probe": "R65 проба (Projectile) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Stop Simulating"
+ },
+ {
+  "id": "SetInterpolatedComponent",
+  "title": "Set Interpolated Component",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetInterpolatedComponent",
+  "lib": "ProjectileMovementComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.ProjectileMovementComponent"
+   },
+   {
+    "name": "Component",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SceneComponent"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Interpolated Component",
+  "probe": "R65 проба (Projectile) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Interpolated Component"
+ },
+ {
+  "id": "IsVelocityUnderSimulationThreshold",
+  "title": "Is Velocity Under Simulation Threshold",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsVelocityUnderSimulationThreshold",
+  "lib": "ProjectileMovementComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.ProjectileMovementComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Velocity Under Simulation Threshold",
+  "probe": "R65 проба (Projectile) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Velocity Under Simulation Threshold (pure)"
+ },
+ {
+  "id": "LimitVelocity",
+  "title": "Limit Velocity",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "LimitVelocity",
+  "lib": "ProjectileMovementComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.ProjectileMovementComponent"
+   },
+   {
+    "name": "NewVelocity",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "verified": true,
+  "desc": "Limit Velocity",
+  "probe": "R65 проба (Projectile) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Limit Velocity"
+ },
+ {
+  "id": "K2_SetText",
+  "title": "K2 Set Text",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "K2_SetText",
+  "lib": "TextRenderComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.TextRenderComponent"
+   },
+   {
+    "name": "Value",
+    "dir": "Input",
+    "cat": "text"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Text",
+  "probe": "R65 проба (Text3D) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Text (Text Render)"
+ },
+ {
+  "id": "SetTextRenderColor",
+  "title": "Set Text Render Color",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetTextRenderColor",
+  "lib": "TextRenderComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.TextRenderComponent"
+   },
+   {
+    "name": "Value",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Color",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "Set Text Render Color",
+  "probe": "R65 проба (Text3D) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Text Render Color"
+ },
+ {
+  "id": "SetWorldSize",
+  "title": "Set World Size",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetWorldSize",
+  "lib": "TextRenderComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.TextRenderComponent"
+   },
+   {
+    "name": "Value",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "Set World Size",
+  "probe": "R65 проба (Text3D) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set World Size"
+ },
+ {
+  "id": "SetHorizontalAlignment_TextRenderComponent",
+  "title": "Set Horizontal Alignment",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetHorizontalAlignment",
+  "lib": "TextRenderComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.TextRenderComponent"
+   },
+   {
+    "name": "Value",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EHorizTextAligment"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Horizontal Alignment",
+  "probe": "R65 проба (Text3D) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Horizontal Alignment"
+ },
+ {
+  "id": "GetUserWidgetObject",
+  "title": "Get User Widget Object",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetUserWidgetObject",
+  "lib": "WidgetComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.WidgetComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/UMG.UserWidget"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get User Widget Object",
+  "probe": "R65 проба (WidgetComp) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get User Widget Object (pure)"
+ },
+ {
+  "id": "SetWidget",
+  "title": "Set Widget",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetWidget",
+  "lib": "WidgetComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.WidgetComponent"
+   },
+   {
+    "name": "Widget",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.UserWidget"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Widget",
+  "probe": "R65 проба (WidgetComp) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Widget"
+ },
+ {
+  "id": "SetDrawSize",
+  "title": "Set Draw Size",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetDrawSize",
+  "lib": "WidgetComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.WidgetComponent"
+   },
+   {
+    "name": "Size",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector2D",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "Set Draw Size",
+  "probe": "R65 проба (WidgetComp) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Draw Size"
+ },
+ {
+  "id": "GetDrawSize",
+  "title": "Get Draw Size",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetDrawSize",
+  "lib": "WidgetComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.WidgetComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector2D"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Draw Size",
+  "probe": "R65 проба (WidgetComp) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Draw Size (pure)"
+ },
+ {
+  "id": "SetSphereRadius",
+  "title": "Set Sphere Radius",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetSphereRadius",
+  "lib": "SphereComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SphereComponent"
+   },
+   {
+    "name": "InSphereRadius",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "bUpdateOverlaps",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Set Sphere Radius",
+  "probe": "R65 проба (Shape) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Sphere Radius"
+ },
+ {
+  "id": "GetScaledSphereRadius",
+  "title": "Get Scaled Sphere Radius",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetScaledSphereRadius",
+  "lib": "SphereComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SphereComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Scaled Sphere Radius",
+  "probe": "R65 проба (Shape) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Scaled Sphere Radius (pure)"
+ },
+ {
+  "id": "SetBoxExtent",
+  "title": "Set Box Extent",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetBoxExtent",
+  "lib": "BoxComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.BoxComponent"
+   },
+   {
+    "name": "InBoxExtent",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "bUpdateOverlaps",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Set Box Extent",
+  "probe": "R65 проба (Shape) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Box Extent"
+ },
+ {
+  "id": "GetScaledBoxExtent",
+  "title": "Get Scaled Box Extent",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetScaledBoxExtent",
+  "lib": "BoxComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.BoxComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Scaled Box Extent",
+  "probe": "R65 проба (Shape) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Scaled Box Extent (pure)"
+ },
+ {
+  "id": "GetScaledCapsuleRadius",
+  "title": "Get Scaled Capsule Radius",
+  "from": "probe",
+  "category": "Components / Physics",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetScaledCapsuleRadius",
+  "lib": "CapsuleComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.CapsuleComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Scaled Capsule Radius",
+  "probe": "R65 проба (Shape) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Scaled Capsule Radius (pure)"
+ },
+ {
+  "id": "SetVectorParameterValue_KismetMaterialLibrary",
+  "title": "Set Vector Parameter Value",
+  "from": "probe",
+  "category": "Materials / FX",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetVectorParameterValue",
+  "lib": "KismetMaterialLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "Collection",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.MaterialParameterCollection"
+   },
+   {
+    "name": "ParameterName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "ParameterValue",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "Set Vector Parameter Value",
+  "probe": "R65 проба (Material) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Vector Parameter Value (Collection)"
+ },
+ {
+  "id": "GetScalarParameterValue",
+  "title": "Get Scalar Parameter Value",
+  "from": "probe",
+  "category": "Materials / FX",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetScalarParameterValue",
+  "lib": "KismetMaterialLibrary",
+  "pins": [
+   {
+    "name": "Collection",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.MaterialParameterCollection"
+   },
+   {
+    "name": "ParameterName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Scalar Parameter Value",
+  "probe": "R65 проба (Material) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Scalar Parameter Value (Collection, pure)"
+ },
+ {
+  "id": "GetVectorParameterValue",
+  "title": "Get Vector Parameter Value",
+  "from": "probe",
+  "category": "Materials / FX",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetVectorParameterValue",
+  "lib": "KismetMaterialLibrary",
+  "pins": [
+   {
+    "name": "Collection",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.MaterialParameterCollection"
+   },
+   {
+    "name": "ParameterName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "LinearColor"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Vector Parameter Value",
+  "probe": "R65 проба (Material) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Vector Parameter Value (Collection, pure)"
+ },
+ {
+  "id": "ClearRenderTarget2D",
+  "title": "Clear Render Target2 D",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ClearRenderTarget2D",
+  "lib": "KismetRenderingLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "TextureRenderTarget",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.TextureRenderTarget2D"
+   },
+   {
+    "name": "ClearColor",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "Clear Render Target 2D",
+  "probe": "R65 проба (Render) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Clear Render Target 2D"
+ },
+ {
+  "id": "ReleaseRenderTarget2D",
+  "title": "Release Render Target2 D",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ReleaseRenderTarget2D",
+  "lib": "KismetRenderingLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "TextureRenderTarget",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.TextureRenderTarget2D"
+   }
+  ],
+  "verified": true,
+  "desc": "Release Render Target 2D",
+  "probe": "R65 проба (Render) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Release Render Target 2D"
+ },
+ {
+  "id": "DrawMaterialToRenderTarget",
+  "title": "Draw Material To Render Target",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "DrawMaterialToRenderTarget",
+  "lib": "KismetRenderingLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "TextureRenderTarget",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.TextureRenderTarget2D"
+   },
+   {
+    "name": "Material",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.MaterialInterface"
+   }
+  ],
+  "verified": true,
+  "desc": "Draw Material to Render Target",
+  "probe": "R65 проба (Render) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Draw Material to Render Target"
+ },
+ {
+  "id": "ReadRenderTargetPixel",
+  "title": "Read Render Target Pixel",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ReadRenderTargetPixel",
+  "lib": "KismetRenderingLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "TextureRenderTarget",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.TextureRenderTarget2D"
+   },
+   {
+    "name": "X",
+    "dir": "Input",
+    "cat": "int"
+   },
+   {
+    "name": "Y",
+    "dir": "Input",
+    "cat": "int"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Color"
+   }
+  ],
+  "verified": true,
+  "desc": "Read Render Target Pixel",
+  "probe": "R65 проба (Render) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Read Render Target Pixel"
  }
 ]

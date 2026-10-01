@@ -1367,5 +1367,6 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 - Пробы теперь называют ноды каждого ряда прямо в комментарии (просьба пользователя).
 - **R64b** (по copy-back): PlayerController.GetHitResultUnderFingerByChannel / ...ForObjects → реестр.
 
-## R65 — компоненты (ждёт вердикта)
+## R65 — компоненты (VERIFIED 40/42)
 - Свет, ISM, ProjectileMovement, TextRender, WidgetComponent, Sphere/Box/Capsule, KismetMaterialLibrary (MPC), KismetRenderingLibrary. LIBS/STRUCTS(Color)/ENUMS(EHorizTextAligment) расширены.
+- НЕ существуют в 5.8: WidgetComponent.SetWidgetClass, WidgetComponent.RequestRedraw (альтернатив нет).

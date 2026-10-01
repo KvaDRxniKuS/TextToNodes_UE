@@ -1238,8 +1238,6 @@ const BATCHES = {
     ['WidgetComp', 'Set Widget', mem('WidgetComponent.SetWidget', ['Widget:object:UserWidget'])],
     ['WidgetComp', 'Set Draw Size', mem('WidgetComponent.SetDrawSize', ['Size:vector2d'])],
     ['WidgetComp', 'Get Draw Size (pure)', mem('WidgetComponent.GetDrawSize', ['->', 'ReturnValue:vector2d'], true)],
-    ['WidgetComp', 'Set Widget Class', mem('WidgetComponent.SetWidgetClass', ['InWidgetClass:class:UserWidget'])],
-    ['WidgetComp', 'Request Redraw', mem('WidgetComponent.RequestRedraw', [])],
     ['Shape', 'Set Sphere Radius', mem('SphereComponent.SetSphereRadius', ['InSphereRadius:float', 'bUpdateOverlaps:bool=true'])],
     ['Shape', 'Get Scaled Sphere Radius (pure)', mem('SphereComponent.GetScaledSphereRadius', ['->', 'ReturnValue:float'], true)],
     ['Shape', 'Set Box Extent', mem('BoxComponent.SetBoxExtent', ['InBoxExtent:vector', 'bUpdateOverlaps:bool=true'])],
