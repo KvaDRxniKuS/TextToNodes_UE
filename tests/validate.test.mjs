@@ -1228,6 +1228,8 @@ regThrow.forEach(t => console.log('THROW:', t));
   const row=[createBranch(),createCallFunction(fn('PrintString')),createCallFunction(fn('K2_SetActorLocation')),createCallFunction(fn('Array_Clear'))];
   arrangeRows([row],{gap:64,alignExec:true});
   const line=new Set(row.map(n=>n.pos.y+execPinOffset(n)));
+  const {createCustomEvent}=await import('../src/creator.js'); const ev=createCustomEvent('AlignEv',[],{x:0,y:0}); arrangeRows([[ev,...row]],{gap:64,alignExec:true});
+  ok(ev.pos.y===row[0].pos.y-16, 'alignExec: Custom Event на 16 выше Branch (движок, проба exec-align)');
   ok(line.size===1 && row[2].pos.y===row[0].pos.y-16 && row[3].pos.y===row[0].pos.y+16 && row.every(n=>n.pos.x%16===0), 'alignExec: exec-пины ряда соосны (Target −16, Array +16), X на сетке 16');
 }
 console.log(`

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Проба выравнивания exec-пинов (правило 1/7): один ряд из нод с разной шапкой, arrangeRows({alignExec}).
-// Ожидание: все exec-провода прямые горизонтальные; «Target is…» стоит на 16 выше, Array-нода на 16 ниже.
+// Ожидание: все exec-провода прямые горизонтальные; «Target is…» и Event стоят на 16 выше (Event подтверждён движком 2026-10-02), Array-нода на 16 ниже.
 import fs from 'node:fs';
 import { createCustomEvent } from '../src/creator.js';
 import { createBranch, createSequence, createCallFunction } from '../src/generator.js';
