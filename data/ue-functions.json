@@ -53628,5 +53628,330 @@
   "verified": true,
   "desc": "Is Level Visible",
   "probe": "R67 проба (Levels) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Level Visible (pure)"
+ },
+ {
+  "id": "SetThrottleInput",
+  "title": "Set Throttle Input",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetThrottleInput",
+  "lib": "ChaosVehicleMovementComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/ChaosVehicles.ChaosVehicleMovementComponent"
+   },
+   {
+    "name": "Throttle",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Throttle Input",
+  "probe": "R68 проба (Vehicle) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Throttle Input"
+ },
+ {
+  "id": "SetSteeringInput",
+  "title": "Set Steering Input",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetSteeringInput",
+  "lib": "ChaosVehicleMovementComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/ChaosVehicles.ChaosVehicleMovementComponent"
+   },
+   {
+    "name": "Steering",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Steering Input",
+  "probe": "R68 проба (Vehicle) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Steering Input"
+ },
+ {
+  "id": "SetBrakeInput",
+  "title": "Set Brake Input",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetBrakeInput",
+  "lib": "ChaosVehicleMovementComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/ChaosVehicles.ChaosVehicleMovementComponent"
+   },
+   {
+    "name": "Brake",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Brake Input",
+  "probe": "R68 проба (Vehicle) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Brake Input"
+ },
+ {
+  "id": "SetHandbrakeInput",
+  "title": "Set Handbrake Input",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetHandbrakeInput",
+  "lib": "ChaosVehicleMovementComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/ChaosVehicles.ChaosVehicleMovementComponent"
+   },
+   {
+    "name": "bNewHandbrake",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Handbrake Input",
+  "probe": "R68 проба (Vehicle) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Handbrake Input"
+ },
+ {
+  "id": "SetTargetGear",
+  "title": "Set Target Gear",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetTargetGear",
+  "lib": "ChaosVehicleMovementComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/ChaosVehicles.ChaosVehicleMovementComponent"
+   },
+   {
+    "name": "GearNum",
+    "dir": "Input",
+    "cat": "int"
+   },
+   {
+    "name": "bImmediate",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Target Gear",
+  "probe": "R68 проба (Vehicle) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Target Gear"
+ },
+ {
+  "id": "SetUseAutomaticGears",
+  "title": "Set Use Automatic Gears",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetUseAutomaticGears",
+  "lib": "ChaosVehicleMovementComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/ChaosVehicles.ChaosVehicleMovementComponent"
+   },
+   {
+    "name": "bUseAuto",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Use Automatic Gears",
+  "probe": "R68 проба (Vehicle) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Use Automatic Gears"
+ },
+ {
+  "id": "GetForwardSpeed",
+  "title": "Get Forward Speed",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetForwardSpeed",
+  "lib": "ChaosVehicleMovementComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/ChaosVehicles.ChaosVehicleMovementComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Forward Speed",
+  "probe": "R68 проба (Vehicle) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Forward Speed (pure)"
+ },
+ {
+  "id": "GetEngineRotationSpeed",
+  "title": "Get Engine Rotation Speed",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetEngineRotationSpeed",
+  "lib": "ChaosWheeledVehicleMovementComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/ChaosVehicles.ChaosWheeledVehicleMovementComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Engine Rotation Speed",
+  "probe": "R68 проба (Vehicle) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Engine Rotation Speed (Wheeled, pure)"
+ },
+ {
+  "id": "GetEngineMaxRotationSpeed",
+  "title": "Get Engine Max Rotation Speed",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetEngineMaxRotationSpeed",
+  "lib": "ChaosWheeledVehicleMovementComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/ChaosVehicles.ChaosWheeledVehicleMovementComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "float"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Engine Max Rotation Speed",
+  "probe": "R68 проба (Vehicle) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Engine Max Rotation Speed (Wheeled, pure)"
+ },
+ {
+  "id": "GetCurrentGear",
+  "title": "Get Current Gear",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetCurrentGear",
+  "lib": "ChaosVehicleMovementComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/ChaosVehicles.ChaosVehicleMovementComponent"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Current Gear",
+  "probe": "R68 проба (Vehicle) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Current Gear (pure)"
  }
 ]

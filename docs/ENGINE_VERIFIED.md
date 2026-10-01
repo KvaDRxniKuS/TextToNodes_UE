@@ -1376,4 +1376,8 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 
 ## R67 — Gameplay Tags / Primary Asset Id / Level Streaming (VERIFIED 18/18)
 
-## R68 — Chaos Vehicle / строки / математика (ждёт вердикта)
+## R68 — Chaos Vehicle (VERIFIED, reg +10)
+- GetEngineRotationSpeed/GetEngineMaxRotationSpeed живут на ChaosWheeledVehicleMovementComponent, ReturnValue = real/float (single). Остальные 8 — на ChaosVehicleMovementComponent.
+- KismetMathLibrary.GetUnitDirectionVector НЕ существует → GetDirectionUnitVector (уже был в реестре).
+
+## R69 — плагины: MetaSound / Chaos Destruction / Control Rig / Common UI (ждёт вердикта)
