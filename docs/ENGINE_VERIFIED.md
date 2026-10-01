@@ -1309,3 +1309,4 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 
 ## 2026-10-01 — R57 проба: Blueprint Interface (ждёт вердикта)
 Состояние: `createInterfaceMessage` — шаблон из copy-back R40 (BPI пользователя), `DoesImplementInterface`/`GetAllActorsWithInterface` VERIFIED без выбранного интерфейса. Открытые вопросы: (1) встаёт ли Message по имени при случайном MemberGuid, (2) class-пин Interface с DefaultObject=BPI. Проба 3 ноды; ассет `/Game/Blueprints/BPI_Test` (функция Interact, вход Instigator: Actor) создаётся вручную.
+- HUD-демо v2 VERIFIED пользователем (2026-10-01): вставка и компиляция в BP персонажа, работает. Подтверждено: поля WBP_HUD (`HealthText`/`HealthBar`, Is Variable) читаются через `createMemberVar('get', '/Game/UI/WBP_HUD.<Имя>', …)` от ссылки типа WBP_HUD_C — замена GetWidgetFromName. Ручная подготовка (WBP с двумя виджетами, переменные HUD/Health(RepNotify)/MaxHealth в персонаже) требует пояснений — пузыри оставить подробными.
