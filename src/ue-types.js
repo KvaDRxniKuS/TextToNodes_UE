@@ -44,6 +44,13 @@ const LIBS_FULL = {
   LevelSequencePlayer: `"/Script/CoreUObject.Class'/Script/LevelSequence.LevelSequencePlayer'"`, // R58 VERIFIED
   LevelSequenceActor: `"/Script/CoreUObject.Class'/Script/LevelSequence.LevelSequenceActor'"`, // R58 VERIFIED
   MovieSceneSequencePlayer: `"/Script/CoreUObject.Class'/Script/MovieScene.MovieSceneSequencePlayer'"`, // R58 VERIFIED
+  InstancedStaticMeshComponent: `"/Script/CoreUObject.Class'/Script/Engine.InstancedStaticMeshComponent'"`, // R65
+  ProjectileMovementComponent: `"/Script/CoreUObject.Class'/Script/Engine.ProjectileMovementComponent'"`, // R65
+  TextRenderComponent: `"/Script/CoreUObject.Class'/Script/Engine.TextRenderComponent'"`, // R65
+  WidgetComponent: `"/Script/CoreUObject.Class'/Script/UMG.WidgetComponent'"`, // R65
+  SphereComponent: `"/Script/CoreUObject.Class'/Script/Engine.SphereComponent'"`, // R65
+  BoxComponent: `"/Script/CoreUObject.Class'/Script/Engine.BoxComponent'"`, // R65
+  KismetRenderingLibrary: `"/Script/CoreUObject.Class'/Script/Engine.KismetRenderingLibrary'"`, // R65
   KismetAnimationLibrary: `"/Script/CoreUObject.Class'/Script/AnimGraphRuntime.KismetAnimationLibrary'"`, // R64
   EnhancedInputLocalPlayerSubsystem: `"/Script/CoreUObject.Class'/Script/EnhancedInput.EnhancedInputLocalPlayerSubsystem'"`, // R64
   EditableText: `"/Script/CoreUObject.Class'/Script/UMG.EditableText'"`, // R64
@@ -146,6 +153,13 @@ const LIBS_SHORT = {
   LevelSequencePlayer: `Class'"/Script/LevelSequence.LevelSequencePlayer"'`,
   LevelSequenceActor: `Class'"/Script/LevelSequence.LevelSequenceActor"'`,
   MovieSceneSequencePlayer: `Class'"/Script/MovieScene.MovieSceneSequencePlayer"'`,
+  InstancedStaticMeshComponent: `Class'"/Script/Engine.InstancedStaticMeshComponent"'`,
+  ProjectileMovementComponent: `Class'"/Script/Engine.ProjectileMovementComponent"'`,
+  TextRenderComponent: `Class'"/Script/Engine.TextRenderComponent"'`,
+  WidgetComponent: `Class'"/Script/UMG.WidgetComponent"'`,
+  SphereComponent: `Class'"/Script/Engine.SphereComponent"'`,
+  BoxComponent: `Class'"/Script/Engine.BoxComponent"'`,
+  KismetRenderingLibrary: `Class'"/Script/Engine.KismetRenderingLibrary"'`,
   KismetAnimationLibrary: `Class'"/Script/AnimGraphRuntime.KismetAnimationLibrary"'`,
   EnhancedInputLocalPlayerSubsystem: `Class'"/Script/EnhancedInput.EnhancedInputLocalPlayerSubsystem"'`,
   EditableText: `Class'"/Script/UMG.EditableText"'`,
@@ -236,6 +250,7 @@ const STRUCTS_FULL = {
   Transform:   `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Transform'"`,
   LinearColor: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.LinearColor'"`, // confirmed (copy-back H1/J5)
   MovieSceneSequencePlaybackSettings: `"/Script/CoreUObject.ScriptStruct'/Script/MovieScene.MovieSceneSequencePlaybackSettings'"`, // R58 VERIFIED
+  Color: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Color'"`, // R65
   ModifyContextOptions: `"/Script/CoreUObject.ScriptStruct'/Script/EnhancedInput.ModifyContextOptions'"`, // R64
   Anchors: `"/Script/CoreUObject.ScriptStruct'/Script/Slate.Anchors'"`, // R64
   Geometry: `"/Script/CoreUObject.ScriptStruct'/Script/SlateCore.Geometry'"`, // R64
@@ -274,6 +289,7 @@ const STRUCTS_SHORT = {
   Transform:        `ScriptStruct'"/Script/CoreUObject.Transform"'`,
   LinearColor:      `ScriptStruct'"/Script/CoreUObject.LinearColor"'`,
   MovieSceneSequencePlaybackSettings: `ScriptStruct'"/Script/MovieScene.MovieSceneSequencePlaybackSettings"'`,
+  Color: `ScriptStruct'"/Script/CoreUObject.Color"'`,
   ModifyContextOptions: `ScriptStruct'"/Script/EnhancedInput.ModifyContextOptions"'`,
   Anchors: `ScriptStruct'"/Script/Slate.Anchors"'`,
   Geometry: `ScriptStruct'"/Script/SlateCore.Geometry"'`,
@@ -316,6 +332,7 @@ const ENUMS_FULL = {
   EDetachmentRule: `"/Script/CoreUObject.Enum'/Script/Engine.EDetachmentRule'"`, // round23b-pre
   ESlateVisibility: `"/Script/CoreUObject.Enum'/Script/UMG.ESlateVisibility'"`, // round27-pre
   EMouseCursor: `"/Script/CoreUObject.Enum'/Script/CoreUObject.EMouseCursor'"`, // R55 VERIFIED
+  EHorizTextAligment: `"/Script/CoreUObject.Enum'/Script/Engine.EHorizTextAligment'"`, // R65
   ERootMotionMode: `"/Script/CoreUObject.Enum'/Script/Engine.ERootMotionMode'"`, // R64
   EPhysBodyOp: `"/Script/CoreUObject.Enum'/Script/Engine.EPhysBodyOp'"`, // R64
   EDescendantScrollDestination: `"/Script/CoreUObject.Enum'/Script/Slate.EDescendantScrollDestination'"`, // R64
@@ -373,6 +390,7 @@ const ENUMS_SHORT = {
   EDetachmentRule: `Enum'"/Script/Engine.EDetachmentRule"'`,
   ESlateVisibility: `Enum'"/Script/UMG.ESlateVisibility"'`,
   EMouseCursor: `Enum'"/Script/CoreUObject.EMouseCursor"'`,
+  EHorizTextAligment: `Enum'"/Script/Engine.EHorizTextAligment"'`,
   ERootMotionMode: `Enum'"/Script/Engine.ERootMotionMode"'`,
   EPhysBodyOp: `Enum'"/Script/Engine.EPhysBodyOp"'`,
   EDescendantScrollDestination: `Enum'"/Script/Slate.EDescendantScrollDestination"'`,
