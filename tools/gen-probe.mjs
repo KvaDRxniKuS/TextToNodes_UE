@@ -15,7 +15,7 @@ import { fitComment, estNodeWidth, estNodeHeight, createMacroInstance, createCal
 import { UE_LIBS, UE_STRUCTS, UE_ENUMS } from '../src/ue-types.js';
 import { generateUEText, seedGuids } from '../src/parser.js';
 import { validateStrict } from '../src/validate.js';
-import { createCall, createAddComponentByClass, createCustomEvent, createAsyncAction } from '../src/modules.js';
+import { createCall, createAddComponentByClass, createCustomEvent, createAsyncAction, createMakeContainer } from '../src/modules.js';
 import * as SP from '../src/special-nodes.js';
 import { categoryFor } from '../src/categories.js';
 
@@ -1020,21 +1020,6 @@ const BATCHES = {
     ['Interface', 'Does Implement Interface — Interface = BPI_Test', lib('KismetSystemLibrary.DoesImplementInterface', ['TestObject:object:/Script/CoreUObject.Object', 'Interface:class:/Script/CoreUObject.Interface=/Game/Blueprints/BPI_Test.BPI_Test_C', '->', 'ReturnValue:bool'], true)],
     ['Interface', 'Get All Actors With Interface — Interface = BPI_Test', lib('GameplayStatics.GetAllActorsWithInterface', ['Interface:class:/Script/CoreUObject.Interface=/Game/Blueprints/BPI_Test.BPI_Test_C', '->', 'OutActors:object:Actor[]'])],
   ],
-  '57b': [
-    // R57b: первая попытка не встала — неверный путь (/Game/Blueprints) и регистр (I_select). copy-back: sweep/copyback/r57b-interface-messages.txt.
-    // Путь /Game/Interaction/BPI_Interaction. Проверяем: (1) с настоящим MemberGuid, (2) со случайным — резолвит ли по имени, (3) выходы/контейнеры.
-    ['Interface', 'I_Select (Message) — настоящий MemberGuid', (b) => SP.createInterfaceMessage({ bubble: b, bpiPath: BPI, memberName: 'I_Select', memberGuid: 'AC811A4F40E444AE3D78D6BB3E2D9584',
-      params: [{ name: 'Selected', category: 'bool', def: 'false' }] })],
-    ['Interface', 'I_Select (Message) — случайный MemberGuid', (b) => SP.createInterfaceMessage({ bubble: b, bpiPath: BPI, memberName: 'I_Select',
-      params: [{ name: 'Selected', category: 'bool', def: 'false' }] })],
-    ['Interface', 'I_DoInteract (Message) — случайный MemberGuid, выход Sucess', (b) => SP.createInterfaceMessage({ bubble: b, bpiPath: BPI, memberName: 'I_DoInteract',
-      params: [{ name: 'Hitres', category: 'struct', subObject: HIT }, { name: 'Tag', category: 'struct', subObject: TAG }, { name: 'Sucess', category: 'bool', def: 'false', dir: 'out' }] })],
-    ['Interface', 'I_GetInteractButtons (Message) — случайный MemberGuid, Array/Map выходы', (b) => SP.createInterfaceMessage({ bubble: b, bpiPath: BPI, memberName: 'I_GetInteractButtons',
-      params: [{ name: 'Hitres', category: 'struct', subObject: HIT }, { name: 'Buttons', category: 'struct', subObject: TAG, container: 'Array', dir: 'out' },
-        { name: 'Checks', category: 'struct', subObject: TAG, container: 'Map', valueType: { cat: 'bool' }, dir: 'out' },
-        { name: 'Values', category: 'struct', subObject: TAG, container: 'Map', valueType: { cat: 'real', sub: 'double' }, dir: 'out' },
-        { name: 'EditableCheck', category: 'struct', subObject: TAGC, dir: 'out' }, { name: 'EditableValue', category: 'struct', subObject: TAGC, dir: 'out' }] })],
-  ],
   '58': [
     // R58: Level Sequence (катсцены) + Physics Constraint — отсутствующее в реестре. UE_LIBS += LevelSequencePlayer/LevelSequenceActor (LevelSequence),
     // MovieSceneSequencePlayer (MovieScene); STRUCTS += MovieSceneSequencePlaybackSettings.
@@ -1085,6 +1070,28 @@ const BATCHES = {
     ['Switch', 'Switch on String — case-пины A, B (как сейчас, без PinNames)', () => createSwitch('string', ['A', 'B'])],
     ['Object', 'Construct Object from Class (SaveGame) — подключи Outer к Self', (bubble) => SP.createConstructObject({ bubble, class: '/Script/Engine.SaveGame' })],
     ['Object', 'Construct Object from Class (без класса)', (bubble) => SP.createConstructObject({ bubble })],
+  ],
+  '60': [
+    // R60: типизированные Make Array/Set/Map со значениями (createMakeContainer + src/values.js formatValue).
+    ['Array', 'Make Array int [1,2,3]', () => createMakeContainer('array', 'int', [1, 2, 3])],
+    ['Array', 'Make Array float [0.5, 1.5]', () => createMakeContainer('array', 'float', [0.5, 1.5])],
+    ['Array', 'Make Array bool [true,false]', () => createMakeContainer('array', 'bool', [true, false])],
+    ['Array', 'Make Array string [Hello, World]', () => createMakeContainer('array', 'string', ['Hello', 'World'])],
+    ['Array', 'Make Array name [Idle, Run]', () => createMakeContainer('array', 'name', ['Idle', 'Run'])],
+    ['Array', 'Make Array text [Привет]', () => createMakeContainer('array', 'text', ['Привет'])],
+    ['Struct', 'Make Array vector [(1,2,3),(0,0,100)]', () => createMakeContainer('array', 'vector', [[1, 2, 3], [0, 0, 100]])],
+    ['Struct', 'Make Array rotator [(P10,Y90,R0)]', () => createMakeContainer('array', 'rotator', [[10, 90, 0]])],
+    ['Struct', 'Make Array vector2d [(1,2)]', () => createMakeContainer('array', 'vector2d', [[1, 2]])],
+    ['Struct', 'Make Array linearcolor [красный, (0,0.5,1,0.5)]', () => createMakeContainer('array', 'linearcolor', [[1, 0, 0, 1], [0, 0.5, 1, 0.5]])],
+    ['Struct', 'Make Array transform [loc 0,0,100 rot 0,90,0 scale 2]', () => createMakeContainer('array', 'transform', [{ loc: [0, 0, 100], rot: [0, 90, 0], scale: [2, 2, 2] }])],
+    ['Other', 'Make Array enum EDrawDebugTrace [ForDuration, Persistent]', () => createMakeContainer('array', 'enum:EDrawDebugTrace', ['ForDuration', 'Persistent'])],
+    ['Other', 'Make Array class:Actor [Character, Pawn]', () => createMakeContainer('array', 'class:Actor', ['/Script/Engine.Character', '/Script/Engine.Pawn'])],
+    ['Other', 'Make Array GameplayTag [тег может отсутствовать в проекте — тогда пусто, это не ошибка]', () => createMakeContainer('array', 'gameplaytag', ['Test.Tag'])],
+    ['Set', 'Make Set name [A, B]', () => createMakeContainer('set', 'name', ['A', 'B'])],
+    ['Set', 'Make Set int [1, 2, 3]', () => createMakeContainer('set', 'int', [1, 2, 3])],
+    ['Map', 'Make Map name→int [Gold:10, Wood:5]', () => createMakeContainer('map', ['name', 'int'], [['Gold', 10], ['Wood', 5]])],
+    ['Map', 'Make Map string→vector [Spawn:(0,0,100)]', () => createMakeContainer('map', ['string', 'vector'], [['Spawn', [0, 0, 100]]])],
+    ['Map', 'Make Map name→linearcolor [Red:(1,0,0,1)]', () => createMakeContainer('map', ['name', 'linearcolor'], [['Red', [1, 0, 0, 1]]])],
   ],
 };
 

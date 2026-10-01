@@ -1328,3 +1328,9 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 - Interface Message сломан: ассета BPI_Test у пользователя нет. Повтор R57b на BPI_Interaction / I_select (Selected: bool), путь предположен `/Game/Blueprints/`.
 - R57b попытка 1 не встала: путь `/Game/Interaction/` (не `/Game/Blueprints/`) и имя `I_Select` (регистр). Структура ноды совпала с copy-back `sweep/copyback/r57b-interface-messages.txt`.
 - R57b попытка 2: 4 ноды — I_Select с настоящим/случайным MemberGuid, I_DoInteract (выход), I_GetInteractButtons (Array/Map). createInterfaceMessage: params dir/container/valueType.
+- **R57b VERIFIED** (все 4): K2Node_Message резолвится по имени — случайный MemberGuid допустим; выходы/Array/Map-пины сообщения верны.
+
+## R60 — типизированные контейнеры и форматы значений (ждёт вердикта)
+- `createMakeContainer(kind, type, values)` (modules.js): K2Node_MakeArray/Set/Map, NumInputs=N, типизированные пины со значениями.
+- parseType: `set<T>`, `map<K,V>` (PinValueType с TerminalSubCategoryObject); `T[]` как раньше.
+- `src/values.js formatValue`: bool, int, float (6 знаков), Vector/Rotator `x,y,z`, Vector2D `(X=,Y=)`, LinearColor `(R=,G=,B=,A=)`, Transform `loc|rot|scale`, GameplayTag `(TagName="…")`, object/class → DefaultObject, text → DefaultTextValue.

@@ -1,3 +1,4 @@
+import { formatValue } from './values.js';
 // src/modules.js — параметрические конструкторы узлов (не фиксированные примеры).
 // Любое имя события, любые параметры, любой класс/делегат/функция реестра.
 // Формы узлов — из прогонов движка (см. docs/ENGINE_VERIFIED.md, R21b–R26).
@@ -19,6 +20,17 @@ function node(short, pos = { x: 0, y: 0 }) {
 const SCALAR = { bool: ['bool'], int: ['int'], int64: ['int64'], byte: ['byte'], float: ['real', 'double'], single: ['real', 'float'], double: ['real', 'double'], real: ['real', 'double'], string: ['string'], name: ['name'], text: ['text'] };
 export function parseType(t) {
   let s = String(t).trim(), container = 'None';
+  // R60: set<T>, map<K,V> (V — PinValueType)
+  let m = /^set<(.+)>$/i.exec(s);
+  if (m) return { ...parseType(m[1]), container: 'Set' };
+  m = /^map<(.+)>$/i.exec(s);
+  if (m) {
+    let depth = 0, cut = -1;
+    for (let i = 0; i < m[1].length; i++) { const ch = m[1][i]; if (ch === '<') depth++; else if (ch === '>') depth--; else if (ch === ',' && !depth) { cut = i; break; } }
+    if (cut < 0) throw new Error(`тип ${t}: map<Ключ,Значение>`);
+    const k = parseType(m[1].slice(0, cut)), v = parseType(m[1].slice(cut + 1));
+    return { ...k, container: 'Map', valueType: { cat: v.cat, sub: v.sub, subObj: v.subObj ? (v.subObj.startsWith('"') ? v.subObj : `"${v.subObj}"`) : '' } };
+  }
   if (s.endsWith('[]')) { container = 'Array'; s = s.slice(0, -2); }
   const [head, ...rest] = s.split(':'); const arg = rest.join(':');
   const k = head.toLowerCase();
@@ -48,7 +60,7 @@ export function parseParam(spec) {
   if (c < 0) throw new Error(`параметр «${spec}»: формат Имя:тип[=значение]`);
   return { name: body.slice(0, c), type: parseType(body.slice(c + 1)), dv };
 }
-const pin = (name, dir, ty, extra = {}) => mkPin(name, dir, ty.cat, { sub: ty.sub, subObj: ty.subObj, container: ty.container, ...extra });
+const pin = (name, dir, ty, extra = {}) => mkPin(name, dir, ty.cat, { sub: ty.sub, subObj: ty.subObj, container: ty.container, ...(ty.valueType ? { valueType: ty.valueType } : {}), ...extra });
 
 /* ---------------- делегаты ----------------
  * Сигнатуры мультикаст-делегатов движка: /Script/Engine.<Sig>__DelegateSignature.
@@ -409,5 +421,32 @@ export function createAsyncAction({ proxy, factory, factoryClass = proxy, inputs
   for (const w of outputs) { const pr = parseParam(w); n.pins.push(pin(pr.name, 'Output', pr.type)); }
   n.pins.push(mkPin('WorldContextObject', 'Input', 'object', { subObj: classRef('/Script/CoreUObject.Object') }));
   for (const w of inputs) { const pr = parseParam(w); n.pins.push(pin(pr.name, 'Input', pr.type, { dv: pr.dv })); }
+  return n;
+}
+
+/** R60: типизированные Make Array / Make Set / Make Map со значениями.
+ *  createMakeContainer('array', 'int', [1,2,3]) · ('set', 'name', ['A','B']) · ('map', ['name','vector'], [['Spawn',[0,0,100]], ...]).
+ *  Значения — formatValue (src/values.js): числа, bool, [x,y,z] для Vector/Rotator, [r,g,b,a] LinearColor, {loc,rot,scale} Transform, готовые строки UE. */
+export function createMakeContainer(kind, type, values = [], pos) {
+  const cls = { array: 'K2Node_MakeArray', set: 'K2Node_MakeSet', map: 'K2Node_MakeMap' }[kind];
+  if (!cls) throw new Error(`createMakeContainer: array | set | map`);
+  const n = node(cls, pos);
+  const N = Math.max(1, values.length);
+  n.rawProps = [`NumInputs=${N}`];
+  const val = (ty, v) => { const f = formatValue(ty, v); return { ...(f.dv !== undefined ? { dv: f.dv } : {}), ...(f.defObj ? { defObj: f.defObj } : {}) }; };
+  if (kind === 'map') {
+    const [kt, vt] = type.map(parseType);
+    n.title = `Make Map (${type.join(' → ')})`;
+    for (let i = 0; i < N; i++) {
+      const [k, v] = values[i] ?? [];
+      n.pins.push(pin(`Key ${i}`, 'Input', kt, val(kt, k)), pin(`Value ${i}`, 'Input', vt, val(vt, v)));
+    }
+    n.pins.push(pin('Map', 'Output', { ...kt, container: 'Map', valueType: { cat: vt.cat, sub: vt.sub, subObj: vt.subObj ? (vt.subObj.startsWith('"') ? vt.subObj : `"${vt.subObj}"`) : '' } }));
+  } else {
+    const t = parseType(type);
+    n.title = `Make ${kind === 'array' ? 'Array' : 'Set'} (${type})`;
+    for (let i = 0; i < N; i++) n.pins.push(pin(`[${i}]`, 'Input', t, val(t, values[i])));
+    n.pins.push(pin(kind === 'array' ? 'Array' : 'Set', 'Output', { ...t, container: kind === 'array' ? 'Array' : 'Set' }));
+  }
   return n;
 }
