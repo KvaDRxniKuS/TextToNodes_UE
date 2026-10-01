@@ -131,6 +131,9 @@ const LIBS_FULL = {
   CommonButtonBase: `"/Script/CoreUObject.Class'/Script/CommonUI.CommonButtonBase'"`, // R69
   GameplayAbility: `"/Script/CoreUObject.Class'/Script/GameplayAbilities.GameplayAbility'"`, // R70
   MotionWarpingComponent: `"/Script/CoreUObject.Class'/Script/MotionWarping.MotionWarpingComponent'"`, // R70
+  EnhancedInputUserSettings: `"/Script/CoreUObject.Class'/Script/EnhancedInput.EnhancedInputUserSettings'"`, // R71
+  WaterBody: `"/Script/CoreUObject.Class'/Script/Water.WaterBody'"`, // R71
+  BuoyancyComponent: `"/Script/CoreUObject.Class'/Script/Water.BuoyancyComponent'"`, // R71
   LightComponentBase: `"/Script/CoreUObject.Class'/Script/Engine.LightComponentBase'"`, // R45 VERIFIED
   SpotLightComponent: `"/Script/CoreUObject.Class'/Script/Engine.SpotLightComponent'"`, // R45 VERIFIED
   PointLightComponent: `"/Script/CoreUObject.Class'/Script/Engine.PointLightComponent'"`, // R45 VERIFIED
@@ -248,6 +251,9 @@ const LIBS_SHORT = {
   CommonButtonBase: `Class'"/Script/CommonUI.CommonButtonBase"'`,
   GameplayAbility: `Class'"/Script/GameplayAbilities.GameplayAbility"'`,
   MotionWarpingComponent: `Class'"/Script/MotionWarping.MotionWarpingComponent"'`,
+  EnhancedInputUserSettings: `Class'"/Script/EnhancedInput.EnhancedInputUserSettings"'`,
+  WaterBody: `Class'"/Script/Water.WaterBody"'`,
+  BuoyancyComponent: `Class'"/Script/Water.BuoyancyComponent"'`,
   PhysicsConstraintComponent: `Class'"/Script/Engine.PhysicsConstraintComponent"'`,
   PhysicsHandleComponent: `Class'"/Script/Engine.PhysicsHandleComponent"'`,
   BlueprintMapLibrary: `Class'"/Script/Engine.BlueprintMapLibrary"'`,
