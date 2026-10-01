@@ -122,6 +122,7 @@ const LIBS_FULL = {
   PhysicsConstraintComponent: `"/Script/CoreUObject.Class'/Script/Engine.PhysicsConstraintComponent'"`, // R45 VERIFIED
   RadialForceComponent: `"/Script/CoreUObject.Class'/Script/Engine.RadialForceComponent'"`, // R45 VERIFIED
   LevelStreaming: `"/Script/CoreUObject.Class'/Script/Engine.LevelStreaming'"`, // R67
+  ChaosVehicleMovementComponent: `"/Script/CoreUObject.Class'/Script/ChaosVehicles.ChaosVehicleMovementComponent'"`, // R68
   LightComponentBase: `"/Script/CoreUObject.Class'/Script/Engine.LightComponentBase'"`, // R45 VERIFIED
   SpotLightComponent: `"/Script/CoreUObject.Class'/Script/Engine.SpotLightComponent'"`, // R45 VERIFIED
   PointLightComponent: `"/Script/CoreUObject.Class'/Script/Engine.PointLightComponent'"`, // R45 VERIFIED
@@ -230,6 +231,7 @@ const LIBS_SHORT = {
   LightComponentBase: `Class'"/Script/Engine.LightComponentBase"'`,
   RadialForceComponent: `Class'"/Script/Engine.RadialForceComponent"'`,
   LevelStreaming: `Class'"/Script/Engine.LevelStreaming"'`,
+  ChaosVehicleMovementComponent: `Class'"/Script/ChaosVehicles.ChaosVehicleMovementComponent"'`,
   PhysicsConstraintComponent: `Class'"/Script/Engine.PhysicsConstraintComponent"'`,
   PhysicsHandleComponent: `Class'"/Script/Engine.PhysicsHandleComponent"'`,
   BlueprintMapLibrary: `Class'"/Script/Engine.BlueprintMapLibrary"'`,

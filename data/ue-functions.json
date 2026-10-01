@@ -53076,5 +53076,557 @@
   "verified": true,
   "desc": "Toggle Active",
   "probe": "R66 проба (Active) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Toggle Active"
+ },
+ {
+  "id": "MatchesAnyTags",
+  "title": "Matches Any Tags",
+  "from": "probe",
+  "category": "Gameplay Tags",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "MatchesAnyTags",
+  "lib": "BlueprintGameplayTagLibrary",
+  "pins": [
+   {
+    "name": "TagOne",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayTag",
+    "const": true
+   },
+   {
+    "name": "OtherContainer",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayTagContainer",
+    "const": true
+   },
+   {
+    "name": "bExactMatch",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Matches Any Tags",
+  "probe": "R67 проба (Tags) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Matches Any Tags (pure)"
+ },
+ {
+  "id": "IsGameplayTagValid",
+  "title": "Is Gameplay Tag Valid",
+  "from": "probe",
+  "category": "Gameplay Tags",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsGameplayTagValid",
+  "lib": "BlueprintGameplayTagLibrary",
+  "pins": [
+   {
+    "name": "GameplayTag",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayTag",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Gameplay Tag Valid",
+  "probe": "R67 проба (Tags) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Gameplay Tag Valid (pure)"
+ },
+ {
+  "id": "GetNumGameplayTagsInContainer",
+  "title": "Get Num Gameplay Tags In Container",
+  "from": "probe",
+  "category": "Gameplay Tags",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetNumGameplayTagsInContainer",
+  "lib": "BlueprintGameplayTagLibrary",
+  "pins": [
+   {
+    "name": "TagContainer",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayTagContainer",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Num Gameplay Tags in Container",
+  "probe": "R67 проба (Tags) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Num Gameplay Tags in Container (pure)"
+ },
+ {
+  "id": "BreakGameplayTagContainer",
+  "title": "Break Gameplay Tag Container",
+  "from": "probe",
+  "category": "Gameplay Tags",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "BreakGameplayTagContainer",
+  "lib": "BlueprintGameplayTagLibrary",
+  "pins": [
+   {
+    "name": "GameplayTagContainer",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayTagContainer",
+    "const": true
+   },
+   {
+    "name": "GameplayTags",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "GameplayTag",
+    "container": "Array"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Break Gameplay Tag Container",
+  "probe": "R67 проба (Tags) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Break Gameplay Tag Container (pure)"
+ },
+ {
+  "id": "MakeGameplayTagContainerFromArray",
+  "title": "Make Gameplay Tag Container From Array",
+  "from": "probe",
+  "category": "Gameplay Tags",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "MakeGameplayTagContainerFromArray",
+  "lib": "BlueprintGameplayTagLibrary",
+  "pins": [
+   {
+    "name": "GameplayTags",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayTag",
+    "const": true,
+    "ref": true,
+    "container": "Array"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "GameplayTagContainer"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Make Gameplay Tag Container from Array",
+  "probe": "R67 проба (Tags) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Make Gameplay Tag Container from Array (pure)"
+ },
+ {
+  "id": "DoesContainerMatchTagQuery",
+  "title": "Does Container Match Tag Query",
+  "from": "probe",
+  "category": "Gameplay Tags",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "DoesContainerMatchTagQuery",
+  "lib": "BlueprintGameplayTagLibrary",
+  "pins": [
+   {
+    "name": "TagContainer",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayTagContainer",
+    "const": true
+   },
+   {
+    "name": "TagQuery",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayTagQuery",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Does Container Match Tag Query",
+  "probe": "R67 проба (Tags) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Does Container Match Tag Query (pure)"
+ },
+ {
+  "id": "IsTagQueryEmpty",
+  "title": "Is Tag Query Empty",
+  "from": "probe",
+  "category": "Gameplay Tags",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsTagQueryEmpty",
+  "lib": "BlueprintGameplayTagLibrary",
+  "pins": [
+   {
+    "name": "TagQuery",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayTagQuery",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Tag Query Empty",
+  "probe": "R67 проба (Tags) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Tag Query Empty (pure)"
+ },
+ {
+  "id": "AppendGameplayTagContainers",
+  "title": "Append Gameplay Tag Containers",
+  "from": "probe",
+  "category": "Gameplay Tags",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AppendGameplayTagContainers",
+  "lib": "BlueprintGameplayTagLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "InOutTagContainer",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayTagContainer",
+    "const": true,
+    "ref": true
+   },
+   {
+    "name": "InTagContainer",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "GameplayTagContainer",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "Append Gameplay Tag Containers",
+  "probe": "R67 проба (Tags) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Append Gameplay Tag Containers"
+ },
+ {
+  "id": "GetPrimaryAssetIdFromObject",
+  "title": "Get Primary Asset Id From Object",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetPrimaryAssetIdFromObject",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "Object",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "PrimaryAssetId"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Primary Asset Id from Object",
+  "probe": "R67 проба (Asset) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Primary Asset Id from Object (pure)"
+ },
+ {
+  "id": "GetObjectFromPrimaryAssetId",
+  "title": "Get Object From Primary Asset Id",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetObjectFromPrimaryAssetId",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "PrimaryAssetId",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "PrimaryAssetId",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/CoreUObject.Object"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Object from Primary Asset Id",
+  "probe": "R67 проба (Asset) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Object from Primary Asset Id (pure)"
+ },
+ {
+  "id": "IsValidPrimaryAssetId",
+  "title": "Is Valid Primary Asset Id",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsValidPrimaryAssetId",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "PrimaryAssetId",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "PrimaryAssetId",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Valid Primary Asset Id",
+  "probe": "R67 проба (Asset) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Valid Primary Asset Id (pure)"
+ },
+ {
+  "id": "Conv_PrimaryAssetIdToString",
+  "title": "Conv Primary Asset Id To String",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Conv_PrimaryAssetIdToString",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "PrimaryAssetId",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "PrimaryAssetId",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "string"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Conv Primary Asset Id to String",
+  "probe": "R67 проба (Asset) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Conv Primary Asset Id to String (pure)"
+ },
+ {
+  "id": "GetPrimaryAssetIdList",
+  "title": "Get Primary Asset Id List",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetPrimaryAssetIdList",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "PrimaryAssetType",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "PrimaryAssetType",
+    "const": true
+   },
+   {
+    "name": "OutPrimaryAssetIdList",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "PrimaryAssetId",
+    "container": "Array"
+   }
+  ],
+  "verified": true,
+  "desc": "Get Primary Asset Id List",
+  "probe": "R67 проба (Asset) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Primary Asset Id List"
+ },
+ {
+  "id": "UnloadPrimaryAsset",
+  "title": "Unload Primary Asset",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "UnloadPrimaryAsset",
+  "lib": "KismetSystemLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "PrimaryAssetId",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "PrimaryAssetId",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "Unload Primary Asset",
+  "probe": "R67 проба (Asset) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Unload Primary Asset"
+ },
+ {
+  "id": "SetShouldBeVisible",
+  "title": "Set Should Be Visible",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetShouldBeVisible",
+  "lib": "LevelStreaming",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.LevelStreaming"
+   },
+   {
+    "name": "bInShouldBeVisible",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Should Be Visible",
+  "probe": "R67 проба (Levels) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Should Be Visible"
+ },
+ {
+  "id": "SetShouldBeLoaded",
+  "title": "Set Should Be Loaded",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetShouldBeLoaded",
+  "lib": "LevelStreaming",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.LevelStreaming"
+   },
+   {
+    "name": "bInShouldBeLoaded",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Should Be Loaded",
+  "probe": "R67 проба (Levels) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Should Be Loaded"
+ },
+ {
+  "id": "IsLevelLoaded",
+  "title": "Is Level Loaded",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsLevelLoaded",
+  "lib": "LevelStreaming",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.LevelStreaming"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Level Loaded",
+  "probe": "R67 проба (Levels) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Level Loaded (pure)"
+ },
+ {
+  "id": "IsLevelVisible",
+  "title": "Is Level Visible",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsLevelVisible",
+  "lib": "LevelStreaming",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.LevelStreaming"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Is Level Visible",
+  "probe": "R67 проба (Levels) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Is Level Visible (pure)"
  }
 ]

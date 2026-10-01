@@ -1374,4 +1374,6 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 ## R66 — Timeline/SplineMesh/тело/Tick (VERIFIED 24/24 после замены)
 - PrimitiveComponent.PutAllRigidBodiesToSleep НЕ существует в 5.8 → PutRigidBodyToSleep(BoneName=None) (copy-back пользователя, VERIFIED).
 
-## R67 — Gameplay Tags / Primary Asset Id / Level Streaming (ждёт вердикта)
+## R67 — Gameplay Tags / Primary Asset Id / Level Streaming (VERIFIED 18/18)
+
+## R68 — Chaos Vehicle / строки / математика (ждёт вердикта)

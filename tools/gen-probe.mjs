@@ -1299,6 +1299,19 @@ const BATCHES = {
     ['Levels', 'Is Level Loaded (pure)', mem('LevelStreaming.IsLevelLoaded', ['->', 'ReturnValue:bool'], true)],
     ['Levels', 'Is Level Visible (pure)', mem('LevelStreaming.IsLevelVisible', ['->', 'ReturnValue:bool'], true)],
   ],
+  '68': [
+    // R68: Chaos Vehicle (плагин ChaosVehicles), строки, математика.
+    ['Vehicle', 'Set Throttle Input', mem('ChaosVehicleMovementComponent.SetThrottleInput', ['Throttle:float'])],
+    ['Vehicle', 'Set Steering Input', mem('ChaosVehicleMovementComponent.SetSteeringInput', ['Steering:float'])],
+    ['Vehicle', 'Set Brake Input', mem('ChaosVehicleMovementComponent.SetBrakeInput', ['Brake:float'])],
+    ['Vehicle', 'Set Handbrake Input', mem('ChaosVehicleMovementComponent.SetHandbrakeInput', ['bNewHandbrake:bool'])],
+    ['Vehicle', 'Set Target Gear', mem('ChaosVehicleMovementComponent.SetTargetGear', ['GearNum:int', 'bImmediate:bool'])],
+    ['Vehicle', 'Set Use Automatic Gears', mem('ChaosVehicleMovementComponent.SetUseAutomaticGears', ['bUseAuto:bool'])],
+    ['Vehicle', 'Get Forward Speed (pure)', mem('ChaosVehicleMovementComponent.GetForwardSpeed', ['->', 'ReturnValue:float'], true)],
+    ['Vehicle', 'Get Engine Rotation Speed (pure)', mem('ChaosVehicleMovementComponent.GetEngineRotationSpeed', ['->', 'ReturnValue:float'], true)],
+    ['Vehicle', 'Get Current Gear (pure)', mem('ChaosVehicleMovementComponent.GetCurrentGear', ['->', 'ReturnValue:int'], true)],
+    ['Math', 'Get Unit Direction Vector (pure)', lib('KismetMathLibrary.GetUnitDirectionVector', ['From:vector', 'To:vector', '->', 'ReturnValue:vector'], true)],
+  ],
 };
 
 const list = BATCHES[batch];
