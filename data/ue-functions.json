@@ -50643,5 +50643,119 @@
   "verified": true,
   "desc": "Progress Bar: Set Is Marquee",
   "probe": "R64 проба (Style) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Progress Bar: Set Is Marquee"
+ },
+ {
+  "id": "GetHitResultUnderFingerByChannel",
+  "title": "Get Hit Result Under Finger By Channel",
+  "from": "probe",
+  "category": "Player / Controller",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetHitResultUnderFingerByChannel",
+  "lib": "PlayerController",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   },
+   {
+    "name": "FingerIndex",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ETouchIndex",
+    "dv": "Touch1",
+    "autoDv": ""
+   },
+   {
+    "name": "TraceChannel",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ETraceTypeQuery",
+    "dv": "TraceTypeQuery1",
+    "autoDv": ""
+   },
+   {
+    "name": "bTraceComplex",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "TRUE",
+    "autoDv": ""
+   },
+   {
+    "name": "HitResult",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "HitResult"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "R64b · Input: Get Hit Result Under Finger by Channel",
+  "probe": "R64b проба (Input) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R64b · Input: Get Hit Result Under Finger by Channel (pure)"
+ },
+ {
+  "id": "GetHitResultUnderFingerForObjects",
+  "title": "Get Hit Result Under Finger For Objects",
+  "from": "probe",
+  "category": "Player / Controller",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetHitResultUnderFingerForObjects",
+  "lib": "PlayerController",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   },
+   {
+    "name": "FingerIndex",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ETouchIndex",
+    "dv": "Touch1",
+    "autoDv": ""
+   },
+   {
+    "name": "ObjectTypes",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EObjectTypeQuery",
+    "const": true,
+    "ref": true,
+    "container": "Array",
+    "ignored": true,
+    "dv": "ObjectTypeQuery1",
+    "autoDv": ""
+   },
+   {
+    "name": "bTraceComplex",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "TRUE",
+    "autoDv": ""
+   },
+   {
+    "name": "HitResult",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "HitResult"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "R64b · Input: Get Hit Result Under Finger for Objects",
+  "probe": "R64b проба (Input) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R64b · Input: Get Hit Result Under Finger for Objects (pure)"
  }
 ]

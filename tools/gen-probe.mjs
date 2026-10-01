@@ -1203,6 +1203,11 @@ const BATCHES = {
     ['Style', 'Text: Set Auto Wrap Text', mem('TextBlock.SetAutoWrapText', ['InAutoTextWrap:bool'])],
     ['Style', 'Progress Bar: Set Is Marquee', mem('ProgressBar.SetIsMarquee', ['InbIsMarquee:bool'])],
   ],
+  '64b': [
+    // R64 copy-back пользователя: правильные имена вместо GetHitResultUnderFinger.
+    ['Input', 'Get Hit Result Under Finger by Channel (pure)', mem('PlayerController.GetHitResultUnderFingerByChannel', ['FingerIndex:enum:ETouchIndex=Touch1', 'TraceChannel:enum:ETraceTypeQuery=TraceTypeQuery1', 'bTraceComplex:bool=TRUE', '->', 'HitResult:hitresult', 'ReturnValue:bool'], true)],
+    ['Input', 'Get Hit Result Under Finger for Objects (pure)', pf(mem('PlayerController.GetHitResultUnderFingerForObjects', ['FingerIndex:enum:ETouchIndex=Touch1', 'ObjectTypes:enum:EObjectTypeQuery[]=ObjectTypeQuery1', 'bTraceComplex:bool=TRUE', '->', 'HitResult:hitresult', 'ReturnValue:bool'], true), { ObjectTypes: '&!~' })],
+  ],
 };
 
 const list = BATCHES[batch];
