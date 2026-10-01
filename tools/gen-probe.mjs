@@ -1166,17 +1166,11 @@ const BATCHES = {
     ['Mesh', 'Get Linked Anim Graph Instance by Tag (SkeletalMesh, pure)', mem('SkeletalMeshComponent.GetLinkedAnimGraphInstanceByTag', ['InTag:name', '->', 'ReturnValue:object:/Script/Engine.AnimInstance'], true)],
     ['Mesh', 'Get Parent Bone (SkinnedMesh, pure)', mem('SkinnedMeshComponent.GetParentBone', ['BoneName:name', '->', 'ReturnValue:name'], true)],
     ['Mesh', 'Hide Bone by Name', mem('SkinnedMeshComponent.HideBoneByName', ['BoneName:name', 'PhysBodyOption:enum:EPhysBodyOp'])],
-    ['Save', 'Save Game to Memory', lib('GameplayStatics.SaveGameToMemory', ['SaveGameObject:object:SaveGame', '->', 'OutSaveData:byte[]', 'ReturnValue:bool'])],
-    ['Save', 'Load Game from Memory', pf(lib('GameplayStatics.LoadGameFromMemory', ['InSaveData:byte[]', '->', 'ReturnValue:object:SaveGame']), { InSaveData: '&!' })],
-    ['Save', 'Save Data to Slot', pf(lib('GameplayStatics.SaveDataToSlot', ['InSaveData:byte[]', 'SlotName:string', 'UserIndex:int', '->', 'ReturnValue:bool']), { InSaveData: '&!' })],
-    ['Save', 'Load Data from Slot', lib('GameplayStatics.LoadDataFromSlot', ['SlotName:string', 'UserIndex:int', '->', 'OutSaveData:byte[]', 'ReturnValue:bool'])],
     ['Input', 'Add Mapping Context', pf(mem('EnhancedInputLocalPlayerSubsystem.AddMappingContext', ['MappingContext:object:/Script/EnhancedInput.InputMappingContext', 'Priority:int', 'Options:modifycontextoptions']), { Options: '&!' })],
     ['Input', 'Remove Mapping Context', pf(mem('EnhancedInputLocalPlayerSubsystem.RemoveMappingContext', ['MappingContext:object:/Script/EnhancedInput.InputMappingContext', 'Options:modifycontextoptions']), { Options: '&!' })],
     ['Input', 'Clear All Mappings', mem('EnhancedInputLocalPlayerSubsystem.ClearAllMappings', [])],
     ['Input', 'Has Mapping Context (pure)', mem('EnhancedInputLocalPlayerSubsystem.HasMappingContext', ['MappingContext:object:/Script/EnhancedInput.InputMappingContext', '->', 'OutFoundPriority:int', 'ReturnValue:bool'], true)],
     ['Input', 'Query Keys Mapped to Action (pure)', mem('EnhancedInputLocalPlayerSubsystem.QueryKeysMappedToAction', ['Action:object:/Script/EnhancedInput.InputAction', '->', 'ReturnValue:key[]'], true)],
-    ['Input', 'Get Bound Action Value (EnhancedInputLibrary, pure)', lib('EnhancedInputLibrary.GetBoundActionValue', ['Actor:object:Actor', 'Action:object:/Script/EnhancedInput.InputAction', '->', 'ReturnValue:inputactionvalue'], true)],
-    ['Input', 'Get Hit Result Under Finger', mem('PlayerController.GetHitResultUnderFinger', ['FingerIndex:enum:ETouchIndex', 'TraceChannel:enum:ECollisionChannel', 'bTraceComplex:bool', '->', 'HitResult:hitresult', 'ReturnValue:bool'])],
     ['Input', 'Set Mouse Cursor Widget', mem('PlayerController.SetMouseCursorWidget', ['Cursor:enum:EMouseCursor', 'CursorWidget:object:UserWidget'])],
     ['UI', 'Combo Box: Remove Option', mem('ComboBoxString.RemoveOption', ['Option:string', '->', 'ReturnValue:bool'])],
     ['UI', 'Combo Box: Get Option Count (pure)', mem('ComboBoxString.GetOptionCount', ['->', 'ReturnValue:int'], true)],
@@ -1235,7 +1229,10 @@ for (const topic of topics) {
 // fitComment(текст, ноды) возвращает НОВЫЙ коммент по габаритам нод (R36-фикс: раньше коммент создавался минимальным,
 // а результат fitComment терялся). Верхний отступ больше — над каждой нодой висит пузырь.
 const perRow = topics.map(t => `${t} ${list.filter(p => p[0] === t).length}`).join(', ');
-const cm = fitComment(`R${batch}: пробы новых нод (${list.length}). Ряды сверху вниз: ${perRow}. Над каждой нодой — пузырь с её названием. Пришлите copy-back тех, что не встали или встали неправильно.`, nodes, 64, 176, 96);
+// Пользователь: в пробе прямо называть ноды каждого ряда (по порядку слева направо), не только количество.
+const rowNames = topics.map(t => `${t} (${list.filter(p => p[0] === t).length}): ${list.filter(p => p[0] === t).map(p => p[1].replace(/ \(.*\)$/, '')).join('; ')}`).join('\n');
+if (!STDOUT) console.log(rowNames);
+const cm = fitComment(`R${batch}: пробы новых нод (${list.length}). Ряды сверху вниз: ${perRow}.\n${rowNames.replace(/"/g, "'")}\nНад каждой нодой — пузырь с её названием. Пришлите copy-back тех, что не встали или встали неправильно.`, nodes, 64, 176, 96);
 const text = generateUEText([cm, ...nodes]);
 const v = validateStrict(text);
 if (!STDOUT) console.log(`R${batch}: нод=${nodes.length} тем=${topics.length} STRICT errors=${v.errors.length} warnings=${v.warnings.length}`);

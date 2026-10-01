@@ -1363,3 +1363,5 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 - 65 функций, отфильтрованных по реестру (базовые Montage_*, SaveGameToSlot, IsInputKeyDown, SetText и т.п. уже были).
 - UE_LIBS += KismetAnimationLibrary, EnhancedInputLocalPlayerSubsystem, EditableText, VerticalBox, HorizontalBox, CanvasPanel, RichTextBlock;
   STRUCTS += ModifyContextOptions, Anchors, Geometry; ENUMS += ERootMotionMode, EPhysBodyOp, EDescendantScrollDestination, ETouchIndex.
+- **R64 вердикт:** 59 из 65 → реестр (1344). Не существуют в 5.8: GameplayStatics.SaveGameToMemory/LoadGameFromMemory/SaveDataToSlot/LoadDataFromSlot (сохранения — только SaveGameToSlot/LoadGameFromSlot/DeleteGameInSlot и AsyncSave/LoadGame, всё уже в реестре), EnhancedInputLibrary.GetBoundActionValue, PlayerController.GetHitResultUnderFinger.
+- Пробы теперь называют ноды каждого ряда прямо в комментарии (просьба пользователя).

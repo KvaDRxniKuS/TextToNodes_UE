@@ -48523,5 +48523,2125 @@
   "verified": true,
   "desc": "Get Owned Gameplay Tags",
   "probe": "R62 проба (Tags) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Owned Gameplay Tags (BlueprintGameplayTagLibrary, interface-пин, pure)"
+ },
+ {
+  "id": "Montage_SetPosition",
+  "title": "Montage Set Position",
+  "from": "probe",
+  "category": "Animation",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Montage_SetPosition",
+  "lib": "AnimInstance",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AnimInstance"
+   },
+   {
+    "name": "Montage",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AnimMontage"
+   },
+   {
+    "name": "NewPosition",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "Montage Set Position",
+  "probe": "R64 проба (Anim) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Montage Set Position"
+ },
+ {
+  "id": "Montage_GetIsStopped",
+  "title": "Montage Get Is Stopped",
+  "from": "probe",
+  "category": "Animation",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Montage_GetIsStopped",
+  "lib": "AnimInstance",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AnimInstance"
+   },
+   {
+    "name": "Montage",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AnimMontage"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Montage Get Is Stopped",
+  "probe": "R64 проба (Anim) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Montage Get Is Stopped (pure)"
+ },
+ {
+  "id": "Montage_GetBlendTime",
+  "title": "Montage Get Blend Time",
+  "from": "probe",
+  "category": "Animation",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "Montage_GetBlendTime",
+  "lib": "AnimInstance",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AnimInstance"
+   },
+   {
+    "name": "Montage",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AnimMontage"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Montage Get Blend Time",
+  "probe": "R64 проба (Anim) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Montage Get Blend Time (pure)"
+ },
+ {
+  "id": "SetRootMotionMode",
+  "title": "Set Root Motion Mode",
+  "from": "probe",
+  "category": "Animation",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetRootMotionMode",
+  "lib": "AnimInstance",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AnimInstance"
+   },
+   {
+    "name": "Value",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ERootMotionMode"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Root Motion Mode",
+  "probe": "R64 проба (Anim) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Root Motion Mode"
+ },
+ {
+  "id": "SetMorphTarget",
+  "title": "Set Morph Target",
+  "from": "probe",
+  "category": "Animation",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetMorphTarget",
+  "lib": "AnimInstance",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AnimInstance"
+   },
+   {
+    "name": "MorphTargetName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "Value",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Morph Target",
+  "probe": "R64 проба (Anim) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Morph Target (AnimInstance)"
+ },
+ {
+  "id": "ClearMorphTargets",
+  "title": "Clear Morph Targets",
+  "from": "probe",
+  "category": "Animation",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ClearMorphTargets",
+  "lib": "AnimInstance",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AnimInstance"
+   }
+  ],
+  "verified": true,
+  "desc": "Clear Morph Targets",
+  "probe": "R64 проба (Anim) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Clear Morph Targets (AnimInstance)"
+ },
+ {
+  "id": "GetLinkedAnimGraphInstanceByTag",
+  "title": "Get Linked Anim Graph Instance By Tag",
+  "from": "probe",
+  "category": "Animation",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetLinkedAnimGraphInstanceByTag",
+  "lib": "AnimInstance",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AnimInstance"
+   },
+   {
+    "name": "InTag",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.AnimInstance"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Linked Anim Graph Instance by Tag",
+  "probe": "R64 проба (Anim) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Linked Anim Graph Instance by Tag (AnimInstance, pure)"
+ },
+ {
+  "id": "LinkAnimClassLayers",
+  "title": "Link Anim Class Layers",
+  "from": "probe",
+  "category": "Animation",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "LinkAnimClassLayers",
+  "lib": "AnimInstance",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AnimInstance"
+   },
+   {
+    "name": "InClass",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/Engine.AnimInstance"
+   }
+  ],
+  "verified": true,
+  "desc": "Link Anim Class Layers",
+  "probe": "R64 проба (Anim) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Link Anim Class Layers (AnimInstance)"
+ },
+ {
+  "id": "UnlinkAnimClassLayers",
+  "title": "Unlink Anim Class Layers",
+  "from": "probe",
+  "category": "Animation",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "UnlinkAnimClassLayers",
+  "lib": "AnimInstance",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.AnimInstance"
+   },
+   {
+    "name": "InClass",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/Engine.AnimInstance"
+   }
+  ],
+  "verified": true,
+  "desc": "Unlink Anim Class Layers",
+  "probe": "R64 проба (Anim) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Unlink Anim Class Layers (AnimInstance)"
+ },
+ {
+  "id": "CalculateDirection",
+  "title": "Calculate Direction",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "CalculateDirection",
+  "lib": "KismetAnimationLibrary",
+  "pins": [
+   {
+    "name": "Velocity",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "BaseRotation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Rotator",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Calculate Direction",
+  "probe": "R64 проба (Anim) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Calculate Direction (KismetAnimationLibrary, pure)"
+ },
+ {
+  "id": "SetMorphTarget_SkeletalMeshComponent",
+  "title": "Set Morph Target",
+  "from": "probe",
+  "category": "Animation",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetMorphTarget",
+  "lib": "SkeletalMeshComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SkeletalMeshComponent"
+   },
+   {
+    "name": "MorphTargetName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "Value",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "bRemoveZeroWeight",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Set Morph Target",
+  "probe": "R64 проба (Mesh) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Morph Target (SkeletalMesh)"
+ },
+ {
+  "id": "ClearMorphTargets_SkeletalMeshComponent",
+  "title": "Clear Morph Targets",
+  "from": "probe",
+  "category": "Animation",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ClearMorphTargets",
+  "lib": "SkeletalMeshComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SkeletalMeshComponent"
+   }
+  ],
+  "verified": true,
+  "desc": "Clear Morph Targets",
+  "probe": "R64 проба (Mesh) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Clear Morph Targets (SkeletalMesh)"
+ },
+ {
+  "id": "GetMorphTarget",
+  "title": "Get Morph Target",
+  "from": "probe",
+  "category": "Animation",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetMorphTarget",
+  "lib": "SkeletalMeshComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SkeletalMeshComponent"
+   },
+   {
+    "name": "MorphTargetName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "real",
+    "sub": "double"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Morph Target",
+  "probe": "R64 проба (Mesh) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Morph Target (pure)"
+ },
+ {
+  "id": "SetAllBodiesSimulatePhysics",
+  "title": "Set All Bodies Simulate Physics",
+  "from": "probe",
+  "category": "Animation",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetAllBodiesSimulatePhysics",
+  "lib": "SkeletalMeshComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SkeletalMeshComponent"
+   },
+   {
+    "name": "bNewSimulate",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set All Bodies Simulate Physics",
+  "probe": "R64 проба (Mesh) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set All Bodies Simulate Physics"
+ },
+ {
+  "id": "SetAllBodiesBelowSimulatePhysics",
+  "title": "Set All Bodies Below Simulate Physics",
+  "from": "probe",
+  "category": "Animation",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetAllBodiesBelowSimulatePhysics",
+  "lib": "SkeletalMeshComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SkeletalMeshComponent"
+   },
+   {
+    "name": "InBoneName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "bNewSimulate",
+    "dir": "Input",
+    "cat": "bool"
+   },
+   {
+    "name": "bIncludeSelf",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Set All Bodies Below Simulate Physics",
+  "probe": "R64 проба (Mesh) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set All Bodies Below Simulate Physics"
+ },
+ {
+  "id": "SetAllBodiesBelowPhysicsBlendWeight",
+  "title": "Set All Bodies Below Physics Blend Weight",
+  "from": "probe",
+  "category": "Animation",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetAllBodiesBelowPhysicsBlendWeight",
+  "lib": "SkeletalMeshComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SkeletalMeshComponent"
+   },
+   {
+    "name": "InBoneName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "PhysicsBlendWeight",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double"
+   },
+   {
+    "name": "bSkipCustomPhysicsType",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false",
+    "autoDv": ""
+   },
+   {
+    "name": "bIncludeSelf",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Set All Bodies Below Physics Blend Weight",
+  "probe": "R64 проба (Mesh) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set All Bodies Below Physics Blend Weight"
+ },
+ {
+  "id": "ResetAllBodiesSimulatePhysics",
+  "title": "Reset All Bodies Simulate Physics",
+  "from": "probe",
+  "category": "Animation",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ResetAllBodiesSimulatePhysics",
+  "lib": "SkeletalMeshComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SkeletalMeshComponent"
+   }
+  ],
+  "verified": true,
+  "desc": "Reset All Bodies Simulate Physics",
+  "probe": "R64 проба (Mesh) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Reset All Bodies Simulate Physics"
+ },
+ {
+  "id": "BreakConstraint_SkeletalMeshComponent",
+  "title": "Break Constraint",
+  "from": "probe",
+  "category": "Animation",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "BreakConstraint",
+  "lib": "SkeletalMeshComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SkeletalMeshComponent"
+   },
+   {
+    "name": "Impulse",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "HitLocation",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector",
+    "const": true
+   },
+   {
+    "name": "InBoneName",
+    "dir": "Input",
+    "cat": "name"
+   }
+  ],
+  "verified": true,
+  "desc": "Break Constraint",
+  "probe": "R64 проба (Mesh) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Break Constraint"
+ },
+ {
+  "id": "LinkAnimClassLayers_SkeletalMeshComponent",
+  "title": "Link Anim Class Layers",
+  "from": "probe",
+  "category": "Animation",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "LinkAnimClassLayers",
+  "lib": "SkeletalMeshComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SkeletalMeshComponent"
+   },
+   {
+    "name": "InClass",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/Engine.AnimInstance"
+   }
+  ],
+  "verified": true,
+  "desc": "Link Anim Class Layers",
+  "probe": "R64 проба (Mesh) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Link Anim Class Layers (SkeletalMesh)"
+ },
+ {
+  "id": "UnlinkAnimClassLayers_SkeletalMeshComponent",
+  "title": "Unlink Anim Class Layers",
+  "from": "probe",
+  "category": "Animation",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "UnlinkAnimClassLayers",
+  "lib": "SkeletalMeshComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SkeletalMeshComponent"
+   },
+   {
+    "name": "InClass",
+    "dir": "Input",
+    "cat": "class",
+    "object": "/Script/Engine.AnimInstance"
+   }
+  ],
+  "verified": true,
+  "desc": "Unlink Anim Class Layers",
+  "probe": "R64 проба (Mesh) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Unlink Anim Class Layers (SkeletalMesh)"
+ },
+ {
+  "id": "GetLinkedAnimGraphInstanceByTag_SkeletalMeshComponent",
+  "title": "Get Linked Anim Graph Instance By Tag",
+  "from": "probe",
+  "category": "Animation",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetLinkedAnimGraphInstanceByTag",
+  "lib": "SkeletalMeshComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SkeletalMeshComponent"
+   },
+   {
+    "name": "InTag",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/Engine.AnimInstance"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Linked Anim Graph Instance by Tag",
+  "probe": "R64 проба (Mesh) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Linked Anim Graph Instance by Tag (SkeletalMesh, pure)"
+ },
+ {
+  "id": "GetParentBone",
+  "title": "Get Parent Bone",
+  "from": "probe",
+  "category": "Animation",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetParentBone",
+  "lib": "SkinnedMeshComponent",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SkinnedMeshComponent"
+   },
+   {
+    "name": "BoneName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "name"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Parent Bone",
+  "probe": "R64 проба (Mesh) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Parent Bone (SkinnedMesh, pure)"
+ },
+ {
+  "id": "HideBoneByName",
+  "title": "Hide Bone By Name",
+  "from": "probe",
+  "category": "Animation",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "HideBoneByName",
+  "lib": "SkinnedMeshComponent",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.SkinnedMeshComponent"
+   },
+   {
+    "name": "BoneName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "PhysBodyOption",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EPhysBodyOp"
+   }
+  ],
+  "verified": true,
+  "desc": "Hide Bone by Name",
+  "probe": "R64 проба (Mesh) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Hide Bone by Name"
+ },
+ {
+  "id": "AddMappingContext_EnhancedInputLocalPlayerSubsystem",
+  "title": "Add Mapping Context",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AddMappingContext",
+  "lib": "EnhancedInputLocalPlayerSubsystem",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.EnhancedInputLocalPlayerSubsystem"
+   },
+   {
+    "name": "MappingContext",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.InputMappingContext"
+   },
+   {
+    "name": "Priority",
+    "dir": "Input",
+    "cat": "int"
+   },
+   {
+    "name": "Options",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "ModifyContextOptions",
+    "const": true,
+    "ref": true
+   }
+  ],
+  "verified": true,
+  "desc": "Add Mapping Context",
+  "probe": "R64 проба (Input) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Add Mapping Context"
+ },
+ {
+  "id": "RemoveMappingContext_EnhancedInputLocalPlayerSubsystem",
+  "title": "Remove Mapping Context",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "RemoveMappingContext",
+  "lib": "EnhancedInputLocalPlayerSubsystem",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.EnhancedInputLocalPlayerSubsystem"
+   },
+   {
+    "name": "MappingContext",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.InputMappingContext"
+   },
+   {
+    "name": "Options",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "ModifyContextOptions",
+    "const": true,
+    "ref": true
+   }
+  ],
+  "verified": true,
+  "desc": "Remove Mapping Context",
+  "probe": "R64 проба (Input) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Remove Mapping Context"
+ },
+ {
+  "id": "ClearAllMappings_EnhancedInputLocalPlayerSubsystem",
+  "title": "Clear All Mappings",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ClearAllMappings",
+  "lib": "EnhancedInputLocalPlayerSubsystem",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.EnhancedInputLocalPlayerSubsystem"
+   }
+  ],
+  "verified": true,
+  "desc": "Clear All Mappings",
+  "probe": "R64 проба (Input) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Clear All Mappings"
+ },
+ {
+  "id": "HasMappingContext_EnhancedInputLocalPlayerSubsystem",
+  "title": "Has Mapping Context",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "HasMappingContext",
+  "lib": "EnhancedInputLocalPlayerSubsystem",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.EnhancedInputLocalPlayerSubsystem"
+   },
+   {
+    "name": "MappingContext",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.InputMappingContext"
+   },
+   {
+    "name": "OutFoundPriority",
+    "dir": "Output",
+    "cat": "int"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Has Mapping Context",
+  "probe": "R64 проба (Input) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Has Mapping Context (pure)"
+ },
+ {
+  "id": "QueryKeysMappedToAction_EnhancedInputLocalPlayerSubsystem",
+  "title": "Query Keys Mapped To Action",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "QueryKeysMappedToAction",
+  "lib": "EnhancedInputLocalPlayerSubsystem",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.EnhancedInputLocalPlayerSubsystem"
+   },
+   {
+    "name": "Action",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/EnhancedInput.InputAction"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Key",
+    "container": "Array"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Query Keys Mapped to Action",
+  "probe": "R64 проба (Input) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Query Keys Mapped to Action (pure)"
+ },
+ {
+  "id": "SetMouseCursorWidget",
+  "title": "Set Mouse Cursor Widget",
+  "from": "probe",
+  "category": "Player / Controller",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetMouseCursorWidget",
+  "lib": "PlayerController",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/Engine.PlayerController"
+   },
+   {
+    "name": "Cursor",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EMouseCursor"
+   },
+   {
+    "name": "CursorWidget",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.UserWidget"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Mouse Cursor Widget",
+  "probe": "R64 проба (Input) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Mouse Cursor Widget"
+ },
+ {
+  "id": "RemoveOption",
+  "title": "Remove Option",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "RemoveOption",
+  "lib": "ComboBoxString",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.ComboBoxString"
+   },
+   {
+    "name": "Option",
+    "dir": "Input",
+    "cat": "string"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Combo Box: Remove Option",
+  "probe": "R64 проба (UI) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Combo Box: Remove Option"
+ },
+ {
+  "id": "GetOptionCount",
+  "title": "Get Option Count",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetOptionCount",
+  "lib": "ComboBoxString",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.ComboBoxString"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Combo Box: Get Option Count",
+  "probe": "R64 проба (UI) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Combo Box: Get Option Count (pure)"
+ },
+ {
+  "id": "GetSelectedIndex",
+  "title": "Get Selected Index",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetSelectedIndex",
+  "lib": "ComboBoxString",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.ComboBoxString"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Combo Box: Get Selected Index",
+  "probe": "R64 проба (UI) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Combo Box: Get Selected Index (pure)"
+ },
+ {
+  "id": "SetSelectedIndex",
+  "title": "Set Selected Index",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetSelectedIndex",
+  "lib": "ComboBoxString",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.ComboBoxString"
+   },
+   {
+    "name": "Index",
+    "dir": "Input",
+    "cat": "int"
+   }
+  ],
+  "verified": true,
+  "desc": "Combo Box: Set Selected Index",
+  "probe": "R64 проба (UI) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Combo Box: Set Selected Index"
+ },
+ {
+  "id": "SetIsReadOnly",
+  "title": "Set Is Read Only",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetIsReadOnly",
+  "lib": "EditableTextBox",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.EditableTextBox"
+   },
+   {
+    "name": "bReadOnly",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Editable Text Box: Set Is Read Only",
+  "probe": "R64 проба (UI) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Editable Text Box: Set Is Read Only"
+ },
+ {
+  "id": "GetText_EditableText",
+  "title": "Get Text",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetText",
+  "lib": "EditableText",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.EditableText"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "text"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Editable Text: Get Text",
+  "probe": "R64 проба (UI) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Editable Text: Get Text (pure)"
+ },
+ {
+  "id": "SetText_EditableText",
+  "title": "Set Text",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetText",
+  "lib": "EditableText",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.EditableText"
+   },
+   {
+    "name": "InText",
+    "dir": "Input",
+    "cat": "text"
+   }
+  ],
+  "verified": true,
+  "desc": "Editable Text: Set Text",
+  "probe": "R64 проба (UI) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Editable Text: Set Text"
+ },
+ {
+  "id": "GetNumWidgets",
+  "title": "Get Num Widgets",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetNumWidgets",
+  "lib": "WidgetSwitcher",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.WidgetSwitcher"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "int"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Widget Switcher: Get Num Widgets",
+  "probe": "R64 проба (UI) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Widget Switcher: Get Num Widgets (pure)"
+ },
+ {
+  "id": "ScrollWidgetIntoView",
+  "title": "Scroll Widget Into View",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "ScrollWidgetIntoView",
+  "lib": "ScrollBox",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.ScrollBox"
+   },
+   {
+    "name": "WidgetToFind",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Widget"
+   },
+   {
+    "name": "AnimateScroll",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "true",
+    "autoDv": ""
+   },
+   {
+    "name": "ScrollDestination",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EDescendantScrollDestination"
+   },
+   {
+    "name": "Padding",
+    "dir": "Input",
+    "cat": "real",
+    "sub": "double",
+    "dv": "0.0",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Scroll Box: Scroll Widget Into View",
+  "probe": "R64 проба (UI) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Scroll Box: Scroll Widget Into View"
+ },
+ {
+  "id": "HasAnyChildren",
+  "title": "Has Any Children",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "HasAnyChildren",
+  "lib": "PanelWidget",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.PanelWidget"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Panel: Has Any Children",
+  "probe": "R64 проба (UI) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Panel: Has Any Children (pure)"
+ },
+ {
+  "id": "GetAllChildren",
+  "title": "Get All Children",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetAllChildren",
+  "lib": "PanelWidget",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.PanelWidget"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/UMG.Widget",
+    "container": "Array"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Panel: Get All Children",
+  "probe": "R64 проба (UI) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Panel: Get All Children (pure)"
+ },
+ {
+  "id": "SetText_RichTextBlock",
+  "title": "Set Text",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetText",
+  "lib": "RichTextBlock",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.RichTextBlock"
+   },
+   {
+    "name": "InText",
+    "dir": "Input",
+    "cat": "text"
+   }
+  ],
+  "verified": true,
+  "desc": "Rich Text: Set Text",
+  "probe": "R64 проба (UI) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Rich Text: Set Text"
+ },
+ {
+  "id": "GetText_RichTextBlock",
+  "title": "Get Text",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetText",
+  "lib": "RichTextBlock",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.RichTextBlock"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "text"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Rich Text: Get Text",
+  "probe": "R64 проба (UI) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Rich Text: Get Text (pure)"
+ },
+ {
+  "id": "AddChildToVerticalBox",
+  "title": "Add Child To Vertical Box",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AddChildToVerticalBox",
+  "lib": "VerticalBox",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.VerticalBox"
+   },
+   {
+    "name": "Content",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Widget"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/UMG.VerticalBoxSlot"
+   }
+  ],
+  "verified": true,
+  "desc": "Add Child to Vertical Box",
+  "probe": "R64 проба (Layout) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Add Child to Vertical Box"
+ },
+ {
+  "id": "AddChildToHorizontalBox",
+  "title": "Add Child To Horizontal Box",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AddChildToHorizontalBox",
+  "lib": "HorizontalBox",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.HorizontalBox"
+   },
+   {
+    "name": "Content",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Widget"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/UMG.HorizontalBoxSlot"
+   }
+  ],
+  "verified": true,
+  "desc": "Add Child to Horizontal Box",
+  "probe": "R64 проба (Layout) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Add Child to Horizontal Box"
+ },
+ {
+  "id": "AddChildToCanvas",
+  "title": "Add Child To Canvas",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "AddChildToCanvas",
+  "lib": "CanvasPanel",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.CanvasPanel"
+   },
+   {
+    "name": "Content",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Widget"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "object",
+    "object": "/Script/UMG.CanvasPanelSlot"
+   }
+  ],
+  "verified": true,
+  "desc": "Add Child to Canvas",
+  "probe": "R64 проба (Layout) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Add Child to Canvas"
+ },
+ {
+  "id": "GetViewportWidgetGeometry",
+  "title": "Get Viewport Widget Geometry",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetViewportWidgetGeometry",
+  "lib": "WidgetLayoutLibrary",
+  "pins": [
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Geometry"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Viewport Widget Geometry",
+  "probe": "R64 проба (Layout) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Viewport Widget Geometry (pure)"
+ },
+ {
+  "id": "SetPosition_CanvasPanelSlot",
+  "title": "Set Position",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetPosition",
+  "lib": "CanvasPanelSlot",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.CanvasPanelSlot"
+   },
+   {
+    "name": "InPosition",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector2D",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "Canvas Slot: Set Position",
+  "probe": "R64 проба (Layout) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Canvas Slot: Set Position"
+ },
+ {
+  "id": "SetAnchors",
+  "title": "Set Anchors",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetAnchors",
+  "lib": "CanvasPanelSlot",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.CanvasPanelSlot"
+   },
+   {
+    "name": "InAnchors",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Anchors",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "Canvas Slot: Set Anchors",
+  "probe": "R64 проба (Layout) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Canvas Slot: Set Anchors"
+ },
+ {
+  "id": "GetPosition_CanvasPanelSlot",
+  "title": "Get Position",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetPosition",
+  "lib": "CanvasPanelSlot",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.CanvasPanelSlot"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector2D"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Canvas Slot: Get Position",
+  "probe": "R64 проба (Layout) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Canvas Slot: Get Position (pure)"
+ },
+ {
+  "id": "GetSize",
+  "title": "Get Size",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetSize",
+  "lib": "CanvasPanelSlot",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.CanvasPanelSlot"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "Vector2D"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Canvas Slot: Get Size",
+  "probe": "R64 проба (Layout) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Canvas Slot: Get Size (pure)"
+ },
+ {
+  "id": "SetBrushColor",
+  "title": "Set Brush Color",
+  "from": "probe",
+  "category": "Utilities",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetBrushColor",
+  "lib": "Border",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Border"
+   },
+   {
+    "name": "InBrushColor",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "Border: Set Brush Color",
+  "probe": "R64 проба (Style) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Border: Set Brush Color"
+ },
+ {
+  "id": "SetColorAndOpacity_Button",
+  "title": "Set Color And Opacity",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetColorAndOpacity",
+  "lib": "Button",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Button"
+   },
+   {
+    "name": "InColorAndOpacity",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "Button: Set Color and Opacity",
+  "probe": "R64 проба (Style) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Button: Set Color and Opacity"
+ },
+ {
+  "id": "IsPressed",
+  "title": "Is Pressed",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "IsPressed",
+  "lib": "Button",
+  "pins": [
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Button"
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Button: Is Pressed",
+  "probe": "R64 проба (Style) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Button: Is Pressed (pure)"
+ },
+ {
+  "id": "SetBrushFromSoftTexture",
+  "title": "Set Brush From Soft Texture",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetBrushFromSoftTexture",
+  "lib": "Image",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.Image"
+   },
+   {
+    "name": "SoftTexture",
+    "dir": "Input",
+    "cat": "softobject",
+    "object": "/Script/Engine.Texture2D"
+   },
+   {
+    "name": "bMatchSize",
+    "dir": "Input",
+    "cat": "bool",
+    "dv": "false",
+    "autoDv": ""
+   }
+  ],
+  "verified": true,
+  "desc": "Image: Set Brush from Soft Texture",
+  "probe": "R64 проба (Style) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Image: Set Brush from Soft Texture"
+ },
+ {
+  "id": "SetColorAndOpacity_UserWidget",
+  "title": "Set Color And Opacity",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetColorAndOpacity",
+  "lib": "UserWidget",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.UserWidget"
+   },
+   {
+    "name": "InColorAndOpacity",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "LinearColor",
+    "const": true
+   }
+  ],
+  "verified": true,
+  "desc": "User Widget: Set Color and Opacity",
+  "probe": "R64 проба (Style) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). User Widget: Set Color and Opacity"
+ },
+ {
+  "id": "SetHardwareCursor",
+  "title": "Set Hardware Cursor",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetHardwareCursor",
+  "lib": "WidgetBlueprintLibrary",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "CursorShape",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "EMouseCursor"
+   },
+   {
+    "name": "CursorName",
+    "dir": "Input",
+    "cat": "name"
+   },
+   {
+    "name": "HotSpot",
+    "dir": "Input",
+    "cat": "struct",
+    "sub": "Vector2D",
+    "const": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Set Hardware Cursor",
+  "probe": "R64 проба (Style) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Set Hardware Cursor (WidgetBlueprintLibrary)"
+ },
+ {
+  "id": "SetJustification_TextBlock",
+  "title": "Set Justification",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetJustification",
+  "lib": "TextBlock",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.TextBlock"
+   },
+   {
+    "name": "InJustification",
+    "dir": "Input",
+    "cat": "byte",
+    "enum": "ETextJustify"
+   }
+  ],
+  "verified": true,
+  "desc": "Text: Set Justification",
+  "probe": "R64 проба (Style) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Text: Set Justification"
+ },
+ {
+  "id": "SetAutoWrapText",
+  "title": "Set Auto Wrap Text",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetAutoWrapText",
+  "lib": "TextBlock",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.TextBlock"
+   },
+   {
+    "name": "InAutoTextWrap",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Text: Set Auto Wrap Text",
+  "probe": "R64 проба (Style) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Text: Set Auto Wrap Text"
+ },
+ {
+  "id": "SetIsMarquee",
+  "title": "Set Is Marquee",
+  "from": "probe",
+  "category": "Widgets / UI",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "SetIsMarquee",
+  "lib": "ProgressBar",
+  "pins": [
+   {
+    "name": "execute",
+    "dir": "Input",
+    "cat": "exec"
+   },
+   {
+    "name": "then",
+    "dir": "Output",
+    "cat": "exec"
+   },
+   {
+    "name": "self",
+    "dir": "Input",
+    "cat": "object",
+    "object": "/Script/UMG.ProgressBar"
+   },
+   {
+    "name": "InbIsMarquee",
+    "dir": "Input",
+    "cat": "bool"
+   }
+  ],
+  "verified": true,
+  "desc": "Progress Bar: Set Is Marquee",
+  "probe": "R64 проба (Style) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Progress Bar: Set Is Marquee"
  }
 ]
