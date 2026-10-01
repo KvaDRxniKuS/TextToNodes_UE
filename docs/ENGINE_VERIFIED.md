@@ -1345,3 +1345,8 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 - Literal: KismetSystemLibrary.MakeLiteral* ×7. K2Node_Literal (ссылка на актор уровня) — только в Level Blueprint, текстом не генерируем.
 - **R61 вердикт:** Online (4, K2Node_LatentOnlineCall — VERIFIED), Session (4) и Literal (7) встали → +11 в реестр (1272). GAS/ASC (13) в движке отсутствуют — вероятно, плагин Gameplay Abilities не включён; вынесены в батч `61g`, повтор после включения плагина.
 - **R61g вердикт** (плагин Gameplay Abilities включён): 12 из 13 встали → реестр. AbilitySystemComponent.GetOwnedGameplayTags не существует — правильная нода `BlueprintGameplayTagLibrary.GetOwnedGameplayTags` (вход TagContainerInterface: category `interface`, bIsUObjectWrapper=True; выход ReturnValue с подписью INVTEXT("Owned Tags")). Пойдёт в следующую пробу.
+
+## R62 — Map/Set в событиях и вызовах, interface-пин (ждёт вердикта)
+- createCustomEvent: UserDefinedPin для Map пишет `PinValueType=(TerminalCategory=…,TerminalSubCategoryObject=…)`; Set/Array — ContainerType.
+- Вызовы событий с входами map<>/set<>/[] (createCallCustomEvent; MemberGuid чужой — резолв по имени, как у K2Node_Message в R57b).
+- parseType `interface:Путь` → category interface, bIsUObjectWrapper=True. Проба: BlueprintGameplayTagLibrary.GetOwnedGameplayTags.

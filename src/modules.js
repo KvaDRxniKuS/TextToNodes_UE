@@ -40,6 +40,11 @@ export function parseType(t) {
     if (!arg) throw new Error(`тип ${t}: нужен класс, напр. ${k}:/Script/Engine.World`);
     return { cat: k, sub: '', subObj: classRef(arg), classPath: normalizeClassPath(arg), container };
   }
+  // R62: interface:Путь — пин интерфейса (TScriptInterface): category interface, bIsUObjectWrapper=True (copy-back GetOwnedGameplayTags).
+  if (k === 'interface') {
+    if (!arg) throw new Error(`тип ${t}: нужен интерфейс, напр. interface:/Script/GameplayTags.GameplayTagAssetInterface`);
+    return { cat: 'interface', sub: '', subObj: classRef(arg), classPath: normalizeClassPath(arg), container, wrapper: true };
+  }
   if (k === 'object' || k === 'class') {
     if (!arg) throw new Error(`тип ${t}: нужен класс, напр. ${k}:Actor`);
     return { cat: k, sub: '', subObj: classRef(arg), classPath: normalizeClassPath(arg), container };
@@ -60,7 +65,7 @@ export function parseParam(spec) {
   if (c < 0) throw new Error(`параметр «${spec}»: формат Имя:тип[=значение]`);
   return { name: body.slice(0, c), type: parseType(body.slice(c + 1)), dv };
 }
-const pin = (name, dir, ty, extra = {}) => mkPin(name, dir, ty.cat, { sub: ty.sub, subObj: ty.subObj, container: ty.container, ...(ty.valueType ? { valueType: ty.valueType } : {}), ...extra });
+const pin = (name, dir, ty, extra = {}) => mkPin(name, dir, ty.cat, { sub: ty.sub, subObj: ty.subObj, container: ty.container, ...(ty.valueType ? { valueType: ty.valueType } : {}), ...(ty.wrapper ? { wrapper: true } : {}), ...extra });
 
 /* ---------------- делегаты ----------------
  * Сигнатуры мультикаст-делегатов движка: /Script/Engine.<Sig>__DelegateSignature.
@@ -118,6 +123,8 @@ export function createCustomEvent(name, params = [], pos, opts = {}) {
     if (t.sub) parts.push(`PinSubCategory="${t.sub}"`);
     if (t.subObj) parts.push(`PinSubCategoryObject=${t.subObj}`);
     if (t.container !== 'None') parts.push(`ContainerType=${t.container}`);
+    // R62: Map-параметр события — тип значения в PinValueType (формат FEdGraphTerminalType).
+    if (t.valueType) parts.push(`PinValueType=(TerminalCategory="${t.valueType.cat}"${t.valueType.sub ? `,TerminalSubCategory="${t.valueType.sub}"` : ''}${t.valueType.subObj ? `,TerminalSubCategoryObject=${t.valueType.subObj}` : ''})`);
     return `CustomProperties UserDefinedPin (PinName="${p.name}",PinType=(${parts.join(',')}),DesiredPinDirection=EGPD_Output)`;
   });
   n.params = ps;

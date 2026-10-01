@@ -15,7 +15,7 @@ import { fitComment, estNodeWidth, estNodeHeight, createMacroInstance, createCal
 import { UE_LIBS, UE_STRUCTS, UE_ENUMS } from '../src/ue-types.js';
 import { generateUEText, seedGuids } from '../src/parser.js';
 import { validateStrict } from '../src/validate.js';
-import { createCall, createAddComponentByClass, createCustomEvent, createAsyncAction, createMakeContainer } from '../src/modules.js';
+import { createCall, createAddComponentByClass, createCustomEvent, createCallCustomEvent, createAsyncAction, createMakeContainer } from '../src/modules.js';
 import * as SP from '../src/special-nodes.js';
 import { categoryFor } from '../src/categories.js';
 
@@ -1136,6 +1136,14 @@ const BATCHES = {
     ['ASC', 'Apply Gameplay Effect to Self', mem('AbilitySystemComponent.BP_ApplyGameplayEffectToSelf', ['GameplayEffectClass:class:/Script/GameplayAbilities.GameplayEffect', 'Level:float', 'EffectContext:gameplayeffectcontexthandle', '->', 'ReturnValue:activegameplayeffecthandle'])],
     ['ASC', 'Remove Active Gameplay Effect', mem('AbilitySystemComponent.RemoveActiveGameplayEffect', ['Handle:activegameplayeffecthandle', 'StacksToRemove:int=-1', '->', 'ReturnValue:bool'])],
     ['ASC', 'Get Gameplay Attribute Value (pure)', mem('AbilitySystemComponent.GetGameplayAttributeValue', ['Attribute:gameplayattribute', '->', 'bFound:bool', 'ReturnValue:float'], true)],
+  ],
+  '62': [
+    // R62: Map/Set/Array-пины в событиях и вызовах (parseType set<>/map<>, UserDefinedPin с PinValueType) + interface-пин.
+    ['Event', 'Custom Event R62_Containers (Scores: map<name,int>, Tags: set<name>, Points: vector[], Colors: map<string,linearcolor>)', (bubble) => createCustomEvent('R62_Containers', ['Scores:map<name,int>', 'Tags:set<name>', 'Points:vector[]', 'Colors:map<string,linearcolor>'], undefined)],
+    ['Event', 'Custom Event R62_Actors (Lookup: map<int,object:Actor>, Classes: set<class:Actor>)', () => createCustomEvent('R62_Actors', ['Lookup:map<int,object:Actor>', 'Classes:set<class:Actor>'], undefined)],
+    ['Call', 'Вызов R62_Containers (входы Map/Set/Array) — встанет после события выше', () => createCallCustomEvent(createCustomEvent('R62_Containers', ['Scores:map<name,int>', 'Tags:set<name>', 'Points:vector[]', 'Colors:map<string,linearcolor>']))],
+    ['Call', 'Вызов R62_Actors', () => createCallCustomEvent(createCustomEvent('R62_Actors', ['Lookup:map<int,object:Actor>', 'Classes:set<class:Actor>']))],
+    ['Tags', 'Get Owned Gameplay Tags (BlueprintGameplayTagLibrary, interface-пин, pure)', lib('BlueprintGameplayTagLibrary.GetOwnedGameplayTags', ['TagContainerInterface:interface:/Script/GameplayTags.GameplayTagAssetInterface', '->', 'ReturnValue:gameplaytagcontainer'], true)],
   ],
 };
 
