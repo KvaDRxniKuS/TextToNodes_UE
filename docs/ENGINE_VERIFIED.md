@@ -1330,7 +1330,10 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 - R57b попытка 2: 4 ноды — I_Select с настоящим/случайным MemberGuid, I_DoInteract (выход), I_GetInteractButtons (Array/Map). createInterfaceMessage: params dir/container/valueType.
 - **R57b VERIFIED** (все 4): K2Node_Message резолвится по имени — случайный MemberGuid допустим; выходы/Array/Map-пины сообщения верны.
 
-## R60 — типизированные контейнеры и форматы значений (ждёт вердикта)
+## R60 — типизированные контейнеры и форматы значений — VERIFIED (18/19)
 - `createMakeContainer(kind, type, values)` (modules.js): K2Node_MakeArray/Set/Map, NumInputs=N, типизированные пины со значениями.
 - parseType: `set<T>`, `map<K,V>` (PinValueType с TerminalSubCategoryObject); `T[]` как раньше.
 - `src/values.js formatValue`: bool, int, float (6 знаков), Vector/Rotator `x,y,z`, Vector2D `(X=,Y=)`, LinearColor `(R=,G=,B=,A=)`, Transform `loc|rot|scale`, GameplayTag `(TagName="…")`, object/class → DefaultObject, text → DefaultTextValue.
+- Вердикт R60: всё встало, кроме значения Transform: DefaultValue целого Transform-пина движок игнорирует; значения живут только в разбитом пине
+  (родитель bHidden + SubPins, дети `[0]_Location/_Rotation/_Scale` с ParentPin и LOCGEN-подписью; глубже — `_X`, `_Roll/_Pitch/_Yaw` с sub float).
+  Генератор: `splitTransformPin` (modules.js), parser — поля pin.subPins / parentPin / friendlyRaw. Проверка — R60b.

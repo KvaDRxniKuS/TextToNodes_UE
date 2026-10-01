@@ -1093,6 +1093,11 @@ const BATCHES = {
     ['Map', 'Make Map string→vector [Spawn:(0,0,100)]', () => createMakeContainer('map', ['string', 'vector'], [['Spawn', [0, 0, 100]]])],
     ['Map', 'Make Map name→linearcolor [Red:(1,0,0,1)]', () => createMakeContainer('map', ['name', 'linearcolor'], [['Red', [1, 0, 0, 1]]])],
   ],
+  '60b': [
+    // R60 вердикт: всё встало, кроме значения Transform — целый Transform-пин значение теряет. Теперь — разбитый пин (Split Struct Pin).
+    ['Transform', 'Make Array transform — разбитый пин: loc 0,0,100 rot 0,90,0 scale 2', () => createMakeContainer('array', 'transform', [{ loc: [0, 0, 100], rot: [0, 90, 0], scale: [2, 2, 2] }])],
+    ['Transform', 'Make Array transform ×2 — loc 100,0,0 / scale 0.5', () => createMakeContainer('array', 'transform', [{ loc: [100, 0, 0] }, { scale: [0.5, 0.5, 0.5] }])],
+  ],
 };
 
 const list = BATCHES[batch];

@@ -445,8 +445,27 @@ export function createMakeContainer(kind, type, values = [], pos) {
   } else {
     const t = parseType(type);
     n.title = `Make ${kind === 'array' ? 'Array' : 'Set'} (${type})`;
-    for (let i = 0; i < N; i++) n.pins.push(pin(`[${i}]`, 'Input', t, val(t, values[i])));
+    for (let i = 0; i < N; i++) {
+      // R60 вердикт: значение целого Transform-пина движок теряет (пин «контейнер контейнеров»). Значения держатся только
+      // в разбитом виде (Split Struct Pin): родитель скрыт + SubPins, дети Location/Rotation/Scale с ParentPin (copy-back r60-transform-split).
+      if (/\.Transform'/.test(t.subObj) && values[i] !== undefined) n.pins.push(...splitTransformPin(`[${i}]`, `[ ${i}]`, values[i]));
+      else n.pins.push(pin(`[${i}]`, 'Input', t, val(t, values[i])));
+    }
     n.pins.push(pin(kind === 'array' ? 'Array' : 'Set', 'Output', { ...t, container: kind === 'array' ? 'Array' : 'Set' }));
   }
   return n;
+}
+
+/** R60: Transform-вход в разбитом виде (Split Struct Pin) — единственный способ сохранить значение. v: {loc,rot,scale}. */
+export function splitTransformPin(name, display, v = {}) {
+  const T = parseType('transform'), V = parseType('vector'), R = parseType('rotator');
+  const { loc = [0, 0, 0], rot = [0, 0, 0], scale = [1, 1, 1] } = v;
+  const fr = (proto) => `LOCGEN_FORMAT_NAMED(NSLOCTEXT("KismetSchema", "SplitPinFriendlyNameFormat", "{PinDisplayName} {ProtoPinDisplayName}"), "PinDisplayName", INVTEXT("${display}"), "ProtoPinDisplayName", INVTEXT("${proto}"))`;
+  const parent = pin(name, 'Input', T, { dv: formatValue(T, v).dv, hidden: true });
+  const kids = [['Location', V, loc, '0, 0, 0'], ['Rotation', R, rot, '0, 0, 0'], ['Scale', V, scale, '1.000000,1.000000,1.000000']].map(([k, ty, val, auto]) => {
+    const c = pin(`${name}_${k}`, 'Input', ty, { dv: formatValue(ty, val).dv, autoFixed: auto });
+    c.friendlyRaw = fr(k); c.parentPin = parent.id; return c;
+  });
+  parent.subPins = kids.map(c => c.id);
+  return [parent, ...kids];
 }
