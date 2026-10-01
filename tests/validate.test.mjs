@@ -797,7 +797,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   const M = await import('../src/modules.js');
   const ev = M.createCustomEvent('Hit', ['Amount:float', 'Who:object:/Game/X/BP_Y', 'Tags:name[]']);
   const t = generateUEText([ev]);
-  ok(t.includes('PinName="Tags",PinType=(PinCategory="name",ContainerType=Array)') && t.includes("BlueprintGeneratedClass'/Game/X/BP_Y.BP_Y_C'"), 'modules: Custom Event с произвольными параметрами (массив, BP-класс)');
+  ok(t.includes('PinName="Tags",PinType=(PinCategory="name",ContainerType=Array,bIsReference=True,bIsConst=True)') && t.includes("BlueprintGeneratedClass'/Game/X/BP_Y.BP_Y_C'"), 'modules: Custom Event с произвольными параметрами (массив, BP-класс)');
   const call = M.createCallCustomEvent(ev, { Amount: '3.0' });
   ok(call.memberGuid === ev.guid && call.pins.some(p => p.name === 'Amount' && p.defaultValue === '3.0'), 'modules: вызов события берёт параметры и GUID события');
   const b = generateUEText([M.createDelegateNode('bind', 'PrimitiveComponent.OnComponentBeginOverlap')]);

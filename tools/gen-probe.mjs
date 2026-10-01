@@ -1205,7 +1205,8 @@ if (REGISTER) {
       const o = { name: p.name, dir: p.direction, cat: p.category };
       if (p.category === 'real') o.sub = p.subCategory;
       if (p.category === 'struct') o.sub = structByRef[p.subCategoryObject];
-      if (['object', 'class', 'softobject', 'softclass'].includes(p.category) && p.subCategoryObject) o.object = objPath(p.subCategoryObject);
+      if (['object', 'class', 'softobject', 'softclass', 'interface'].includes(p.category) && p.subCategoryObject) o.object = objPath(p.subCategoryObject);
+      if (p.wrapper) o.wrapper = true;
       if (p.category === 'byte' && p.subCategoryObject) o.enum = enumByRef[p.subCategoryObject] || p.subCategoryObject; // R41: энам-пины
       if (p.isConst) o.const = true;
       if (p.isRef) o.ref = true;

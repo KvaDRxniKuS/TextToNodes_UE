@@ -52,7 +52,7 @@ export function createCallFunction(regEntry, pos = { x: 0, y: 0 }) {
       if (!UE_STRUCTS[p.sub]) throw new Error(`Unknown struct in registry: ${p.sub} (${regEntry.id}.${p.name})`);
       o.subObj = UE_STRUCTS[p.sub];
     }
-    if ((p.cat === 'object' || p.cat === 'class' || p.cat === 'softobject' || p.cat === 'softclass') && p.object) o.subObj = classRef(p.object);
+    if ((p.cat === 'object' || p.cat === 'class' || p.cat === 'softobject' || p.cat === 'softclass' || p.cat === 'interface') && p.object) o.subObj = classRef(p.object);
     if (p.enum) o.subObj = UE_ENUMS[p.enum] || p.enum;
     if (p.const) o.const = true;
     if (p.ref) o.ref = true;

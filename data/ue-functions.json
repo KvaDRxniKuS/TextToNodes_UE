@@ -48495,5 +48495,33 @@
   "verified": true,
   "desc": "R61g · ASC: Get Gameplay Attribute Value",
   "probe": "R61g проба (ASC) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). R61g · ASC: Get Gameplay Attribute Value (pure)"
+ },
+ {
+  "id": "GetOwnedGameplayTags",
+  "title": "Get Owned Gameplay Tags",
+  "from": "probe",
+  "category": "Gameplay Tags",
+  "className": "/Script/BlueprintGraph.K2Node_CallFunction",
+  "func": "GetOwnedGameplayTags",
+  "lib": "BlueprintGameplayTagLibrary",
+  "pins": [
+   {
+    "name": "TagContainerInterface",
+    "dir": "Input",
+    "cat": "interface",
+    "object": "/Script/GameplayTags.GameplayTagAssetInterface",
+    "wrapper": true
+   },
+   {
+    "name": "ReturnValue",
+    "dir": "Output",
+    "cat": "struct",
+    "sub": "GameplayTagContainer"
+   }
+  ],
+  "pure": true,
+  "verified": true,
+  "desc": "Get Owned Gameplay Tags",
+  "probe": "R62 проба (Tags) → VERIFIED движком 2026-10-01; остальные пины движок достраивает сам при вставке (без note: note всплывает как W09). Get Owned Gameplay Tags (BlueprintGameplayTagLibrary, interface-пин, pure)"
  }
 ]
