@@ -1344,6 +1344,32 @@ const BATCHES = {
     ['CommonUI', 'Set Is Interaction Enabled', mem('/Script/CommonUI.CommonButtonBase.SetIsInteractionEnabled', ['bInIsInteractionEnabled:bool'])],
     ['CommonUI', 'Get Selected (pure)', mem('/Script/CommonUI.CommonButtonBase.GetSelected', ['->', 'ReturnValue:bool'], true)],
   ],
+  '70': [
+    // R70: GAS (ASC, эффекты, GameplayAbility — вставлять в BP-наследник GameplayAbility), Motion Warping.
+    ['ASC', 'Give Ability and Activate Once', mem('AbilitySystemComponent.K2_GiveAbilityAndActivateOnce', ['AbilityClass:class:/Script/GameplayAbilities.GameplayAbility', 'Level:int=0', 'InputID:int=-1', '->', 'ReturnValue:gameplayabilityspechandle'])],
+    ['ASC', 'Clear Ability', pf(mem('AbilitySystemComponent.ClearAbility', ['Handle:gameplayabilityspechandle']), { Handle: '&!' })],
+    ['ASC', 'Clear All Abilities', mem('AbilitySystemComponent.ClearAllAbilities', [])],
+    ['ASC', 'Set Numeric Attribute Base', pf(mem('AbilitySystemComponent.SetNumericAttributeBase', ['Attribute:gameplayattribute', 'NewBaseValue:single']), { Attribute: '&!' })],
+    ['Effects', 'Apply Gameplay Effect Spec to Self', pf(mem('AbilitySystemComponent.BP_ApplyGameplayEffectSpecToSelf', ['SpecHandle:gameplayeffectspechandle', '->', 'ReturnValue:activegameplayeffecthandle']), { SpecHandle: '&!' })],
+    ['Effects', 'Make Outgoing Spec', mem('AbilitySystemComponent.MakeOutgoingSpec', ['GameplayEffectClass:class:/Script/GameplayAbilities.GameplayEffect', 'Level:single', 'Context:gameplayeffectcontexthandle', '->', 'ReturnValue:gameplayeffectspechandle'])],
+    ['Effects', 'Remove Active Gameplay Effect by Source Effect', mem('AbilitySystemComponent.RemoveActiveGameplayEffectBySourceEffect', ['GameplayEffect:class:/Script/GameplayAbilities.GameplayEffect', 'InstigatorAbilitySystemComponent:object:/Script/GameplayAbilities.AbilitySystemComponent', 'StacksToRemove:int=-1'])],
+    ['Effects', 'Get Gameplay Effect Count', mem('AbilitySystemComponent.GetGameplayEffectCount', ['SourceGameplayEffect:class:/Script/GameplayAbilities.GameplayEffect', 'OptionalInstigatorAbilitySystemComponent:object:/Script/GameplayAbilities.AbilitySystemComponent', 'bEnforceOnGoingCheck:bool=true', '->', 'ReturnValue:int'])],
+    ['Effects', 'Assign Tag Set by Caller Magnitude', lib('AbilitySystemBlueprintLibrary.AssignTagSetByCallerMagnitude', ['SpecHandle:gameplayeffectspechandle', 'DataTag:gameplaytag', 'Magnitude:single', '->', 'ReturnValue:gameplayeffectspechandle'])],
+    ['Ability', 'End Ability', mem('/Script/GameplayAbilities.GameplayAbility.K2_EndAbility', [])],
+    ['Ability', 'Commit Ability', mem('/Script/GameplayAbilities.GameplayAbility.K2_CommitAbility', ['->', 'ReturnValue:bool'])],
+    ['Ability', 'Commit Ability Cooldown', mem('/Script/GameplayAbilities.GameplayAbility.K2_CommitAbilityCooldown', ['BroadcastCommitEvent:bool=false', 'ForceCooldown:bool=false', '->', 'ReturnValue:bool'])],
+    ['Ability', 'Commit Ability Cost', mem('/Script/GameplayAbilities.GameplayAbility.K2_CommitAbilityCost', ['BroadcastCommitEvent:bool=false', '->', 'ReturnValue:bool'])],
+    ['Ability', 'Check Ability Cooldown', mem('/Script/GameplayAbilities.GameplayAbility.K2_CheckAbilityCooldown', ['->', 'ReturnValue:bool'])],
+    ['Ability', 'Get Avatar Actor from Actor Info (pure)', mem('/Script/GameplayAbilities.GameplayAbility.GetAvatarActorFromActorInfo', ['->', 'ReturnValue:object:Actor'], true)],
+    ['Ability', 'Get Owning Actor from Actor Info (pure)', mem('/Script/GameplayAbilities.GameplayAbility.GetOwningActorFromActorInfo', ['->', 'ReturnValue:object:Actor'], true)],
+    ['Ability', 'Get Ability Level (pure)', mem('/Script/GameplayAbilities.GameplayAbility.GetAbilityLevel', ['->', 'ReturnValue:int'], true)],
+    ['Ability', 'Get Ability System Component from Actor Info (pure)', mem('/Script/GameplayAbilities.GameplayAbility.GetAbilitySystemComponentFromActorInfo', ['->', 'ReturnValue:object:/Script/GameplayAbilities.AbilitySystemComponent'], true)],
+    ['Warp', 'Add or Update Warp Target from Location', mem('/Script/MotionWarping.MotionWarpingComponent.AddOrUpdateWarpTargetFromLocation', ['WarpTargetName:name', 'TargetLocation:vector'])],
+    ['Warp', 'Add or Update Warp Target from Location and Rotation', mem('/Script/MotionWarping.MotionWarpingComponent.AddOrUpdateWarpTargetFromLocationAndRotation', ['WarpTargetName:name', 'TargetLocation:vector', 'TargetRotation:rotator'])],
+    ['Warp', 'Add or Update Warp Target from Transform', mem('/Script/MotionWarping.MotionWarpingComponent.AddOrUpdateWarpTargetFromTransform', ['WarpTargetName:name', 'TargetTransform:transform'])],
+    ['Warp', 'Remove Warp Target', mem('/Script/MotionWarping.MotionWarpingComponent.RemoveWarpTarget', ['WarpTargetName:name', '->', 'ReturnValue:int'])],
+    ['Warp', 'Remove All Warp Targets', mem('/Script/MotionWarping.MotionWarpingComponent.RemoveAllWarpTargets', ['->', 'ReturnValue:int'])],
+  ],
 };
 
 const list = BATCHES[batch];

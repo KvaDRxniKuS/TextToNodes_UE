@@ -129,6 +129,8 @@ const LIBS_FULL = {
   ControlRigComponent: `"/Script/CoreUObject.Class'/Script/ControlRig.ControlRigComponent'"`, // R69
   CommonActivatableWidget: `"/Script/CoreUObject.Class'/Script/CommonUI.CommonActivatableWidget'"`, // R69
   CommonButtonBase: `"/Script/CoreUObject.Class'/Script/CommonUI.CommonButtonBase'"`, // R69
+  GameplayAbility: `"/Script/CoreUObject.Class'/Script/GameplayAbilities.GameplayAbility'"`, // R70
+  MotionWarpingComponent: `"/Script/CoreUObject.Class'/Script/MotionWarping.MotionWarpingComponent'"`, // R70
   LightComponentBase: `"/Script/CoreUObject.Class'/Script/Engine.LightComponentBase'"`, // R45 VERIFIED
   SpotLightComponent: `"/Script/CoreUObject.Class'/Script/Engine.SpotLightComponent'"`, // R45 VERIFIED
   PointLightComponent: `"/Script/CoreUObject.Class'/Script/Engine.PointLightComponent'"`, // R45 VERIFIED
@@ -244,6 +246,8 @@ const LIBS_SHORT = {
   ControlRigComponent: `Class'"/Script/ControlRig.ControlRigComponent"'`,
   CommonActivatableWidget: `Class'"/Script/CommonUI.CommonActivatableWidget"'`,
   CommonButtonBase: `Class'"/Script/CommonUI.CommonButtonBase"'`,
+  GameplayAbility: `Class'"/Script/GameplayAbilities.GameplayAbility"'`,
+  MotionWarpingComponent: `Class'"/Script/MotionWarping.MotionWarpingComponent"'`,
   PhysicsConstraintComponent: `Class'"/Script/Engine.PhysicsConstraintComponent"'`,
   PhysicsHandleComponent: `Class'"/Script/Engine.PhysicsHandleComponent"'`,
   BlueprintMapLibrary: `Class'"/Script/Engine.BlueprintMapLibrary"'`,
@@ -274,6 +278,7 @@ const STRUCTS_FULL = {
   PrimaryAssetType: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.PrimaryAssetType'"`, // R67
   PrimaryAssetId: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.PrimaryAssetId'"`, // R67
   GameplayTagQuery: `"/Script/CoreUObject.ScriptStruct'/Script/GameplayTags.GameplayTagQuery'"`, // R67
+  GameplayEffectSpecHandle: `"/Script/CoreUObject.ScriptStruct'/Script/GameplayAbilities.GameplayEffectSpecHandle'"`, // R70
   ModifyContextOptions: `"/Script/CoreUObject.ScriptStruct'/Script/EnhancedInput.ModifyContextOptions'"`, // R64
   Anchors: `"/Script/CoreUObject.ScriptStruct'/Script/Slate.Anchors'"`, // R64
   Geometry: `"/Script/CoreUObject.ScriptStruct'/Script/SlateCore.Geometry'"`, // R64
@@ -316,6 +321,7 @@ const STRUCTS_SHORT = {
   PrimaryAssetType: `ScriptStruct'"/Script/CoreUObject.PrimaryAssetType"'`,
   PrimaryAssetId: `ScriptStruct'"/Script/CoreUObject.PrimaryAssetId"'`,
   GameplayTagQuery: `ScriptStruct'"/Script/GameplayTags.GameplayTagQuery"'`,
+  GameplayEffectSpecHandle: `ScriptStruct'"/Script/GameplayAbilities.GameplayEffectSpecHandle"'`,
   ModifyContextOptions: `ScriptStruct'"/Script/EnhancedInput.ModifyContextOptions"'`,
   Anchors: `ScriptStruct'"/Script/Slate.Anchors"'`,
   Geometry: `ScriptStruct'"/Script/SlateCore.Geometry"'`,

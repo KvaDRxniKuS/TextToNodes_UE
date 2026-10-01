@@ -1382,3 +1382,5 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 
 ## R69 — плагины: MetaSound / Chaos Destruction / Control Rig / Common UI (VERIFIED 28/28)
 - MetaSound-параметры вызываются через /Script/AudioExtensions.AudioParameterControllerInterface — работает.
+
+## R70 — GAS (ASC/эффекты/GameplayAbility) + Motion Warping (ждёт вердикта)
