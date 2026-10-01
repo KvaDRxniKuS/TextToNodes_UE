@@ -1380,4 +1380,5 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 - GetEngineRotationSpeed/GetEngineMaxRotationSpeed живут на ChaosWheeledVehicleMovementComponent, ReturnValue = real/float (single). Остальные 8 — на ChaosVehicleMovementComponent.
 - KismetMathLibrary.GetUnitDirectionVector НЕ существует → GetDirectionUnitVector (уже был в реестре).
 
-## R69 — плагины: MetaSound / Chaos Destruction / Control Rig / Common UI (ждёт вердикта)
+## R69 — плагины: MetaSound / Chaos Destruction / Control Rig / Common UI (VERIFIED 28/28)
+- MetaSound-параметры вызываются через /Script/AudioExtensions.AudioParameterControllerInterface — работает.
