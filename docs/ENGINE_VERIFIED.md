@@ -1358,3 +1358,8 @@ EComponentMobility (pre R48). Файл: `sweep/probes/r48-probe.txt`.
 - `createContainerFor(target, pin, values)` (modules.js): Make Array/Set/Map, тип элементов и значения словаря — из самого входа. Не соединяет; связь — `linkPins(make, make.outPin, target, pin)` в сценарии.
 - Проба `tools/gen-r63-feed.mjs`: событие R63_Feed (const-ref контейнеры, проверка R62-фикса) + 3 Make → вызов; Make Array string → JoinStringArray.
 - **R63 вердикт:** всё работает после Refresh Nodes на вызове события. Const-ref контейнер-параметры (R62-фикс) принимают временные Make-массивы. Проба и её скрипт удалены.
+
+## R64 — анимация/меш, сохранения, ввод, UI (ждёт вердикта)
+- 65 функций, отфильтрованных по реестру (базовые Montage_*, SaveGameToSlot, IsInputKeyDown, SetText и т.п. уже были).
+- UE_LIBS += KismetAnimationLibrary, EnhancedInputLocalPlayerSubsystem, EditableText, VerticalBox, HorizontalBox, CanvasPanel, RichTextBlock;
+  STRUCTS += ModifyContextOptions, Anchors, Geometry; ENUMS += ERootMotionMode, EPhysBodyOp, EDescendantScrollDestination, ETouchIndex.

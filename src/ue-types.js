@@ -44,6 +44,13 @@ const LIBS_FULL = {
   LevelSequencePlayer: `"/Script/CoreUObject.Class'/Script/LevelSequence.LevelSequencePlayer'"`, // R58 VERIFIED
   LevelSequenceActor: `"/Script/CoreUObject.Class'/Script/LevelSequence.LevelSequenceActor'"`, // R58 VERIFIED
   MovieSceneSequencePlayer: `"/Script/CoreUObject.Class'/Script/MovieScene.MovieSceneSequencePlayer'"`, // R58 VERIFIED
+  KismetAnimationLibrary: `"/Script/CoreUObject.Class'/Script/AnimGraphRuntime.KismetAnimationLibrary'"`, // R64
+  EnhancedInputLocalPlayerSubsystem: `"/Script/CoreUObject.Class'/Script/EnhancedInput.EnhancedInputLocalPlayerSubsystem'"`, // R64
+  EditableText: `"/Script/CoreUObject.Class'/Script/UMG.EditableText'"`, // R64
+  VerticalBox: `"/Script/CoreUObject.Class'/Script/UMG.VerticalBox'"`, // R64
+  HorizontalBox: `"/Script/CoreUObject.Class'/Script/UMG.HorizontalBox'"`, // R64
+  CanvasPanel: `"/Script/CoreUObject.Class'/Script/UMG.CanvasPanel'"`, // R64
+  RichTextBlock: `"/Script/CoreUObject.Class'/Script/UMG.RichTextBlock'"`, // R64
   FindSessionsCallbackProxy: `"/Script/CoreUObject.Class'/Script/OnlineSubsystemUtils.FindSessionsCallbackProxy'"`, // R61
   AbilitySystemBlueprintLibrary: `"/Script/CoreUObject.Class'/Script/GameplayAbilities.AbilitySystemBlueprintLibrary'"`, // R61
   AbilitySystemComponent: `"/Script/CoreUObject.Class'/Script/GameplayAbilities.AbilitySystemComponent'"`, // R61
@@ -139,6 +146,13 @@ const LIBS_SHORT = {
   LevelSequencePlayer: `Class'"/Script/LevelSequence.LevelSequencePlayer"'`,
   LevelSequenceActor: `Class'"/Script/LevelSequence.LevelSequenceActor"'`,
   MovieSceneSequencePlayer: `Class'"/Script/MovieScene.MovieSceneSequencePlayer"'`,
+  KismetAnimationLibrary: `Class'"/Script/AnimGraphRuntime.KismetAnimationLibrary"'`,
+  EnhancedInputLocalPlayerSubsystem: `Class'"/Script/EnhancedInput.EnhancedInputLocalPlayerSubsystem"'`,
+  EditableText: `Class'"/Script/UMG.EditableText"'`,
+  VerticalBox: `Class'"/Script/UMG.VerticalBox"'`,
+  HorizontalBox: `Class'"/Script/UMG.HorizontalBox"'`,
+  CanvasPanel: `Class'"/Script/UMG.CanvasPanel"'`,
+  RichTextBlock: `Class'"/Script/UMG.RichTextBlock"'`,
   FindSessionsCallbackProxy: `Class'"/Script/OnlineSubsystemUtils.FindSessionsCallbackProxy"'`,
   AbilitySystemBlueprintLibrary: `Class'"/Script/GameplayAbilities.AbilitySystemBlueprintLibrary"'`,
   AbilitySystemComponent: `Class'"/Script/GameplayAbilities.AbilitySystemComponent"'`,
@@ -222,6 +236,9 @@ const STRUCTS_FULL = {
   Transform:   `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Transform'"`,
   LinearColor: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.LinearColor'"`, // confirmed (copy-back H1/J5)
   MovieSceneSequencePlaybackSettings: `"/Script/CoreUObject.ScriptStruct'/Script/MovieScene.MovieSceneSequencePlaybackSettings'"`, // R58 VERIFIED
+  ModifyContextOptions: `"/Script/CoreUObject.ScriptStruct'/Script/EnhancedInput.ModifyContextOptions'"`, // R64
+  Anchors: `"/Script/CoreUObject.ScriptStruct'/Script/Slate.Anchors'"`, // R64
+  Geometry: `"/Script/CoreUObject.ScriptStruct'/Script/SlateCore.Geometry'"`, // R64
   BlueprintSessionResult: `"/Script/CoreUObject.ScriptStruct'/Script/OnlineSubsystemUtils.BlueprintSessionResult'"`, // R61
   GameplayEventData: `"/Script/CoreUObject.ScriptStruct'/Script/GameplayAbilities.GameplayEventData'"`, // R61
   GameplayEffectContextHandle: `"/Script/CoreUObject.ScriptStruct'/Script/GameplayAbilities.GameplayEffectContextHandle'"`, // R61
@@ -257,6 +274,9 @@ const STRUCTS_SHORT = {
   Transform:        `ScriptStruct'"/Script/CoreUObject.Transform"'`,
   LinearColor:      `ScriptStruct'"/Script/CoreUObject.LinearColor"'`,
   MovieSceneSequencePlaybackSettings: `ScriptStruct'"/Script/MovieScene.MovieSceneSequencePlaybackSettings"'`,
+  ModifyContextOptions: `ScriptStruct'"/Script/EnhancedInput.ModifyContextOptions"'`,
+  Anchors: `ScriptStruct'"/Script/Slate.Anchors"'`,
+  Geometry: `ScriptStruct'"/Script/SlateCore.Geometry"'`,
   BlueprintSessionResult: `ScriptStruct'"/Script/OnlineSubsystemUtils.BlueprintSessionResult"'`,
   GameplayEventData: `ScriptStruct'"/Script/GameplayAbilities.GameplayEventData"'`,
   GameplayEffectContextHandle: `ScriptStruct'"/Script/GameplayAbilities.GameplayEffectContextHandle"'`,
@@ -296,6 +316,10 @@ const ENUMS_FULL = {
   EDetachmentRule: `"/Script/CoreUObject.Enum'/Script/Engine.EDetachmentRule'"`, // round23b-pre
   ESlateVisibility: `"/Script/CoreUObject.Enum'/Script/UMG.ESlateVisibility'"`, // round27-pre
   EMouseCursor: `"/Script/CoreUObject.Enum'/Script/CoreUObject.EMouseCursor'"`, // R55 VERIFIED
+  ERootMotionMode: `"/Script/CoreUObject.Enum'/Script/Engine.ERootMotionMode'"`, // R64
+  EPhysBodyOp: `"/Script/CoreUObject.Enum'/Script/Engine.EPhysBodyOp'"`, // R64
+  EDescendantScrollDestination: `"/Script/CoreUObject.Enum'/Script/Slate.EDescendantScrollDestination'"`, // R64
+  ETouchIndex: `"/Script/CoreUObject.Enum'/Script/InputCore.ETouchIndex'"`, // R64
   EHorizontalAlignment: `"/Script/CoreUObject.Enum'/Script/SlateCore.EHorizontalAlignment'"`, // R55 VERIFIED
   EVerticalAlignment: `"/Script/CoreUObject.Enum'/Script/SlateCore.EVerticalAlignment'"`, // R55 VERIFIED
   EWindowMode: `"/Script/CoreUObject.Enum'/Script/Engine.EWindowMode'"`, // R55 VERIFIED
@@ -349,6 +373,10 @@ const ENUMS_SHORT = {
   EDetachmentRule: `Enum'"/Script/Engine.EDetachmentRule"'`,
   ESlateVisibility: `Enum'"/Script/UMG.ESlateVisibility"'`,
   EMouseCursor: `Enum'"/Script/CoreUObject.EMouseCursor"'`,
+  ERootMotionMode: `Enum'"/Script/Engine.ERootMotionMode"'`,
+  EPhysBodyOp: `Enum'"/Script/Engine.EPhysBodyOp"'`,
+  EDescendantScrollDestination: `Enum'"/Script/Slate.EDescendantScrollDestination"'`,
+  ETouchIndex: `Enum'"/Script/InputCore.ETouchIndex"'`,
   EHorizontalAlignment: `Enum'"/Script/SlateCore.EHorizontalAlignment"'`,
   EVerticalAlignment: `Enum'"/Script/SlateCore.EVerticalAlignment"'`,
   EWindowMode: `Enum'"/Script/Engine.EWindowMode"'`,
