@@ -96,10 +96,16 @@ export function arrangeExecFlow(nodes, { x = 0, y = 0, gap = 48, colGap = 32, vG
     }
     return { hit, execHit };
   };
-  const placeTree = (n, rowTop) => {
+  const placeTree = (n, rowTop, prev) => {
     const { items, h } = shapeTree(n);
     if (!items.length) return;
-    const ox = n.pos.x - 16;
+    let ox = n.pos.x - 16;
+    // Правка пользователя (flow-demo, 2026-10-02): значение выравнивается левым краем под ПРЕДЫДУЩЕЙ нодой ряда,
+    // если помещается (одна колонка, правый край не заходит за потребителя).
+    if (prev && items.every(it => it.dx === items[0].dx)) {
+      const shift = prev.pos.x - (ox + items[0].dx);
+      if (shift <= 0) ox += shift;
+    }
     let oy = up(n.pos.y + flowHeight(n)), above = false;
     for (let i = 0; i < 64; i++) {
       const f = fits(items, ox, oy);
@@ -143,7 +149,7 @@ export function arrangeExecFlow(nodes, { x = 0, y = 0, gap = 48, colGap = 32, vG
   for (const s of starts) if (!placed.has(s)) {
     const first = rows.length;
     layRow(s, x, rowY);
-    for (const r of rows.slice(first)) for (const n of r.spine) placeTree(n, r.rowTop);
+    for (const r of rows.slice(first)) r.spine.forEach((n, i) => placeTree(n, r.rowTop, r.spine[i - 1]));
     rowY = up(Math.max(...boxes.map(b => b.y1)) + rowGap);
   }
   let lx = x;

@@ -1243,8 +1243,8 @@ regThrow.forEach(t => console.log('THROW:', t));
   const box=n=>[n.pos.x,n.pos.y,n.pos.x+estNodeWidth(n),n.pos.y+flowHeight(n)];
   const hit=(a,b)=>{const A=box(a),B=box(b);return A[0]<B[2]&&B[0]<A[2]&&A[1]<B[3]&&B[1]<A[3];};
   const overlaps=all.flatMap((a,i)=>all.slice(i+1).filter(b=>hit(a,b)));
-  ok(overlaps.length===0 && pe.pos.x===p1.pos.x && pe.pos.y>p1.pos.y && rnd.pos.y>br.pos.y && rnd.pos.x<=br.pos.x && ev.pos.y===br.pos.y-16 && all.every(n=>n.pos.x%16===0&&n.pos.y%16===0),
-    'flow: без пересечений, else под следующей нодой, чистый вход под-слева, Event −16, сетка 16');
+  ok(overlaps.length===0 && pe.pos.x===p1.pos.x && pe.pos.y>p1.pos.y && rnd.pos.y>br.pos.y && rnd.pos.x===ev.pos.x && ev.pos.y===br.pos.y-16 && all.every(n=>n.pos.x%16===0&&n.pos.y%16===0),
+    'flow: без пересечений, else под следующей нодой, значение под предыдущей нодой (X = Event), Event −16, сетка 16');
 }
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);
