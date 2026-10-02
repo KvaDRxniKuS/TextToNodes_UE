@@ -13,6 +13,14 @@
 import { estNodeWidth, GRID } from './generator.js';
 import { execPinOffset } from './arranger.js';
 
+/** Ширина для потоковой раскладки: у статических библиотечных вызовов (self скрыт) подзаголовка
+ *  «Target is …» в UE нет (exec-align, движок) — estNodeWidth его добавляет и завышает ширину (Random Bool 267 → 160).
+ *  Глобально estNodeWidth не трогаем: на нём держатся старые калибровки knot'ов. */
+export function flowWidth(n) {
+  const self = (n.pins || []).find(p => p.name === 'self' && p.direction === 'Input');
+  if ((n.className || '').includes('CallFunction') && n.memberParent && (!self || self.hidden)) return estNodeWidth({ ...n, memberParent: '' });
+  return estNodeWidth(n);
+}
 const up = v => Math.ceil(v / GRID) * GRID;
 const down = v => Math.floor(v / GRID) * GRID;
 const isExec = p => p.category === 'exec';
@@ -31,7 +39,7 @@ export function arrangeExecFlow(nodes, { x = 0, y = 0, gap = 48, colGap = 32, vG
   const byId = new Map(nodes.map(n => [n.id, n]));
   const placed = new Set();
   const boxes = []; // {x0,y0,x1,y1,exec}
-  const addBox = (n, exec) => boxes.push({ x0: n.pos.x, y0: n.pos.y, x1: n.pos.x + estNodeWidth(n), y1: n.pos.y + flowHeight(n), exec });
+  const addBox = (n, exec) => boxes.push({ x0: n.pos.x, y0: n.pos.y, x1: n.pos.x + flowWidth(n), y1: n.pos.y + flowHeight(n), exec });
   const execOut = n => vis(n, 'Output').filter(isExec);
   const nextOf = p => (p.linkedTo || []).map(l => byId.get(l.nodeName)).filter(Boolean);
   const mainOut = n => {
@@ -55,7 +63,7 @@ export function arrangeExecFlow(nodes, { x = 0, y = 0, gap = 48, colGap = 32, vG
     const lay = (parent, right, top) => {
       const kids = pureInputs(parent, seen);
       if (!kids.length) return 0;
-      const w = Math.max(...kids.map(estNodeWidth));
+      const w = Math.max(...kids.map(flowWidth));
       const left = down(right - w);
       let cy = top, bottom = top;
       for (const k of kids) {
@@ -76,7 +84,7 @@ export function arrangeExecFlow(nodes, { x = 0, y = 0, gap = 48, colGap = 32, vG
   const fits = (items, ox, oy) => {
     let execHit = false, hit = false;
     for (const it of items) {
-      const b = { x0: ox + it.dx, y0: oy + it.dy, x1: ox + it.dx + estNodeWidth(it.node), y1: oy + it.dy + flowHeight(it.node) };
+      const b = { x0: ox + it.dx, y0: oy + it.dy, x1: ox + it.dx + flowWidth(it.node), y1: oy + it.dy + flowHeight(it.node) };
       for (const o of boxes) if (b.x0 < o.x1 && o.x0 < b.x1 && b.y0 < o.y1 + vGap && o.y0 < b.y1 + vGap) { hit = true; if (o.exec) execHit = true; }
     }
     return { hit, execHit };
@@ -105,7 +113,7 @@ export function arrangeExecFlow(nodes, { x = 0, y = 0, gap = 48, colGap = 32, vG
     const spine = [];
     for (let n = start; n && !placed.has(n); ) { spine.push(n); placed.add(n); const m = mainOut(n); n = m ? nextOf(m)[0] : null; }
     let cursor = x0;
-    for (const n of spine) { n.pos = { x: up(cursor), y: 0 }; cursor = n.pos.x + estNodeWidth(n) + gap; }
+    for (const n of spine) { n.pos = { x: up(cursor), y: 0 }; cursor = n.pos.x + flowWidth(n) + gap; }
     const offs = spine.map(n => execPinOffset(n) ?? 0);
     const ref = Math.max(...offs);
     spine.forEach((n, i) => { n.pos.y = y0 + ref - offs[i]; addBox(n, true); });
@@ -117,7 +125,7 @@ export function arrangeExecFlow(nodes, { x = 0, y = 0, gap = 48, colGap = 32, vG
         const at = spine[i + 1] || n;
         let by = up(at.pos.y + flowHeight(at) + branchGap);
         // ниже уже занятых exec-ответвлений в этой колонке
-        for (const o of boxes) if (o.exec && o.x0 < at.pos.x + estNodeWidth(at) && at.pos.x < o.x1 && o.y1 > by - branchGap && o.y0 > at.pos.y) by = up(o.y1 + branchGap);
+        for (const o of boxes) if (o.exec && o.x0 < at.pos.x + flowWidth(at) && at.pos.x < o.x1 && o.y1 > by - branchGap && o.y0 > at.pos.y) by = up(o.y1 + branchGap);
         layRow(t, at.pos.x, by);
       }
     });
@@ -132,6 +140,6 @@ export function arrangeExecFlow(nodes, { x = 0, y = 0, gap = 48, colGap = 32, vG
     rowY = up(Math.max(...boxes.map(b => b.y1)) + rowGap);
   }
   let lx = x;
-  for (const n of nodes) if (!placed.has(n) && !(n.className || '').includes('Comment')) { n.pos = { x: lx, y: rowY }; lx = up(lx + estNodeWidth(n) + gap); }
+  for (const n of nodes) if (!placed.has(n) && !(n.className || '').includes('Comment')) { n.pos = { x: lx, y: rowY }; lx = up(lx + flowWidth(n) + gap); }
   return { nodes, rows: rows.map(r => r.spine) };
 }
