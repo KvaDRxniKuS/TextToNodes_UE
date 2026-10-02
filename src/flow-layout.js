@@ -12,6 +12,7 @@
 // Не меняет код нод (F): только pos. Knot'ы не создаёт.
 import { estNodeWidth, displayName, GRID } from './generator.js';
 import { execPinOffset } from './arranger.js';
+import { guid32 } from './parser.js';
 
 /** Ширина для потоковой раскладки: у статических библиотечных вызовов (self скрыт) подзаголовка
  *  «Target is …» в UE нет (exec-align, движок) — estNodeWidth его добавляет и завышает ширину (Random Bool 267 → 160).
@@ -42,7 +43,44 @@ export function flowHeight(n) {
   return compact(n) ? 32 * rows : up(48 + 32 * rows + adv);
 }
 
-export function arrangeExecFlow(nodes, { x = 0, y = 0, gap = 48, colGap = 32, vGap = 16, branchGap = 32, rowGap = 160 } = {}) {
+/** Правило 10: Get переменной / Self не тянется шиной — копия у каждого потребителя (одобрено 2026-09-30).
+ *  Мутирует массив nodes (добавляет копии). Копия: новые id/Guid/PinId, тот же класс и свойства. */
+export function duplicateSharedGets(nodes) {
+  const isGet = n => /K2Node_VariableGet|K2Node_Self/.test(n.className || '') && !(n.pins || []).some(p => p.category === 'exec');
+  const added = [];
+  let k = 0;
+  for (const g of nodes.slice()) {
+    if (!isGet(g)) continue;
+    for (const out of g.pins.filter(p => p.direction === 'Output')) {
+      const links = (out.linkedTo || []).slice(1); // первый потребитель остаётся у оригинала
+      for (const l of links) {
+        const used = new Set(nodes.map(n => n.id));
+        let id;
+        do { k++; id = g.id.replace(/_\d+$/, '') + '_' + (9000 + k); } while (used.has(id));
+        // Шаблонные ноды (Self и пр.) держат имя/Guid/PinId и в сыром тексте — меняем везде.
+        let js = JSON.stringify(g);
+        const swap = (from, to) => { if (from) js = js.split(from).join(to); };
+        swap(g.id, id);
+        if (g.guid) swap(g.guid, guid32());
+        for (const p of g.pins) swap(p.id, guid32());
+        const c = JSON.parse(js);
+        c.id = id;
+        for (const p of c.pins) p.linkedTo = [];
+        const cOut = c.pins[g.pins.indexOf(out)];
+        cOut.linkedTo = [l];
+        out.linkedTo = out.linkedTo.filter(x => x !== l);
+        const consumer = nodes.find(n => n.id === l.nodeName);
+        const cp = consumer && consumer.pins.find(p => p.id === l.pinId);
+        if (cp) cp.linkedTo = cp.linkedTo.map(x => x.nodeName === g.id && x.pinId === out.id ? { nodeName: c.id, pinId: cOut.id } : x);
+        nodes.push(c); added.push(c);
+      }
+    }
+  }
+  return added;
+}
+
+export function arrangeExecFlow(nodes, { x = 0, y = 0, gap = 48, colGap = 32, vGap = 16, branchGap = 32, rowGap = 160, duplicateGets = true } = {}) {
+  if (duplicateGets) duplicateSharedGets(nodes);
   const byId = new Map(nodes.map(n => [n.id, n]));
   const placed = new Set();
   const boxes = []; // {x0,y0,x1,y1,exec}

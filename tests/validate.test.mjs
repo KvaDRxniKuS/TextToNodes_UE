@@ -1246,6 +1246,19 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(overlaps.length===0 && pe.pos.x===p1.pos.x && pe.pos.y>p1.pos.y && rnd.pos.y>br.pos.y && rnd.pos.x===ev.pos.x && ev.pos.y===br.pos.y-16 && all.every(n=>n.pos.x%16===0&&n.pos.y%16===0),
     'flow: без пересечений, else под следующей нодой, значение под предыдущей нодой (X = Event), Event −16, сетка 16');
 }
+{
+  // Правило 10: один Self на три входа → три Self, каждый со своим проводом; текст валиден.
+  const {arrangeExecFlow}=await import('../src/flow-layout.js');
+  const {createCustomEvent}=await import('../src/modules.js');
+  const {createSelf}=await import('../src/special-nodes.js');
+  const L=JSON.parse(fs.readFileSync('data/ue-functions.json','utf8')); const F=id=>createCallFunction(L.find(x=>x.func===id));
+  const ev=createCustomEvent('DupT',[],{x:0,y:0}), a=F('K2_SetActorLocation'), b=F('K2_SetActorRotation'), g=F('K2_GetActorLocation'), me=createSelf();
+  linkPins(ev,'then',a,'execute'); linkPins(a,'then',b,'execute'); linkPins(me,'self',a,'self'); linkPins(me,'self',b,'self'); linkPins(me,'self',g,'self'); linkPins(g,'ReturnValue',a,'NewLocation');
+  const all=[ev,a,b,g,me]; arrangeExecFlow(all);
+  const selves=all.filter(n=>/K2Node_Self/.test(n.className));
+  const v=validateStrict(generateUEText(all,{syncLinks:true}));
+  ok(selves.length===3 && selves.every(n=>n.pins[0].linkedTo.length===1) && new Set(selves.map(n=>n.id)).size===3 && v.errors.length===0, 'flow: Self у каждого потребителя (3 копии, по одному проводу, текст валиден)');
+}
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);
