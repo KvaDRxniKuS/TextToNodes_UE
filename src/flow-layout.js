@@ -10,7 +10,7 @@
 //     колонкой левее (зазор 32); дети центрируются по родителю. Дерево ищет свободное место ПОД рядом
 //     (сдвиг вниз по 16), а если путь вниз перекрыт exec-нодой (ответвлением) — НАД рядом.
 // Не меняет код нод (F): только pos. Knot'ы не создаёт.
-import { estNodeWidth, GRID } from './generator.js';
+import { estNodeWidth, displayName, GRID } from './generator.js';
 import { execPinOffset } from './arranger.js';
 
 /** Ширина для потоковой раскладки: у статических библиотечных вызовов (self скрыт) подзаголовка
@@ -18,8 +18,15 @@ import { execPinOffset } from './arranger.js';
  *  Глобально estNodeWidth не трогаем: на нём держатся старые калибровки knot'ов. */
 export function flowWidth(n) {
   const self = (n.pins || []).find(p => p.name === 'self' && p.direction === 'Input');
-  if ((n.className || '').includes('CallFunction') && n.memberParent && (!self || self.hidden)) return estNodeWidth({ ...n, memberParent: '' });
-  return estNodeWidth(n);
+  let m = n;
+  // Заголовок в UE — DisplayName функции: «Get Game Time in Seconds», а не короткий title реестра «Get Game Time»
+  // (copy-back flow-demo: иначе To String налезал на Get Game Time).
+  if ((n.className || '').includes('CallFunction') && n.funcName) {
+    const dn = displayName(String(n.funcName).replace(/^K2_/, ''));
+    if (dn.length > String(n.title || '').length && !/^Conv_/.test(n.funcName)) m = { ...m, title: dn };
+  }
+  if ((n.className || '').includes('CallFunction') && n.memberParent && (!self || self.hidden)) m = { ...m, memberParent: '' };
+  return estNodeWidth(m);
 }
 const up = v => Math.ceil(v / GRID) * GRID;
 const down = v => Math.floor(v / GRID) * GRID;

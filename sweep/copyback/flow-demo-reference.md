@@ -32,3 +32,7 @@ Get Game Time у пользователя не отдельной колонко
 v3: `flowWidth` — у статических библиотечных вызовов нет подзаголовка «Target is …» (Random Bool 267 → 148).
 Остаток: хребет левее на 1–4 клетки (Event/Branch оценены шире реальных, у пользователя после Branch зазор больше),
 To String/Get Game Time выше на 2–3 клетки.
+
+Поправка пользователя к v3 (2026-10-02): To String налезал на Get Game Time слева, пользователь отодвинул его.
+Причина: реальный заголовок — DisplayName функции «Get Game Time in Seconds» (title реестра короче).
+v4: `flowWidth` берёт более длинное из title и DisplayName → Get Game Time (−80, 224), правый край ≈ 176 < To String 208.
