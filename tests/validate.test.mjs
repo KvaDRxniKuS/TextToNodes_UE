@@ -1259,6 +1259,141 @@ regThrow.forEach(t => console.log('THROW:', t));
   const v=validateStrict(generateUEText(all,{syncLinks:true}));
   ok(selves.length===3 && selves.every(n=>n.pins[0].linkedTo.length===1) && new Set(selves.map(n=>n.id)).size===3 && v.errors.length===0, 'flow: Self у каждого потребителя (3 копии, по одному проводу, текст валиден)');
 }
+{
+  // Правило 13: +8 клеток (128 px) на каждый дополнительный exec-выход.
+  const { arrangeExecFlow, flowExecGap, flowWidth } = await import('../src/flow-layout.js');
+  const { createCustomEvent } = await import('../src/modules.js');
+  const L = JSON.parse(fs.readFileSync('data/ue-functions.json', 'utf8'));
+  const print = () => createCallFunction(L.find(e => e.func === 'PrintString'));
+  const snap = x => Math.ceil(x / 16) * 16;
+  const code = nodes => JSON.stringify(nodes.map(({ pos, ...rest }) => rest));
+  const gap = 64, offsets = [];
+  for (const count of [1, 2, 3, 4, 5]) {
+    const ev = createCustomEvent(`Fanout${count}`, [], { x: 0, y: 0 });
+    const seq = createSequence(count), children = Array.from({ length: count }, print), tail = print();
+    linkPins(ev, 'then', seq, 'execute');
+    children.forEach((n, i) => linkPins(seq, `then_${i}`, n, 'execute'));
+    linkPins(children[0], 'then', tail, 'execute');
+    const all = [ev, seq, ...children, tail], before = code(all);
+    arrangeExecFlow(all, { x: 32, y: 16, gap });
+    const wall = snap(seq.pos.x + flowWidth(seq) + gap + (count - 1) * 128);
+    offsets.push(wall - seq.pos.x);
+    ok(flowExecGap(seq, gap) === gap + (count - 1) * 128 && children.every(n => n.pos.x === wall),
+      `flow: Sequence ${count} — +128 на дополнительный exec-слой, общий X всех потребителей`);
+    ok(tail.pos.x === snap(children[0].pos.x + flowWidth(children[0]) + gap)
+      && children.every((n, i) => !i || n.pos.y > children[i - 1].pos.y)
+      && all.every(n => n.pos.x % 16 === 0 && n.pos.y % 16 === 0),
+      `flow: Sequence ${count} — прибавка не переходит на обычный then, столбец вниз, сетка 16`);
+    ok(code(all) === before && validateStrict(generateUEText(all)).errors.length === 0,
+      `flow: Sequence ${count} — правило зазора не меняет код, ноды и связи; STRICT чистый`);
+  }
+  ok(offsets.slice(1).every((v, i) => v - offsets[i] === 128), 'flow: каждый новый exec-выход увеличивает расстояние до стенки ровно на 128');
+}
+{
+  // Ступень 2 получает текст: кроме координат сырой код остаётся дословным.
+  const { arrangeExecFlow } = await import('../src/flow-layout.js');
+  const { createCustomEvent } = await import('../src/modules.js');
+  const L = JSON.parse(fs.readFileSync('data/ue-functions.json', 'utf8'));
+  const ev = createCustomEvent('TextFanout', [], { x: 0, y: 0 }), seq = createSequence(3);
+  const children = Array.from({ length: 3 }, () => createCallFunction(L.find(e => e.func === 'PrintString')));
+  linkPins(ev, 'then', seq, 'execute');
+  children.forEach((n, i) => linkPins(seq, `then_${i}`, n, 'execute'));
+  const text = generateUEText([ev, seq, ...children]), parsed = parseToGraphs(text).EventGraph.nodes;
+  const withoutPos = t => t.split('\n').filter(l => !/^\s*NodePos[XY]=/.test(l)).join('\n');
+  arrangeExecFlow(parsed);
+  const after = generateUEText(parsed, { syncLinks: true });
+  ok(withoutPos(after) === withoutPos(text) && validateStrict(after).errors.length === 0,
+    'flow: правило exec-зазора на парсеном UE-тексте меняет только NodePosX/Y, остальной код дословный');
+}
+{
+  // Слои считаются по видимым exec-выходам, а не по данным, входам или числу связей.
+  const { flowExecGap } = await import('../src/flow-layout.js');
+  const { mkPin } = await import('../src/generator.js');
+  const { createCustomEvent } = await import('../src/modules.js');
+  const seq = createSequence(5); // ни один выход не подключён
+  ok(flowExecGap(seq) === 48 + 4 * 128, 'flow: неподключённые видимые exec-выходы учитываются в зазоре');
+  seq.pins.find(p => p.name === 'then_3').hidden = true;
+  seq.pins.find(p => p.name === 'then_4').advanced = true;
+  seq.pins.push(mkPin('Data', 'Output', 'real'), mkPin('ExtraInput', 'Input', 'exec'));
+  const before = JSON.stringify(seq);
+  ok(flowExecGap(seq) === 48 + 2 * 128 && flowExecGap(seq, 64, 32) === 128 && JSON.stringify(seq) === before,
+    'flow: hidden/advanced, data и exec-входы не добавляют слой; шаг настраивается, расчёт не мутирует ноду');
+  ok(flowExecGap(createCustomEvent('GapEvent', [], { x: 0, y: 0 })) === 48 && flowExecGap({ pins: [] }, 64) === 64,
+    'flow: delegate у Event не расширяет зазор; без exec-выходов остаётся базовый gap');
+}
+{
+  // Branch и вложенный Sequence: прибавка локальна для каждого источника, else у той же стенки.
+  const { arrangeExecFlow, flowWidth } = await import('../src/flow-layout.js');
+  const { createCustomEvent } = await import('../src/modules.js');
+  const L = JSON.parse(fs.readFileSync('data/ue-functions.json', 'utf8'));
+  const print = () => createCallFunction(L.find(e => e.func === 'PrintString'));
+  const ev = createCustomEvent('NestedFanout', [], { x: 0, y: 0 }), br = createBranch(), seq = createSequence(3);
+  const children = Array.from({ length: 3 }, print), pe = print();
+  linkPins(ev, 'then', br, 'execute'); linkPins(br, 'then', seq, 'execute'); linkPins(br, 'else', pe, 'execute');
+  children.forEach((n, i) => linkPins(seq, `then_${i}`, n, 'execute'));
+  const all = [ev, br, seq, ...children, pe], snap = x => Math.ceil(x / 16) * 16;
+  arrangeExecFlow(all);
+  ok(seq.pos.x === snap(br.pos.x + flowWidth(br) + 48 + 128) && pe.pos.x === seq.pos.x,
+    'flow: Branch — два exec-выхода добавляют 128, then и else у одной стенки');
+  ok(children.every(n => n.pos.x === snap(seq.pos.x + flowWidth(seq) + 48 + 2 * 128))
+    && validateStrict(generateUEText(all)).errors.length === 0,
+    'flow: вложенный Sequence добавляет свои 256, а не накопленную прибавку родителя; STRICT чистый');
+}
+{
+  // Основной путь уже расставлен (слияние), но новая боковая ветка тоже получает exec-зазор.
+  const { arrangeExecFlow, flowWidth } = await import('../src/flow-layout.js');
+  const { createCustomEvent } = await import('../src/modules.js');
+  const L = JSON.parse(fs.readFileSync('data/ue-functions.json', 'utf8'));
+  const print = () => createCallFunction(L.find(e => e.func === 'PrintString'));
+  const ev = createCustomEvent('MergeFanout', [], { x: 0, y: 0 }), seq = createSequence(2), br = createBranch();
+  const shared = print(), side = print();
+  linkPins(ev, 'then', seq, 'execute'); linkPins(seq, 'then_0', shared, 'execute'); linkPins(seq, 'then_1', br, 'execute');
+  linkPins(br, 'then', shared, 'execute'); linkPins(br, 'else', side, 'execute');
+  const all = [ev, seq, shared, br, side];
+  arrangeExecFlow(all);
+  ok(side.pos.x === Math.ceil((br.pos.x + flowWidth(br) + 48 + 128) / 16) * 16
+    && validateStrict(generateUEText(all)).errors.length === 0,
+    'flow: слияние не ставит новую else-ветку на X источника, прибавка 128 сохраняется; STRICT чистый');
+}
+{
+  // Опция шага идёт в реальную раскладку; ноль отключает только расширение, не базовый gap.
+  const { arrangeExecFlow, flowWidth } = await import('../src/flow-layout.js');
+  const L = JSON.parse(fs.readFileSync('data/ue-functions.json', 'utf8'));
+  for (const execLayerGap of [0, 64]) {
+    const seq = createSequence(3), children = Array.from({ length: 3 }, () => createCallFunction(L.find(e => e.func === 'PrintString')));
+    children.forEach((n, i) => linkPins(seq, `then_${i}`, n, 'execute'));
+    arrangeExecFlow([seq, ...children], { gap: 32, execLayerGap });
+    ok(children.every(n => n.pos.x === Math.ceil((seq.pos.x + flowWidth(seq) + 32 + 2 * execLayerGap) / 16) * 16),
+      `flow: execLayerGap=${execLayerGap} применяется ко всему столбцу потребителей`);
+  }
+}
+{
+  // Copy-back flow-demo-2: высокая Sequence не отправляет Self/Get наверх; боковой Self выровнен по fork.
+  const { arrangeExecFlow, flowWidth, flowHeight } = await import('../src/flow-layout.js');
+  const { createCustomEvent } = await import('../src/modules.js');
+  const { createSelf } = await import('../src/special-nodes.js');
+  const L = JSON.parse(fs.readFileSync('data/ue-functions.json', 'utf8'));
+  const F = id => createCallFunction(L.find(e => e.func === id));
+  const ev = createCustomEvent('PureFanout', [], { x: 0, y: 0 }), seq = createSequence(5), me = createSelf();
+  const setL = F('K2_SetActorLocation'), setR = F('K2_SetActorRotation'), getL = F('K2_GetActorLocation');
+  const children = [setL, setR, F('PrintString'), F('PrintString'), F('PrintString')], tail = F('PrintString');
+  linkPins(ev, 'then', seq, 'execute'); children.forEach((n, i) => linkPins(seq, `then_${i}`, n, 'execute'));
+  linkPins(setL, 'then', tail, 'execute'); linkPins(getL, 'ReturnValue', setL, 'NewLocation');
+  for (const n of [setL, getL, setR]) linkPins(me, 'self', n, 'self');
+  const all = [ev, seq, me, ...children, getL, tail];
+  arrangeExecFlow(all);
+  const selves = all.filter(n => /K2Node_Self/.test(n.className));
+  const selfFor = consumer => selves.find(n => n.pins[0].linkedTo.some(l => l.nodeName === consumer.id));
+  ok(selfFor(setL).pos.x === seq.pos.x && selfFor(setR).pos.x === seq.pos.x
+    && selfFor(setL).pos.y >= seq.pos.y + flowHeight(seq) + 16 && getL.pos.y > seq.pos.y,
+    'flow: Self обоих Set выровнены по Sequence, чистое дерево начинается ниже высокой Sequence (не наверху)');
+  const hit = (a, b) => a.pos.x < b.pos.x + flowWidth(b) && b.pos.x < a.pos.x + flowWidth(a)
+    && a.pos.y < b.pos.y + flowHeight(b) && b.pos.y < a.pos.y + flowHeight(a);
+  const overlaps = all.flatMap((a, i) => all.slice(i + 1).filter(b => hit(a, b)));
+  ok(overlaps.length === 0 && selves.length === 3 && selves.every(n => n.pins[0].linkedTo.length === 1)
+    && all.length === 12 && validateStrict(generateUEText(all, { syncLinks: true })).errors.length === 0,
+    'flow: 5 выходов Sequence + 3 Self — без пересечений, лишних knot\'ов и потери связей; STRICT чистый');
+}
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);
