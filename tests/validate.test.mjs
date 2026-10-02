@@ -1394,6 +1394,88 @@ regThrow.forEach(t => console.log('THROW:', t));
     && all.length === 12 && validateStrict(generateUEText(all, { syncLinks: true })).errors.length === 0,
     'flow: 5 выходов Sequence + 3 Self — без пересечений, лишних knot\'ов и потери связей; STRICT чистый');
 }
+{
+  // Правило 11: только компактный Set своей/локальной переменной, не любой узел с «Set» в имени.
+  const { isCompactVariableSet, flowHeight, flowExecPinOffset } = await import('../src/flow-layout.js');
+  const { createSelfVar, createLocalVarSet, createMemberVar } = await import('../src/modules.js');
+  const { mkPin } = await import('../src/generator.js');
+  const { execPinOffset } = await import('../src/arranger.js');
+  for (const type of ['float', 'bool', 'int', 'vector']) {
+    const n = createSelfVar('set', 'CompactValue', type);
+    ok(isCompactVariableSet(n) && flowHeight(n) === 64 && flowExecPinOffset(n) === -16,
+      `flow: компактный VariableSet (${type}) — две строки, высота 64, exec-сдвиг −16`);
+    const parsed = parseToGraphs(generateUEText([n])).EventGraph.nodes[0];
+    ok(flowHeight(parsed) === 64 && flowExecPinOffset(parsed) === -16,
+      `flow: компактный Set (${type}) сохраняет калибровку после текстовой границы`);
+  }
+  const local = createLocalVarSet('F', 'CompactValue', 'float');
+  const member = createMemberVar('set', 'PlayerController.bShowMouseCursor', 'bool', 'true');
+  const reference = { ...local, className: 'BlueprintGraph.K2Node_VariableSetRef' };
+  ok(isCompactVariableSet(local) && flowHeight(local) === 64 && flowExecPinOffset(local) === -16,
+    'flow: локальный VariableSet без self использует компактную высоту (геометрия, не engine verification локала)');
+  ok(!isCompactVariableSet(member) && flowHeight(member) === 144 && flowExecPinOffset(member) === 16
+    && !isCompactVariableSet(reference) && flowHeight(reference) === 112,
+    'flow: Set с видимым Target и отдельный VariableSetRef не получают калибровку компактного Set');
+  const split = createSelfVar('set', 'Offset', 'vector');
+  split.pins.find(p => p.name === 'Offset').hidden = true;
+  for (const axis of ['X', 'Y', 'Z']) split.pins.push(mkPin(`Offset_${axis}`, 'Input', 'real', { sub: 'double' }));
+  ok(flowHeight(split) === 128, 'flow: split-пины увеличивают компактный Set до 128, высота не прибита к 64');
+  const adv = createSelfVar('set', 'Value', 'float');
+  adv.pins.push(mkPin('Extra', 'Input', 'real', { advanced: true }));
+  ok(flowHeight(adv) === 80, 'flow: свёрнутый advanced-пин добавляет компактному Set только стрелку +16');
+  const get = createSelfVar('get', 'Value', 'float');
+  ok(flowHeight(get) === 32 && flowExecPinOffset(get) == null && execPinOffset(local) === 0,
+    'flow: Get остаётся высотой 32; legacy execPinOffset/arrangeRows не изменены');
+  const call = func => createCallFunction(reg.find(e => e.func === func));
+  ok(flowHeight(call('K2_SetActorLocation')) === 208
+    && flowHeight(call('K2_SetActorRotation')) === 176
+    && flowHeight(call('PrintString')) === 128,
+    'flow: высоты Set Actor Location/Rotation и Print не сжаты до компактных Set');
+}
+{
+  // Проба №3 — настоящая текстовая граница creator → arranger, компактный столбец и копии Get.
+  const { buildFlowDemo3, nameFlowDemo3 } = await import('../tools/gen-flow-demo-3.mjs');
+  const { flowHeight, flowWidth, flowExecPinOffset, flowExecGap } = await import('../src/flow-layout.js');
+  const { stage1, nodes, rows, setters, gets, wired } = buildFlowDemo3();
+  ok(stage1.nodes.length === 7 && stage1.connections.length === 8 && wired.length === 8
+    && stage1.problems.length === 0 && stage1.validation.errors.length === 0
+    && stage1.nodes.every(n => n.pos.x === 0 && n.pos.y === 0 && n.pins.every(p => p.linkedTo.length === 0))
+    && !stage1.text.includes('LinkedTo='),
+    'flow-demo-3: creator — 7 нод, 8 закладок, координаты 0, ни одного провода; материализация только в arranger');
+  const seq = nodes.find(n => /ExecutionSequence$/.test(n.className));
+  const wall = Math.ceil((seq.pos.x + flowWidth(seq) + flowExecGap(seq)) / 16) * 16;
+  ok(setters.length === 3 && setters.every(n => n.pos.x === wall && flowHeight(n) === 64)
+    && setters.slice(1).every((n, i) => n.pos.y - setters[i].pos.y === 96),
+    'flow-demo-3: Set в общем столбце с прибавкой exec-слоёв, шаги ровно 96');
+  const line = new Set(rows[0].map(n => n.pos.y + flowExecPinOffset(n)));
+  ok(line.size === 1 && setters[0].pos.y === seq.pos.y + 16,
+    'flow-demo-3: Event → Sequence → Set → Print соосны в потоковой модели, Set на 16 ниже Sequence');
+  ok(gets.length === 3 && new Set(gets.map(n => n.id)).size === 3 && new Set(gets.map(n => n.guid)).size === 3
+    && gets.every(n => n.varName === 'FlowSetA' && flowHeight(n) === 32 && n.pins.find(p => p.direction === 'Output').linkedTo.length === 1)
+    && new Set(gets.map(n => n.pins.find(p => p.direction === 'Output').linkedTo[0].nodeName)).size === 3,
+    'flow-demo-3: общий Get превращён в три самостоятельные копии у трёх разных Set');
+  ok(gets.every(n => n.pos.x === seq.pos.x && n.pos.y >= seq.pos.y + flowHeight(seq) + 16),
+    'flow-demo-3: Get выровнены под Sequence, высокая Sequence не вытесняет их наверх');
+  const hit = (a, b) => a.pos.x < b.pos.x + flowWidth(b) && b.pos.x < a.pos.x + flowWidth(a)
+    && a.pos.y < b.pos.y + flowHeight(b) && b.pos.y < a.pos.y + flowHeight(a);
+  ok(nodes.length === 9 && nodes.every(n => n.pos.x % 16 === 0 && n.pos.y % 16 === 0 && !/Knot|Comment/.test(n.className))
+    && !nodes.some((a, i) => nodes.slice(i + 1).some(b => hit(a, b)))
+    && validateStrict(generateUEText(nodes, { syncLinks: true })).errors.length === 0,
+    'flow-demo-3: девять нод, сетка 16, без пересечений/knot\'ов/комментов; STRICT чистый');
+  const originals = new Set(stage1.nodes.map(n => n.id));
+  const unchangedCode = text => text.replace(/^\s*NodePos[XY]=[^\n]*\n/gm, '').replace(/LinkedTo=\([^)]*\),?/g, '').trim();
+  ok(unchangedCode(generateUEText(nodes.filter(n => originals.has(n.id)), { syncLinks: true })) === unchangedCode(stage1.text),
+    'flow-demo-3: код исходных нод дословный, кроме координат/LinkedTo; дополнительные ноды — только копии Get');
+  const { spawnSync } = await import('node:child_process');
+  const stdout = spawnSync(process.execPath, ['tools/gen-flow-demo-3.mjs', '--stdout'], { encoding: 'utf8' });
+  const check = spawnSync(process.execPath, ['tools/gen-flow-demo-3.mjs', '--check'], { encoding: 'utf8' });
+  ok(stdout.status === 0 && stdout.stdout === fs.readFileSync('sweep/chapters/flow-demo-3.txt', 'utf8') && check.status === 0,
+    'flow-demo-3: --stdout выдаёт ровно файл без диагностики, --check подтверждает побайтовую воспроизводимость');
+  const clip = parseToGraphs(stdout.stdout).EventGraph.nodes;
+  ok(clip.length === 9 && clip.every(n => n.rawBlock.includes('bCommentBubbleVisible=True')
+    && n.bubble === `${nameFlowDemo3(n, clip)} (${n.pos.x}, ${n.pos.y})`),
+    'flow-demo-3: каждый пузырь реально есть в rawBlock-файле и содержит имя/координаты после расстановки');
+}
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);
 process.exit(fail ? 1 : 0);

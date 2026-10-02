@@ -21,6 +21,7 @@
 | `chapters/r25-events-delegates.txt`, `r26-timers-latent.txt` | `node tools/gen-r25-events.mjs`, `node tools/gen-r26-timers.mjs` |
 | `chapters/r27-widgets-ui-decorated.txt`, `r30-decorate.txt`, `r32-components-lifecycle.txt` | `bash tools/recipes/<имя>.sh` |
 | `chapters/enum-select.txt`, `dispatcher-bound.txt` | `node tools/gen-enum-select.mjs`, `node tools/gen-dispatcher-bound.mjs` |
+| `chapters/flow-demo.txt`, `flow-demo-2.txt`, `flow-demo-3.txt` | `node tools/gen-flow-demo.mjs`, `node tools/gen-flow-demo-2.mjs`, `node tools/gen-flow-demo-3.mjs` (№3: компактные Set, шаг 96; нужны свои FlowSetA/B/C типа Float double) |
 | заморожены: `r25-make-node`, `r27-widgets-ui`, `r28-enhanced-input-full`, `r29-components-physics`, `r31-audio` | генератора нет; правки только по copy-back |
 
 GUID детерминированы: seed-строки генераторов сохранены со старых имён файлов (`--seed=sweep:23b-actor-ext.txt` и т.п.),

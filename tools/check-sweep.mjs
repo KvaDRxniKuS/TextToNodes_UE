@@ -42,6 +42,7 @@ const RECIPES = [
   ['exec-align-3 probe (3 строки заголовка)', ['node', 'tools/gen-exec-align-3.mjs'], ['sweep/chapters/exec-align-3.txt']],
   ['flow-demo probe (потоковый расстановщик)', ['node', 'tools/gen-flow-demo.mjs'], ['sweep/chapters/flow-demo.txt']],
   ['flow-demo-2 probe (копии Self, Sequence)', ['node', 'tools/gen-flow-demo-2.mjs'], ['sweep/chapters/flow-demo-2.txt']],
+  ['flow-demo-3 probe (компактные Set, шаг 96)', ['node', 'tools/gen-flow-demo-3.mjs'], ['sweep/chapters/flow-demo-3.txt']],
   ['dispatcher bound probe', ['node', 'tools/gen-dispatcher-bound.mjs'], ['sweep/chapters/dispatcher-bound.txt']],
   ['structured section demo', ['node', 'tools/gen-structured-demo.mjs'], ['sweep/layout/structured-demo.txt']],
   ['HUD health demo (VERIFIED)', ['node', 'tools/gen-hud-demo.mjs'], ['sweep/chapters/hud-health-demo.txt']],
