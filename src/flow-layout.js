@@ -1,15 +1,18 @@
 // Потоковый расстановщик (ступень 2) по эталонам пользователя:
 //   sweep/copyback/sphere-flow-layout-reference.md (правила 1–6),
 //   sweep/copyback/flow-layout-samples-2-reference.md (правила 7–12),
-//   sweep/copyback/flow-demo-reference.md (ручная перестановка flow-demo, 2026-10-02).
-// v2 (по flow-demo-reference):
-//   • хребет плотный: ширина ноды + gap; места под чистые входы в ряду НЕ резервируется;
-//   • exec-пины соосны (headerLines);
+//   sweep/copyback/flow-demo-reference.md (ручная перестановка flow-demo, 2026-10-02),
+//   sweep/copyback/flow-demo-2-reference.md (Sequence и правило 13: зазор по exec-слоям).
+// По эталонам flow-demo:
+//   • хребет плотный: ширина ноды + gap; каждый дополнительный exec-выход добавляет 8 клеток (128 px);
+//     прибавка общая для столбца следующих нод, не накапливается между его строками;
+//     места под чистые входы в ряду НЕ резервируется;
+//   • exec-пины соосны (flowExecPinOffset: headerLines + компактный VariableSet на +16 по Y);
 //   • else / Completed / прочие побочные exec-выходы — под СЛЕДУЮЩЕЙ нодой: Y = её низ + 32, прямой провод;
 //   • дерево чистых — влево от потребителя: прямые входы правым краем у (потребитель.x − 16), входы входов —
 //     колонкой левее (зазор 32); дети центрируются по родителю. Дерево ищет свободное место ПОД рядом
 //     (сдвиг вниз по 16), а если путь вниз перекрыт exec-нодой (ответвлением) — НАД рядом.
-// Не меняет код нод (F): только pos. Knot'ы не создаёт.
+// Меняет координаты (+ копии Get/Self и их переподключение по правилу 10). Knot'ы не создаёт.
 import { estNodeWidth, displayName, GRID } from './generator.js';
 import { execPinOffset } from './arranger.js';
 import { guid32 } from './parser.js';
@@ -36,10 +39,38 @@ const vis = (n, dir) => (n.pins || []).filter(p => !p.hidden && !p.advanced && p
 export const isPure = n => !(n.pins || []).some(p => !p.hidden && isExec(p)) && !(n.className || '').includes('Comment');
 const compact = n => /VariableGet|K2Node_Self|PromotableOperator|CommutativeAssociativeBinaryOperator|Knot/.test(n.className || '');
 
+/** Компактный Set своей/локальной переменной: обычный K2Node_VariableSet без видимого Target.
+ *  Set чужого свойства и отдельный K2Node_VariableSetRef этой калибровкой не затрагиваются. */
+export function isCompactVariableSet(n) {
+  return /(?:^|\.)K2Node_VariableSet$/.test(n.className || '')
+    && !(n.pins || []).some(p => p.name === 'self' && p.direction === 'Input' && !p.hidden);
+}
+
+/** Потоковая калибровка Set из эталона №4: Set Omega_free (Y=576) → Sequence (Y=560).
+ *  Компактный Set стоит на 16 ниже Sequence (exec-строка на клетку выше).
+ *  Старый execPinOffset / arrangeRows не меняем: на них держится legacy section-layout. */
+export function flowExecPinOffset(n) {
+  const offset = execPinOffset(n);
+  return offset != null && isCompactVariableSet(n) ? -GRID : offset;
+}
+
+/** Правило 13 (flow-demo-2): один exec-выход — базовый зазор; каждый дополнительный видимый
+ *  exec-выход добавляет 8 шагов сетки (128 px) до левой стенки следующих нод.
+ *  Считаются пины, а не связи: неподключённый видимый выход тоже занимает слой.
+ *  Входы, данные/делегаты, скрытые и свёрнутые advanced-пины прибавку не дают. */
+export function flowExecGap(n, gap = 48, execLayerGap = 8 * GRID) {
+  const extraLayers = Math.max(0, vis(n, 'Output').filter(isExec).length - 1);
+  return gap + extraLayers * execLayerGap;
+}
+
 /** Высота для раскладки (свёрнутые advanced-пины не считаются, стрелка разворота +16). */
 export function flowHeight(n) {
   const rows = Math.max(vis(n, 'Input').length, vis(n, 'Output').length, 1);
   const adv = (n.pins || []).some(p => p.advanced && !p.hidden) ? 16 : 0;
+  // Правило 11, компактные VariableSet (эталон №4): без обычной шапки 48 px.
+  // Две строки (exec + значение) = 64; с branchGap 32 получается шаг 96.
+  // Не фиксируем высоту: split-пины/дополнительные строки увеличивают её; видимый Target — прежняя модель.
+  if (isCompactVariableSet(n)) return up(32 * rows + adv);
   return compact(n) ? 32 * rows : up(48 + 32 * rows + adv);
 }
 
@@ -79,7 +110,7 @@ export function duplicateSharedGets(nodes) {
   return added;
 }
 
-export function arrangeExecFlow(nodes, { x = 0, y = 0, gap = 48, colGap = 32, vGap = 16, branchGap = 32, rowGap = 160, duplicateGets = true } = {}) {
+export function arrangeExecFlow(nodes, { x = 0, y = 0, gap = 48, execLayerGap = 8 * GRID, colGap = 32, vGap = 16, branchGap = 32, rowGap = 160, duplicateGets = true } = {}) {
   if (duplicateGets) duplicateSharedGets(nodes);
   const byId = new Map(nodes.map(n => [n.id, n]));
   const placed = new Set();
@@ -145,7 +176,9 @@ export function arrangeExecFlow(nodes, { x = 0, y = 0, gap = 48, colGap = 32, vG
       const shift = prev.pos.x - (ox + items[0].dx);
       if (shift <= 0) ox += shift;
     }
-    let oy = up(n.pos.y + flowHeight(n)), above = false;
+    // Высокий предыдущий fork (например, Sequence с 5 выходами) — не препятствие снизу:
+    // начинаем под его низом, а не ошибочно переносим дерево наверх из-за пересечения с ним.
+    let oy = up(Math.max(n.pos.y + flowHeight(n), prev ? prev.pos.y + flowHeight(prev) + vGap : -Infinity)), above = false;
     for (let i = 0; i < 64; i++) {
       const f = fits(items, ox, oy);
       if (!f.hit) break;
@@ -161,24 +194,30 @@ export function arrangeExecFlow(nodes, { x = 0, y = 0, gap = 48, colGap = 32, vG
 
   // Ряд хребта: сначала все exec-ноды (и ответвления), потом деревья — чтобы деревья видели ответвления.
   const rows = [];
-  const layRow = (start, x0, y0) => {
+  const layRow = (start, x0, y0, predecessor = null) => {
     const spine = [];
     for (let n = start; n && !placed.has(n); ) { spine.push(n); placed.add(n); const m = mainOut(n); n = m ? nextOf(m)[0] : null; }
     let cursor = x0;
-    for (const n of spine) { n.pos = { x: up(cursor), y: 0 }; cursor = n.pos.x + flowWidth(n) + gap; }
-    const offs = spine.map(n => execPinOffset(n) ?? 0);
+    for (const n of spine) {
+      n.pos = { x: up(cursor), y: 0 };
+      cursor = n.pos.x + flowWidth(n) + flowExecGap(n, gap, execLayerGap);
+    }
+    const offs = spine.map(n => flowExecPinOffset(n) ?? 0);
     const ref = Math.max(...offs);
     spine.forEach((n, i) => { n.pos.y = y0 + ref - offs[i]; addBox(n, true); });
     const rowTop = Math.min(...spine.map(n => n.pos.y));
-    rows.push({ spine, rowTop });
+    rows.push({ spine, rowTop, predecessor });
     spine.forEach((n, i) => {
       const m = mainOut(n);
       for (const p of execOut(n)) if (p !== m) for (const t of nextOf(p)) if (!placed.has(t)) {
         const at = spine[i + 1] || n;
+        // Все первые потребители — у одной стенки. Если основной путь уже был расставлен
+        // (слияние веток), новая боковая ветка всё равно получает зазор от источника.
+        const bx = spine[i + 1] ? at.pos.x : up(n.pos.x + flowWidth(n) + flowExecGap(n, gap, execLayerGap));
         let by = up(at.pos.y + flowHeight(at) + branchGap);
         // ниже уже занятых exec-ответвлений в этой колонке
-        for (const o of boxes) if (o.exec && o.x0 < at.pos.x + flowWidth(at) && at.pos.x < o.x1 && o.y1 > by - branchGap && o.y0 > at.pos.y) by = up(o.y1 + branchGap);
-        layRow(t, at.pos.x, by);
+        for (const o of boxes) if (o.exec && o.x0 < bx + flowWidth(at) && bx < o.x1 && o.y1 > by - branchGap && o.y0 > at.pos.y) by = up(o.y1 + branchGap);
+        layRow(t, bx, by, n);
       }
     });
   };
@@ -188,7 +227,7 @@ export function arrangeExecFlow(nodes, { x = 0, y = 0, gap = 48, colGap = 32, vG
   for (const s of starts) if (!placed.has(s)) {
     const first = rows.length;
     layRow(s, x, rowY);
-    for (const r of rows.slice(first)) r.spine.forEach((n, i) => placeTree(n, r.rowTop, r.spine[i - 1]));
+    for (const r of rows.slice(first)) r.spine.forEach((n, i) => placeTree(n, r.rowTop, r.spine[i - 1] || r.predecessor));
     rowY = up(Math.max(...boxes.map(b => b.y1)) + rowGap);
   }
   let lx = x;
