@@ -1,13 +1,14 @@
-// Линтер раскладки — правила из docs/LAYOUT_REFERENCES.md (три графа пользователя, 2026-09-30).
+// Линтер раскладки — правила из docs/LAYOUT_REFERENCES.md (референсы пользователя 2026-09-30…2026-10-02).
 // Только читает ноды с координатами; ничего не двигает и не связывает. Предупреждения, не ошибки.
 //   L1  exec-нода без входящего exec (висит мёртвой; события и knot'ы не в счёт)
-//   L2  выход Sequence уходит вверх (exec-пин цели выше exec-пина Sequence; сдвиг шапки — execPinOffset)
+//   L2  выход Sequence резко уходит вверх (выше допуска maxSequenceUp; короткий centered capture-stack из
+//       reference WBP_Interaction 2026-10-02 допустим, старый грязный подъём на сотни px — нет)
 //   L3  длинный провод данных по X (> maxData px): источник дублировать у потребителя или вести шиной knot'ов
 //   L4  длинный exec-провод по X (> maxExec px, шина knot→knot не в счёт; грязный образец — 1900px): вероятно, дерево стоит в промежутке ряда — увести под ряд
 const EVENTS = /K2Node_(CustomEvent|Event|InputAction|EnhancedInputAction|InputKey|ComponentBoundEvent|ActorBoundEvent)$/;
 
 import { execPinOffset } from './arranger.js';
-export function lintLayout(nodes, { maxData = 1200, maxExec = 1600 } = {}) {
+export function lintLayout(nodes, { maxData = 1200, maxExec = 1600, maxSequenceUp = 192 } = {}) {
   const byId = new Map(nodes.map(n => [n.id, n]));
   const out = [];
   const name = n => `${n.id}${n.varName ? ` (${n.varName})` : n.eventName ? ` (${n.eventName})` : ''}`;
@@ -21,8 +22,12 @@ export function lintLayout(nodes, { maxData = 1200, maxExec = 1600 } = {}) {
       for (const l of p.linkedTo) {
         const t = byId.get(l.nodeName);
         if (!t || !n.pos || !t.pos) continue;
-        if (/Sequence$/.test(cls) && p.category === 'exec' && t.pos.y + (execPinOffset(t) ?? 0) < n.pos.y + (execPinOffset(n) ?? 0))
-          out.push({ code: 'L2', node: n.id, msg: `${name(n)}.${p.name} → ${name(t)}: выход Sequence уходит вверх (${t.pos.y} < ${n.pos.y})` });
+        if (/Sequence$/.test(cls) && p.category === 'exec') {
+          const sourceY = n.pos.y + (execPinOffset(n) ?? 0);
+          const targetY = t.pos.y + (execPinOffset(t) ?? 0);
+          if (targetY < sourceY - maxSequenceUp)
+            out.push({ code: 'L2', node: n.id, msg: `${name(n)}.${p.name} → ${name(t)}: выход Sequence резко уходит вверх (${targetY} < ${sourceY} − ${maxSequenceUp})` });
+        }
         if (/Knot$/.test(cls) && /Knot$/.test(t.className || '')) continue;   // шина knot'ов длинна по замыслу
         const dx = Math.abs(t.pos.x - n.pos.x);
         if (p.category === 'exec' ? dx > maxExec : dx > maxData)

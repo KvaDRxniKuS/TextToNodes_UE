@@ -4,6 +4,7 @@ import fs from 'fs';
 import { parseToGraphs, generateUEText } from '../src/parser.js';
 import { createCallFunction, createOperator, createMacroInstance, createStructNode, createSequence, createSwitch, createBranch, createKnot, createComment, fitComment, linkPins, layoutRow, estNodeWidth, createFromEntry } from '../src/generator.js';
 import { validateStrict } from '../src/validate.js';
+import { lintLayout } from '../src/layout-lint.js';
 
 let pass = 0, fail = 0;
 const ok = (cond, tag) => { cond ? pass++ : (fail++, console.log('FAIL:', tag)); };
@@ -68,6 +69,17 @@ for (const [code, text, expectValid] of cases) {
   const v = validateStrict(text);
   const hit = v.errors.concat(v.warnings).some(x => x.startsWith(code));
   ok(hit && v.valid === expectValid, `${code} (valid=${v.valid}, errs=${v.errors.length}, warns=${v.warnings.length})`);
+}
+{
+  const s = createSequence(4, { x: 0, y: 0 });
+  const shortUp = createBranch({ x: 240, y: -128 });
+  const farUp = createBranch({ x: 240, y: -416 });
+  linkPins(s, 'then_0', shortUp, 'execute');
+  linkPins(s, 'then_1', farUp, 'execute');
+  const onlyShort = lintLayout([s, shortUp]);
+  const withFar = lintLayout([s, shortUp, farUp]);
+  ok(!onlyShort.some(l => l.code === 'L2'), 'layout-lint L2: короткий centered Sequence-stack допустим');
+  ok(withFar.some(l => l.code === 'L2'), 'layout-lint L2: резкий уход Sequence вверх предупреждается');
 }
 // известный энам из allowlist: нет ни E14, ни W10
 {
