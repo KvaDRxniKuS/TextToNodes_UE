@@ -10,10 +10,15 @@ export function mkPin(name, direction, category, opts = {}) {
   return {
     id: guid32(), name, friendly: opts.friendly || name, direction, category,
     subCategory: opts.sub || '', subCategoryObject: opts.subObj || '', isConst: !!opts.const,
-    isRef: !!opts.ref, container: opts.container || 'None', ignored: !!opts.ignored, advanced: !!opts.advanced,
+    isRef: !!opts.ref, ...(opts.wrapper ? { wrapper: true } : {}), container: opts.container || 'None', ...(opts.valueType ? { valueType: opts.valueType } : {}), ignored: !!opts.ignored, advanced: !!opts.advanced,
     defaultValue: opts.dv || '', hidden: !!opts.hidden, linkedTo: [],
     memberRef: opts.memberRef || '', defaultObject: opts.defObj || '',
     autoDefault: opts.auto || '',
+    ...(opts.friendlyPlain ? { friendlyPlain: opts.friendlyPlain } : {}),
+    ...(opts.notConnectable ? { notConnectable: true } : {}),
+    ...(opts.loc ? { pinFriendlyName: { namespace: opts.loc[0], key: opts.loc[1], text: opts.loc[2] } } : {}),
+    ...(opts.readOnly ? { readOnly: true } : {}),
+    ...(opts.autoFixed !== undefined ? { autoFixed: opts.autoFixed } : {}),
   };
 }
 
@@ -33,6 +38,9 @@ export function createCallFunction(regEntry, pos = { x: 0, y: 0 }) {
   n.funcName = regEntry.func;
   n.title = regEntry.title || regEntry.func;
   if (regEntry.pure) n.pure = true;
+  // R33 copy-back (DrawDebugArrow): UE пишет EnabledState между NodePosY и NodeGuid.
+  if (regEntry.preProps) n.preProps = Object.entries(regEntry.preProps).map(([k, v]) => `${k}=${v}`);
+  if (regEntry.enabledState) n.postPosProps = [`EnabledState=${regEntry.enabledState}`];
   if (regEntry.lib) {
     if (!UE_LIBS[regEntry.lib]) throw new Error(`Unknown lib in registry: ${regEntry.lib} (${regEntry.id})`);
     n.memberParent = UE_LIBS[regEntry.lib];
@@ -44,11 +52,13 @@ export function createCallFunction(regEntry, pos = { x: 0, y: 0 }) {
       if (!UE_STRUCTS[p.sub]) throw new Error(`Unknown struct in registry: ${p.sub} (${regEntry.id}.${p.name})`);
       o.subObj = UE_STRUCTS[p.sub];
     }
-    if ((p.cat === 'object' || p.cat === 'class') && p.object) o.subObj = classRef(p.object);
+    if ((p.cat === 'object' || p.cat === 'class' || p.cat === 'softobject' || p.cat === 'softclass' || p.cat === 'interface') && p.object) o.subObj = classRef(p.object);
     if (p.enum) o.subObj = UE_ENUMS[p.enum] || p.enum;
     if (p.const) o.const = true;
     if (p.ref) o.ref = true;
+    if (p.wrapper) o.wrapper = true; // R40: TSoftObjectPtr<UWorld> → bIsUObjectWrapper=True
     if (p.container) o.container = p.container;
+    if (p.valueType) o.valueType = p.valueType; // R45: Map-пин — PinValueType=(TerminalCategory=…)
     if (p.ignored) o.ignored = true;
     if (p.advanced) o.advanced = true;
     if (p.dv) o.dv = p.dv;
@@ -56,6 +66,7 @@ export function createCallFunction(regEntry, pos = { x: 0, y: 0 }) {
     if (p.hidden) o.hidden = true;
     if (p.memberRef) o.memberRef = p.memberRef;
     if (p.defObj) o.defObj = p.defObj;
+    if (p.friendly) o.friendlyPlain = p.friendly;
     n.pins.push(mkPin(p.name, p.dir, p.cat, o));
   }
   return n;
@@ -142,6 +153,8 @@ export function createSwitch(kind, cases = [], pos = { x: 0, y: 0 }) {
     int: { cls: 'K2Node_SwitchInteger', sel: 'int', selSub: '' },
     string: { cls: 'K2Node_SwitchString', sel: 'string', selSub: '' },
     enum: { cls: 'K2Node_SwitchEnum', sel: 'byte', selSub: '' },
+    // R59 copy-back: Selection name, dv/auto None. Case-пины — по PinNames(i) (как у SwitchString в движке), ⚠ проба R59.
+    name: { cls: 'K2Node_SwitchName', sel: 'name', selSub: '' },
   };
   const k = map[kind];
   if (!k) throw new Error(`Unknown switch kind: ${kind}`);
@@ -150,7 +163,8 @@ export function createSwitch(kind, cases = [], pos = { x: 0, y: 0 }) {
   // round1: порядок движка — Default первый; Selection dv "0" только у int.
   n.pins.push(mkPin('Default', 'Output', 'exec'));
   n.pins.push(mkPin('execute', 'Input', 'exec'));
-  n.pins.push(mkPin('Selection', 'Input', k.sel, { sub: k.selSub, ...(kind === 'int' ? { dv: '0' } : {}) }));
+  n.pins.push(mkPin('Selection', 'Input', k.sel, { sub: k.selSub, ...(kind === 'int' ? { dv: '0' } : kind === 'name' ? { dv: 'None', auto: 'None' } : {}) }));
+  if (kind === 'name' && cases.length) n.rawProps = cases.map((c, i) => `PinNames(${i})="${c}"`);
   for (const c of cases) n.pins.push(mkPin(String(c), 'Output', 'exec'));
   return n;
 }
@@ -176,9 +190,10 @@ export function createBranch(pos) {
     guid: guid32(), pos, title: 'Branch',
     pins: [
       mkPin('execute', 'Input', 'exec'),
-      mkPin('Condition', 'Input', 'bool', { dv: 'true' }),
-      mkPin('then', 'Output', 'exec'),
-      mkPin('else', 'Output', 'exec')
+      mkPin('Condition', 'Input', 'bool', { dv: 'true', auto: 'true' }),
+      // R36 copy-back (Branch): подписи then/else — NSLOCTEXT("K2Node", "true"/"false")
+      mkPin('then', 'Output', 'exec', { loc: ['K2Node', 'true', 'true'] }),
+      mkPin('else', 'Output', 'exec', { loc: ['K2Node', 'false', 'false'] })
     ]
   };
 }
@@ -240,6 +255,7 @@ export function createGeneric(regEntry, pos = { x: 0, y: 0 }) {
     if (p.hidden) o.hidden = true;
     if (p.memberRef) o.memberRef = p.memberRef;
     if (p.defObj) o.defObj = p.defObj;
+    if (p.friendly) o.friendlyPlain = p.friendly;
     n.pins.push(mkPin(p.name, p.dir, p.cat, o));
   }
   // Enum-indexed Select expands from enum metadata, not the generic Option 0/1 pin template.
@@ -332,6 +348,8 @@ export const HEADER_LINE_H = 32;
 // One Blueprint grid cell used to push between-port Knot probes farther outward.
 export const KNOT_X_STEP = 16;
 export const KNOT_SIDE_OFFSET = 32; // two 16px grid cells from the composite edge
+// Ширина reroute-узла: InputPin на левом крае, OutputPin на правом (одна клетка сетки).
+export const KNOT_W = 16;
 // Composite header height calibration from user copy-back: first pin center is NodePosY + 56px.
 export const COMPOSITE_PIN_HEADER_EXTRA = 11;
 // Vertical pin pitch is one pin-row step, independent of horizontal knot offsets.

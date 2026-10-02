@@ -11,10 +11,12 @@ UE copy → parser → JSON graph → inspect/modify → generator → Blueprint
 - `src/parser.js` читает и сериализует Blueprint Text.
 - `src/creator.js` и `src/modules.js` создают семантические записи узлов/пинов; `linkPins()` записывает взаимные ссылки и не отвечает за координаты.
 - `src/arranger.js` создаёт coarse-размещение по рядам, порядку и зазорам; для обратного exec flow может породить reroute knots.
-- `src/decorator.js` уточняет положения пинов/нод, зазоры и сетку.
+- `src/decorator.js` уточняет положения пинов/нод, зазоры и сетку. ⚠ Ступень 3 приостановлена
+  (2026-09-28) и в основной цикл не входит: он = генератор нод + расстановщик; см.
+  [`docs/LAYOUT_PIPELINE.md`](LAYOUT_PIPELINE.md).
 - `src/layout-pipeline.js` предоставляет orchestration двух позиционных этапов.
 - `src/validate.js` проверяет текстовую и графовую структуру; он не эмулирует UE и не подтверждает визуальный layout или успешную компиляцию Blueprint.
-- `index.html` — браузерная песочница. MCP server — отдельный stdio integration endpoint; его зависимости и запуск описаны в `mcp/README.md`.
+- MCP server — отдельный stdio integration endpoint; его зависимости и запуск описаны в `mcp/README.md`.
 
 Подробнее об обязанностях этапов, API и модельных ограничениях: [`LAYOUT_PIPELINE.md`](LAYOUT_PIPELINE.md).
 
@@ -26,7 +28,6 @@ UE copy → parser → JSON graph → inspect/modify → generator → Blueprint
 
 - Проект ориентирован на переносимый Blueprint Text для проверяемых форм UE; конкретные поля и PinId могут зависеть от типа ноды и контекста Blueprint.
 - Assets, custom project dispatchers/enums, variables и function-local names могут требовать настоящих путей/GUID из проекта.
-- `tools/openai-tools.json` содержит tool schemas, а не реализацию создания всех перечисленных Unreal asset types.
 - Поддержку конкретной UE версии следует сверять с engine fixtures и verdict пользователя; не считать автоматически каждый UE 5.x совместимым.
 
 ## Проверки разработчика
@@ -34,7 +35,13 @@ UE copy → parser → JSON graph → inspect/modify → generator → Blueprint
 ```bash
 npm test
 node src/validate.js path/to/blueprint.txt
-node tools/gen-sweep.mjs zz
+node tools/gen-sweep.mjs --check      # корпус vs генератор, без записей
+node tools/check-sweep.mjs         # пересборка всех генерируемых файлов sweep/ + побайтовая сверка
 ```
 
-Статус sweep находится в [`../sweep/MANIFEST.md`](../sweep/MANIFEST.md). Текущие открытые темы и их фиксированный порядок — [`HANDOFF_TOPICS.md`](HANDOFF_TOPICS.md).
+Корпус `sweep/` воспроизводим побайтово: GUID сеятся именем файла, поэтому дрейф реестра виден
+сразу и не сопровождается шумом в diff. Часть файлов заморожена (сверенные с движком copy-back без
+генератора) — они защищены от перезаписи в `gen-sweep.mjs` и перечислены в `FROZEN` у
+`tools/check-sweep.mjs`.
+
+Статус sweep находится в [`../sweep/registry/MANIFEST.md`](../sweep/registry/MANIFEST.md). Текущие открытые темы и их фиксированный порядок — [`HANDOFF_TOPICS.md`](HANDOFF_TOPICS.md).

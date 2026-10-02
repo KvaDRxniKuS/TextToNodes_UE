@@ -1,3 +1,4 @@
+import { formatValue } from './values.js';
 // src/modules.js — параметрические конструкторы узлов (не фиксированные примеры).
 // Любое имя события, любые параметры, любой класс/делегат/функция реестра.
 // Формы узлов — из прогонов движка (см. docs/ENGINE_VERIFIED.md, R21b–R26).
@@ -19,10 +20,31 @@ function node(short, pos = { x: 0, y: 0 }) {
 const SCALAR = { bool: ['bool'], int: ['int'], int64: ['int64'], byte: ['byte'], float: ['real', 'double'], single: ['real', 'float'], double: ['real', 'double'], real: ['real', 'double'], string: ['string'], name: ['name'], text: ['text'] };
 export function parseType(t) {
   let s = String(t).trim(), container = 'None';
+  // R60: set<T>, map<K,V> (V — PinValueType)
+  let m = /^set<(.+)>$/i.exec(s);
+  if (m) return { ...parseType(m[1]), container: 'Set' };
+  m = /^map<(.+)>$/i.exec(s);
+  if (m) {
+    let depth = 0, cut = -1;
+    for (let i = 0; i < m[1].length; i++) { const ch = m[1][i]; if (ch === '<') depth++; else if (ch === '>') depth--; else if (ch === ',' && !depth) { cut = i; break; } }
+    if (cut < 0) throw new Error(`тип ${t}: map<Ключ,Значение>`);
+    const k = parseType(m[1].slice(0, cut)), v = parseType(m[1].slice(cut + 1));
+    return { ...k, container: 'Map', valueType: { cat: v.cat, sub: v.sub, subObj: v.subObj ? (v.subObj.startsWith('"') ? v.subObj : `"${v.subObj}"`) : '' } };
+  }
   if (s.endsWith('[]')) { container = 'Array'; s = s.slice(0, -2); }
   const [head, ...rest] = s.split(':'); const arg = rest.join(':');
   const k = head.toLowerCase();
   if (SCALAR[k]) return { cat: SCALAR[k][0], sub: SCALAR[k][1] || '', subObj: '', container };
+  // R55: мягкие ссылки TSoftObjectPtr/TSoftClassPtr — категории softobject/softclass, класс в SubCategoryObject
+  if (k === 'softobject' || k === 'softclass') {
+    if (!arg) throw new Error(`тип ${t}: нужен класс, напр. ${k}:/Script/Engine.World`);
+    return { cat: k, sub: '', subObj: classRef(arg), classPath: normalizeClassPath(arg), container };
+  }
+  // R62: interface:Путь — пин интерфейса (TScriptInterface): category interface, bIsUObjectWrapper=True (copy-back GetOwnedGameplayTags).
+  if (k === 'interface') {
+    if (!arg) throw new Error(`тип ${t}: нужен интерфейс, напр. interface:/Script/GameplayTags.GameplayTagAssetInterface`);
+    return { cat: 'interface', sub: '', subObj: classRef(arg), classPath: normalizeClassPath(arg), container, wrapper: true };
+  }
   if (k === 'object' || k === 'class') {
     if (!arg) throw new Error(`тип ${t}: нужен класс, напр. ${k}:Actor`);
     return { cat: k, sub: '', subObj: classRef(arg), classPath: normalizeClassPath(arg), container };
@@ -33,7 +55,7 @@ export function parseType(t) {
   }
   const sk = Object.keys(UE_STRUCTS).find(x => x.toLowerCase() === k);
   if (sk) return { cat: 'struct', sub: '', subObj: UE_STRUCTS[sk], container };
-  throw new Error(`неизвестный тип «${t}». Допустимо: ${Object.keys(SCALAR).join(' ')} ${Object.keys(UE_STRUCTS).map(x => x.toLowerCase()).join(' ')} object:X class:X enum:X, суффикс []`);
+  throw new Error(`неизвестный тип «${t}». Допустимо: ${Object.keys(SCALAR).join(' ')} ${Object.keys(UE_STRUCTS).map(x => x.toLowerCase()).join(' ')} object:X class:X softobject:X softclass:X enum:X, суффикс []`);
 }
 /** "Имя:тип" или "Имя:тип=значение" */
 export function parseParam(spec) {
@@ -43,7 +65,7 @@ export function parseParam(spec) {
   if (c < 0) throw new Error(`параметр «${spec}»: формат Имя:тип[=значение]`);
   return { name: body.slice(0, c), type: parseType(body.slice(c + 1)), dv };
 }
-const pin = (name, dir, ty, extra = {}) => mkPin(name, dir, ty.cat, { sub: ty.sub, subObj: ty.subObj, container: ty.container, ...extra });
+const pin = (name, dir, ty, extra = {}) => mkPin(name, dir, ty.cat, { sub: ty.sub, subObj: ty.subObj, container: ty.container, ...(ty.valueType ? { valueType: ty.valueType } : {}), ...(ty.wrapper ? { wrapper: true } : {}), ...extra });
 
 /* ---------------- делегаты ----------------
  * Сигнатуры мультикаст-делегатов движка: /Script/Engine.<Sig>__DelegateSignature.
@@ -79,11 +101,19 @@ function resolveDelegate(key, sig, params) {
 /* ---------------- узлы ---------------- */
 
 /** Custom Event с любыми параметрами. params: ["Damage:float", "Who:object:Actor", ...] или parseParam-объекты. */
-export function createCustomEvent(name, params = [], pos) {
+/** RPC-флаги Custom Event (R42 VERIFIED: Details совпали): база 0x0C020000 | FUNC_Net 0x40 [| Reliable 0x80]
+ *  | Server 0x200000 | Multicast 0x4000 | Client 0x1000000. opts.rpc: 'server'|'multicast'|'client', opts.reliable. */
+export function rpcFunctionFlags(rpc, reliable = false) {
+  const k = { server: 0x200000, multicast: 0x4000, client: 0x1000000 }[rpc];
+  if (!k) throw new Error(`rpc ${rpc}: server | multicast | client`);
+  return (0x0C020000 | 0x40 | (reliable ? 0x80 : 0) | k) >>> 0;
+}
+export function createCustomEvent(name, params = [], pos, opts = {}) {
   const n = node('K2Node_CustomEvent', pos);
   n.title = `Custom Event ${name}`;
   n.eventName = name;
   n.rawProps = [`CustomFunctionName="${name}"`];
+  if (opts.rpc) n.rawProps.push(`FunctionFlags=${rpcFunctionFlags(opts.rpc, opts.reliable)}`);
   n.pins.push(mkPin('OutputDelegate', 'Output', 'delegate', { memberRef: `MemberName="${name}"` }), mkPin('then', 'Output', 'exec'));
   const ps = params.map(p => typeof p === 'string' ? parseParam(p) : p);
   for (const p of ps) n.pins.push(pin(p.name, 'Output', p.type));
@@ -93,6 +123,10 @@ export function createCustomEvent(name, params = [], pos) {
     if (t.sub) parts.push(`PinSubCategory="${t.sub}"`);
     if (t.subObj) parts.push(`PinSubCategoryObject=${t.subObj}`);
     if (t.container !== 'None') parts.push(`ContainerType=${t.container}`);
+    // R62 вердикт: контейнер-параметр события без const требует переменную (by-ref); с const принимает и временные значения (Make Array и т.п.).
+    if (t.container !== 'None') parts.push('bIsReference=True', 'bIsConst=True');
+    // R62: Map-параметр события — тип значения в PinValueType (формат FEdGraphTerminalType).
+    if (t.valueType) parts.push(`PinValueType=(TerminalCategory="${t.valueType.cat}"${t.valueType.sub ? `,TerminalSubCategory="${t.valueType.sub}"` : ''}${t.valueType.subObj ? `,TerminalSubCategoryObject=${t.valueType.subObj}` : ''})`);
     return `CustomProperties UserDefinedPin (PinName="${p.name}",PinType=(${parts.join(',')}),DesiredPinDirection=EGPD_Output)`;
   });
   n.params = ps;
@@ -107,8 +141,17 @@ export function createCallCustomEvent(event, values = {}, pos) {
   n.title = name; n.funcName = name;
   if (typeof event !== 'string') n.memberGuid = event.guid;
   n.pins.push(mkPin('execute', 'Input', 'exec'), mkPin('then', 'Output', 'exec'), mkPin('self', 'Input', 'object', { sub: 'self' }));
-  for (const p of params) n.pins.push(pin(p.name, 'Input', p.type, { dv: values[p.name] ?? p.dv ?? '' }));
+  for (const p of params) n.pins.push(pin(p.name, 'Input', p.type, { dv: values[p.name] ?? p.dv ?? '', ...(p.type.container !== 'None' ? { ref: true, const: true } : {}) }));
   return n;
+}
+
+/** Диспетчеры BP нельзя создать вставкой текста (подтверждено пользователем 2026-09-30):
+ *  ноды, ссылающиеся на диспетчер BP, несут пузырь с тем, что надо создать вручную.
+ *  params: [{name, type}] — входы диспетчера (они же выходы у привязанного события). */
+export function dispatcherBubble(name, params = []) {
+  const tn = (t) => typeof t === 'string' ? t : (t.classPath ? t.classPath.split('.').pop() : t.cat === 'real' ? 'float' : t.sub || (t.subObj ? t.subObj.replace(/['"]/g, '').split('.').pop() : t.cat)) + (t.container === 'Array' ? '[]' : '');
+  const sig = params.length ? params.map(p => `${p.name}: ${tn(p.type)}`).join(', ') : 'без параметров';
+  return `Создайте в BP диспетчер ${name} (${sig}), иначе нода с ошибкой`;
 }
 
 /** Bind / Unbind / Unbind all для мультикаст-делегата класса. key "Класс.Делегат" (Класс: Actor | /Script/Mod.Cls | /Game/BP). */
@@ -124,6 +167,7 @@ export function createDelegateNode(kind, key, { sig, params } = {}, pos) {
   n.rawProps = [`DelegateReference=(MemberParent=${classRef(owner)},MemberName="${dname}")`];
   n.pins.push(mkPin('execute', 'Input', 'exec'), mkPin('then', 'Output', 'exec'), mkPin('self', 'Input', 'object', { subObj: classRef(owner) }));
   if (kind !== 'clear') n.pins.push(mkPin('Delegate', 'Input', 'delegate', { memberRef: d.memberRef }));
+  if (owner.startsWith('/Game/')) n.bubble = dispatcherBubble(dname, d.params || []);
   return n;
 }
 
@@ -158,6 +202,19 @@ export function createFn(entry, values = {}, pos) {
 }
 
 export { createCast };
+
+/** Format Text с аргументами: createFormatText('HP: {Health} / {Max}', { Health: 'double', Max: 'double' }).
+ *  Пины аргументов пишутся сразу с типом источника (без типа — wildcard, движок уточнит при подключении).
+ *  PinNames(i) — список аргументов K2Node_FormatText. ⚠ аргументы ждут подтверждения вставкой. */
+export function createFormatText(format, types = {}, pos) {
+  const n = node('K2Node_FormatText', pos);
+  n.title = 'Format Text';
+  const args = [...new Set([...format.matchAll(/\{([A-Za-z0-9_]+)\}/g)].map(m => m[1]))];
+  n.rawProps = args.map((a, i) => `PinNames(${i})="${a}"`);
+  n.pins.push(mkPin('Format', 'Input', 'text', { dv: format }), mkPin('Result', 'Output', 'text'));
+  for (const a of args) n.pins.push(types[a] ? pin(a, 'Input', parseType(types[a])) : mkPin(a, 'Input', 'wildcard'));
+  return n;
+}
 
 /** Create Widget (UMGEditor.K2Node_CreateWidget). wbp: /Game/UI/WBP_X или null (класс выбрать в движке). */
 export function createWidget(wbp, pos) {
@@ -200,6 +257,25 @@ export function createSelfVar(kind, name, type, value = '', { bp = '', guid = ''
   if (kind === 'set') n.pins.push(mkPin('execute', 'Input', 'exec'), mkPin('then', 'Output', 'exec'), pin(name, 'Input', ty, { dv: value }), pin('Output_Get', 'Output', ty));
   else n.pins.push(pin(name, 'Output', ty));
   n.pins.push(mkPin('self', 'Input', 'object', { hidden: true }));
+  return n;
+}
+
+/** R50 copy-back: Set переменной с RepNotify в тексте ТАКОЙ ЖЕ, как обычный Set своей переменной. Подпись «w/ Notify»
+ *  движок берёт из флагов самой переменной, а функцию OnRep_<name> создаёт сам. Переменную нельзя вставить текстом,
+ *  как и диспетчер, поэтому на ноде висит пузырь с инструкцией. rep: 'notify' | 'replicated'. */
+export function createReplicatedVarSet(name, type, value = '', { rep = 'notify', ...o } = {}, pos) {
+  const n = createSelfVar('set', name, type, value, o, pos);
+  // порядок пинов как в copy-back: exec, exec, значение, self, Output_Get
+  const i = n.pins.findIndex(q => q.name === 'self'); const [self] = n.pins.splice(i, 1); n.pins.splice(3, 0, self);
+  const zero = { float: '0.0', double: '0.0', int: '0', bool: 'false' }[type];
+  if (zero != null) for (const q of n.pins.filter(q => q.name === name || q.name === 'Output_Get')) {
+    if (q.name === name && !q.defaultValue) q.defaultValue = zero;
+    if (q.name === 'Output_Get') q.defaultValue = zero;
+    q.autoFixed = zero;
+  }
+  n.bubble = rep === 'notify'
+    ? `Создайте переменную ${name} (${type}), Replication = RepNotify: движок сам добавит функцию OnRep_${name}`
+    : `Создайте переменную ${name} (${type}), Replication = Replicated`;
   return n;
 }
 
@@ -248,11 +324,18 @@ export function createInputActionEvent(ia, type = 'bool', pos) {
   const n = node('K2Node_EnhancedInputAction', pos);
   n.rawClass = '/Script/InputBlueprintNodes.K2Node_EnhancedInputAction'; n.className = 'InputBlueprintNodes.K2Node_EnhancedInputAction';
   n.title = `EnhancedInputAction ${assetPath(ia).split('.').pop()}`;
-  n.rawProps = [iaProp(ia)];
-  for (const e of ['Triggered', 'Started', 'Ongoing', 'Canceled', 'Completed']) n.pins.push(mkPin(e, 'Output', 'exec'));
+  // R33 copy-back (IA_Look, 2026-09-30): AdvancedPinDisplay=Hidden; видим только Triggered и ActionValue,
+  // Started/Ongoing/Canceled/Completed/ElapsedSeconds/TriggeredSeconds/InputAction — advanced;
+  // секунды — real/double; последний выход InputAction (object) с дефолтом = сам ассет.
+  n.rawProps = [iaProp(ia), 'AdvancedPinDisplay=Hidden'];
+  for (const e of ['Triggered', 'Started', 'Ongoing', 'Canceled', 'Completed'])
+    n.pins.push(mkPin(e, 'Output', 'exec', { advanced: e !== 'Triggered' }));
+  const path = assetPath(ia, 'InputAction');
   n.pins.push(pin('ActionValue', 'Output', iaType(type)),
-    mkPin('ElapsedSeconds', 'Output', 'real', { sub: 'float', advanced: true }),
-    mkPin('TriggeredSeconds', 'Output', 'real', { sub: 'float', advanced: true }));
+    mkPin('ElapsedSeconds', 'Output', 'real', { sub: 'double', advanced: true }),
+    mkPin('TriggeredSeconds', 'Output', 'real', { sub: 'double', advanced: true }),
+    mkPin('InputAction', 'Output', 'object', { subObj: `"/Script/CoreUObject.Class'/Script/EnhancedInput.InputAction'"`,
+      advanced: true, dv: path.split('.').pop(), defObj: path }));
   return n;
 }
 
@@ -262,7 +345,49 @@ export function createInputActionValue(ia, type = 'vector2d', pos) {
   n.rawClass = '/Script/InputBlueprintNodes.K2Node_GetInputActionValue'; n.className = 'InputBlueprintNodes.K2Node_GetInputActionValue';
   n.title = `Get ${assetPath(ia).split('.').pop()}`;
   n.rawProps = [iaProp(ia)];
-  n.pins.push(pin('ActionValue', 'Output', iaType(type)));
+  // R33 copy-back: выход называется ReturnValue (не ActionValue)
+  n.pins.push(pin('ReturnValue', 'Output', iaType(type)));
+  return n;
+}
+
+/* ---------------- добавление компонентов (R35 copy-back, 2026-09-30) ----------------
+ * createAddComponentByClass() — K2Node_AddComponentByClass: класс выбирается пином Class (или проводом).
+ *   Подтверждён вариант БЕЗ выбранного класса: bManualAttachment и RelativeTransform скрыты, ReturnValue = ActorComponent.
+ *   Если класс задан — пишем его дефолтом пина Class и типом ReturnValue, оба пина раскрываем (движок перестроит
+ *   при вставке; этот вариант copy-back'ом ещё не сверен).
+ * createAddComponent(cls, bp) — K2Node_AddComponent («Add Static Mesh Component» и т.п.): тип зашит в узел
+ *   (TemplateType), шаблон компонента живёт в самом BP (TemplateBlueprint + TemplateName «NODE_Add<Класс>-<n>»).
+ *   Вне того BP ссылка на шаблон не существует — для переносимых сниппетов предпочтительнее AddComponentByClass. */
+export function createAddComponentByClass(cls = '', pos) {
+  const n = node('K2Node_AddComponentByClass', pos);
+  n.title = 'Add Component by Class';
+  const actor = classRef('Actor'), base = classRef('ActorComponent');
+  const c = cls ? normalizeClassPath(cls) : '';
+  n.pins.push(mkPin('execute', 'Input', 'exec'),
+    mkPin('self', 'Input', 'object', { subObj: actor }),
+    mkPin('then', 'Output', 'exec'),
+    mkPin('Class', 'Input', 'class', { subObj: base, ...(c ? { defObj: c } : {}) }),
+    mkPin('ReturnValue', 'Output', 'object', { subObj: c ? classRef(c) : base }),
+    mkPin('bManualAttachment', 'Input', 'bool', { hidden: !c, ...(c ? { dv: 'false', auto: 'false' } : {}) }),
+    mkPin('RelativeTransform', 'Input', 'struct', { subObj: UE_STRUCTS.Transform, hidden: !c }));
+  return n;
+}
+
+export function createAddComponent(cls, bp, index = 0, pos) {
+  const n = node('K2Node_AddComponent', pos);
+  const c = normalizeClassPath(cls), short = c.split('.').pop().replace(/_C$/, '');
+  const bpPath = assetPath(bp);
+  n.title = `Add ${short}`;
+  n.rawProps = [`TemplateBlueprint="${bpPath}"`, `TemplateType=${classRef(c)}`, 'FunctionReference=(MemberName="AddComponent",bSelfContext=True)'];
+  n.pins.push(mkPin('execute', 'Input', 'exec'),
+    mkPin('then', 'Output', 'exec'),
+    mkPin('self', 'Input', 'object', { subObj: classRef('Actor') }),
+    mkPin('TemplateName', 'Input', 'name', { dv: `NODE_Add${short}-${index}`, autoFixed: 'None', hidden: true, notConnectable: true, readOnly: true }),
+    mkPin('bManualAttachment', 'Input', 'bool', { dv: 'false', auto: 'false' }),
+    mkPin('RelativeTransform', 'Input', 'struct', { subObj: UE_STRUCTS.Transform, const: true, ignored: true }),
+    mkPin('ComponentTemplateContext', 'Input', 'object', { subObj: classRef('/Script/CoreUObject.Object'), const: true, hidden: true, notConnectable: true }),
+    mkPin('bDeferredFinish', 'Input', 'bool', { dv: 'false', auto: 'false', hidden: true, notConnectable: true }),
+    mkPin('ReturnValue', 'Output', 'object', { subObj: classRef(c) }));
   return n;
 }
 
@@ -290,4 +415,87 @@ export function createCall(key, words = [], { pure = false, isStatic = false } =
   }
   for (const w of outs) { const pr = parseParam(w); n.pins.push(pin(pr.name, 'Output', pr.type)); }
   return n;
+}
+
+/** Отложенные async-ноды (K2Node_AsyncAction, UBlueprintAsyncActionBase). Форма — по copy-back R49 (AsyncLoadPrimaryAsset):
+ *  ProxyFactoryFunctionName/ProxyFactoryClass/ProxyClass + execute/then + exec-выходы делегатов + их параметры + входы фабрики.
+ *  createAsyncAction({ proxy: '/Script/Engine.AsyncActionHandleSaveGame', factory: 'AsyncSaveGameToSlot',
+ *    inputs: ['SaveGameObject:object:SaveGame', 'SlotName:string', 'UserIndex:int'], events: ['Completed'], outputs: ['SaveGame:object:SaveGame', 'bSuccess:bool'] }) */
+// R61: online = true → K2Node_LatentOnlineCall (OnlineBlueprintSupport): Create/Find/Join/DestroySession и пр. CallbackProxy онлайн-подсистемы.
+export function createAsyncAction({ proxy, factory, factoryClass = proxy, inputs = [], events = ['Completed'], outputs = [], online = false }, pos) {
+  const n = node('K2Node_AsyncAction', pos);
+  if (online) { n.rawClass = '/Script/OnlineBlueprintSupport.K2Node_LatentOnlineCall'; n.className = 'OnlineBlueprintSupport.K2Node_LatentOnlineCall'; n.id = n.id.replace('K2Node_AsyncAction', 'K2Node_LatentOnlineCall'); }
+  n.title = factory;
+  n.rawProps = [`ProxyFactoryFunctionName="${factory}"`, `ProxyFactoryClass="/Script/CoreUObject.Class'${factoryClass}'"`, `ProxyClass="/Script/CoreUObject.Class'${proxy}'"`];
+  n.pins.push(mkPin('execute', 'Input', 'exec'), mkPin('then', 'Output', 'exec'));
+  for (const e of events) n.pins.push(mkPin(e, 'Output', 'exec'));
+  for (const w of outputs) { const pr = parseParam(w); n.pins.push(pin(pr.name, 'Output', pr.type)); }
+  n.pins.push(mkPin('WorldContextObject', 'Input', 'object', { subObj: classRef('/Script/CoreUObject.Object') }));
+  for (const w of inputs) { const pr = parseParam(w); n.pins.push(pin(pr.name, 'Input', pr.type, { dv: pr.dv })); }
+  return n;
+}
+
+/** R60: типизированные Make Array / Make Set / Make Map со значениями.
+ *  createMakeContainer('array', 'int', [1,2,3]) · ('set', 'name', ['A','B']) · ('map', ['name','vector'], [['Spawn',[0,0,100]], ...]).
+ *  Значения — formatValue (src/values.js): числа, bool, [x,y,z] для Vector/Rotator, [r,g,b,a] LinearColor, {loc,rot,scale} Transform, готовые строки UE. */
+export function createMakeContainer(kind, type, values = [], pos) {
+  const P = (x) => typeof x === 'string' ? parseType(x) : x;
+  const tname = (x) => typeof x === 'string' ? x : (x.cat === 'struct' ? String(x.subObj).replace(/.*\.(\w+)'"?$/, '$1') : x.cat);
+  const cls = { array: 'K2Node_MakeArray', set: 'K2Node_MakeSet', map: 'K2Node_MakeMap' }[kind];
+  if (!cls) throw new Error(`createMakeContainer: array | set | map`);
+  const n = node(cls, pos);
+  const N = Math.max(1, values.length);
+  n.rawProps = [`NumInputs=${N}`];
+  const val = (ty, v) => { const f = formatValue(ty, v); return { ...(f.dv !== undefined ? { dv: f.dv } : {}), ...(f.defObj ? { defObj: f.defObj } : {}) }; };
+  if (kind === 'map') {
+    const [kt, vt] = type.map(P);
+    n.title = `Make Map (${type.map(tname).join(' → ')})`;
+    for (let i = 0; i < N; i++) {
+      const [k, v] = values[i] ?? [];
+      n.pins.push(pin(`Key ${i}`, 'Input', kt, val(kt, k)), pin(`Value ${i}`, 'Input', vt, val(vt, v)));
+    }
+    n.pins.push(pin('Map', 'Output', { ...kt, container: 'Map', valueType: { cat: vt.cat, sub: vt.sub, subObj: vt.subObj ? (vt.subObj.startsWith('"') ? vt.subObj : `"${vt.subObj}"`) : '' } }));
+  } else {
+    const t = P(type);
+    n.title = `Make ${kind === 'array' ? 'Array' : 'Set'} (${tname(type)})`;
+    for (let i = 0; i < N; i++) {
+      // R60 вердикт: значение целого Transform-пина движок теряет (пин «контейнер контейнеров»). Значения держатся только
+      // в разбитом виде (Split Struct Pin): родитель скрыт + SubPins, дети Location/Rotation/Scale с ParentPin (copy-back r60-transform-split).
+      if (/\.Transform'/.test(t.subObj) && values[i] !== undefined) n.pins.push(...splitTransformPin(`[${i}]`, `[ ${i}]`, values[i]));
+      else n.pins.push(pin(`[${i}]`, 'Input', t, val(t, values[i])));
+    }
+    n.pins.push(pin(kind === 'array' ? 'Array' : 'Set', 'Output', { ...t, container: kind === 'array' ? 'Array' : 'Set' }));
+  }
+  return n;
+}
+
+/** R60: Transform-вход в разбитом виде (Split Struct Pin) — единственный способ сохранить значение. v: {loc,rot,scale}. */
+export function splitTransformPin(name, display, v = {}) {
+  const T = parseType('transform'), V = parseType('vector'), R = parseType('rotator');
+  const { loc = [0, 0, 0], rot = [0, 0, 0], scale = [1, 1, 1] } = v;
+  const fr = (proto) => `LOCGEN_FORMAT_NAMED(NSLOCTEXT("KismetSchema", "SplitPinFriendlyNameFormat", "{PinDisplayName} {ProtoPinDisplayName}"), "PinDisplayName", INVTEXT("${display}"), "ProtoPinDisplayName", INVTEXT("${proto}"))`;
+  const parent = pin(name, 'Input', T, { dv: formatValue(T, v).dv, hidden: true });
+  const kids = [['Location', V, loc, '0, 0, 0'], ['Rotation', R, rot, '0, 0, 0'], ['Scale', V, scale, '1.000000,1.000000,1.000000']].map(([k, ty, val, auto]) => {
+    const c = pin(`${name}_${k}`, 'Input', ty, { dv: formatValue(ty, val).dv, autoFixed: auto });
+    c.friendlyRaw = fr(k); c.parentPin = parent.id; return c;
+  });
+  parent.subPins = kids.map(c => c.id);
+  return [parent, ...kids];
+}
+
+/** R63: Make Array/Set/Map под вход-контейнер target.pinName — тип элементов (и значения словаря) берётся из самого пина.
+ *  Ноду НЕ подключает (генератор не соединяет): связь — linkPins(make, make.outPin, target, pinName) в сценарии.
+ *  values: как у createMakeContainer (для map — [[k,v],...]). */
+export function createContainerFor(target, pinName, values = [], pos) {
+  const p = target.pins.find(q => q.name === pinName && q.direction === 'Input');
+  if (!p) throw new Error(`createContainerFor: нет входа ${pinName} у ${target.id}`);
+  if (!p.container || p.container === 'None') throw new Error(`createContainerFor: ${pinName} не контейнер`);
+  const elem = { cat: p.category, sub: p.subCategory || '', subObj: p.subCategoryObject || '', container: 'None' };
+  let make;
+  if (p.container === 'Map') {
+    const v = typeof p.valueType === 'string' ? { cat: p.valueType, sub: '', subObj: '' } : p.valueType;
+    make = createMakeContainer('map', [elem, { cat: v.cat, sub: v.sub || '', subObj: v.subObj || '', container: 'None' }], values, pos);
+  } else make = createMakeContainer(p.container === 'Set' ? 'set' : 'array', elem, values, pos);
+  make.outPin = p.container === 'Map' ? 'Map' : p.container === 'Set' ? 'Set' : 'Array';
+  return make;
 }

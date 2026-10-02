@@ -1,6 +1,5 @@
 // src/ue-types.js — единый источник правды для путей движка UE.
 // Используют: src/generator.js, src/parser.js, src/validate.js, docs, prompt.
-// ВАЖНО: дублируется мини-копией в index.html
 // (UE_VERSION/UE_LIBS/UE_STRUCTS/UE_ENUMS/classRef/macroRefs) — при изменении синхронизируй оба места.
 //
 // v6: движок-цель — UE 5.8.0-55116800 (точная строка версии от пользователя, 2026-09-25).
@@ -40,6 +39,112 @@ const LIBS_FULL = {
   EnhancedInputLibrary: `"/Script/CoreUObject.Class'/Script/EnhancedInput.EnhancedInputLibrary'"`, // round28-pre: Conv_/Break/Make InputActionValue
   PrimitiveComponent: `"/Script/CoreUObject.Class'/Script/Engine.PrimitiveComponent'"`, // round29-pre
   ActorComponent: `"/Script/CoreUObject.Class'/Script/Engine.ActorComponent'"`, // round29-pre
+  DataTableFunctionLibrary: `"/Script/CoreUObject.Class'/Script/Engine.DataTableFunctionLibrary'"`, // R37 (R36 VERIFIED)
+  AIBlueprintHelperLibrary: `"/Script/CoreUObject.Class'/Script/AIModule.AIBlueprintHelperLibrary'"`,
+  LevelSequencePlayer: `"/Script/CoreUObject.Class'/Script/LevelSequence.LevelSequencePlayer'"`, // R58 VERIFIED
+  LevelSequenceActor: `"/Script/CoreUObject.Class'/Script/LevelSequence.LevelSequenceActor'"`, // R58 VERIFIED
+  MovieSceneSequencePlayer: `"/Script/CoreUObject.Class'/Script/MovieScene.MovieSceneSequencePlayer'"`, // R58 VERIFIED
+  InstancedStaticMeshComponent: `"/Script/CoreUObject.Class'/Script/Engine.InstancedStaticMeshComponent'"`, // R65
+  ProjectileMovementComponent: `"/Script/CoreUObject.Class'/Script/Engine.ProjectileMovementComponent'"`, // R65
+  TextRenderComponent: `"/Script/CoreUObject.Class'/Script/Engine.TextRenderComponent'"`, // R65
+  WidgetComponent: `"/Script/CoreUObject.Class'/Script/UMG.WidgetComponent'"`, // R65
+  SphereComponent: `"/Script/CoreUObject.Class'/Script/Engine.SphereComponent'"`, // R65
+  BoxComponent: `"/Script/CoreUObject.Class'/Script/Engine.BoxComponent'"`, // R65
+  KismetRenderingLibrary: `"/Script/CoreUObject.Class'/Script/Engine.KismetRenderingLibrary'"`, // R65
+  SplineMeshComponent: `"/Script/CoreUObject.Class'/Script/Engine.SplineMeshComponent'"`, // R66
+  TimelineComponent: `"/Script/CoreUObject.Class'/Script/Engine.TimelineComponent'"`, // R66
+  KismetAnimationLibrary: `"/Script/CoreUObject.Class'/Script/AnimGraphRuntime.KismetAnimationLibrary'"`, // R64
+  EnhancedInputLocalPlayerSubsystem: `"/Script/CoreUObject.Class'/Script/EnhancedInput.EnhancedInputLocalPlayerSubsystem'"`, // R64
+  EditableText: `"/Script/CoreUObject.Class'/Script/UMG.EditableText'"`, // R64
+  VerticalBox: `"/Script/CoreUObject.Class'/Script/UMG.VerticalBox'"`, // R64
+  HorizontalBox: `"/Script/CoreUObject.Class'/Script/UMG.HorizontalBox'"`, // R64
+  CanvasPanel: `"/Script/CoreUObject.Class'/Script/UMG.CanvasPanel'"`, // R64
+  RichTextBlock: `"/Script/CoreUObject.Class'/Script/UMG.RichTextBlock'"`, // R64
+  FindSessionsCallbackProxy: `"/Script/CoreUObject.Class'/Script/OnlineSubsystemUtils.FindSessionsCallbackProxy'"`, // R61
+  AbilitySystemBlueprintLibrary: `"/Script/CoreUObject.Class'/Script/GameplayAbilities.AbilitySystemBlueprintLibrary'"`, // R61
+  AbilitySystemComponent: `"/Script/CoreUObject.Class'/Script/GameplayAbilities.AbilitySystemComponent'"`, // R61
+  CancellableAsyncAction: `"/Script/CoreUObject.Class'/Script/Engine.CancellableAsyncAction'"`, // R56 copy-back
+  WidgetSwitcher: `"/Script/CoreUObject.Class'/Script/UMG.WidgetSwitcher'"`, // R54 проба
+  ListView: `"/Script/CoreUObject.Class'/Script/UMG.ListView'"`, // R54 проба
+  Border: `"/Script/CoreUObject.Class'/Script/UMG.Border'"`, // R54 проба
+  GameUserSettings: `"/Script/CoreUObject.Class'/Script/Engine.GameUserSettings'"`, // R54 проба
+  AIPerceptionComponent: `"/Script/CoreUObject.Class'/Script/AIModule.AIPerceptionComponent'"`, // R53 проба
+  AIPerceptionStimuliSourceComponent: `"/Script/CoreUObject.Class'/Script/AIModule.AIPerceptionStimuliSourceComponent'"`, // R53 проба
+  AISense_Hearing: `"/Script/CoreUObject.Class'/Script/AIModule.AISense_Hearing'"`, // R53 проба
+  AISense_Damage: `"/Script/CoreUObject.Class'/Script/AIModule.AISense_Damage'"`, // R53 проба
+  AIPerceptionSystem: `"/Script/CoreUObject.Class'/Script/AIModule.AIPerceptionSystem'"`, // R53 проба // R37 (R36 VERIFIED)
+  AIController: `"/Script/CoreUObject.Class'/Script/AIModule.AIController'"`, // R37 (R36 VERIFIED)
+  BlackboardComponent: `"/Script/CoreUObject.Class'/Script/AIModule.BlackboardComponent'"`, // R37 (R36 VERIFIED)
+  SkeletalMeshComponent: `"/Script/CoreUObject.Class'/Script/Engine.SkeletalMeshComponent'"`, // R37 (R36 VERIFIED)
+  AnimInstance: `"/Script/CoreUObject.Class'/Script/Engine.AnimInstance'"`, // R37 (R36 VERIFIED)
+  MaterialInstanceDynamic: `"/Script/CoreUObject.Class'/Script/Engine.MaterialInstanceDynamic'"`, // R37 (R36 VERIFIED)
+  KismetMaterialLibrary: `"/Script/CoreUObject.Class'/Script/Engine.KismetMaterialLibrary'"`, // R37 (R36 VERIFIED)
+  NiagaraFunctionLibrary: `"/Script/CoreUObject.Class'/Script/Niagara.NiagaraFunctionLibrary'"`, // R37 (R36 VERIFIED)
+  NiagaraComponent: `"/Script/CoreUObject.Class'/Script/Niagara.NiagaraComponent'"`, // R37 (R36 VERIFIED)
+  PlayerCameraManager: `"/Script/CoreUObject.Class'/Script/Engine.PlayerCameraManager'"`, // R37 (R36 VERIFIED)
+  BlueprintGameplayTagLibrary: `"/Script/CoreUObject.Class'/Script/GameplayTags.BlueprintGameplayTagLibrary'"`, // R37 (R36 VERIFIED)
+  TextBlock: `"/Script/CoreUObject.Class'/Script/UMG.TextBlock'"`, // R38 VERIFIED
+  ProgressBar: `"/Script/CoreUObject.Class'/Script/UMG.ProgressBar'"`, // R38 VERIFIED
+  StaticMeshComponent: `"/Script/CoreUObject.Class'/Script/Engine.StaticMeshComponent'"`, // R38 VERIFIED
+  CameraComponent: `"/Script/CoreUObject.Class'/Script/Engine.CameraComponent'"`, // R38 VERIFIED
+  LightComponent: `"/Script/CoreUObject.Class'/Script/Engine.LightComponent'"`, // R38 VERIFIED
+  AudioComponent: `"/Script/CoreUObject.Class'/Script/Engine.AudioComponent'"`, // R38 VERIFIED
+  Image: `"/Script/CoreUObject.Class'/Script/UMG.Image'"`, // R39 VERIFIED
+  MovementComponent: `"/Script/CoreUObject.Class'/Script/Engine.MovementComponent'"`, // R39 VERIFIED
+  CharacterMovementComponent: `"/Script/CoreUObject.Class'/Script/Engine.CharacterMovementComponent'"`, // R41 VERIFIED
+  NavigationSystemV1: `"/Script/CoreUObject.Class'/Script/NavigationSystem.NavigationSystemV1'"`, // R41 VERIFIED
+  CapsuleComponent: `"/Script/CoreUObject.Class'/Script/Engine.CapsuleComponent'"`, // R43 VERIFIED
+  SkinnedMeshComponent: `"/Script/CoreUObject.Class'/Script/Engine.SkinnedMeshComponent'"`, // R43 VERIFIED
+  SpringArmComponent: `"/Script/CoreUObject.Class'/Script/Engine.SpringArmComponent'"`, // R44 VERIFIED
+  SplineComponent: `"/Script/CoreUObject.Class'/Script/Engine.SplineComponent'"`, // R44 VERIFIED
+  CurveLinearColor: `"/Script/CoreUObject.Class'/Script/Engine.CurveLinearColor'"`, // R48 VERIFIED
+  CurveVector: `"/Script/CoreUObject.Class'/Script/Engine.CurveVector'"`, // R48 VERIFIED
+  CurveFloat: `"/Script/CoreUObject.Class'/Script/Engine.CurveFloat'"`, // R48 VERIFIED
+  Button: `"/Script/CoreUObject.Class'/Script/UMG.Button'"`, // R47 VERIFIED
+  EditableTextBox: `"/Script/CoreUObject.Class'/Script/UMG.EditableTextBox'"`, // R47 VERIFIED
+  HUD: `"/Script/CoreUObject.Class'/Script/Engine.HUD'"`, // R47 VERIFIED
+  GameStateBase: `"/Script/CoreUObject.Class'/Script/Engine.GameStateBase'"`, // R47 VERIFIED
+  GameModeBase: `"/Script/CoreUObject.Class'/Script/Engine.GameModeBase'"`, // R47 VERIFIED
+  GameMode: `"/Script/CoreUObject.Class'/Script/Engine.GameMode'"`, // confirmed R50
+  NavigationPath: `"/Script/CoreUObject.Class'/Script/NavigationSystem.NavigationPath'"`, // R47 VERIFIED
+  KismetInputLibrary: `"/Script/CoreUObject.Class'/Script/Engine.KismetInputLibrary'"`, // R46 VERIFIED
+  PlayerState: `"/Script/CoreUObject.Class'/Script/Engine.PlayerState'"`, // R46 VERIFIED
+  TextLayoutWidget: `"/Script/CoreUObject.Class'/Script/UMG.TextLayoutWidget'"`, // R45 VERIFIED
+  CanvasPanelSlot: `"/Script/CoreUObject.Class'/Script/UMG.CanvasPanelSlot'"`, // R45 VERIFIED
+  WidgetLayoutLibrary: `"/Script/CoreUObject.Class'/Script/UMG.WidgetLayoutLibrary'"`, // R45 VERIFIED
+  PanelWidget: `"/Script/CoreUObject.Class'/Script/UMG.PanelWidget'"`, // R45 VERIFIED
+  ScrollBox: `"/Script/CoreUObject.Class'/Script/UMG.ScrollBox'"`, // R45 VERIFIED
+  ComboBoxString: `"/Script/CoreUObject.Class'/Script/UMG.ComboBoxString'"`, // R45 VERIFIED
+  CheckBox: `"/Script/CoreUObject.Class'/Script/UMG.CheckBox'"`, // R45 VERIFIED
+  BlueprintSetLibrary: `"/Script/CoreUObject.Class'/Script/Engine.BlueprintSetLibrary'"`, // R45 VERIFIED
+  BlueprintMapLibrary: `"/Script/CoreUObject.Class'/Script/Engine.BlueprintMapLibrary'"`, // R45 VERIFIED
+  PhysicsHandleComponent: `"/Script/CoreUObject.Class'/Script/Engine.PhysicsHandleComponent'"`, // R45 VERIFIED
+  PhysicsConstraintComponent: `"/Script/CoreUObject.Class'/Script/Engine.PhysicsConstraintComponent'"`, // R45 VERIFIED
+  RadialForceComponent: `"/Script/CoreUObject.Class'/Script/Engine.RadialForceComponent'"`, // R45 VERIFIED
+  LevelStreaming: `"/Script/CoreUObject.Class'/Script/Engine.LevelStreaming'"`, // R67
+  ChaosVehicleMovementComponent: `"/Script/CoreUObject.Class'/Script/ChaosVehicles.ChaosVehicleMovementComponent'"`, // R68
+  ChaosWheeledVehicleMovementComponent: `"/Script/CoreUObject.Class'/Script/ChaosVehicles.ChaosWheeledVehicleMovementComponent'"`, // R68b
+  AudioParameterControllerInterface: `"/Script/CoreUObject.Class'/Script/AudioExtensions.AudioParameterControllerInterface'"`, // R69
+  GeometryCollectionComponent: `"/Script/CoreUObject.Class'/Script/GeometryCollectionEngine.GeometryCollectionComponent'"`, // R69
+  ControlRigComponent: `"/Script/CoreUObject.Class'/Script/ControlRig.ControlRigComponent'"`, // R69
+  CommonActivatableWidget: `"/Script/CoreUObject.Class'/Script/CommonUI.CommonActivatableWidget'"`, // R69
+  CommonButtonBase: `"/Script/CoreUObject.Class'/Script/CommonUI.CommonButtonBase'"`, // R69
+  GameplayAbility: `"/Script/CoreUObject.Class'/Script/GameplayAbilities.GameplayAbility'"`, // R70
+  MotionWarpingComponent: `"/Script/CoreUObject.Class'/Script/MotionWarping.MotionWarpingComponent'"`, // R70
+  EnhancedInputUserSettings: `"/Script/CoreUObject.Class'/Script/EnhancedInput.EnhancedInputUserSettings'"`, // R71
+  WaterBody: `"/Script/CoreUObject.Class'/Script/Water.WaterBody'"`, // R71
+  BuoyancyComponent: `"/Script/CoreUObject.Class'/Script/Water.BuoyancyComponent'"`, // R71
+  MediaPlayer: `"/Script/CoreUObject.Class'/Script/MediaAssets.MediaPlayer'"`, // R72
+  CineCameraComponent: `"/Script/CoreUObject.Class'/Script/CinematicCamera.CineCameraComponent'"`, // R72
+  StateTreeComponent: `"/Script/CoreUObject.Class'/Script/GameplayStateTreeModule.StateTreeComponent'"`, // R72
+  BrainComponent: `"/Script/CoreUObject.Class'/Script/AIModule.BrainComponent'"`, // R72b
+  LightComponentBase: `"/Script/CoreUObject.Class'/Script/Engine.LightComponentBase'"`, // R45 VERIFIED
+  SpotLightComponent: `"/Script/CoreUObject.Class'/Script/Engine.SpotLightComponent'"`, // R45 VERIFIED
+  PointLightComponent: `"/Script/CoreUObject.Class'/Script/Engine.PointLightComponent'"`, // R45 VERIFIED
+  LocalLightComponent: `"/Script/CoreUObject.Class'/Script/Engine.LocalLightComponent'"`, // R45 VERIFIED
+  DecalComponent: `"/Script/CoreUObject.Class'/Script/Engine.DecalComponent'"`, // R45 VERIFIED
+  MeshComponent: `"/Script/CoreUObject.Class'/Script/Engine.MeshComponent'"`, // R45 VERIFIED
+  Slider: `"/Script/CoreUObject.Class'/Script/UMG.Slider'"`, // R41 VERIFIED
 };
 const LIBS_SHORT = {
   KismetMathLibrary:   `Class'"/Script/Engine.KismetMathLibrary"'`,
@@ -62,6 +167,112 @@ const LIBS_SHORT = {
   EnhancedInputLibrary: `Class'"/Script/EnhancedInput.EnhancedInputLibrary"'`,
   PrimitiveComponent: `Class'"/Script/Engine.PrimitiveComponent"'`,
   ActorComponent: `Class'"/Script/Engine.ActorComponent"'`,
+  DataTableFunctionLibrary: `Class'"/Script/Engine.DataTableFunctionLibrary"'`,
+  AIBlueprintHelperLibrary: `Class'"/Script/AIModule.AIBlueprintHelperLibrary"'`,
+  LevelSequencePlayer: `Class'"/Script/LevelSequence.LevelSequencePlayer"'`,
+  LevelSequenceActor: `Class'"/Script/LevelSequence.LevelSequenceActor"'`,
+  MovieSceneSequencePlayer: `Class'"/Script/MovieScene.MovieSceneSequencePlayer"'`,
+  InstancedStaticMeshComponent: `Class'"/Script/Engine.InstancedStaticMeshComponent"'`,
+  ProjectileMovementComponent: `Class'"/Script/Engine.ProjectileMovementComponent"'`,
+  TextRenderComponent: `Class'"/Script/Engine.TextRenderComponent"'`,
+  WidgetComponent: `Class'"/Script/UMG.WidgetComponent"'`,
+  SphereComponent: `Class'"/Script/Engine.SphereComponent"'`,
+  BoxComponent: `Class'"/Script/Engine.BoxComponent"'`,
+  KismetRenderingLibrary: `Class'"/Script/Engine.KismetRenderingLibrary"'`,
+  SplineMeshComponent: `Class'"/Script/Engine.SplineMeshComponent"'`,
+  TimelineComponent: `Class'"/Script/Engine.TimelineComponent"'`,
+  KismetAnimationLibrary: `Class'"/Script/AnimGraphRuntime.KismetAnimationLibrary"'`,
+  EnhancedInputLocalPlayerSubsystem: `Class'"/Script/EnhancedInput.EnhancedInputLocalPlayerSubsystem"'`,
+  EditableText: `Class'"/Script/UMG.EditableText"'`,
+  VerticalBox: `Class'"/Script/UMG.VerticalBox"'`,
+  HorizontalBox: `Class'"/Script/UMG.HorizontalBox"'`,
+  CanvasPanel: `Class'"/Script/UMG.CanvasPanel"'`,
+  RichTextBlock: `Class'"/Script/UMG.RichTextBlock"'`,
+  FindSessionsCallbackProxy: `Class'"/Script/OnlineSubsystemUtils.FindSessionsCallbackProxy"'`,
+  AbilitySystemBlueprintLibrary: `Class'"/Script/GameplayAbilities.AbilitySystemBlueprintLibrary"'`,
+  AbilitySystemComponent: `Class'"/Script/GameplayAbilities.AbilitySystemComponent"'`,
+  CancellableAsyncAction: `Class'"/Script/Engine.CancellableAsyncAction"'`,
+  WidgetSwitcher: `Class'"/Script/UMG.WidgetSwitcher"'`,
+  ListView: `Class'"/Script/UMG.ListView"'`,
+  Border: `Class'"/Script/UMG.Border"'`,
+  GameUserSettings: `Class'"/Script/Engine.GameUserSettings"'`,
+  AIPerceptionComponent: `Class'"/Script/AIModule.AIPerceptionComponent"'`,
+  AIPerceptionStimuliSourceComponent: `Class'"/Script/AIModule.AIPerceptionStimuliSourceComponent"'`,
+  AISense_Hearing: `Class'"/Script/AIModule.AISense_Hearing"'`,
+  AISense_Damage: `Class'"/Script/AIModule.AISense_Damage"'`,
+  AIPerceptionSystem: `Class'"/Script/AIModule.AIPerceptionSystem"'`,
+  AIController: `Class'"/Script/AIModule.AIController"'`,
+  BlackboardComponent: `Class'"/Script/AIModule.BlackboardComponent"'`,
+  SkeletalMeshComponent: `Class'"/Script/Engine.SkeletalMeshComponent"'`,
+  AnimInstance: `Class'"/Script/Engine.AnimInstance"'`,
+  MaterialInstanceDynamic: `Class'"/Script/Engine.MaterialInstanceDynamic"'`,
+  KismetMaterialLibrary: `Class'"/Script/Engine.KismetMaterialLibrary"'`,
+  NiagaraFunctionLibrary: `Class'"/Script/Niagara.NiagaraFunctionLibrary"'`,
+  NiagaraComponent: `Class'"/Script/Niagara.NiagaraComponent"'`,
+  PlayerCameraManager: `Class'"/Script/Engine.PlayerCameraManager"'`,
+  BlueprintGameplayTagLibrary: `Class'"/Script/GameplayTags.BlueprintGameplayTagLibrary"'`,
+  TextBlock: `Class'"/Script/UMG.TextBlock"'`,
+  ProgressBar: `Class'"/Script/UMG.ProgressBar"'`,
+  StaticMeshComponent: `Class'"/Script/Engine.StaticMeshComponent"'`,
+  CameraComponent: `Class'"/Script/Engine.CameraComponent"'`,
+  LightComponent: `Class'"/Script/Engine.LightComponent"'`,
+  AudioComponent: `Class'"/Script/Engine.AudioComponent"'`,
+  Image: `Class'"/Script/UMG.Image"'`,
+  MovementComponent: `Class'"/Script/Engine.MovementComponent"'`,
+  CharacterMovementComponent: `Class'"/Script/Engine.CharacterMovementComponent"'`,
+  NavigationSystemV1: `Class'"/Script/NavigationSystem.NavigationSystemV1"'`,
+  Slider: `Class'"/Script/UMG.Slider"'`,
+  CapsuleComponent: `Class'"/Script/Engine.CapsuleComponent"'`,
+  SkinnedMeshComponent: `Class'"/Script/Engine.SkinnedMeshComponent"'`,
+  SpringArmComponent: `Class'"/Script/Engine.SpringArmComponent"'`,
+  SplineComponent: `Class'"/Script/Engine.SplineComponent"'`,
+  CurveLinearColor: `Class'"/Script/Engine.CurveLinearColor"'`,
+  CurveVector: `Class'"/Script/Engine.CurveVector"'`,
+  CurveFloat: `Class'"/Script/Engine.CurveFloat"'`,
+  Button: `Class'"/Script/UMG.Button"'`,
+  EditableTextBox: `Class'"/Script/UMG.EditableTextBox"'`,
+  HUD: `Class'"/Script/Engine.HUD"'`,
+  GameStateBase: `Class'"/Script/Engine.GameStateBase"'`,
+  GameModeBase: `Class'"/Script/Engine.GameModeBase"'`,
+  GameMode: `Class'"/Script/Engine.GameMode"'`,
+  NavigationPath: `Class'"/Script/NavigationSystem.NavigationPath"'`,
+  KismetInputLibrary: `Class'"/Script/Engine.KismetInputLibrary"'`,
+  PlayerState: `Class'"/Script/Engine.PlayerState"'`,
+  MeshComponent: `Class'"/Script/Engine.MeshComponent"'`,
+  DecalComponent: `Class'"/Script/Engine.DecalComponent"'`,
+  LocalLightComponent: `Class'"/Script/Engine.LocalLightComponent"'`,
+  PointLightComponent: `Class'"/Script/Engine.PointLightComponent"'`,
+  SpotLightComponent: `Class'"/Script/Engine.SpotLightComponent"'`,
+  LightComponentBase: `Class'"/Script/Engine.LightComponentBase"'`,
+  RadialForceComponent: `Class'"/Script/Engine.RadialForceComponent"'`,
+  LevelStreaming: `Class'"/Script/Engine.LevelStreaming"'`,
+  ChaosVehicleMovementComponent: `Class'"/Script/ChaosVehicles.ChaosVehicleMovementComponent"'`,
+  ChaosWheeledVehicleMovementComponent: `Class'"/Script/ChaosVehicles.ChaosWheeledVehicleMovementComponent"'`,
+  AudioParameterControllerInterface: `Class'"/Script/AudioExtensions.AudioParameterControllerInterface"'`,
+  GeometryCollectionComponent: `Class'"/Script/GeometryCollectionEngine.GeometryCollectionComponent"'`,
+  ControlRigComponent: `Class'"/Script/ControlRig.ControlRigComponent"'`,
+  CommonActivatableWidget: `Class'"/Script/CommonUI.CommonActivatableWidget"'`,
+  CommonButtonBase: `Class'"/Script/CommonUI.CommonButtonBase"'`,
+  GameplayAbility: `Class'"/Script/GameplayAbilities.GameplayAbility"'`,
+  MotionWarpingComponent: `Class'"/Script/MotionWarping.MotionWarpingComponent"'`,
+  EnhancedInputUserSettings: `Class'"/Script/EnhancedInput.EnhancedInputUserSettings"'`,
+  WaterBody: `Class'"/Script/Water.WaterBody"'`,
+  BuoyancyComponent: `Class'"/Script/Water.BuoyancyComponent"'`,
+  MediaPlayer: `Class'"/Script/MediaAssets.MediaPlayer"'`,
+  CineCameraComponent: `Class'"/Script/CinematicCamera.CineCameraComponent"'`,
+  StateTreeComponent: `Class'"/Script/GameplayStateTreeModule.StateTreeComponent"'`,
+  BrainComponent: `Class'"/Script/AIModule.BrainComponent"'`,
+  PhysicsConstraintComponent: `Class'"/Script/Engine.PhysicsConstraintComponent"'`,
+  PhysicsHandleComponent: `Class'"/Script/Engine.PhysicsHandleComponent"'`,
+  BlueprintMapLibrary: `Class'"/Script/Engine.BlueprintMapLibrary"'`,
+  BlueprintSetLibrary: `Class'"/Script/Engine.BlueprintSetLibrary"'`,
+  CheckBox: `Class'"/Script/UMG.CheckBox"'`,
+  ComboBoxString: `Class'"/Script/UMG.ComboBoxString"'`,
+  ScrollBox: `Class'"/Script/UMG.ScrollBox"'`,
+  PanelWidget: `Class'"/Script/UMG.PanelWidget"'`,
+  WidgetLayoutLibrary: `Class'"/Script/UMG.WidgetLayoutLibrary"'`,
+  CanvasPanelSlot: `Class'"/Script/UMG.CanvasPanelSlot"'`,
+  TextLayoutWidget: `Class'"/Script/UMG.TextLayoutWidget"'`,
 };
 export const UE_LIBS = UE_VERSION === 'SHORT' ? LIBS_SHORT : LIBS_FULL;
 
@@ -70,12 +281,42 @@ const STRUCTS_FULL = {
   Vector:      `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Vector'"`,      // confirmed (copy-back LineTraceSingle, UE 5.8)
   Rotator:     `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Rotator'"`,
   Vector2D:    `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Vector2D'"`,
+  GameplayTag: `"/Script/CoreUObject.ScriptStruct'/Script/GameplayTags.GameplayTag'"`, // R36 проба
+  GameplayTagContainer: `"/Script/CoreUObject.ScriptStruct'/Script/GameplayTags.GameplayTagContainer'"`, // R36 проба
+  RandomStream: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.RandomStream'"`, // R36 проба
+  Quat:        `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Quat'"`, // R33 copy-back: Quat_IsNormalized
   Transform:   `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Transform'"`,
   LinearColor: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.LinearColor'"`, // confirmed (copy-back H1/J5)
+  MovieSceneSequencePlaybackSettings: `"/Script/CoreUObject.ScriptStruct'/Script/MovieScene.MovieSceneSequencePlaybackSettings'"`, // R58 VERIFIED
+  Color: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Color'"`, // R65
+  PrimaryAssetType: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.PrimaryAssetType'"`, // R67
+  PrimaryAssetId: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.PrimaryAssetId'"`, // R67
+  GameplayTagQuery: `"/Script/CoreUObject.ScriptStruct'/Script/GameplayTags.GameplayTagQuery'"`, // R67
+  GameplayEffectSpecHandle: `"/Script/CoreUObject.ScriptStruct'/Script/GameplayAbilities.GameplayEffectSpecHandle'"`, // R70
+  ModifyContextOptions: `"/Script/CoreUObject.ScriptStruct'/Script/EnhancedInput.ModifyContextOptions'"`, // R64
+  Anchors: `"/Script/CoreUObject.ScriptStruct'/Script/Slate.Anchors'"`, // R64
+  Geometry: `"/Script/CoreUObject.ScriptStruct'/Script/SlateCore.Geometry'"`, // R64
+  BlueprintSessionResult: `"/Script/CoreUObject.ScriptStruct'/Script/OnlineSubsystemUtils.BlueprintSessionResult'"`, // R61
+  GameplayEventData: `"/Script/CoreUObject.ScriptStruct'/Script/GameplayAbilities.GameplayEventData'"`, // R61
+  GameplayEffectContextHandle: `"/Script/CoreUObject.ScriptStruct'/Script/GameplayAbilities.GameplayEffectContextHandle'"`, // R61
+  ActiveGameplayEffectHandle: `"/Script/CoreUObject.ScriptStruct'/Script/GameplayAbilities.ActiveGameplayEffectHandle'"`, // R61
+  GameplayAbilitySpecHandle: `"/Script/CoreUObject.ScriptStruct'/Script/GameplayAbilities.GameplayAbilitySpecHandle'"`, // R61
+  GameplayAttribute: `"/Script/CoreUObject.ScriptStruct'/Script/GameplayAbilities.GameplayAttribute'"`, // R61
+  Margin: `"/Script/CoreUObject.ScriptStruct'/Script/SlateCore.Margin'"`, // R55 VERIFIED
+  SlateColor: `"/Script/CoreUObject.ScriptStruct'/Script/SlateCore.SlateColor'"`, // R55 VERIFIED
+  SlateFontInfo: `"/Script/CoreUObject.ScriptStruct'/Script/SlateCore.SlateFontInfo'"`, // R55 VERIFIED
+  SlateBrush: `"/Script/CoreUObject.ScriptStruct'/Script/SlateCore.SlateBrush'"`, // R55 VERIFIED
+  IntPoint: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.IntPoint'"`, // R55 VERIFIED
+  MaterialParameterInfo: `"/Script/CoreUObject.ScriptStruct'/Script/Engine.MaterialParameterInfo'"`, // copy-back R45b
+  WidgetTransform: `"/Script/CoreUObject.ScriptStruct'/Script/UMG.WidgetTransform'"`, // copy-back R45b
+  DateTime: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.DateTime'"`, // confirmed R48
+  Timespan: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.Timespan'"`, // confirmed R48
+  IntVector: `"/Script/CoreUObject.ScriptStruct'/Script/CoreUObject.IntVector'"`, // confirmed R50
   HitResult:   `"/Script/CoreUObject.ScriptStruct'/Script/Engine.HitResult'"`,        // confirmed (copy-back LineTraceSingle)
   Key:         `"/Script/CoreUObject.ScriptStruct'/Script/InputCore.Key'"`,
   LatentActionInfo: `"/Script/CoreUObject.ScriptStruct'/Script/Engine.LatentActionInfo'"`, // confirmed (copy-back Delay L1/L2)
   TimerHandle: `"/Script/CoreUObject.ScriptStruct'/Script/Engine.TimerHandle'"`, // round26-pre
+  EventReply: `"/Script/CoreUObject.ScriptStruct'/Script/UMG.EventReply'"`, // R38 copy-back ClearUserFocus
   InputActionValue: `"/Script/CoreUObject.ScriptStruct'/Script/EnhancedInput.InputActionValue'"`, // round21-pre: плагин EnhancedInput (в UE 5.8 включён по умолчанию)
 };
 // SHORT: правдоподобная legacy-форма (UE4/ранние UE5), вставкой НЕ проверена.
@@ -83,12 +324,42 @@ const STRUCTS_SHORT = {
   Vector:           `ScriptStruct'"/Script/CoreUObject.Vector"'`,
   Rotator:          `ScriptStruct'"/Script/CoreUObject.Rotator"'`,
   Vector2D:         `ScriptStruct'"/Script/CoreUObject.Vector2D"'`,
+  GameplayTag: `ScriptStruct'"/Script/GameplayTags.GameplayTag"'`,
+  GameplayTagContainer: `ScriptStruct'"/Script/GameplayTags.GameplayTagContainer"'`,
+  RandomStream: `ScriptStruct'"/Script/CoreUObject.RandomStream"'`,
+  Quat:             `ScriptStruct'"/Script/CoreUObject.Quat"'`,
   Transform:        `ScriptStruct'"/Script/CoreUObject.Transform"'`,
   LinearColor:      `ScriptStruct'"/Script/CoreUObject.LinearColor"'`,
+  MovieSceneSequencePlaybackSettings: `ScriptStruct'"/Script/MovieScene.MovieSceneSequencePlaybackSettings"'`,
+  Color: `ScriptStruct'"/Script/CoreUObject.Color"'`,
+  PrimaryAssetType: `ScriptStruct'"/Script/CoreUObject.PrimaryAssetType"'`,
+  PrimaryAssetId: `ScriptStruct'"/Script/CoreUObject.PrimaryAssetId"'`,
+  GameplayTagQuery: `ScriptStruct'"/Script/GameplayTags.GameplayTagQuery"'`,
+  GameplayEffectSpecHandle: `ScriptStruct'"/Script/GameplayAbilities.GameplayEffectSpecHandle"'`,
+  ModifyContextOptions: `ScriptStruct'"/Script/EnhancedInput.ModifyContextOptions"'`,
+  Anchors: `ScriptStruct'"/Script/Slate.Anchors"'`,
+  Geometry: `ScriptStruct'"/Script/SlateCore.Geometry"'`,
+  BlueprintSessionResult: `ScriptStruct'"/Script/OnlineSubsystemUtils.BlueprintSessionResult"'`,
+  GameplayEventData: `ScriptStruct'"/Script/GameplayAbilities.GameplayEventData"'`,
+  GameplayEffectContextHandle: `ScriptStruct'"/Script/GameplayAbilities.GameplayEffectContextHandle"'`,
+  ActiveGameplayEffectHandle: `ScriptStruct'"/Script/GameplayAbilities.ActiveGameplayEffectHandle"'`,
+  GameplayAbilitySpecHandle: `ScriptStruct'"/Script/GameplayAbilities.GameplayAbilitySpecHandle"'`,
+  GameplayAttribute: `ScriptStruct'"/Script/GameplayAbilities.GameplayAttribute"'`,
+  Margin: `ScriptStruct'"/Script/SlateCore.Margin"'`,
+  SlateColor: `ScriptStruct'"/Script/SlateCore.SlateColor"'`,
+  SlateFontInfo: `ScriptStruct'"/Script/SlateCore.SlateFontInfo"'`,
+  SlateBrush: `ScriptStruct'"/Script/SlateCore.SlateBrush"'`,
+  IntPoint: `ScriptStruct'"/Script/CoreUObject.IntPoint"'`,
+  MaterialParameterInfo: `ScriptStruct'"/Script/Engine.MaterialParameterInfo"'`,
+  WidgetTransform: `ScriptStruct'"/Script/UMG.WidgetTransform"'`,
+  DateTime: `ScriptStruct'"/Script/CoreUObject.DateTime"'`,
+  Timespan: `ScriptStruct'"/Script/CoreUObject.Timespan"'`,
+  IntVector: `ScriptStruct'"/Script/CoreUObject.IntVector"'`,
   HitResult:        `ScriptStruct'"/Script/Engine.HitResult"'`,
   Key:              `ScriptStruct'"/Script/InputCore.Key"'`,
   LatentActionInfo: `ScriptStruct'"/Script/Engine.LatentActionInfo"'`,
   TimerHandle:      `ScriptStruct'"/Script/Engine.TimerHandle"'`,
+  EventReply:       `ScriptStruct'"/Script/UMG.EventReply"'`,
   InputActionValue: `ScriptStruct'"/Script/EnhancedInput.InputActionValue"'`,
 };
 export const UE_STRUCTS = UE_VERSION === 'SHORT' ? STRUCTS_SHORT : STRUCTS_FULL;
@@ -106,10 +377,50 @@ const ENUMS_FULL = {
   EAttachmentRule: `"/Script/CoreUObject.Enum'/Script/Engine.EAttachmentRule'"`, // round23-pre
   EDetachmentRule: `"/Script/CoreUObject.Enum'/Script/Engine.EDetachmentRule'"`, // round23b-pre
   ESlateVisibility: `"/Script/CoreUObject.Enum'/Script/UMG.ESlateVisibility'"`, // round27-pre
+  EMouseCursor: `"/Script/CoreUObject.Enum'/Script/CoreUObject.EMouseCursor'"`, // R55 VERIFIED
+  EHorizTextAligment: `"/Script/CoreUObject.Enum'/Script/Engine.EHorizTextAligment'"`, // R65
+  ERootMotionMode: `"/Script/CoreUObject.Enum'/Script/Engine.ERootMotionMode'"`, // R64
+  EPhysBodyOp: `"/Script/CoreUObject.Enum'/Script/Engine.EPhysBodyOp'"`, // R64
+  EDescendantScrollDestination: `"/Script/CoreUObject.Enum'/Script/Slate.EDescendantScrollDestination'"`, // R64
+  ETouchIndex: `"/Script/CoreUObject.Enum'/Script/InputCore.ETouchIndex'"`, // R64
+  EHorizontalAlignment: `"/Script/CoreUObject.Enum'/Script/SlateCore.EHorizontalAlignment'"`, // R55 VERIFIED
+  EVerticalAlignment: `"/Script/CoreUObject.Enum'/Script/SlateCore.EVerticalAlignment'"`, // R55 VERIFIED
+  EWindowMode: `"/Script/CoreUObject.Enum'/Script/Engine.EWindowMode'"`, // R55 VERIFIED
+  EBlendMode: `"/Script/CoreUObject.Enum'/Script/Engine.EBlendMode'"`, // R55 VERIFIED
+  EControllerHand: `"/Script/CoreUObject.Enum'/Script/InputCore.EControllerHand'"`, // R55 VERIFIED
   EMouseLockMode: `"/Script/CoreUObject.Enum'/Script/Engine.EMouseLockMode'"`, // round27-pre
   EInputActionValueType: `"/Script/CoreUObject.Enum'/Script/EnhancedInput.EInputActionValueType'"`, // round28-pre
   ECollisionEnabled: `"/Script/CoreUObject.Enum'/Script/Engine.ECollisionEnabled'"`, // round29-pre
+  ETimelineDirection: `"/Script/CoreUObject.Enum'/Script/Engine.ETimelineDirection'"`, // confirmed R40 copy-back (Timeline.Direction)
+  EPathFollowingResult: `"/Script/CoreUObject.Enum'/Script/AIModule.EPathFollowingResult'"`, // confirmed R40 copy-back (AIMoveTo.MovementResult)
   ECollisionChannel: `"/Script/CoreUObject.Enum'/Script/Engine.ECollisionChannel'"`, // round29-pre
+  EMovementMode: `"/Script/CoreUObject.Enum'/Script/Engine.EMovementMode'"`, // confirmed R41 (SetMovementMode)
+  ENetRole: `"/Script/CoreUObject.Enum'/Script/Engine.ENetRole'"`, // confirmed R42
+  ENetDormancy: `"/Script/CoreUObject.Enum'/Script/Engine.ENetDormancy'"`, // confirmed R42
+  ESplineCoordinateSpace: `"/Script/CoreUObject.Enum'/Script/Engine.ESplineCoordinateSpace'"`, // confirmed R44
+  ESplinePointType: `"/Script/CoreUObject.Enum'/Script/Engine.ESplinePointType'"`, // confirmed R44
+  EAnimationMode: `"/Script/CoreUObject.Enum'/Script/Engine.EAnimationMode'"`, // confirmed R44
+  ECameraProjectionMode: `"/Script/CoreUObject.Enum'/Script/Engine.ECameraProjectionMode'"`, // confirmed R44
+  EAttachLocation: `"/Script/CoreUObject.Enum'/Script/Engine.EAttachLocation'"`, // confirmed R45
+  ERadialImpulseFalloff: `"/Script/CoreUObject.Enum'/Script/PhysicsCore.ERadialImpulseFalloff'"`, // confirmed R45
+  ELinearConstraintMotion: `"/Script/CoreUObject.Enum'/Script/PhysicsCore.ELinearConstraintMotion'"`, // confirmed R45
+  EAngularConstraintMotion: `"/Script/CoreUObject.Enum'/Script/PhysicsCore.EAngularConstraintMotion'"`, // confirmed R45
+  ESearchCase: `"/Script/CoreUObject.Enum'/Script/CoreUObject.ESearchCase'"`, // confirmed R45
+  ESearchDir: `"/Script/CoreUObject.Enum'/Script/CoreUObject.ESearchDir'"`, // confirmed R45
+  ECheckBoxState: `"/Script/CoreUObject.Enum'/Script/SlateCore.ECheckBoxState'"`, // confirmed R45
+  ETextJustify: `"/Script/CoreUObject.Enum'/Script/Slate.ETextJustify'"`, // confirmed R45
+  EViewTargetBlendFunction: `"/Script/CoreUObject.Enum'/Script/Engine.EViewTargetBlendFunction'"`, // confirmed R46
+  EAudioFaderCurve: `"/Script/CoreUObject.Enum'/Script/Engine.EAudioFaderCurve'"`, // confirmed R47
+  ENCPoolMethod: `"/Script/CoreUObject.Enum'/Script/Niagara.ENCPoolMethod'"`, // confirmed R47
+  EPathFollowingRequestResult: `"/Script/CoreUObject.Enum'/Script/AIModule.EPathFollowingRequestResult'"`, // confirmed R47
+  EPathFollowingStatus: `"/Script/CoreUObject.Enum'/Script/AIModule.EPathFollowingStatus'"`, // confirmed R47
+  EUMGSequencePlayMode: `"/Script/CoreUObject.Enum'/Script/UMG.EUMGSequencePlayMode'"`, // confirmed R47
+  ECameraShakePlaySpace: `"/Script/CoreUObject.Enum'/Script/Engine.ECameraShakePlaySpace'"`, // confirmed R47
+  ERoundingMode: `"/Script/CoreUObject.Enum'/Script/CoreUObject.ERoundingMode'"`, // confirmed R48
+  ERelativeTransformSpace: `"/Script/CoreUObject.Enum'/Script/Engine.ERelativeTransformSpace'"`, // confirmed R48
+  EComponentMobility: `"/Script/CoreUObject.Enum'/Script/Engine.EComponentMobility'"`, // confirmed R48
+  EMoveComponentAction: `"/Script/CoreUObject.Enum'/Script/Engine.EMoveComponentAction'"`, // R34 copy-back: MoveComponentTo
+  EDrawDebugSceneDepthPriorityGroup: `"/Script/CoreUObject.Enum'/Script/Engine.EDrawDebugSceneDepthPriorityGroup'"`, // R33 copy-back: DrawDebugArrow.DepthPriority
   ECollisionResponse: `"/Script/CoreUObject.Enum'/Script/Engine.ECollisionResponse'"`, // round29-pre
 };
 const ENUMS_SHORT = {
@@ -124,10 +435,48 @@ const ENUMS_SHORT = {
   EAttachmentRule: `Enum'"/Script/Engine.EAttachmentRule"'`,
   EDetachmentRule: `Enum'"/Script/Engine.EDetachmentRule"'`,
   ESlateVisibility: `Enum'"/Script/UMG.ESlateVisibility"'`,
+  EMouseCursor: `Enum'"/Script/CoreUObject.EMouseCursor"'`,
+  EHorizTextAligment: `Enum'"/Script/Engine.EHorizTextAligment"'`,
+  ERootMotionMode: `Enum'"/Script/Engine.ERootMotionMode"'`,
+  EPhysBodyOp: `Enum'"/Script/Engine.EPhysBodyOp"'`,
+  EDescendantScrollDestination: `Enum'"/Script/Slate.EDescendantScrollDestination"'`,
+  ETouchIndex: `Enum'"/Script/InputCore.ETouchIndex"'`,
+  EHorizontalAlignment: `Enum'"/Script/SlateCore.EHorizontalAlignment"'`,
+  EVerticalAlignment: `Enum'"/Script/SlateCore.EVerticalAlignment"'`,
+  EWindowMode: `Enum'"/Script/Engine.EWindowMode"'`,
+  EBlendMode: `Enum'"/Script/Engine.EBlendMode"'`,
+  EControllerHand: `Enum'"/Script/InputCore.EControllerHand"'`,
   EMouseLockMode: `Enum'"/Script/Engine.EMouseLockMode"'`,
   EInputActionValueType: `Enum'"/Script/EnhancedInput.EInputActionValueType"'`,
   ECollisionEnabled: `Enum'"/Script/Engine.ECollisionEnabled"'`,
   ECollisionChannel: `Enum'"/Script/Engine.ECollisionChannel"'`,
+  EMovementMode: `Enum'"/Script/Engine.EMovementMode"'`,
+  ENetRole: `Enum'"/Script/Engine.ENetRole"'`,
+  ENetDormancy: `Enum'"/Script/Engine.ENetDormancy"'`,
+  ESplineCoordinateSpace: `Enum'"/Script/Engine.ESplineCoordinateSpace"'`,
+  ESplinePointType: `Enum'"/Script/Engine.ESplinePointType"'`,
+  EAnimationMode: `Enum'"/Script/Engine.EAnimationMode"'`,
+  ECameraProjectionMode: `Enum'"/Script/Engine.ECameraProjectionMode"'`,
+  EAttachLocation: `Enum'"/Script/Engine.EAttachLocation"'`,
+  ERadialImpulseFalloff: `Enum'"/Script/PhysicsCore.ERadialImpulseFalloff"'`,
+  ELinearConstraintMotion: `Enum'"/Script/PhysicsCore.ELinearConstraintMotion"'`,
+  EAngularConstraintMotion: `Enum'"/Script/PhysicsCore.EAngularConstraintMotion"'`,
+  ESearchCase: `Enum'"/Script/CoreUObject.ESearchCase"'`,
+  ESearchDir: `Enum'"/Script/CoreUObject.ESearchDir"'`,
+  ECheckBoxState: `Enum'"/Script/SlateCore.ECheckBoxState"'`,
+  ETextJustify: `Enum'"/Script/Slate.ETextJustify"'`,
+  EViewTargetBlendFunction: `Enum'"/Script/Engine.EViewTargetBlendFunction"'`,
+  EAudioFaderCurve: `Enum'"/Script/Engine.EAudioFaderCurve"'`,
+  ENCPoolMethod: `Enum'"/Script/Niagara.ENCPoolMethod"'`,
+  EPathFollowingRequestResult: `Enum'"/Script/AIModule.EPathFollowingRequestResult"'`,
+  EPathFollowingStatus: `Enum'"/Script/AIModule.EPathFollowingStatus"'`,
+  EUMGSequencePlayMode: `Enum'"/Script/UMG.EUMGSequencePlayMode"'`,
+  ECameraShakePlaySpace: `Enum'"/Script/Engine.ECameraShakePlaySpace"'`,
+  ERoundingMode: `Enum'"/Script/CoreUObject.ERoundingMode"'`,
+  ERelativeTransformSpace: `Enum'"/Script/Engine.ERelativeTransformSpace"'`,
+  EComponentMobility: `Enum'"/Script/Engine.EComponentMobility"'`,
+  EMoveComponentAction: `Enum'"/Script/Engine.EMoveComponentAction"'`,
+  EDrawDebugSceneDepthPriorityGroup: `Enum'"/Script/Engine.EDrawDebugSceneDepthPriorityGroup"'`,
   ECollisionResponse: `Enum'"/Script/Engine.ECollisionResponse"'`,
 };
 export const UE_ENUMS = UE_VERSION === 'SHORT' ? ENUMS_SHORT : ENUMS_FULL;
@@ -145,6 +494,8 @@ export const UE_MACROS = {
   WhileLoop:        { graph: 'WhileLoop',        guid: 'FA93B260444755CD702C21A123E9A987' }, // round1 (copy-back 01)
   Gate:             { graph: 'Gate',             guid: '5FD0ADDB41B99E726A411F8E87B5F37C' }, // round1 (copy-back 01)
   DoOnce:           { graph: 'DoOnce',           guid: '1281F54248A2ECB5B8B2C5B24AE6FDF4' }, // round1 (copy-back 01)
+  ForEachLoopWithBreak: { graph: 'ForEachLoopWithBreak', guid: 'F07560274C5742E391E84B8F394CFB36' }, // R36 copy-back
+  ReverseForEachLoop:   { graph: 'ReverseForEachLoop',   guid: '6DB5FE084A27CDF3569C7980D75D7E14' }, // R36 copy-back (выходы ArrayIndex, ArrayElement)
   DoN:              { graph: 'Do N',             guid: 'E8C56B2F4535DC8B7DB8469140DCA455' }, // round1b (live-реф: имя с пробелом!)
 };
 
@@ -154,7 +505,9 @@ export const UE_MACROS = {
  *  '/Game/.../BP_X' или '/Game/.../BP_X.BP_X_C' → BlueprintGeneratedClass (без референса). */
 export function normalizeClassPath(c){
   c = String(c).trim();
-  if (!c.startsWith('/')) return `/Script/Engine.${c}`;
+  // R52: короткое имя класса НЕ всегда в /Script/Engine (NiagaraComponent → /Script/Niagara, AIController → AIModule):
+  // сначала модуль из LIBS_FULL, иначе Engine.
+  if (!c.startsWith('/')) { const m = (LIBS_FULL[c] || '').match(/'(\/Script\/[^']+)'/); return m ? m[1] : `/Script/Engine.${c}`; }
   if (c.startsWith('/Script/')) return c;
   const [pkg, obj] = c.split('.');
   const base = pkg.split('/').pop();

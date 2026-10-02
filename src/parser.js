@@ -1,10 +1,20 @@
 // UE Blueprint Parser — standalone ES module
 // Парсит Begin Object ... End Object → графы
-// Используется и в браузере (index.html) и в Node для валидации LLM ответов
+// Используется в Node: генераторы, валидация ответов LLM, MCP
 import { macroGraphRef } from './ue-types.js';
 
+// guid32 — 32 HEX. По умолчанию случайный; seedGuids(строка|число) включает
+// детерминированный PRNG, чтобы фикстуры (tests/, sweep/) перегенерялись побайтово
+// и их можно было сравнивать diff'ом между прогонами stages.
+let rand = Math.random;
+export function seedGuids(seed){
+  if(seed===null||seed===undefined){ rand=Math.random; return; }
+  let s = typeof seed==='number' ? (seed>>>0) : [...String(seed)].reduce((a,c)=>(a*131+c.charCodeAt(0))>>>0, 7);
+  if(!s) s=0x9E3779B9;
+  rand = ()=>{ s^=s<<13; s>>>=0; s^=s>>>17; s^=s<<5; s>>>=0; return s/4294967296; };
+}
 export function guid32(){
-  const h='0123456789ABCDEF'; let s=''; for(let i=0;i<32;i++) s+=h[Math.floor(Math.random()*16)]; return s;
+  const h='0123456789ABCDEF'; let s=''; for(let i=0;i<32;i++) s+=h[Math.floor(rand()*16)]; return s;
 }
 
 export function parseToGraphs(text){
@@ -51,6 +61,7 @@ export function parseToGraphs(text){
       else if(t.startsWith('NodeWidth=')) node.width=parseInt(t.match(/NodeWidth=(\d+)/)?.[1]||'180',10);
       else if(t.startsWith('NodeHeight=')) node.height=parseInt(t.match(/NodeHeight=(\d+)/)?.[1]||'80',10);
       else if(t.startsWith('NodeComment=')) commentText=t.match(/NodeComment="([^"]*)"/)?.[1]||'';
+      else if(t.startsWith('CustomFunctionName=')) node.eventName=(t.match(/CustomFunctionName="([^"]*)"/)||[])[1]||'';
       else if(t.startsWith('CustomProperties Pin')){
         const pinStr=t.substring(t.indexOf('Pin (')+5);
         const pinId=(pinStr.match(/PinId=([A-F0-9]+)/)||[])[1]||guid32();
@@ -59,7 +70,7 @@ export function parseToGraphs(text){
         const cat=(pinStr.match(/PinCategory="([^"]*)"/)||[])[1]||'';
         const sub=(pinStr.match(/PinSubCategory="([^"]*)"/)||[])[1]||'';
         const hidden=/bHidden=True/.test(pinStr);
-                                const friendly=(pinStr.match(/PinFriendlyName=Text\("([^"]*)"\)/)||[])[1]||(pinStr.match(/PinFriendlyName=NSLOCTEXT\("[^"]*", *\"[^"]*", *\"([^"]*)"\)/)||[])[1]||pinName;
+                                const friendly=(pinStr.match(/PinFriendlyName=Text\("([^"]*)"\)/)||[])[1]||(pinStr.match(/PinFriendlyName=NSLOCTEXT\("[^"]*", *\"[^"]*", *\"([^"]*)"\)/)||[])[1]||(pinStr.match(/PinFriendlyName="([^"]*)"/)||[])[1]||pinName;
         const defaultValue=(pinStr.match(/DefaultValue="([^"]*)"/)||[])[1]||(pinStr.match(/DefaultTextValue=NSLOCTEXT\("[^"]*", *"[^"]*", *"([^"]*)"\)/)||[])[1]||(pinStr.match(/DefaultTextValue=INVTEXT\("([^"]*)"\)/)||[])[1]||'';
         const subObj=(pinStr.match(/PinSubCategoryObject=([^,\)]+)/)||[])[1]||'';
         const linkedMatch=pinStr.match(/LinkedTo=\(([^)]*)\)/);
@@ -70,8 +81,8 @@ export function parseToGraphs(text){
           });
         }
         const sub2=sub||(cat==='struct'&&subObj&&subObj!=='None'?subObj.split('.').pop().replace(/['"]/g,''):'');const isConst=/bIsConst=True/.test(pinStr);
-        const isRef=/PinType\.bIsReference=True/.test(pinStr);const container=(pinStr.match(/PinType\.ContainerType=([A-Za-z]+)/)||[])[1]||'None';const ignored=/bDefaultValueIsIgnored=True/.test(pinStr);const advanced=/bAdvancedView=True/.test(pinStr);
-        node.pins.push({id:pinId,name:pinName, friendly, direction:dir.includes('Output')?'Output':'Input', category:cat, subCategory:sub2, subCategoryObject:subObj==='None'?'':subObj, defaultValue, hidden, linkedTo:linked,isConst,isRef,container,ignored,advanced});
+        const isRef=/PinType\.bIsReference=True/.test(pinStr);const container=(pinStr.match(/PinType\.ContainerType=([A-Za-z]+)/)||[])[1]||'None';const ignored=/bDefaultValueIsIgnored=True/.test(pinStr);const notConnectable=/bNotConnectable=True/.test(pinStr);const readOnly=/bDefaultValueIsReadOnly=True/.test(pinStr);const advanced=/bAdvancedView=True/.test(pinStr);
+        node.pins.push({id:pinId,name:pinName, friendly, direction:dir.includes('Output')?'Output':'Input', category:cat, subCategory:sub2, subCategoryObject:subObj==='None'?'':subObj, defaultValue, hidden, linkedTo:linked,isConst,isRef,container,ignored,advanced,...(notConnectable?{notConnectable}:{}),...(readOnly?{readOnly}:{})});
       } else if(t.startsWith('VariableReference=')){ const m=t.match(/MemberName="([^"]+)"/); if(m) node.varName=m[1]; }
       else if(t.startsWith('bDefaultsToPureFunc=')){ node.pure=true; }
       else if(t.startsWith('FunctionReference=')){ const m=t.match(/MemberName="([^"]+)"/); if(m) node.funcName=m[1]; const mp=t.match(/MemberParent="([^"]+)"/)||t.match(/MemberParent=([^,\)]+)/); if(mp) node.memberParent=mp[1]; }
@@ -82,6 +93,7 @@ export function parseToGraphs(text){
     }
     if(!node.guid) node.guid=guid32();
     if(node.isComment) node.commentText=commentText||'Comment';
+    else if(commentText) node.bubble=commentText; // R36: пузырь-комментарий обычной ноды
     if(node.isReroute) node.title='Reroute';
     else if(node.isTunnel) node.title=node.name||'Tunnel';
     else if(node.className.includes('K2Node_VariableGet')) node.title='Get '+(node.varName||'Var');
@@ -126,6 +138,28 @@ export function parseToGraphs(text){
   return graphs;
 }
 
+// Ступени 2/3 работают с ЧУЖИМ текстом: блок сохраняется дословно, но расстановщик
+// вправе (а) передвинуть ноду и (б) переподключить пины — например пустить exec-связь
+// через knot-перенос. syncBlockLinks переписывает из модели только LinkedTo пинов,
+// остальной текст блока (порядок полей, кавычки, неизвестные свойства) не трогает.
+export function syncBlockLinks(block, node){
+  const byId=new Map((node.pins||[]).map(p=>[p.id,p]));
+  return String(block).split(/\r?\n/).map(line=>{
+    const t=line.trim();
+    if(!t.startsWith('CustomProperties Pin (')) return line;
+    const body=t.slice(t.indexOf('Pin (')+5).replace(/\)\s*$/,'');
+    const pid=(body.match(/PinId=([A-F0-9]{32})/)||[])[1];
+    const p=pid&&byId.get(pid);
+    if(!p) return line; // чужой/вложенный пин — не наш
+    const linked=(p.linkedTo||[]).length?`LinkedTo=(${p.linkedTo.map(l=>l.nodeName+' '+l.pinId).join(',')},),`:'';
+    const rest=body.replace(/LinkedTo=\([^)]*\),?/g,'');
+    if(!linked) return `${line.slice(0,line.length-line.trimStart().length)}CustomProperties Pin (${rest})`;
+    const at=rest.indexOf('PersistentGuid='); // каноника движка: LinkedTo стоит перед PersistentGuid
+    const idx=at<0?rest.length:at;
+    return `${line.slice(0,line.length-line.trimStart().length)}CustomProperties Pin (${rest.slice(0,idx)}${linked}${rest.slice(idx)})`;
+  }).join('\n');
+}
+
 export function generateUEText(nodeList, opts={}){
   if(!nodeList.length) return '';
   return nodeList.map(n=>{
@@ -135,6 +169,7 @@ export function generateUEText(nodeList, opts={}){
     } else {
       block=block.replace(/NodePosX=-?\d+/g, `NodePosX=${Math.round(n.pos.x)}`);
       block=block.replace(/NodePosY=-?\d+/g, `NodePosY=${Math.round(n.pos.y)}`);
+      if(opts.syncLinks) block=syncBlockLinks(block,n);
       if(n.isComment){
         block=block.replace(/NodeWidth=\d+/g, `NodeWidth=${n.width}`);
         block=block.replace(/NodeHeight=\d+/g, `NodeHeight=${n.height}`);
@@ -145,7 +180,7 @@ export function generateUEText(nodeList, opts={}){
   }).join('\n\n').trim();
 }
 
-// P1 (формат-паритет с живыми дампами UE 5.8, tests/fixtures/*):
+// P1 (формат-паритет с живыми дампами UE 5.8, sweep/copyback/*):
 //  • DefaultValue+AutogeneratedDefaultValue на входах И выходах; auto — только если значение = автоген-дефолту
 //    (тип или объявленный дефолт функции p.autoDefault); пользовательское значение — только DefaultValue.
 //    byte-энамы (TraceTypeQuery1, EDrawDebugTrace) в дампах без auto; контейнеры/object/exec — без дефолта.
@@ -207,17 +242,20 @@ function generateBlock(n,opts={}){
     let v=p.defaultValue||'';
     // типовой автоген — только у узлов-функций (CallFunction/операторы): у Cast.bSuccess и пр. K2-узлов движок его не пишет (копия R22).
     if(!v&&fnFamily&&p.category!=='text'&&p.category!=='exec'&&p.name!=='self') v=typeDefault(p);
-    const dv=v&&p.category!=='text'?`DefaultValue="${v}",${isAutoDefault(p,v,fnFamily)?`AutogeneratedDefaultValue="${v}",`:''}`:'';
+    // R35 copy-back (AddComponent.TemplateName): автоген может отличаться от значения (autoFixed).
+    const autoV=p.autoFixed!==undefined?p.autoFixed:(isAutoDefault(p,v,fnFamily)?v:'');
+    const dv=v&&p.category!=='text'?`DefaultValue="${v}",${autoV?`AutogeneratedDefaultValue="${autoV}",`:''}`:'';
     const dtv=p.category==='text'&&p.defaultValue?`DefaultTextValue=NSLOCTEXT("", "${guid32()}", "${p.defaultValue}"),`:'';
     // PinName опускаем при пустом имени (FlipFlop, round1: каноника движка — поля нет вообще).
     const nm=p.name?`PinName="${p.name}",`:'';
-    const pfn=p.pinFriendlyName?`PinFriendlyName=NSLOCTEXT("${p.pinFriendlyName.namespace}", "${p.pinFriendlyName.key}", "${p.pinFriendlyName.text}"),`:'';
+    // R34 copy-back (MoveComponentTo.then → «Completed»): простая строка PinFriendlyName="…".
+    const pfn=p.friendlyRaw?`PinFriendlyName=${p.friendlyRaw},`:p.friendlyPlain?`PinFriendlyName="${p.friendlyPlain}",`:p.pinFriendlyName?`PinFriendlyName=NSLOCTEXT("${p.pinFriendlyName.namespace}", "${p.pinFriendlyName.key}", "${p.pinFriendlyName.text}"),`:'';
     const fn=p.name==='self'?(isMulticastDelegateNode?MULTICAST_TARGET_FN:TARGET_FN):'';
     const tt=isOp&&p.category!=='exec'?opTooltip(p):'';
     let subObj=p.subCategoryObject||'None';
     if(p.name==='self'&&ownCls&&(!p.subCategoryObject||p.subCategoryObject==='None')) subObj=ownCls;
     // v6: ссылки quoted-full (UE 5.8, copy-back H1/J5/LineTraceSingle: "..." + полная форма без внутр. кавычек).
-    return `   CustomProperties Pin (PinId=${p.id},${nm}${pfn}${fn}${tt}${dir}PinType.PinCategory="${p.category}",PinType.PinSubCategory="${p.category==='struct'?'':(p.subCategory||'')}",PinType.PinSubCategoryObject=${subObj},PinType.PinSubCategoryMemberReference=(${p.memberRef||''}),PinType.PinValueType=(),PinType.ContainerType=${p.container||'None'},PinType.bIsReference=${p.isRef?'True':'False'},PinType.bIsConst=${p.isConst?'True':'False'},PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,${dv}${p.defaultObject?`DefaultObject="${p.defaultObject}",`:''}${dtv}${linked}PersistentGuid=${ZERO_GUID},bHidden=${p.hidden?'True':'False'},bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=${p.ignored?'True':'False'},bAdvancedView=${p.advanced?'True':'False'},bOrphanedPin=False,)`;
+    return `   CustomProperties Pin (PinId=${p.id},${nm}${pfn}${fn}${tt}${dir}PinType.PinCategory="${p.category}",PinType.PinSubCategory="${p.category==='struct'?'':(p.subCategory||'')}",PinType.PinSubCategoryObject=${subObj},PinType.PinSubCategoryMemberReference=(${p.memberRef||''}),PinType.PinValueType=(${p.valueType?(typeof p.valueType==='string'?`TerminalCategory=\"${p.valueType}\"`:`TerminalCategory=\"${p.valueType.cat}\"${p.valueType.sub?`,TerminalSubCategory=\"${p.valueType.sub}\"`:''}${p.valueType.subObj?`,TerminalSubCategoryObject=${p.valueType.subObj}`:''}`):''}),PinType.ContainerType=${p.container||'None'},PinType.bIsReference=${p.isRef?'True':'False'},PinType.bIsConst=${p.isConst?'True':'False'},PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=${p.wrapper?'True':'False'},PinType.bSerializeAsSinglePrecisionFloat=False,${dv}${p.defaultObject?`DefaultObject="${p.defaultObject}",`:''}${dtv}${p.subPins?`SubPins=(${p.subPins.map(id=>n.id+' '+id).join(',')},),`:''}${linked}${p.parentPin?`ParentPin=${n.id} ${p.parentPin},`:''}PersistentGuid=${ZERO_GUID},bHidden=${p.hidden?'True':'False'},bNotConnectable=${p.notConnectable?'True':'False'},bDefaultValueIsReadOnly=${p.readOnly?'True':'False'},bDefaultValueIsIgnored=${p.ignored?'True':'False'},bAdvancedView=${p.advanced?'True':'False'},bOrphanedPin=False,)`;
   });
   // v7: self-пин статического вызова библиотеки (copy-back O1/O2: движок
   // достраивает его сам — пишем сразу для copy-back 1-в-1). FriendlyName не
@@ -232,7 +270,7 @@ function generateBlock(n,opts={}){
   }
   // v7.1: NotEqual-автопин свитчей (copy-back round1: движок достраивает сам —
   // пишем сразу для copy-back 1-в-1). Позиция — сразу после Selection.
-  const SWNEQ={K2Node_SwitchInteger:['NotEqual_IntInt','KismetMathLibrary'],K2Node_SwitchString:['NotEqual_StriStri','KismetStringLibrary'],K2Node_SwitchEnum:['NotEqual_ByteByte','KismetMathLibrary']};
+  const SWNEQ={K2Node_SwitchInteger:['NotEqual_IntInt','KismetMathLibrary'],K2Node_SwitchString:['NotEqual_StriStri','KismetStringLibrary'],K2Node_SwitchEnum:['NotEqual_ByteByte','KismetMathLibrary'],K2Node_SwitchName:['NotEqual_NameName','KismetMathLibrary']};
   const swm=n.className&&SWNEQ[n.className.split('.').pop()];
   if(swm&&!n.pins.some(p=>p.name===swm[0])){
     const libC=`"/Script/CoreUObject.Class'/Script/Engine.${swm[1]}'"`;
@@ -249,6 +287,8 @@ function generateBlock(n,opts={}){
   // P1.9: локал функции — MemberScope, без bSelfContext (и без self-пина — его не создаёт конструктор).
   if(n.varName&&n.varScope) extra+=`   VariableReference=(MemberScope="${n.varScope}",MemberName="${n.varName}",MemberGuid=${n.varGuid||guid32()})\n`;
   else if(n.varName) extra+=`   VariableReference=(MemberName="${n.varName}",MemberGuid=${n.varGuid||guid32()},bSelfContext=True)\n`;
+  // R34 copy-back: флаги узла, которые UE пишет ДО FunctionReference (bWantsEnumToExecExpansion).
+  if(n.preProps) n.preProps.forEach(l=>{ extra+=`   ${l}\n`; });
   if(n.funcName && !n.operationName){
     if(n.pure) extra+=`   bDefaultsToPureFunc=True\n`;
     if(n.memberParent) extra+=`   FunctionReference=(MemberParent=${n.memberParent},MemberName="${n.funcName}")\n`;
@@ -265,7 +305,7 @@ function generateBlock(n,opts={}){
   if(n.macroGraph) extra+=`   ${macroGraphRef(n.macroGraph, n.macroGuid||null)}\n`;
   if(n.isComment) return `Begin Object Class=${n.rawClass} Name="${n.id}"${exportPathAttr('/Script/UnrealEd.EdGraphNode_Comment',n.id,opts)}\n   NodePosX=${Math.round(n.pos.x)}\n   NodePosY=${Math.round(n.pos.y)}\n   NodeWidth=${n.width}\n   NodeHeight=${n.height}\n   NodeComment="${n.commentText}"\n   NodeGuid=${guid}\nEnd Object`;
   const cls=n.rawClass||`/Script/BlueprintGraph.${n.className.split('.').pop()}`;
-  return `Begin Object Class=${cls} Name="${n.id}"${exportPathAttr(cls,n.id,opts)}\n${extra}   NodePosX=${Math.round(n.pos.x)}\n   NodePosY=${Math.round(n.pos.y)}\n   NodeGuid=${guid}\n${pinsText?pinsText+'\n':''}${(n.tailProps||[]).map(l=>`   ${l}\n`).join('')}End Object`;
+  return `Begin Object Class=${cls} Name="${n.id}"${exportPathAttr(cls,n.id,opts)}\n${extra}   NodePosX=${Math.round(n.pos.x)}\n   NodePosY=${Math.round(n.pos.y)}\n${(n.postPosProps||[]).map(l=>`   ${l}\n`).join('')}${n.bubble?`   bCommentBubbleVisible=True\n   NodeComment="${String(n.bubble).replace(/"/g,"'")}"\n`:''}   NodeGuid=${guid}\n${pinsText?pinsText+'\n':''}${(n.tailProps||[]).map(l=>`   ${l}\n`).join('')}End Object`;
 }
 
 export function validateUEText(text){

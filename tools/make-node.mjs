@@ -44,10 +44,12 @@
 //          и (со второго) новый ряд; узлы до первого события подхватывает первое событие;
 //          делегаты event-for/create-event → ближайший свободный вход Delegate.
 import fs from 'node:fs';
-import { generateUEText } from '../src/parser.js';
+import { generateUEText, seedGuids } from '../src/parser.js';
 import { layoutRow, layoutRows, layoutDecorated, fitComment, linkPins, estNodeWidth, decorateExec, snapToGrid } from '../src/generator.js';
 import { validateStrict } from '../src/validate.js';
-import { createCast, createCustomEvent, createCallCustomEvent, createDelegateNode, createEventFor, createCreateEvent, createFn, createWidget, createMemberVar, createSelfVar, createLocalVarGet, createLocalVarSet, createInputActionEvent, createInputActionValue, createCall } from '../src/modules.js';
+// Спек-парсер и фабрики узла — общие со ступенью 1 (src/stage1.js), чтобы CLI и
+// конвейер creator→arranger→decorator строили ноды одним кодом.
+import { buildSpecNode, findPin } from '../src/stage1.js';
 
 process.on('uncaughtException', e => { console.error('make-node: ОШИБКА — ' + e.message); process.exit(1); });
 const reg = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8'));
@@ -65,59 +67,35 @@ for (let i = 0; i < argv.length; i++) {
   else if (argv[i] === '--bp') bp = argv[++i];
   else if (argv[i] === '--context') ctxFile = argv[++i];
   else if (argv[i] === '--new') newVars = argv[++i].split(',').filter(Boolean);
+  else if (argv[i].startsWith('--seed=')) { /* seed задаётся ниже — не спецификация узла */ }
   else specs.push(argv[i]);
+}
+// ── Детерминизм фикстур: при записи в файл (-o) GUID сеятся его именем, чтобы повторная
+// пересборка совпадала побайтово (`node tools/gen-sweep.mjs --check`-гарантия для 27b/30/32).
+// Поток в stdout остаётся на Math.random (обычная генерация не должна повторять GUID
+// между разными blueprint'ами одного графа); --seed=<строка> задаёт seed вручную.
+{
+  const seedArg = argv.find(a => a.startsWith('--seed='));
+  if (seedArg !== undefined) seedGuids(seedArg.slice(7) || null);
+  else if (out) seedGuids('sweep:' + out.split('/').pop());
 }
 if (!specs.length) { console.error(fs.readFileSync(new URL(import.meta.url)).toString().split('\n').filter(l => l.startsWith('//')).map(l => l.slice(3)).join('\n')); process.exit(1); }
 
 const nodes = [], links = [], kinds = [];
 let rowBreakNext = false;
-const kv = words => Object.fromEntries(words.map(w => { const i = w.indexOf('='); if (i < 0) throw new Error(`«${w}»: ожидалось Пин=значение`); return [w.slice(0, i), w.slice(i + 1)]; }));
-const optSig = words => { const i = words.indexOf('--sig'); if (i < 0) return { rest: words }; return { sig: words[i + 1], rest: words.filter((_, j) => j !== i && j !== i + 1) }; };
-
+const notes = [];
 for (const spec of specs) {
-  const [cmd, ...w] = spec.trim().split(/\s+/);
-  let n;
-  switch (cmd) {
-    case 'cast': n = createCast(w[0], { kind: w.includes('class') ? 'class' : 'object', pure: w.includes('pure') }); break;
-    case 'event': n = createCustomEvent(w[0], w.slice(1)); break;
-    case 'event-for': { const o = optSig(w); n = createEventFor(o.rest[0], o.rest[1], { sig: o.sig, params: o.rest.length > 2 ? o.rest.slice(2) : undefined }); break; }
-    case 'call-event': { const ev = nodes.find(x => x.eventName === w[0]); n = createCallCustomEvent(ev || w[0], kv(w.slice(1))); break; }
-    case 'bind': case 'unbind': case 'clear': { const o = optSig(w); n = createDelegateNode(cmd, o.rest[0], { sig: o.sig, params: o.rest.length > 1 ? o.rest.slice(1) : undefined }); break; }
-    case 'create-event': n = createCreateEvent(w[0]); break;
-    case 'widget': n = createWidget(w[0] && w[0].toLowerCase() !== 'none' ? w[0] : null); break;
-    case 'call': n = createCall(w[0], w.slice(1).filter(x => x !== 'pure' && x !== 'static'), { pure: w.includes('pure'), isStatic: w.includes('static') }); break;
-    case 'ia-event': n = createInputActionEvent(w[0], w[1] || 'bool'); break;
-    case 'ia-value': n = createInputActionValue(w[0], w[1] || 'vector2d'); break;
-    case 'get': case 'set': n = createMemberVar(cmd, w[0], w[1], w.slice(2).join(' ')); break;
-    case 'self-get': case 'self-set': n = createSelfVar(cmd.slice(5), w[0], w[1], w.slice(2).join(' '), { bp }); break;
-    case 'local-get': case 'local-set': {
-      const d = w[0].indexOf('.'); if (d < 0) throw new Error(`${cmd} ${w[0]}: формат <Функция>.<Имя>`);
-      const [sc, nm] = [w[0].slice(0, d), w[0].slice(d + 1)];
-      n = cmd === 'local-get' ? createLocalVarGet(sc, nm, w[1]) : createLocalVarSet(sc, nm, w[1], w.slice(2).join(' '));
-      break;
-    }
-    case 'fn': {
-      const e = reg.find(x => x.id === w[0]) || reg.find(x => x.func === w[0]);
-      if (!e) throw new Error(`fn ${w[0]}: нет в реестре (id или func)`);
-      if (e.hidden) console.error(`! ${e.id}: запись скрыта (FAIL в движке)`);
-      n = createFn(e, kv(w.slice(1))); break;
-    }
-    case 'link': links.push(w); continue;
-    case 'row': rowBreakNext = true; continue;
-    default: throw new Error(`неизвестная спека «${cmd}» (cast|event|event-for|call-event|bind|unbind|clear|create-event|widget|ia-event|ia-value|call|get|set|self-get|self-set|local-get|local-set|fn|link|row)`);
-  }
+  const built = buildSpecNode(spec, { registry: reg, nodes, notes, bp });
+  if (built.directive === 'link') { links.push(built.args); continue; }
+  if (built.directive) throw new Error(`спека «${built.directive}» не поддерживается make-node (поддерживаются только link)`);
+  const n = built.node;
   if (rowBreakNext) { n.rowBreak = true; rowBreakNext = false; }
-  nodes.push(n); kinds.push(cmd);
+  nodes.push(n); kinds.push(built.kind);
 }
+notes.forEach(t => console.error('! ' + t));
 
 
 const hasExecIn = n => n.pins.some(p => p.name === 'execute' && p.direction === 'Input');
-const findPin = (n, name, dir) => {
-  const pr = name.endsWith('*') ? p => p.name.startsWith(name.slice(0, -1)) : p => p.name === name;
-  const p = n.pins.find(x => x.direction === dir && pr(x));
-  if (!p) throw new Error(`${n.title}: нет ${dir === 'Output' ? 'выхода' : 'входа'} ${name} (есть: ${n.pins.filter(x => x.direction === dir).map(x => x.name).join(', ')})`);
-  return p.name;
-};
 // Событие-источник exec: узел без execute с exec-выходом (event, event-for, ia-event).
 const isExecSource = n => !hasExecIn(n) && n.pins.some(p => p.direction === 'Output' && p.category === 'exec');
 // Основной exec-выход: then, иначе первый exec-выход (ia-event → Triggered, Sequence → then_0).

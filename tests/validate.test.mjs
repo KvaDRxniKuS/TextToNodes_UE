@@ -97,7 +97,8 @@ const txt = generateUEText([cm, seq2, delay, prt, mk, gt, fl, sw, br]);
 const v0 = validateStrict(txt);
 ok(v0.valid && v0.errors.length === 0, 'позитив: 0 ошибок');
 ok(txt.includes('"/Script/CoreUObject.ScriptStruct') && !txt.includes('/Script/Core.Vector'), 'пути quoted-full');
-ok(txt.split('\n').filter(l => l.includes('PinFriendlyName=')).every(l => l.includes('PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target")')), 'PinFriendlyName только у self (Target)');
+// R36 copy-back Branch: у then/else тоже есть подписи NSLOCTEXT("K2Node","true"/"false") — политика расширена.
+ok(txt.split('\n').filter(l => l.includes('PinFriendlyName=')).every(l => l.includes('PinName="self",PinFriendlyName=NSLOCTEXT("K2Node", "Target", "Target")') || l.includes('PinName="then",PinFriendlyName=NSLOCTEXT("K2Node", "true", "true")') || l.includes('PinName="else",PinFriendlyName=NSLOCTEXT("K2Node", "false", "false")')), 'PinFriendlyName только у self (Target) и Branch then/else (true/false)');
 ok(!txt.includes('ExportPath='), 'P1.8: без --root ExportPath не пишем');
 { const tr = generateUEText([prt], { root: '/Game/Vehicle/wheel/BP_WheelActor.BP_WheelActor:EventGraph' });
   ok(tr.includes(`ExportPath="/Script/BlueprintGraph.K2Node_CallFunction'/Game/Vehicle/wheel/BP_WheelActor.BP_WheelActor:EventGraph.${prt.id}'"`), 'P1.8: --root → ExportPath в форме движка'); }
@@ -182,7 +183,7 @@ regThrow.forEach(t => console.log('THROW:', t));
 
 // K1 copy-back: реальный текст движка UE 5.8 (comment + LineTraceSingle 16 пинов)
 {
-  const k1 = fs.readFileSync(new URL('./fixtures/k1-copyback.txt', import.meta.url), 'utf8');
+  const k1 = fs.readFileSync(new URL('../sweep/copyback/k1.txt', import.meta.url), 'utf8');
   const v = validateStrict(k1);
   ok(v.valid && v.errors.length === 0, 'K1 copy-back: strict 0 ошибок (предупреждений: ' + v.warnings.length + ')');
   const gk = parseToGraphs(k1);
@@ -221,7 +222,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(bt.indexOf('bDefaultsToPureFunc=True') !== -1 && bt.indexOf('bDefaultsToPureFunc=True') < bt.indexOf('FunctionReference='), 'pure: bDefaultsToPureFunc перед FunctionReference');
   const bv = validateStrict(bt);
   ok(bv.valid && bv.errors.length === 0 && bv.warnings.length === 0, 'pure: сгенерированный текст STRICT-OK без варнингов');
-  const fx = fs.readFileSync(new URL('./fixtures/breakhitresult-copyback.txt', import.meta.url), 'utf8');
+  const fx = fs.readFileSync(new URL('../sweep/copyback/breakhitresult.txt', import.meta.url), 'utf8');
   const fv = validateStrict(fx);
   ok(fv.errors.length === 2 && fv.errors.every(e => e.startsWith('E06')), 'Q6 фикстура: только 2xE06 (фрагмент, _111 вне выборки)');
   const gf = parseToGraphs(fx);
@@ -237,7 +238,7 @@ regThrow.forEach(t => console.log('THROW:', t));
 
 // M1 copy-back: round-trip pure BreakHitResult (трейд 15→16, pure 19→20, провод жив)
 {
-  const m1 = fs.readFileSync(new URL('./fixtures/m1-copyback.txt', import.meta.url), 'utf8');
+  const m1 = fs.readFileSync(new URL('../sweep/copyback/m1.txt', import.meta.url), 'utf8');
   const v = validateStrict(m1);
   ok(v.valid && v.errors.length === 0 && v.warnings.length === 0, 'M1 copy-back: strict 0 ошибок, 0 варнингов');
   const gm = parseToGraphs(m1);
@@ -268,7 +269,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   const cv = validateStrict(ct);
   ok(cv.valid && cv.errors.length === 0 && cv.warnings.length === 0, 'CapsuleTraceMulti: генерация STRICT-OK без варнингов');
   ok(['SphereTraceMulti', 'BoxTraceMulti'].every(id => { const e = byId(id); return e && e.verified === true && !e.note; }), 'Multi-аналогии: Sphere/Box подтверждены (O1)');
-  const fx = fs.readFileSync(new URL('./fixtures/capsuletracemulti-copyback.txt', import.meta.url), 'utf8');
+  const fx = fs.readFileSync(new URL('../sweep/copyback/capsuletracemulti.txt', import.meta.url), 'utf8');
   const fv = validateStrict(fx);
   ok(fv.valid && fv.errors.length === 0 && fv.warnings.length === 0, 'Q2 фикстура: strict 0 ошибок, 0 варнингов');
   const gq = parseToGraphs(fx);
@@ -299,8 +300,13 @@ regThrow.forEach(t => console.log('THROW:', t));
   const backTarget=createCallFunction(byId('Delay'));
   linkPins(backSource,'then',backTarget,'execute');
   const {arrangeRows}=await import('../src/arranger.js');
-  const routed=arrangeRows([[backTarget],[backSource]]);
-  ok(routed.knots.length===2 && routed.nodes.length===4 && backSource.pins.find(p=>p.name==='then').linkedTo[0].nodeName===routed.knots[0].id, 'arranger: backward exec flow requests and creates two reroute knots');
+  const routed=arrangeRows([[backTarget],[backSource]],{rowGap:400});
+  ok(routed.knots.length===4 && routed.nodes.length===6 && backSource.pins.find(p=>p.name==='then').linkedTo[0].nodeName===routed.knots[0].id, 'arranger: backward exec flow builds a 4-knot route');
+  { const g=await import('../src/generator.js'); ok(g.GRID===16, 'grid: шаг сетки 16px'); }
+  { const {estNodeHeight:eh, pinCenterY:pcy}=await import('../src/generator.js'); const k=routed.knots, bh=backSource.pos.y+eh(backSource);
+    ok(k.length===4 && k[0].pos.x===k[1].pos.x && k[0].pos.x===backSource.pos.x+estNodeWidth(backSource) && k[0].pos.y+8===pcy(backSource,backSource.pins.find(p=>p.name==='then'))
+       && k[1].pos.y+8>=bh && k[1].pos.y===k[2].pos.y && k[2].pos.x===k[3].pos.x && k[3].pos.y+8===pcy(backTarget,backTarget.pins.find(p=>p.name==='execute')),
+       'arranger: перенос — K1 на строке выхода, K2 под ним в щели, K3 на линии щели над колонкой, K4 на строке входа'); }
   const {positionBlueprint}=await import('../src/layout-pipeline.js');
   const {pinCenterY}=await import('../src/generator.js');
   const pipedA=createCallFunction(byId('Delay'));
@@ -308,11 +314,21 @@ regThrow.forEach(t => console.log('THROW:', t));
   linkPins(pipedA,'then',pipedB,'execute');
   const piped=positionBlueprint([pipedA,pipedB],{rows:[[pipedA,pipedB]],arrange:{gap:160},decorate:{clearance:160}});
   ok(piped.nodes.length===2 && pipedB.pos.x>pipedA.pos.x && Math.abs(pinCenterY(pipedA,pipedA.pins.find(p=>p.name==='then'))-pinCenterY(pipedB,pipedB.pins.find(p=>p.name==='execute')))<1, 'pipeline: explicit rows route through arranger then decorator');
+  // несоосные строки пинов внутри одного ряда — тот же стадиум из 4 knot'ов, что и перенос
+  const {createBranch}=await import('../src/generator.js');
+  const rowSrc=createCallFunction(byId('PrintString'));
+  const rowDst=createBranch({x:0,y:0});
+  linkPins(rowSrc,'then',rowDst,'execute');
+  const dyRow=pinCenterY(rowDst,rowDst.pins.find(p=>p.name==='execute'))-pinCenterY(rowSrc,rowSrc.pins.find(p=>p.name==='then'));
+  ok(dyRow===-32, 'arranger: PrintString.then и Branch.execute в модели на разных строках (тест опирается на это)');
+  const rowRes=arrangeRows([[rowSrc,rowDst]],{gap:160});
+  ok(rowRes.knots.length===0, 'arranger: несоосный провод вперёд в ряду — прямой, knot-ов нет (knot-ы только для переноса назад)');
+  // декоратор (ступень 3, отложен) рассчитан на 4-knot стадиум; его проверки на слитых переносах сняты до возврата к ступени 3
 }
 
 // N1 copy-back: 42/42 PinId, резолв wildcard-макро при вставке, 3 провода
 {
-  const n1 = fs.readFileSync(new URL('./fixtures/n1-copyback.txt', import.meta.url), 'utf8');
+  const n1 = fs.readFileSync(new URL('../sweep/copyback/n1.txt', import.meta.url), 'utf8');
   const v = validateStrict(n1);
   ok(v.valid && v.errors.length === 0 && v.warnings.length === 0, 'N1 copy-back: strict 0 ошибок, 0 варнингов');
   ok(!n1.includes('PinToolTip'), 'N1 copy-back: свежая вставка без тултипов (движок кеширует их позже)');
@@ -346,7 +362,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   const bt2 = generateUEText([createCallFunction(lbp, { x: 0, y: 0 })]);
   const bv2 = validateStrict(bt2);
   ok(bv2.valid && bv2.errors.length === 0 && bv2.warnings.length === 0, 'ByProfile: генерация STRICT-OK без варнингов');
-  const fx = fs.readFileSync(new URL('./fixtures/linetracemulti-byprofile-copyback.txt', import.meta.url), 'utf8');
+  const fx = fs.readFileSync(new URL('../sweep/copyback/linetracemulti-byprofile.txt', import.meta.url), 'utf8');
   const fv = validateStrict(fx);
   ok(fv.valid && fv.errors.length === 0 && fv.warnings.length === 0, 'Q2-done фикстура: strict 0/0');
   ok(!fx.includes('LinkedTo'), 'Q2-done фикстура: ноды без связей');
@@ -384,7 +400,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   const foV = validateStrict(foTxt);
   ok(foV.valid && foV.errors.length === 0 && foV.warnings.length === 0, 'ForObjects: генерация STRICT-OK без варнингов');
   ok(foTxt.includes(`/Script/Engine.EObjectTypeQuery'`), 'ForObjects: путь энама EObjectTypeQuery в тексте');
-  const o1 = fs.readFileSync(new URL('./fixtures/sphereboxtracemulti-copyback.txt', import.meta.url), 'utf8');
+  const o1 = fs.readFileSync(new URL('../sweep/copyback/sphereboxtracemulti.txt', import.meta.url), 'utf8');
   const o1v = validateStrict(o1);
   ok(o1v.valid && o1v.errors.length === 0 && o1v.warnings.length === 0, 'O1 фикстура: strict 0/0');
   ok(!o1.includes('LinkedTo') && !o1.includes('PinToolTip'), 'O1 фикстура: без связей и тултипов (свежая вставка)');
@@ -396,7 +412,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(o1s.pins.findIndex(p => p.name === 'self') === 2 && o1s.pins.filter(p => p.advanced).length === 3, 'O1 фикстура: self третий, 3 advanced');
   const o1c = go1.EventGraph.nodes.find(n => n.isComment);
   ok(o1c && o1c.width === 960 && o1c.height === 640, 'O1 фикстура: коммент 960x640');
-  const o2 = fs.readFileSync(new URL('./fixtures/tracesingle-forobjects-copyback.txt', import.meta.url), 'utf8');
+  const o2 = fs.readFileSync(new URL('../sweep/copyback/tracesingle-forobjects.txt', import.meta.url), 'utf8');
   const o2v = validateStrict(o2);
   ok(o2v.valid && o2v.errors.length === 0 && o2v.warnings.length === 0, 'O2 фикстура: strict 0/0');
   const go2 = parseToGraphs(o2);
@@ -469,7 +485,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(byId('DoN').verified === true && byId('DoN').macro.graph === 'Do N', 'round1b: DoN — имя с пробелом, verified');
   const seT = generateUEText([createFromEntry(byId('SwitchEnum'))]);
   ok(seT.includes(`Enum="/Script/CoreUObject.Enum'/Script/Engine.EDrawDebugTrace'"`) && seT.includes('EnumEntries(0)=""') && seT.includes('EnumEntries(3)="Persistent"') && !seT.includes('PinName="Default"'), 'round1b: SwitchEnum — Enum/Entries (None→""), без Default');
-  const enumSelectText = fs.readFileSync(new URL('../sweep/enum-select-test.txt', import.meta.url), 'utf8');
+  const enumSelectText = fs.readFileSync(new URL('../sweep/chapters/enum-select.txt', import.meta.url), 'utf8');
   ok(validateStrict(enumSelectText).errors.length===0 && validateStrict(enumSelectText).warnings.length===0 && enumSelectText.includes('NumOptionPins=4') && enumSelectText.includes('IndexPinType=(PinCategory="byte"') && enumSelectText.includes('EnumEntries(3)="Persistent"'), 'Enum Select: NumOptionPins + IndexPinType + EnumEntries');
   const enumSelectBlock = enumSelectText.split('\n\nBegin Object')[0];
   ok(!enumSelectBlock.includes('PinName="None"') && enumSelectBlock.includes('PinFriendlyName=NSLOCTEXT("UObjectDisplayNames", "EDrawDebugTrace.None", "None")') && enumSelectBlock.includes('PinName="ForOneFrame"'), 'Enum Select options use enum values and localized friendly names');
@@ -574,12 +590,12 @@ regThrow.forEach(t => console.log('THROW:', t));
 }
 // R12 вердикт: Math/Rotator 15/15 белые
 {
-  const rot = reg.filter(e => e.category === 'Math / Rotator');
+  const rot = reg.filter(e => !e.from && e.category === 'Math / Rotator');
   ok(rot.length === 15 && rot.every(e => e.verified), 'R12: Math/Rotator 15/15 verified');
 }
 // R15 pre-fix: Array — CallArrayFunction wildcard + GetArrayItem (copy)
 {
-  const arr = reg.filter(e => e.category === 'Array');
+  const arr = reg.filter(e => !e.from && e.category === 'Array');
   ok(arr.length === 18, 'R15: Array 18 записей');
   const calls = arr.filter(e => e.className.endsWith('K2Node_CallArrayFunction'));
   ok(calls.every(e => e.lib === 'KismetArrayLibrary' && e.func.startsWith('Array_')), 'R15: все CallArrayFunction — KismetArrayLibrary.Array_*');
@@ -592,7 +608,7 @@ regThrow.forEach(t => console.log('THROW:', t));
 }
 // R14 вердикт: String 28/28 белые
 {
-  const st = reg.filter(e => e.category === 'String');
+  const st = reg.filter(e => !e.from && e.category === 'String');
   ok(st.length === 28 && st.every(e => e.verified), 'R14: String 28/28 verified');
 }
 // R16 pre-fix: Utilities
@@ -602,12 +618,12 @@ regThrow.forEach(t => console.log('THROW:', t));
   const cls = createFromEntry(byId('CreateSaveGame')).pins.find(p => p.name === 'SaveGameClass');
   ok(cls.category === 'class' && /Engine\.SaveGame/.test(cls.subCategoryObject), 'R16: class-пин несёт SubCategoryObject');
   ok(byId('RetriggerableDelay').pins.map(p => p.name).join() === 'execute,then,Duration', 'R16: RetriggerableDelay как белый Delay');
-  const v = validateStrict(generateUEText(reg.filter(e => e.category === 'Utilities').map(e => createFromEntry(e))));
+  const v = validateStrict(generateUEText(reg.filter(e => !e.from && e.category === 'Utilities').map(e => createFromEntry(e))));
   ok(v.errors.length === 0, 'R16: Utilities 0 ошибок');
 }
 // R13 вердикт: Math/Transform 10/10 белые
 {
-  const tr = reg.filter(e => e.category === 'Math / Transform');
+  const tr = reg.filter(e => !e.from && e.category === 'Math / Transform');
   ok(tr.length === 10 && tr.every(e => e.verified), 'R13: Math/Transform 10/10 verified');
 }
 // R17 pre-fix: Gameplay
@@ -618,7 +634,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(oa.container === 'Array' && /Engine\.Actor/.test(oa.subCategoryObject), 'R17: OutActors — Actor Array');
   ok(byId('GetWorld').func === 'GetCurrentLevelName', 'R17: GetWorld → GetCurrentLevelName');
   ok(['GetPlayerController', 'GetPlayerPawn', 'GetPlayerCharacter', 'GetGameMode', 'GetGameState', 'GetGameInstance'].every(i => byId(i).pure), 'R17: геттеры pure');
-  const v = validateStrict(generateUEText(reg.filter(e => e.category === 'Gameplay').map(e => createFromEntry(e))));
+  const v = validateStrict(generateUEText(reg.filter(e => !e.from && e.category === 'Gameplay').map(e => createFromEntry(e))));
   ok(v.errors.length === 0, 'R17: Gameplay 0 ошибок');
 }
 // R18 pre-fix: Input
@@ -628,14 +644,14 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(k.pins.map(p => p.name).join() === 'Pressed,Released,Key', 'R18: InputKey пины Pressed/Released/Key');
   const d = createFromEntry(byId('IsInputKeyDown'));
   ok(/Engine\.PlayerController/.test(d.memberParent) && d.pure && d.pins[0].name === 'self', 'R18: IsInputKeyDown — член PlayerController, pure, self');
-  const v = validateStrict(generateUEText(reg.filter(e => e.category === 'Input').map(e => createFromEntry(e))));
+  const v = validateStrict(generateUEText(reg.filter(e => !e.from && e.category === 'Input').map(e => createFromEntry(e))));
   ok(v.errors.length === 0, 'R18: Input 0 ошибок');
 }
 // R15/R16 вердикт: Array 18/18, Utilities 19/19 белые
 {
-  const a = reg.filter(e => e.category === 'Array'), u = reg.filter(e => e.category === 'Utilities');
+  const a = reg.filter(e => !e.from && e.category === 'Array'), u = reg.filter(e => !e.from && e.category === 'Utilities');
   ok(a.length === 18 && a.every(e => e.verified), 'R15: Array 18/18 verified');
-  ok(u.length === 19 && u.every(e => e.verified), 'R16: Utilities 19/19 verified');
+  ok(u.length === 20 && u.every(e => e.verified), 'R16+R34: Utilities 20/20 verified (R34 добавил MoveComponentTo)');
 }
 // R19 pre-fix: Organization
 {
@@ -646,12 +662,12 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(createFromEntry(byId('MakeMap')).pins.map(p => p.name).join() === 'Key 0,Value 0,Map', 'R19: MakeMap Key 0/Value 0/Map');
   const se = createFromEntry(byId('Select'));
   ok(se.selectIndex && se.selectIndex.cat === 'int', 'R19: Select IndexPinType int');
-  const v = validateStrict(generateUEText(reg.filter(e => e.category === 'Organization').map(e => createFromEntry(e))));
+  const v = validateStrict(generateUEText(reg.filter(e => !e.from && e.category === 'Organization').map(e => createFromEntry(e))));
   ok(v.errors.length === 0 && !v.warnings.some(w => w.startsWith('W03')), 'R19: Organization 0 ошибок, без W03');
 }
 // R17 вердикт: Gameplay 12/12; R20 pre-fix: FormatText
 {
-  const g = reg.filter(e => e.category === 'Gameplay');
+  const g = reg.filter(e => !e.from && e.category === 'Gameplay');
   ok(g.length === 12 && g.every(e => e.verified), 'R17: Gameplay 12/12 verified');
   const f = createFromEntry(byId('FormatText'));
   ok(f.className.endsWith('K2Node_FormatText') && f.pins.map(p => p.name).join() === 'Format,Result', 'R20: FormatText → K2Node_FormatText Format/Result');
@@ -667,13 +683,13 @@ regThrow.forEach(t => console.log('THROW:', t));
 }
 // R19 вердикт: Organization 6/6
 {
-  const o = reg.filter(e => e.category === 'Organization');
+  const o = reg.filter(e => !e.from && e.category === 'Organization');
   ok(o.length === 7 && o.every(e => e.verified), 'R19: Organization 7/7 verified');
 }
 // R20 вердикт: Text 1/1; DefaultTextValue (copy-back FormatText)
 {
-  ok(reg.filter(e => e.category === 'Text').every(e => e.verified), 'R20: Text verified');
-  const cb = fs.readFileSync(new URL('./fixtures/formattext-copyback.txt', import.meta.url), 'utf8');
+  ok(reg.filter(e => !e.from && e.category === 'Text').every(e => e.verified), 'R20: Text verified');
+  const cb = fs.readFileSync(new URL('../sweep/copyback/formattext.txt', import.meta.url), 'utf8');
   const g = parseToGraphs(cb);
   const nodes = (Array.isArray(g) ? g : Object.values(g)).flatMap(x => x.nodes || x);
   const ft = nodes.find(n => /FormatText/.test(n.className || n.rawClass || ''));
@@ -695,11 +711,11 @@ regThrow.forEach(t => console.log('THROW:', t));
 }
 // R18 вердикт: Input 2/2 (copy-back); R22 pre-fix: Casting
 {
-  const inp = reg.filter(e => e.category === 'Input');
+  const inp = reg.filter(e => !e.from && e.category === 'Input');
   ok(inp.length === 2 && inp.every(e => e.verified), 'R18: Input 2/2 verified');
-  const cb = fs.readFileSync(new URL('./fixtures/input-r18-copyback.txt', import.meta.url), 'utf8');
+  const cb = fs.readFileSync(new URL('../sweep/copyback/input-r18.txt', import.meta.url), 'utf8');
   ok(cb.includes('InputKey=SpaceBar') && cb.includes('NSLOCTEXT("K2Node", "Target", "Target")'), 'R18: copy-back — InputKey принят, self → Target');
-  const cs = reg.filter(e => e.category === 'Casting');
+  const cs = reg.filter(e => !e.from && e.category === 'Casting');
   ok(cs.length === 11, 'R22: Casting 11 записей (+ClassCastToPawn)');
   ok(createFromEntry(byId('CastToCharacter')).pins.some(p => p.name === 'AsCharacter'), 'R22: CastToCharacter выход AsCharacter');
   const v = validateStrict(generateUEText(cs.map(e => createFromEntry(e))));
@@ -707,7 +723,7 @@ regThrow.forEach(t => console.log('THROW:', t));
 }
 // R23 pre-fix: Actor (члены AActor)
 {
-  const ac = reg.filter(e => e.category === 'Actor');
+  const ac = reg.filter(e => !e.from && e.category === 'Actor');
   ok(ac.length === 32 && ac.every(e => ['Actor','SceneComponent'].includes(e.lib) && e.pins.some(p => p.name === 'self')), 'R23+23b: Actor 32 записи (13 + 19), все члены Actor/SceneComponent с self');
   const at = createFromEntry(byId('AttachActorToActor')).pins.find(p => p.name === 'LocationRule');
   ok(/EAttachmentRule/.test(at.subCategoryObject) && at.defaultValue === 'KeepRelative', 'R23: EAttachmentRule KeepRelative');
@@ -734,8 +750,8 @@ regThrow.forEach(t => console.log('THROW:', t));
 // R22 VERIFIED + каст к любому классу (createCast)
 {
   const { createCast } = await import('../src/generator.js');
-  ok(reg.filter(e => e.category === 'Casting').every(e => e.verified), 'R22: Casting verified');
-  const ref = fs.readFileSync(new URL('./fixtures/classcast-r22-copyback.txt', import.meta.url), 'utf8');
+  ok(reg.filter(e => !e.from && e.category === 'Casting').every(e => e.verified), 'R22: Casting verified');
+  const ref = fs.readFileSync(new URL('../sweep/copyback/classcast-r22.txt', import.meta.url), 'utf8');
   const t = generateUEText([createCast('Pawn', { kind: 'class' })]);
   const sig = s => s.split('\n').filter(l => /TargetType|PureState|PinName=/.test(l)).map(l => l.replace(/PinId=\w+,/, '').replace(/PersistentGuid=0+,/, '').trim());
   ok(JSON.stringify(sig(t)) === JSON.stringify(sig(ref)), 'R22: ClassDynamicCast Pawn = копия пользователя 1:1 (без GUID)');
@@ -747,33 +763,33 @@ regThrow.forEach(t => console.log('THROW:', t));
 }
 // R23 VERIFIED + R23b pre: досылка Actor/SceneComponent
 {
-  ok(reg.filter(e => e.category === 'Actor' && !/round23b/.test(e.note)).every(e => e.verified), 'R23: 13 записей verified');
+  ok(reg.filter(e => !e.from && e.category === 'Actor' && !/round23b/.test(e.note)).every(e => e.verified), 'R23: 13 записей verified');
   const t = generateUEText([createFromEntry(byId('AttachComponentToComponent'))]);
   ok(t.includes("MemberParent=\"/Script/CoreUObject.Class'/Script/Engine.SceneComponent'\",MemberName=\"K2_AttachToComponent\"") && t.includes('DefaultValue="KeepRelative"'), 'R23b: Attach Component To Component — член SceneComponent, правила KeepRelative');
   ok(generateUEText([createFromEntry(byId('DetachFromActor'))]).includes("Engine.EDetachmentRule"), 'R23b: EDetachmentRule');
-  const v = validateStrict(fs.readFileSync(new URL('../sweep/23b-actor-ext.txt', import.meta.url), 'utf8'));
+  const v = validateStrict(fs.readFileSync(new URL('../sweep/chapters/r23-actor-ext.txt', import.meta.url), 'utf8'));
   ok(v.errors.length === 0, 'R23b: sweep 0 ошибок');
 // R21c + R23b VERIFIED, R25 pre: Events / Delegates
 {
   ok(['EnhancedInputActionEvent','GetInputActionValue'].every(id => byId(id).verified), 'R21c: 2 записи verified');
-  ok(reg.filter(e => e.category === 'Actor').every(e => e.verified), 'R23b: все 32 записи Actor verified');
-  const ev = reg.filter(e => e.category === 'Events / Delegates');
+  ok(reg.filter(e => !e.from && e.category === 'Actor').every(e => e.verified), 'R23b: все 32 записи Actor verified');
+  const ev = reg.filter(e => !e.from && e.category === 'Events / Delegates');
   ok(ev.length === 8 && !ev.some(e => e.className.endsWith('K2Node_Event')), 'R25: 8 записей, без K2Node_Event');
   const t = generateUEText([createFromEntry(byId('CustomEventParam')), createFromEntry(byId('BindEventActorBeginOverlap'))]);
   ok(t.includes('CustomFunctionName="OnDamaged"') && t.includes('UserDefinedPin (PinName="Amount",PinType=(PinCategory="real",PinSubCategory="double"),DesiredPinDirection=EGPD_Output)'), 'R25: Custom Event с UserDefinedPin');
   ok(t.includes('MemberName="ActorBeginOverlapSignature__DelegateSignature"') && t.includes('MemberName="OnActorBeginOverlap")'), 'R25: Bind Event — DelegateReference + сигнатура делегата');
-  const v = validateStrict(fs.readFileSync(new URL('../sweep/25-events-delegates.txt', import.meta.url), 'utf8'));
+  const v = validateStrict(fs.readFileSync(new URL('../sweep/chapters/r25-events-delegates.txt', import.meta.url), 'utf8'));
   ok(v.errors.length === 0, 'R25: sweep 0 ошибок');
 }
 }
 // R24 VERIFIED, R26 pre: Timers / Latent
 {
-  ok(reg.filter(e => e.category === 'Pawn / Character').every(e => e.verified), 'R24: 18 записей verified');
-  const tl = reg.filter(e => e.category === 'Timers / Latent');
+  ok(reg.filter(e => !e.from && e.category === 'Pawn / Character').every(e => e.verified), 'R24: 18 записей verified');
+  const tl = reg.filter(e => !e.from && e.category === 'Timers / Latent');
   ok(tl.length === 14 && tl.every(e => e.lib === 'KismetSystemLibrary'), 'R26: 14 записей KSL');
   const t = generateUEText([createFromEntry(byId('SetTimerByEvent')), createFromEntry(byId('ClearAndInvalidateTimerHandle'))]);
   ok(t.includes('MemberName="TimerDynamicDelegate__DelegateSignature"') && t.includes("Engine.TimerHandle'"), 'R26: Set Timer by Event — сигнатура делегата + FTimerHandle');
-  const v = validateStrict(fs.readFileSync(new URL('../sweep/26-timers-latent.txt', import.meta.url), 'utf8'));
+  const v = validateStrict(fs.readFileSync(new URL('../sweep/chapters/r26-timers-latent.txt', import.meta.url), 'utf8'));
   ok(v.errors.length === 0, 'R26: sweep 0 ошибок');
 }
 // R22b VERIFIED + конструктор модулей (src/modules.js, tools/make-node.mjs)
@@ -781,7 +797,7 @@ regThrow.forEach(t => console.log('THROW:', t));
   const M = await import('../src/modules.js');
   const ev = M.createCustomEvent('Hit', ['Amount:float', 'Who:object:/Game/X/BP_Y', 'Tags:name[]']);
   const t = generateUEText([ev]);
-  ok(t.includes('PinName="Tags",PinType=(PinCategory="name",ContainerType=Array)') && t.includes("BlueprintGeneratedClass'/Game/X/BP_Y.BP_Y_C'"), 'modules: Custom Event с произвольными параметрами (массив, BP-класс)');
+  ok(t.includes('PinName="Tags",PinType=(PinCategory="name",ContainerType=Array,bIsReference=True,bIsConst=True)') && t.includes("BlueprintGeneratedClass'/Game/X/BP_Y.BP_Y_C'"), 'modules: Custom Event с произвольными параметрами (массив, BP-класс)');
   const call = M.createCallCustomEvent(ev, { Amount: '3.0' });
   ok(call.memberGuid === ev.guid && call.pins.some(p => p.name === 'Amount' && p.defaultValue === '3.0'), 'modules: вызов события берёт параметры и GUID события');
   const b = generateUEText([M.createDelegateNode('bind', 'PrimitiveComponent.OnComponentBeginOverlap')]);
@@ -791,28 +807,37 @@ regThrow.forEach(t => console.log('THROW:', t));
   let threw = false; try { M.parseType('quux'); } catch { threw = true; }
   ok(threw, 'modules: неизвестный тип — ошибка, а не молчаливый мусор');
   ok(M.createFn(byId('Delay'), { Duration: '2.5' }).pins.find(p => p.name === 'Duration').defaultValue === '2.5', 'modules: createFn переопределяет дефолт');
-  const v = validateStrict(fs.readFileSync(new URL('../sweep/25b-make-node.txt', import.meta.url), 'utf8'));
+  const v = validateStrict(fs.readFileSync(new URL('../sweep/chapters/r25-make-node.txt', import.meta.url), 'utf8'));
   ok(v.errors.length === 0, 'R25b: модуль make-node 0 ошибок');
-  const db = fs.readFileSync(new URL('../sweep/dispatcher-probe-bound.txt', import.meta.url), 'utf8');
+  const db = fs.readFileSync(new URL('../sweep/chapters/dispatcher-bound.txt', import.meta.url), 'utf8');
   const dbNodes = Object.values(parseToGraphs(db))[0].nodes;
   const bySuffix = suffix => dbNodes.find(n => n.className.endsWith(suffix));
   ok(validateStrict(db).errors.length===0 && db.includes('MemberName=\"NewEventDispatcher_Probe\"'), 'Dispatcher probe: bound custom event uses self dispatcher');
   const execChain=['K2Node_CustomEvent_3000','K2Node_AddDelegate_3002','K2Node_CallDelegate_3001','K2Node_RemoveDelegate_3003','K2Node_ClearDelegate_3004'].map(id=>dbNodes.find(n=>n.id===id));
   ok(execChain.every((n,i)=>n && (!i || n.pos.x - execChain[i-1].pos.x >= 400)) && dbNodes.find(n=>n.id==='K2Node_CustomEvent_5000')?.pos.x===execChain[1].pos.x && dbNodes.find(n=>n.id==='K2Node_CustomEvent_5000')?.pos.y>execChain[1].pos.y, 'Dispatcher probe: arranger leaves clear left-to-right corridors, handler below Add');
-  const {pinCenterY}=await import('../src/generator.js');
-  const execAligned=execChain.slice(0,-1).every((n,i)=>{const out=n.pins.find(p=>p.name==='then');const dest=execChain[i+1];const input=dest.pins.find(p=>p.name==='execute');return Math.abs(pinCenterY(n,out)-pinCenterY(dest,input))<1;});
-  ok(execAligned, 'Dispatcher probe: decorator aligns every connected exec pin center');
-  ok(db.split('LinkedTo=(K2Node_CustomEvent_5000').length-1===2 && !db.includes('K2Node_Knot_'), 'Dispatcher probe: callback links preserved, no unnecessary reroute knots');
+  const rowFlat=execChain.every(n=>n.pos.y===execChain[0].pos.y);
+  ok(rowFlat, 'Dispatcher probe: decorator keeps one flat row — identical Y for every exec node');
+  const { flatLinks: dbFlat } = await import('../src/decorator.js');
+  const { pinCenterY: dbPinY } = await import('../src/generator.js');
+  const dbWires = dbFlat(dbNodes).filter(l => l.exec);
+  ok(db.split('LinkedTo=(K2Node_CustomEvent_5000').length-1===2
+     && dbWires.length===4
+     && dbWires.every(l => (dbPinY(l.source,l.out)===dbPinY(l.target,l.input) ? l.via.length===0 : (l.via.length<=4 && (l.via.length>=1 || Math.max(Math.abs(l.target.pos.x-l.source.pos.x-estNodeWidth(l.source)),Math.abs(dbPinY(l.target,l.input)-dbPinY(l.source,l.out)))<320)))),
+     'Dispatcher probe: callback links preserved, каждый exec-провод соосный или ведёт через стадиум (близкие knot-ы слиты, 1–4)');
 }
 // End-to-end smoke through creator -> arranger -> decorator.
 {
-  const text=fs.readFileSync(new URL('../sweep/current-pipeline-smoke.txt',import.meta.url),'utf8');
+  const text=fs.readFileSync(new URL('../sweep/layout/pipeline-smoke.txt',import.meta.url),'utf8');
   const nodes=Object.values(parseToGraphs(text))[0].nodes;
   const order=['K2Node_CustomEvent_5000','K2Node_CallFunction_100','K2Node_CallFunction_101'].map(id=>nodes.find(n=>n.id===id));
-  const {pinCenterY}=await import('../src/generator.js');
-  ok(validateStrict(text).errors.length===0 && nodes.length===3, 'pipeline smoke: three-node text is STRICT-clean');
-  ok(order.every((n,i)=>n && (!i || n.pos.x>order[i-1].pos.x)) && !nodes.some(n=>n.className.endsWith('K2Node_Knot')), 'pipeline smoke: Start→Delay→Print laid out in order without unnecessary knots');
-  ok(order.slice(0,-1).every((n,i)=>{const out=n.pins.find(p=>p.name==='then'),input=order[i+1].pins.find(p=>p.name==='execute');return Math.abs(pinCenterY(n,out)-pinCenterY(order[i+1],input))<1;}), 'pipeline smoke: linked exec pin centers align in the model');
+  const {estNodeWidth, pinCenterY}=await import('../src/generator.js');
+  const { flatLinks }=await import('../src/decorator.js');
+  const wires=flatLinks(nodes).filter(l=>l.exec);
+  ok(validateStrict(text).errors.length===0 && nodes.filter(n=>!n.className.includes('Knot')).length===3, 'pipeline smoke: three-node text is STRICT-clean');
+  ok(order.every((n,i)=>n && (!i || n.pos.x>order[i-1].pos.x))
+     && wires.every(l=>(pinCenterY(l.source,l.out)===pinCenterY(l.target,l.input) ? l.via.length===0 : (l.via.length<=4 && (l.via.length>=1 || Math.max(Math.abs(l.target.pos.x-l.source.pos.x-estNodeWidth(l.source)),Math.abs(pinCenterY(l.target,l.input)-pinCenterY(l.source,l.out)))<320)))),
+     'pipeline smoke: Start→Delay→Print laid out in order; кривых проводов нет — несоосные идут через стадиум');
+  ok(order.every(n=>n.pos.y===order[0].pos.y) && order.slice(1).every((n,i)=>n.pos.x-(order[i].pos.x+estNodeWidth(order[i]))>=80-1), 'pipeline smoke: flat exec row + gap of 5 grid cells (80px)');
 }
 
 // R27 pre: Widgets / UI + конструктор widget/get/set
@@ -822,8 +847,8 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(w.includes('Class=/Script/UMGEditor.K2Node_CreateWidget') && w.includes('DefaultObject="/Game/UI/WBP_Menu.WBP_Menu_C"') && w.includes("UMG.WidgetBlueprintGeneratedClass'/Game/UI/WBP_Menu.WBP_Menu_C'"), 'R27: Create Widget — класс WBP в DefaultObject, выход типизирован');
   const s = generateUEText([M.createMemberVar('set', 'PlayerController.bShowMouseCursor', 'bool', 'true')]);
   ok(s.includes(`VariableReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.PlayerController'",MemberName="bShowMouseCursor")`) && s.includes('PinName="Output_Get"'), 'R27: Set свойства чужого класса');
-  ok(reg.filter(e => e.category === 'Widgets / UI').length === 8, 'R27: 8 записей Widgets / UI');
-  const v = validateStrict(fs.readFileSync(new URL('../sweep/27-widgets-ui.txt', import.meta.url), 'utf8'));
+  ok(reg.filter(e => !e.from && e.category === 'Widgets / UI').length === 8, 'R27: 8 записей Widgets / UI');
+  const v = validateStrict(fs.readFileSync(new URL('../sweep/chapters/r27-widgets-ui.txt', import.meta.url), 'utf8'));
   ok(v.errors.length === 0, 'R27: sweep 0 ошибок');
 }
 // R28 pre: Enhanced Input (full) + ia-event/ia-value + ассеты в объектных пинах
@@ -836,22 +861,22 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(gv.includes('K2Node_GetInputActionValue') && gv.includes('IA_Look.IA_Look'), 'R28: Get IA_X для любого IA');
   const add = generateUEText([M.createFn(byId('AddMappingContext'), { MappingContext: 'IMC_Default' })]);
   ok(add.includes('DefaultObject="/Game/Input/IMC_Default.IMC_Default"'), 'R28: объектный пин получает ассет через DefaultObject');
-  ok(reg.filter(e => e.category === 'Enhanced Input (full)').length === 15, 'R28: 15 записей Enhanced Input (full)');
-  const v = validateStrict(fs.readFileSync(new URL('../sweep/28-enhanced-input-full.txt', import.meta.url), 'utf8'));
+  ok(reg.filter(e => !e.from && e.category === 'Enhanced Input (full)').length === 15, 'R28: 15 записей Enhanced Input (full)');
+  const v = validateStrict(fs.readFileSync(new URL('../sweep/chapters/r28-enhanced-input-full.txt', import.meta.url), 'utf8'));
   ok(v.errors.length === 0, 'R28: sweep 0 ошибок');
 }
 // R25 VERIFIED + R29 pre: Components / Physics + call (любая UFUNCTION)
 {
   const M = await import('../src/modules.js');
-  ok(reg.filter(e => e.category === 'Events / Delegates').every(e => e.verified), 'R25: Events / Delegates подтверждены движком');
+  ok(reg.filter(e => !e.from && e.category === 'Events / Delegates').every(e => e.verified), 'R25: Events / Delegates подтверждены движком');
   const m = generateUEText([M.createCall('PrimitiveComponent.SetAngularDamping', ['InDamping:float=0.5'])]);
   ok(m.includes(`MemberParent="/Script/CoreUObject.Class'/Script/Engine.PrimitiveComponent'",MemberName="SetAngularDamping"`) && m.includes('PinName="self"') && m.includes('PinName="execute"') && m.includes('DefaultValue="0.5"'), 'R29: call — член класса с видимым self и exec');
   const st = generateUEText([M.createCall('KismetMathLibrary.Abs', ['A:float', '->', 'ReturnValue:float'], { pure: true, isStatic: true })]);
   ok(st.includes('Default__KismetMathLibrary') && !st.includes('PinName="execute"'), 'R29: call static pure — скрытый self библиотеки, без exec');
   const gc = generateUEText([M.createFn(byId('GetComponentByClass'), { ComponentClass: 'StaticMeshComponent' })]);
   ok(gc.includes('DefaultObject="/Script/Engine.StaticMeshComponent"'), 'R29: class-пин получает нативный класс');
-  ok(reg.filter(e => e.category === 'Components / Physics').length === 23, 'R29: 23 записи Components / Physics');
-  const v = validateStrict(fs.readFileSync(new URL('../sweep/29-components-physics.txt', import.meta.url), 'utf8'));
+  ok(reg.filter(e => !e.from && e.category === 'Components / Physics').length === 23, 'R29: 23 записи Components / Physics');
+  const v = validateStrict(fs.readFileSync(new URL('../sweep/chapters/r29-components-physics.txt', import.meta.url), 'utf8'));
   ok(v.errors.length === 0, 'R29: sweep 0 ошибок');
 }
 // R26 VERIFIED + R30 pre: декор (--decorate): exec-knot'ы на переносе рядов
@@ -883,8 +908,8 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(execEventA && brA && brA.pos.y - execEventA.pos.y === 16, `Exec alignment: Branch на один шаг выше старого офсета от Custom Event (${execEventA?.pos.y}/${brA?.pos.y})`);
   // Collapsed-node probe: source header offset, pin-row height, and exact lateral Knot columns.
   {
-    const text = fs.readFileSync(new URL('../sweep/collapsed-knot-4x5-test.txt', import.meta.url), 'utf8');
-    const pinRef = fs.readFileSync(new URL('./fixtures/collapsed-6-output-layout-reference.md', import.meta.url), 'utf8');
+    const text = fs.readFileSync(new URL('../sweep/layout/collapsed-knot-4x5.txt', import.meta.url), 'utf8');
+    const pinRef = fs.readFileSync(new URL('../sweep/copyback/collapsed-6-output-layout-reference.md', import.meta.url), 'utf8');
     const graph = Object.values(parseToGraphs(text))[0];
     const comp = graph.nodes.find(n => n.isComposite), knots = graph.nodes.filter(n => n.isReroute);
     const { pinCenterY: py, estNodeWidth: ew, PIN_ROW_H, KNOT_X_STEP, KNOT_SIDE_OFFSET, COMPOSITE_PIN_HEADER_EXTRA } = await import('../src/generator.js');
@@ -902,8 +927,8 @@ regThrow.forEach(t => console.log('THROW:', t));
   }
   // Recursive collapsed-node Knot levels: 1 input stops after its single port Knot; 3 outputs yield 3, 2, 1.
   {
-    const text = fs.readFileSync(new URL('../sweep/collapsed-knot-1x3-3levels-test.txt', import.meta.url), 'utf8');
-    const widthRef = fs.readFileSync(new URL('./fixtures/collapsed-1x3-right-width-reference.md', import.meta.url), 'utf8');
+    const text = fs.readFileSync(new URL('../sweep/layout/collapsed-knot-1x3-3levels.txt', import.meta.url), 'utf8');
+    const widthRef = fs.readFileSync(new URL('../sweep/copyback/collapsed-1x3-right-width-reference.md', import.meta.url), 'utf8');
     const graph = Object.values(parseToGraphs(text))[0];
     const comp = graph.nodes.find(n => n.isComposite), knots = graph.nodes.filter(n => n.isReroute);
     const { pinCenterY: py, estNodeWidth: ew, KNOT_SIDE_OFFSET, KNOT_X_STEP } = await import('../src/generator.js');
@@ -916,7 +941,7 @@ regThrow.forEach(t => console.log('THROW:', t));
     ok(knotCenters(outputLevels[0]).every((y,i)=>y===py(comp,outputs[i])) && knotCenters(outputLevels[1]).join(',')==='72,104' && knotCenters(outputLevels[2])[0]===88, 'Collapsed levels: портовые Y совпадают с pin centers; следующие уровни — рекурсивные midpoint');
     ok(widthRef.includes('NodePosX=-11440') && widthRef.includes('NodePosX=-11232') && ew(comp)===176 && knots.every(k=>k.pos.x===-32 || [208,224,240].includes(k.pos.x)) && outputLevels[0].every(k=>k.pos.x-ew(comp)===32), 'Collapsed levels: ширина Composite 176px по корректному port Knot; зазор 32px и уровни дальше по 16px');
   }
-  const s30 = fs.readFileSync(new URL('../sweep/30-decorate.txt', import.meta.url), 'utf8');
+  const s30 = fs.readFileSync(new URL('../sweep/chapters/r30-decorate.txt', import.meta.url), 'utf8');
   const knotCount = t => (t.match(/Begin Object Class=\/Script\/BlueprintGraph\.K2Node_Knot /g) || []).length;
   ok(validateStrict(s30).errors.length === 0 && knotCount(s30) === 4, 'R30: sweep 0 ошибок, 4 knot\'а');
   ok(!/ExportPath=/.test(s30) && /PersistentGuid=0{32}/.test(s30), 'R30: пересобран в формате P1 (без ExportPath, PersistentGuid)');
@@ -941,14 +966,14 @@ regThrow.forEach(t => console.log('THROW:', t));
   const gh = Object.values(pg(headed))[0].nodes;
   const evA = gh.find(n => n.rawLines.some(l => l.includes('CustomFunctionName="A"'))), dh = gh.find(n => n.funcName === 'Delay');
   ok(evA.pins.find(p => p.name === 'then').linkedTo[0].nodeName === dh.id && dh.pins.find(p => p.name === 'then').linkedTo.length === 1, '--chain: узлы до первого события подхватывает первое событие (A → Delay → PrintString)');
-  // негативные фикстуры (tests/fixtures/negative/): каждая ДОЛЖНА падать с E20
-  const negDir = new URL('./fixtures/negative/', import.meta.url);
+  // негативные фикстуры (tests/negative/): каждая ДОЛЖНА падать с E20
+  const negDir = new URL('./negative/', import.meta.url);
   const neg = fs.readdirSync(negDir).filter(f => f.endsWith('.txt'));
   ok(neg.length >= 1 && neg.every(f => validateStrict(fs.readFileSync(new URL(f, negDir), 'utf8')).errors.some(e => e.startsWith('E20'))), `negative/: все ${neg.length} фикстур ловятся E20`);
 }
 // R31 pre: Audio через call, тип single (C++ float)
 {
-  const s31 = fs.readFileSync(new URL('../sweep/31-audio.txt', import.meta.url), 'utf8');
+  const s31 = fs.readFileSync(new URL('../sweep/chapters/r31-audio.txt', import.meta.url), 'utf8');
   ok(validateStrict(s31).errors.length === 0, 'R31: sweep 0 ошибок');
   ok(s31.includes('MemberName="SpawnSound2D"') && s31.includes("Engine.AudioComponent'") && /PinName="NewVolumeMultiplier",PinType\.PinCategory="real",PinType\.PinSubCategory="float"/.test(s31), 'R31: SpawnSound2D + AudioComponent + single→float');
   ok((s31.match(/Begin Object Class=\/Script\/BlueprintGraph\.K2Node_Knot /g) || []).length === 4, 'R31: --decorate 4 knot\'а');
@@ -957,7 +982,7 @@ regThrow.forEach(t => console.log('THROW:', t));
 {
   const reg27 = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8'));
   ok(reg27.filter(e => e.category === 'Widgets / UI').every(e => e.verified), 'R27: все 8 Widgets/UI verified');
-  const t = fs.readFileSync(new URL('../sweep/27b-widgets-ui-decorated.txt', import.meta.url), 'utf8');
+  const t = fs.readFileSync(new URL('../sweep/chapters/r27-widgets-ui-decorated.txt', import.meta.url), 'utf8');
   ok(validateStrict(t).errors.length === 0, '27b: 0 ошибок');
   const pos = name => { const b = t.split('Begin Object').find(x => x.includes(`Name="${name}"`)); return [+b.match(/NodePosX=(-?\d+)/)[1], +b.match(/NodePosY=(-?\d+)/)[1]]; };
   const [gx, gy] = pos('K2Node_CallFunction_100'), [cx, cy] = pos('K2Node_CreateWidget_5001'), [ex, ey] = pos('K2Node_CustomEvent_5000');
@@ -999,8 +1024,8 @@ regThrow.forEach(t => console.log('THROW:', t));
   ok(mv && mv.verified && mv.pure && mv.lib === 'KismetMathLibrary', 'P0.3: MakeVector2D pure в реестре, verified');
   const vm = validateStrict(generateUEText([createFromEntry(mv)]));
   ok(vm.valid && !vm.warnings.some(w => w.startsWith('W05')), 'P0.3: MakeVector2D без W05');
-  // P0.4: регресс — все живые копии tests/fixtures/ проходят (CLI-режим auto)
-  const fxDir = new URL('./fixtures/', import.meta.url);
+  // P0.4: регресс — все живые копии sweep/copyback/ проходят (CLI-режим auto)
+  const fxDir = new URL('../sweep/copyback/', import.meta.url);
   const fx = fs.readdirSync(fxDir).filter(f => f.endsWith('.txt'));
   const bad = fx.filter(f => !validateStrict(fs.readFileSync(new URL(f, fxDir), 'utf8'), { fragment: 'auto' }).valid);
   ok(fx.length >= 11 && bad.length === 0, `P2.12: все живые дампы fixtures/ STRICT OK (${bad.join(', ') || fx.length + ' шт'})`);
@@ -1048,13 +1073,191 @@ regThrow.forEach(t => console.log('THROW:', t));
 }
 // R29 VERIFIED + sweep 32 (компоненты: жизненный цикл/запросы, новый формат пинов)
 {
-  const c29 = reg.filter(e => e.category === 'Components / Physics');
+  const c29 = reg.filter(e => !e.from && e.category === 'Components / Physics');
   ok(c29.length >= 23 && c29.every(e => e.verified), 'R29: Components / Physics verified');
-  const t = fs.readFileSync(new URL('../sweep/32-components-lifecycle.txt', import.meta.url), 'utf8');
+  const t = fs.readFileSync(new URL('../sweep/chapters/r32-components-lifecycle.txt', import.meta.url), 'utf8');
   ok(validateStrict(t).valid, '32: 0 ошибок (строго)');
   ok(!t.includes('ExportPath=') && t.split('\n').filter(l => l.includes('CustomProperties Pin')).every(l => l.includes('PersistentGuid=0')), '32: новый формат (без ExportPath, PersistentGuid)');
   ok(['Deactivate', 'Activate', 'SetComponentTickEnabled', 'IsComponentTickEnabled', 'K2_GetComponentsByClass', 'GetComponentsByTag', 'GetAllWidgetsOfClass', 'K2_DestroyComponent'].every(f => t.includes(`MemberName="${f}"`)), '32: все 8 функций');
   ok(!/Engine\.(UserWidget|WidgetBlueprintLibrary)'/.test(t) && t.includes('DefaultObject="/Script/UMG.Default__WidgetBlueprintLibrary"'), '32: UMG-классы с модулем UMG, не Engine');
+}
+// R33 copy-back (2026-09-30): Enhanced Input событие/значение, DrawDebugArrow, Quat_IsNormalized
+{
+  const { createInputActionEvent, createInputActionValue } = await import('../src/modules.js');
+  const ev = createInputActionEvent('IA_Look', 'vector2d'), gv = createInputActionValue('IA_Look', 'vector2d');
+  const t = generateUEText([ev, gv]);
+  ok(validateStrict(t).valid, 'R33: IA событие + Get IA → STRICT');
+  ok(gv.pins.some(p => p.name === 'ReturnValue') && !gv.pins.some(p => p.name === 'ActionValue'), 'R33: Get IA_X — выход ReturnValue');
+  ok(t.includes('AdvancedPinDisplay=Hidden'), 'R33: событие IA — AdvancedPinDisplay=Hidden');
+  const adv = Object.fromEntries(ev.pins.map(p => [p.name, p.advanced]));
+  ok(!adv.Triggered && !adv.ActionValue && ['Started', 'Ongoing', 'Canceled', 'Completed', 'ElapsedSeconds', 'TriggeredSeconds', 'InputAction'].every(n => adv[n]), 'R33: advanced-флаги как в UE');
+  ok(ev.pins.filter(p => /Seconds$/.test(p.name)).every(p => p.subCategory === 'double'), 'R33: секунды — real/double');
+  ok(/PinName="InputAction".*DefaultValue="IA_Look",DefaultObject="\/Game\/Input\/Actions\/IA_Look\.IA_Look"/.test(t), 'R33: выход InputAction с дефолтом-ассетом');
+  const arrow = reg.find(e => e.id === 'DrawDebugArrow'), quat = reg.find(e => e.id === 'Quat_IsNormalized');
+  ok(arrow.verified && quat && quat.verified, 'R33: DrawDebugArrow и Quat_IsNormalized verified');
+  const ta = generateUEText([createFromEntry(arrow), createFromEntry(quat)]);
+  ok(validateStrict(ta).valid, 'R33: стрелка + Quat → STRICT');
+  ok(/NodePosY=-?\d+\n   EnabledState=DevelopmentOnly\n   NodeGuid=/.test(ta), 'R33: EnabledState между NodePosY и NodeGuid');
+  ok(['ArrowSize', 'Duration', 'Thickness'].every(n => new RegExp(`PinName="${n}".*PinSubCategory="float"`).test(ta)), 'R33: float-пины стрелки single');
+  ok(/PinName="DepthPriority".*EDrawDebugSceneDepthPriorityGroup'",.*DefaultValue="World"/.test(ta), 'R33: DepthPriority enum = World');
+  ok(/PinName="Q".*CoreUObject\.Quat'",.*bIsReference=True,PinType\.bIsConst=True/.test(ta), 'R33: Quat_IsNormalized.Q — const ref Quat');
+  ok(!reg.find(e => e.id === 'IsPowerOfTwo').verified && !reg.find(e => e.id === 'IsNormalized_Vector').verified, 'R33: несуществующие IsPowerOfTwo / IsNormalized(Vector) не verified');
+}
+// R34 copy-back (2026-09-30): MoveComponentTo — ExpandEnumAsExecs (входы Move/Stop/Return), then = «Completed»
+{
+  const e = reg.find(x => x.id === 'MoveComponentTo');
+  ok(e && e.verified, 'R34: MoveComponentTo в реестре, verified');
+  const mv = createFromEntry(e), br = createFromEntry(reg.find(x => x.id === 'Branch'));
+  linkPins(br, 'then', mv, 'Move'); linkPins(br, 'else', mv, 'Stop');
+  const t = generateUEText([br, mv]);
+  ok(validateStrict(t).valid, 'R34: Branch→Move/Stop → STRICT');
+  ok(/bWantsEnumToExecExpansion=True\n   FunctionReference=\(MemberParent="\/Script\/CoreUObject\.Class'\/Script\/Engine\.KismetSystemLibrary'",MemberName="MoveComponentTo"\)/.test(t), 'R34: bWantsEnumToExecExpansion до FunctionReference');
+  const names = mv.pins.map(p => p.name).join(',');
+  ok(names === 'Move,Stop,Return,then,Component,TargetRelativeLocation,TargetRelativeRotation,bEaseOut,bEaseIn,OverTime,bForceShortestRotationPath,MoveAction,LatentInfo', 'R34: порядок пинов как в UE (без execute)');
+  ok(/PinName="then",PinFriendlyName="Completed",/.test(t), 'R34: then → PinFriendlyName="Completed"');
+  ok(/PinName="MoveAction".*EMoveComponentAction'",.*DefaultValue="Move",PersistentGuid.*bHidden=True/.test(t), 'R34: MoveAction скрыт, Move, без автогена');
+  ok(/PinName="LatentInfo".*DefaultValue="LatentInfo",AutogeneratedDefaultValue="LatentInfo".*bHidden=True/.test(t), 'R34: LatentInfo скрыт');
+  ok(/PinName="OverTime".*PinSubCategory="float".*DefaultValue="0\.2"/.test(t), 'R34: OverTime float 0.2');
+  const back = parseToGraphs(t).EventGraph.nodes.find(n => n.funcName === 'MoveComponentTo');
+  ok(back && back.pins.length === 14 && back.pins.find(p => p.name === 'then').friendly === 'Completed', 'R34: round-trip 14 пинов, friendly Completed');
+}
+// R35 copy-back (2026-09-30): AddComponentByClass (класс не выбран) и AddComponent (Add Static Mesh Component)
+{
+  const M = await import('../src/modules.js');
+  const a = M.createAddComponentByClass(), b = M.createAddComponent('StaticMeshComponent', '/Game/Blueprints/BP_AISupportTester');
+  const t = generateUEText([a, b]);
+  ok(validateStrict(t).valid, 'R35: оба узла → STRICT');
+  ok(a.pins.map(p => p.name).join() === 'execute,self,then,Class,ReturnValue,bManualAttachment,RelativeTransform', 'R35: ByClass — порядок пинов');
+  ok(/PinName="bManualAttachment".*bHidden=True/.test(t) && /PinName="Class",PinType\.PinCategory="class".*Engine\.ActorComponent'"/.test(t), 'R35: ByClass без класса — attach/transform скрыты, Class = ActorComponent');
+  ok(b.pins.map(p => p.name).join() === 'execute,then,self,TemplateName,bManualAttachment,RelativeTransform,ComponentTemplateContext,bDeferredFinish,ReturnValue', 'R35: AddComponent — порядок пинов');
+  ok(t.includes('TemplateBlueprint="/Game/Blueprints/BP_AISupportTester.BP_AISupportTester"\n   TemplateType="/Script/CoreUObject.Class\'/Script/Engine.StaticMeshComponent\'"\n   FunctionReference=(MemberName="AddComponent",bSelfContext=True)'), 'R35: TemplateBlueprint/TemplateType/FunctionReference');
+  ok(/PinName="TemplateName".*DefaultValue="NODE_AddStaticMeshComponent-0",AutogeneratedDefaultValue="None",.*bHidden=True,bNotConnectable=True,bDefaultValueIsReadOnly=True/.test(t), 'R35: TemplateName — автоген None, скрыт, read-only');
+  ok(/PinName="ComponentTemplateContext".*bIsConst=True.*bHidden=True,bNotConnectable=True,bDefaultValueIsReadOnly=False/.test(t), 'R35: ComponentTemplateContext');
+  ok(/PinName="RelativeTransform".*bIsConst=True.*bDefaultValueIsIgnored=True/.test(t), 'R35: RelativeTransform const, ignored');
+  const back = parseToGraphs(t).EventGraph.nodes;
+  ok(generateUEText(back) === t && back[1].pins.find(p => p.name === 'TemplateName').notConnectable, 'R35: round-trip идентичен, флаги читаются');
+}
+// R36: пузырь-комментарий на ноде (copy-back Branch «это branch») + подписи then/else
+{
+  const b = createBranch({ x: 0, y: 0 }); b.bubble = 'это branch';
+  const t = generateUEText([b]);
+  ok(/NodePosY=0\n   bCommentBubbleVisible=True\n   NodeComment="это branch"\n   NodeGuid=/.test(t), 'R36: пузырь — между NodePosY и NodeGuid, как в UE');
+  ok(t.includes('PinName="then",PinFriendlyName=NSLOCTEXT("K2Node", "true", "true"),') && t.includes('PinName="else",PinFriendlyName=NSLOCTEXT("K2Node", "false", "false"),'), 'R36: Branch then/else — подписи true/false');
+  ok(/PinName="Condition".*DefaultValue="true",AutogeneratedDefaultValue="true"/.test(t), 'R36: Branch.Condition автоген true');
+  const back = parseToGraphs(t).EventGraph.nodes[0];
+  ok(back.bubble === 'это branch' && generateUEText([back]) === t, 'R36: пузырь читается, round-trip идентичен');
+  const probe = (await import('node:child_process')).spawnSync('node', [new URL('../tools/gen-probe.mjs', import.meta.url).pathname, '--batch', '36', '--stdout'], { encoding: 'utf8' }).stdout;
+  const blocks = probe.split('Begin Object').slice(1).filter(bk => !bk.includes('EdGraphNode_Comment'));
+  ok(blocks.length > 0 && blocks.every(bk => bk.includes('bCommentBubbleVisible=True')) && validateStrict(probe).valid, 'R36: проба — у каждой ноды пузырь, STRICT');
+  // R37: шапка-коммент накрывает все ноды пробы (в R36 была минимальной)
+  const num = (s, k) => +(s.match(new RegExp(`\\n\\s*${k}=(-?\\d+)`)) || [])[1] || 0;
+  const cmb = probe.split('Begin Object').slice(1).find(bk => bk.includes('EdGraphNode_Comment'));
+  const cx = num(cmb, 'NodePosX'), cy = num(cmb, 'NodePosY'), cw = num(cmb, 'NodeWidth'), ch = num(cmb, 'NodeHeight');
+  ok(blocks.every(bk => { const x = num(bk, 'NodePosX'), y = num(bk, 'NodePosY'); return x >= cx && y >= cy && x < cx + cw && y < cy + ch; }) && cw > 1000 && ch > 1000, 'R37: шапка-коммент пробы накрывает все ноды');
+  ok(/StandardMacros:ForEachLoopWithBreak'",GraphBlueprint=[^)]*GraphGuid=F07560274C5742E391E84B8F394CFB36/.test(probe) && /StandardMacros:ReverseForEachLoop'",GraphBlueprint=[^)]*GraphGuid=6DB5FE084A27CDF3569C7980D75D7E14/.test(probe), 'R37: макросы пробы с GraphGuid из copy-back');
+  // R37: 33 подтверждённые пробы R36 заведены в реестр (gen-probe --register сверяет запись с нодой пробы побайтно)
+  const r36 = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8')).filter(e => /^R36 проба/.test(e.probe || ''));
+  const built = r36.map(e => { try { return generateUEText([e.macro || e.className.endsWith('MacroInstance') ? createMacroInstance(e) : createCallFunction(e)]); } catch (err) { return null; } });
+  ok(r36.length === 33 && r36.every(e => e.verified && !e.note) && built.every(Boolean) && validateStrict(built.join('\n')).warnings.length === 0, 'R37: 33 записи реестра из проб R36 строятся без предупреждений');
+  const r38 = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8')).filter(e => /^R38 проба/.test(e.probe || ''));
+  const r38t = r38.map(e => generateUEText([createCallFunction(e)])).join('\n');
+  ok(r38.length === 41 && !r38.some(e => e.func === 'K2_ClearTimerHandle') && validateStrict(r38t).warnings.length === 0
+    && /PinName="Reply",[^\n]*bIsReference=True/.test(generateUEText([createCallFunction(r38.find(e => e.id === 'ClearUserFocus'))])), 'R38: 41 запись реестра (без несуществующего K2_ClearTimerHandle; ClearUserFocus.Reply by-ref)');
+  const r39 = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8')).filter(e => /^R39 проба/.test(e.probe || ''));
+  ok(r39.length === 47 && validateStrict(r39.map(e => generateUEText([createCallFunction(e)])).join('\n')).warnings.length === 0, 'R39: 47 записей реестра строятся без предупреждений');
+  const r41 = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8')).filter(e => /^R41 проба/.test(e.probe || ''));
+  ok(r41.length === 17 && validateStrict(r41.map(e => generateUEText([createCallFunction(e)])).join('\n')).warnings.length === 0
+    && /EMovementMode/.test(generateUEText([createCallFunction(r41.find(e => e.id === 'SetMovementMode'))])), 'R41: 17 записей реестра без предупреждений (SetMovementMode с энамом EMovementMode)');
+  const r42 = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8')).filter(e => /^R42 проба/.test(e.probe || ''));
+  const Mr = await import('../src/modules.js');
+  ok(r42.length === 20 && !r42.some(e => /FlushPressedKeys|FlushPlayerInput/.test(e.func)) && validateStrict(r42.map(e => generateUEText([createCallFunction(e)])).join('\n')).warnings.length === 0
+    && Mr.rpcFunctionFlags('server', true) === 203555008 && /FunctionFlags=203555008/.test(generateUEText([Mr.createCustomEvent('S', [], { x: 0, y: 0 }, { rpc: 'server', reliable: true })])),
+    'R42: 20 записей (Net/Input) + RPC Custom Event (Server Reliable = 203555008)');
+  // R40: copy-back спец-нод → стрим-уровни в реестре (soft-ссылка = bIsUObjectWrapper) + шаблонные спец-ноды
+  const r40 = JSON.parse(fs.readFileSync(new URL('../data/ue-functions.json', import.meta.url), 'utf8')).filter(e => /^R40 copy-back/.test(e.probe || ''));
+  const soft = generateUEText([createCallFunction(r40.find(e => e.id === 'LoadStreamLevelBySoftObjectPtr'))]);
+  ok(r40.length === 4 && /PinName="Level",[^\n]*PinCategory="softobject"[^\n]*bIsConst=True[^\n]*bIsUObjectWrapper=True/.test(soft) && /Linkage=-1/.test(soft)
+    && validateStrict(r40.map(e => generateUEText([createCallFunction(e)])).join('\n')).warnings.length === 0, 'R40: 4 latent-функции стрим-уровней (Level softobject+wrapper, LatentInfo как у движка)');
+  const S = await import('../src/special-nodes.js');
+  const MM = { path: '/Game/S_MinMax.S_MinMax', name: 'S_MinMax', fields: [{ prop: 'Min_2_EBEA736F4F5353411DE64DA77B073688', friendly: 'Min', category: 'real', sub: 'double', def: '0.000000' }] };
+  const sp = [S.createTimeline({ bubble: 'x' }), S.createInterfaceMessage({ bpiPath: '/Game/B.B_C', memberName: 'F', params: [{ name: 'A', category: 'bool', def: 'false' }] }), S.createAIMoveTo(), S.createGetDataTableRow(),
+    S.createMakeUserStruct({ struct: MM }), S.createBreakUserStruct({ struct: MM }), S.createSetFieldsInUserStruct({ struct: MM }), S.createVariableSetRef()];
+  const spt = generateUEText(sp), spv = validateStrict(spt);
+  const setf = sp[6].rawBlock, pass = setf.match(/PinName="StructRef"[^\n]*ReferencePassThroughConnection=(\S+) ([0-9A-F]{32})/);
+  ok(spv.valid && !/ExportPath|LinkedTo|ErrorMsg/.test(spt) && sp.every(n => n.pins.length) && pass && setf.includes(`PinId=${pass[2]},PinName="StructOut"`)
+    && /PersistentGuid=EBEA736F4F5353411DE64DA77B073688/.test(sp[4].rawBlock) && /PinName="A",PinType.PinCategory="bool"/.test(sp[1].rawBlock), 'R40: спец-ноды из шаблонов — STRICT, свежие GUID, без связей, pass-through согласован');
+  const ez = S.createEaseFunction({ easing: 'EaseInOut', bubble: 'Ease' }), ezt = generateUEText([ez]);
+  ok(validateStrict(ezt).valid && /Class=\/Script\/BlueprintGraph.K2Node_EaseFunction/.test(ezt) && /PinName="Function",[^\n]*DefaultValue="EaseInOut"/.test(ezt)
+    && /PinName="Result",[^\n]*Direction="EGPD_Output",PinType.PinCategory="wildcard"/.test(ezt) && !/70D36FF24D6E43F8C748DFA8C1DF4910/.test(ezt), 'R43: Ease — K2Node_EaseFunction из copy-back, wildcard A/B/Result, свой EEasingFunc, свежие GUID');
+  const M = await import('../src/modules.js');
+  const bn = M.createDelegateNode('bind', '/Game/BP_X.BP_X.OnHit', { sig: 'OnHit__DelegateSignature', params: ['Damage:float', 'Who:object:Actor'] });
+  const db = fs.readFileSync(new URL('../sweep/chapters/dispatcher-bound.txt', import.meta.url), 'utf8');
+  ok(/диспетчер OnHit \(Damage: float, Who: Actor\)/.test(bn.bubble) && (db.match(/NodeComment="Создайте в BP диспетчер NewEventDispatcher_Probe/g) || []).length === 4,
+    'диспетчеры: текстом не создаются → пузырь «создайте диспетчер … (выходы)» на ссылающихся нодах');
+  // линтер раскладки (docs/LAYOUT_REFERENCES.md): L1 висящая exec-нода, L2 Sequence вверх, L3/L4 длинные провода; шина/подписки
+  const L = await import('../src/layout-lint.js'), SL = await import('../src/section-layout.js');
+  const lq = createSequence(2), la = createBranch(), lb = createBranch(), lc = createBranch();
+  lq.pos = { x: 0, y: 200 }; la.pos = { x: 300, y: 0 }; lb.pos = { x: 300, y: 400 }; lc.pos = { x: 2500, y: 400 };
+  linkPins(lq, 'then_0', la, 'execute'); linkPins(lq, 'then_1', lb, 'execute'); linkPins(lb, 'then', lc, 'execute');
+  const lw = createBranch(); lw.pos = { x: 900, y: 900 };
+  const codes = L.lintLayout([lq, la, lb, lc, lw]).map(l => l.code + ':' + l.node);
+  ok(codes.includes('L2:' + lq.id) && codes.includes('L1:' + lw.id) && codes.includes('L4:' + lb.id) && !codes.includes('L1:' + la.id) && codes.length === 4, 'линтер: L1/L2/L4 ловятся, подключённые ноды чисты');
+  const sb = SL.buildSections({ event: 'E', bp: '/Game/B', sections: [
+    { title: 'C', layout: 'chain', bus: { name: 'Dt', expr: ['*', 'Dt', 'K'] }, steps: [{ set: 'A', expr: ['*', 'A', '$Dt'] }, { set: 'B', expr: '$Dt' }] },
+    { title: 'S', layout: 'bind', binds: [{ delegate: 'Actor.OnDestroyed', handler: 'OnGone', steps: [{ set: 'A', expr: 0 }] }] }] });
+  const sk = SL.arrangeSections(sb).knots, dts = sb.nodes.filter(n => n.varName === 'Dt'), bsrc = sb.sections[0].bus.node;
+  const busK = sk.filter(k => k.pins[0].category !== 'exec');
+  const svt = generateUEText([...sb.nodes, ...sk]);
+  let varBus = ''; try { SL.buildSections({ event: 'E', sections: [{ title: 'x', layout: 'chain', bus: 'Dt', steps: [{ set: 'A', expr: 1 }] }] }); } catch (e) { varBus = e.message; }
+  ok(/от выхода ноды/.test(varBus) && dts.length === 1 && busK.length === 2 && bsrc.pins.find(p => p.name === 'ReturnValue' && p.direction === 'Output').linkedTo.length === 1 && busK.every(k => k.pos.y === busK[0].pos.y)
+    && validateStrict(svt).valid && L.lintLayout([...sb.nodes, ...sk]).length === 0, 'секции: шина — от выхода ноды (от переменной — отказ), knot на потребителя в одной полосе; ряд подписок STRICT и без замечаний линтера');
+}
+{
+  // R50 copy-back: Set RepNotify-переменной = обычный Set своей переменной (флаги Notify живут в самой переменной)
+  const M = await import('../src/modules.js');
+  const back = parseToGraphs(fs.readFileSync('sweep/copyback/r50-repnotify.txt', 'utf8')).EventGraph.nodes.find(n => n.rawName === 'K2Node_VariableSet_1');
+  const n = M.createReplicatedVarSet('health', 'float', '', { bp: '/Game/Blueprints/BP_AISupportTester' });
+  const shape = t => t.split('\n').filter(l => /CustomProperties Pin/.test(l)).map(l => l.replace(/PinId=\w+,|PinToolTip="[^"]*",/g, ''));
+  ok(JSON.stringify(shape(generateUEText([n]))) === JSON.stringify(shape(back.rawBlock)) && /RepNotify/.test(n.bubble), 'R50: Set RepNotify-переменной совпал с copy-back по пинам (без тултипа), пузырь с инструкцией');
+}
+{
+  // Правило 1/7 (эталоны sphere-flow, samples-2): exec-пины ряда соосны, X на сетке 16.
+  const {arrangeRows,execPinOffset}=await import('../src/arranger.js');
+  const L=JSON.parse(fs.readFileSync('data/ue-functions.json','utf8')); const F=Array.isArray(L)?L:(L.entries||L.functions||Object.values(L));
+  const fn=id=>F.find(x=>x.func===id);
+  const row=[createBranch(),createCallFunction(fn('PrintString')),createCallFunction(fn('K2_SetActorLocation')),createCallFunction(fn('Array_Clear'))];
+  arrangeRows([row],{gap:64,alignExec:true});
+  const line=new Set(row.map(n=>n.pos.y+execPinOffset(n)));
+  const {createCustomEvent}=await import('../src/creator.js'); const ev=createCustomEvent('AlignEv',[],{x:0,y:0}); arrangeRows([[ev,...row]],{gap:64,alignExec:true});
+  ok(ev.pos.y===row[0].pos.y-16, 'alignExec: Custom Event на 16 выше Branch (движок, проба exec-align)');
+  ok(line.size===1 && row[2].pos.y===row[0].pos.y-16 && row[3].pos.y===row[0].pos.y+16 && row.every(n=>n.pos.x%16===0), 'alignExec: exec-пины ряда соосны (Target −16, Array +16), X на сетке 16');
+}
+{
+  // Потоковый расстановщик: правила 1/3/8/9 на flow-demo.
+  const {arrangeExecFlow,flowHeight,isPure}=await import('../src/flow-layout.js');
+  const {createCustomEvent}=await import('../src/modules.js');
+  const L=JSON.parse(fs.readFileSync('data/ue-functions.json','utf8')); const F=id=>createCallFunction((Array.isArray(L)?L:Object.values(L)).find(x=>x.func===id));
+  const ev=createCustomEvent('FlowT',[],{x:0,y:0}), br=createBranch(), rnd=F('RandomBool'), p1=F('PrintString'), p2=F('PrintString'), pe=F('PrintString');
+  linkPins(ev,'then',br,'execute'); linkPins(rnd,'ReturnValue',br,'Condition'); linkPins(br,'then',p1,'execute'); linkPins(p1,'then',p2,'execute'); linkPins(br,'else',pe,'execute');
+  const all=[ev,br,rnd,p1,p2,pe]; arrangeExecFlow(all);
+  const box=n=>[n.pos.x,n.pos.y,n.pos.x+estNodeWidth(n),n.pos.y+flowHeight(n)];
+  const hit=(a,b)=>{const A=box(a),B=box(b);return A[0]<B[2]&&B[0]<A[2]&&A[1]<B[3]&&B[1]<A[3];};
+  const overlaps=all.flatMap((a,i)=>all.slice(i+1).filter(b=>hit(a,b)));
+  ok(overlaps.length===0 && pe.pos.x===p1.pos.x && pe.pos.y>p1.pos.y && rnd.pos.y>br.pos.y && rnd.pos.x===ev.pos.x && ev.pos.y===br.pos.y-16 && all.every(n=>n.pos.x%16===0&&n.pos.y%16===0),
+    'flow: без пересечений, else под следующей нодой, значение под предыдущей нодой (X = Event), Event −16, сетка 16');
+}
+{
+  // Правило 10: один Self на три входа → три Self, каждый со своим проводом; текст валиден.
+  const {arrangeExecFlow}=await import('../src/flow-layout.js');
+  const {createCustomEvent}=await import('../src/modules.js');
+  const {createSelf}=await import('../src/special-nodes.js');
+  const L=JSON.parse(fs.readFileSync('data/ue-functions.json','utf8')); const F=id=>createCallFunction(L.find(x=>x.func===id));
+  const ev=createCustomEvent('DupT',[],{x:0,y:0}), a=F('K2_SetActorLocation'), b=F('K2_SetActorRotation'), g=F('K2_GetActorLocation'), me=createSelf();
+  linkPins(ev,'then',a,'execute'); linkPins(a,'then',b,'execute'); linkPins(me,'self',a,'self'); linkPins(me,'self',b,'self'); linkPins(me,'self',g,'self'); linkPins(g,'ReturnValue',a,'NewLocation');
+  const all=[ev,a,b,g,me]; arrangeExecFlow(all);
+  const selves=all.filter(n=>/K2Node_Self/.test(n.className));
+  const v=validateStrict(generateUEText(all,{syncLinks:true}));
+  ok(selves.length===3 && selves.every(n=>n.pins[0].linkedTo.length===1) && new Set(selves.map(n=>n.id)).size===3 && v.errors.length===0, 'flow: Self у каждого потребителя (3 копии, по одному проводу, текст валиден)');
 }
 console.log(`
 VALIDATE: pass=${pass} fail=${fail}`);

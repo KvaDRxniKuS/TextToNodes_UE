@@ -10,17 +10,23 @@
 - Фабрики узлов и пинов, подключение связей: `src/creator.js`, `src/modules.js`, `src/generator.js`.
 - Реестр функций и типов: `data/ue-functions.json`, `src/ue-types.js`.
 - Строгая структурная проверка: `src/validate.js`.
-- Браузерная песочница: `index.html`.
 - MCP server: `mcp/server.js`.
 - Регрессии и образцы copy-back: `tests/`.
 
 ## Три этапа построения графа
 
-1. **Создание — creator.** Создаются типы узлов, имена, пины и двусторонние связи. `linkPins()` только записывает связь и не меняет координаты.
-2. **Расстановка — arranger.** `src/arranger.js` располагает ряды, соблюдает заданную последовательность и зазоры; обратные exec-связи могут быть проложены через созданные reroute-knot узлы.
-3. **Декорирование — decorator.** `src/decorator.js` корректирует координаты по связанным пинам, оставляет место для проводов и привязывает расположение к сетке 16 UE units. Ширина нод и координаты pin centers оцениваются моделью; их нужно сверять в редакторе.
+Каждый этап — отдельный инструмент; этапы обмениваются текстом `Begin Object … End Object`, поэтому их можно применять по отдельности и сверять между собой (эталон: [`tests/three-stage-01.sequence.md`](tests/three-stage-01.sequence.md), прогон `npm run stages`).
 
-`src/layout-pipeline.js` экспортирует этапы и orchestration-функцию `positionBlueprint()`. Подробности и пример API: [`docs/LAYOUT_PIPELINE.md`](docs/LAYOUT_PIPELINE.md).
+**Основной цикл — ступени 1 и 2.** Ступень 3 (декоратор) с 2026-09-28 помечена «в разработке»:
+код и проверки на месте, но в цикл она не входит, `positionBlueprint()` её не вызывает, а её
+выход не коммитится (`npm run stages:wip` → `tests/three-stage-01.stage3-decorator.WIP.txt`).
+
+1. **Создание — creator (`src/stage1.js` поверх `src/creator.js`).** Генератор нод: по спеке (ноды, соединения пинов, марки `@row/@col`) пишет **только код нод** — классы, пины, значения по умолчанию. Он не двигает ноды (`NodePosX/NodePosY = 0`) и не соединяет их (ни одного `LinkedTo`): расположение и соединения только закладываются и проверяются, а материализует их расстановщик (`applyConnections` + `arrangeRows`).
+2. **Расстановка — arranger.** `src/arranger.js` располагает ряды, соблюдает заданную последовательность и зазоры, материализует провода. Knot'ы — только для переноса назад, ровно 4: K1 у пина-выхода, K2 под ним на линии центра щели, K3 на той же линии над свободной колонкой, K4 на строке пина-входа. Остальные exec-провода прямые (`transferRoute`, см. `docs/LAYOUT_PIPELINE.md`).
+3. **Декорирование — decorator (⚠ в разработке, вне основного цикла).** `src/decorator.js` доводит черновик: Y exec-нод одного ряда идентичен (ряд — плоская лента), дети узла с несколькими exec-выходами встают столбцом, зазор по X = 5 клеток сетки (80 при grid 16), а любой несоосный exec-провод (перенос между уровнями или излом строк пинов в ряду) собирается из 4 knot'ов-стадиума, где каждый участок соосен пину. Ноды, провода и состав уровней ступень 3 не меняет. Ширина нод и координаты pin centers оцениваются моделью; их нужно сверять в редакторе.
+
+`src/layout-pipeline.js` экспортирует этапы и orchestration-функцию `positionBlueprint()` — она
+прогоняет ступень 2; декоратор включается только явно: `positionBlueprint(nodes, { decorate: { … } })`. Подробности и пример API: [`docs/LAYOUT_PIPELINE.md`](docs/LAYOUT_PIPELINE.md).
 
 ## Быстрый старт
 
@@ -28,16 +34,8 @@
 
 ```bash
 npm test
-node src/validate.js sweep/dispatcher-probe-bound.txt
+node src/validate.js sweep/chapters/dispatcher-bound.txt
 ```
-
-Открыть песочницу можно напрямую через `index.html` либо локальным сервером:
-
-```bash
-npx serve .
-```
-
-При `file://` браузер может блокировать загрузку `data/ue-functions.json`; тогда используется встроенный fallback snapshot (239 записей). Через HTTP-сервер загружается актуальный реестр (сейчас 406 записей).
 
 Основные операции песочницы: вставить UE-текст, распарсить граф, просмотреть его, экспортировать текст или JSON. Проверьте функциональность в Unreal Editor перед использованием в проекте.
 
@@ -76,23 +74,32 @@ node tools/make-node.mjs --chain --decorate -o /tmp/graph.txt \
 
 ## Реестр и engine verification
 
-`data/ue-functions.json` — актуальный перечень функций, используемый парсером/генераторами и sweep. Поле `verified` означает, что запись подтверждена вставкой в UE; `note` сохраняет оговорку. Сводка регрессионного прогона: [`sweep/MANIFEST.md`](sweep/MANIFEST.md). Подробные copy-back-наблюдения и исторические тесты: [`docs/ENGINE_VERIFIED.md`](docs/ENGINE_VERIFIED.md).
+`data/ue-functions.json` — актуальный перечень функций, используемый парсером/генераторами и sweep. Поле `verified` означает, что запись подтверждена вставкой в UE; `note` сохраняет оговорку. Сводка регрессионного прогона: [`sweep/registry/MANIFEST.md`](sweep/registry/MANIFEST.md). Подробные copy-back-наблюдения и исторические тесты: [`docs/ENGINE_VERIFIED.md`](docs/ENGINE_VERIFIED.md).
 
 Добавление строки в реестр само по себе **не доказывает**, что UE примет ноду. Подтверждение делается в нужной версии UE через вставку, copy-back и, где применимо, компиляцию Blueprint.
 
 ## Проверки
 
 ```bash
-npm test                         # unit/regression tests
+npm test                         # unit/regression tests + сверка sweep-корпуса
 node src/validate.js FILE.txt    # STRICT check одного файла
-node tools/gen-sweep.mjs         # пересобрать sweep и MANIFEST целиком
-node tools/gen-sweep.mjs zz      # обновить только MANIFEST
-node tools/gen-dispatcher-bound-test.mjs
+node tools/gen-sweep.mjs         # пересобрать корпус sweep и MANIFEST
+node tools/gen-sweep.mjs --check # побайтовая сверка sweep/NN-*.txt с генератором (без записей)
+node tools/gen-sweep.mjs 11      # пересобрать только категорию 11
+node tools/check-sweep.mjs    # пересобрать ВСЕ файлы sweep/ и сравнить байты (при дрейфе — откат)
+node tools/check-sweep.mjs --report   # чем пересобран каждый файл, что заморожено
+node tools/gen-dispatcher-bound.mjs
 ```
 
-- `tests/fixtures/` содержит положительные реальные copy-back fixtures.
-- `tests/fixtures/negative/` содержит примеры, которые валидатор обязан отклонять.
-- `sweep/` содержит генерируемые пробы/категорийные fixtures; см. их генераторы перед перезаписью.
+- `sweep/copyback/` содержит дословные copy-back из движка (эталоны).
+- `tests/negative/` содержит примеры, которые валидатор обязан отклонять.
+- `sweep/` — корпус проб и категорийный регресс. Он **воспроизводим**: GUID сеятся именем файла
+  (`seedGuids`), поэтому `node tools/gen-sweep.mjs --check` и `node tools/check-sweep.mjs`
+  ловят любой дрейф реестра/генератора, не порождая шума в diff. Полная таблица «чем пересобран
+  каждый файл» — в `sweep/registry/MANIFEST.md` (раздел «Покрытие»); замороженные copy-back-главы
+  (`25b`, `31-audio`, `27`, `28`, `29`) пересборке не подлежат — их правят только через copy-back из UE.
+- `tools/make-node.mjs` сеится от `-o` (повторная сборка фикстуры = те же байты); в stdout GUID
+  остаются случайными, `--seed=<строка>` задаёт seed вручную.
 
 ## MCP
 
@@ -105,4 +112,4 @@ node tools/gen-dispatcher-bound-test.mjs
 - [`docs/HANDOFF.md`](docs/HANDOFF.md), [`docs/HANDOFF_TOPICS.md`](docs/HANDOFF_TOPICS.md) — актуальное состояние и очередь открытых тем.
 - [`docs/ENGINE_VERIFIED.md`](docs/ENGINE_VERIFIED.md) — журнал подтверждений в Unreal Editor; ранние секции исторические.
 
-Лицензия: MIT (`LICENSE`).
+Лицензия: MIT (файл `LICENSE` удалён как заглушка; текст лицензии по запросу).

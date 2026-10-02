@@ -196,7 +196,7 @@ export function validateStrict(text, { registry = null, fragment = false, contex
     }
     if (n.short === 'K2Node_MakeStruct' || n.short === 'K2Node_BreakStruct') {
       if (!n.structType) errors.push(`E11: ${n.name}: ${n.short} без StructType`);
-      else if (!n.structType.includes("ScriptStruct'")) errors.push(`E11: ${n.name}: StructType должен быть quoted-full (UE 5.8): "/Script/CoreUObject.ScriptStruct'/Script/...'"`);
+      else if (!/(ScriptStruct|UserDefinedStruct)'/.test(n.structType)) errors.push(`E11: ${n.name}: StructType должен быть quoted-full (UE 5.8): "/Script/CoreUObject.ScriptStruct'/Script/...'"`);
       else if (n.structType.startsWith('/Script/')) warnings.push(`W11: ${n.name}: StructType ${n.structType} в полной asset-dump форме — буфер обмена требует quoted-full ("/Script/CoreUObject.ScriptStruct'/Script/...'" (UE 5.8), иначе движок дропнет ноду`);
       if (n.short === 'K2Node_MakeStruct' && n.structType) {
         const st = (n.structType.split('.').pop() || '').replace(/['"]/g, '');
@@ -235,7 +235,7 @@ export function validateStrict(text, { registry = null, fragment = false, contex
       if (p.cat === 'struct') {
         if (!p.subObj || p.subObj === 'None')
           warnings.push(`W10: ${n.name}.${p.name}: struct-пин без SubCategoryObject (движок достраивает по сигнатуре — проверено H1/J5; Make/Break нужен quoted-full путь "/Script/CoreUObject.ScriptStruct'/Script/...'" (UE 5.8)`);
-        else if (!p.subObj.includes("ScriptStruct'"))
+        else if (!/(ScriptStruct|UserDefinedStruct)'/.test(p.subObj)) // R40: UserDefinedStruct'/Game/…' — форма движка
           errors.push(`E14: ${n.name}.${p.name}: struct-пин с битым PinSubCategoryObject (${p.subObj})`);
         else if (!known && p.subObj.startsWith('/Script/'))
           warnings.push(`W11: ${n.name}.${p.name}: путь ${p.subObj} в полной asset-dump форме — буфер обмена требует quoted-full ("/Script/CoreUObject.ScriptStruct'/Script/...'" (UE 5.8), иначе движок дропнет ноду`);
